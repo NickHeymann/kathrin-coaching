@@ -101,7 +101,7 @@
         position: absolute; z-index: 2; top: 0; left: 0; width: 100%; height: 100%; opacity: 0;
         }
     .submit.loading .submit-status {
-        background: url(https://coaching.kathrinstahl.com/wp-content/plugins/pixelwars-core/themes/global/images/bckg/loading.gif) center center no-repeat; background-size: 77px 7px;
+        background: url(wp-content/plugins/pixelwars-core/themes/global/images/bckg/loading.gif) center center no-repeat; background-size: 77px 7px;
         }
     .submit.active .submit-status {
         opacity: 1;

@@ -1,0 +1,305 @@
+/* ============================================
+   CUSTOM FIXES - Kathrin Coaching Website
+   Fixes for static export issues and UI improvements
+   ============================================ */
+
+/* -----------------------------------------
+   1. DROPDOWN MENU ARROWS (Missing submenu-toggle elements)
+   ----------------------------------------- */
+
+/* Add dropdown arrows to menu items with children */
+.menu-item-has-children > a::after {
+    content: '\e80b'; /* fontello down-open-big */
+    font-family: 'fontello';
+    font-style: normal;
+    font-weight: normal;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    line-height: 1em;
+    margin-left: 0.34em;
+    text-align: center;
+    font-size: 0.85em;
+    vertical-align: middle;
+    transition: transform 0.3s ease;
+}
+
+/* Rotate arrow on hover */
+.menu-item-has-children:hover > a::after {
+    transform: rotate(180deg);
+}
+
+/* Submenu items - arrow points right */
+.sub-menu .menu-item-has-children > a::after {
+    content: '\e8a7'; /* right arrow - fallback to chevron */
+    transform: rotate(-90deg);
+}
+
+.sub-menu .menu-item-has-children:hover > a::after {
+    transform: rotate(0deg);
+}
+
+/* -----------------------------------------
+   2. EQUAL HEIGHT CARDS - "Weiterlesen" buttons alignment
+   ----------------------------------------- */
+
+/* Blog/Post cards - use flexbox for equal heights */
+.elementor-posts-container {
+    display: flex !important;
+    flex-wrap: wrap;
+}
+
+.elementor-posts-container .elementor-post {
+    display: flex;
+    flex-direction: column;
+}
+
+.elementor-posts-container .elementor-post__card,
+.elementor-posts-container article {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.elementor-posts-container .elementor-post__text {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.elementor-posts-container .elementor-post__excerpt {
+    flex-grow: 1;
+}
+
+/* Push read more button to bottom */
+.elementor-posts-container .elementor-post__read-more {
+    margin-top: auto;
+    padding-top: 15px;
+}
+
+/* Grid cards equal height */
+.elementor-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.elementor-grid > .elementor-grid-item {
+    display: flex;
+}
+
+.elementor-grid > .elementor-grid-item > * {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* -----------------------------------------
+   3. TEXT READABILITY ON IMAGES
+   ----------------------------------------- */
+
+/* Add text shadow for better contrast on images */
+.elementor-background-overlay + .elementor-container h1,
+.elementor-background-overlay + .elementor-container h2,
+.elementor-background-overlay + .elementor-container h3,
+.elementor-background-overlay + .elementor-container h4,
+.elementor-background-overlay + .elementor-container p,
+.elementor-background-overlay ~ .elementor-container h1,
+.elementor-background-overlay ~ .elementor-container h2,
+.elementor-background-overlay ~ .elementor-container h3,
+.elementor-background-overlay ~ .elementor-container h4,
+.elementor-background-overlay ~ .elementor-container p {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Ensure overlays have sufficient opacity for text readability */
+.elementor-section[data-settings*="background_background"] .elementor-background-overlay {
+    background-color: rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Hero sections with background images */
+.elementor-section.elementor-section-height-full .elementor-widget-heading .elementor-heading-title,
+.elementor-section.elementor-section-height-min-height .elementor-widget-heading .elementor-heading-title {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* White text on dark backgrounds */
+[style*="color: #fff"],
+[style*="color:#fff"],
+[style*="color: white"],
+[style*="color:white"],
+.has-text-color.has-white-color {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* -----------------------------------------
+   4. FONT SIZE OPTIMIZATION
+   ----------------------------------------- */
+
+/* Ensure minimum readable font sizes */
+body {
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* Headings hierarchy */
+h1, .elementor-heading-title.elementor-size-xxl {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+h2, .elementor-heading-title.elementor-size-xl {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+h3, .elementor-heading-title.elementor-size-large {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+/* Body text minimum size */
+.elementor-widget-text-editor p,
+.elementor-widget-text-editor li,
+.entry-content p,
+.entry-content li {
+    font-size: max(15px, 1rem);
+    line-height: 1.7;
+}
+
+/* Mobile font adjustments */
+@media (max-width: 768px) {
+    body {
+        font-size: 15px;
+    }
+
+    h1, .elementor-heading-title.elementor-size-xxl {
+        font-size: clamp(1.75rem, 6vw, 2.5rem);
+    }
+
+    h2, .elementor-heading-title.elementor-size-xl {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+    }
+}
+
+/* -----------------------------------------
+   5. CTA BUTTON OPTIMIZATION
+   ----------------------------------------- */
+
+/* Primary CTA buttons - more prominent */
+.elementor-button {
+    padding: 15px 35px !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    border-radius: 5px !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.elementor-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Ensure CTA buttons stand out */
+.elementor-button.elementor-button-link,
+a.elementor-button {
+    text-decoration: none !important;
+}
+
+/* Button text legibility */
+.elementor-button-text {
+    letter-spacing: 0.5px;
+}
+
+/* Secondary buttons */
+.elementor-button.elementor-size-sm {
+    padding: 10px 25px !important;
+    font-size: 0.9rem !important;
+}
+
+/* Large hero CTAs */
+.elementor-section-height-full .elementor-button,
+.elementor-section-height-min-height .elementor-button {
+    padding: 18px 45px !important;
+    font-size: 1.1rem !important;
+}
+
+/* -----------------------------------------
+   6. MOBILE RESPONSIVENESS FIXES
+   ----------------------------------------- */
+
+@media (max-width: 991px) {
+    /* Mobile menu dropdown indicators */
+    .menu-item-has-children > a::after {
+        position: absolute;
+        right: 15px;
+    }
+
+    /* Ensure touch targets are large enough */
+    .nav-menu li a {
+        padding: 12px 15px;
+        min-height: 44px;
+    }
+}
+
+@media (max-width: 767px) {
+    /* Stack elements properly on mobile */
+    .elementor-column {
+        width: 100% !important;
+    }
+
+    /* Improve button tap targets */
+    .elementor-button {
+        min-height: 48px;
+        padding: 14px 30px !important;
+    }
+
+    /* Better spacing on mobile */
+    .elementor-section {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+/* -----------------------------------------
+   7. LOADING SPEED IMPROVEMENTS (CSS)
+   ----------------------------------------- */
+
+/* Optimize font loading */
+@font-face {
+    font-display: swap;
+}
+
+/* Reduce paint operations */
+* {
+    will-change: auto;
+}
+
+/* Optimize animations */
+.elementor-widget {
+    contain: layout style;
+}
+
+/* -----------------------------------------
+   8. ACCESSIBILITY IMPROVEMENTS
+   ----------------------------------------- */
+
+/* Focus states */
+a:focus,
+button:focus,
+.elementor-button:focus {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+/* Skip link (if exists) */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #000;
+    color: #fff;
+    padding: 8px;
+    z-index: 100000;
+}
+
+.skip-link:focus {
+    top: 0;
+}

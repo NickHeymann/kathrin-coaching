@@ -4662,7 +4662,7 @@ img.parallax {
 	}
 button.mfp-close,
 button.mfp-arrow:before {
-	background: url(https://coaching.kathrinstahl.com/wp-content/themes/efor/js/jquery.magnific-popup/default-skin.svg) 0 0 no-repeat; background-size: 264px 88px;
+	background: url(wp-content/themes/efor/js/jquery.magnific-popup/default-skin.svg) 0 0 no-repeat; background-size: 264px 88px;
 	}
 button.mfp-close {
 	width: 44px; height: 44px; color: transparent; background-position: 0 -44px;
@@ -4727,7 +4727,7 @@ div.mfp-bg {
 	opacity: 0;
 	}
 .mfp-preloader {
-	width: 24px; height: 24px; opacity: 1; margin: 0 auto; background: url(https://coaching.kathrinstahl.com/wp-content/themes/efor/images/bckg/loading-light.gif) center center no-repeat; background-size: 24px 24px;
+	width: 24px; height: 24px; opacity: 1; margin: 0 auto; background: url(wp-content/themes/efor/images/bckg/loading-light.gif) center center no-repeat; background-size: 24px 24px;
 	}
 .mfp-zoom-in.mfp-ready .mfp-preloader {
 	display: block;
@@ -4761,7 +4761,7 @@ div.mfp-bg {
 	margin: 2em -8px; margin-bottom: 12px; padding: 8px; padding-top: 0; font-size: 0;
 	}
 .pw-collage-loading {
-	background-color: #fff; min-height: 120px; background: url(https://coaching.kathrinstahl.com/wp-content/themes/efor/images/bckg/loading.gif) 50% 60px no-repeat; background-size: 88px 8px;
+	background-color: #fff; min-height: 120px; background: url(wp-content/themes/efor/images/bckg/loading.gif) 50% 60px no-repeat; background-size: 88px 8px;
 	}
 .gallery figure {
 	display: block; opacity:0; 
