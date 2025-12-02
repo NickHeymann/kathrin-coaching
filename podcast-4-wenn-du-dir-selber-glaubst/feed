@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>
+	Kommentare zu: Podcast #4 &#8211; Wenn du dir selber glaubst&#8230;.	</title>
+	<atom:link href="https://coaching.kathrinstahl.com/podcast-4-wenn-du-dir-selber-glaubst/feed" rel="self" type="application/rss+xml" />
+	<link>https://coaching.kathrinstahl.com/podcast-4-wenn-du-dir-selber-glaubst</link>
+	<description>Glück über Zweifel</description>
+	<lastBuildDate>Fri, 25 Feb 2022 15:03:13 +0000</lastBuildDate>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.8.3</generator>
+</channel>
+</rss>
