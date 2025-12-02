@@ -435,6 +435,90 @@
             color: var(--color-accent);
         }
 
+        /* Expandable Service Cards */
+        .service-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            padding: 12px 0;
+            border-top: 1px solid rgba(0,0,0,0.08);
+            margin-top: 15px;
+            color: var(--color-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .service-toggle:hover {
+            color: var(--color-accent);
+        }
+
+        .service-toggle-icon {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card.expanded .service-toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .service-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            background: var(--color-cream);
+            margin: 0 -30px -30px;
+            padding: 0 30px;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .service-card.expanded .service-details {
+            max-height: 600px;
+            padding: 25px 30px 30px;
+        }
+
+        .service-details h4 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            color: var(--color-primary);
+        }
+
+        .service-details ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .service-details ul li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+        }
+
+        .service-details ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+        }
+
+        .service-details .btn {
+            margin-top: 10px;
+        }
+
+        .service-page-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--color-text-light);
+            font-size: 0.85rem;
+            text-decoration: underline;
+        }
+
+        .service-page-link:hover {
+            color: var(--color-primary);
+        }
+
         /* ===== TESTIMONIAL ===== */
         .testimonial-section {
             background: var(--color-white);
@@ -661,6 +745,36 @@
                 width: 100%;
                 justify-content: center;
             }
+
+            /* Mobile Service Cards */
+            .service-content {
+                padding: 20px;
+            }
+
+            .service-details {
+                margin: 0 -20px -20px;
+                padding: 0 20px;
+            }
+
+            .service-card.expanded .service-details {
+                padding: 20px 20px 25px;
+            }
+
+            .service-toggle {
+                padding: 15px 0;
+                font-size: 1rem;
+            }
+
+            .service-details .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .service-page-link {
+                display: block;
+                text-align: center;
+                margin-top: 12px;
+            }
         }
     </style>
 </head>
@@ -760,7 +874,8 @@
             <p>Jeder Mensch ist einzigartig. Finde den Weg, der zu dir passt.</p>
         </div>
         <div class="services-grid">
-            <div class="service-card">
+            <!-- 1:1 Coaching -->
+            <div class="service-card" data-service="einzelcoaching">
                 <div class="service-image">
                     <img src="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-8-scaled.jpg" alt="1:1 Coaching" loading="lazy">
                 </div>
@@ -768,10 +883,34 @@
                     <h3>1:1 Coaching</h3>
                     <p>Intensive Einzelbegleitung online oder vor Ort. Für tiefgreifende Veränderung in deinem eigenen Tempo.</p>
                     <div class="service-price">ab 110 Euro / Session</div>
-                    <a href="einzelbegleitung-sinnkrise-lebensumbruch.html" class="service-link">Mehr erfahren →</a>
+                    <div class="service-toggle" onclick="toggleService(this)">
+                        <span>Details anzeigen</span>
+                        <span class="service-toggle-icon">▼</span>
+                    </div>
+                </div>
+                <div class="service-details">
+                    <h4>Das erwartet dich:</h4>
+                    <ul>
+                        <li>Systemische Aufstellungen & Körperarbeit</li>
+                        <li>Pferdegestütztes Coaching (vor Ort)</li>
+                        <li>Achtsamkeits- und Meditationsübungen</li>
+                        <li>Flexible Online-Sessions möglich</li>
+                        <li>Pakete: Einzelsession oder 3er/6er-Pakete</li>
+                    </ul>
+                    <h4>Für dich, wenn du:</h4>
+                    <ul>
+                        <li>In einer Sinn- oder Lebenskrise steckst</li>
+                        <li>Hochbegabt oder hochsensibel bist</li>
+                        <li>Einen Umbruch bewusst gestalten willst</li>
+                        <li>Tiefgreifende Veränderung suchst</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" onclick="bookCall(); return false;">Erstgespräch buchen</a>
+                    <a href="einzelbegleitung-sinnkrise-lebensumbruch.html" class="service-page-link">Alle Details zur Einzelbegleitung →</a>
                 </div>
             </div>
-            <div class="service-card">
+
+            <!-- Paar-Coaching -->
+            <div class="service-card" data-service="paarcoaching">
                 <div class="service-image">
                     <img src="wp-content/uploads/2025/05/2025_04_Paartherapie_Ehekrise-22.jpg" alt="Paar-Coaching" loading="lazy">
                 </div>
@@ -779,10 +918,34 @@
                     <h3>Paar-Coaching</h3>
                     <p>Ein Raum, in dem ihr euch wieder begegnen könnt - jenseits alter Muster. Ob für Neuanfang oder würdevollen Abschied.</p>
                     <div class="service-price">auf Anfrage</div>
-                    <a href="paarbegleitung-beziehungskrise-neuanfang-kathrin-stahl.html" class="service-link">Mehr erfahren →</a>
+                    <div class="service-toggle" onclick="toggleService(this)">
+                        <span>Details anzeigen</span>
+                        <span class="service-toggle-icon">▼</span>
+                    </div>
+                </div>
+                <div class="service-details">
+                    <h4>Das erwartet euch:</h4>
+                    <ul>
+                        <li>Geschützter Raum für ehrliche Gespräche</li>
+                        <li>Aufstellungen zur Klärung der Dynamik</li>
+                        <li>Tools für bessere Kommunikation</li>
+                        <li>Intensive Paar-Sessions (2-3 Stunden)</li>
+                        <li>Optional: Paar-Retreat in Portugal</li>
+                    </ul>
+                    <h4>Für euch, wenn ihr:</h4>
+                    <ul>
+                        <li>In einer Beziehungskrise steckt</li>
+                        <li>Entscheiden wollt: Bleiben oder gehen?</li>
+                        <li>Wieder zueinander finden möchtet</li>
+                        <li>Einen würdevollen Abschied sucht</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" onclick="bookCall(); return false;">Erstgespräch buchen</a>
+                    <a href="paarbegleitung-beziehungskrise-neuanfang-kathrin-stahl.html" class="service-page-link">Alle Details zur Paarbegleitung →</a>
                 </div>
             </div>
-            <div class="service-card">
+
+            <!-- Retreats -->
+            <div class="service-card" data-service="retreats">
                 <div class="service-image">
                     <img src="wp-content/uploads/2025/11/Retreat-Portugal-Pferde-Kathrin-Stahl-19-scaled.jpg" alt="Retreats Portugal" loading="lazy">
                 </div>
@@ -790,7 +953,28 @@
                     <h3>Retreats in Portugal</h3>
                     <p>Eintauchen in Stille, Weite und die heilsame Kraft der Pferde. Im Alentejo findest du zurück zu dir selbst.</p>
                     <div class="service-price">ab 1.200 Euro</div>
-                    <a href="retreats-in-portugal.html" class="service-link">Mehr erfahren →</a>
+                    <div class="service-toggle" onclick="toggleService(this)">
+                        <span>Details anzeigen</span>
+                        <span class="service-toggle-icon">▼</span>
+                    </div>
+                </div>
+                <div class="service-details">
+                    <h4>Das erwartet dich:</h4>
+                    <ul>
+                        <li>3-7 Tage auf unserem Hof im Alentejo</li>
+                        <li>Tägliche Sessions mit den Pferden</li>
+                        <li>Körperarbeit, Meditation & Aufstellungen</li>
+                        <li>Unterkunft & vegetarische Verpflegung</li>
+                        <li>Kleine Gruppen (max. 6 Personen)</li>
+                    </ul>
+                    <h4>Retreat-Formate:</h4>
+                    <ul>
+                        <li>Einzel-Retreat: Nur du und die Pferde</li>
+                        <li>Paar-Retreat: Intensive Zeit zu zweit</li>
+                        <li>Gruppen-Retreat: Gemeinschaft erleben</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" onclick="bookCall(); return false;">Retreat anfragen</a>
+                    <a href="retreats-in-portugal.html" class="service-page-link">Alle Retreats & Termine →</a>
                 </div>
             </div>
         </div>
@@ -903,6 +1087,32 @@
             bookErstgespraech();
         } else {
             window.location.href = 'contact.html';
+        }
+    }
+
+    // Toggle service card details
+    function toggleService(toggleElement) {
+        const card = toggleElement.closest('.service-card');
+        const textSpan = toggleElement.querySelector('span:first-child');
+        const isExpanded = card.classList.contains('expanded');
+
+        // Close other cards
+        document.querySelectorAll('.service-card.expanded').forEach(c => {
+            if (c !== card) {
+                c.classList.remove('expanded');
+                c.querySelector('.service-toggle span:first-child').textContent = 'Details anzeigen';
+            }
+        });
+
+        // Toggle current card
+        card.classList.toggle('expanded');
+        textSpan.textContent = isExpanded ? 'Details anzeigen' : 'Details ausblenden';
+
+        // Scroll into view on mobile
+        if (!isExpanded && window.innerWidth <= 992) {
+            setTimeout(() => {
+                card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
         }
     }
 
