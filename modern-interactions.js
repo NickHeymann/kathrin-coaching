@@ -147,36 +147,25 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // -----------------------------------------
-    // SCROLL ANIMATIONS (Intersection Observer)
+    // SCROLL ANIMATIONS (Simplified for performance)
     // -----------------------------------------
-    const animateOnScroll = function() {
-        const elements = document.querySelectorAll(
-            '.elementor-widget, .elementor-column, .target-group-card, article, .elementor-post'
-        );
-
+    // Only apply if user doesn't prefer reduced motion
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
                     observer.unobserve(entry.target);
                 }
             });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
+        }, { threshold: 0.1 });
 
-        elements.forEach((el, index) => {
+        document.querySelectorAll('.elementor-post, .target-group-card').forEach(el => {
             el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = `opacity 0.6s ease ${index * 0.05}s, transform 0.6s ease ${index * 0.05}s`;
+            el.style.transition = 'opacity 0.3s ease';
             observer.observe(el);
         });
-    };
-
-    // Run after a short delay to let page render
-    setTimeout(animateOnScroll, 100);
+    }
 
     // -----------------------------------------
     // SMOOTH SCROLL FOR ANCHOR LINKS
@@ -424,63 +413,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // -----------------------------------------
-    // AUTO-TRUNCATE LONG TEXT (make expandable)
-    // -----------------------------------------
-    const longTextBlocks = document.querySelectorAll('.elementor-widget-text-editor, .entry-content');
-
-    longTextBlocks.forEach(block => {
-        const text = block.textContent || '';
-        const wordCount = text.split(/\s+/).length;
-
-        // If text is longer than 200 words, make it expandable
-        if (wordCount > 200 && !block.closest('.expandable-content')) {
-            const originalHTML = block.innerHTML;
-
-            // Wrap content
-            block.innerHTML = `
-                <div class="content-preview">${originalHTML}</div>
-                <button class="expand-toggle" type="button">Mehr lesen</button>
-            `;
-            block.classList.add('expandable-content');
-
-            const toggle = block.querySelector('.expand-toggle');
-            toggle.addEventListener('click', function() {
-                block.classList.toggle('expanded');
-                const isExpanded = block.classList.contains('expanded');
-                toggle.textContent = isExpanded ? 'Weniger anzeigen' : 'Mehr lesen';
-            });
-        }
-    });
-
-    // -----------------------------------------
-    // READING TIME INDICATOR
-    // -----------------------------------------
-    const articleContent = document.querySelector('.entry-content, .elementor-widget-text-editor');
-    if (articleContent) {
-        const text = articleContent.textContent || '';
-        const wordCount = text.split(/\s+/).length;
-        const readingTime = Math.ceil(wordCount / 200); // 200 words per minute
-
-        if (readingTime > 1) {
-            const readingIndicator = document.createElement('div');
-            readingIndicator.className = 'reading-time';
-            readingIndicator.innerHTML = `<span>📖 ${readingTime} Min. Lesezeit</span>`;
-            readingIndicator.style.cssText = `
-                font-size: 0.85rem;
-                color: #6b6b6b;
-                margin-bottom: 1rem;
-                padding: 8px 0;
-                border-bottom: 1px solid #f0ebe5;
-            `;
-
-            // Insert before content
-            const heading = document.querySelector('.entry-title, h1');
-            if (heading && heading.nextElementSibling) {
-                heading.parentNode.insertBefore(readingIndicator, heading.nextElementSibling);
-            }
-        }
-    }
+    // Auto-truncate disabled for performance
 
     // -----------------------------------------
     // CONSOLE LOG
