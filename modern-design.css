@@ -14,12 +14,14 @@
     --color-secondary: #2c3e50;
     --color-accent: #8B7355;
 
-    /* Neutrals */
+    /* Neutrals - Optimized for readability */
     --color-white: #ffffff;
-    --color-off-white: #f9f7f4;
+    --color-off-white: #faf9f7;
     --color-light-gray: #f0ebe5;
-    --color-medium-gray: #9a9a9a;
-    --color-dark-gray: #4a4a4a;
+    --color-medium-gray: #6b6b6b;
+    --color-dark-gray: #333333;  /* Darker for better contrast */
+    --color-text: #2d2d2d;       /* Main text color - high contrast */
+    --color-text-light: #555555; /* Secondary text */
     --color-black: #1a1a1a;
 
     /* Typography */
@@ -64,12 +66,13 @@ html {
 
 body {
     font-family: var(--font-body);
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--color-dark-gray);
+    font-size: 17px;              /* Slightly larger for better readability */
+    line-height: 1.75;            /* More generous line height */
+    color: var(--color-text);     /* High contrast text */
     background-color: var(--color-white);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    letter-spacing: 0.01em;       /* Slight letter spacing for clarity */
 }
 
 /* -----------------------------------------
@@ -99,7 +102,16 @@ h3, .elementor-heading-title.elementor-size-large {
 
 p {
     margin-bottom: var(--spacing-sm);
-    color: var(--color-dark-gray);
+    color: var(--color-text);
+    max-width: 70ch;              /* Optimal reading width */
+}
+
+/* Centered paragraphs in hero sections */
+.elementor-section-height-full p,
+.elementor-section-height-min-height p,
+.text-center p {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* -----------------------------------------
@@ -856,13 +868,237 @@ footer a:hover {
 }
 
 /* -----------------------------------------
+   EXPANDABLE / COLLAPSIBLE CONTENT
+   ----------------------------------------- */
+
+/* Compact content with "Read More" */
+.expandable-content {
+    position: relative;
+}
+
+.expandable-content .content-preview {
+    max-height: 200px;
+    overflow: hidden;
+    position: relative;
+    transition: max-height 0.5s ease;
+}
+
+.expandable-content .content-preview::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(transparent, var(--color-white));
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.expandable-content.expanded .content-preview {
+    max-height: 2000px;
+}
+
+.expandable-content.expanded .content-preview::after {
+    opacity: 0;
+}
+
+.expand-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: var(--spacing-sm);
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    background: transparent;
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-xl);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.expand-toggle:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+.expand-toggle::after {
+    content: '↓';
+    transition: transform 0.3s ease;
+}
+
+.expandable-content.expanded .expand-toggle::after {
+    transform: rotate(180deg);
+}
+
+/* Compact Cards */
+.compact-card {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+}
+
+.compact-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.compact-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.compact-card .card-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.compact-card .card-toggle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--color-off-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.compact-card .card-toggle::before {
+    content: '+';
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--color-primary);
+    transition: transform 0.3s ease;
+}
+
+.compact-card.expanded .card-toggle::before {
+    content: '−';
+}
+
+.compact-card .card-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+}
+
+.compact-card.expanded .card-content {
+    max-height: 1000px;
+    padding-top: var(--spacing-md);
+}
+
+/* -----------------------------------------
+   IMPROVED READABILITY
+   ----------------------------------------- */
+
+/* Better text contrast */
+.elementor-widget-text-editor,
+.entry-content,
+.elementor-text-editor {
+    color: var(--color-text);
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+/* Ensure links are clearly visible */
+.entry-content a,
+.elementor-widget-text-editor a {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    transition: all var(--transition-fast);
+}
+
+.entry-content a:hover,
+.elementor-widget-text-editor a:hover {
+    color: var(--color-primary);
+    text-decoration-thickness: 2px;
+}
+
+/* Better list readability */
+ul, ol {
+    padding-left: 1.5em;
+    margin-bottom: var(--spacing-md);
+}
+
+li {
+    margin-bottom: 0.5em;
+    line-height: 1.7;
+}
+
+/* Blockquotes */
+blockquote {
+    margin: var(--spacing-md) 0;
+    padding: var(--spacing-md);
+    padding-left: var(--spacing-lg);
+    border-left: 4px solid var(--color-primary);
+    background: var(--color-off-white);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    font-style: italic;
+    color: var(--color-text-light);
+}
+
+blockquote p {
+    margin-bottom: 0;
+}
+
+/* -----------------------------------------
+   COMPACT SECTIONS
+   ----------------------------------------- */
+
+/* Reduce excessive whitespace */
+.elementor-section {
+    padding: var(--spacing-lg) 0;
+}
+
+.elementor-section.compact {
+    padding: var(--spacing-md) 0;
+}
+
+/* Tighter spacing for blog excerpts */
+.elementor-post__excerpt,
+.entry-summary {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    color: var(--color-text-light);
+}
+
+/* Summary/preview text */
+.text-preview {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* -----------------------------------------
    PRINT STYLES
    ----------------------------------------- */
 @media print {
     .site-header,
     .site-footer,
     .floating-cta,
-    .scroll-progress {
+    .scroll-progress,
+    .expand-toggle,
+    .card-toggle {
+        display: none;
+    }
+
+    .expandable-content .content-preview,
+    .compact-card .card-content {
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    .expandable-content .content-preview::after {
         display: none;
     }
 

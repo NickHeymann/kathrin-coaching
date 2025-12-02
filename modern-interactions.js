@@ -392,6 +392,97 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // -----------------------------------------
+    // EXPANDABLE CONTENT ("Mehr lesen" / "Weniger")
+    // -----------------------------------------
+    const expandableContents = document.querySelectorAll('.expandable-content');
+
+    expandableContents.forEach(container => {
+        const toggle = container.querySelector('.expand-toggle');
+        if (toggle) {
+            toggle.addEventListener('click', function() {
+                container.classList.toggle('expanded');
+                const isExpanded = container.classList.contains('expanded');
+                toggle.textContent = isExpanded ? 'Weniger anzeigen' : 'Mehr lesen';
+            });
+        }
+    });
+
+    // -----------------------------------------
+    // COMPACT CARDS (Click to expand)
+    // -----------------------------------------
+    const compactCards = document.querySelectorAll('.compact-card');
+
+    compactCards.forEach(card => {
+        const header = card.querySelector('.card-header');
+        if (header) {
+            header.addEventListener('click', function() {
+                // Close other cards (optional - for accordion behavior)
+                // compactCards.forEach(c => { if (c !== card) c.classList.remove('expanded'); });
+
+                card.classList.toggle('expanded');
+            });
+        }
+    });
+
+    // -----------------------------------------
+    // AUTO-TRUNCATE LONG TEXT (make expandable)
+    // -----------------------------------------
+    const longTextBlocks = document.querySelectorAll('.elementor-widget-text-editor, .entry-content');
+
+    longTextBlocks.forEach(block => {
+        const text = block.textContent || '';
+        const wordCount = text.split(/\s+/).length;
+
+        // If text is longer than 200 words, make it expandable
+        if (wordCount > 200 && !block.closest('.expandable-content')) {
+            const originalHTML = block.innerHTML;
+
+            // Wrap content
+            block.innerHTML = `
+                <div class="content-preview">${originalHTML}</div>
+                <button class="expand-toggle" type="button">Mehr lesen</button>
+            `;
+            block.classList.add('expandable-content');
+
+            const toggle = block.querySelector('.expand-toggle');
+            toggle.addEventListener('click', function() {
+                block.classList.toggle('expanded');
+                const isExpanded = block.classList.contains('expanded');
+                toggle.textContent = isExpanded ? 'Weniger anzeigen' : 'Mehr lesen';
+            });
+        }
+    });
+
+    // -----------------------------------------
+    // READING TIME INDICATOR
+    // -----------------------------------------
+    const articleContent = document.querySelector('.entry-content, .elementor-widget-text-editor');
+    if (articleContent) {
+        const text = articleContent.textContent || '';
+        const wordCount = text.split(/\s+/).length;
+        const readingTime = Math.ceil(wordCount / 200); // 200 words per minute
+
+        if (readingTime > 1) {
+            const readingIndicator = document.createElement('div');
+            readingIndicator.className = 'reading-time';
+            readingIndicator.innerHTML = `<span>📖 ${readingTime} Min. Lesezeit</span>`;
+            readingIndicator.style.cssText = `
+                font-size: 0.85rem;
+                color: #6b6b6b;
+                margin-bottom: 1rem;
+                padding: 8px 0;
+                border-bottom: 1px solid #f0ebe5;
+            `;
+
+            // Insert before content
+            const heading = document.querySelector('.entry-title, h1');
+            if (heading && heading.nextElementSibling) {
+                heading.parentNode.insertBefore(readingIndicator, heading.nextElementSibling);
+            }
+        }
+    }
+
+    // -----------------------------------------
     // CONSOLE LOG
     // -----------------------------------------
     console.log('Modern Interactions loaded successfully.');
