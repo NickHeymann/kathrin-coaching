@@ -513,6 +513,8 @@
             border-radius: 8px;
             overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
         }
 
         .service-card:hover {
@@ -538,6 +540,9 @@
 
         .service-content {
             padding: 30px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
         }
 
         .service-content h3 {
@@ -548,6 +553,7 @@
             color: var(--color-text-light);
             font-size: 0.95rem;
             margin-bottom: 1.5rem;
+            flex-grow: 1;
         }
 
         .service-price {
@@ -578,7 +584,8 @@
             cursor: pointer;
             padding: 12px 0;
             border-top: 1px solid rgba(0,0,0,0.08);
-            margin-top: 15px;
+            margin-top: auto;
+            padding-top: 15px;
             color: var(--color-primary);
             font-weight: 600;
             font-size: 0.9rem;
