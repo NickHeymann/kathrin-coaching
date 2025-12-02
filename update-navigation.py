@@ -1,0 +1,91 @@
+#!/usr/bin/env python3
+"""
+Script to update navigation in all HTML files
+Replaces old 3-level navigation with new 2-level navigation
+"""
+
+import os
+import re
+import glob
+
+# New navigation HTML (simplified 2-level structure)
+NEW_NAV = '''<div class="nav-menu"><ul id="menu-inspiration" class="">
+<li id="menu-item-angebot" class="menu-item menu-item-has-children"><a href="coaching-retreats-fuer-neubeginn-ab-40.html">Mein Angebot</a>
+<ul class="sub-menu">
+<li class="menu-item"><a href="einzelbegleitung-sinnkrise-lebensumbruch.html">1:1 Coaching</a></li>
+<li class="menu-item"><a href="paarbegleitung-beziehungskrise-neuanfang-kathrin-stahl-2.html">Paar-Coaching</a></li>
+<li class="menu-item"><a href="retreats-in-portugal.html">Retreats in Portugal</a></li>
+<li class="menu-item"><a href="ausbildung-pferdegestuetztes-coaching.html">Ausbildung</a></li>
+</ul>
+</li>
+<li id="menu-item-fuer-wen" class="menu-item menu-item-has-children"><a href="fuer-wen.html">Für wen?</a>
+<ul class="sub-menu">
+<li class="menu-item"><a href="hochbegabung-hochsensibilitat.html">Hochbegabte &amp; Hochsensible</a></li>
+<li class="menu-item"><a href="paarbegleitung-beziehungskrise-neuanfang-kathrin-stahl.html">Paare in der Krise</a></li>
+<li class="menu-item"><a href="einzelbegleitung-sinnkrise-lebensumbruch.html">Menschen im Umbruch</a></li>
+</ul>
+</li>
+<li id="menu-item-ueber" class="menu-item menu-item-has-children"><a href="kathrin.html">Über mich</a>
+<ul class="sub-menu">
+<li class="menu-item"><a href="kathrin.html">Mein Weg</a></li>
+<li class="menu-item"><a href="ansaetze-ganzheitliche-begleitung-fuer-einzelne-paare.html">Wie ich arbeite</a></li>
+<li class="menu-item"><a href="love-letters.html">Kundenstimmen</a></li>
+</ul>
+</li>
+<li id="menu-item-inspiration" class="menu-item menu-item-has-children"><a href="blog.html">Inspiration</a>
+<ul class="sub-menu">
+<li class="menu-item"><a href="blog.html">Blog</a></li>
+<li class="menu-item"><a href="glueck-ueber-zweifel-dein-podcast.html">Podcast</a></li>
+<li class="menu-item"><a href="glueck-ueber-zweifel-videos-mit-kathrin-stahl.html">Video-Impulse</a></li>
+</ul>
+</li>
+<li id="menu-item-kontakt" class="menu-item"><a href="contact.html">Kontakt</a></li>
+</ul></div>'''
+
+def update_navigation(filepath):
+    """Update navigation in a single HTML file"""
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        # Pattern to match the entire nav-menu div
+        # Starts with <div class="nav-menu"> and ends with </ul></div>
+        pattern = r'<div class="nav-menu"><ul id="menu-inspiration".*?</ul></div>'
+
+        # Check if pattern exists
+        if re.search(pattern, content, re.DOTALL):
+            # Replace with new navigation
+            new_content = re.sub(pattern, NEW_NAV, content, flags=re.DOTALL)
+
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write(new_content)
+
+            return True
+        return False
+    except Exception as e:
+        print(f"Error processing {filepath}: {e}")
+        return False
+
+def main():
+    # Find all HTML files
+    html_files = glob.glob('*.html') + glob.glob('**/*.html', recursive=True)
+
+    # Filter out temp files
+    html_files = [f for f in html_files if not f.endswith('.tmp')]
+
+    updated = 0
+    skipped = 0
+
+    for filepath in html_files:
+        if update_navigation(filepath):
+            print(f"✓ Updated: {filepath}")
+            updated += 1
+        else:
+            skipped += 1
+
+    print(f"\n=== Summary ===")
+    print(f"Updated: {updated} files")
+    print(f"Skipped: {skipped} files (no navigation found)")
+
+if __name__ == "__main__":
+    main()
