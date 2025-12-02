@@ -1,0 +1,873 @@
+/* ============================================
+   MODERN DESIGN - Kathrin Coaching Website
+   Modern, clean, professional redesign
+   ============================================ */
+
+/* -----------------------------------------
+   CSS VARIABLES - Design System
+   ----------------------------------------- */
+:root {
+    /* Brand Colors */
+    --color-primary: #D2AB74;
+    --color-primary-dark: #b8956a;
+    --color-primary-light: #e8d4b8;
+    --color-secondary: #2c3e50;
+    --color-accent: #8B7355;
+
+    /* Neutrals */
+    --color-white: #ffffff;
+    --color-off-white: #f9f7f4;
+    --color-light-gray: #f0ebe5;
+    --color-medium-gray: #9a9a9a;
+    --color-dark-gray: #4a4a4a;
+    --color-black: #1a1a1a;
+
+    /* Typography */
+    --font-heading: 'Gilda Display', Georgia, serif;
+    --font-body: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+    --spacing-xl: 6rem;
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.12);
+    --shadow-hover: 0 12px 50px rgba(0, 0, 0, 0.15);
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+}
+
+/* -----------------------------------------
+   GLOBAL RESET & BASE STYLES
+   ----------------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--color-dark-gray);
+    background-color: var(--color-white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* -----------------------------------------
+   TYPOGRAPHY - Modern & Clean
+   ----------------------------------------- */
+h1, h2, h3, h4, h5, h6,
+.elementor-heading-title {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--color-secondary);
+    margin-bottom: var(--spacing-sm);
+}
+
+h1, .elementor-heading-title.elementor-size-xxl {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: -0.02em;
+}
+
+h2, .elementor-heading-title.elementor-size-xl {
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+h3, .elementor-heading-title.elementor-size-large {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+p {
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-dark-gray);
+}
+
+/* -----------------------------------------
+   HEADER & NAVIGATION - Modern Fixed Header
+   ----------------------------------------- */
+.site-header {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+    transition: var(--transition-normal);
+}
+
+.site-header.scrolled {
+    box-shadow: var(--shadow-md);
+}
+
+/* Offset content for fixed header */
+.site-content,
+#content,
+main {
+    padding-top: 80px;
+}
+
+/* Navigation Menu */
+.nav-menu > ul {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu > ul > li > a {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-secondary);
+    text-decoration: none;
+    padding: var(--spacing-sm) 0;
+    position: relative;
+    transition: var(--transition-fast);
+}
+
+.nav-menu > ul > li > a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-primary);
+    transition: var(--transition-normal);
+}
+
+.nav-menu > ul > li > a:hover::before,
+.nav-menu > ul > li.current-menu-item > a::before {
+    width: 100%;
+}
+
+/* Dropdown Menus - Modern Style */
+.sub-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    min-width: 220px;
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: var(--spacing-sm) 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
+    z-index: 100;
+}
+
+.menu-item-has-children:hover > .sub-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.sub-menu li a {
+    display: block;
+    padding: 12px 24px;
+    font-size: 0.9rem;
+    color: var(--color-dark-gray);
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.sub-menu li a:hover {
+    background: var(--color-off-white);
+    color: var(--color-primary);
+    padding-left: 28px;
+}
+
+/* -----------------------------------------
+   HERO SECTIONS - Fullscreen Impact
+   ----------------------------------------- */
+.elementor-section-height-full,
+.elementor-section-height-min-height {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Hero Text Animation */
+.elementor-section-height-full .elementor-heading-title,
+.elementor-section-height-min-height .elementor-heading-title {
+    animation: fadeInUp 1s ease-out;
+}
+
+.elementor-section-height-full .elementor-widget-text-editor,
+.elementor-section-height-min-height .elementor-widget-text-editor {
+    animation: fadeInUp 1s ease-out 0.2s backwards;
+}
+
+.elementor-section-height-full .elementor-button-wrapper,
+.elementor-section-height-min-height .elementor-button-wrapper {
+    animation: fadeInUp 1s ease-out 0.4s backwards;
+}
+
+/* -----------------------------------------
+   SLIDE-IN ANIMATIONS
+   ----------------------------------------- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Scroll-triggered animations */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Apply animations to sections */
+.elementor-section {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.elementor-section:nth-child(1) { animation-delay: 0s; }
+.elementor-section:nth-child(2) { animation-delay: 0.1s; }
+.elementor-section:nth-child(3) { animation-delay: 0.15s; }
+.elementor-section:nth-child(4) { animation-delay: 0.2s; }
+
+/* Column animations */
+.elementor-column:nth-child(odd) .elementor-widget-wrap {
+    animation: fadeInLeft 0.8s ease-out 0.2s backwards;
+}
+
+.elementor-column:nth-child(even) .elementor-widget-wrap {
+    animation: fadeInRight 0.8s ease-out 0.2s backwards;
+}
+
+/* -----------------------------------------
+   BUTTONS - Modern & Elegant
+   ----------------------------------------- */
+.elementor-button,
+.btn,
+button[type="submit"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 40px !important;
+    font-family: var(--font-body);
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none !important;
+    border: 2px solid transparent;
+    border-radius: var(--radius-xl) !important;
+    cursor: pointer;
+    transition: all var(--transition-normal) !important;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Primary Button */
+.elementor-button,
+.btn-primary {
+    background: var(--color-primary) !important;
+    color: var(--color-white) !important;
+    box-shadow: 0 4px 20px rgba(210, 171, 116, 0.4);
+}
+
+.elementor-button:hover,
+.btn-primary:hover {
+    background: var(--color-primary-dark) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(210, 171, 116, 0.5);
+}
+
+/* Button Shine Effect */
+.elementor-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: left 0.5s ease;
+}
+
+.elementor-button:hover::before {
+    left: 100%;
+}
+
+/* Secondary/Outline Button */
+.btn-secondary,
+.elementor-button.elementor-button-outline {
+    background: transparent !important;
+    color: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+}
+
+.btn-secondary:hover,
+.elementor-button.elementor-button-outline:hover {
+    background: var(--color-primary) !important;
+    color: var(--color-white) !important;
+}
+
+/* -----------------------------------------
+   CARDS - Modern Elevated Design
+   ----------------------------------------- */
+.elementor-post,
+.elementor-grid-item,
+article.post,
+.target-group-card {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.elementor-post:hover,
+.elementor-grid-item:hover,
+article.post:hover,
+.target-group-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Card Image */
+.elementor-post__thumbnail,
+.post-thumbnail {
+    overflow: hidden;
+}
+
+.elementor-post__thumbnail img,
+.post-thumbnail img {
+    transition: transform var(--transition-slow);
+}
+
+.elementor-post:hover .elementor-post__thumbnail img,
+article.post:hover .post-thumbnail img {
+    transform: scale(1.05);
+}
+
+/* Card Content */
+.elementor-post__text,
+.entry-content {
+    padding: var(--spacing-md);
+}
+
+/* -----------------------------------------
+   FAQ / ACCORDION - Animated Dropdowns
+   ----------------------------------------- */
+.elementor-accordion,
+.faq-section {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.elementor-accordion-item,
+.faq-item {
+    background: var(--color-white);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-sm);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    border: 1px solid var(--color-light-gray);
+    transition: var(--transition-normal);
+}
+
+.elementor-accordion-item:hover,
+.faq-item:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.elementor-tab-title,
+.faq-question {
+    padding: var(--spacing-md);
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--color-secondary);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: var(--transition-fast);
+}
+
+.elementor-tab-title:hover,
+.faq-question:hover {
+    color: var(--color-primary);
+}
+
+/* Accordion Arrow */
+.elementor-tab-title::after,
+.faq-question::after {
+    content: '+';
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--color-primary);
+    transition: transform var(--transition-normal);
+}
+
+.elementor-tab-title.elementor-active::after,
+.faq-item.active .faq-question::after {
+    transform: rotate(45deg);
+}
+
+.elementor-tab-content,
+.faq-answer {
+    padding: 0 var(--spacing-md) var(--spacing-md);
+    color: var(--color-dark-gray);
+    line-height: 1.8;
+    animation: fadeInUp 0.3s ease-out;
+}
+
+/* -----------------------------------------
+   SECTIONS - Clean Spacing & Backgrounds
+   ----------------------------------------- */
+.elementor-section {
+    padding: var(--spacing-xl) 0;
+}
+
+/* Alternating background colors */
+.elementor-section:nth-child(even) {
+    background: var(--color-off-white);
+}
+
+/* Section with image background */
+.elementor-section[data-settings*="background_background"] {
+    position: relative;
+}
+
+.elementor-section[data-settings*="background_background"]::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.3) 0%,
+        rgba(0, 0, 0, 0.5) 100%
+    );
+    z-index: 1;
+}
+
+.elementor-section[data-settings*="background_background"] > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* -----------------------------------------
+   TESTIMONIALS - Modern Slider Cards
+   ----------------------------------------- */
+.elementor-testimonial,
+.testimonial-card {
+    background: var(--color-white);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+    position: relative;
+}
+
+.elementor-testimonial::before,
+.testimonial-card::before {
+    content: '"';
+    font-family: Georgia, serif;
+    font-size: 6rem;
+    color: var(--color-primary-light);
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    line-height: 1;
+    opacity: 0.5;
+}
+
+.elementor-testimonial-content,
+.testimonial-text {
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 1.8;
+    color: var(--color-dark-gray);
+    margin-bottom: var(--spacing-md);
+}
+
+.elementor-testimonial-name,
+.testimonial-author {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: var(--color-secondary);
+    font-weight: 500;
+}
+
+/* -----------------------------------------
+   IMAGES - Modern Treatment
+   ----------------------------------------- */
+.elementor-widget-image img,
+.wp-post-image {
+    border-radius: var(--radius-md);
+    transition: var(--transition-normal);
+}
+
+/* Image hover zoom */
+.elementor-widget-image:hover img {
+    transform: scale(1.02);
+}
+
+/* Parallax effect for background images */
+.elementor-section[data-settings*="background_background"] {
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+}
+
+@media (max-width: 768px) {
+    .elementor-section[data-settings*="background_background"] {
+        background-attachment: scroll;
+    }
+}
+
+/* -----------------------------------------
+   FORMS - Clean & Modern
+   ----------------------------------------- */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="url"],
+textarea,
+select {
+    width: 100%;
+    padding: 16px 20px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-dark-gray);
+    background: var(--color-off-white);
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    transition: var(--transition-fast);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: var(--color-white);
+    box-shadow: 0 0 0 4px rgba(210, 171, 116, 0.1);
+}
+
+label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-secondary);
+    margin-bottom: var(--spacing-xs);
+}
+
+/* -----------------------------------------
+   FOOTER - Modern & Clean
+   ----------------------------------------- */
+.site-footer,
+footer {
+    background: var(--color-secondary);
+    color: var(--color-white);
+    padding: var(--spacing-xl) 0 var(--spacing-md);
+}
+
+.site-footer a,
+footer a {
+    color: var(--color-primary-light);
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.site-footer a:hover,
+footer a:hover {
+    color: var(--color-primary);
+}
+
+/* -----------------------------------------
+   SCROLL PROGRESS INDICATOR
+   ----------------------------------------- */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
+    z-index: 10000;
+    transition: width 0.1s ease-out;
+}
+
+/* -----------------------------------------
+   FLOATING CTA BUTTON
+   ----------------------------------------- */
+.floating-cta {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--color-primary);
+    color: var(--color-white);
+    padding: 16px 28px;
+    border-radius: var(--radius-xl);
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(210, 171, 116, 0.5);
+    z-index: 999;
+    transition: all var(--transition-normal);
+    animation: pulse 2s infinite;
+}
+
+.floating-cta:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 8px 30px rgba(210, 171, 116, 0.6);
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 4px 20px rgba(210, 171, 116, 0.5);
+    }
+    50% {
+        box-shadow: 0 4px 30px rgba(210, 171, 116, 0.8);
+    }
+}
+
+/* -----------------------------------------
+   MOBILE RESPONSIVENESS
+   ----------------------------------------- */
+@media (max-width: 991px) {
+    :root {
+        --spacing-lg: 3rem;
+        --spacing-xl: 4rem;
+    }
+
+    .site-header {
+        padding: 10px 0;
+    }
+
+    /* Mobile Menu */
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 350px;
+        height: 100vh;
+        background: var(--color-white);
+        padding: var(--spacing-xl) var(--spacing-md);
+        box-shadow: var(--shadow-lg);
+        transition: right var(--transition-normal);
+        overflow-y: auto;
+    }
+
+    .nav-menu.active {
+        right: 0;
+    }
+
+    .nav-menu > ul {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .nav-menu > ul > li {
+        width: 100%;
+        border-bottom: 1px solid var(--color-light-gray);
+    }
+
+    .nav-menu > ul > li > a {
+        display: block;
+        padding: var(--spacing-sm);
+    }
+
+    .sub-menu {
+        position: static;
+        transform: none;
+        box-shadow: none;
+        background: var(--color-off-white);
+        border-radius: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height var(--transition-normal);
+    }
+
+    .menu-item-has-children.active > .sub-menu {
+        max-height: 500px;
+    }
+
+    /* Hide floating CTA on small mobile */
+    .floating-cta {
+        bottom: 20px;
+        right: 20px;
+        padding: 14px 24px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 767px) {
+    :root {
+        --spacing-lg: 2rem;
+        --spacing-xl: 3rem;
+    }
+
+    .elementor-section {
+        padding: var(--spacing-lg) var(--spacing-sm);
+    }
+
+    .elementor-column {
+        width: 100% !important;
+        margin-bottom: var(--spacing-md);
+    }
+
+    /* Stack buttons on mobile */
+    .elementor-button {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* -----------------------------------------
+   UTILITY CLASSES
+   ----------------------------------------- */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mt-0 { margin-top: 0; }
+.mb-0 { margin-bottom: 0; }
+.mt-1 { margin-top: var(--spacing-sm); }
+.mb-1 { margin-bottom: var(--spacing-sm); }
+.mt-2 { margin-top: var(--spacing-md); }
+.mb-2 { margin-bottom: var(--spacing-md); }
+
+.hidden { display: none; }
+.visible { display: block; }
+
+/* Smooth scrolling anchor offset for fixed header */
+:target {
+    scroll-margin-top: 100px;
+}
+
+/* -----------------------------------------
+   LOADING ANIMATION
+   ----------------------------------------- */
+.page-loader {
+    position: fixed;
+    inset: 0;
+    background: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.page-loader.loaded {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--color-light-gray);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* -----------------------------------------
+   PRINT STYLES
+   ----------------------------------------- */
+@media print {
+    .site-header,
+    .site-footer,
+    .floating-cta,
+    .scroll-progress {
+        display: none;
+    }
+
+    body {
+        font-size: 12pt;
+        color: #000;
+    }
+}

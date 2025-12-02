@@ -303,3 +303,203 @@ button:focus,
 .skip-link:focus {
     top: 0;
 }
+
+/* -----------------------------------------
+   9. LAYOUT FIXES - Common Issues
+   ----------------------------------------- */
+
+/* Fix container max-width consistency */
+.container,
+.elementor-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Fix image overflow issues */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Fix text overflow */
+.elementor-widget-text-editor,
+.entry-content {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+/* Fix z-index stacking issues */
+.site-header {
+    z-index: 1000;
+}
+
+.sub-menu {
+    z-index: 1001;
+}
+
+/* Fix footer at bottom */
+html, body {
+    min-height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.site-content,
+#content,
+main {
+    flex: 1;
+}
+
+/* -----------------------------------------
+   10. ELEMENTOR SPECIFIC FIXES
+   ----------------------------------------- */
+
+/* Fix Elementor section padding inconsistency */
+.elementor-section-boxed > .elementor-container {
+    padding: 0 15px;
+}
+
+/* Fix column gap issues */
+.elementor-row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Fix widget spacing */
+.elementor-widget:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+/* Fix image widget alignment */
+.elementor-widget-image {
+    text-align: center;
+}
+
+.elementor-widget-image img {
+    display: inline-block;
+}
+
+/* -----------------------------------------
+   11. BLOG POST LAYOUT FIXES
+   ----------------------------------------- */
+
+/* Fix post grid layout */
+.blog-stream,
+.elementor-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+/* Fix post card height */
+.elementor-post,
+article.post {
+    display: flex;
+    flex-direction: column;
+}
+
+.elementor-post__text,
+.entry-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.elementor-post__excerpt,
+.entry-summary {
+    flex: 1;
+}
+
+/* Fix read more button position */
+.elementor-post__read-more,
+.read-more {
+    margin-top: auto;
+}
+
+/* -----------------------------------------
+   12. SIDEBAR FIXES (if applicable)
+   ----------------------------------------- */
+
+@media (min-width: 992px) {
+    .has-sidebar .site-main {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 40px;
+    }
+
+    .sidebar {
+        position: sticky;
+        top: 100px;
+        height: fit-content;
+    }
+}
+
+/* -----------------------------------------
+   13. DARK SECTION TEXT FIX
+   ----------------------------------------- */
+
+/* Ensure text is readable on dark backgrounds */
+.elementor-section[style*="background-color"] h1,
+.elementor-section[style*="background-color"] h2,
+.elementor-section[style*="background-color"] h3,
+.elementor-section[style*="background"] p {
+    color: inherit;
+}
+
+/* Gold/Primary colored sections */
+[style*="background: #D2AB74"],
+[style*="background:#D2AB74"],
+[style*="background-color: #D2AB74"] {
+    color: #fff;
+}
+
+[style*="background: #D2AB74"] h1,
+[style*="background: #D2AB74"] h2,
+[style*="background: #D2AB74"] h3,
+[style*="background: #D2AB74"] p {
+    color: #fff;
+}
+
+/* -----------------------------------------
+   14. TABLE RESPONSIVENESS
+   ----------------------------------------- */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+@media (max-width: 767px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+    }
+
+    td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    td:before {
+        position: absolute;
+        left: 10px;
+        width: 45%;
+        white-space: nowrap;
+        font-weight: bold;
+    }
+}
