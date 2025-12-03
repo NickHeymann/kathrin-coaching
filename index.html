@@ -681,7 +681,204 @@
             color: var(--color-white);
         }
 
-        /* ===== TESTIMONIAL ===== */
+        /* ===== QUIZ SECTION ===== */
+        .quiz-section {
+            background: linear-gradient(135deg, var(--color-cream) 0%, #f0ebe4 100%);
+            text-align: center;
+        }
+
+        .quiz-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .quiz-intro {
+            margin-bottom: 40px;
+        }
+
+        .quiz-intro p {
+            margin: 0 auto;
+        }
+
+        .quiz-card {
+            background: var(--color-white);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .quiz-question {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin-bottom: 30px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quiz-option {
+            padding: 18px 24px;
+            border: 2px solid rgba(0,0,0,0.1);
+            border-radius: 8px;
+            background: var(--color-white);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--color-accent);
+            background: rgba(196, 169, 98, 0.05);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--color-accent);
+            background: rgba(196, 169, 98, 0.1);
+        }
+
+        .quiz-progress {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+
+        .quiz-progress-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.1);
+        }
+
+        .quiz-progress-dot.active {
+            background: var(--color-accent);
+        }
+
+        .quiz-progress-dot.completed {
+            background: var(--color-primary);
+        }
+
+        .quiz-result {
+            display: none;
+        }
+
+        .quiz-result.active {
+            display: block;
+        }
+
+        .quiz-result-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .quiz-result h3 {
+            color: var(--color-primary);
+            margin-bottom: 15px;
+        }
+
+        .quiz-result p {
+            margin: 0 auto 25px;
+        }
+
+        /* ===== TESTIMONIALS GRID ===== */
+        .testimonials-section {
+            background: var(--color-white);
+        }
+
+        .testimonials-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .testimonial-card-small {
+            background: var(--color-cream);
+            border-radius: 12px;
+            padding: 30px;
+            position: relative;
+        }
+
+        .testimonial-card-small::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 25px;
+            font-size: 4rem;
+            font-family: var(--font-heading);
+            color: var(--color-accent);
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .testimonial-card-small p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-card-small .author {
+            font-weight: 600;
+            color: var(--color-primary);
+            font-size: 0.9rem;
+        }
+
+        .testimonial-card-small .author span {
+            font-weight: 400;
+            color: var(--color-text-light);
+        }
+
+        /* ===== URGENCY BAR ===== */
+        .urgency-bar {
+            background: var(--color-accent);
+            color: var(--color-white);
+            text-align: center;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .urgency-bar strong {
+            font-weight: 700;
+        }
+
+        /* ===== SOCIAL PROOF ===== */
+        .social-proof-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 20px;
+        }
+
+        .social-proof-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* ===== TESTIMONIAL (single) ===== */
         .testimonial-section {
             background: var(--color-white);
         }
@@ -921,6 +1118,12 @@
                 grid-template-columns: 1fr 1fr;
             }
 
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
             nav {
                 display: none;
             }
@@ -1076,6 +1279,11 @@
     </div>
 </header>
 
+<!-- Urgency Bar -->
+<div class="urgency-bar">
+    <strong>Dezember-Aktion:</strong> Sichere dir jetzt dein kostenloses Erstgespräch — nur noch wenige Termine in diesem Jahr verfügbar
+</div>
+
 <!-- Hero Section -->
 <section class="hero">
     <div class="container">
@@ -1086,6 +1294,10 @@
             <div class="hero-buttons">
                 <a href="#" class="btn btn-primary" onclick="bookCall(); return false;">Kostenloses Erstgespräch</a>
                 <a href="#angebote" class="btn btn-secondary">Mehr erfahren</a>
+            </div>
+            <div class="social-proof-badge">
+                <span class="dot"></span>
+                <span>12 Menschen haben diese Woche ein Erstgespräch gebucht</span>
             </div>
         </div>
     </div>
@@ -1141,6 +1353,79 @@
         <h2>Du musst diesen Weg nicht alleine gehen</h2>
         <p>In einem geschützten Raum begleite ich dich dabei, wieder zu spüren, was du wirklich willst. Mit Klarheit, Mitgefühl und der Weisheit der Pferde.</p>
         <a href="#" class="btn btn-primary" onclick="bookCall(); return false;">Jetzt Erstgespräch vereinbaren</a>
+    </div>
+</section>
+
+<!-- Quiz Section -->
+<section class="quiz-section" id="quiz">
+    <div class="container">
+        <div class="quiz-container">
+            <div class="quiz-intro">
+                <h2>Welcher Coaching-Weg passt zu dir?</h2>
+                <p>Beantworte 3 kurze Fragen und finde heraus, welches Angebot am besten zu deiner Situation passt.</p>
+            </div>
+            <div class="quiz-card">
+                <!-- Progress -->
+                <div class="quiz-progress">
+                    <div class="quiz-progress-dot active" data-step="1"></div>
+                    <div class="quiz-progress-dot" data-step="2"></div>
+                    <div class="quiz-progress-dot" data-step="3"></div>
+                </div>
+
+                <!-- Question 1 -->
+                <div class="quiz-step" data-step="1">
+                    <p class="quiz-question">Was beschreibt deine aktuelle Situation am besten?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-value="einzel" onclick="selectQuizOption(this)">Ich stecke in einer persönlichen Krise oder Umbruchphase</div>
+                        <div class="quiz-option" data-value="paar" onclick="selectQuizOption(this)">Meine Beziehung/Ehe steckt in einer Krise</div>
+                        <div class="quiz-option" data-value="retreat" onclick="selectQuizOption(this)">Ich brauche Abstand und Zeit für mich selbst</div>
+                        <div class="quiz-option" data-value="einzel" onclick="selectQuizOption(this)">Ich fühle mich "anders" - hochsensibel oder hochbegabt</div>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="quiz-step" data-step="2" style="display: none;">
+                    <p class="quiz-question">Wie möchtest du am liebsten arbeiten?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-value="online" onclick="selectQuizOption(this)">Flexibel von zuhause (Online-Sessions)</div>
+                        <div class="quiz-option" data-value="vorort" onclick="selectQuizOption(this)">Persönlich vor Ort mit Pferden</div>
+                        <div class="quiz-option" data-value="retreat" onclick="selectQuizOption(this)">Intensiv - mehrere Tage am Stück in Portugal</div>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="quiz-step" data-step="3" style="display: none;">
+                    <p class="quiz-question">Was ist dir am wichtigsten?</p>
+                    <div class="quiz-options">
+                        <div class="quiz-option" data-value="tempo" onclick="selectQuizOption(this)">In meinem eigenen Tempo vorankommen</div>
+                        <div class="quiz-option" data-value="gemeinsam" onclick="selectQuizOption(this)">Gemeinsam mit meinem Partner arbeiten</div>
+                        <div class="quiz-option" data-value="tief" onclick="selectQuizOption(this)">Tiefe Transformation und Neuausrichtung</div>
+                    </div>
+                </div>
+
+                <!-- Results -->
+                <div class="quiz-result" data-result="einzel">
+                    <div class="quiz-result-icon">🌱</div>
+                    <h3>1:1 Coaching ist perfekt für dich</h3>
+                    <p>Du brauchst einen geschützten Raum, um in deinem eigenen Tempo zu wachsen. Im Einzelcoaching begleite ich dich individuell - online oder vor Ort mit den Pferden.</p>
+                    <a href="#" class="btn btn-primary" onclick="bookCall(); return false;">Jetzt Erstgespräch buchen</a>
+                </div>
+
+                <div class="quiz-result" data-result="paar">
+                    <div class="quiz-result-icon">💕</div>
+                    <h3>Paar-Coaching ist euer Weg</h3>
+                    <p>Ihr braucht einen neutralen Raum, um wieder zueinander zu finden - oder einen würdevollen Abschied zu gestalten. Ich begleite euch durch diese intensive Zeit.</p>
+                    <a href="#" class="btn btn-primary" onclick="bookCall(); return false;">Jetzt Erstgespräch buchen</a>
+                </div>
+
+                <div class="quiz-result" data-result="retreat">
+                    <div class="quiz-result-icon">🐴</div>
+                    <h3>Ein Retreat in Portugal wartet auf dich</h3>
+                    <p>Du bist bereit für tiefe Transformation. Im Alentejo, umgeben von Stille, Weite und der Weisheit der Pferde, findest du zurück zu dir selbst.</p>
+                    <a href="#" class="btn btn-primary" onclick="bookRetreat(); return false;">Retreat anfragen</a>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -1256,14 +1541,26 @@
     </div>
 </section>
 
-<!-- Testimonial -->
-<section class="testimonial-section">
+<!-- Testimonials -->
+<section class="testimonials-section">
     <div class="container">
-        <div class="testimonial-card">
-            <blockquote class="testimonial-text">
-                "In der Arbeit mit Kathrin und den Pferden habe ich gelernt, meinen Raum einzunehmen. Klare Grenzen zu setzen. Meine Kraft nicht mehr zu verstecken, sondern sie als Geschenk zu sehen."
-            </blockquote>
-            <p class="testimonial-author">— Teilnehmerin Einzelcoaching</p>
+        <div class="testimonials-header">
+            <h2>Was Klienten sagen</h2>
+            <p>Echte Stimmen von Menschen, die diesen Weg gegangen sind</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card-small">
+                <p>"In der Arbeit mit Kathrin und den Pferden habe ich gelernt, meinen Raum einzunehmen. Klare Grenzen zu setzen. Meine Kraft nicht mehr zu verstecken, sondern sie als Geschenk zu sehen."</p>
+                <div class="author">Sandra M. <span>| Einzelcoaching</span></div>
+            </div>
+            <div class="testimonial-card-small">
+                <p>"Das Retreat hat mir gezeigt, dass ich viel mehr bin als meine Funktionen. Kathrin schafft einen Raum, in dem Transformation möglich wird. Die Pferde haben mich tief berührt."</p>
+                <div class="author">Michael K. <span>| Retreat Portugal</span></div>
+            </div>
+            <div class="testimonial-card-small">
+                <p>"Nach 15 Jahren Ehe standen wir vor der Trennung. Kathrins Begleitung hat uns geholfen, wieder zueinander zu finden. Heute sind wir ein stärkeres Paar als je zuvor."</p>
+                <div class="author">Anna & Thomas <span>| Paar-Coaching</span></div>
+            </div>
         </div>
     </div>
 </section>
@@ -1465,6 +1762,97 @@
         nav.style.padding = '20px';
         nav.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
     });
+
+    // ===== QUIZ FUNCTIONALITY =====
+    let quizAnswers = [];
+    let currentStep = 1;
+
+    function selectQuizOption(option) {
+        const step = option.closest('.quiz-step');
+        const stepNum = parseInt(step.dataset.step);
+
+        // Mark option as selected
+        step.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
+        option.classList.add('selected');
+
+        // Store answer
+        quizAnswers[stepNum - 1] = option.dataset.value;
+
+        // Wait a moment, then proceed
+        setTimeout(() => {
+            if (stepNum < 3) {
+                // Go to next question
+                step.style.display = 'none';
+                const nextStep = document.querySelector(`.quiz-step[data-step="${stepNum + 1}"]`);
+                nextStep.style.display = 'block';
+
+                // Update progress dots
+                document.querySelectorAll('.quiz-progress-dot').forEach(dot => {
+                    const dotStep = parseInt(dot.dataset.step);
+                    dot.classList.remove('active', 'completed');
+                    if (dotStep < stepNum + 1) dot.classList.add('completed');
+                    if (dotStep === stepNum + 1) dot.classList.add('active');
+                });
+
+                currentStep = stepNum + 1;
+            } else {
+                // Show result
+                showQuizResult();
+            }
+        }, 300);
+    }
+
+    function showQuizResult() {
+        // Hide all steps
+        document.querySelectorAll('.quiz-step').forEach(step => step.style.display = 'none');
+        document.querySelector('.quiz-progress').style.display = 'none';
+
+        // Determine result based on answers
+        let result = 'einzel'; // Default
+
+        // Count answer types
+        const counts = { einzel: 0, paar: 0, retreat: 0 };
+        quizAnswers.forEach(answer => {
+            if (answer === 'paar' || answer === 'gemeinsam') counts.paar++;
+            else if (answer === 'retreat' || answer === 'tief' || answer === 'vorort') counts.retreat++;
+            else counts.einzel++;
+        });
+
+        // Find highest count
+        if (counts.paar >= counts.einzel && counts.paar >= counts.retreat) result = 'paar';
+        else if (counts.retreat >= counts.einzel && counts.retreat >= counts.paar) result = 'retreat';
+
+        // Show result
+        const resultElement = document.querySelector(`.quiz-result[data-result="${result}"]`);
+        resultElement.classList.add('active');
+
+        // Complete all progress dots
+        document.querySelectorAll('.quiz-progress-dot').forEach(dot => {
+            dot.classList.remove('active');
+            dot.classList.add('completed');
+        });
+    }
+
+    function resetQuiz() {
+        quizAnswers = [];
+        currentStep = 1;
+
+        // Hide all results
+        document.querySelectorAll('.quiz-result').forEach(r => r.classList.remove('active'));
+
+        // Show first step
+        document.querySelectorAll('.quiz-step').forEach((step, i) => {
+            step.style.display = i === 0 ? 'block' : 'none';
+            step.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
+        });
+
+        // Reset progress
+        document.querySelector('.quiz-progress').style.display = 'flex';
+        document.querySelectorAll('.quiz-progress-dot').forEach((dot, i) => {
+            dot.classList.remove('active', 'completed');
+            if (i === 0) dot.classList.add('active');
+        });
+    }
 </script>
 
 </body>
