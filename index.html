@@ -607,7 +607,7 @@
         .service-details {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.4s ease, padding 0.3s ease;
+            transition: max-height 0.5s ease, padding 0.3s ease;
             background: var(--color-primary);
             margin: 0 -30px -30px;
             padding: 0 30px;
@@ -616,8 +616,9 @@
         }
 
         .service-card.expanded .service-details {
-            max-height: 700px;
-            padding: 30px 40px 35px;
+            max-height: 800px;
+            padding: 30px 40px 40px;
+            overflow: visible;
         }
 
         .service-details h4 {
@@ -655,8 +656,10 @@
         }
 
         .service-details .btn {
-            margin-top: 15px;
+            margin-top: 20px;
+            margin-bottom: 10px;
             background: var(--color-accent);
+            display: inline-block;
         }
 
         .service-details .btn:hover {
@@ -763,7 +766,7 @@
 
         .footer-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
+            grid-template-columns: 2fr 1fr 1fr;
             gap: 50px;
             margin-bottom: 40px;
         }
@@ -1020,7 +1023,8 @@
             }
 
             .service-card.expanded .service-details {
-                padding: 25px 25px 30px;
+                padding: 25px 25px 35px;
+                max-height: 900px;
             }
 
             .service-toggle {
@@ -1177,7 +1181,6 @@
                         <li>Tiefgreifende Veränderung suchst</li>
                     </ul>
                     <a href="#" class="btn btn-primary" onclick="bookCall(); return false;">Erstgespräch buchen</a>
-                    <a href="einzelbegleitung-sinnkrise-lebensumbruch.html" class="service-page-link">Alle Details zur Einzelbegleitung →</a>
                 </div>
             </div>
 
@@ -1212,7 +1215,6 @@
                         <li>Einen würdevollen Abschied sucht</li>
                     </ul>
                     <a href="#" class="btn btn-primary" onclick="bookCall(); return false;">Erstgespräch buchen</a>
-                    <a href="paarbegleitung-beziehungskrise-neuanfang-kathrin-stahl.html" class="service-page-link">Alle Details zur Paarbegleitung →</a>
                 </div>
             </div>
 
@@ -1246,7 +1248,6 @@
                         <li>Gruppen-Retreat: Gemeinschaft erleben</li>
                     </ul>
                     <a href="#" class="btn btn-primary" onclick="bookRetreat(); return false;">Retreat anfragen</a>
-                    <a href="retreats-in-portugal.html" class="service-page-link">Alle Retreats & Termine →</a>
                 </div>
             </div>
         </div>
@@ -1312,19 +1313,11 @@
                 </div>
             </div>
             <div class="footer-links">
-                <h4>Angebote</h4>
+                <h4>Navigation</h4>
                 <ul>
-                    <li><a href="einzelbegleitung-sinnkrise-lebensumbruch.html">1:1 Coaching</a></li>
-                    <li><a href="paarbegleitung-beziehungskrise-neuanfang-kathrin-stahl.html">Paar-Coaching</a></li>
-                    <li><a href="retreats-in-portugal.html">Retreats</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>Mehr</h4>
-                <ul>
-                    <li><a href="hochbegabung-hochsensibilitat.html">Hochbegabung</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="glueck-ueber-zweifel-dein-podcast.html">Podcast</a></li>
+                    <li><a href="#angebote">Meine Angebote</a></li>
+                    <li><a href="#ueber">Über mich</a></li>
+                    <li><a href="#" onclick="bookCall(); return false;">Erstgespräch buchen</a></li>
                 </ul>
             </div>
             <div class="footer-links">
