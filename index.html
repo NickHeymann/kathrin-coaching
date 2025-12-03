@@ -795,6 +795,10 @@
             margin-bottom: 50px;
         }
 
+        .testimonials-header p {
+            margin: 0 auto;
+        }
+
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -806,6 +810,8 @@
             border-radius: 12px;
             padding: 30px;
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
         .testimonial-card-small::before {
@@ -826,12 +832,14 @@
             margin-bottom: 20px;
             position: relative;
             z-index: 1;
+            flex-grow: 1;
         }
 
         .testimonial-card-small .author {
             font-weight: 600;
             color: var(--color-primary);
             font-size: 0.9rem;
+            margin-top: auto;
         }
 
         .testimonial-card-small .author span {
