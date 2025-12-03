@@ -1702,10 +1702,16 @@
 </script>
 
 <script>
-    // Show floating CTA after scrolling
+    // Show floating CTA after scrolling, hide before footer
     const floatingCTA = document.querySelector('.floating-cta');
+    const footer = document.querySelector('footer');
+
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 600) {
+        const footerTop = footer.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+
+        // Show after scrolling 600px, but hide when footer is visible
+        if (window.scrollY > 600 && footerTop > windowHeight) {
             floatingCTA.classList.add('visible');
         } else {
             floatingCTA.classList.remove('visible');
