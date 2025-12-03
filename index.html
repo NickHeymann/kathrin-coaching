@@ -771,9 +771,19 @@
             display: block;
         }
 
-        .quiz-result-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
+        .quiz-result-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .quiz-result-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .quiz-result h3 {
@@ -1413,21 +1423,27 @@
 
                 <!-- Results -->
                 <div class="quiz-result" data-result="einzel">
-                    <div class="quiz-result-icon">🌱</div>
+                    <div class="quiz-result-image">
+                        <img src="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-8-scaled.jpg" alt="1:1 Coaching">
+                    </div>
                     <h3>1:1 Coaching ist perfekt für dich</h3>
                     <p>Du brauchst einen geschützten Raum, um in deinem eigenen Tempo zu wachsen. Im Einzelcoaching begleite ich dich individuell - online oder vor Ort mit den Pferden.</p>
                     <a href="#" class="btn btn-primary" onclick="bookCall(); return false;">Jetzt Erstgespräch buchen</a>
                 </div>
 
                 <div class="quiz-result" data-result="paar">
-                    <div class="quiz-result-icon">💕</div>
+                    <div class="quiz-result-image">
+                        <img src="wp-content/uploads/2025/05/2025_04_Paartherapie_Ehekrise-22.jpg" alt="Paar-Coaching">
+                    </div>
                     <h3>Paar-Coaching ist euer Weg</h3>
                     <p>Ihr braucht einen neutralen Raum, um wieder zueinander zu finden - oder einen würdevollen Abschied zu gestalten. Ich begleite euch durch diese intensive Zeit.</p>
                     <a href="#" class="btn btn-primary" onclick="bookCall(); return false;">Jetzt Erstgespräch buchen</a>
                 </div>
 
                 <div class="quiz-result" data-result="retreat">
-                    <div class="quiz-result-icon">🐴</div>
+                    <div class="quiz-result-image">
+                        <img src="wp-content/uploads/2025/11/Retreat-Portugal-Pferde-Kathrin-Stahl-19-scaled.jpg" alt="Retreat Portugal">
+                    </div>
                     <h3>Ein Retreat in Portugal wartet auf dich</h3>
                     <p>Du bist bereit für tiefe Transformation. Im Alentejo, umgeben von Stille, Weite und der Weisheit der Pferde, findest du zurück zu dir selbst.</p>
                     <a href="#" class="btn btn-primary" onclick="bookRetreat(); return false;">Retreat anfragen</a>
