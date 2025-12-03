@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bin ich hochbegabt? Selbsttest fuer Erwachsene | KATHRIN STAHL</title>
+    <meta name="description" content="Kostenloser Hochbegabung-Test fuer Erwachsene. 12 Fragen helfen dir herauszufinden, ob du ueberdurchschnittlich begabt sein koenntest.">
+    <meta name="keywords" content="Hochbegabung Test, hochbegabt Erwachsene, Intelligenz Test, Hochbegabung Selbsttest, IQ Test">
+    <link rel="canonical" href="https://nickheymann.github.io/kathrin-coaching/quiz-hochbegabt.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Bin ich hochbegabt? Selbsttest fuer Erwachsene">
+    <meta property="og:description" content="Ein erster Anhaltspunkt: 12 Fragen helfen dir herauszufinden, ob Hochbegabung ein Thema fuer dich sein koennte.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nickheymann.github.io/kathrin-coaching/quiz-hochbegabt.html">
+
+    <!-- Schema.org Quiz Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Quiz",
+        "name": "Bin ich hochbegabt? Selbsttest fuer Erwachsene",
+        "description": "Ein Selbsttest mit 12 Fragen zur ersten Einschaetzung, ob Hochbegabung bei dir vorliegen koennte.",
+        "educationalLevel": "beginner",
+        "learningResourceType": "Quiz",
+        "provider": {
+            "@type": "Person",
+            "name": "Kathrin Stahl",
+            "url": "https://nickheymann.github.io/kathrin-coaching/"
+        }
+    }
+    </script>
+
+    <!-- Styles -->
+    <link rel='stylesheet' href='wp-content/themes/efor/css/normalize32d4.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='wp-content/themes/efor/css/bootstrap32d4.css' type='text/css' media='all'>
+    <link rel="stylesheet" href="custom-fixes.css" type="text/css" media="all">
+    <link rel="stylesheet" href="modern-design.css" type="text/css" media="all">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f0eb 0%, #ebe4dc 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .quiz-header {
+            background: linear-gradient(135deg, #1a5276 0%, #2471a3 100%);
+            color: #fff;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .quiz-header h1 {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .quiz-header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .quiz-header a {
+            color: #D2AB74;
+            text-decoration: none;
+        }
+
+        .quiz-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .info-box {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-left: 4px solid #1a5276;
+        }
+
+        .info-box p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .progress-container {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1a5276, #2471a3);
+            border-radius: 4px;
+            transition: width 0.4s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+        }
+
+        .question-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .question-card.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-number {
+            font-size: 0.85rem;
+            color: #1a5276;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 18px 20px;
+            background: #f8f6f3;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            text-align: left;
+        }
+
+        .option:hover {
+            background: #fff;
+            border-color: #1a5276;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: #1a5276;
+            color: #fff;
+            border-color: #1a5276;
+        }
+
+        .result-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .result-card.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .result-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 2.5rem;
+        }
+
+        .result-icon.high {
+            background: linear-gradient(135deg, #1a5276, #2471a3);
+            color: #fff;
+        }
+
+        .result-icon.medium {
+            background: linear-gradient(135deg, #2471a3, #5dade2);
+            color: #fff;
+        }
+
+        .result-icon.low {
+            background: linear-gradient(135deg, #85c1e9, #aed6f1);
+            color: #1a5276;
+        }
+
+        .result-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .result-score {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .result-description {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            text-align: left;
+            font-size: 1.05rem;
+        }
+
+        .traits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .trait-item {
+            background: #f8f6f3;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid #1a5276;
+        }
+
+        .trait-item strong {
+            color: #1a5276;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .trait-item span {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .disclaimer {
+            background: #e8f4f8;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+            font-size: 0.9rem;
+            color: #666;
+            text-align: left;
+        }
+
+        .disclaimer strong {
+            color: #1a5276;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #D2AB74 0%, #c9a066 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .cta-section h3 {
+            color: #fff;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .cta-section p {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #fff;
+            color: #D2AB74;
+            padding: 16px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .other-quizzes {
+            margin-top: 40px;
+            padding: 25px;
+            background: #f8f6f3;
+            border-radius: 10px;
+        }
+
+        .other-quizzes h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .quiz-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .quiz-link {
+            padding: 10px 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-link:hover {
+            border-color: #1a5276;
+            color: #1a5276;
+        }
+
+        @media (max-width: 600px) {
+            .quiz-container {
+                padding: 15px;
+            }
+
+            .question-card {
+                padding: 20px;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .result-card {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="quiz-header">
+        <h1>Bin ich hochbegabt?</h1>
+        <p>Ein erster Anhaltspunkt - Selbsttest fuer Erwachsene</p>
+        <p style="margin-top: 15px;"><a href="index.html">Zurueck zur Startseite</a></p>
+    </header>
+
+    <main class="quiz-container">
+        <div class="info-box">
+            <p><strong>Hinweis:</strong> Dieser Test ersetzt keine professionelle IQ-Diagnostik. Er kann dir aber erste Hinweise geben, ob Hochbegabung ein Thema fuer dich sein koennte - besonders wenn du dich oft "anders" fuehlst.</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text"><span id="currentQuestion">1</span> von 12 Fragen</div>
+        </div>
+
+        <!-- Question 1 -->
+        <div class="question-card active" data-question="1">
+            <div class="question-number">Frage 1 von 12</div>
+            <div class="question-text">Wie schnell erfasst du komplexe Zusammenhaenge?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Extrem schnell - oft muss ich auf andere warten</div>
+                <div class="option" onclick="selectOption(this, 3)">Schneller als die meisten Menschen in meinem Umfeld</div>
+                <div class="option" onclick="selectOption(this, 2)">Durchschnittlich - je nach Thema unterschiedlich</div>
+                <div class="option" onclick="selectOption(this, 1)">Ich brauche eher Zeit, um Dinge zu verstehen</div>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-card" data-question="2">
+            <div class="question-number">Frage 2 von 12</div>
+            <div class="question-text">Wie war deine Schulzeit?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Ich war gelangweilt, weil alles zu langsam ging - obwohl meine Noten nicht immer top waren</div>
+                <div class="option" onclick="selectOption(this, 3)">Ich war gut ohne viel Aufwand, fand es aber oft unstimulierend</div>
+                <div class="option" onclick="selectOption(this, 2)">Durchschnittlich - musste fuer gute Noten lernen</div>
+                <div class="option" onclick="selectOption(this, 1)">Ich hatte es eher schwer in der Schule</div>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-card" data-question="3">
+            <div class="question-number">Frage 3 von 12</div>
+            <div class="question-text">Wie gehst du mit Langeweile um?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Ich ertrage sie kaum - mein Kopf braucht staendig Input</div>
+                <div class="option" onclick="selectOption(this, 3)">Ich suche mir dann schnell ein neues Projekt oder Thema</div>
+                <div class="option" onclick="selectOption(this, 2)">Manchmal ist Langeweile auch erholsam</div>
+                <div class="option" onclick="selectOption(this, 1)">Ich kenne Langeweile kaum - mein Alltag ist ausgefuellt genug</div>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-card" data-question="4">
+            <div class="question-number">Frage 4 von 12</div>
+            <div class="question-text">Wie tief tauchst du in Themen ein, die dich interessieren?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Extrem tief - ich verliere mich darin und vergesse Zeit und Raum</div>
+                <div class="option" onclick="selectOption(this, 3)">Sehr gruendlich - ich moechte wirklich alles verstehen</div>
+                <div class="option" onclick="selectOption(this, 2)">Normal vertieft - aber irgendwann reicht es mir</div>
+                <div class="option" onclick="selectOption(this, 1)">Eher oberflaechlich - mir reicht oft das Wichtigste</div>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-card" data-question="5">
+            <div class="question-number">Frage 5 von 12</div>
+            <div class="question-text">Wie empfindest du Smalltalk?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Anstrengend und sinnlos - ich sehne mich nach tiefgruendigen Gespraechen</div>
+                <div class="option" onclick="selectOption(this, 3)">Nicht mein Lieblings-Kommunikationsstil, aber ich kann es</div>
+                <div class="option" onclick="selectOption(this, 2)">Ganz angenehm zum Einstieg in Gespraeche</div>
+                <div class="option" onclick="selectOption(this, 1)">Ich mag Smalltalk - er ist leicht und entspannend</div>
+            </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question-card" data-question="6">
+            <div class="question-number">Frage 6 von 12</div>
+            <div class="question-text">Wie viele verschiedene Interessen hast du?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Unzaehlige - ich interessiere mich fuer fast alles und habe hundert Ideen</div>
+                <div class="option" onclick="selectOption(this, 3)">Viele verschiedene Gebiete faszinieren mich gleichzeitig</div>
+                <div class="option" onclick="selectOption(this, 2)">Ein paar Hobbys und Interessen, die mir wichtig sind</div>
+                <div class="option" onclick="selectOption(this, 1)">Ich fokussiere mich lieber auf wenige Dinge</div>
+            </div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question-card" data-question="7">
+            <div class="question-number">Frage 7 von 12</div>
+            <div class="question-text">Wie oft fuehlst du dich von anderen "nicht verstanden"?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Sehr oft - ich fuehle mich regelmaessig auf einer anderen Wellenlaenge</div>
+                <div class="option" onclick="selectOption(this, 3)">Haeufig - besonders bei komplexen Themen</div>
+                <div class="option" onclick="selectOption(this, 2)">Manchmal - aber meistens finde ich Anschluss</div>
+                <div class="option" onclick="selectOption(this, 1)">Selten - ich fuehle mich gut eingebunden</div>
+            </div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question-card" data-question="8">
+            <div class="question-number">Frage 8 von 12</div>
+            <div class="question-text">Wie gehst du mit Ungerechtigkeit um?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Extrem sensibel - Ungerechtigkeit macht mich emotional und ich muss handeln</div>
+                <div class="option" onclick="selectOption(this, 3)">Es beschaeftigt mich stark und ich denke viel darueber nach</div>
+                <div class="option" onclick="selectOption(this, 2)">Es stoert mich, aber ich kann es meist akzeptieren</div>
+                <div class="option" onclick="selectOption(this, 1)">Ich nehme es nicht so persoenlich</div>
+            </div>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="question-card" data-question="9">
+            <div class="question-number">Frage 9 von 12</div>
+            <div class="question-text">Wie ist dein Denken strukturiert?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Mein Kopf arbeitet staendig - mehrere Gedankenstroeme gleichzeitig</div>
+                <div class="option" onclick="selectOption(this, 3)">Ich denke viel und gruendlich, manchmal zu viel</div>
+                <div class="option" onclick="selectOption(this, 2)">Normal - ich denke, wenn es noetig ist</div>
+                <div class="option" onclick="selectOption(this, 1)">Ich bin eher praktisch veranlagt als ein "Denker"</div>
+            </div>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="question-card" data-question="10">
+            <div class="question-number">Frage 10 von 12</div>
+            <div class="question-text">Wie reagierst du auf Kritik an deiner Arbeit?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Sehr empfindlich - ich habe hohe Ansprueche an mich und Kritik trifft mich</div>
+                <div class="option" onclick="selectOption(this, 3)">Es beruehrt mich, aber ich kann konstruktiv damit umgehen</div>
+                <div class="option" onclick="selectOption(this, 2)">Ich nehme es als Feedback und mache weiter</div>
+                <div class="option" onclick="selectOption(this, 1)">Kritik prallt meistens an mir ab</div>
+            </div>
+        </div>
+
+        <!-- Question 11 -->
+        <div class="question-card" data-question="11">
+            <div class="question-number">Frage 11 von 12</div>
+            <div class="question-text">Wie verhaelt es sich mit deinem Perfektionismus?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Extrem ausgepraegt - ich bin selten zufrieden mit meinen Ergebnissen</div>
+                <div class="option" onclick="selectOption(this, 3)">Hoch - ich habe hohe Standards fuer mich selbst</div>
+                <div class="option" onclick="selectOption(this, 2)">Moderat - "gut genug" ist mir oft gut genug</div>
+                <div class="option" onclick="selectOption(this, 1)">Gering - ich bin mit dem Ergebnis meist zufrieden</div>
+            </div>
+        </div>
+
+        <!-- Question 12 -->
+        <div class="question-card" data-question="12">
+            <div class="question-number">Frage 12 von 12</div>
+            <div class="question-text">Wie wuerdest du deinen Humor beschreiben?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Oft sehr trocken oder absurd - viele verstehen meine Witze nicht</div>
+                <div class="option" onclick="selectOption(this, 3)">Eher intellektuell - ich mag Wortspiele und clevere Pointen</div>
+                <div class="option" onclick="selectOption(this, 2)">Normal - ich lache ueber das, worueber alle lachen</div>
+                <div class="option" onclick="selectOption(this, 1)">Eher einfach und direkt</div>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div class="result-card" id="resultCard">
+            <div class="result-icon" id="resultIcon"></div>
+            <h2 class="result-title" id="resultTitle"></h2>
+            <p class="result-score" id="resultScore"></p>
+            <div class="result-description" id="resultDescription"></div>
+
+            <div class="disclaimer" id="disclaimer">
+                <strong>Wichtiger Hinweis:</strong> Dieser Test ist kein diagnostisches Instrument. Hochbegabung kann nur durch einen standardisierten IQ-Test (z.B. WAIS-IV) bei einem qualifizierten Psychologen festgestellt werden. Dieser Selbsttest gibt dir lediglich erste Hinweise.
+            </div>
+
+            <div class="cta-section">
+                <h3>Du bist nicht allein</h3>
+                <p id="ctaText">Als selbst hochbegabte Frau verstehe ich, wie es sich anfuehlt, "anders" zu sein. In einem Gespraech koennen wir schauen, was du gerade brauchst.</p>
+                <button class="cta-button" onclick="bookErstgespraech()">Kostenloses Gespraech buchen</button>
+            </div>
+
+            <div class="other-quizzes">
+                <h4>Diese Tests koennten dich auch interessieren:</h4>
+                <div class="quiz-links">
+                    <a href="quiz-hochsensibel.html" class="quiz-link">Bin ich hochsensibel?</a>
+                    <a href="quiz-lebenskrise.html" class="quiz-link">Burnout oder Sinnkrise?</a>
+                    <a href="quiz-midlife.html" class="quiz-link">Midlife Crisis Test</a>
+                    <a href="quiz-beziehung.html" class="quiz-link">Beziehungs-Check</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="cal-booking.js"></script>
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 12;
+        let totalScore = 0;
+
+        function selectOption(element, points) {
+            // Mark selected
+            const options = element.parentElement.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+
+            totalScore += points;
+
+            // Delay before next question
+            setTimeout(() => {
+                if (currentQuestion < totalQuestions) {
+                    document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.remove('active');
+                    currentQuestion++;
+                    document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.add('active');
+
+                    const progress = (currentQuestion / totalQuestions) * 100;
+                    document.getElementById('progressFill').style.width = progress + '%';
+                    document.getElementById('currentQuestion').textContent = currentQuestion;
+                } else {
+                    showResults();
+                }
+            }, 400);
+        }
+
+        function showResults() {
+            document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.remove('active');
+            document.querySelector('.progress-container').style.display = 'none';
+            document.querySelector('.info-box').style.display = 'none';
+
+            const resultCard = document.getElementById('resultCard');
+            resultCard.classList.add('active');
+
+            const resultIcon = document.getElementById('resultIcon');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultScore = document.getElementById('resultScore');
+            const resultDescription = document.getElementById('resultDescription');
+            const ctaText = document.getElementById('ctaText');
+
+            if (totalScore >= 40) {
+                resultIcon.innerHTML = 'IQ+';
+                resultIcon.className = 'result-icon high';
+                resultTitle.textContent = 'Starke Hinweise auf Hochbegabung';
+                resultDescription.innerHTML = `
+                    <p>Deine Antworten zeigen <strong>deutliche Merkmale, die bei Hochbegabten haeufig vorkommen</strong>. Das bedeutet nicht automatisch, dass du hochbegabt bist - aber es ist wahrscheinlich ein Thema, das es sich lohnt naeher zu betrachten.</p>
+
+                    <div class="traits-grid">
+                        <div class="trait-item">
+                            <strong>Schnelle Auffassung</strong>
+                            <span>Du erfasst Zusammenhaenge rasch</span>
+                        </div>
+                        <div class="trait-item">
+                            <strong>Vielseitige Interessen</strong>
+                            <span>Dein Wissenshunger ist grenzenlos</span>
+                        </div>
+                        <div class="trait-item">
+                            <strong>Anderssein</strong>
+                            <span>Du fuehlst dich oft nicht verstanden</span>
+                        </div>
+                        <div class="trait-item">
+                            <strong>Hohe Standards</strong>
+                            <span>Perfektionismus ist dein Begleiter</span>
+                        </div>
+                    </div>
+
+                    <p>Viele Hochbegabte erfahren erst als Erwachsene von ihrer Begabung. Das "Anderssein" das sie ihr Leben lang gespuert haben, macht ploetzlich Sinn. Diese Erkenntnis kann sehr befreiend sein.</p>
+                `;
+                ctaText.textContent = 'Als selbst hochbegabte Frau begleite ich Menschen dabei, ihre Besonderheit als Staerke zu leben. Lass uns reden.';
+            } else if (totalScore >= 32) {
+                resultIcon.innerHTML = 'IQ';
+                resultIcon.className = 'result-icon medium';
+                resultTitle.textContent = 'Einige Hinweise auf Hochbegabung';
+                resultDescription.innerHTML = `
+                    <p>Deine Antworten zeigen <strong>mehrere Merkmale, die bei Hochbegabten vorkommen</strong>. Du koenntest ueberdurchschnittlich begabt sein oder eine Teilhochbegabung haben.</p>
+
+                    <p>Unabhaengig von einem IQ-Wert: Du hast offenbar <strong>besondere kognitive Faehigkeiten und eine reiche Innenwelt</strong>. Das bringt Staerken mit sich, aber manchmal auch Herausforderungen:</p>
+
+                    <ul style="text-align: left; padding-left: 20px; margin: 20px 0;">
+                        <li>Gefuehl, nicht ganz reinzupassen</li>
+                        <li>Frustration ueber Langsamkeit anderer</li>
+                        <li>Schwierigkeit, sich auf eine Sache zu fokussieren</li>
+                        <li>Hohe Erwartungen an sich selbst</li>
+                    </ul>
+
+                    <p>Ob hochbegabt oder nicht - du verdienst Unterstuetzung dabei, dein Potenzial zu leben.</p>
+                `;
+                ctaText.textContent = 'Lass uns schauen, wie du deine besonderen Faehigkeiten besser einsetzen und mit den Herausforderungen umgehen kannst.';
+            } else if (totalScore >= 24) {
+                resultIcon.innerHTML = '~';
+                resultIcon.className = 'result-icon medium';
+                resultTitle.textContent = 'Durchschnittliche Hinweise';
+                resultDescription.innerHTML = `
+                    <p>Deine Antworten zeigen <strong>keine eindeutigen Hinweise auf Hochbegabung</strong>. Das bedeutet nicht, dass du nicht schlau oder faehig bist - nur dass dein Profil nicht typisch fuer Hochbegabung ist.</p>
+
+                    <p>Allerdings: Manchmal versteckt sich Hochbegabung auch. Besonders wenn:</p>
+                    <ul style="text-align: left; padding-left: 20px; margin: 20px 0;">
+                        <li>Du als Kind nicht gefoerdert wurdest</li>
+                        <li>Du gelernt hast, dich anzupassen</li>
+                        <li>Du weiblich sozialisiert wurdest (Frauen verstecken oft ihre Begabung)</li>
+                        <li>Du mit anderen Themen kaempfst (z.B. AD(H)S, Trauma)</li>
+                    </ul>
+
+                    <p>Wenn du trotzdem das Gefuehl hast, dass "etwas anders" ist, solltest du dem nachgehen.</p>
+                `;
+                ctaText.textContent = 'Wenn das Thema dich beschaeftigt, lass uns darueber sprechen. Manchmal hilft ein Gespraech von aussen.';
+            } else {
+                resultIcon.innerHTML = '-';
+                resultIcon.className = 'result-icon low';
+                resultTitle.textContent = 'Wenig Hinweise auf Hochbegabung';
+                resultDescription.innerHTML = `
+                    <p>Basierend auf deinen Antworten gibt es <strong>wenig typische Hinweise auf Hochbegabung</strong>. Das ist weder gut noch schlecht - jeder Mensch hat seine eigenen Staerken.</p>
+
+                    <p>Vielleicht hast du diesen Test aus Neugier gemacht oder fuer jemand anderen?</p>
+
+                    <p>Falls du nach diesem Test hierher gekommen bist, weil du dich "anders" fuehlst: Vielleicht ist es nicht Hochbegabung, aber etwas anderes - Hochsensibilitaet zum Beispiel. Oder du steckst in einer Lebensphase, die Veraenderung braucht.</p>
+                `;
+                ctaText.textContent = 'Wenn dich etwas beschaeftigt, koennen wir gerne darueber sprechen - auch ohne Hochbegabung als Thema.';
+            }
+
+            resultScore.textContent = `Dein Wert: ${totalScore} von 48 Punkten`;
+            resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+</html>

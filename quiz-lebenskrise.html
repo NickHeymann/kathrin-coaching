@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burnout oder Sinnkrise? Selbsttest | KATHRIN STAHL Coaching</title>
+    <meta name="description" content="Kostenloser Selbsttest: Ist es Burnout oder eine Sinnkrise? 10 Fragen helfen dir zu verstehen, was wirklich hinter deiner Erschoepfung steckt.">
+    <meta name="keywords" content="Burnout Test, Sinnkrise Test, Erschoepfung, Lebenskrise, Selbsttest, Midlife Crisis">
+    <link rel="canonical" href="https://nickheymann.github.io/kathrin-coaching/quiz-lebenskrise.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Burnout oder Sinnkrise? Kostenloser Selbsttest">
+    <meta property="og:description" content="Finde in 3 Minuten heraus, ob du an Burnout leidest oder in einer Sinnkrise steckst - und was dir jetzt wirklich hilft.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nickheymann.github.io/kathrin-coaching/quiz-lebenskrise.html">
+
+    <!-- Schema.org Quiz Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Quiz",
+        "name": "Burnout oder Sinnkrise? Selbsttest",
+        "description": "Ein Selbsttest mit 10 Fragen um herauszufinden, ob deine Erschoepfung auf Burnout oder eine tiefere Sinnkrise hindeutet.",
+        "educationalLevel": "beginner",
+        "learningResourceType": "Quiz",
+        "provider": {
+            "@type": "Person",
+            "name": "Kathrin Stahl",
+            "url": "https://nickheymann.github.io/kathrin-coaching/"
+        }
+    }
+    </script>
+
+    <!-- Styles -->
+    <link rel='stylesheet' href='wp-content/themes/efor/css/normalize32d4.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='wp-content/themes/efor/css/bootstrap32d4.css' type='text/css' media='all'>
+    <link rel="stylesheet" href="custom-fixes.css" type="text/css" media="all">
+    <link rel="stylesheet" href="modern-design.css" type="text/css" media="all">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f0eb 0%, #ebe4dc 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .quiz-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: #fff;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .quiz-header h1 {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .quiz-header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .quiz-header a {
+            color: #D2AB74;
+            text-decoration: none;
+        }
+
+        .quiz-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .progress-container {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #D2AB74, #e8c496);
+            border-radius: 4px;
+            transition: width 0.4s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+        }
+
+        .question-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .question-card.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-number {
+            font-size: 0.85rem;
+            color: #D2AB74;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 18px 20px;
+            background: #f8f6f3;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            text-align: left;
+        }
+
+        .option:hover {
+            background: #fff;
+            border-color: #D2AB74;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: #D2AB74;
+            color: #fff;
+            border-color: #D2AB74;
+        }
+
+        .result-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .result-card.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .result-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 3rem;
+        }
+
+        .result-icon.burnout {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: #fff;
+        }
+
+        .result-icon.sinnkrise {
+            background: linear-gradient(135deg, #f39c12, #d68910);
+            color: #fff;
+        }
+
+        .result-icon.mixed {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: #fff;
+        }
+
+        .result-icon.healthy {
+            background: linear-gradient(135deg, #27ae60, #229954);
+            color: #fff;
+        }
+
+        .result-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .result-score {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .result-description {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            text-align: left;
+            font-size: 1.05rem;
+        }
+
+        .result-meter {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f6f3;
+            border-radius: 10px;
+        }
+
+        .meter-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .meter-bar {
+            height: 20px;
+            background: linear-gradient(90deg, #27ae60 0%, #f1c40f 40%, #e74c3c 100%);
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .meter-indicator {
+            position: absolute;
+            top: -8px;
+            width: 36px;
+            height: 36px;
+            background: #fff;
+            border: 3px solid #2c3e50;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            transition: left 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #D2AB74 0%, #c9a066 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .cta-section h3 {
+            color: #fff;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .cta-section p {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #fff;
+            color: #D2AB74;
+            padding: 16px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .other-quizzes {
+            margin-top: 40px;
+            padding: 25px;
+            background: #f8f6f3;
+            border-radius: 10px;
+        }
+
+        .other-quizzes h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .quiz-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .quiz-link {
+            padding: 10px 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-link:hover {
+            border-color: #D2AB74;
+            color: #D2AB74;
+        }
+
+        .warning-signs {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .warning-signs h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .warning-signs ul {
+            color: #856404;
+            padding-left: 20px;
+        }
+
+        .warning-signs li {
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 600px) {
+            .quiz-container {
+                padding: 15px;
+            }
+
+            .question-card {
+                padding: 20px;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .result-card {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="quiz-header">
+        <h1>Burnout oder Sinnkrise?</h1>
+        <p>Finde heraus, was wirklich hinter deiner Erschoepfung steckt</p>
+        <p style="margin-top: 15px;"><a href="index.html">Zurueck zur Startseite</a></p>
+    </header>
+
+    <main class="quiz-container">
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text"><span id="currentQuestion">1</span> von 10 Fragen</div>
+        </div>
+
+        <!-- Question 1 -->
+        <div class="question-card active" data-question="1">
+            <div class="question-number">Frage 1 von 10</div>
+            <div class="question-text">Wie fuehlt sich dein Alltag gerade an?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4, 'burnout')">Ich funktioniere nur noch - innerlich bin ich leer und erschoepft</div>
+                <div class="option" onclick="selectOption(this, 4, 'sinn')">Alles laeuft eigentlich, aber es fuehlt sich sinnlos an</div>
+                <div class="option" onclick="selectOption(this, 2, 'mixed')">Mal so, mal so - ich schwanke zwischen Erschoepfung und Leere</div>
+                <div class="option" onclick="selectOption(this, 1, 'healthy')">Es gibt anstrengende Phasen, aber insgesamt ist es okay</div>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-card" data-question="2">
+            <div class="question-number">Frage 2 von 10</div>
+            <div class="question-text">Wenn du an deine Arbeit denkst...</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4, 'burnout')">Ich kann nicht mehr - die Anforderungen ueberwaeltigen mich</div>
+                <div class="option" onclick="selectOption(this, 4, 'sinn')">Ich koennte schon, aber wozu? Es erscheint mir bedeutungslos</div>
+                <div class="option" onclick="selectOption(this, 2, 'mixed')">Ich bin hin- und hergerissen zwischen Ueberarbeitung und Zweifel am Sinn</div>
+                <div class="option" onclick="selectOption(this, 1, 'healthy')">Meine Arbeit ist manchmal stressig, aber sie erfuellt mich auch</div>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-card" data-question="3">
+            <div class="question-text">Wie steht es um deinen Schlaf?</div>
+            <div class="question-number">Frage 3 von 10</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4, 'burnout')">Ich kann nicht abschalten - waelze mich, wache oft auf</div>
+                <div class="option" onclick="selectOption(this, 4, 'sinn')">Ich schlafe, aber wache mit einem leeren Gefuehl auf</div>
+                <div class="option" onclick="selectOption(this, 2, 'mixed')">Unterschiedlich - manchmal Gedankenkreisen, manchmal tiefe Traurigkeit</div>
+                <div class="option" onclick="selectOption(this, 1, 'healthy')">Mein Schlaf ist weitgehend erholsam</div>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-card" data-question="4">
+            <div class="question-number">Frage 4 von 10</div>
+            <div class="question-text">Wie gehst du mit Freizeit um?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4, 'burnout')">Welche Freizeit? Selbst am Wochenende bin ich erschoepft oder arbeite</div>
+                <div class="option" onclick="selectOption(this, 4, 'sinn')">Ich haette Zeit, aber nichts macht mir wirklich Freude mehr</div>
+                <div class="option" onclick="selectOption(this, 2, 'mixed')">Ich weiss nicht, was ich will - Energie fehlt UND Motivation</div>
+                <div class="option" onclick="selectOption(this, 1, 'healthy')">Ich geniesse meine freie Zeit meistens</div>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-card" data-question="5">
+            <div class="question-number">Frage 5 von 10</div>
+            <div class="question-text">Koerperliche Symptome - was trifft auf dich zu?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4, 'burnout')">Kopfschmerzen, Rueckenschmerzen, Herzrasen, Magenbeschwerden</div>
+                <div class="option" onclick="selectOption(this, 4, 'sinn')">Eher diffus - eine schwere Muedigkeit, die sich wie Traurigkeit anfuehlt</div>
+                <div class="option" onclick="selectOption(this, 3, 'mixed')">Beides - koerperliche Beschwerden UND eine tiefe Schwere</div>
+                <div class="option" onclick="selectOption(this, 1, 'healthy')">Mir geht es koerperlich weitgehend gut</div>
+            </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question-card" data-question="6">
+            <div class="question-number">Frage 6 von 10</div>
+            <div class="question-text">Was wuerdest du am liebsten tun?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4, 'burnout')">Einfach nur Pause machen - alles stoppen</div>
+                <div class="option" onclick="selectOption(this, 4, 'sinn')">Etwas ganz anderes machen - mein Leben komplett umkrempeln</div>
+                <div class="option" onclick="selectOption(this, 2, 'mixed')">Ich weiss es nicht - ich bin orientierungslos</div>
+                <div class="option" onclick="selectOption(this, 1, 'healthy')">Weitermachen wie bisher, nur mit kleinen Anpassungen</div>
+            </div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question-card" data-question="7">
+            <div class="question-number">Frage 7 von 10</div>
+            <div class="question-text">Wie lange dauert dieser Zustand schon an?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4, 'burnout')">Einige Monate - es wurde immer schlimmer, bis ich am Limit war</div>
+                <div class="option" onclick="selectOption(this, 4, 'sinn')">Schon laenger - es ist eher ein schleichendes Gefuehl von "Ist das alles?"</div>
+                <div class="option" onclick="selectOption(this, 2, 'mixed')">Schwer zu sagen - es kam in Wellen und wurde staerker</div>
+                <div class="option" onclick="selectOption(this, 1, 'healthy')">Es sind eher kurze Phasen, die wieder vorbeigehen</div>
+            </div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question-card" data-question="8">
+            <div class="question-number">Frage 8 von 10</div>
+            <div class="question-text">Wie fuehlt sich der Gedanke an "in 5 Jahren" an?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4, 'burnout')">Ich kann nicht so weit denken - erstmal ueberleben</div>
+                <div class="option" onclick="selectOption(this, 4, 'sinn')">So wie jetzt? Das macht mir Angst. Ich will was anderes</div>
+                <div class="option" onclick="selectOption(this, 2, 'mixed')">Es fuehlt sich nebelig an - keine Kraft und keine Vision</div>
+                <div class="option" onclick="selectOption(this, 1, 'healthy')">Ich habe eine ungefaehre Vorstellung und freue mich darauf</div>
+            </div>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="question-card" data-question="9">
+            <div class="question-number">Frage 9 von 10</div>
+            <div class="question-text">Was wuerde dir jetzt am meisten helfen?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4, 'burnout')">Ruhe, Erholung, weniger Druck von aussen</div>
+                <div class="option" onclick="selectOption(this, 4, 'sinn')">Klarheit, was ich wirklich will - eine neue Richtung</div>
+                <div class="option" onclick="selectOption(this, 3, 'mixed')">Beides - erstmal zur Ruhe kommen und dann Klarheit finden</div>
+                <div class="option" onclick="selectOption(this, 1, 'healthy')">Kleine Anpassungen reichen - es ist nicht so dramatisch</div>
+            </div>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="question-card" data-question="10">
+            <div class="question-number">Frage 10 von 10</div>
+            <div class="question-text">Wenn du ganz ehrlich bist - was belastet dich am meisten?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4, 'burnout')">Dass ich nicht mehr kann - mein Koerper und Geist streiken</div>
+                <div class="option" onclick="selectOption(this, 4, 'sinn')">Dass ich nicht mehr will - so macht es keinen Sinn</div>
+                <div class="option" onclick="selectOption(this, 3, 'mixed')">Beides - ich kann nicht mehr und weiss auch nicht mehr wozu</div>
+                <div class="option" onclick="selectOption(this, 1, 'healthy')">Ich habe gerade keine groesseren Probleme</div>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div class="result-card" id="resultCard">
+            <div class="result-icon" id="resultIcon"></div>
+            <h2 class="result-title" id="resultTitle"></h2>
+            <p class="result-score" id="resultScore"></p>
+
+            <div class="result-meter">
+                <div class="meter-labels">
+                    <span>Gesund</span>
+                    <span>Belastet</span>
+                    <span>Kritisch</span>
+                </div>
+                <div class="meter-bar">
+                    <div class="meter-indicator" id="meterIndicator"></div>
+                </div>
+            </div>
+
+            <div class="result-description" id="resultDescription"></div>
+
+            <div class="cta-section">
+                <h3>Dein naechster Schritt</h3>
+                <p id="ctaText">In einem kostenlosen Erstgespraech schauen wir gemeinsam, was du jetzt brauchst.</p>
+                <button class="cta-button" onclick="bookErstgespraech()">Kostenloses Gespraech buchen</button>
+            </div>
+
+            <div class="other-quizzes">
+                <h4>Diese Tests koennten dich auch interessieren:</h4>
+                <div class="quiz-links">
+                    <a href="quiz-hochsensibel.html" class="quiz-link">Bin ich hochsensibel?</a>
+                    <a href="quiz-beziehung.html" class="quiz-link">Beziehungs-Check</a>
+                    <a href="quiz-hochbegabt.html" class="quiz-link">Bin ich hochbegabt?</a>
+                    <a href="quiz-midlife.html" class="quiz-link">Midlife Crisis Test</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="cal-booking.js"></script>
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 10;
+        let totalScore = 0;
+        let burnoutScore = 0;
+        let sinnScore = 0;
+        let mixedScore = 0;
+
+        function selectOption(element, points, type) {
+            // Mark selected
+            const options = element.parentElement.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+
+            // Add to scores
+            totalScore += points;
+            if (type === 'burnout') burnoutScore++;
+            if (type === 'sinn') sinnScore++;
+            if (type === 'mixed') mixedScore++;
+
+            // Delay before next question
+            setTimeout(() => {
+                if (currentQuestion < totalQuestions) {
+                    // Hide current question
+                    document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.remove('active');
+                    currentQuestion++;
+
+                    // Show next question
+                    document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.add('active');
+
+                    // Update progress
+                    const progress = (currentQuestion / totalQuestions) * 100;
+                    document.getElementById('progressFill').style.width = progress + '%';
+                    document.getElementById('currentQuestion').textContent = currentQuestion;
+                } else {
+                    showResults();
+                }
+            }, 400);
+        }
+
+        function showResults() {
+            // Hide last question and progress
+            document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.remove('active');
+            document.querySelector('.progress-container').style.display = 'none';
+
+            // Show result
+            const resultCard = document.getElementById('resultCard');
+            resultCard.classList.add('active');
+
+            const resultIcon = document.getElementById('resultIcon');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultScore = document.getElementById('resultScore');
+            const resultDescription = document.getElementById('resultDescription');
+            const meterIndicator = document.getElementById('meterIndicator');
+            const ctaText = document.getElementById('ctaText');
+
+            // Calculate position on meter (10-40 score range)
+            const meterPosition = Math.min(100, Math.max(0, ((totalScore - 10) / 30) * 100));
+            meterIndicator.style.left = meterPosition + '%';
+            meterIndicator.textContent = totalScore;
+
+            // Determine primary tendency
+            let primaryType = 'healthy';
+            if (burnoutScore >= sinnScore && burnoutScore >= mixedScore && burnoutScore >= 3) {
+                primaryType = 'burnout';
+            } else if (sinnScore >= burnoutScore && sinnScore >= mixedScore && sinnScore >= 3) {
+                primaryType = 'sinn';
+            } else if (mixedScore >= 3 || (burnoutScore >= 2 && sinnScore >= 2)) {
+                primaryType = 'mixed';
+            }
+
+            if (totalScore >= 32) {
+                // Critical - Burnout or Sinnkrise
+                if (primaryType === 'burnout') {
+                    resultIcon.innerHTML = '!';
+                    resultIcon.className = 'result-icon burnout';
+                    resultTitle.textContent = 'Achtung: Burnout-Anzeichen';
+                    resultDescription.innerHTML = `
+                        <p>Deine Antworten zeigen deutliche Zeichen von <strong>Burnout</strong>. Dein Koerper und deine Psyche senden dir klare Warnsignale, dass es so nicht weitergehen kann.</p>
+
+                        <div class="warning-signs">
+                            <h4>Typische Burnout-Anzeichen:</h4>
+                            <ul>
+                                <li>Chronische Erschoepfung, die durch Schlaf nicht besser wird</li>
+                                <li>Zynismus und emotionale Distanz zur Arbeit</li>
+                                <li>Gefuehl der Ineffektivitaet trotz Ueberarbeitung</li>
+                                <li>Koerperliche Symptome ohne medizinische Ursache</li>
+                            </ul>
+                        </div>
+
+                        <p><strong>Das Gute:</strong> Burnout ist kein Versagen - es ist ein Signal. Mit der richtigen Unterstuetzung kannst du wieder in deine Kraft kommen. Aber dafuer brauchst du jetzt Hilfe.</p>
+                    `;
+                    ctaText.textContent = 'In einem Gespraech schauen wir, was du jetzt konkret brauchst, um wieder zu dir zu finden.';
+                } else if (primaryType === 'sinn') {
+                    resultIcon.innerHTML = '?';
+                    resultIcon.className = 'result-icon sinnkrise';
+                    resultTitle.textContent = 'Du steckst in einer Sinnkrise';
+                    resultDescription.innerHTML = `
+                        <p>Deine Antworten deuten auf eine <strong>tiefgreifende Sinnkrise</strong> hin. Du funktionierst vielleicht noch aeusserlich, aber innerlich fragst du dich: "Ist das alles? Wofuer mache ich das?"</p>
+
+                        <p>Das ist keine Schwaehe - es ist ein <strong>wichtiger Ruf deiner Seele</strong>. Viele Menschen um die 40 erleben solche Phasen, wenn sie merken, dass ihr bisheriges Leben nicht mehr zu dem passt, wer sie wirklich sind.</p>
+
+                        <p><strong>Die Chance:</strong> Eine Sinnkrise ist immer auch eine Einladung zum Wachstum. Dahinter wartet oft ein authentischeres, erfuellteres Leben - wenn du den Mut hast, hinzuschauen.</p>
+                    `;
+                    ctaText.textContent = 'Lass uns gemeinsam erkunden, was deine Seele dir sagen will und wohin dein neuer Weg fuehren koennte.';
+                } else {
+                    resultIcon.innerHTML = '!!';
+                    resultIcon.className = 'result-icon mixed';
+                    resultTitle.textContent = 'Burnout trifft Sinnkrise';
+                    resultDescription.innerHTML = `
+                        <p>Deine Antworten zeigen ein komplexes Bild: Du erlebst <strong>sowohl koerperliche/mentale Erschoepfung als auch eine tiefe Sinnfrage</strong>. Das ist haeufiger als du denkst.</p>
+
+                        <p>Oft fuehrt langanhaltender Stress dazu, dass wir grundlegende Lebensfragen verdraengen. Und wenn dann die Kraft nachlässt, kommen alle Zweifel hoch.</p>
+
+                        <p><strong>Was jetzt wichtig ist:</strong> Erstmal zur Ruhe kommen - und dann schauen, was wirklich dahinter steckt. Denn reine Erholung reicht nicht, wenn das zugrundeliegende Problem ein fehlendes "Wozu" ist.</p>
+                    `;
+                    ctaText.textContent = 'In meiner Begleitung arbeiten wir ganzheitlich: Koerper, Geist und Seele - damit du nicht nur wieder funktionierst, sondern wirklich lebst.';
+                }
+            } else if (totalScore >= 24) {
+                resultIcon.innerHTML = '~';
+                resultIcon.className = 'result-icon sinnkrise';
+                resultTitle.textContent = 'Warnsignale sind da';
+                resultDescription.innerHTML = `
+                    <p>Deine Antworten zeigen, dass du dich in einer <strong>ernstzunehmenden Belastungsphase</strong> befindest. Noch ist es kein vollstaendiger Burnout oder eine tiefe Krise - aber die Zeichen sind da.</p>
+
+                    <p>Das ist der <strong>perfekte Zeitpunkt</strong>, um etwas zu veraendern. Denn jetzt hast du noch Energie, um aktiv gegenzusteuern, statt zu warten, bis gar nichts mehr geht.</p>
+
+                    <p>Die Frage ist: Was genau brauchst du gerade? Mehr Pausen? Klarheit ueber deine Werte? Eine neue Richtung? Oder einfach jemanden, der zuhoert?</p>
+                `;
+                ctaText.textContent = 'Lass uns in einem Gespraech herausfinden, was der naechste richtige Schritt fuer dich ist.';
+            } else if (totalScore >= 16) {
+                resultIcon.innerHTML = 'i';
+                resultIcon.className = 'result-icon healthy';
+                resultTitle.textContent = 'Leichte Belastung - normaler Stress';
+                resultDescription.innerHTML = `
+                    <p>Deine Antworten zeigen, dass du <strong>etwas Stress erlebst, aber grundsaetzlich gut aufgestellt bist</strong>. Jeder hat mal anstrengende Phasen.</p>
+
+                    <p>Trotzdem: Wenn du diesen Test gemacht hast, gibt es vermutlich einen Grund. Vielleicht ein leises Gefuehl, dass sich etwas aendern sollte?</p>
+
+                    <p>Das ist ein guter Moment fuer <strong>Praevention</strong> - um zu schauen, wie du langfristig gesund und erfuellt bleiben kannst.</p>
+                `;
+                ctaText.textContent = 'Wenn du magst, koennen wir in einem kurzen Gespraech schauen, ob es Themen gibt, die dich beschaeftigen.';
+            } else {
+                resultIcon.innerHTML = '';
+                resultIcon.className = 'result-icon healthy';
+                resultTitle.textContent = 'Dir geht es gut!';
+                resultDescription.innerHTML = `
+                    <p>Glueckwunsch! Deine Antworten zeigen, dass du <strong>aktuell weder unter Burnout noch unter einer Sinnkrise leidest</strong>.</p>
+
+                    <p>Das bedeutet nicht, dass dein Leben perfekt ist - aber du hast offenbar gute Strategien, um mit Herausforderungen umzugehen.</p>
+
+                    <p>Falls du diesen Test aus Neugier oder fuer jemand anderen gemacht hast: Teile ihn gerne!</p>
+                `;
+                ctaText.textContent = 'Auch ohne akute Krise kann Coaching helfen. Ich unterstuetze auch bei Weiterentwicklung und Lebensgestaltung.';
+            }
+
+            resultScore.textContent = `Dein Wert: ${totalScore} von 40 Punkten`;
+
+            // Scroll to result
+            resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+</html>

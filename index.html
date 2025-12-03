@@ -795,6 +795,121 @@
             margin: 0 auto 25px;
         }
 
+        /* ===== SELF-TESTS SECTION ===== */
+        .self-tests-section {
+            background: linear-gradient(135deg, #f8f5f1 0%, #efe9e1 100%);
+            padding: 80px 0;
+        }
+
+        .self-tests-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .self-tests-header h2 {
+            color: var(--color-primary);
+            margin-bottom: 15px;
+        }
+
+        .self-tests-header p {
+            color: var(--color-text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .self-tests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .self-test-card {
+            background: var(--color-white);
+            border-radius: 12px;
+            padding: 25px 20px;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .self-test-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+
+        .self-test-card .test-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--color-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .self-test-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--color-primary);
+            margin-bottom: 10px;
+        }
+
+        .self-test-card p {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .self-test-card .test-duration {
+            display: inline-block;
+            background: var(--color-cream);
+            color: var(--color-text-light);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .self-tests-section {
+                padding: 60px 20px;
+            }
+
+            .self-tests-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .self-test-card {
+                padding: 20px 15px;
+            }
+
+            .self-test-card .test-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1rem;
+            }
+
+            .self-test-card h3 {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .self-tests-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* ===== TESTIMONIALS GRID ===== */
         .testimonials-section {
             background: var(--color-white);
@@ -2239,6 +2354,48 @@
                     <a href="#" class="btn btn-primary" onclick="bookRetreat(); return false;">Retreat anfragen</a>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- Self-Tests Section -->
+<section class="self-tests-section" id="selbsttests">
+    <div class="container">
+        <div class="self-tests-header">
+            <h2>Kostenlose Selbsttests</h2>
+            <p>Finde heraus, was wirklich hinter deinen Gefuehlen steckt - wissenschaftlich fundiert und anonym.</p>
+        </div>
+        <div class="self-tests-grid">
+            <a href="quiz-hochsensibel.html" class="self-test-card">
+                <div class="test-icon">HSP</div>
+                <h3>Bin ich hochsensibel?</h3>
+                <p>12 Fragen zeigen dir, ob Hochsensibilitaet ein Thema fuer dich ist.</p>
+                <span class="test-duration">3 Min.</span>
+            </a>
+            <a href="quiz-hochbegabt.html" class="self-test-card">
+                <div class="test-icon">IQ+</div>
+                <h3>Bin ich hochbegabt?</h3>
+                <p>Erste Hinweise, ob ueberdurchschnittliche Begabung bei dir vorliegen koennte.</p>
+                <span class="test-duration">4 Min.</span>
+            </a>
+            <a href="quiz-beziehung.html" class="self-test-card">
+                <div class="test-icon">2</div>
+                <h3>Beziehungs-Check</h3>
+                <p>Ist eure Beziehung noch zu retten? Ein ehrlicher Blick auf eure Situation.</p>
+                <span class="test-duration">3 Min.</span>
+            </a>
+            <a href="quiz-lebenskrise.html" class="self-test-card">
+                <div class="test-icon">!</div>
+                <h3>Burnout oder Sinnkrise?</h3>
+                <p>Finde heraus, was wirklich hinter deiner Erschoepfung steckt.</p>
+                <span class="test-duration">3 Min.</span>
+            </a>
+            <a href="quiz-midlife.html" class="self-test-card">
+                <div class="test-icon">40+</div>
+                <h3>Midlife Crisis Test</h3>
+                <p>Steckst du in einer Lebenskrise? Ein Test fuer die Lebensmitte.</p>
+                <span class="test-duration">3 Min.</span>
+            </a>
         </div>
     </div>
 </section>

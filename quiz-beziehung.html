@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beziehungs-Check: Ist unsere Ehe noch zu retten? | Kathrin Stahl</title>
+    <meta name="description" content="Kostenloser Beziehungstest: Finde heraus, ob eure Beziehung noch zu retten ist oder ob Trennung der richtige Weg ist. Ehrliche Auswertung + nächste Schritte.">
+    <meta name="keywords" content="beziehungstest, ehe retten, beziehungskrise test, trennung oder bleiben, ehekrise test, beziehung am ende test">
+    <link rel="canonical" href="https://nickheymann.github.io/kathrin-coaching/quiz-beziehung.html">
+
+    <meta property="og:title" content="Beziehungs-Check: Ist unsere Ehe noch zu retten?">
+    <meta property="og:description" content="Ehrlicher Beziehungstest mit sofortiger Auswertung. Finde Klarheit für eure Situation.">
+    <meta property="og:type" content="website">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Quiz",
+        "name": "Beziehungs-Check - Ist unsere Ehe noch zu retten?",
+        "description": "Ehrlicher Beziehungstest für Paare in der Krise mit 10 Fragen",
+        "provider": {
+            "@type": "Person",
+            "name": "Kathrin Stahl"
+        }
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --color-primary: #2C4A47;
+            --color-primary-light: #3D6B66;
+            --color-accent: #C4A962;
+            --color-accent-dark: #A68B3D;
+            --color-cream: #FAF8F5;
+            --color-white: #FFFFFF;
+            --color-text: #2D2D2D;
+            --color-text-light: #5A5A5A;
+            --color-love: #c9a9a9;
+            --font-heading: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Montserrat', -apple-system, sans-serif;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--color-text);
+            background: var(--color-cream);
+            min-height: 100vh;
+        }
+        .quiz-header {
+            background: var(--color-white);
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .quiz-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+        .back-link {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+            text-decoration: none;
+        }
+        .back-link:hover { color: var(--color-primary); }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .quiz-hero {
+            background: linear-gradient(135deg, var(--color-love) 0%, #a08080 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        .quiz-hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        .quiz-hero p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .quiz-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 20px;
+        }
+        .quiz-main { padding: 50px 0 80px; }
+        .quiz-card {
+            background: var(--color-white);
+            border-radius: 16px;
+            padding: 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+        .progress-container { margin-bottom: 40px; }
+        .progress-bar {
+            height: 6px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-love) 0%, var(--color-primary) 100%);
+            border-radius: 3px;
+            transition: width 0.4s ease;
+        }
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+        }
+        .quiz-question-container { display: none; }
+        .quiz-question-container.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .question-number {
+            font-size: 0.85rem;
+            color: var(--color-love);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+        }
+        .question-text {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .answer-option {
+            display: flex;
+            align-items: center;
+            padding: 18px 24px;
+            border: 2px solid rgba(0,0,0,0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--color-white);
+        }
+        .answer-option:hover {
+            border-color: var(--color-love);
+            background: rgba(201, 169, 169, 0.05);
+        }
+        .answer-option.selected {
+            border-color: var(--color-primary);
+            background: rgba(44, 74, 71, 0.08);
+        }
+        .answer-radio {
+            width: 22px;
+            height: 22px;
+            border: 2px solid rgba(0,0,0,0.2);
+            border-radius: 50%;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+        .answer-option.selected .answer-radio {
+            border-color: var(--color-primary);
+            background: var(--color-primary);
+        }
+        .answer-option.selected .answer-radio::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+        }
+        .answer-text { font-size: 1rem; }
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(0,0,0,0.08);
+        }
+        .btn {
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+        .btn-back {
+            background: transparent;
+            color: var(--color-text-light);
+            border: 2px solid rgba(0,0,0,0.1);
+        }
+        .btn-back:hover { border-color: var(--color-text-light); }
+        .btn-next {
+            background: var(--color-accent);
+            color: white;
+        }
+        .btn-next:hover {
+            background: var(--color-accent-dark);
+            transform: translateY(-1px);
+        }
+        .btn-next:disabled {
+            background: rgba(0,0,0,0.1);
+            color: rgba(0,0,0,0.3);
+            cursor: not-allowed;
+            transform: none;
+        }
+        .quiz-results { display: none; text-align: center; }
+        .quiz-results.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        .result-meter {
+            max-width: 300px;
+            margin: 0 auto 30px;
+        }
+        .meter-bar {
+            height: 20px;
+            background: linear-gradient(90deg, #e57373 0%, #fff176 50%, #81c784 100%);
+            border-radius: 10px;
+            position: relative;
+        }
+        .meter-indicator {
+            position: absolute;
+            top: -8px;
+            width: 36px;
+            height: 36px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transform: translateX(-50%);
+            transition: left 0.5s ease;
+        }
+        .meter-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--color-text-light);
+        }
+        .result-title {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--color-primary);
+            margin-bottom: 20px;
+        }
+        .result-description {
+            font-size: 1.1rem;
+            color: var(--color-text-light);
+            max-width: 550px;
+            margin: 0 auto 30px;
+            line-height: 1.8;
+        }
+        .result-details {
+            background: var(--color-cream);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        .result-details h4 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--color-primary);
+            margin-bottom: 15px;
+        }
+        .result-details ul { list-style: none; }
+        .result-details li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: var(--color-text-light);
+        }
+        .result-details li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--color-love);
+            font-weight: bold;
+        }
+        .result-cta {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 40px;
+            color: white;
+        }
+        .result-cta h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        .result-cta p { opacity: 0.9; margin-bottom: 25px; }
+        .result-cta .btn {
+            background: var(--color-accent);
+            color: white;
+            padding: 16px 36px;
+            font-size: 1rem;
+        }
+        .result-cta .btn:hover { background: var(--color-accent-dark); }
+        @media (max-width: 768px) {
+            .quiz-card { padding: 30px 20px; }
+            .question-text { font-size: 1.3rem; }
+            .quiz-nav { flex-direction: column-reverse; gap: 15px; }
+            .btn { width: 100%; text-align: center; }
+        }
+        .quiz-footer {
+            background: var(--color-text);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+        }
+        .quiz-footer p { opacity: 0.6; font-size: 0.85rem; }
+        .quiz-footer a { color: white; opacity: 0.6; }
+        .quiz-footer a:hover { opacity: 1; }
+        .other-quizzes {
+            background: var(--color-white);
+            padding: 50px 0;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        .other-quizzes h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .quiz-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .quiz-link-card {
+            padding: 25px;
+            border: 2px solid rgba(0,0,0,0.08);
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .quiz-link-card:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        .quiz-link-card h4 {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+        .quiz-link-card p {
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<header class="quiz-header">
+    <div class="container">
+        <a href="index.html" class="logo">KATHRIN STAHL</a>
+        <a href="index.html" class="back-link">← Zurück zur Hauptseite</a>
+    </div>
+</header>
+
+<section class="quiz-hero">
+    <div class="container">
+        <h1>Ist eure Beziehung noch zu retten?</h1>
+        <p>Ein ehrlicher Test für Paare in der Krise. Finde heraus, wo ihr steht und welcher Weg für euch der richtige sein könnte.</p>
+        <div class="quiz-badge">
+            <span>💕</span> 5 Minuten · 10 Fragen · Ehrliche Auswertung
+        </div>
+    </div>
+</section>
+
+<main class="quiz-main">
+    <div class="container">
+        <div class="quiz-card">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 10%"></div>
+                </div>
+                <div class="progress-text">
+                    <span id="progressText">Frage 1 von 10</span>
+                    <span id="progressPercent">10%</span>
+                </div>
+            </div>
+
+            <div id="quizQuestions">
+                <!-- Question 1 -->
+                <div class="quiz-question-container active" data-question="1">
+                    <div class="question-number">Frage 1</div>
+                    <h2 class="question-text">Wie oft streitet ihr über die gleichen Themen, ohne eine Lösung zu finden?</h2>
+                    <div class="answer-options">
+                        <div class="answer-option" data-value="1" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Ständig - wir drehen uns im Kreis</span>
+                        </div>
+                        <div class="answer-option" data-value="2" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Oft, die gleichen Konflikte kommen immer wieder hoch</span>
+                        </div>
+                        <div class="answer-option" data-value="3" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Manchmal, aber wir können auch Lösungen finden</span>
+                        </div>
+                        <div class="answer-option" data-value="4" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Selten - wir können Konflikte meist klären</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="quiz-question-container" data-question="2">
+                    <div class="question-number">Frage 2</div>
+                    <h2 class="question-text">Wenn du an eure gemeinsame Zukunft denkst, was empfindest du?</h2>
+                    <div class="answer-options">
+                        <div class="answer-option" data-value="1" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Angst, Leere oder gar nichts mehr</span>
+                        </div>
+                        <div class="answer-option" data-value="2" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Zweifel und Unsicherheit</span>
+                        </div>
+                        <div class="answer-option" data-value="3" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Gemischte Gefühle - Hoffnung und Sorge</span>
+                        </div>
+                        <div class="answer-option" data-value="4" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Trotz der Schwierigkeiten noch Hoffnung und Wärme</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="quiz-question-container" data-question="3">
+                    <div class="question-number">Frage 3</div>
+                    <h2 class="question-text">Wie ist eure körperliche Nähe und Intimität?</h2>
+                    <div class="answer-options">
+                        <div class="answer-option" data-value="1" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Praktisch nicht mehr vorhanden</span>
+                        </div>
+                        <div class="answer-option" data-value="2" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Sehr selten und oft nur aus Pflichtgefühl</span>
+                        </div>
+                        <div class="answer-option" data-value="3" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Weniger als früher, aber noch vorhanden</span>
+                        </div>
+                        <div class="answer-option" data-value="4" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Zwar nicht perfekt, aber wir sind uns noch nahe</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="quiz-question-container" data-question="4">
+                    <div class="question-number">Frage 4</div>
+                    <h2 class="question-text">Fühlst du dich von deinem Partner/deiner Partnerin respektiert?</h2>
+                    <div class="answer-options">
+                        <div class="answer-option" data-value="1" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Nein, ich fühle mich oft herabgesetzt oder ignoriert</span>
+                        </div>
+                        <div class="answer-option" data-value="2" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Selten - der Respekt geht in Konflikten verloren</span>
+                        </div>
+                        <div class="answer-option" data-value="3" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Meistens, aber manchmal fehlt er</span>
+                        </div>
+                        <div class="answer-option" data-value="4" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Ja, auch wenn wir Probleme haben, respektieren wir uns</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="quiz-question-container" data-question="5">
+                    <div class="question-number">Frage 5</div>
+                    <h2 class="question-text">Denkst du oft an Trennung?</h2>
+                    <div class="answer-options">
+                        <div class="answer-option" data-value="1" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Ja, täglich oder fast täglich</span>
+                        </div>
+                        <div class="answer-option" data-value="2" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Oft, besonders nach Streit</span>
+                        </div>
+                        <div class="answer-option" data-value="3" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Manchmal, aber ich will es eigentlich nicht</span>
+                        </div>
+                        <div class="answer-option" data-value="4" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Selten oder nie - ich will an uns arbeiten</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="quiz-question-container" data-question="6">
+                    <div class="question-number">Frage 6</div>
+                    <h2 class="question-text">Wie reagiert ihr, wenn einer von euch verletzt oder traurig ist?</h2>
+                    <div class="answer-options">
+                        <div class="answer-option" data-value="1" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Mit Abwehr, Vorwürfen oder Gleichgültigkeit</span>
+                        </div>
+                        <div class="answer-option" data-value="2" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Es eskaliert meist zu einem neuen Streit</span>
+                        </div>
+                        <div class="answer-option" data-value="3" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Wir versuchen es, aber es fällt uns schwer</span>
+                        </div>
+                        <div class="answer-option" data-value="4" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Wir können noch füreinander da sein</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="quiz-question-container" data-question="7">
+                    <div class="question-number">Frage 7</div>
+                    <h2 class="question-text">Habt ihr gemeinsame Ziele, Träume oder Werte, die euch verbinden?</h2>
+                    <div class="answer-options">
+                        <div class="answer-option" data-value="1" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Nein, wir haben uns auseinandergelebt</span>
+                        </div>
+                        <div class="answer-option" data-value="2" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Kaum noch, jeder geht seinen Weg</span>
+                        </div>
+                        <div class="answer-option" data-value="3" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Einige, aber weniger als früher</span>
+                        </div>
+                        <div class="answer-option" data-value="4" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Ja, wichtige Grundwerte teilen wir noch</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="quiz-question-container" data-question="8">
+                    <div class="question-number">Frage 8</div>
+                    <h2 class="question-text">Seid ihr beide bereit, an der Beziehung zu arbeiten?</h2>
+                    <div class="answer-options">
+                        <div class="answer-option" data-value="1" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Nein, mindestens einer hat innerlich aufgegeben</span>
+                        </div>
+                        <div class="answer-option" data-value="2" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Einer will mehr als der andere</span>
+                        </div>
+                        <div class="answer-option" data-value="3" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Wir wollen beide, wissen aber nicht wie</span>
+                        </div>
+                        <div class="answer-option" data-value="4" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Ja, wir sind beide bereit, uns Hilfe zu holen</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="quiz-question-container" data-question="9">
+                    <div class="question-number">Frage 9</div>
+                    <h2 class="question-text">Gibt es Vertrauensbrüche (Affären, Lügen, Verrat), die zwischen euch stehen?</h2>
+                    <div class="answer-options">
+                        <div class="answer-option" data-value="1" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Ja, schwere, die noch nicht aufgearbeitet sind</span>
+                        </div>
+                        <div class="answer-option" data-value="2" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Ja, und das Vertrauen ist noch sehr beschädigt</span>
+                        </div>
+                        <div class="answer-option" data-value="3" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Kleinere, an denen wir arbeiten können</span>
+                        </div>
+                        <div class="answer-option" data-value="4" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Nein, das Grundvertrauen ist noch da</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="quiz-question-container" data-question="10">
+                    <div class="question-number">Frage 10</div>
+                    <h2 class="question-text">Wenn du dir vorstellst, dass eure Beziehung wieder gut wird - kannst du es fühlen?</h2>
+                    <div class="answer-options">
+                        <div class="answer-option" data-value="1" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Nein, ich kann es mir nicht mehr vorstellen</span>
+                        </div>
+                        <div class="answer-option" data-value="2" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Es fällt mir sehr schwer, daran zu glauben</span>
+                        </div>
+                        <div class="answer-option" data-value="3" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Manchmal blitzt die Hoffnung auf</span>
+                        </div>
+                        <div class="answer-option" data-value="4" onclick="selectAnswer(this)">
+                            <div class="answer-radio"></div>
+                            <span class="answer-text">Ja, wenn ich mir Mühe gebe, kann ich es spüren</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-nav">
+                <button class="btn btn-back" id="btnBack" onclick="prevQuestion()" style="visibility: hidden;">← Zurück</button>
+                <button class="btn btn-next" id="btnNext" onclick="nextQuestion()" disabled>Weiter →</button>
+            </div>
+
+            <div class="quiz-results" id="quizResults">
+                <div class="result-meter">
+                    <div class="meter-bar">
+                        <div class="meter-indicator" id="meterIndicator" style="left: 50%"></div>
+                    </div>
+                    <div class="meter-labels">
+                        <span>Krise</span>
+                        <span>Chance</span>
+                    </div>
+                </div>
+
+                <h2 class="result-title" id="resultTitle"></h2>
+                <p class="result-description" id="resultDescription"></p>
+
+                <div class="result-details" id="resultDetails">
+                    <h4>Was das für euch bedeutet:</h4>
+                    <ul id="resultList"></ul>
+                </div>
+
+                <div class="result-cta">
+                    <h3>Klarheit ist der erste Schritt</h3>
+                    <p>Ob ihr zusammenbleibt oder euch trennt - beides kann der richtige Weg sein. In einem Gespräch helfe ich euch, Klarheit zu finden und die nächsten Schritte zu planen.</p>
+                    <button class="btn" onclick="bookCall()">Kostenloses Erstgespräch buchen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<section class="other-quizzes">
+    <div class="container">
+        <h3>Weitere Tests für dich</h3>
+        <div class="quiz-links">
+            <a href="quiz-hochsensibel.html" class="quiz-link-card">
+                <h4>Bin ich hochsensibel?</h4>
+                <p>Der HSP-Selbsttest mit 12 Fragen</p>
+            </a>
+            <a href="quiz-lebenskrise.html" class="quiz-link-card">
+                <h4>Burnout oder Sinnkrise?</h4>
+                <p>Verstehe, was gerade mit dir passiert</p>
+            </a>
+            <a href="quiz-hochbegabt.html" class="quiz-link-card">
+                <h4>Bin ich hochbegabt?</h4>
+                <p>Anzeichen für Hochbegabung bei Erwachsenen</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer class="quiz-footer">
+    <div class="container">
+        <p>© 2025 Kathrin Stahl · <a href="index.html">Zur Hauptseite</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutzerklaerung.html">Datenschutz</a></p>
+    </div>
+</footer>
+
+<script>
+    (function (C, A, L) {
+        let p = function (a, ar) { a.q.push(ar); };
+        let d = C.document;
+        C.Cal = C.Cal || function () {
+            let cal = C.Cal;
+            let ar = arguments;
+            if (!cal.loaded) {
+                cal.ns = {}; cal.q = cal.q || [];
+                d.head.appendChild(d.createElement("script")).src = A;
+                cal.loaded = true;
+            }
+            if (ar[0] === L) {
+                const api = function () { p(api, arguments); };
+                const namespace = ar[1];
+                api.q = api.q || [];
+                typeof namespace === "string" ? (cal.ns[namespace] = api) && p(api, ar) : p(cal, ar);
+                return;
+            }
+            p(cal, ar);
+        };
+    })(window, "https://app.cal.com/embed/embed.js", "init");
+    Cal("init", { origin: "https://app.cal.com" });
+</script>
+
+<script>
+    let currentQuestion = 1;
+    const totalQuestions = 10;
+    let answers = {};
+
+    function selectAnswer(option) {
+        const container = option.closest('.quiz-question-container');
+        container.querySelectorAll('.answer-option').forEach(opt => opt.classList.remove('selected'));
+        option.classList.add('selected');
+        answers[currentQuestion] = parseInt(option.dataset.value);
+        document.getElementById('btnNext').disabled = false;
+    }
+
+    function nextQuestion() {
+        if (currentQuestion < totalQuestions) {
+            document.querySelector(`.quiz-question-container[data-question="${currentQuestion}"]`).classList.remove('active');
+            currentQuestion++;
+            document.querySelector(`.quiz-question-container[data-question="${currentQuestion}"]`).classList.add('active');
+            updateProgress();
+            updateNav();
+            document.getElementById('btnNext').disabled = !answers[currentQuestion];
+        } else {
+            showResults();
+        }
+    }
+
+    function prevQuestion() {
+        if (currentQuestion > 1) {
+            document.querySelector(`.quiz-question-container[data-question="${currentQuestion}"]`).classList.remove('active');
+            currentQuestion--;
+            document.querySelector(`.quiz-question-container[data-question="${currentQuestion}"]`).classList.add('active');
+            updateProgress();
+            updateNav();
+            document.getElementById('btnNext').disabled = false;
+        }
+    }
+
+    function updateProgress() {
+        const percent = Math.round((currentQuestion / totalQuestions) * 100);
+        document.getElementById('progressFill').style.width = percent + '%';
+        document.getElementById('progressText').textContent = `Frage ${currentQuestion} von ${totalQuestions}`;
+        document.getElementById('progressPercent').textContent = percent + '%';
+    }
+
+    function updateNav() {
+        document.getElementById('btnBack').style.visibility = currentQuestion > 1 ? 'visible' : 'hidden';
+        document.getElementById('btnNext').textContent = currentQuestion === totalQuestions ? 'Auswertung anzeigen' : 'Weiter →';
+    }
+
+    function showResults() {
+        document.getElementById('quizQuestions').style.display = 'none';
+        document.querySelector('.quiz-nav').style.display = 'none';
+        document.querySelector('.progress-container').style.display = 'none';
+
+        const totalScore = Object.values(answers).reduce((a, b) => a + b, 0);
+        const maxScore = 40;
+        const percent = Math.round((totalScore / maxScore) * 100);
+
+        document.getElementById('meterIndicator').style.left = percent + '%';
+
+        let title, description, details;
+
+        if (totalScore >= 32) {
+            title = "Eure Beziehung hat gute Chancen";
+            description = "Trotz der aktuellen Schwierigkeiten zeigt euer Ergebnis, dass wichtige Grundlagen noch vorhanden sind: Respekt, gemeinsame Werte und die Bereitschaft, aneinander zu arbeiten. Mit der richtigen Unterstützung könnt ihr eure Beziehung wieder stärken.";
+            details = [
+                "Ihr habt noch eine emotionale Verbindung zueinander",
+                "Wichtige Werte und Ziele teilt ihr noch",
+                "Die Bereitschaft zur Arbeit an der Beziehung ist da",
+                "Professionelle Begleitung kann euch schneller voranbringen",
+                "Der Weg zurück zueinander ist möglich"
+            ];
+        } else if (totalScore >= 24) {
+            title = "Eure Beziehung steht an einem Wendepunkt";
+            description = "Euer Ergebnis zeigt eine Beziehung in einer ernsthaften Krise - aber noch nicht am Ende. Einiges ist zerbrochen, aber es gibt noch Elemente, auf denen ihr aufbauen könntet. Jetzt ist der Moment, eine Entscheidung zu treffen.";
+            details = [
+                "Die Krise ist ernst, aber nicht aussichtslos",
+                "Ihr braucht dringend einen neutralen Raum zum Reden",
+                "Alte Muster müssen erkannt und durchbrochen werden",
+                "Eine Entscheidung - so oder so - wird nötig sein",
+                "Professionelle Hilfe ist jetzt besonders wichtig"
+            ];
+        } else if (totalScore >= 16) {
+            title = "Eure Beziehung braucht ehrliche Reflexion";
+            description = "Euer Ergebnis deutet auf tiefe Verletzungen und möglicherweise unterschiedliche Vorstellungen von der Zukunft hin. Es ist Zeit für eine ehrliche Bestandsaufnahme: Wollt ihr beide wirklich noch kämpfen? Oder wäre ein würdevoller Abschied der bessere Weg?";
+            details = [
+                "Die emotionale Verbindung ist stark belastet",
+                "Möglicherweise sind eure Wege zu unterschiedlich geworden",
+                "Ein Gespräch über die Zukunft ist überfällig",
+                "Trennung kann auch ein Akt der Liebe sein",
+                "Begleitung hilft, den richtigen Weg zu finden"
+            ];
+        } else {
+            title = "Zeit für eine ehrliche Entscheidung";
+            description = "Euer Ergebnis zeigt eine Beziehung, die möglicherweise am Ende ist. Das zu akzeptieren ist schmerzhaft, aber manchmal ist Trennung der mutigste und liebevollste Schritt - für euch beide. Eine professionelle Begleitung kann helfen, diesen Prozess würdevoll zu gestalten.";
+            details = [
+                "Wesentliche Grundlagen der Beziehung fehlen",
+                "Einer oder beide haben innerlich losgelassen",
+                "Weiterkämpfen könnte mehr Schaden anrichten",
+                "Eine bewusste Trennung kann heilsam sein",
+                "Begleitung hilft bei einem würdevollen Abschied"
+            ];
+        }
+
+        document.getElementById('resultTitle').textContent = title;
+        document.getElementById('resultDescription').textContent = description;
+        document.getElementById('resultList').innerHTML = details.map(d => `<li>${d}</li>`).join('');
+        document.getElementById('quizResults').classList.add('active');
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function bookCall() {
+        if (typeof Cal !== 'undefined') {
+            Cal("openModal", {
+                calLink: "kathrin-stahl/erstgespraech",
+                config: { layout: "month_view", theme: "light" }
+            });
+        } else {
+            window.open('https://cal.com/kathrin-stahl/erstgespraech', '_blank');
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midlife Crisis Test - Stecke ich in einer Lebenskrise? | KATHRIN STAHL</title>
+    <meta name="description" content="Kostenloser Midlife Crisis Selbsttest. 10 Fragen helfen dir herauszufinden, ob du in einer Lebenskrise steckst und was du jetzt tun kannst.">
+    <meta name="keywords" content="Midlife Crisis Test, Lebenskrise, Krise mit 40, Sinnkrise Selbsttest, Neuanfang ab 40">
+    <link rel="canonical" href="https://nickheymann.github.io/kathrin-coaching/quiz-midlife.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Midlife Crisis Test - Stecke ich in einer Lebenskrise?">
+    <meta property="og:description" content="10 ehrliche Fragen helfen dir zu verstehen, ob du in einer Midlife Crisis steckst - und was das fuer dich bedeutet.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nickheymann.github.io/kathrin-coaching/quiz-midlife.html">
+
+    <!-- Schema.org Quiz Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Quiz",
+        "name": "Midlife Crisis Test - Stecke ich in einer Lebenskrise?",
+        "description": "Ein Selbsttest mit 10 Fragen um herauszufinden, ob du in einer Midlife Crisis oder Lebenskrise steckst.",
+        "educationalLevel": "beginner",
+        "learningResourceType": "Quiz",
+        "provider": {
+            "@type": "Person",
+            "name": "Kathrin Stahl",
+            "url": "https://nickheymann.github.io/kathrin-coaching/"
+        }
+    }
+    </script>
+
+    <!-- Styles -->
+    <link rel='stylesheet' href='wp-content/themes/efor/css/normalize32d4.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='wp-content/themes/efor/css/bootstrap32d4.css' type='text/css' media='all'>
+    <link rel="stylesheet" href="custom-fixes.css" type="text/css" media="all">
+    <link rel="stylesheet" href="modern-design.css" type="text/css" media="all">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f0eb 0%, #ebe4dc 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .quiz-header {
+            background: linear-gradient(135deg, #6c3483 0%, #8e44ad 100%);
+            color: #fff;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .quiz-header h1 {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .quiz-header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .quiz-header a {
+            color: #D2AB74;
+            text-decoration: none;
+        }
+
+        .quiz-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .intro-box {
+            background: #fff;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .intro-box h2 {
+            color: #6c3483;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .intro-box p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .progress-container {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6c3483, #8e44ad);
+            border-radius: 4px;
+            transition: width 0.4s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+        }
+
+        .question-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .question-card.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-number {
+            font-size: 0.85rem;
+            color: #6c3483;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            padding: 18px 20px;
+            background: #f8f6f3;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            text-align: left;
+        }
+
+        .option:hover {
+            background: #fff;
+            border-color: #6c3483;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: #6c3483;
+            color: #fff;
+            border-color: #6c3483;
+        }
+
+        .result-card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .result-card.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .result-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 2.5rem;
+        }
+
+        .result-icon.crisis {
+            background: linear-gradient(135deg, #6c3483, #8e44ad);
+            color: #fff;
+        }
+
+        .result-icon.transition {
+            background: linear-gradient(135deg, #8e44ad, #bb8fce);
+            color: #fff;
+        }
+
+        .result-icon.restless {
+            background: linear-gradient(135deg, #bb8fce, #d7bde2);
+            color: #6c3483;
+        }
+
+        .result-icon.stable {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: #fff;
+        }
+
+        .result-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .result-score {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .result-description {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            text-align: left;
+            font-size: 1.05rem;
+        }
+
+        .phase-indicator {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: #f8f6f3;
+            border-radius: 10px;
+            margin: 25px 0;
+            gap: 10px;
+        }
+
+        .phase {
+            text-align: center;
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .phase.active {
+            background: #6c3483;
+            color: #fff;
+        }
+
+        .phase-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+
+        .phase-name {
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .insight-box {
+            background: linear-gradient(135deg, #f5eef8, #ebdef0);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .insight-box h4 {
+            color: #6c3483;
+            margin-bottom: 15px;
+        }
+
+        .insight-box ul {
+            padding-left: 20px;
+            color: #555;
+        }
+
+        .insight-box li {
+            margin-bottom: 8px;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #D2AB74 0%, #c9a066 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .cta-section h3 {
+            color: #fff;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        .cta-section p {
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #fff;
+            color: #D2AB74;
+            padding: 16px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .other-quizzes {
+            margin-top: 40px;
+            padding: 25px;
+            background: #f8f6f3;
+            border-radius: 10px;
+        }
+
+        .other-quizzes h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .quiz-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .quiz-link {
+            padding: 10px 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-link:hover {
+            border-color: #6c3483;
+            color: #6c3483;
+        }
+
+        @media (max-width: 600px) {
+            .quiz-container {
+                padding: 15px;
+            }
+
+            .question-card {
+                padding: 20px;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .result-card {
+                padding: 25px 20px;
+            }
+
+            .phase-indicator {
+                flex-direction: column;
+            }
+
+            .phase {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="quiz-header">
+        <h1>Midlife Crisis Test</h1>
+        <p>Stecke ich in einer Lebenskrise?</p>
+        <p style="margin-top: 15px;"><a href="index.html">Zurueck zur Startseite</a></p>
+    </header>
+
+    <main class="quiz-container">
+        <div class="intro-box">
+            <h2>Die Lebensmitte - Krise oder Chance?</h2>
+            <p>Mit 40+ stellen viele Menschen alles in Frage: Beziehung, Beruf, Lebenssinn. Das ist keine Schwaache - es ist ein natuerlicher Ruf nach Authentizitaet. Dieser Test hilft dir herauszufinden, wo du gerade stehst.</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text"><span id="currentQuestion">1</span> von 10 Fragen</div>
+        </div>
+
+        <!-- Question 1 -->
+        <div class="question-card active" data-question="1">
+            <div class="question-number">Frage 1 von 10</div>
+            <div class="question-text">Wenn du morgens aufwachst, wie fuehlt sich der Tag an, der vor dir liegt?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Schwer - ich frage mich, wozu das alles</div>
+                <div class="option" onclick="selectOption(this, 3)">Gleichgueltig - ein Tag wie jeder andere</div>
+                <div class="option" onclick="selectOption(this, 2)">Gemischt - mal motiviert, mal nicht</div>
+                <div class="option" onclick="selectOption(this, 1)">Meistens positiv - ich freue mich auf Dinge</div>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-card" data-question="2">
+            <div class="question-number">Frage 2 von 10</div>
+            <div class="question-text">Wie oft denkst du: "Ist das wirklich mein Leben?"</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Fast taeglich - ich erkenne mich nicht wieder</div>
+                <div class="option" onclick="selectOption(this, 3)">Regelmaessig - mehrmals pro Woche</div>
+                <div class="option" onclick="selectOption(this, 2)">Manchmal - wenn ich zur Ruhe komme</div>
+                <div class="option" onclick="selectOption(this, 1)">Selten oder nie - ich lebe mein Leben</div>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-card" data-question="3">
+            <div class="question-number">Frage 3 von 10</div>
+            <div class="question-text">Wie steht es um deine Beziehung (Partner, Familie, Freunde)?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Ich fuehle mich einsam, auch wenn Menschen um mich sind</div>
+                <div class="option" onclick="selectOption(this, 3)">Distanziert - ich ziehe mich zurueck</div>
+                <div class="option" onclick="selectOption(this, 2)">Es laeuft, aber es fehlt Tiefe</div>
+                <div class="option" onclick="selectOption(this, 1)">Ich fuehle mich verbunden und verstanden</div>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-card" data-question="4">
+            <div class="question-number">Frage 4 von 10</div>
+            <div class="question-text">Was loest der Gedanke an deine berufliche Zukunft aus?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Verzweiflung - ich will raus, aber weiss nicht wohin</div>
+                <div class="option" onclick="selectOption(this, 3)">Frustration - ich fuehle mich gefangen</div>
+                <div class="option" onclick="selectOption(this, 2)">Unsicherheit - ich weiss nicht, ob das noch passt</div>
+                <div class="option" onclick="selectOption(this, 1)">Zufriedenheit - ich bin auf dem richtigen Weg</div>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-card" data-question="5">
+            <div class="question-number">Frage 5 von 10</div>
+            <div class="question-text">Wie gehst du mit dem Aelterwerden um?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Es macht mir Angst - ich fuehle, wie Zeit verrinnt</div>
+                <div class="option" onclick="selectOption(this, 3)">Ambivalent - ich hadere mit koerperlichen Veraenderungen</div>
+                <div class="option" onclick="selectOption(this, 2)">Nachdenklich - ich reflektiere mehr ueber mein Leben</div>
+                <div class="option" onclick="selectOption(this, 1)">Gelassen - jede Lebensphase hat ihren Wert</div>
+            </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question-card" data-question="6">
+            <div class="question-number">Frage 6 von 10</div>
+            <div class="question-text">Trauerst du verpassten Moeglichkeiten nach?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Staendig - ich bereue vieles und das quaelt mich</div>
+                <div class="option" onclick="selectOption(this, 3)">Oft - ich frage mich, was waere wenn</div>
+                <div class="option" onclick="selectOption(this, 2)">Manchmal - aber ich blicke auch nach vorn</div>
+                <div class="option" onclick="selectOption(this, 1)">Kaum - ich bin zufrieden mit meinen Entscheidungen</div>
+            </div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question-card" data-question="7">
+            <div class="question-number">Frage 7 von 10</div>
+            <div class="question-text">Hast du in letzter Zeit impulsive Gedanken oder Handlungen?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Ja - ich will ausbrechen, alles hinschmeissen, neu anfangen</div>
+                <div class="option" onclick="selectOption(this, 3)">Manchmal - ich fantasiere von einem anderen Leben</div>
+                <div class="option" onclick="selectOption(this, 2)">Gelegentlich - kleine Veraenderungswuensche</div>
+                <div class="option" onclick="selectOption(this, 1)">Nein - ich bin im Reinen mit meinem Leben</div>
+            </div>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question-card" data-question="8">
+            <div class="question-number">Frage 8 von 10</div>
+            <div class="question-text">Wie wuerdest du dein Energielevel beschreiben?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Erschoepft - obwohl ich nicht weiss wovon</div>
+                <div class="option" onclick="selectOption(this, 3)">Antriebslos - mir fehlt die Motivation</div>
+                <div class="option" onclick="selectOption(this, 2)">Schwankend - Energie kommt in Wellen</div>
+                <div class="option" onclick="selectOption(this, 1)">Gut - ich habe Energie fuer das, was mir wichtig ist</div>
+            </div>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="question-card" data-question="9">
+            <div class="question-number">Frage 9 von 10</div>
+            <div class="question-text">Was wuenschst du dir am meisten?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Klarheit - ich weiss nicht mehr, wer ich bin und was ich will</div>
+                <div class="option" onclick="selectOption(this, 3)">Sinn - etwas das sich wirklich lohnt</div>
+                <div class="option" onclick="selectOption(this, 2)">Veraenderung - auch wenn ich nicht weiss welche</div>
+                <div class="option" onclick="selectOption(this, 1)">Nichts Bestimmtes - mein Leben ist gut so</div>
+            </div>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="question-card" data-question="10">
+            <div class="question-number">Frage 10 von 10</div>
+            <div class="question-text">Wie lange hast du schon das Gefuehl, dass "etwas nicht stimmt"?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(this, 4)">Ueber ein Jahr - es wird staerker statt besser</div>
+                <div class="option" onclick="selectOption(this, 3)">Mehrere Monate - es laesst mich nicht los</div>
+                <div class="option" onclick="selectOption(this, 2)">Ein paar Wochen - es kam erst kuerzlich</div>
+                <div class="option" onclick="selectOption(this, 1)">Gar nicht - mir geht es gut</div>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div class="result-card" id="resultCard">
+            <div class="result-icon" id="resultIcon"></div>
+            <h2 class="result-title" id="resultTitle"></h2>
+            <p class="result-score" id="resultScore"></p>
+
+            <div class="phase-indicator">
+                <div class="phase" id="phase1">
+                    <div class="phase-label">Phase 1</div>
+                    <div class="phase-name">Stabil</div>
+                </div>
+                <div class="phase" id="phase2">
+                    <div class="phase-label">Phase 2</div>
+                    <div class="phase-name">Unruhe</div>
+                </div>
+                <div class="phase" id="phase3">
+                    <div class="phase-label">Phase 3</div>
+                    <div class="phase-name">Umbruch</div>
+                </div>
+                <div class="phase" id="phase4">
+                    <div class="phase-label">Phase 4</div>
+                    <div class="phase-name">Krise</div>
+                </div>
+            </div>
+
+            <div class="result-description" id="resultDescription"></div>
+
+            <div class="cta-section">
+                <h3>Du musst das nicht alleine durchstehen</h3>
+                <p id="ctaText">Als Frau, die selbst durch eine tiefe Lebenskrise gegangen ist, weiss ich: Es gibt einen Weg hindurch. Und er fuehrt zu mehr Authentizitaet, nicht weniger.</p>
+                <button class="cta-button" onclick="bookErstgespraech()">Kostenloses Gespraech buchen</button>
+            </div>
+
+            <div class="other-quizzes">
+                <h4>Diese Tests koennten dich auch interessieren:</h4>
+                <div class="quiz-links">
+                    <a href="quiz-beziehung.html" class="quiz-link">Beziehungs-Check</a>
+                    <a href="quiz-lebenskrise.html" class="quiz-link">Burnout oder Sinnkrise?</a>
+                    <a href="quiz-hochsensibel.html" class="quiz-link">Bin ich hochsensibel?</a>
+                    <a href="quiz-hochbegabt.html" class="quiz-link">Bin ich hochbegabt?</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="cal-booking.js"></script>
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 10;
+        let totalScore = 0;
+
+        function selectOption(element, points) {
+            const options = element.parentElement.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+
+            totalScore += points;
+
+            setTimeout(() => {
+                if (currentQuestion < totalQuestions) {
+                    document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.remove('active');
+                    currentQuestion++;
+                    document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.add('active');
+
+                    const progress = (currentQuestion / totalQuestions) * 100;
+                    document.getElementById('progressFill').style.width = progress + '%';
+                    document.getElementById('currentQuestion').textContent = currentQuestion;
+                } else {
+                    showResults();
+                }
+            }, 400);
+        }
+
+        function showResults() {
+            document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.remove('active');
+            document.querySelector('.progress-container').style.display = 'none';
+            document.querySelector('.intro-box').style.display = 'none';
+
+            const resultCard = document.getElementById('resultCard');
+            resultCard.classList.add('active');
+
+            const resultIcon = document.getElementById('resultIcon');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultScore = document.getElementById('resultScore');
+            const resultDescription = document.getElementById('resultDescription');
+            const ctaText = document.getElementById('ctaText');
+
+            // Reset phase indicators
+            document.querySelectorAll('.phase').forEach(p => p.classList.remove('active'));
+
+            if (totalScore >= 34) {
+                document.getElementById('phase4').classList.add('active');
+                resultIcon.innerHTML = '!';
+                resultIcon.className = 'result-icon crisis';
+                resultTitle.textContent = 'Du steckst in einer Midlife Crisis';
+                resultDescription.innerHTML = `
+                    <p>Deine Antworten zeigen deutliche Zeichen einer <strong>echten Lebenskrise</strong>. Das ist ernst - aber es ist nicht das Ende. Es ist der Anfang von etwas Neuem.</p>
+
+                    <div class="insight-box">
+                        <h4>Was gerade passiert:</h4>
+                        <ul>
+                            <li>Dein bisheriges Lebenskonzept funktioniert nicht mehr</li>
+                            <li>Die Fassade, die du aufgebaut hast, bricht zusammen</li>
+                            <li>Verdraengte Beduerfnisse und Traeume melden sich zurueck</li>
+                            <li>Deine Seele fordert Authentizitaet ein</li>
+                        </ul>
+                    </div>
+
+                    <p><strong>Die gute Nachricht:</strong> Eine Midlife Crisis ist kein Zusammenbruch - sie ist ein Durchbruch. Sie zeigt dir, dass du mehr bist als das, was du bisher gelebt hast. Jetzt hast du die Chance, herauszufinden, wer du wirklich bist.</p>
+
+                    <p>Du brauchst jetzt keine schnellen Loesungen - du brauchst jemanden, der dir hilft, in der Tiefe zu schauen und einen neuen Weg zu finden.</p>
+                `;
+                ctaText.textContent = 'Ich habe selbst eine tiefe Krise durchlebt und weiss: Es gibt einen Weg. Lass uns gemeinsam schauen, was dein naechster Schritt sein kann.';
+            } else if (totalScore >= 26) {
+                document.getElementById('phase3').classList.add('active');
+                resultIcon.innerHTML = '~';
+                resultIcon.className = 'result-icon transition';
+                resultTitle.textContent = 'Du bist im Umbruch';
+                resultDescription.innerHTML = `
+                    <p>Du befindest dich in einer <strong>Phase des Umbruchs</strong>. Das alte Leben passt nicht mehr richtig, aber das Neue ist noch nicht da. Das ist anstrengend - und gleichzeitig voller Moeglichkeiten.</p>
+
+                    <div class="insight-box">
+                        <h4>Typische Zeichen dieser Phase:</h4>
+                        <ul>
+                            <li>Innere Unruhe und Rastlosigkeit</li>
+                            <li>Sehnsucht nach "mehr" oder "anders"</li>
+                            <li>Infragestellen von Entscheidungen</li>
+                            <li>Suche nach Sinn und Bedeutung</li>
+                        </ul>
+                    </div>
+
+                    <p>Das ist der <strong>ideale Zeitpunkt</strong> fuer Veraenderung. Du hast noch Energie, aber auch schon die noetige Klarheit, dass es nicht so weitergehen kann.</p>
+
+                    <p>Mit der richtigen Begleitung kannst du diesen Uebergang aktiv gestalten, statt passiv zu warten, bis die Krise dich ueberholt.</p>
+                `;
+                ctaText.textContent = 'Lass uns schauen, was in dir auf Ausdruck wartet und wie du den Uebergang bewusst gestalten kannst.';
+            } else if (totalScore >= 18) {
+                document.getElementById('phase2').classList.add('active');
+                resultIcon.innerHTML = '?';
+                resultIcon.className = 'result-icon restless';
+                resultTitle.textContent = 'Erste Anzeichen von Unruhe';
+                resultDescription.innerHTML = `
+                    <p>Du spuerst, dass <strong>etwas in Bewegung kommt</strong>. Noch ist es keine akute Krise, aber die Fragen werden lauter: Stimmt mein Leben noch? Bin ich auf dem richtigen Weg?</p>
+
+                    <p>Das ist kein Grund zur Sorge - im Gegenteil. Es zeigt, dass du <strong>wach bist und hinhoerst</strong>. Viele Menschen verdraengen diese Signale jahrelang.</p>
+
+                    <div class="insight-box">
+                        <h4>Was jetzt wichtig ist:</h4>
+                        <ul>
+                            <li>Nimm die Signale ernst, bevor sie lauter werden</li>
+                            <li>Goenne dir Zeit zur Reflexion</li>
+                            <li>Sprich mit jemandem, der dich versteht</li>
+                            <li>Ueberlege, was du wirklich willst</li>
+                        </ul>
+                    </div>
+
+                    <p>Praevention ist leichter als Krisenbewaeltigung. Jetzt ist ein guter Moment, um zu schauen, ob Anpassungen in deinem Leben noetig sind.</p>
+                `;
+                ctaText.textContent = 'Auch ohne akute Krise kann ein Gespraech helfen, Klarheit zu gewinnen. Ich bin da, wenn du reden moechtest.';
+            } else {
+                document.getElementById('phase1').classList.add('active');
+                resultIcon.innerHTML = '';
+                resultIcon.className = 'result-icon stable';
+                resultTitle.textContent = 'Du bist aktuell stabil';
+                resultDescription.innerHTML = `
+                    <p>Deine Antworten zeigen, dass du dich <strong>aktuell nicht in einer Lebenskrise</strong> befindest. Das ist schoen!</p>
+
+                    <p>Vielleicht hast du diesen Test aus Neugier gemacht oder fuer jemand anderen? Oder du befindest dich in einer Phase, in der das Leben einfach laeuft?</p>
+
+                    <p>Behalte trotzdem im Hinterkopf: Die Lebensmitte bringt fuer viele Menschen Veraenderungen. Wenn du merkst, dass Fragen aufkommen, ist das normal und kein Grund zur Panik.</p>
+                `;
+                ctaText.textContent = 'Auch ohne Krise unterstuetze ich dich gerne bei Lebensfragen und persoenlicher Weiterentwicklung.';
+            }
+
+            resultScore.textContent = `Dein Wert: ${totalScore} von 40 Punkten`;
+            resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+</html>
