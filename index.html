@@ -4529,29 +4529,28 @@
         afterSide.style.opacity = 0.3 + (progress * 0.7);
 
         // Update milestone states based on slider position
-        // Activate milestone earlier so it lights up when slider visually reaches the text
+        // Each milestone has a clear, non-overlapping active range
+        // Positions: Ankunft=0, Tag1=20, Tag2=40, Tag3=60, Tag4=80, Abreise=100
+        const milestoneRanges = {
+            0: { start: 0, end: 14 },      // Ankunft: 0-14
+            20: { start: 15, end: 34 },    // Tag 1: 15-34
+            40: { start: 35, end: 54 },    // Tag 2: 35-54
+            60: { start: 55, end: 72 },    // Tag 3: 55-72
+            80: { start: 73, end: 88 },    // Tag 4: 73-88
+            100: { start: 89, end: 100 }   // Abreise: 89-100
+        };
+
         milestones.forEach(milestone => {
             const position = parseInt(milestone.dataset.position);
-            // Earlier activation for later milestones (they need more offset)
-            const offset = position >= 60 ? 10 : 5;
-            const activationPoint = Math.max(0, position - offset);
+            const range = milestoneRanges[position];
             milestone.classList.remove('active', 'passed');
 
-            if (value >= activationPoint && value < position + 15) {
+            if (range && value >= range.start && value <= range.end) {
                 milestone.classList.add('active');
-            } else if (value >= position + 15) {
+            } else if (range && value > range.end) {
                 milestone.classList.add('passed');
             }
         });
-
-        // Handle last milestone (Abreise at position 100) - activate at 93%
-        const lastMilestone = document.querySelector('.milestone[data-position="100"]');
-        if (lastMilestone) {
-            lastMilestone.classList.remove('active', 'passed');
-            if (value >= 93) {
-                lastMilestone.classList.add('active');
-            }
-        }
 
         // Show CTA when slider reaches end (90% or more)
         if (cta) {
