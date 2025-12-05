@@ -315,16 +315,21 @@
 </section>
 
 <main class="quiz-container">
-    <!-- INFO BOX -->
-    <div class="info-box">
-        <h4>💡 Gut zu wissen: Dieser Test misst Overexcitabilities</h4>
-        <p>Dieser Selbsttest erfasst "Overexcitabilities" (Überempfindlichkeiten) nach Dabrowski - Intensitätsbereiche, die bei hochbegabten Menschen häufiger auftreten, aber auch bei hochsensiblen Personen vorkommen können.</p>
-        <p style="margin-top: 12px;"><strong>Hochbegabung professionell feststellen lassen:</strong></p>
-        <ul style="margin: 8px 0 0 20px; line-height: 1.8;">
-            <li><a href="https://www.mensa.de/ueber-mensa/intelligenztest/" target="_blank" rel="noopener" style="color: #2980b9;">Mensa Deutschland</a> - Standardisierte IQ-Tests (WAIS-IV)</li>
-            <li><a href="https://www.psychologenportal.de/" target="_blank" rel="noopener" style="color: #2980b9;">Psychologenportal</a> - Qualifizierte Diagnostiker finden</li>
-            <li><a href="https://www.dghk.de/beratung/" target="_blank" rel="noopener" style="color: #2980b9;">DGhK</a> - Deutsche Gesellschaft für das hochbegabte Kind</li>
-        </ul>
+    <!-- INFO BOX (Collapsible) -->
+    <div class="info-box" id="infoBox">
+        <div class="info-box-header" onclick="toggleInfoBox()">
+            <h4>💡 Gut zu wissen: Dieser Test misst Overexcitabilities</h4>
+            <span class="collapse-icon">−</span>
+        </div>
+        <div class="info-box-content">
+            <p>Dieser Selbsttest erfasst "Overexcitabilities" (Überempfindlichkeiten) nach Dabrowski - Intensitätsbereiche, die bei hochbegabten Menschen häufiger auftreten, aber auch bei hochsensiblen Personen vorkommen können.</p>
+            <p style="margin-top: 12px;"><strong>Hochbegabung professionell feststellen lassen:</strong></p>
+            <ul style="margin: 8px 0 0 20px; line-height: 1.8;">
+                <li><a href="https://www.mensa.de/ueber-mensa/intelligenztest/" target="_blank" rel="noopener">Mensa Deutschland</a> - Standardisierte IQ-Tests (WAIS-IV)</li>
+                <li><a href="https://www.psychologenportal.de/" target="_blank" rel="noopener">Psychologenportal</a> - Qualifizierte Diagnostiker finden</li>
+                <li><a href="https://www.dghk.de/beratung/" target="_blank" rel="noopener">DGhK</a> - Deutsche Gesellschaft für das hochbegabte Kind</li>
+            </ul>
+        </div>
     </div>
 
     <div class="science-box" id="scienceBox">
@@ -909,6 +914,13 @@
     // Toggle Science Box
     function toggleScienceBox() {
         const box = document.getElementById('scienceBox');
+        const icon = box.querySelector('.collapse-icon');
+        box.classList.toggle('collapsed');
+        icon.textContent = box.classList.contains('collapsed') ? '+' : '−';
+    }
+
+    function toggleInfoBox() {
+        const box = document.getElementById('infoBox');
         const icon = box.querySelector('.collapse-icon');
         box.classList.toggle('collapsed');
         icon.textContent = box.classList.contains('collapsed') ? '+' : '−';

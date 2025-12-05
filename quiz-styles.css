@@ -377,23 +377,59 @@ nav a:hover {
     border-top: 1px solid #eee;
 }
 
-/* Info Box (non-warning) */
+/* Info Box (non-warning, collapsible) */
 .info-box {
     background: #f0f7ff;
     border-left: 4px solid #3498db;
     border-radius: 0 16px 16px 0;
-    padding: 20px 25px;
     margin-bottom: 25px;
+    overflow: hidden;
+}
+
+.info-box-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+}
+
+.info-box-header:hover {
+    background: rgba(52, 152, 219, 0.1);
 }
 
 .info-box h4 {
     color: #2980b9;
     font-size: 1rem;
-    margin-bottom: 12px;
+    margin: 0;
     font-weight: 600;
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+.info-box .collapse-icon {
+    background: rgba(52, 152, 219, 0.15);
+    color: #2980b9;
+}
+
+.info-box-header:hover .collapse-icon {
+    background: #3498db;
+    color: white;
+}
+
+.info-box-content {
+    padding: 0 25px 20px;
+    max-height: 500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.info-box.collapsed .info-box-content {
+    max-height: 0;
+    padding: 0 25px;
 }
 
 .info-box p {
