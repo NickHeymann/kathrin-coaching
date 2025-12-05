@@ -4529,10 +4529,12 @@
         afterSide.style.opacity = 0.3 + (progress * 0.7);
 
         // Update milestone states based on slider position
-        // Activate milestone 5 positions earlier so it lights up when slider reaches the text
+        // Activate milestone earlier so it lights up when slider visually reaches the text
         milestones.forEach(milestone => {
             const position = parseInt(milestone.dataset.position);
-            const activationPoint = Math.max(0, position - 5);
+            // Earlier activation for later milestones (they need more offset)
+            const offset = position >= 60 ? 10 : 5;
+            const activationPoint = Math.max(0, position - offset);
             milestone.classList.remove('active', 'passed');
 
             if (value >= activationPoint && value < position + 15) {
@@ -4542,11 +4544,11 @@
             }
         });
 
-        // Handle last milestone (Abreise at position 100)
+        // Handle last milestone (Abreise at position 100) - activate at 93%
         const lastMilestone = document.querySelector('.milestone[data-position="100"]');
         if (lastMilestone) {
             lastMilestone.classList.remove('active', 'passed');
-            if (value >= 85) {
+            if (value >= 93) {
                 lastMilestone.classList.add('active');
             }
         }
