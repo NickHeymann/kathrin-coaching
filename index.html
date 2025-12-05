@@ -2309,15 +2309,6 @@
             position: relative;
         }
 
-        /* Sun rises when slider reaches end */
-        .slider-thumb.risen {
-            top: -180px;
-            left: 50% !important;
-            transform: translate(-50%, 0);
-            box-shadow: 0 0 40px rgba(255, 200, 0, 0.6), 0 0 80px rgba(255, 165, 0, 0.3);
-            transition: all 0.8s ease-out;
-        }
-
         .transformation-cta.visible {
             opacity: 1;
             transform: translateY(0);
@@ -4518,8 +4509,8 @@
         beforeGradient.style.opacity = 1 - progress;
         afterGradient.style.opacity = progress;
 
-        // Sun rising effect
-        const sunBottom = -60 + (progress * 100);
+        // Sun rising effect - rises higher to end above the CTA text
+        const sunBottom = -60 + (progress * 360);
         sun.style.bottom = sunBottom + 'px';
         sun.style.opacity = progress;
         sun.style.transform = `translateX(-50%) scale(${0.5 + progress * 0.5})`;
@@ -4560,11 +4551,8 @@
         if (cta) {
             if (value >= 90) {
                 cta.classList.add('visible');
-                // Make sun rise up above the CTA text
-                thumb.classList.add('risen');
             } else {
                 cta.classList.remove('visible');
-                thumb.classList.remove('risen');
             }
         }
     }
