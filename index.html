@@ -4509,11 +4509,13 @@
         beforeGradient.style.opacity = 1 - progress;
         afterGradient.style.opacity = progress;
 
-        // Sun rising effect - rises higher to end above the CTA text
-        const sunBottom = -60 + (progress * 360);
+        // Sun rising effect - smooth eased animation
+        // Use easeOutCubic for smoother, more natural rise
+        const easedProgress = 1 - Math.pow(1 - progress, 3);
+        const sunBottom = -60 + (easedProgress * 320);
         sun.style.bottom = sunBottom + 'px';
-        sun.style.opacity = progress;
-        sun.style.transform = `translateX(-50%) scale(${0.5 + progress * 0.5})`;
+        sun.style.opacity = Math.min(progress * 1.5, 1);
+        sun.style.transform = `translateX(-50%) scale(${0.6 + easedProgress * 0.4})`;
 
         // Add/remove bright class at threshold
         if (progress > 0.5) {
@@ -4527,13 +4529,15 @@
         afterSide.style.opacity = 0.3 + (progress * 0.7);
 
         // Update milestone states based on slider position
+        // Activate milestone 5 positions earlier so it lights up when slider reaches the text
         milestones.forEach(milestone => {
             const position = parseInt(milestone.dataset.position);
+            const activationPoint = Math.max(0, position - 5);
             milestone.classList.remove('active', 'passed');
 
-            if (value >= position && value < position + 20) {
+            if (value >= activationPoint && value < position + 15) {
                 milestone.classList.add('active');
-            } else if (value > position) {
+            } else if (value >= position + 15) {
                 milestone.classList.add('passed');
             }
         });
@@ -4542,7 +4546,7 @@
         const lastMilestone = document.querySelector('.milestone[data-position="100"]');
         if (lastMilestone) {
             lastMilestone.classList.remove('active', 'passed');
-            if (value >= 90) {
+            if (value >= 85) {
                 lastMilestone.classList.add('active');
             }
         }
