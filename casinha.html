@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Die Casinha | Ruhiges Ferienhaus im Alentejo | Kathrin Stahl</title>
+    <meta name="description" content="Die Casinha - Ein liebevoll eingerichtetes Ferienhaus für 1-2 Personen im südlichen Alentejo. Perfekter Rückzugsort für Stille, Natur und Erholung.">
+    <link rel="canonical" href="https://nickheymann.github.io/kathrin-coaching/casinha.html">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-primary: #2C4A47;
+            --color-accent: #B8860B;
+            --color-accent-dark: #8B6914;
+            --color-white: #ffffff;
+            --color-cream: #F5F1EB;
+            --color-text: #333333;
+            --color-text-light: #666666;
+            --font-heading: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--color-text);
+            background: var(--color-cream);
+        }
+
+        /* Header */
+        .page-header {
+            background: var(--color-primary);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--color-white);
+            text-decoration: none;
+        }
+
+        .back-link {
+            color: var(--color-white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--color-accent);
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            height: 70vh;
+            min-height: 500px;
+            overflow: hidden;
+        }
+
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            padding: 80px 30px 50px;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Content */
+        .content-section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 30px;
+        }
+
+        .intro-text {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: var(--color-text-light);
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .intro-text em {
+            font-family: var(--font-heading);
+            font-style: italic;
+            color: var(--color-primary);
+        }
+
+        /* Image Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 60px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.02);
+        }
+
+        .gallery img:first-child {
+            grid-column: 1 / 3;
+            height: 350px;
+        }
+
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            background: var(--color-white);
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        .feature-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            color: var(--color-primary);
+            margin-bottom: 20px;
+        }
+
+        .feature-card ul {
+            list-style: none;
+        }
+
+        .feature-card li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: var(--color-text-light);
+        }
+
+        .feature-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+            font-weight: bold;
+        }
+
+        /* Pricing */
+        .pricing-section {
+            background: var(--color-primary);
+            color: var(--color-white);
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .pricing-section h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+
+        .pricing-cards {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .price-card {
+            background: rgba(255,255,255,0.1);
+            padding: 30px 40px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .price-amount {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--color-accent);
+        }
+
+        .price-period {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .price-label {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Location */
+        .location-section {
+            background: var(--color-white);
+            padding: 40px;
+            border-radius: 16px;
+            margin-bottom: 60px;
+        }
+
+        .location-section h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin-bottom: 25px;
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .location-item {
+            text-align: center;
+        }
+
+        .location-item strong {
+            display: block;
+            color: var(--color-primary);
+            margin-bottom: 5px;
+        }
+
+        .location-item span {
+            color: var(--color-text-light);
+            font-size: 0.9rem;
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            padding: 60px 30px;
+            background: var(--color-white);
+            border-radius: 20px;
+        }
+
+        .cta-section h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--color-primary);
+            margin-bottom: 15px;
+        }
+
+        .cta-section p {
+            color: var(--color-text-light);
+            margin-bottom: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--color-accent);
+            color: var(--color-white);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--color-accent-dark);
+            transform: translateY(-2px);
+        }
+
+        .contact-info {
+            margin-top: 30px;
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+        }
+
+        .contact-info a {
+            color: var(--color-primary);
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            color: var(--color-accent);
+        }
+
+        /* Footer */
+        .page-footer {
+            background: var(--color-primary);
+            color: rgba(255,255,255,0.8);
+            text-align: center;
+            padding: 30px;
+            margin-top: 80px;
+        }
+
+        .page-footer a {
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .gallery img:first-child {
+                grid-column: 1 / -1;
+                height: 250px;
+            }
+
+            .gallery img {
+                height: 180px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .location-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .pricing-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="page-header">
+    <div class="header-content">
+        <a href="index.html" class="logo">Kathrin Stahl</a>
+        <a href="index.html" class="back-link">
+            <span>←</span> Zurück zur Hauptseite
+        </a>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+    <img src="wp-content/uploads/2025/05/ruhiges-Ferienhaus-Alentejo-Natur-1024x768.jpg" alt="Die Casinha - Ferienhaus im Alentejo mit Blick auf Korkeichen">
+    <div class="hero-overlay">
+        <div class="hero-content">
+            <h1>Die Casinha</h1>
+            <p class="hero-subtitle">Ruhiges Ferienhaus im Alentejo für 1-2 Personen</p>
+        </div>
+    </div>
+</section>
+
+<!-- Content -->
+<div class="content-section">
+
+    <!-- Intro -->
+    <p class="intro-text">
+        Ein liebevoll eingerichtetes Ferienhaus im südlichen Alentejo - dein Ort zum <em>Ankommen und Durchatmen</em>.
+        Inmitten von Stille, Natur und Tieren findest du hier den Raum, den du brauchst.
+    </p>
+
+    <!-- Gallery -->
+    <div class="gallery">
+        <img src="wp-content/uploads/2025/05/Ferienhaus-Portugal-Alentejo.jpg" alt="Casinha Wohnbereich">
+        <img src="wp-content/uploads/2025/05/ruhiges-Ferienhaus-Portugal-768x1024.jpg" alt="Casinha Schlafzimmer">
+        <img src="wp-content/uploads/2025/05/Ferienhaus-alleine-Stille-Alentejo-768x1024.jpg" alt="Casinha Terrasse">
+        <img src="wp-content/uploads/2025/05/ruhiges-Ferienhaus-Natur-Alentejo-768x1024.jpg" alt="Blick in die Natur">
+        <img src="wp-content/uploads/2025/05/ruhiges-Ferienhaus-Ourique-1024x768.jpg" alt="Casinha von außen">
+    </div>
+
+    <!-- Features -->
+    <div class="features-grid">
+        <div class="feature-card">
+            <h3>Ausstattung</h3>
+            <ul>
+                <li>Schlafzimmer mit Doppelbett</li>
+                <li>Wohn-/Essküche mit Spülmaschine</li>
+                <li>Ausziehsofa im Wohnzimmer</li>
+                <li>Badezimmer mit Dusche</li>
+                <li>Waschmaschine</li>
+                <li>Schnelles Internet</li>
+                <li>Klimaanlage</li>
+                <li>Bettwäsche und Handtücher</li>
+            </ul>
+        </div>
+        <div class="feature-card">
+            <h3>Das Besondere</h3>
+            <ul>
+                <li>Große Terrasse mit weitem Blick</li>
+                <li>Korkeichen und Olivenbäume</li>
+                <li>Pferde in Sichtweite</li>
+                <li>Absolute Stille</li>
+                <li>Atemberaubender Sternenhimmel</li>
+                <li>Zwei Hunde und zwei Katzen</li>
+                <li>Perfekt für Hochsensible</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Pricing -->
+    <div class="pricing-section">
+        <h2>Preise</h2>
+        <div class="pricing-cards">
+            <div class="price-card">
+                <div class="price-amount">75€</div>
+                <div class="price-period">pro Nacht</div>
+                <div class="price-label">Ohne Retreat</div>
+            </div>
+            <div class="price-card">
+                <div class="price-amount">60€</div>
+                <div class="price-period">pro Nacht</div>
+                <div class="price-label">Als Retreat-Gast</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Location -->
+    <div class="location-section">
+        <h3>Anreise</h3>
+        <div class="location-grid">
+            <div class="location-item">
+                <strong>Flughafen Faro</strong>
+                <span>ca. 1,5 Stunden</span>
+            </div>
+            <div class="location-item">
+                <strong>Flughafen Lissabon</strong>
+                <span>ca. 2,5 Stunden</span>
+            </div>
+            <div class="location-item">
+                <strong>Atlantik (Algarve)</strong>
+                <span>ca. 1 Stunde</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+        <h2>Interesse an der Casinha?</h2>
+        <p>Schreib mir gerne - ob für einen reinen Erholungsurlaub oder in Kombination mit Coaching und Retreat.</p>
+        <a href="mailto:kathrin@kathrinstahl.com?subject=Anfrage%20Casinha" class="btn">Anfrage senden</a>
+        <div class="contact-info">
+            Oder ruf an: <a href="tel:+4915140436795">+49 151 40436795</a>
+        </div>
+    </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="page-footer">
+    <p>&copy; 2025 Kathrin Stahl | <a href="index.html">Zurück zur Hauptseite</a></p>
+</footer>
+
+</body>
+</html>
