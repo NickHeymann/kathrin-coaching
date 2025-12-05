@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pferdegestütztes Coaching | Was es ist & wie es wirkt</title>
+    <meta name="description" content="Pferdegestütztes Coaching nutzt Pferde als Spiegel für dein Verhalten. Erfahre, wie es funktioniert, für wen es geeignet ist und was dich erwartet.">
+    <link rel="canonical" href="https://nickheymann.github.io/kathrin-coaching/pferdegestuetztes-coaching.html">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-primary: #2C4A47;
+            --color-accent: #B8860B;
+            --color-accent-dark: #8B6914;
+            --color-white: #ffffff;
+            --color-cream: #F5F1EB;
+            --color-text: #333333;
+            --color-text-light: #666666;
+            --font-heading: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--color-text);
+            background: var(--color-cream);
+        }
+
+        /* Header */
+        .page-header {
+            background: var(--color-primary);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--color-white);
+            text-decoration: none;
+        }
+
+        .back-link {
+            color: var(--color-white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--color-accent);
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            height: 70vh;
+            min-height: 500px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--color-white);
+            padding: 0 30px;
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Section Base */
+        .section {
+            padding: 80px 30px;
+        }
+
+        .section-light {
+            background: var(--color-white);
+        }
+
+        .section-cream {
+            background: var(--color-cream);
+        }
+
+        .section-dark {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .container-wide {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: var(--color-primary);
+            margin-bottom: 25px;
+        }
+
+        .section-dark h2 {
+            color: var(--color-white);
+        }
+
+        h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--color-primary);
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: var(--color-text-light);
+        }
+
+        .section-dark p {
+            color: rgba(255,255,255,0.85);
+        }
+
+        .lead {
+            font-size: 1.15rem;
+            line-height: 1.8;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            background: var(--color-accent);
+            color: var(--color-white);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--color-accent-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Definition Box */
+        .definition-box {
+            background: var(--color-white);
+            padding: 40px;
+            border-radius: 16px;
+            border-left: 4px solid var(--color-accent);
+            margin: 40px 0;
+        }
+
+        .definition-box p {
+            font-size: 1.1rem;
+            color: var(--color-text);
+            margin: 0;
+        }
+
+        /* Two Column Layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .two-col img {
+            width: 100%;
+            border-radius: 16px;
+        }
+
+        /* Process Steps */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .process-step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--color-accent);
+            color: var(--color-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin: 0 auto 20px;
+        }
+
+        .process-step h4 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--color-primary);
+            margin-bottom: 10px;
+        }
+
+        .process-step p {
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* For Who List */
+        .for-who-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .for-who-item {
+            background: var(--color-white);
+            padding: 25px;
+            border-radius: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .for-who-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--color-cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--color-accent);
+        }
+
+        .for-who-item h4 {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            color: var(--color-primary);
+            margin-bottom: 5px;
+        }
+
+        .for-who-item p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        /* Science Section */
+        .science-facts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .science-fact {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .science-fact h4 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            color: var(--color-white);
+            margin-bottom: 10px;
+        }
+
+        .science-fact p {
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* Horse Cards */
+        .horse-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .horse-card {
+            background: var(--color-white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .horse-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .horse-card-content {
+            padding: 25px;
+        }
+
+        .horse-card h4 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            color: var(--color-primary);
+            margin-bottom: 10px;
+        }
+
+        .horse-card p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        /* FAQ */
+        .faq-list {
+            margin-top: 40px;
+        }
+
+        .faq-item {
+            background: var(--color-white);
+            margin-bottom: 15px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 22px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--color-accent);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 25px 22px;
+            max-height: 500px;
+        }
+
+        .faq-answer p {
+            color: var(--color-text-light);
+            margin: 0;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 80px 30px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, #1a3a4a 100%);
+            color: var(--color-white);
+        }
+
+        .cta-section h2 {
+            color: var(--color-white);
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            opacity: 0.9;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-light {
+            background: var(--color-white);
+            color: var(--color-primary);
+        }
+
+        .btn-light:hover {
+            background: var(--color-cream);
+        }
+
+        /* Internal Links */
+        .internal-links {
+            background: var(--color-cream);
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 50px;
+        }
+
+        .internal-links h4 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .internal-links ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .internal-links a {
+            color: var(--color-primary);
+            text-decoration: none;
+            padding: 8px 16px;
+            background: var(--color-white);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .internal-links a:hover {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        /* Footer */
+        .page-footer {
+            background: var(--color-primary);
+            color: rgba(255,255,255,0.8);
+            text-align: center;
+            padding: 30px;
+        }
+
+        .page-footer a {
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .process-steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .science-facts {
+                grid-template-columns: 1fr;
+            }
+
+            .horse-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .section {
+                padding: 60px 20px;
+            }
+
+            .two-col {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .for-who-list {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .internal-links ul {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="page-header">
+    <div class="header-content">
+        <a href="index.html" class="logo">Kathrin Stahl</a>
+        <a href="index.html" class="back-link">
+            <span>←</span> Zurück zur Hauptseite
+        </a>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+    <img src="wp-content/uploads/2022/07/Coaching-Pferde-Hamburg-KathrinStahl-17-1060x706.jpg" alt="Pferdegestütztes Coaching mit Kathrin Stahl">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Pferdegestütztes Coaching: Wenn Pferde zeigen, was Worte nicht sagen</h1>
+        <p class="hero-subtitle">Eine erlebnisorientierte Methode, die unbewusste Muster sichtbar macht – ohne Reiten, ohne Vorkenntnisse.</p>
+    </div>
+</section>
+
+<!-- Definition Section -->
+<section class="section section-cream">
+    <div class="container">
+        <h2>Was ist pferdegestütztes Coaching?</h2>
+        <p class="lead">Pferdegestütztes Coaching ist eine Form der Persönlichkeitsentwicklung, bei der Pferde als „lebende Spiegel" eingesetzt werden. Sie reagieren unmittelbar auf deine Körpersprache, deine Energie und deine innere Haltung – und zeigen dir so Dinge über dich selbst, die dir oft nicht bewusst sind.</p>
+
+        <div class="definition-box">
+            <p><strong>Wichtig:</strong> Es wird nicht geritten. Alles geschieht am Boden, in direkter Interaktion mit dem Pferd. Du brauchst keinerlei Erfahrung mit Pferden – im Gegenteil: Anfänger erleben oft die tiefsten Einsichten.</p>
+        </div>
+
+        <p>Anders als in klassischen Coaching-Gesprächen geht es hier nicht nur um Worte und Analysen. Du erlebst körperlich, wie dein Verhalten auf andere wirkt. Das Pferd reagiert sofort – ehrlich, ohne Urteil, ohne soziale Maske.</p>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="section section-light">
+    <div class="container">
+        <h2>Wie funktioniert es?</h2>
+        <div class="two-col">
+            <div>
+                <p>Pferde sind Fluchttiere. In der Natur hängt ihr Überleben davon ab, Stimmungen und Absichten blitzschnell zu erkennen. Diese Fähigkeit nutzen wir im Coaching.</p>
+                <p>Wenn du einem Pferd begegnest, liest es deine Körpersprache innerhalb von Sekunden. Es spürt, ob du unsicher bist, ob du klar in deiner Führung bist, ob du innerlich woanders bist als äußerlich.</p>
+                <p><strong>Das Pferd zeigt dir:</strong></p>
+                <ul style="margin-left: 20px; color: var(--color-text-light);">
+                    <li>Wie klar (oder unklar) du kommunizierst</li>
+                    <li>Ob deine Worte zu deiner Körpersprache passen</li>
+                    <li>Wie du mit Nähe und Distanz umgehst</li>
+                    <li>Was passiert, wenn du Grenzen setzt – oder nicht</li>
+                </ul>
+            </div>
+            <img src="wp-content/uploads/2022/07/Coaching-Pferde-Hamburg-KathrinStahl-24-1024x682.jpg" alt="Interaktion zwischen Mensch und Pferd im Coaching">
+        </div>
+
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h4>Beobachten</h4>
+                <p>Du beobachtest das Pferd und nimmst wahr, wie es auf dich reagiert.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h4>Interagieren</h4>
+                <p>Du gehst in Kontakt – führen, Grenzen setzen, Nähe zulassen.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h4>Reflektieren</h4>
+                <p>Was ist passiert? Was hat das mit deinem Alltag zu tun?</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h4>Übertragen</h4>
+                <p>Gemeinsam übertragen wir die Erkenntnisse auf dein Leben.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- For Whom -->
+<section class="section section-cream">
+    <div class="container-wide">
+        <h2>Für wen ist pferdegestütztes Coaching geeignet?</h2>
+        <p class="lead">Die Methode eignet sich für alle, die bereit sind, auf einer tieferen Ebene an sich zu arbeiten – jenseits von reinem Reden und Analysieren.</p>
+
+        <div class="for-who-list">
+            <div class="for-who-item">
+                <div class="for-who-icon">👤</div>
+                <div>
+                    <h4>Einzelpersonen</h4>
+                    <p>In Umbruchphasen, bei Selbstfindung, für Führungskräfte die ihren Führungsstil reflektieren wollen.</p>
+                </div>
+            </div>
+            <div class="for-who-item">
+                <div class="for-who-icon">👫</div>
+                <div>
+                    <h4>Paare</h4>
+                    <p>Um Beziehungsdynamiken sichtbar zu machen und neue Wege der Kommunikation zu finden.</p>
+                </div>
+            </div>
+            <div class="for-who-item">
+                <div class="for-who-icon">🔄</div>
+                <div>
+                    <h4>Menschen in Veränderung</h4>
+                    <p>Nach Trennung, Jobwechsel, Burnout – wenn du neu anfangen willst, aber nicht weißt wie.</p>
+                </div>
+            </div>
+            <div class="for-who-item">
+                <div class="for-who-icon">💡</div>
+                <div>
+                    <h4>Hochsensible & Hochbegabte</h4>
+                    <p>Die Arbeit mit Pferden spricht die feine Wahrnehmung an und bietet einen nicht-verbalen Zugang.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="definition-box" style="margin-top: 40px; background: var(--color-white);">
+            <p><strong>Keine Pferdeerfahrung nötig!</strong> Die meisten meiner Klienten hatten vorher noch nie direkten Kontakt zu Pferden. Das ist sogar von Vorteil – ohne Vorerfahrung bist du offener für das, was passiert.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Science Section -->
+<section class="section section-dark">
+    <div class="container">
+        <h2>Was sagt die Wissenschaft?</h2>
+        <p>Pferdegestütztes Coaching ist keine Esoterik, sondern eine wissenschaftlich untersuchte Methode. Verschiedene Studien belegen die Wirksamkeit – besonders bei Themen wie Selbstwirksamkeit, Beziehungsdynamik und Stressreduktion.</p>
+
+        <div class="science-facts">
+            <div class="science-fact">
+                <h4>Effektstärke d=0.54</h4>
+                <p>Meta-Analysen zeigen eine mittlere bis hohe Wirksamkeit – vergleichbar mit etablierten Coaching-Methoden.</p>
+            </div>
+            <div class="science-fact">
+                <h4>Oxytocin-Ausschüttung</h4>
+                <p>Die Interaktion mit Pferden fördert die Ausschüttung des „Bindungshormons" und senkt Cortisol.</p>
+            </div>
+            <div class="science-fact">
+                <h4>Studie Willmund 2021</h4>
+                <p>Speziell für Paare zeigt die Forschung positive Effekte auf Kommunikation und Beziehungszufriedenheit.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Horses Section -->
+<section class="section section-light">
+    <div class="container-wide">
+        <h2>Meine Pferde</h2>
+        <p class="lead">Die Pferde, mit denen ich arbeite, sind keine „trainierten Therapiepferde". Sie sind authentische Wesen mit eigenen Persönlichkeiten – genau das macht sie zu so ehrlichen Spiegeln.</p>
+
+        <div class="horse-cards">
+            <div class="horse-card">
+                <img src="wp-content/uploads/2022/07/Coaching-Pferde-Hamburg-KathrinStahl-7-1024x682.jpg" alt="Pferd im pferdegestützten Coaching">
+                <div class="horse-card-content">
+                    <h4>Ruhe & Präsenz</h4>
+                    <p>Meine Pferde sind es gewohnt, mit Menschen zu arbeiten. Sie sind sanft, aber ehrlich – und zeigen dir genau, wo du stehst.</p>
+                </div>
+            </div>
+            <div class="horse-card">
+                <img src="wp-content/uploads/2022/07/Coaching-Pferde-Hamburg-KathrinStahl-10-1024x682.jpg" alt="Pferd spiegelt menschliches Verhalten">
+                <div class="horse-card-content">
+                    <h4>Feines Gespür</h4>
+                    <p>Als Fluchttiere haben Pferde ein unglaublich feines Gespür für Energie und Stimmungen – sie reagieren auf das, was du nicht sagst.</p>
+                </div>
+            </div>
+            <div class="horse-card">
+                <img src="wp-content/uploads/2022/07/Coaching-Pferde-Hamburg-KathrinStahl-16-1024x682.jpg" alt="Vertrauensvolle Begegnung mit Pferd">
+                <div class="horse-card-content">
+                    <h4>Keine Bewertung</h4>
+                    <p>Pferde bewerten nicht. Sie reagieren einfach. Das macht die Begegnung mit ihnen so befreiend – und so aufschlussreich.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="section section-cream">
+    <div class="container">
+        <h2>Häufig gestellte Fragen</h2>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-question">Brauche ich Erfahrung mit Pferden?</div>
+                <div class="faq-answer">
+                    <p>Nein, überhaupt nicht. Die meisten meiner Klienten hatten vorher keinen Kontakt zu Pferden. Das ist sogar oft ein Vorteil – ohne Vorerfahrung bist du offener für das, was passiert.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Wird geritten?</div>
+                <div class="faq-answer">
+                    <p>Nein. Beim pferdegestützten Coaching findet alles am Boden statt. Du führst das Pferd, setzt Grenzen, beobachtest – aber du sitzt nicht drauf.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Was, wenn ich Angst vor Pferden habe?</div>
+                <div class="faq-answer">
+                    <p>Das ist völlig okay – und kann sogar besonders wertvoll sein. Die Angst selbst wird zum Thema: Wie gehst du mit ihr um? Was passiert, wenn du dich ihr stellst? Wir gehen in deinem Tempo vor.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Wie lange dauert eine Session?</div>
+                <div class="faq-answer">
+                    <p>Eine Einzelsession dauert in der Regel 90 Minuten bis 2 Stunden. Bei Retreats arbeiten wir über mehrere Tage mit täglich 1-2 Sessions.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Was soll ich anziehen?</div>
+                <div class="faq-answer">
+                    <p>Bequeme Kleidung, feste Schuhe (keine Sandalen), bei Bedarf wetterfeste Kleidung. Du wirst dich bewegen, also zieh dich so an, dass du dich wohlfühlst.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Ist das dasselbe wie Reittherapie?</div>
+                <div class="faq-answer">
+                    <p>Nein. Reittherapie ist eine medizinisch-therapeutische Maßnahme, oft für Menschen mit körperlichen oder psychischen Erkrankungen. Pferdegestütztes Coaching ist Persönlichkeitsentwicklung – es geht um Wachstum, nicht um Behandlung.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="internal-links">
+            <h4>Weiterlesen:</h4>
+            <ul>
+                <li><a href="paar-retreat.html">Paar-Retreat mit Pferden</a></li>
+                <li><a href="quiz-beziehung.html">Beziehungs-Check Quiz</a></li>
+                <li><a href="index.html#angebote">Alle Angebote</a></li>
+                <li><a href="casinha.html">Die Casinha – Unterkunft</a></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <h2>Neugierig geworden?</h2>
+        <p>Im kostenlosen Erstgespräch klären wir, ob pferdegestütztes Coaching der richtige Weg für dich ist – und wie wir zusammenarbeiten können.</p>
+        <div class="cta-buttons">
+            <a href="#" class="btn" onclick="bookCall(); return false;">Kostenloses Erstgespräch buchen</a>
+            <a href="quiz-beziehung.html" class="btn btn-light">Erst den Beziehungs-Check machen</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="page-footer">
+    <p>&copy; 2025 Kathrin Stahl | <a href="index.html">Zurück zur Hauptseite</a> | <a href="datenschutzerklaerung.html">Datenschutz</a> | <a href="impressum.html">Impressum</a></p>
+</footer>
+
+<script>
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', () => {
+            const item = question.parentElement;
+            const isActive = item.classList.contains('active');
+
+            // Close all
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+
+            // Open clicked if it wasn't active
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        });
+    });
+
+    // Book Call function
+    function bookCall() {
+        window.open('https://calendly.com/kathrinstahl/erstgespraech', '_blank');
+    }
+</script>
+
+</body>
+</html>

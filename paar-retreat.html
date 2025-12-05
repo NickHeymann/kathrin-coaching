@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paar-Retreat Portugal | Beziehungs-Coaching mit Pferden im Alentejo</title>
+    <meta name="description" content="Findet zurück zueinander – im 1:1 Paar-Retreat im Alentejo. Pferdegestütztes Coaching, eigene Casinha, absolute Stille. Jetzt Erstgespräch buchen.">
+    <link rel="canonical" href="https://nickheymann.github.io/kathrin-coaching/paar-retreat.html">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-primary: #2C4A47;
+            --color-accent: #B8860B;
+            --color-accent-dark: #8B6914;
+            --color-white: #ffffff;
+            --color-cream: #F5F1EB;
+            --color-text: #333333;
+            --color-text-light: #666666;
+            --font-heading: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--color-text);
+            background: var(--color-cream);
+        }
+
+        /* Header */
+        .page-header {
+            background: var(--color-primary);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--color-white);
+            text-decoration: none;
+        }
+
+        .back-link {
+            color: var(--color-white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--color-accent);
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            height: 80vh;
+            min-height: 600px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--color-white);
+            padding: 0 30px;
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 35px;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--color-accent);
+            color: var(--color-white);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--color-accent-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--color-white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-white);
+            color: var(--color-primary);
+        }
+
+        /* Section Base */
+        .section {
+            padding: 100px 30px;
+        }
+
+        .section-light {
+            background: var(--color-white);
+        }
+
+        .section-cream {
+            background: var(--color-cream);
+        }
+
+        .section-dark {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--color-accent);
+            margin-bottom: 15px;
+        }
+
+        .section-dark .section-label {
+            color: var(--color-accent);
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--color-primary);
+            margin-bottom: 20px;
+        }
+
+        .section-dark h2 {
+            color: var(--color-white);
+        }
+
+        .section-intro {
+            font-size: 1.15rem;
+            color: var(--color-text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Problem Section */
+        .problem-list {
+            list-style: none;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .problem-list li {
+            padding: 20px 0;
+            padding-left: 40px;
+            position: relative;
+            font-size: 1.1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .problem-list li::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: 15px;
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            color: var(--color-accent);
+            opacity: 0.5;
+        }
+
+        .problem-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Solution Grid */
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .solution-card {
+            background: var(--color-cream);
+            padding: 35px;
+            border-radius: 16px;
+        }
+
+        .section-dark .solution-card {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .solution-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            color: var(--color-primary);
+            margin-bottom: 15px;
+        }
+
+        .section-dark .solution-card h3 {
+            color: var(--color-white);
+        }
+
+        .solution-card p {
+            color: var(--color-text-light);
+            font-size: 1rem;
+        }
+
+        .section-dark .solution-card p {
+            color: rgba(255,255,255,0.85);
+        }
+
+        /* Method Section */
+        .method-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .method-image {
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .method-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .method-text h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--color-primary);
+            margin-bottom: 20px;
+        }
+
+        .method-text p {
+            margin-bottom: 20px;
+            color: var(--color-text-light);
+        }
+
+        .method-text ul {
+            list-style: none;
+            margin-top: 25px;
+        }
+
+        .method-text li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .method-text li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+            font-weight: bold;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--color-accent);
+            opacity: 0.3;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .timeline-marker {
+            width: 60px;
+            height: 60px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-white);
+            font-weight: 600;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-content {
+            padding-top: 10px;
+        }
+
+        .timeline-content h4 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .timeline-content p {
+            color: var(--color-text-light);
+        }
+
+        /* Location Preview */
+        .location-preview {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .location-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .location-gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .location-gallery img:first-child {
+            grid-column: 1 / -1;
+            height: 250px;
+        }
+
+        .location-text h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--color-primary);
+            margin-bottom: 20px;
+        }
+
+        .location-text p {
+            color: var(--color-text-light);
+            margin-bottom: 20px;
+        }
+
+        .location-features {
+            list-style: none;
+            margin: 25px 0;
+        }
+
+        .location-features li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: var(--color-text-light);
+        }
+
+        .location-features li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+        }
+
+        /* For Who Section */
+        .for-who-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .for-who-card {
+            padding: 40px;
+            border-radius: 16px;
+        }
+
+        .for-who-yes {
+            background: rgba(46, 125, 50, 0.08);
+            border: 1px solid rgba(46, 125, 50, 0.2);
+        }
+
+        .for-who-no {
+            background: rgba(198, 40, 40, 0.05);
+            border: 1px solid rgba(198, 40, 40, 0.15);
+        }
+
+        .for-who-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+        }
+
+        .for-who-yes h3 {
+            color: #2e7d32;
+        }
+
+        .for-who-no h3 {
+            color: #c62828;
+        }
+
+        .for-who-card ul {
+            list-style: none;
+        }
+
+        .for-who-card li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .for-who-yes li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .for-who-no li::before {
+            content: '✗';
+            position: absolute;
+            left: 0;
+            color: #c62828;
+            font-weight: bold;
+        }
+
+        /* Testimonial */
+        .testimonial {
+            background: var(--color-white);
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .section-dark .testimonial {
+            background: rgba(255,255,255,0.1);
+            box-shadow: none;
+        }
+
+        .testimonial-quote {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--color-text);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .section-dark .testimonial-quote {
+            color: var(--color-white);
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        .section-dark .testimonial-author {
+            color: var(--color-accent);
+        }
+
+        /* Pricing */
+        .pricing-card {
+            background: var(--color-white);
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .price {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            color: var(--color-accent);
+            margin-bottom: 10px;
+        }
+
+        .price-note {
+            color: var(--color-text-light);
+            margin-bottom: 30px;
+        }
+
+        .pricing-includes {
+            list-style: none;
+            text-align: left;
+            margin: 30px 0;
+            padding: 30px;
+            background: var(--color-cream);
+            border-radius: 12px;
+        }
+
+        .pricing-includes li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .pricing-includes li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+            font-weight: bold;
+        }
+
+        /* FAQ */
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--color-white);
+            margin-bottom: 15px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 25px 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--color-accent);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 30px 25px;
+            max-height: 500px;
+        }
+
+        .faq-answer p {
+            color: var(--color-text-light);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 80px 30px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, #1a3a4a 100%);
+            color: var(--color-white);
+        }
+
+        .cta-section h2 {
+            color: var(--color-white);
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            opacity: 0.9;
+            margin-bottom: 35px;
+            font-size: 1.1rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        .page-footer {
+            background: var(--color-primary);
+            color: rgba(255,255,255,0.8);
+            text-align: center;
+            padding: 30px;
+        }
+
+        .page-footer a {
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 60px 20px;
+            }
+
+            .solution-grid,
+            .method-content,
+            .location-preview,
+            .for-who-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .method-content {
+                gap: 30px;
+            }
+
+            .location-gallery {
+                order: -1;
+            }
+
+            .testimonial {
+                padding: 30px;
+            }
+
+            .testimonial-quote {
+                font-size: 1.2rem;
+            }
+
+            .pricing-card {
+                padding: 30px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-marker {
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="page-header">
+    <div class="header-content">
+        <a href="index.html" class="logo">Kathrin Stahl</a>
+        <a href="index.html" class="back-link">
+            <span>←</span> Zurück zur Hauptseite
+        </a>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+    <img src="wp-content/uploads/2025/05/2025_04_Paartherapie_Ehekrise-86.jpg" alt="Paar-Retreat im Alentejo mit pferdegestütztem Coaching">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Wann habt ihr euch zuletzt wirklich gesehen?</h1>
+        <p class="hero-subtitle">Paar-Retreat mit pferdegestütztem Coaching im Alentejo, Portugal</p>
+        <a href="#" class="btn" onclick="bookCall(); return false;">Erstgespräch als Paar buchen</a>
+    </div>
+</section>
+
+<!-- Problem Section -->
+<section class="section section-light">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Erkennst ihr euch wieder?</span>
+            <h2>Wenn die Verbindung verloren geht</h2>
+        </div>
+        <ul class="problem-list">
+            <li>Ihr funktioniert als Team, aber nicht mehr als Liebespaar</li>
+            <li>Die Gespräche drehen sich nur noch um Organisatorisches</li>
+            <li>Ihr lebt nebeneinander her statt miteinander</li>
+            <li>Einer von euch hat schon an Trennung gedacht</li>
+            <li>Ihr wünscht euch wieder echte Nähe – wisst aber nicht wie</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Solution Section -->
+<section class="section section-dark">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Was euch hier erwartet</span>
+            <h2>Raum für eure Beziehung</h2>
+            <p class="section-intro" style="color: rgba(255,255,255,0.85);">Kein Seminarhaus, keine Gruppe – nur ihr, die Pferde und ich. Ein Ort, an dem ihr wieder zueinander finden könnt.</p>
+        </div>
+        <div class="solution-grid">
+            <div class="solution-card">
+                <h3>Eigene Casinha nur für euch</h3>
+                <p>Eure private Unterkunft mit Terrasse und Blick auf Korkeichen. Hier könnt ihr nach den Sessions zur Ruhe kommen – oder die Stille gemeinsam genießen.</p>
+            </div>
+            <div class="solution-card">
+                <h3>Pferdegestütztes Coaching</h3>
+                <p>Die Pferde zeigen, was zwischen euch passiert – ohne Worte, ohne Bewertung. Sie spiegeln eure Dynamik und eröffnen neue Wege der Kommunikation.</p>
+            </div>
+            <div class="solution-card">
+                <h3>Keine Gruppe, nur ihr</h3>
+                <p>Alles ist auf euch zugeschnitten. Keine fremden Menschen, vor denen ihr über eure Beziehung reden müsst. Nur ihr und Kathrin.</p>
+            </div>
+            <div class="solution-card">
+                <h3>Zeit für Stille und Nähe</h3>
+                <p>Zwischen den Sessions: Spaziergänge, gemeinsames Kochen, Sternenhimmel. Raum, um wieder miteinander statt nebeneinander zu sein.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Method Section -->
+<section class="section section-cream">
+    <div class="container">
+        <div class="method-content">
+            <div class="method-image">
+                <img src="wp-content/uploads/2025/05/2025_04_Paartherapie_Ehekrise-52-768x512.jpg" alt="Pferdegestütztes Coaching für Paare">
+            </div>
+            <div class="method-text">
+                <span class="section-label">Die Methode</span>
+                <h3>Warum Pferde?</h3>
+                <p>Pferde reagieren auf das, was wirklich ist – nicht auf das, was ihr sagt oder zeigen wollt. Sie spüren Spannungen, Unsicherheiten und unterdrückte Gefühle sofort.</p>
+                <p>Das macht sie zu ehrlichen Spiegeln eurer Beziehungsdynamik. In der Arbeit mit ihnen wird sichtbar, was in Gesprächen oft verborgen bleibt.</p>
+                <ul>
+                    <li>Kein Reiten – alles geschieht am Boden</li>
+                    <li>Keine Pferdeerfahrung nötig</li>
+                    <li>Wissenschaftlich fundierte Methode</li>
+                    <li>Körperliche Erfahrung statt nur Worte</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Timeline Section -->
+<section class="section section-light">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Euer Retreat</span>
+            <h2>So läuft es ab</h2>
+            <p class="section-intro">Jedes Retreat wird individuell auf euch abgestimmt. Hier ein typischer Ablauf für 4 Tage:</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-marker">1</div>
+                <div class="timeline-content">
+                    <h4>Ankommen</h4>
+                    <p>Anreise, die Casinha beziehen, erstes Kennenlerngespräch. Ihr lernt die Umgebung kennen und kommt an – bei euch und im Alentejo.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">2</div>
+                <div class="timeline-content">
+                    <h4>Erste Begegnung mit den Pferden</h4>
+                    <p>Die erste Session mit den Pferden. Ihr beobachtet, nähert euch an – und erlebt, wie die Pferde auf euch als Paar reagieren.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">3</div>
+                <div class="timeline-content">
+                    <h4>Tiefe Prozessarbeit</h4>
+                    <p>Intensive Coaching-Sessions. Die Pferde zeigen eure Dynamik, wir reflektieren gemeinsam und arbeiten an konkreten Veränderungen.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-marker">4</div>
+                <div class="timeline-content">
+                    <h4>Integration & Ausblick</h4>
+                    <p>Wir fassen zusammen, was ihr erlebt habt. Ihr nehmt konkrete Werkzeuge mit in euren Alltag – und eine neue Verbindung zueinander.</p>
+                </div>
+            </div>
+        </div>
+        <p style="text-align: center; color: var(--color-text-light); margin-top: 30px;"><em>Retreats sind von 3-7 Tagen buchbar. Im Erstgespräch finden wir die passende Länge für euch.</em></p>
+    </div>
+</section>
+
+<!-- Location Section -->
+<section class="section section-cream">
+    <div class="container">
+        <div class="location-preview">
+            <div class="location-text">
+                <span class="section-label">Der Ort</span>
+                <h3>Die Casinha – euer Rückzugsort</h3>
+                <p>Ein liebevoll eingerichtetes Ferienhaus nur für euch. Inmitten von Korkeichen und Olivenbäumen, mit Blick auf die sanften Hügel des Alentejo.</p>
+                <ul class="location-features">
+                    <li>Eigene Terrasse mit weitem Blick</li>
+                    <li>Vollständig ausgestattete Küche</li>
+                    <li>Absolute Stille – keine Nachbarn</li>
+                    <li>Pferde in Sichtweite</li>
+                    <li>Atemberaubender Sternenhimmel</li>
+                </ul>
+                <a href="casinha.html" class="btn" style="margin-top: 20px;">Mehr über die Casinha</a>
+            </div>
+            <div class="location-gallery">
+                <img src="wp-content/uploads/2025/05/Ferienhaus-Portugal-Alentejo.jpg" alt="Casinha Wohnbereich">
+                <img src="wp-content/uploads/2025/05/ruhiges-Ferienhaus-Portugal-768x1024.jpg" alt="Casinha Schlafzimmer">
+                <img src="wp-content/uploads/2025/05/ruhiges-Ferienhaus-Alentejo-Natur-1024x768.jpg" alt="Blick von der Casinha">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- For Who Section -->
+<section class="section section-light">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Ist das etwas für euch?</span>
+            <h2>Für wen dieses Retreat gedacht ist</h2>
+        </div>
+        <div class="for-who-grid">
+            <div class="for-who-card for-who-yes">
+                <h3>Für euch, wenn...</h3>
+                <ul>
+                    <li>Ihr beide bereit seid, hinzuschauen</li>
+                    <li>Ihr eine ehrliche Bestandsaufnahme wollt</li>
+                    <li>Ihr offen für ungewöhnliche Methoden seid</li>
+                    <li>Ihr Zeit für echte Veränderung investieren wollt</li>
+                    <li>Ihr wieder als Paar zusammenfinden möchtet</li>
+                </ul>
+            </div>
+            <div class="for-who-card for-who-no">
+                <h3>Nicht für euch, wenn...</h3>
+                <ul>
+                    <li>Nur einer von euch kommen will</li>
+                    <li>Ihr einen schnellen „Trick" erwartet</li>
+                    <li>Einer gerade in akuter psychischer Krise ist</li>
+                    <li>Ihr hofft, dass der andere sich ändert</li>
+                    <li>Die Trennung bereits beschlossen ist</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonial Section -->
+<section class="section section-dark">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Erfahrungsbericht</span>
+            <h2>Was andere Paare sagen</h2>
+        </div>
+        <div class="testimonial">
+            <p class="testimonial-quote">„Wir hatten schon drei Paartherapeuten. Nichts hat so viel bewegt wie diese vier Tage mit den Pferden. Sie haben uns gezeigt, was wir uns nie getraut haben auszusprechen."</p>
+            <p class="testimonial-author">– Anna & Thomas</p>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="section section-cream">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Investment</span>
+            <h2>Eure Investition in eure Beziehung</h2>
+        </div>
+        <div class="pricing-card">
+            <div class="price">Ab 1.800€</div>
+            <p class="price-note">für 4 Tage / 3 Nächte als Paar</p>
+            <ul class="pricing-includes">
+                <li>Unterkunft in der Casinha (eigenes Ferienhaus)</li>
+                <li>Tägliche Coaching-Sessions mit den Pferden</li>
+                <li>Individuelle 1:1 Begleitung durch Kathrin</li>
+                <li>Alle Materialien und Reflexionsgespräche</li>
+                <li>Nachgespräch 2 Wochen nach dem Retreat</li>
+            </ul>
+            <p style="color: var(--color-text-light); font-size: 0.95rem;">Verpflegung nicht inklusive. Die Casinha hat eine voll ausgestattete Küche. Restaurants in 10 Min. Entfernung.</p>
+            <a href="#" class="btn" style="margin-top: 25px;" onclick="bookCall(); return false;">Kostenloses Erstgespräch buchen</a>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="section section-light">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-label">Häufige Fragen</span>
+            <h2>Das fragen Paare oft</h2>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-question">Müssen wir vor anderen über unsere Beziehung reden?</div>
+                <div class="faq-answer">
+                    <p>Nein. Es gibt keine Gruppe, kein Seminarhaus, keine anderen Teilnehmer. Nur ihr und Kathrin. Alles, was ihr besprecht, bleibt zwischen euch.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Was, wenn nur einer von uns will?</div>
+                <div class="faq-answer">
+                    <p>Das Paar-Retreat funktioniert nur, wenn ihr beide offen dafür seid. Wenn einer noch unsicher ist, kann ein Vorgespräch helfen – manchmal reicht das schon, um die Bedenken zu klären.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Können wir auch online starten?</div>
+                <div class="faq-answer">
+                    <p>Ja. Viele Paare buchen zunächst 1-2 Online-Sessions, um Kathrin kennenzulernen und zu spüren, ob die Arbeit passt. Das Retreat vor Ort ist dann der intensive nächste Schritt.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Ist das Paartherapie?</div>
+                <div class="faq-answer">
+                    <p>Nein. Coaching ist keine Therapie. Es geht nicht um Diagnosen oder psychische Erkrankungen, sondern um Persönlichkeitsentwicklung und Beziehungsarbeit. Bei akuten psychischen Krisen ist eine Therapie der bessere Weg.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Brauchen wir Erfahrung mit Pferden?</div>
+                <div class="faq-answer">
+                    <p>Überhaupt nicht. Die meisten Paare hatten vorher keinen Kontakt zu Pferden. Es wird nicht geritten – alles findet am Boden statt. Die Pferde sind sanft und erfahren in der Arbeit mit Menschen.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Wie kommen wir an?</div>
+                <div class="faq-answer">
+                    <p>Der nächste Flughafen ist Faro (ca. 1,5 Stunden) oder Lissabon (ca. 2,5 Stunden). Ein Mietwagen ist empfehlenswert, um flexibel zu sein. Genaue Anreiseinfos bekommt ihr nach der Buchung.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <h2>Bereit für den ersten Schritt?</h2>
+        <p>Im kostenlosen Erstgespräch lernt ihr Kathrin kennen und besprecht, ob das Paar-Retreat der richtige Weg für euch ist.</p>
+        <div class="cta-buttons">
+            <a href="#" class="btn" onclick="bookCall(); return false;">Kostenloses Paar-Erstgespräch buchen</a>
+            <a href="quiz-paar-kompass.html" class="btn btn-secondary">Erst den Paar-Kompass machen</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="page-footer">
+    <p>&copy; 2025 Kathrin Stahl | <a href="index.html">Zurück zur Hauptseite</a> | <a href="datenschutzerklaerung.html">Datenschutz</a> | <a href="impressum.html">Impressum</a></p>
+</footer>
+
+<script>
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', () => {
+            const item = question.parentElement;
+            const isActive = item.classList.contains('active');
+
+            // Close all
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+
+            // Open clicked if it wasn't active
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        });
+    });
+
+    // Book Call function
+    function bookCall() {
+        window.open('https://calendly.com/kathrinstahl/erstgespraech', '_blank');
+    }
+</script>
+
+</body>
+</html>

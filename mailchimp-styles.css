@@ -1,0 +1,351 @@
+/**
+ * Mailchimp Integration Styles
+ * Für Kathrin Stahl Coaching Website
+ */
+
+/* ==========================================================================
+   Base Variables (falls nicht bereits definiert)
+   ========================================================================== */
+:root {
+    --mc-primary: #8B7355;
+    --mc-primary-hover: #7a6549;
+    --mc-cream: #FDF8F3;
+    --mc-text: #2D2D2D;
+    --mc-text-light: #666;
+    --mc-border: #e0d6cc;
+    --mc-success: #4CAF50;
+    --mc-error: #e74c3c;
+    --mc-radius: 12px;
+}
+
+/* ==========================================================================
+   Newsletter Form
+   ========================================================================== */
+.mailchimp-form {
+    background: var(--mc-cream, #FDF8F3);
+    padding: 40px;
+    border-radius: var(--mc-radius);
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.mailchimp-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    color: var(--mc-primary);
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.mailchimp-subheadline {
+    color: var(--mc-text-light);
+    font-size: 1rem;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.mc-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.mc-field-group {
+    width: 100%;
+}
+
+.mc-input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid var(--mc-border);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    background: white;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+
+.mc-input:focus {
+    outline: none;
+    border-color: var(--mc-primary);
+    box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.1);
+}
+
+.mc-input::placeholder {
+    color: #aaa;
+}
+
+.mc-submit {
+    background: var(--mc-primary);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Montserrat', sans-serif;
+    margin-top: 10px;
+}
+
+.mc-submit:hover:not(:disabled) {
+    background: var(--mc-primary-hover);
+    transform: translateY(-2px);
+}
+
+.mc-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.mc-privacy {
+    font-size: 0.8rem;
+    color: var(--mc-text-light);
+    margin-top: 15px;
+}
+
+.mc-privacy a {
+    color: var(--mc-primary);
+    text-decoration: underline;
+}
+
+/* Success Message */
+.mc-success {
+    padding: 30px;
+    text-align: center;
+}
+
+.mc-success-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: var(--mc-success);
+    color: white;
+    border-radius: 50%;
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.mc-success p {
+    color: var(--mc-text);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   Quiz Result Email Form
+   ========================================================================== */
+.quiz-result-form {
+    background: linear-gradient(135deg, var(--mc-cream) 0%, #fff 100%);
+    border: 2px solid var(--mc-primary);
+    margin-top: 30px;
+}
+
+.quiz-result-form .mailchimp-headline {
+    font-size: 1.5rem;
+}
+
+/* ==========================================================================
+   Lead Magnet Popup
+   ========================================================================== */
+.lead-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.lead-popup-content {
+    background: white;
+    border-radius: 20px;
+    max-width: 480px;
+    width: 100%;
+    position: relative;
+    animation: slideUp 0.4s ease;
+    overflow: hidden;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.lead-popup-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: var(--mc-text-light);
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.lead-popup-close:hover {
+    background: var(--mc-cream);
+    color: var(--mc-text);
+}
+
+.lead-popup-body {
+    padding: 50px 40px 40px;
+}
+
+.lead-popup-body h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: var(--mc-primary);
+    margin-bottom: 15px;
+    text-align: center;
+    line-height: 1.3;
+}
+
+.lead-popup-body > p {
+    color: var(--mc-text-light);
+    text-align: center;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.lead-popup-body .mailchimp-form {
+    background: transparent;
+    padding: 0;
+}
+
+/* ==========================================================================
+   Newsletter Section (für Footer/Seite)
+   ========================================================================== */
+.newsletter-section {
+    background: linear-gradient(135deg, #FDF8F3 0%, #f5ebe0 100%);
+    padding: 80px 20px;
+}
+
+.newsletter-section .container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.newsletter-section .mailchimp-form {
+    background: white;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================================
+   Inline Newsletter (für Blog-Artikel)
+   ========================================================================== */
+.inline-newsletter {
+    margin: 40px 0;
+    padding: 30px;
+    background: var(--mc-cream);
+    border-left: 4px solid var(--mc-primary);
+    border-radius: 0 var(--mc-radius) var(--mc-radius) 0;
+}
+
+.inline-newsletter .mailchimp-form {
+    background: transparent;
+    padding: 0;
+    text-align: left;
+}
+
+.inline-newsletter .mailchimp-headline {
+    font-size: 1.4rem;
+}
+
+.inline-newsletter .mc-form {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.inline-newsletter .mc-field-group {
+    flex: 1;
+    min-width: 150px;
+}
+
+.inline-newsletter .mc-submit {
+    margin-top: 0;
+    white-space: nowrap;
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+@media (max-width: 768px) {
+    .mailchimp-form {
+        padding: 30px 20px;
+    }
+
+    .mailchimp-headline {
+        font-size: 1.5rem;
+    }
+
+    .lead-popup-body {
+        padding: 40px 25px 30px;
+    }
+
+    .lead-popup-body h2 {
+        font-size: 1.6rem;
+    }
+
+    .inline-newsletter .mc-form {
+        flex-direction: column;
+    }
+
+    .inline-newsletter .mc-field-group {
+        width: 100%;
+    }
+
+    .newsletter-section {
+        padding: 60px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mailchimp-form {
+        padding: 25px 15px;
+    }
+
+    .mc-input {
+        padding: 12px 15px;
+    }
+
+    .mc-submit {
+        padding: 12px 20px;
+    }
+
+    .lead-popup-content {
+        border-radius: 15px;
+    }
+}

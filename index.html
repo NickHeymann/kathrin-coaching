@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <!-- Primary Meta Tags -->
-    <title>Kathrin Stahl | Coaching für Neuanfang & Transformation in Portugal</title>
-    <meta name="title" content="Kathrin Stahl | Coaching für Neuanfang & Transformation">
-    <meta name="description" content="Ganzheitliches Coaching für Menschen in Umbruchphasen. Pferdegestütztes Coaching, systemische Aufstellungen und Retreats im Alentejo, Portugal. Jetzt kostenloses Erstgespräch buchen.">
+    <title>Kathrin Stahl | Pferdegestütztes Coaching & Retreats in Portugal</title>
+    <meta name="title" content="Kathrin Stahl | Pferdegestütztes Coaching & Retreats in Portugal">
+    <meta name="description" content="Finde zurück zu dir selbst – mit pferdegestütztem Coaching und Retreats im Alentejo. Für Einzelpersonen und Paare. Jetzt kostenloses Erstgespräch buchen.">
     <meta name="keywords" content="Coaching, Lebenskrise, Neuanfang, Pferdegestütztes Coaching, Retreat Portugal, Paartherapie, Hochbegabung, Hochsensibilität, Systemische Aufstellungen, Alentejo">
     <meta name="author" content="Kathrin Stahl">
     <meta name="robots" content="index, follow">
@@ -79,6 +79,8 @@
             "jobTitle": "Life Coach",
             "description": "Coach für Menschen in Umbruchphasen, spezialisiert auf Hochbegabung, Hochsensibilität und pferdegestütztes Coaching"
         },
+        "areaServed": ["DE", "AT", "CH"],
+        "serviceType": ["Life Coaching", "Couples Coaching", "Equine Assisted Coaching", "Retreats"],
         "hasOfferCatalog": {
             "@type": "OfferCatalog",
             "name": "Coaching Angebote",
@@ -97,7 +99,15 @@
                 },
                 {
                     "@type": "Offer",
-                    "name": "Retreats in Portugal",
+                    "name": "Paar-Retreat Portugal",
+                    "description": "4-7 Tage Paar-Retreat mit pferdegestütztem Coaching im Alentejo",
+                    "url": "https://nickheymann.github.io/kathrin-coaching/paar-retreat.html",
+                    "price": "1800",
+                    "priceCurrency": "EUR"
+                },
+                {
+                    "@type": "Offer",
+                    "name": "Einzel-Retreat in Portugal",
                     "description": "3-7 Tage Retreat mit Pferden im Alentejo",
                     "price": "1200",
                     "priceCurrency": "EUR"
@@ -136,6 +146,22 @@
                     "@type": "Answer",
                     "text": "Die Retreats finden auf einem Hof im Alentejo, Portugal statt. Die Region bietet Stille, Weite und die perfekte Umgebung für Transformation und Selbstfindung."
                 }
+            },
+            {
+                "@type": "Question",
+                "name": "Muss ich Erfahrung mit Pferden haben?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Nein, du brauchst keinerlei Pferdeerfahrung. Die Pferde werden nicht geritten - sie sind Spiegel und Lehrer. Die meisten Klienten hatten vorher keinen Kontakt zu Pferden."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Was kostet das Coaching?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Einzelsessions starten ab 110€. Retreats in Portugal beginnen ab 1.200€ inkl. Unterkunft. Paar-Retreats ab 1.800€ für 4 Tage."
+                }
             }
         ]
     }
@@ -148,7 +174,7 @@
         "@type": "ItemList",
         "name": "Psychologische Selbsttests",
         "description": "Wissenschaftlich fundierte Selbsttests zur Selbsterkenntnis - basierend auf validierten psychologischen Instrumenten",
-        "numberOfItems": 5,
+        "numberOfItems": 6,
         "itemListElement": [
             {
                 "@type": "ListItem",
@@ -224,6 +250,21 @@
                     "about": {
                         "@type": "Thing",
                         "name": "Midlife Crisis"
+                    }
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 6,
+                "item": {
+                    "@type": "Quiz",
+                    "name": "Paar-Kompass",
+                    "description": "Beziehungstest für Paare: 15 Fragen zu Kommunikation, emotionaler Nähe, Konflikten und gemeinsamer Zukunft",
+                    "url": "https://nickheymann.github.io/kathrin-coaching/quiz-paar-kompass.html",
+                    "educationalLevel": "Selbsteinschätzung",
+                    "about": {
+                        "@type": "Thing",
+                        "name": "Beziehungsqualität für Paare"
                     }
                 }
             }
@@ -3383,7 +3424,39 @@
     <div class="container header-inner">
         <a href="#" class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">KATHRIN STAHL</a>
         <nav id="mainNav">
-            <a href="#angebote">Angebote</a>
+            <div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+                <span class="nav-link">Angebote</span>
+                <div class="dropdown-menu" role="menu" aria-label="Angebote">
+                    <a href="#angebote" role="menuitem">
+                        <span class="dropdown-icon">✦</span>
+                        <span class="dropdown-text">
+                            <strong>Übersicht</strong>
+                            <span>Alle meine Angebote</span>
+                        </span>
+                    </a>
+                    <a href="paar-retreat.html" role="menuitem">
+                        <span class="dropdown-icon beziehung">♥</span>
+                        <span class="dropdown-text">
+                            <strong>Paar-Retreat Portugal</strong>
+                            <span>5 Tage für eure Beziehung</span>
+                        </span>
+                    </a>
+                    <a href="pferdegestuetztes-coaching.html" role="menuitem">
+                        <span class="dropdown-icon">🐴</span>
+                        <span class="dropdown-text">
+                            <strong>Pferdegestütztes Coaching</strong>
+                            <span>Was ist das eigentlich?</span>
+                        </span>
+                    </a>
+                    <a href="casinha.html" role="menuitem">
+                        <span class="dropdown-icon">🏡</span>
+                        <span class="dropdown-text">
+                            <strong>Die Casinha</strong>
+                            <span>Ferienhaus im Alentejo</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
             <div class="nav-dropdown" onclick="toggleDropdown(this, event)">
                 <span class="nav-link">Selbsttests</span>
                 <div class="dropdown-menu" role="menu" aria-label="Selbsttests">
@@ -3422,8 +3495,16 @@
                             <span>CMCM-Fragebogen</span>
                         </span>
                     </a>
+                    <a href="quiz-paar-kompass.html" role="menuitem">
+                        <span class="dropdown-icon beziehung">♥♥</span>
+                        <span class="dropdown-text">
+                            <strong>Paar-Kompass</strong>
+                            <span>Wo steht eure Beziehung?</span>
+                        </span>
+                    </a>
                 </div>
             </div>
+            <a href="blog/was-ist-pferdegestuetztes-coaching.html">Blog</a>
             <a href="#ueber">Über mich</a>
             <a href="#kontakt">Kontakt</a>
             <a href="#" class="nav-cta" onclick="bookCall(); return false;">Gespräch buchen</a>
@@ -3459,7 +3540,7 @@
 
             <!-- Video Intro -->
             <div class="video-intro" onclick="openVideoModal('intro')">
-                <img src="wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg" alt="Kathrin Stahl - Video Vorstellung">
+                <img src="wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg" alt="Kathrin Stahl Coach - Videobotschaft pferdegestütztes Coaching Portugal">
                 <div class="video-play-btn"></div>
                 <div class="video-intro-caption">Lerne mich in 60 Sekunden kennen</div>
             </div>
@@ -3504,7 +3585,7 @@
     <div class="container">
         <div class="problem-grid">
             <div class="problem-image">
-                <img src="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-29-scaled.jpg" alt="Kathrin mit Pferd in goldenem Licht" loading="lazy">
+                <img src="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-29-scaled.jpg" alt="Pferdegestütztes Coaching Portugal - Kathrin Stahl mit Pferd im Alentejo" loading="lazy">
             </div>
             <div class="problem-content">
                 <h2>Erkennst du dich wieder?</h2>
@@ -3674,7 +3755,7 @@
                 <!-- Results -->
                 <div class="quiz-result" data-result="einzel">
                     <div class="quiz-result-image">
-                        <img src="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-8-scaled.jpg" alt="1:1 Coaching">
+                        <img src="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-8-scaled.jpg" alt="1:1 Einzelcoaching mit Kathrin Stahl - persönliche Begleitung">
                     </div>
                     <h3>1:1 Coaching ist perfekt für dich</h3>
                     <p>Du brauchst einen geschützten Raum, um in deinem eigenen Tempo zu wachsen. Im Einzelcoaching begleite ich dich individuell - online oder vor Ort mit den Pferden.</p>
@@ -3683,7 +3764,7 @@
 
                 <div class="quiz-result" data-result="paar">
                     <div class="quiz-result-image">
-                        <img src="wp-content/uploads/2025/05/2025_04_Paartherapie_Ehekrise-22.jpg" alt="Paar-Coaching">
+                        <img src="wp-content/uploads/2025/05/2025_04_Paartherapie_Ehekrise-22.jpg" alt="Paar-Coaching für Beziehungskrisen - gemeinsam neue Wege finden">
                     </div>
                     <h3>Paar-Coaching ist euer Weg</h3>
                     <p>Ihr braucht einen neutralen Raum, um wieder zueinander zu finden - oder einen würdevollen Abschied zu gestalten. Ich begleite euch durch diese intensive Zeit.</p>
@@ -3692,7 +3773,7 @@
 
                 <div class="quiz-result" data-result="retreat">
                     <div class="quiz-result-image">
-                        <img src="wp-content/uploads/2025/11/Retreat-Portugal-Pferde-Kathrin-Stahl-19-scaled.jpg" alt="Retreat Portugal">
+                        <img src="wp-content/uploads/2025/11/Retreat-Portugal-Pferde-Kathrin-Stahl-19-scaled.jpg" alt="Retreat Portugal Alentejo - Transformation mit Pferden in der Natur">
                     </div>
                     <h3>Ein Retreat in Portugal wartet auf dich</h3>
                     <p>Du bist bereit für tiefe Transformation. Im Alentejo, umgeben von Stille, Weite und der Weisheit der Pferde, findest du zurück zu dir selbst.</p>
@@ -3714,7 +3795,7 @@
             <!-- 1:1 Coaching -->
             <div class="service-card" data-service="einzelcoaching">
                 <div class="service-image">
-                    <img src="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-8-scaled.jpg" alt="1:1 Coaching" loading="lazy">
+                    <img src="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-8-scaled.jpg" alt="1:1 Einzelcoaching mit Kathrin Stahl - individuelle Begleitung online und vor Ort" loading="lazy">
                 </div>
                 <div class="service-content">
                     <h3>1:1 Coaching</h3>
@@ -3746,7 +3827,7 @@
             <!-- Retreats -->
             <div class="service-card" data-service="retreats">
                 <div class="service-image">
-                    <img src="wp-content/uploads/2025/11/Retreat-Portugal-Pferde-Kathrin-Stahl-19-scaled.jpg" alt="Retreats Portugal" loading="lazy">
+                    <img src="wp-content/uploads/2025/11/Retreat-Portugal-Pferde-Kathrin-Stahl-19-scaled.jpg" alt="Retreats Portugal Alentejo - pferdegestützte Auszeit in der Natur" loading="lazy">
                 </div>
                 <div class="service-content">
                     <h3>Retreats in Portugal</h3>
@@ -3791,7 +3872,7 @@
     <div class="container">
         <div class="story-preview">
             <div class="story-image">
-                <img src="wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg" alt="Kathrin Stahl" loading="lazy">
+                <img src="wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg" alt="Kathrin Stahl - Coach für Persönlichkeitsentwicklung und Beziehungscoaching" loading="lazy">
             </div>
             <div class="story-content">
                 <h2>Mein Herz führt mich durchs Leben</h2>
@@ -3864,7 +3945,7 @@
         <div class="video-testimonials-grid">
             <div class="video-testimonial-card">
                 <div class="video-testimonial-thumb" onclick="openVideoModal('testimonial1')">
-                    <img src="wp-content/uploads/2025/05/Neuanfang-Umbruchphase-1024x1024.jpg" alt="Sandra über ihre Transformation">
+                    <img src="wp-content/uploads/2025/05/Neuanfang-Umbruchphase-1024x1024.jpg" alt="Kundenstimme Sandra - Neuanfang nach Umbruchphase durch Coaching">
                     <div class="video-play-btn"></div>
                 </div>
                 <div class="video-testimonial-info">
@@ -3874,7 +3955,7 @@
             </div>
             <div class="video-testimonial-card">
                 <div class="video-testimonial-thumb" onclick="openVideoModal('testimonial2')">
-                    <img src="wp-content/uploads/2025/05/2025_04_Paartherapie_Ehekrise-22.jpg" alt="Anna und Thomas">
+                    <img src="wp-content/uploads/2025/05/2025_04_Paartherapie_Ehekrise-22.jpg" alt="Erfahrungsbericht Anna und Thomas - Paar-Coaching Erfolgsgeschichte">
                     <div class="video-play-btn"></div>
                 </div>
                 <div class="video-testimonial-info">
@@ -3884,7 +3965,7 @@
             </div>
             <div class="video-testimonial-card">
                 <div class="video-testimonial-thumb" onclick="openVideoModal('testimonial3')">
-                    <img src="wp-content/uploads/2025/11/Retreat-Portugal-Pferde-Kathrin-Stahl-19-scaled.jpg" alt="Michael im Retreat">
+                    <img src="wp-content/uploads/2025/11/Retreat-Portugal-Pferde-Kathrin-Stahl-19-scaled.jpg" alt="Erfahrungsbericht Michael - Retreat Portugal pferdegestütztes Coaching">
                     <div class="video-play-btn"></div>
                 </div>
                 <div class="video-testimonial-info">
@@ -4704,9 +4785,9 @@
         </div>
         <div class="casinha-showcase">
             <div class="casinha-images">
-                <img src="wp-content/uploads/2025/05/ruhiges-Ferienhaus-Alentejo-Natur-1024x768.jpg" alt="Casinha Außenansicht" class="casinha-img-main">
-                <img src="wp-content/uploads/2025/05/Ferienhaus-alleine-Stille-Alentejo-768x1024.jpg" alt="Casinha Innen" class="casinha-img-small">
-                <img src="wp-content/uploads/2025/05/ruhiges-Ferienhaus-Natur-Alentejo-768x1024.jpg" alt="Terrasse mit Blick" class="casinha-img-small">
+                <img src="wp-content/uploads/2025/05/ruhiges-Ferienhaus-Alentejo-Natur-1024x768.jpg" alt="Casinha Ferienhaus Alentejo Portugal - Außenansicht in der Natur" class="casinha-img-main">
+                <img src="wp-content/uploads/2025/05/Ferienhaus-alleine-Stille-Alentejo-768x1024.jpg" alt="Casinha Ferienhaus Alentejo - gemütliche Inneneinrichtung für Retreat-Gäste" class="casinha-img-small">
+                <img src="wp-content/uploads/2025/05/ruhiges-Ferienhaus-Natur-Alentejo-768x1024.jpg" alt="Casinha Terrasse mit Blick auf Korkeichen und portugiesische Landschaft" class="casinha-img-small">
             </div>
             <div class="casinha-info">
                 <h4>Die Casinha</h4>
