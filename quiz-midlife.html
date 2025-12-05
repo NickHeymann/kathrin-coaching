@@ -204,6 +204,46 @@
         <a href="index.html" class="logo">KATHRIN STAHL</a>
         <nav id="mainNav">
             <a href="index.html#angebote">Angebote</a>
+            <div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+                <span class="nav-link">Selbsttests</span>
+                <div class="dropdown-menu" role="menu" aria-label="Selbsttests">
+                    <a href="quiz-hochsensibel.html" role="menuitem">
+                        <span class="dropdown-icon hsp">HSP</span>
+                        <span class="dropdown-text">
+                            <strong>Hochsensibel?</strong>
+                            <span>HSPS-Test nach Elaine Aron</span>
+                        </span>
+                    </a>
+                    <a href="quiz-hochbegabt.html" role="menuitem">
+                        <span class="dropdown-icon iq">OE</span>
+                        <span class="dropdown-text">
+                            <strong>Intensitäts-Profil</strong>
+                            <span>Overexcitabilities nach Dabrowski</span>
+                        </span>
+                    </a>
+                    <a href="quiz-beziehung.html" role="menuitem">
+                        <span class="dropdown-icon beziehung">♥</span>
+                        <span class="dropdown-text">
+                            <strong>Beziehungs-Check</strong>
+                            <span>Four Horsemen nach Gottman</span>
+                        </span>
+                    </a>
+                    <a href="quiz-lebenskrise.html" role="menuitem">
+                        <span class="dropdown-icon burnout">CBI</span>
+                        <span class="dropdown-text">
+                            <strong>Burnout-Test</strong>
+                            <span>Copenhagen Burnout Inventory</span>
+                        </span>
+                    </a>
+                    <a href="quiz-midlife.html" role="menuitem">
+                        <span class="dropdown-icon midlife">40+</span>
+                        <span class="dropdown-text">
+                            <strong>Midlife Crisis</strong>
+                            <span>CMCM-Fragebogen</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
             <a href="index.html#ueber">Über mich</a>
             <a href="index.html#kontakt">Kontakt</a>
             <a href="#" class="nav-cta" onclick="bookCall(); return false;">Gespräch buchen</a>
@@ -223,10 +263,15 @@
 </section>
 
 <main class="quiz-container">
-    <div class="science-box">
-        <h3>Über diesen Test</h3>
-        <p>Dieser Test basiert auf dem <strong>Concise Midlife Crisis Measure (CMCM)</strong>, einem wissenschaftlich validierten Fragebogen mit 11 Items zur Erfassung von Midlife-Krisen. Das CMCM misst drei Kerndimensionen: wahrgenommene Lebensveränderung, existenzielle Fragen und emotionale Belastung.</p>
-        <p class="citation">Das CMCM wurde entwickelt, um die drei Kerndimensionen der Midlife Crisis zu erfassen mit exzellenter interner Konsistenz (Cronbach's alpha = 0.954).</p>
+    <div class="science-box" id="scienceBox">
+        <div class="science-box-header" onclick="toggleScienceBox()">
+            <h3>Über diesen Test</h3>
+            <span class="collapse-icon">−</span>
+        </div>
+        <div class="science-box-content">
+            <p>Dieser Test basiert auf dem <strong>Concise Midlife Crisis Measure (CMCM)</strong>, einem wissenschaftlich validierten Fragebogen mit 11 Items zur Erfassung von Midlife-Krisen. Das CMCM misst drei Kerndimensionen: wahrgenommene Lebensveränderung, existenzielle Fragen und emotionale Belastung.</p>
+            <p class="citation">Das CMCM wurde entwickelt, um die drei Kerndimensionen der Midlife Crisis zu erfassen mit exzellenter interner Konsistenz (Cronbach's alpha = 0.954).</p>
+        </div>
     </div>
 
     <div class="progress-container">
@@ -664,6 +709,30 @@
     function toggleMobileNav() {
         document.getElementById('mainNav').classList.toggle('mobile-open');
     }
+
+    function toggleDropdown(element, event) {
+        if (window.innerWidth <= 900) {
+            event.preventDefault();
+            event.stopPropagation();
+            element.classList.toggle('open');
+        }
+    }
+
+    // Toggle Science Box
+    function toggleScienceBox() {
+        const box = document.getElementById('scienceBox');
+        const icon = box.querySelector('.collapse-icon');
+        box.classList.toggle('collapsed');
+        icon.textContent = box.classList.contains('collapsed') ? '+' : '−';
+    }
+
+    document.addEventListener('click', function(e) {
+        const nav = document.getElementById('mainNav');
+        const menuToggle = document.querySelector('.menu-toggle');
+        if (nav && menuToggle && !nav.contains(e.target) && !menuToggle.contains(e.target)) {
+            nav.classList.remove('mobile-open');
+        }
+    });
 
     function bookCall() {
         if (typeof Cal !== 'undefined') {

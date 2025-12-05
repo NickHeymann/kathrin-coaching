@@ -121,6 +121,118 @@ nav a:hover {
     transition: 0.3s;
 }
 
+/* ===== DROPDOWN NAVIGATION ===== */
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown > .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text);
+    transition: color 0.2s;
+}
+
+.nav-dropdown:hover > .nav-link {
+    color: var(--color-primary);
+}
+
+.nav-dropdown > .nav-link::after {
+    content: '';
+    border: solid var(--color-text);
+    border-width: 0 1.5px 1.5px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    transition: transform 0.2s, border-color 0.2s;
+    margin-top: -2px;
+}
+
+.nav-dropdown:hover > .nav-link::after {
+    transform: rotate(-135deg);
+    border-color: var(--color-primary);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--color-white);
+    min-width: 280px;
+    border-radius: 12px;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    padding: 10px 0;
+    border: 1px solid rgba(0,0,0,0.06);
+    z-index: 100;
+}
+
+.nav-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.dropdown-menu a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 18px;
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.2s, color 0.2s;
+}
+
+.dropdown-menu a:hover {
+    background: var(--color-cream);
+    color: var(--color-primary);
+}
+
+.dropdown-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+}
+
+.dropdown-icon.hsp { background: linear-gradient(135deg, #D2AB74, #c9a066); }
+.dropdown-icon.iq { background: linear-gradient(135deg, #1a5276, #2471a3); }
+.dropdown-icon.beziehung { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+.dropdown-icon.burnout { background: linear-gradient(135deg, #2c3e50, #34495e); }
+.dropdown-icon.midlife { background: linear-gradient(135deg, #6c3483, #8e44ad); }
+
+.dropdown-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.dropdown-text strong {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.dropdown-text span {
+    font-size: 0.75rem;
+    color: var(--color-text-light);
+}
+
 /* ===== QUIZ HERO ===== */
 .quiz-hero {
     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
@@ -151,28 +263,109 @@ nav a:hover {
     padding: 40px 24px 60px;
 }
 
-/* ===== SCIENCE BOX ===== */
+/* ===== SCIENCE BOX (Collapsible) ===== */
 .science-box {
     background: var(--color-white);
     border-radius: 16px;
-    padding: 25px 30px;
     margin-bottom: 30px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.06);
     border-left: 4px solid var(--color-primary);
+    overflow: hidden;
+}
+
+.science-box-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+}
+
+.science-box-header:hover {
+    background: rgba(0,0,0,0.02);
 }
 
 .science-box h3 {
     font-family: var(--font-heading);
     color: var(--color-primary);
-    font-size: 1.3rem;
-    margin-bottom: 12px;
+    font-size: 1.2rem;
+    margin: 0;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.science-box h3::before {
+    content: '💡';
+    font-size: 1.1rem;
+}
+
+.collapse-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--color-cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--color-primary);
+    transition: transform 0.3s, background 0.2s;
+    flex-shrink: 0;
+}
+
+.science-box-header:hover .collapse-icon {
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+.science-box-toggle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--color-cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s;
+}
+
+.science-box-toggle::after {
+    content: '';
+    border: solid var(--color-primary);
+    border-width: 0 2px 2px 0;
+    padding: 4px;
+    transform: rotate(45deg);
+    margin-top: -3px;
+    transition: transform 0.3s;
+}
+
+.science-box.collapsed .science-box-toggle::after {
+    transform: rotate(-45deg);
+    margin-top: 3px;
+}
+
+.science-box-content {
+    padding: 0 25px 25px;
+    max-height: 500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.science-box.collapsed .science-box-content {
+    max-height: 0;
+    padding: 0 25px;
 }
 
 .science-box p {
     font-size: 0.95rem;
     color: var(--color-text-light);
     line-height: 1.7;
+    margin-bottom: 10px;
 }
 
 .science-box .citation {
@@ -182,6 +375,56 @@ nav a:hover {
     margin-top: 15px;
     padding-top: 15px;
     border-top: 1px solid #eee;
+}
+
+/* Info Box (non-warning) */
+.info-box {
+    background: #f0f7ff;
+    border-left: 4px solid #3498db;
+    border-radius: 0 16px 16px 0;
+    padding: 20px 25px;
+    margin-bottom: 25px;
+}
+
+.info-box h4 {
+    color: #2980b9;
+    font-size: 1rem;
+    margin-bottom: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-box p {
+    color: #34495e;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 10px;
+}
+
+.info-box ul {
+    margin: 12px 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+.info-box li {
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.info-box li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #3498db;
+}
+
+.info-box a {
+    color: #2980b9;
+    text-decoration: underline;
 }
 
 /* ===== PROGRESS ===== */
@@ -797,7 +1040,38 @@ nav a:hover {
         background: white;
         padding: 20px 24px;
         box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        gap: 15px;
+        gap: 0;
+    }
+
+    nav.mobile-open > a,
+    nav.mobile-open .nav-dropdown {
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    nav.mobile-open .nav-dropdown > .nav-link {
+        padding: 0;
+    }
+
+    nav.mobile-open .dropdown-menu {
+        position: static;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        box-shadow: none;
+        border: none;
+        padding: 10px 0 0 0;
+        min-width: 100%;
+        display: none;
+        background: transparent;
+    }
+
+    nav.mobile-open .nav-dropdown.open .dropdown-menu {
+        display: block;
+    }
+
+    nav.mobile-open .dropdown-menu a {
+        padding: 12px 15px;
     }
 
     .menu-toggle {
