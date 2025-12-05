@@ -141,6 +141,96 @@
     }
     </script>
 
+    <!-- Self-Assessment Quiz Collection Schema for AI Search -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Psychologische Selbsttests",
+        "description": "Wissenschaftlich fundierte Selbsttests zur Selbsterkenntnis - basierend auf validierten psychologischen Instrumenten",
+        "numberOfItems": 5,
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                    "@type": "Quiz",
+                    "name": "Hochsensibilitäts-Test (HSPS)",
+                    "description": "Selbsttest basierend auf der Highly Sensitive Person Scale (HSPS) nach Dr. Elaine Aron mit 12 Items und 3 Subskalen",
+                    "url": "https://nickheymann.github.io/kathrin-coaching/quiz-hochsensibel.html",
+                    "educationalLevel": "Selbsteinschätzung",
+                    "about": {
+                        "@type": "Thing",
+                        "name": "Hochsensibilität",
+                        "alternateName": "HSP"
+                    }
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                    "@type": "Quiz",
+                    "name": "Beziehungs-Check (Gottman)",
+                    "description": "Beziehungstest basierend auf den Four Horsemen nach Dr. John Gottman - identifiziert kritische Kommunikationsmuster",
+                    "url": "https://nickheymann.github.io/kathrin-coaching/quiz-beziehung.html",
+                    "educationalLevel": "Selbsteinschätzung",
+                    "about": {
+                        "@type": "Thing",
+                        "name": "Beziehungsqualität"
+                    }
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                    "@type": "Quiz",
+                    "name": "Burnout-Risiko-Test (CBI)",
+                    "description": "Selbsttest basierend auf dem Copenhagen Burnout Inventory (CBI) mit 15 Items und 3 Dimensionen",
+                    "url": "https://nickheymann.github.io/kathrin-coaching/quiz-lebenskrise.html",
+                    "educationalLevel": "Selbsteinschätzung",
+                    "about": {
+                        "@type": "Thing",
+                        "name": "Burnout"
+                    }
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 4,
+                "item": {
+                    "@type": "Quiz",
+                    "name": "Overexcitabilities-Test (OEQ-II)",
+                    "description": "Selbsttest basierend auf Dabrowskis Theorie der positiven Desintegration - 5 Formen der Überreizbarkeit",
+                    "url": "https://nickheymann.github.io/kathrin-coaching/quiz-hochbegabt.html",
+                    "educationalLevel": "Selbsteinschätzung",
+                    "about": {
+                        "@type": "Thing",
+                        "name": "Overexcitabilities",
+                        "alternateName": "Hochbegabung"
+                    }
+                }
+            },
+            {
+                "@type": "ListItem",
+                "position": 5,
+                "item": {
+                    "@type": "Quiz",
+                    "name": "Midlife-Reflexions-Test (CMCM)",
+                    "description": "Selbsttest basierend auf der Concise Midlife Crisis Measure nach Robinson - 11 Items, 3 Dimensionen",
+                    "url": "https://nickheymann.github.io/kathrin-coaching/quiz-midlife.html",
+                    "educationalLevel": "Selbsteinschätzung",
+                    "about": {
+                        "@type": "Thing",
+                        "name": "Midlife Crisis"
+                    }
+                }
+            }
+        ]
+    }
+    </script>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -264,18 +354,120 @@
         nav {
             display: flex;
             align-items: center;
-            gap: 40px;
+            gap: 35px;
         }
 
-        nav a {
+        nav > a, .nav-dropdown > .nav-link {
             font-size: 0.9rem;
             font-weight: 500;
             color: var(--color-text);
             transition: color 0.2s;
         }
 
-        nav a:hover {
+        nav > a:hover, .nav-dropdown:hover > .nav-link {
             color: var(--color-primary);
+        }
+
+        /* Dropdown Navigation */
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown > .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px 0;
+        }
+
+        .nav-dropdown > .nav-link::after {
+            content: '';
+            border: solid var(--color-text);
+            border-width: 0 1.5px 1.5px 0;
+            display: inline-block;
+            padding: 2.5px;
+            transform: rotate(45deg);
+            transition: transform 0.2s, border-color 0.2s;
+            margin-top: -2px;
+        }
+
+        .nav-dropdown:hover > .nav-link::after {
+            transform: rotate(-135deg);
+            border-color: var(--color-primary);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: var(--color-white);
+            min-width: 280px;
+            border-radius: 12px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+            z-index: 100;
+            padding: 12px 0;
+            border: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            color: var(--color-text);
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .dropdown-menu a:hover {
+            background: var(--color-cream);
+            color: var(--color-primary);
+        }
+
+        .dropdown-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.75rem;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .dropdown-icon.hsp { background: linear-gradient(135deg, #D2AB74, #c9a066); }
+        .dropdown-icon.iq { background: linear-gradient(135deg, #1a5276, #2471a3); }
+        .dropdown-icon.beziehung { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .dropdown-icon.burnout { background: linear-gradient(135deg, #2c3e50, #34495e); }
+        .dropdown-icon.midlife { background: linear-gradient(135deg, #6c3483, #8e44ad); }
+
+        .dropdown-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dropdown-text strong {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-text span {
+            font-size: 0.75rem;
+            color: var(--color-text-light);
+            margin-top: 2px;
         }
 
         .nav-cta {
@@ -1983,6 +2175,54 @@
                 display: none;
             }
 
+            nav.mobile-open {
+                display: flex;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: white;
+                padding: 20px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                gap: 0;
+            }
+
+            nav.mobile-open > a,
+            nav.mobile-open .nav-dropdown {
+                padding: 15px 0;
+                border-bottom: 1px solid rgba(0,0,0,0.05);
+            }
+
+            nav.mobile-open .nav-dropdown > .nav-link {
+                padding: 0;
+            }
+
+            nav.mobile-open .dropdown-menu {
+                position: static;
+                transform: none;
+                opacity: 1;
+                visibility: visible;
+                box-shadow: none;
+                border: none;
+                padding: 10px 0 0 0;
+                min-width: 100%;
+                display: none;
+            }
+
+            nav.mobile-open .nav-dropdown.open .dropdown-menu {
+                display: block;
+            }
+
+            nav.mobile-open .dropdown-menu a {
+                padding: 12px 15px;
+            }
+
+            nav.mobile-open .nav-cta {
+                margin-top: 15px;
+                text-align: center;
+            }
+
             .menu-toggle {
                 display: flex;
             }
@@ -2147,13 +2387,53 @@
 <header>
     <div class="container header-inner">
         <a href="#" class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">KATHRIN STAHL</a>
-        <nav>
+        <nav id="mainNav">
             <a href="#angebote">Angebote</a>
+            <div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+                <span class="nav-link">Selbsttests</span>
+                <div class="dropdown-menu" role="menu" aria-label="Selbsttests">
+                    <a href="quiz-hochsensibel.html" role="menuitem">
+                        <span class="dropdown-icon hsp">HSP</span>
+                        <span class="dropdown-text">
+                            <strong>Hochsensibel?</strong>
+                            <span>HSPS-Test nach Elaine Aron</span>
+                        </span>
+                    </a>
+                    <a href="quiz-hochbegabt.html" role="menuitem">
+                        <span class="dropdown-icon iq">OE</span>
+                        <span class="dropdown-text">
+                            <strong>Intensitäts-Profil</strong>
+                            <span>Overexcitabilities nach Dabrowski</span>
+                        </span>
+                    </a>
+                    <a href="quiz-beziehung.html" role="menuitem">
+                        <span class="dropdown-icon beziehung">♥</span>
+                        <span class="dropdown-text">
+                            <strong>Beziehungs-Check</strong>
+                            <span>Four Horsemen nach Gottman</span>
+                        </span>
+                    </a>
+                    <a href="quiz-lebenskrise.html" role="menuitem">
+                        <span class="dropdown-icon burnout">CBI</span>
+                        <span class="dropdown-text">
+                            <strong>Burnout-Test</strong>
+                            <span>Copenhagen Burnout Inventory</span>
+                        </span>
+                    </a>
+                    <a href="quiz-midlife.html" role="menuitem">
+                        <span class="dropdown-icon midlife">40+</span>
+                        <span class="dropdown-text">
+                            <strong>Midlife Crisis</strong>
+                            <span>CMCM-Fragebogen</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
             <a href="#ueber">Über mich</a>
             <a href="#kontakt">Kontakt</a>
             <a href="#" class="nav-cta" onclick="bookCall(); return false;">Gespräch buchen</a>
         </nav>
-        <button class="menu-toggle" aria-label="Menu">
+        <button class="menu-toggle" aria-label="Menu öffnen" onclick="toggleMobileNav()">
             <span></span>
             <span></span>
             <span></span>
@@ -2354,48 +2634,6 @@
                     <a href="#" class="btn btn-primary" onclick="bookRetreat(); return false;">Retreat anfragen</a>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-
-<!-- Self-Tests Section -->
-<section class="self-tests-section" id="selbsttests">
-    <div class="container">
-        <div class="self-tests-header">
-            <h2>Kostenlose Selbsttests</h2>
-            <p>Finde heraus, was wirklich hinter deinen Gefuehlen steckt - wissenschaftlich fundiert und anonym.</p>
-        </div>
-        <div class="self-tests-grid">
-            <a href="quiz-hochsensibel.html" class="self-test-card">
-                <div class="test-icon">HSP</div>
-                <h3>Bin ich hochsensibel?</h3>
-                <p>12 Fragen zeigen dir, ob Hochsensibilitaet ein Thema fuer dich ist.</p>
-                <span class="test-duration">3 Min.</span>
-            </a>
-            <a href="quiz-hochbegabt.html" class="self-test-card">
-                <div class="test-icon">IQ+</div>
-                <h3>Bin ich hochbegabt?</h3>
-                <p>Erste Hinweise, ob ueberdurchschnittliche Begabung bei dir vorliegen koennte.</p>
-                <span class="test-duration">4 Min.</span>
-            </a>
-            <a href="quiz-beziehung.html" class="self-test-card">
-                <div class="test-icon">2</div>
-                <h3>Beziehungs-Check</h3>
-                <p>Ist eure Beziehung noch zu retten? Ein ehrlicher Blick auf eure Situation.</p>
-                <span class="test-duration">3 Min.</span>
-            </a>
-            <a href="quiz-lebenskrise.html" class="self-test-card">
-                <div class="test-icon">!</div>
-                <h3>Burnout oder Sinnkrise?</h3>
-                <p>Finde heraus, was wirklich hinter deiner Erschoepfung steckt.</p>
-                <span class="test-duration">3 Min.</span>
-            </a>
-            <a href="quiz-midlife.html" class="self-test-card">
-                <div class="test-icon">40+</div>
-                <h3>Midlife Crisis Test</h3>
-                <p>Steckst du in einer Lebenskrise? Ein Test fuer die Lebensmitte.</p>
-                <span class="test-duration">3 Min.</span>
-            </a>
         </div>
     </div>
 </section>
@@ -2947,19 +3185,27 @@
     }
 
     // Mobile menu toggle
-    const menuToggle = document.querySelector('.menu-toggle');
-    const nav = document.querySelector('nav');
+    function toggleMobileNav() {
+        const nav = document.getElementById('mainNav');
+        nav.classList.toggle('mobile-open');
+    }
 
-    menuToggle.addEventListener('click', () => {
-        nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
-        nav.style.position = 'absolute';
-        nav.style.top = '80px';
-        nav.style.left = '0';
-        nav.style.right = '0';
-        nav.style.flexDirection = 'column';
-        nav.style.background = 'white';
-        nav.style.padding = '20px';
-        nav.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+    // Dropdown toggle for mobile
+    function toggleDropdown(element, event) {
+        if (window.innerWidth <= 900) {
+            event.preventDefault();
+            event.stopPropagation();
+            element.classList.toggle('open');
+        }
+    }
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(e) {
+        const nav = document.getElementById('mainNav');
+        const menuToggle = document.querySelector('.menu-toggle');
+        if (!nav.contains(e.target) && !menuToggle.contains(e.target)) {
+            nav.classList.remove('mobile-open');
+        }
     });
 
     // ===== QUIZ FUNCTIONALITY =====
