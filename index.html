@@ -2638,10 +2638,8 @@
         }
 
         .method-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
-            border-radius: 16px;
+            width: 70px;
+            height: 70px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -2650,14 +2648,17 @@
         }
 
         .method-card:hover .method-icon {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .method-icon svg {
-            width: 28px;
-            height: 28px;
-            color: white;
-            stroke: white;
+            width: 60px;
+            height: 60px;
+            stroke: var(--color-accent);
+            fill: none;
+            stroke-width: 1;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         .method-card h4 {
@@ -3890,11 +3891,16 @@
             <!-- Systemische Aufstellungen -->
             <div class="method-card" onclick="toggleMethodDetail(this)">
                 <div class="method-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <circle cx="12" cy="5" r="3"/>
-                        <circle cx="5" cy="19" r="3"/>
-                        <circle cx="19" cy="19" r="3"/>
-                        <path d="M12 8v4M8 17l4-5M16 17l-4-5"/>
+                    <svg viewBox="0 0 64 64" fill="none">
+                        <!-- Drei verbundene Figuren - organisch gezeichnet -->
+                        <circle cx="32" cy="12" r="6" stroke-width="1.2"/>
+                        <path d="M32 18c0 4-2 8-2 12s2 6 2 10" stroke-width="1.2"/>
+                        <circle cx="14" cy="38" r="5" stroke-width="1.2"/>
+                        <path d="M14 43c0 3-1 6-1 9" stroke-width="1.2"/>
+                        <circle cx="50" cy="38" r="5" stroke-width="1.2"/>
+                        <path d="M50 43c0 3 1 6 1 9" stroke-width="1.2"/>
+                        <path d="M28 22c-6 4-12 10-14 16" stroke-width="0.8" opacity="0.6"/>
+                        <path d="M36 22c6 4 12 10 14 16" stroke-width="0.8" opacity="0.6"/>
                     </svg>
                 </div>
                 <h4>Systemische Aufstellungen</h4>
@@ -3909,9 +3915,13 @@
             <!-- Pferdegestütztes Coaching -->
             <div class="method-card" onclick="toggleMethodDetail(this)">
                 <div class="method-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M4 14l2-4c.5-1 1.5-2 3-2h2c1 0 2-.5 2.5-1.5L15 4c.3-.5.8-.5 1 0l1 2c.5 1 1.5 2 3 2v3c0 1-.5 2-1 2.5l-1 1v4.5c0 .5-.5 1-1 1h-1c-.5 0-1-.5-1-1v-2h-4v2c0 .5-.5 1-1 1H9c-.5 0-1-.5-1-1v-4l-2-1c-1-.5-2-1.5-2-3z"/>
-                        <circle cx="17" cy="7" r="1"/>
+                    <svg viewBox="0 0 64 64" fill="none">
+                        <!-- Eleganter Pferdekopf - fließende Linien -->
+                        <path d="M18 48c2-4 4-8 8-12c4-4 10-6 14-4c2 1 4 3 6 2c3-1 5-4 6-8c0-2-1-4-2-5c-2-2-4-2-6-1c-1 1-2 3-4 4c-3 2-6 1-8 0" stroke-width="1.2"/>
+                        <path d="M44 22c1 2 3 3 4 3" stroke-width="1"/>
+                        <circle cx="40" cy="18" r="1.5" fill="currentColor" stroke="none"/>
+                        <path d="M22 36c-2 1-4 4-4 8" stroke-width="1" opacity="0.7"/>
+                        <path d="M34 32c0 4-2 8-4 12" stroke-width="1" opacity="0.7"/>
                     </svg>
                 </div>
                 <h4>Pferdegestütztes Coaching</h4>
@@ -3926,8 +3936,14 @@
             <!-- Heldenreise -->
             <div class="method-card" onclick="toggleMethodDetail(this)">
                 <div class="method-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M12 2l3 7h7l-5.5 4.5 2 7L12 16l-6.5 4.5 2-7L2 9h7z"/>
+                    <svg viewBox="0 0 64 64" fill="none">
+                        <!-- Geschwungener Pfad / Reise-Symbol -->
+                        <path d="M8 52c4-8 12-16 24-20c8-3 16-2 22 4" stroke-width="1.2"/>
+                        <path d="M50 32l6 4l-2-6" stroke-width="1.2"/>
+                        <circle cx="12" cy="48" r="4" stroke-width="1"/>
+                        <path d="M20 28c-2-4 0-10 6-14" stroke-width="0.8" opacity="0.6"/>
+                        <path d="M36 18c2-2 6-4 10-2" stroke-width="0.8" opacity="0.6"/>
+                        <circle cx="28" cy="12" r="2" stroke-width="0.8" opacity="0.5"/>
                     </svg>
                 </div>
                 <h4>Die Heldenreise</h4>
@@ -3942,9 +3958,16 @@
             <!-- Reiki -->
             <div class="method-card" onclick="toggleMethodDetail(this)">
                 <div class="method-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
-                        <circle cx="12" cy="12" r="4"/>
+                    <svg viewBox="0 0 64 64" fill="none">
+                        <!-- Hände mit Energie-Fluss -->
+                        <path d="M20 40c-4-2-8-2-10 2c-1 3 1 6 4 8c4 2 10 2 14-2" stroke-width="1.2"/>
+                        <path d="M44 40c4-2 8-2 10 2c1 3-1 6-4 8c-4 2-10 2-14-2" stroke-width="1.2"/>
+                        <path d="M28 46c2-4 4-8 4-14c0-4-2-8-2-12" stroke-width="1" opacity="0.7"/>
+                        <path d="M36 46c-2-4-4-8-4-14c0-4 2-8 2-12" stroke-width="1" opacity="0.7"/>
+                        <circle cx="32" cy="14" r="3" stroke-width="1"/>
+                        <path d="M32 8c0-2 0-4 0-4" stroke-width="0.8" opacity="0.5"/>
+                        <path d="M26 10c-2-2-3-3-4-4" stroke-width="0.8" opacity="0.5"/>
+                        <path d="M38 10c2-2 3-3 4-4" stroke-width="0.8" opacity="0.5"/>
                     </svg>
                 </div>
                 <h4>Reiki & Energiearbeit</h4>
@@ -3959,9 +3982,16 @@
             <!-- Körperarbeit -->
             <div class="method-card" onclick="toggleMethodDetail(this)">
                 <div class="method-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <circle cx="12" cy="5" r="3"/>
-                        <path d="M12 8v8M8 12h8M9 20l3-4 3 4"/>
+                    <svg viewBox="0 0 64 64" fill="none">
+                        <!-- Elegante menschliche Figur in Bewegung -->
+                        <circle cx="32" cy="12" r="6" stroke-width="1.2"/>
+                        <path d="M32 18c0 6 0 12 0 18" stroke-width="1.2"/>
+                        <path d="M32 24c-6 4-12 8-16 14" stroke-width="1.1"/>
+                        <path d="M32 24c6 4 12 8 16 14" stroke-width="1.1"/>
+                        <path d="M32 36c-4 6-8 12-10 18" stroke-width="1.1"/>
+                        <path d="M32 36c4 6 8 12 10 18" stroke-width="1.1"/>
+                        <path d="M28 28c-2 1-3 3-3 5" stroke-width="0.8" opacity="0.5"/>
+                        <path d="M36 28c2 1 3 3 3 5" stroke-width="0.8" opacity="0.5"/>
                     </svg>
                 </div>
                 <h4>Körperorientierte Arbeit</h4>
@@ -3976,9 +4006,14 @@
             <!-- Intuitive Begleitung -->
             <div class="method-card" onclick="toggleMethodDetail(this)">
                 <div class="method-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
-                        <path d="M12 6v6l4 2"/>
+                    <svg viewBox="0 0 64 64" fill="none">
+                        <!-- Lotusblüte - Symbol für Intuition -->
+                        <path d="M32 56c0-8-4-14-4-22c0-6 4-12 4-18" stroke-width="1"/>
+                        <path d="M32 20c-4 4-10 10-14 18c0 1 1 2 2 2c4 0 10-6 12-12" stroke-width="1.2"/>
+                        <path d="M32 20c4 4 10 10 14 18c0 1-1 2-2 2c-4 0-10-6-12-12" stroke-width="1.2"/>
+                        <path d="M32 24c-8 1-16 6-20 14c0 1 1 2 2 2c6-1 14-8 18-14" stroke-width="1" opacity="0.7"/>
+                        <path d="M32 24c8 1 16 6 20 14c0 1-1 2-2 2c-6-1-14-8-18-14" stroke-width="1" opacity="0.7"/>
+                        <circle cx="32" cy="16" r="4" stroke-width="1"/>
                     </svg>
                 </div>
                 <h4>Intuitive Prozessbegleitung</h4>
