@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Burnout oder Sinnkrise? Selbsttest | KATHRIN STAHL Coaching</title>
-    <meta name="description" content="Kostenloser Selbsttest: Ist es Burnout oder eine Sinnkrise? 10 Fragen helfen dir zu verstehen, was wirklich hinter deiner Erschoepfung steckt.">
-    <meta name="keywords" content="Burnout Test, Sinnkrise Test, Erschoepfung, Lebenskrise, Selbsttest, Midlife Crisis">
+    <title>Burnout-Selbsttest (CBI) | KATHRIN STAHL Coaching</title>
+    <meta name="description" content="Wissenschaftlich fundierter Burnout-Test basierend auf dem Copenhagen Burnout Inventory (CBI). Kostenlose Selbsteinschaetzung mit drei Burnout-Dimensionen.">
+    <meta name="keywords" content="Burnout Test, Copenhagen Burnout Inventory, CBI, Erschoepfung, Burnout Symptome, wissenschaftlicher Test">
     <link rel="canonical" href="https://nickheymann.github.io/kathrin-coaching/quiz-lebenskrise.html">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Burnout oder Sinnkrise? Kostenloser Selbsttest">
-    <meta property="og:description" content="Finde in 3 Minuten heraus, ob du an Burnout leidest oder in einer Sinnkrise steckst - und was dir jetzt wirklich hilft.">
+    <meta property="og:title" content="Burnout-Selbsttest nach Copenhagen Burnout Inventory">
+    <meta property="og:description" content="Wissenschaftlich validierter Burnout-Test mit 15 Fragen. Erfasse persoenliche, arbeitsbedingte und zwischenmenschliche Erschoepfung.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://nickheymann.github.io/kathrin-coaching/quiz-lebenskrise.html">
 
@@ -19,14 +19,21 @@
     {
         "@context": "https://schema.org",
         "@type": "Quiz",
-        "name": "Burnout oder Sinnkrise? Selbsttest",
-        "description": "Ein Selbsttest mit 10 Fragen um herauszufinden, ob deine Erschoepfung auf Burnout oder eine tiefere Sinnkrise hindeutet.",
+        "name": "Burnout-Selbsttest (Copenhagen Burnout Inventory)",
+        "description": "Wissenschaftlich fundierter Burnout-Fragebogen mit 15 Items aus dem Copenhagen Burnout Inventory. Misst persoenliche, arbeitsbedingte und zwischenmenschliche Erschoepfung.",
         "educationalLevel": "beginner",
         "learningResourceType": "Quiz",
         "provider": {
             "@type": "Person",
             "name": "Kathrin Stahl",
             "url": "https://nickheymann.github.io/kathrin-coaching/"
+        },
+        "citation": {
+            "@type": "ScholarlyArticle",
+            "name": "The Copenhagen Burnout Inventory: A new tool for the assessment of burnout",
+            "author": "Kristensen, T.S., Borritz, M., Villadsen, E., & Christensen, K.B.",
+            "datePublished": "2005",
+            "publisher": "Work & Stress"
         }
     }
     </script>
@@ -38,6 +45,18 @@
     <link rel="stylesheet" href="modern-design.css" type="text/css" media="all">
 
     <style>
+        :root {
+            --primary-gold: #D2AB74;
+            --primary-dark: #2c3e50;
+            --bg-warm: #f5f0eb;
+            --personal-color: #e74c3c;
+            --work-color: #f39c12;
+            --social-color: #9b59b6;
+            --low-color: #27ae60;
+            --medium-color: #f39c12;
+            --high-color: #e74c3c;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -46,74 +65,141 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f0eb 0%, #ebe4dc 100%);
+            background: linear-gradient(135deg, var(--bg-warm) 0%, #ebe4dc 100%);
             min-height: 100vh;
             color: #333;
         }
 
         .quiz-header {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #34495e 100%);
             color: #fff;
-            padding: 30px 20px;
+            padding: 40px 20px;
             text-align: center;
         }
 
         .quiz-header h1 {
-            font-size: clamp(1.5rem, 4vw, 2.2rem);
-            margin-bottom: 10px;
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            margin-bottom: 12px;
             font-weight: 300;
         }
 
-        .quiz-header p {
+        .quiz-header .subtitle {
             opacity: 0.9;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .quiz-header .scientific-note {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            font-style: italic;
         }
 
         .quiz-header a {
-            color: #D2AB74;
+            color: var(--primary-gold);
             text-decoration: none;
         }
 
         .quiz-container {
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 25px;
         }
 
+        /* Scientific Info Box */
+        .info-box {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 20px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--primary-gold);
+        }
+
+        .info-box h3 {
+            color: var(--primary-dark);
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-box p {
+            color: #555;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .dimension-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .dimension-badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .dimension-badge.personal { background: var(--personal-color); }
+        .dimension-badge.work { background: var(--work-color); }
+        .dimension-badge.social { background: var(--social-color); }
+
+        /* Progress */
         .progress-container {
             background: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 20px rgba(0,0,0,0.08);
         }
 
-        .progress-bar {
-            height: 8px;
-            background: #e0e0e0;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #D2AB74, #e8c496);
-            border-radius: 4px;
-            transition: width 0.4s ease;
-            width: 0%;
+        .progress-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
         }
 
         .progress-text {
             font-size: 0.9rem;
             color: #666;
-            text-align: center;
         }
 
+        .dimension-indicator {
+            font-size: 0.8rem;
+            padding: 4px 12px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-gold), #e8c496);
+            border-radius: 3px;
+            transition: width 0.4s ease;
+            width: 0%;
+        }
+
+        /* Question Card */
         .question-card {
             background: #fff;
-            border-radius: 15px;
-            padding: 30px;
+            border-radius: 16px;
+            padding: 35px;
             margin-bottom: 20px;
             box-shadow: 0 5px 30px rgba(0,0,0,0.1);
             display: none;
@@ -121,64 +207,114 @@
 
         .question-card.active {
             display: block;
-            animation: fadeIn 0.4s ease;
+            animation: slideIn 0.4s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .question-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
 
         .question-number {
             font-size: 0.85rem;
-            color: #D2AB74;
+            color: var(--primary-gold);
             font-weight: 600;
-            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
+        .question-dimension {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 10px;
+            color: #fff;
+            font-weight: 500;
+        }
+
         .question-text {
-            font-size: 1.3rem;
-            color: #2c3e50;
-            margin-bottom: 25px;
+            font-size: 1.25rem;
+            color: var(--primary-dark);
+            margin-bottom: 30px;
             line-height: 1.5;
         }
 
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+        /* Frequency Scale */
+        .frequency-scale {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
         }
 
-        .option {
-            padding: 18px 20px;
+        @media (max-width: 600px) {
+            .frequency-scale {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .frequency-option {
+            padding: 18px 12px;
             background: #f8f6f3;
             border: 2px solid transparent;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 1rem;
-            text-align: left;
+            text-align: center;
         }
 
-        .option:hover {
+        .frequency-option:hover {
             background: #fff;
-            border-color: #D2AB74;
-            transform: translateX(5px);
+            border-color: var(--primary-gold);
+            transform: translateY(-2px);
         }
 
-        .option.selected {
-            background: #D2AB74;
+        .frequency-option.selected {
+            background: var(--primary-gold);
+            border-color: var(--primary-gold);
+            transform: translateY(-2px);
+        }
+
+        .frequency-label {
+            display: block;
+            font-size: 0.95rem;
+            color: #444;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .frequency-option.selected .frequency-label {
             color: #fff;
-            border-color: #D2AB74;
         }
 
+        .frequency-value {
+            display: block;
+            font-size: 0.75rem;
+            color: #888;
+            margin-top: 4px;
+            transition: color 0.3s;
+        }
+
+        .frequency-option.selected .frequency-value {
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Result Card */
         .result-card {
             background: #fff;
-            border-radius: 15px;
-            padding: 40px 30px;
-            text-align: center;
+            border-radius: 16px;
+            padding: 40px;
             box-shadow: 0 5px 30px rgba(0,0,0,0.1);
             display: none;
         }
@@ -188,100 +324,247 @@
             animation: fadeIn 0.5s ease;
         }
 
-        .result-icon {
-            width: 100px;
-            height: 100px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .overall-score-circle {
+            width: 160px;
+            height: 160px;
             margin: 0 auto 25px;
+            border-radius: 50%;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            position: relative;
+        }
+
+        .overall-score-circle::before {
+            content: '';
+            position: absolute;
+            inset: 0;
             border-radius: 50%;
-            font-size: 3rem;
+            padding: 8px;
+            background: conic-gradient(
+                var(--score-color) calc(var(--score-percent) * 3.6deg),
+                #e0e0e0 0
+            );
+            -webkit-mask:
+                linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
         }
 
-        .result-icon.burnout {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            color: #fff;
+        .score-number {
+            font-size: 2.8rem;
+            font-weight: 300;
+            color: var(--primary-dark);
         }
 
-        .result-icon.sinnkrise {
-            background: linear-gradient(135deg, #f39c12, #d68910);
-            color: #fff;
-        }
-
-        .result-icon.mixed {
-            background: linear-gradient(135deg, #9b59b6, #8e44ad);
-            color: #fff;
-        }
-
-        .result-icon.healthy {
-            background: linear-gradient(135deg, #27ae60, #229954);
-            color: #fff;
+        .score-max {
+            font-size: 0.9rem;
+            color: #888;
         }
 
         .result-title {
             font-size: 1.8rem;
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-
-        .result-score {
-            font-size: 1rem;
-            color: #888;
-            margin-bottom: 20px;
-        }
-
-        .result-description {
-            color: #555;
-            line-height: 1.8;
-            margin-bottom: 30px;
-            text-align: left;
-            font-size: 1.05rem;
-        }
-
-        .result-meter {
-            margin: 30px 0;
-            padding: 20px;
-            background: #f8f6f3;
-            border-radius: 10px;
-        }
-
-        .meter-labels {
-            display: flex;
-            justify-content: space-between;
+            color: var(--primary-dark);
             margin-bottom: 10px;
-            font-size: 0.85rem;
+        }
+
+        .result-subtitle {
+            font-size: 1rem;
             color: #666;
         }
 
-        .meter-bar {
-            height: 20px;
-            background: linear-gradient(90deg, #27ae60 0%, #f1c40f 40%, #e74c3c 100%);
-            border-radius: 10px;
-            position: relative;
+        /* Dimension Results */
+        .dimension-results {
+            display: grid;
+            gap: 20px;
+            margin: 35px 0;
         }
 
-        .meter-indicator {
-            position: absolute;
-            top: -8px;
+        .dimension-card {
+            background: #f8f6f3;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .dimension-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .dimension-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .dimension-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dimension-icon {
             width: 36px;
             height: 36px;
-            background: #fff;
-            border: 3px solid #2c3e50;
             border-radius: 50%;
-            transform: translateX(-50%);
-            transition: left 0.5s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            font-size: 0.8rem;
+            color: #fff;
+            font-size: 1rem;
         }
 
-        .cta-section {
-            background: linear-gradient(135deg, #D2AB74 0%, #c9a066 100%);
-            padding: 30px;
+        .dimension-icon.personal { background: var(--personal-color); }
+        .dimension-icon.work { background: var(--work-color); }
+        .dimension-icon.social { background: var(--social-color); }
+
+        .dimension-name {
+            font-size: 1.1rem;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .dimension-level {
+            padding: 5px 12px;
             border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .dimension-level.low {
+            background: rgba(39, 174, 96, 0.15);
+            color: var(--low-color);
+        }
+
+        .dimension-level.medium {
+            background: rgba(243, 156, 18, 0.15);
+            color: var(--medium-color);
+        }
+
+        .dimension-level.high {
+            background: rgba(231, 76, 60, 0.15);
+            color: var(--high-color);
+        }
+
+        .dimension-bar-container {
+            background: #e0e0e0;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .dimension-bar {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.8s ease;
+        }
+
+        .dimension-bar.low { background: var(--low-color); }
+        .dimension-bar.medium { background: var(--medium-color); }
+        .dimension-bar.high { background: var(--high-color); }
+
+        .dimension-description {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .dimension-score {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 8px;
+        }
+
+        /* Interpretation */
+        .interpretation {
+            background: linear-gradient(135deg, #f8f6f3 0%, #ebe4dc 100%);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .interpretation h3 {
+            color: var(--primary-dark);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .interpretation p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 25px 0;
+        }
+
+        .disclaimer h4 {
+            color: #856404;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .disclaimer p {
+            color: #856404;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Scientific Reference */
+        .scientific-reference {
+            background: #f0f4f8;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .scientific-reference h4 {
+            color: var(--primary-dark);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .scientific-reference p {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .scientific-reference a {
+            color: var(--primary-gold);
+            text-decoration: none;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-gold) 0%, #c9a066 100%);
+            padding: 35px;
+            border-radius: 16px;
+            text-align: center;
             margin-top: 30px;
         }
 
@@ -295,12 +578,13 @@
             color: rgba(255,255,255,0.9);
             margin-bottom: 20px;
             font-size: 1rem;
+            line-height: 1.6;
         }
 
         .cta-button {
             display: inline-block;
             background: #fff;
-            color: #D2AB74;
+            color: var(--primary-gold);
             padding: 16px 40px;
             border-radius: 30px;
             text-decoration: none;
@@ -312,34 +596,37 @@
         }
 
         .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
 
+        /* Other Quizzes */
         .other-quizzes {
-            margin-top: 40px;
+            margin-top: 35px;
             padding: 25px;
             background: #f8f6f3;
-            border-radius: 10px;
+            border-radius: 12px;
+            text-align: center;
         }
 
         .other-quizzes h4 {
-            color: #2c3e50;
-            margin-bottom: 15px;
+            color: var(--primary-dark);
+            margin-bottom: 18px;
             font-size: 1.1rem;
         }
 
         .quiz-links {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            justify-content: center;
+            gap: 12px;
         }
 
         .quiz-link {
-            padding: 10px 20px;
+            padding: 12px 22px;
             background: #fff;
             border: 1px solid #ddd;
-            border-radius: 20px;
+            border-radius: 25px;
             color: #666;
             text-decoration: none;
             font-size: 0.9rem;
@@ -347,30 +634,35 @@
         }
 
         .quiz-link:hover {
-            border-color: #D2AB74;
-            color: #D2AB74;
+            border-color: var(--primary-gold);
+            color: var(--primary-gold);
+            transform: translateY(-2px);
         }
 
-        .warning-signs {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 0 10px 10px 0;
+        /* Start Button */
+        .start-section {
+            text-align: center;
+            margin-top: 20px;
         }
 
-        .warning-signs h4 {
-            color: #856404;
-            margin-bottom: 10px;
+        .start-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-gold), #c9a066);
+            color: #fff;
+            padding: 18px 50px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(210, 171, 116, 0.4);
         }
 
-        .warning-signs ul {
-            color: #856404;
-            padding-left: 20px;
-        }
-
-        .warning-signs li {
-            margin-bottom: 5px;
+        .start-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(210, 171, 116, 0.5);
         }
 
         @media (max-width: 600px) {
@@ -379,176 +671,572 @@
             }
 
             .question-card {
-                padding: 20px;
-            }
-
-            .question-text {
-                font-size: 1.1rem;
+                padding: 25px 20px;
             }
 
             .result-card {
-                padding: 25px 20px;
+                padding: 30px 20px;
+            }
+
+            .dimension-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
             }
         }
     </style>
 </head>
 <body>
     <header class="quiz-header">
-        <h1>Burnout oder Sinnkrise?</h1>
-        <p>Finde heraus, was wirklich hinter deiner Erschoepfung steckt</p>
+        <h1>Burnout-Selbsttest</h1>
+        <p class="subtitle">Basierend auf dem Copenhagen Burnout Inventory (CBI)</p>
+        <p class="scientific-note">Wissenschaftlich validiertes Instrument mit drei Burnout-Dimensionen</p>
         <p style="margin-top: 15px;"><a href="index.html">Zurueck zur Startseite</a></p>
     </header>
 
     <main class="quiz-container">
-        <div class="progress-container">
+        <!-- Intro Section -->
+        <div id="introSection">
+            <div class="info-box">
+                <h3>Ueber diesen Test</h3>
+                <p>
+                    Dieser Test basiert auf dem <strong>Copenhagen Burnout Inventory (CBI)</strong>,
+                    einem wissenschaftlich validierten Fragebogen zur Erfassung von Burnout-Symptomen
+                    (Kristensen et al., 2005). Das CBI unterscheidet drei Dimensionen von Erschoepfung:
+                </p>
+                <div class="dimension-badges">
+                    <span class="dimension-badge personal">Persoenliche Erschoepfung</span>
+                    <span class="dimension-badge work">Arbeitsbedingte Erschoepfung</span>
+                    <span class="dimension-badge social">Zwischenmenschliche Erschoepfung</span>
+                </div>
+            </div>
+
+            <div class="disclaimer">
+                <h4>Wichtiger Hinweis</h4>
+                <p>
+                    Dieser Selbsttest dient der Orientierung und ersetzt keine professionelle Diagnose.
+                    Bei anhaltenden Beschwerden wende dich bitte an einen Arzt oder Psychotherapeuten.
+                </p>
+            </div>
+
+            <div class="start-section">
+                <button class="start-button" onclick="startQuiz()">Test starten (15 Fragen)</button>
+            </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="progress-container" id="progressContainer" style="display: none;">
+            <div class="progress-top">
+                <span class="progress-text">Frage <span id="currentQuestion">1</span> von 15</span>
+                <span class="dimension-indicator" id="dimensionIndicator">Persoenlich</span>
+            </div>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
             </div>
-            <div class="progress-text"><span id="currentQuestion">1</span> von 10 Fragen</div>
         </div>
 
-        <!-- Question 1 -->
-        <div class="question-card active" data-question="1">
-            <div class="question-number">Frage 1 von 10</div>
-            <div class="question-text">Wie fuehlt sich dein Alltag gerade an?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4, 'burnout')">Ich funktioniere nur noch - innerlich bin ich leer und erschoepft</div>
-                <div class="option" onclick="selectOption(this, 4, 'sinn')">Alles laeuft eigentlich, aber es fuehlt sich sinnlos an</div>
-                <div class="option" onclick="selectOption(this, 2, 'mixed')">Mal so, mal so - ich schwanke zwischen Erschoepfung und Leere</div>
-                <div class="option" onclick="selectOption(this, 1, 'healthy')">Es gibt anstrengende Phasen, aber insgesamt ist es okay</div>
+        <!-- Questions -->
+        <!-- Personal Burnout (5 questions) -->
+        <div class="question-card" data-question="1" data-dimension="personal">
+            <div class="question-meta">
+                <span class="question-number">Frage 1 von 15</span>
+                <span class="question-dimension" style="background: var(--personal-color);">Persoenlich</span>
+            </div>
+            <div class="question-text">Wie oft fuehlst du dich muede?</div>
+            <div class="frequency-scale">
+                <div class="frequency-option" onclick="selectOption(this, 0)">
+                    <span class="frequency-label">Nie/Fast nie</span>
+                    <span class="frequency-value">0 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 25)">
+                    <span class="frequency-label">Selten</span>
+                    <span class="frequency-value">25 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 50)">
+                    <span class="frequency-label">Manchmal</span>
+                    <span class="frequency-value">50 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 75)">
+                    <span class="frequency-label">Oft</span>
+                    <span class="frequency-value">75 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 100)">
+                    <span class="frequency-label">Immer</span>
+                    <span class="frequency-value">100 Punkte</span>
+                </div>
             </div>
         </div>
 
-        <!-- Question 2 -->
-        <div class="question-card" data-question="2">
-            <div class="question-number">Frage 2 von 10</div>
-            <div class="question-text">Wenn du an deine Arbeit denkst...</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4, 'burnout')">Ich kann nicht mehr - die Anforderungen ueberwaeltigen mich</div>
-                <div class="option" onclick="selectOption(this, 4, 'sinn')">Ich koennte schon, aber wozu? Es erscheint mir bedeutungslos</div>
-                <div class="option" onclick="selectOption(this, 2, 'mixed')">Ich bin hin- und hergerissen zwischen Ueberarbeitung und Zweifel am Sinn</div>
-                <div class="option" onclick="selectOption(this, 1, 'healthy')">Meine Arbeit ist manchmal stressig, aber sie erfuellt mich auch</div>
+        <div class="question-card" data-question="2" data-dimension="personal">
+            <div class="question-meta">
+                <span class="question-number">Frage 2 von 15</span>
+                <span class="question-dimension" style="background: var(--personal-color);">Persoenlich</span>
+            </div>
+            <div class="question-text">Wie oft bist du koerperlich erschoepft?</div>
+            <div class="frequency-scale">
+                <div class="frequency-option" onclick="selectOption(this, 0)">
+                    <span class="frequency-label">Nie/Fast nie</span>
+                    <span class="frequency-value">0 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 25)">
+                    <span class="frequency-label">Selten</span>
+                    <span class="frequency-value">25 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 50)">
+                    <span class="frequency-label">Manchmal</span>
+                    <span class="frequency-value">50 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 75)">
+                    <span class="frequency-label">Oft</span>
+                    <span class="frequency-value">75 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 100)">
+                    <span class="frequency-label">Immer</span>
+                    <span class="frequency-value">100 Punkte</span>
+                </div>
             </div>
         </div>
 
-        <!-- Question 3 -->
-        <div class="question-card" data-question="3">
-            <div class="question-text">Wie steht es um deinen Schlaf?</div>
-            <div class="question-number">Frage 3 von 10</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4, 'burnout')">Ich kann nicht abschalten - waelze mich, wache oft auf</div>
-                <div class="option" onclick="selectOption(this, 4, 'sinn')">Ich schlafe, aber wache mit einem leeren Gefuehl auf</div>
-                <div class="option" onclick="selectOption(this, 2, 'mixed')">Unterschiedlich - manchmal Gedankenkreisen, manchmal tiefe Traurigkeit</div>
-                <div class="option" onclick="selectOption(this, 1, 'healthy')">Mein Schlaf ist weitgehend erholsam</div>
+        <div class="question-card" data-question="3" data-dimension="personal">
+            <div class="question-meta">
+                <span class="question-number">Frage 3 von 15</span>
+                <span class="question-dimension" style="background: var(--personal-color);">Persoenlich</span>
+            </div>
+            <div class="question-text">Wie oft bist du emotional erschoepft?</div>
+            <div class="frequency-scale">
+                <div class="frequency-option" onclick="selectOption(this, 0)">
+                    <span class="frequency-label">Nie/Fast nie</span>
+                    <span class="frequency-value">0 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 25)">
+                    <span class="frequency-label">Selten</span>
+                    <span class="frequency-value">25 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 50)">
+                    <span class="frequency-label">Manchmal</span>
+                    <span class="frequency-value">50 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 75)">
+                    <span class="frequency-label">Oft</span>
+                    <span class="frequency-value">75 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 100)">
+                    <span class="frequency-label">Immer</span>
+                    <span class="frequency-value">100 Punkte</span>
+                </div>
             </div>
         </div>
 
-        <!-- Question 4 -->
-        <div class="question-card" data-question="4">
-            <div class="question-number">Frage 4 von 10</div>
-            <div class="question-text">Wie gehst du mit Freizeit um?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4, 'burnout')">Welche Freizeit? Selbst am Wochenende bin ich erschoepft oder arbeite</div>
-                <div class="option" onclick="selectOption(this, 4, 'sinn')">Ich haette Zeit, aber nichts macht mir wirklich Freude mehr</div>
-                <div class="option" onclick="selectOption(this, 2, 'mixed')">Ich weiss nicht, was ich will - Energie fehlt UND Motivation</div>
-                <div class="option" onclick="selectOption(this, 1, 'healthy')">Ich geniesse meine freie Zeit meistens</div>
+        <div class="question-card" data-question="4" data-dimension="personal">
+            <div class="question-meta">
+                <span class="question-number">Frage 4 von 15</span>
+                <span class="question-dimension" style="background: var(--personal-color);">Persoenlich</span>
+            </div>
+            <div class="question-text">Wie oft denkst du "Ich kann nicht mehr"?</div>
+            <div class="frequency-scale">
+                <div class="frequency-option" onclick="selectOption(this, 0)">
+                    <span class="frequency-label">Nie/Fast nie</span>
+                    <span class="frequency-value">0 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 25)">
+                    <span class="frequency-label">Selten</span>
+                    <span class="frequency-value">25 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 50)">
+                    <span class="frequency-label">Manchmal</span>
+                    <span class="frequency-value">50 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 75)">
+                    <span class="frequency-label">Oft</span>
+                    <span class="frequency-value">75 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 100)">
+                    <span class="frequency-label">Immer</span>
+                    <span class="frequency-value">100 Punkte</span>
+                </div>
             </div>
         </div>
 
-        <!-- Question 5 -->
-        <div class="question-card" data-question="5">
-            <div class="question-number">Frage 5 von 10</div>
-            <div class="question-text">Koerperliche Symptome - was trifft auf dich zu?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4, 'burnout')">Kopfschmerzen, Rueckenschmerzen, Herzrasen, Magenbeschwerden</div>
-                <div class="option" onclick="selectOption(this, 4, 'sinn')">Eher diffus - eine schwere Muedigkeit, die sich wie Traurigkeit anfuehlt</div>
-                <div class="option" onclick="selectOption(this, 3, 'mixed')">Beides - koerperliche Beschwerden UND eine tiefe Schwere</div>
-                <div class="option" onclick="selectOption(this, 1, 'healthy')">Mir geht es koerperlich weitgehend gut</div>
+        <div class="question-card" data-question="5" data-dimension="personal">
+            <div class="question-meta">
+                <span class="question-number">Frage 5 von 15</span>
+                <span class="question-dimension" style="background: var(--personal-color);">Persoenlich</span>
+            </div>
+            <div class="question-text">Wie oft fuehlst du dich ausgelaugt?</div>
+            <div class="frequency-scale">
+                <div class="frequency-option" onclick="selectOption(this, 0)">
+                    <span class="frequency-label">Nie/Fast nie</span>
+                    <span class="frequency-value">0 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 25)">
+                    <span class="frequency-label">Selten</span>
+                    <span class="frequency-value">25 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 50)">
+                    <span class="frequency-label">Manchmal</span>
+                    <span class="frequency-value">50 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 75)">
+                    <span class="frequency-label">Oft</span>
+                    <span class="frequency-value">75 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 100)">
+                    <span class="frequency-label">Immer</span>
+                    <span class="frequency-value">100 Punkte</span>
+                </div>
             </div>
         </div>
 
-        <!-- Question 6 -->
-        <div class="question-card" data-question="6">
-            <div class="question-number">Frage 6 von 10</div>
-            <div class="question-text">Was wuerdest du am liebsten tun?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4, 'burnout')">Einfach nur Pause machen - alles stoppen</div>
-                <div class="option" onclick="selectOption(this, 4, 'sinn')">Etwas ganz anderes machen - mein Leben komplett umkrempeln</div>
-                <div class="option" onclick="selectOption(this, 2, 'mixed')">Ich weiss es nicht - ich bin orientierungslos</div>
-                <div class="option" onclick="selectOption(this, 1, 'healthy')">Weitermachen wie bisher, nur mit kleinen Anpassungen</div>
+        <!-- Work-related Burnout (5 questions) -->
+        <div class="question-card" data-question="6" data-dimension="work">
+            <div class="question-meta">
+                <span class="question-number">Frage 6 von 15</span>
+                <span class="question-dimension" style="background: var(--work-color);">Arbeit</span>
+            </div>
+            <div class="question-text">Erschoepft dich deine Arbeit?</div>
+            <div class="frequency-scale">
+                <div class="frequency-option" onclick="selectOption(this, 0)">
+                    <span class="frequency-label">Gar nicht</span>
+                    <span class="frequency-value">0 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 25)">
+                    <span class="frequency-label">Ein wenig</span>
+                    <span class="frequency-value">25 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 50)">
+                    <span class="frequency-label">Teilweise</span>
+                    <span class="frequency-value">50 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 75)">
+                    <span class="frequency-label">Ziemlich</span>
+                    <span class="frequency-value">75 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 100)">
+                    <span class="frequency-label">Sehr stark</span>
+                    <span class="frequency-value">100 Punkte</span>
+                </div>
             </div>
         </div>
 
-        <!-- Question 7 -->
-        <div class="question-card" data-question="7">
-            <div class="question-number">Frage 7 von 10</div>
-            <div class="question-text">Wie lange dauert dieser Zustand schon an?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4, 'burnout')">Einige Monate - es wurde immer schlimmer, bis ich am Limit war</div>
-                <div class="option" onclick="selectOption(this, 4, 'sinn')">Schon laenger - es ist eher ein schleichendes Gefuehl von "Ist das alles?"</div>
-                <div class="option" onclick="selectOption(this, 2, 'mixed')">Schwer zu sagen - es kam in Wellen und wurde staerker</div>
-                <div class="option" onclick="selectOption(this, 1, 'healthy')">Es sind eher kurze Phasen, die wieder vorbeigehen</div>
+        <div class="question-card" data-question="7" data-dimension="work">
+            <div class="question-meta">
+                <span class="question-number">Frage 7 von 15</span>
+                <span class="question-dimension" style="background: var(--work-color);">Arbeit</span>
+            </div>
+            <div class="question-text">Fuehlst du dich durch deine Arbeit ausgebrannt?</div>
+            <div class="frequency-scale">
+                <div class="frequency-option" onclick="selectOption(this, 0)">
+                    <span class="frequency-label">Gar nicht</span>
+                    <span class="frequency-value">0 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 25)">
+                    <span class="frequency-label">Ein wenig</span>
+                    <span class="frequency-value">25 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 50)">
+                    <span class="frequency-label">Teilweise</span>
+                    <span class="frequency-value">50 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 75)">
+                    <span class="frequency-label">Ziemlich</span>
+                    <span class="frequency-value">75 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 100)">
+                    <span class="frequency-label">Sehr stark</span>
+                    <span class="frequency-value">100 Punkte</span>
+                </div>
             </div>
         </div>
 
-        <!-- Question 8 -->
-        <div class="question-card" data-question="8">
-            <div class="question-number">Frage 8 von 10</div>
-            <div class="question-text">Wie fuehlt sich der Gedanke an "in 5 Jahren" an?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4, 'burnout')">Ich kann nicht so weit denken - erstmal ueberleben</div>
-                <div class="option" onclick="selectOption(this, 4, 'sinn')">So wie jetzt? Das macht mir Angst. Ich will was anderes</div>
-                <div class="option" onclick="selectOption(this, 2, 'mixed')">Es fuehlt sich nebelig an - keine Kraft und keine Vision</div>
-                <div class="option" onclick="selectOption(this, 1, 'healthy')">Ich habe eine ungefaehre Vorstellung und freue mich darauf</div>
+        <div class="question-card" data-question="8" data-dimension="work">
+            <div class="question-meta">
+                <span class="question-number">Frage 8 von 15</span>
+                <span class="question-dimension" style="background: var(--work-color);">Arbeit</span>
+            </div>
+            <div class="question-text">Frustriert dich deine Arbeit?</div>
+            <div class="frequency-scale">
+                <div class="frequency-option" onclick="selectOption(this, 0)">
+                    <span class="frequency-label">Gar nicht</span>
+                    <span class="frequency-value">0 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 25)">
+                    <span class="frequency-label">Ein wenig</span>
+                    <span class="frequency-value">25 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 50)">
+                    <span class="frequency-label">Teilweise</span>
+                    <span class="frequency-value">50 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 75)">
+                    <span class="frequency-label">Ziemlich</span>
+                    <span class="frequency-value">75 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 100)">
+                    <span class="frequency-label">Sehr stark</span>
+                    <span class="frequency-value">100 Punkte</span>
+                </div>
             </div>
         </div>
 
-        <!-- Question 9 -->
-        <div class="question-card" data-question="9">
-            <div class="question-number">Frage 9 von 10</div>
-            <div class="question-text">Was wuerde dir jetzt am meisten helfen?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4, 'burnout')">Ruhe, Erholung, weniger Druck von aussen</div>
-                <div class="option" onclick="selectOption(this, 4, 'sinn')">Klarheit, was ich wirklich will - eine neue Richtung</div>
-                <div class="option" onclick="selectOption(this, 3, 'mixed')">Beides - erstmal zur Ruhe kommen und dann Klarheit finden</div>
-                <div class="option" onclick="selectOption(this, 1, 'healthy')">Kleine Anpassungen reichen - es ist nicht so dramatisch</div>
+        <div class="question-card" data-question="9" data-dimension="work">
+            <div class="question-meta">
+                <span class="question-number">Frage 9 von 15</span>
+                <span class="question-dimension" style="background: var(--work-color);">Arbeit</span>
+            </div>
+            <div class="question-text">Fuehlst du dich am Ende eines Arbeitstages erschoepft?</div>
+            <div class="frequency-scale">
+                <div class="frequency-option" onclick="selectOption(this, 0)">
+                    <span class="frequency-label">Nie/Fast nie</span>
+                    <span class="frequency-value">0 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 25)">
+                    <span class="frequency-label">Selten</span>
+                    <span class="frequency-value">25 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 50)">
+                    <span class="frequency-label">Manchmal</span>
+                    <span class="frequency-value">50 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 75)">
+                    <span class="frequency-label">Oft</span>
+                    <span class="frequency-value">75 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 100)">
+                    <span class="frequency-label">Immer</span>
+                    <span class="frequency-value">100 Punkte</span>
+                </div>
             </div>
         </div>
 
-        <!-- Question 10 -->
-        <div class="question-card" data-question="10">
-            <div class="question-number">Frage 10 von 10</div>
-            <div class="question-text">Wenn du ganz ehrlich bist - was belastet dich am meisten?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4, 'burnout')">Dass ich nicht mehr kann - mein Koerper und Geist streiken</div>
-                <div class="option" onclick="selectOption(this, 4, 'sinn')">Dass ich nicht mehr will - so macht es keinen Sinn</div>
-                <div class="option" onclick="selectOption(this, 3, 'mixed')">Beides - ich kann nicht mehr und weiss auch nicht mehr wozu</div>
-                <div class="option" onclick="selectOption(this, 1, 'healthy')">Ich habe gerade keine groesseren Probleme</div>
+        <div class="question-card" data-question="10" data-dimension="work">
+            <div class="question-meta">
+                <span class="question-number">Frage 10 von 15</span>
+                <span class="question-dimension" style="background: var(--work-color);">Arbeit</span>
+            </div>
+            <div class="question-text">Fuehlst du dich morgens erschoepft bei dem Gedanken an einen weiteren Arbeitstag?</div>
+            <div class="frequency-scale">
+                <div class="frequency-option" onclick="selectOption(this, 0)">
+                    <span class="frequency-label">Nie/Fast nie</span>
+                    <span class="frequency-value">0 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 25)">
+                    <span class="frequency-label">Selten</span>
+                    <span class="frequency-value">25 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 50)">
+                    <span class="frequency-label">Manchmal</span>
+                    <span class="frequency-value">50 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 75)">
+                    <span class="frequency-label">Oft</span>
+                    <span class="frequency-value">75 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 100)">
+                    <span class="frequency-label">Immer</span>
+                    <span class="frequency-value">100 Punkte</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social/Interpersonal Burnout (5 questions) -->
+        <div class="question-card" data-question="11" data-dimension="social">
+            <div class="question-meta">
+                <span class="question-number">Frage 11 von 15</span>
+                <span class="question-dimension" style="background: var(--social-color);">Zwischenmenschlich</span>
+            </div>
+            <div class="question-text">Findest du es schwierig, mit anderen Menschen zu arbeiten oder Zeit zu verbringen?</div>
+            <div class="frequency-scale">
+                <div class="frequency-option" onclick="selectOption(this, 0)">
+                    <span class="frequency-label">Gar nicht</span>
+                    <span class="frequency-value">0 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 25)">
+                    <span class="frequency-label">Ein wenig</span>
+                    <span class="frequency-value">25 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 50)">
+                    <span class="frequency-label">Teilweise</span>
+                    <span class="frequency-value">50 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 75)">
+                    <span class="frequency-label">Ziemlich</span>
+                    <span class="frequency-value">75 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 100)">
+                    <span class="frequency-label">Sehr stark</span>
+                    <span class="frequency-value">100 Punkte</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card" data-question="12" data-dimension="social">
+            <div class="question-meta">
+                <span class="question-number">Frage 12 von 15</span>
+                <span class="question-dimension" style="background: var(--social-color);">Zwischenmenschlich</span>
+            </div>
+            <div class="question-text">Erschoepft es dich, fuer andere da zu sein?</div>
+            <div class="frequency-scale">
+                <div class="frequency-option" onclick="selectOption(this, 0)">
+                    <span class="frequency-label">Gar nicht</span>
+                    <span class="frequency-value">0 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 25)">
+                    <span class="frequency-label">Ein wenig</span>
+                    <span class="frequency-value">25 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 50)">
+                    <span class="frequency-label">Teilweise</span>
+                    <span class="frequency-value">50 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 75)">
+                    <span class="frequency-label">Ziemlich</span>
+                    <span class="frequency-value">75 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 100)">
+                    <span class="frequency-label">Sehr stark</span>
+                    <span class="frequency-value">100 Punkte</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card" data-question="13" data-dimension="social">
+            <div class="question-meta">
+                <span class="question-number">Frage 13 von 15</span>
+                <span class="question-dimension" style="background: var(--social-color);">Zwischenmenschlich</span>
+            </div>
+            <div class="question-text">Hast du das Gefuehl, dass du mehr gibst als du zurueckbekommst?</div>
+            <div class="frequency-scale">
+                <div class="frequency-option" onclick="selectOption(this, 0)">
+                    <span class="frequency-label">Gar nicht</span>
+                    <span class="frequency-value">0 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 25)">
+                    <span class="frequency-label">Ein wenig</span>
+                    <span class="frequency-value">25 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 50)">
+                    <span class="frequency-label">Teilweise</span>
+                    <span class="frequency-value">50 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 75)">
+                    <span class="frequency-label">Ziemlich</span>
+                    <span class="frequency-value">75 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 100)">
+                    <span class="frequency-label">Sehr stark</span>
+                    <span class="frequency-value">100 Punkte</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card" data-question="14" data-dimension="social">
+            <div class="question-meta">
+                <span class="question-number">Frage 14 von 15</span>
+                <span class="question-dimension" style="background: var(--social-color);">Zwischenmenschlich</span>
+            </div>
+            <div class="question-text">Bist du es leid, die Probleme anderer anzuhoeren?</div>
+            <div class="frequency-scale">
+                <div class="frequency-option" onclick="selectOption(this, 0)">
+                    <span class="frequency-label">Nie/Fast nie</span>
+                    <span class="frequency-value">0 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 25)">
+                    <span class="frequency-label">Selten</span>
+                    <span class="frequency-value">25 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 50)">
+                    <span class="frequency-label">Manchmal</span>
+                    <span class="frequency-value">50 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 75)">
+                    <span class="frequency-label">Oft</span>
+                    <span class="frequency-value">75 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 100)">
+                    <span class="frequency-label">Immer</span>
+                    <span class="frequency-value">100 Punkte</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card" data-question="15" data-dimension="social">
+            <div class="question-meta">
+                <span class="question-number">Frage 15 von 15</span>
+                <span class="question-dimension" style="background: var(--social-color);">Zwischenmenschlich</span>
+            </div>
+            <div class="question-text">Ziehst du dich von sozialen Kontakten zurueck, um Energie zu sparen?</div>
+            <div class="frequency-scale">
+                <div class="frequency-option" onclick="selectOption(this, 0)">
+                    <span class="frequency-label">Nie/Fast nie</span>
+                    <span class="frequency-value">0 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 25)">
+                    <span class="frequency-label">Selten</span>
+                    <span class="frequency-value">25 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 50)">
+                    <span class="frequency-label">Manchmal</span>
+                    <span class="frequency-value">50 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 75)">
+                    <span class="frequency-label">Oft</span>
+                    <span class="frequency-value">75 Punkte</span>
+                </div>
+                <div class="frequency-option" onclick="selectOption(this, 100)">
+                    <span class="frequency-label">Immer</span>
+                    <span class="frequency-value">100 Punkte</span>
+                </div>
             </div>
         </div>
 
         <!-- Results -->
         <div class="result-card" id="resultCard">
-            <div class="result-icon" id="resultIcon"></div>
-            <h2 class="result-title" id="resultTitle"></h2>
-            <p class="result-score" id="resultScore"></p>
-
-            <div class="result-meter">
-                <div class="meter-labels">
-                    <span>Gesund</span>
-                    <span>Belastet</span>
-                    <span>Kritisch</span>
+            <div class="result-header">
+                <div class="overall-score-circle" id="overallScoreCircle">
+                    <span class="score-number" id="scoreNumber">0</span>
+                    <span class="score-max">von 100</span>
                 </div>
-                <div class="meter-bar">
-                    <div class="meter-indicator" id="meterIndicator"></div>
-                </div>
+                <h2 class="result-title" id="resultTitle">Dein Burnout-Profil</h2>
+                <p class="result-subtitle" id="resultSubtitle">Basierend auf deinen Antworten</p>
             </div>
 
-            <div class="result-description" id="resultDescription"></div>
+            <div class="dimension-results" id="dimensionResults">
+                <!-- Filled by JavaScript -->
+            </div>
+
+            <div class="interpretation" id="interpretation">
+                <h3>Was bedeutet das?</h3>
+                <p id="interpretationText"></p>
+            </div>
+
+            <div class="disclaimer">
+                <h4>Wichtiger Hinweis</h4>
+                <p>
+                    Dieser Test ersetzt keine aerztliche oder psychotherapeutische Diagnose.
+                    Bei anhaltenden Beschwerden, insbesondere bei Werten ueber 50, empfehlen wir
+                    ein Gespraech mit einem Fachmann. Burnout ist behandelbar - je frueher, desto besser.
+                </p>
+            </div>
+
+            <div class="scientific-reference">
+                <h4>Wissenschaftliche Grundlage</h4>
+                <p>
+                    <strong>Copenhagen Burnout Inventory (CBI)</strong><br>
+                    Kristensen, T.S., Borritz, M., Villadsen, E., & Christensen, K.B. (2005).
+                    The Copenhagen Burnout Inventory: A new tool for the assessment of burnout.
+                    <em>Work & Stress, 19</em>(3), 192-207.<br><br>
+                    Das CBI ist ein frei verfuegbares, wissenschaftlich validiertes Instrument
+                    mit guter interner Konsistenz (Cronbach's alpha: 0.85-0.87).
+                </p>
+            </div>
 
             <div class="cta-section">
                 <h3>Dein naechster Schritt</h3>
-                <p id="ctaText">In einem kostenlosen Erstgespraech schauen wir gemeinsam, was du jetzt brauchst.</p>
+                <p id="ctaText">
+                    Burnout ist kein Zeichen von Schwaeche - es ist ein Signal, dass etwas
+                    nicht stimmt. In einem kostenlosen Erstgespraech koennen wir gemeinsam
+                    schauen, was du jetzt brauchst.
+                </p>
                 <button class="cta-button" onclick="bookErstgespraech()">Kostenloses Gespraech buchen</button>
             </div>
 
@@ -566,162 +1254,225 @@
 
     <script src="cal-booking.js"></script>
     <script>
-        let currentQuestion = 1;
-        const totalQuestions = 10;
-        let totalScore = 0;
-        let burnoutScore = 0;
-        let sinnScore = 0;
-        let mixedScore = 0;
+        let currentQuestion = 0;
+        const totalQuestions = 15;
 
-        function selectOption(element, points, type) {
+        const scores = {
+            personal: [],  // Questions 1-5
+            work: [],      // Questions 6-10
+            social: []     // Questions 11-15
+        };
+
+        const dimensionInfo = {
+            personal: {
+                name: 'Persoenliche Erschoepfung',
+                icon: '💫',
+                color: 'var(--personal-color)',
+                questions: [1, 2, 3, 4, 5],
+                description: {
+                    low: 'Deine allgemeine Energie und Vitalitaet sind gut. Du hast ausreichend Reserven fuer den Alltag.',
+                    medium: 'Du zeigst Anzeichen von Erschoepfung. Achte auf deine Energiereserven und plane regelmaessige Erholung ein.',
+                    high: 'Deine persoenliche Erschoepfung ist deutlich erhoeht. Dein Koerper und deine Psyche brauchen dringend Entlastung.'
+                }
+            },
+            work: {
+                name: 'Arbeitsbedingte Erschoepfung',
+                icon: '💼',
+                color: 'var(--work-color)',
+                questions: [6, 7, 8, 9, 10],
+                description: {
+                    low: 'Deine Arbeit belastet dich nicht uebermaeassig. Das Verhaeltnis von Einsatz und Erholung scheint ausgewogen.',
+                    medium: 'Die Arbeit kostet dich zunehmend Kraft. Ueberlege, welche Faktoren am meisten belasten.',
+                    high: 'Deine Arbeit erschoepft dich stark. Hier besteht Handlungsbedarf - die Belastung ist zu hoch.'
+                }
+            },
+            social: {
+                name: 'Zwischenmenschliche Erschoepfung',
+                icon: '👥',
+                color: 'var(--social-color)',
+                questions: [11, 12, 13, 14, 15],
+                description: {
+                    low: 'Soziale Kontakte sind fuer dich bereichernd und kosten nicht uebermaessig Energie.',
+                    medium: 'Der Umgang mit anderen Menschen wird zunehmend anstrengend. Pruefe deine Grenzen.',
+                    high: 'Zwischenmenschliche Kontakte erschoepfen dich stark. Das ist ein Warnsignal fuer emotionale Ueberbelastung.'
+                }
+            }
+        };
+
+        function startQuiz() {
+            document.getElementById('introSection').style.display = 'none';
+            document.getElementById('progressContainer').style.display = 'block';
+            currentQuestion = 1;
+            showQuestion(1);
+        }
+
+        function showQuestion(num) {
+            // Hide all questions
+            document.querySelectorAll('.question-card').forEach(card => {
+                card.classList.remove('active');
+            });
+
+            // Show current question
+            const card = document.querySelector(`.question-card[data-question="${num}"]`);
+            if (card) {
+                card.classList.add('active');
+
+                // Update progress
+                const progress = (num / totalQuestions) * 100;
+                document.getElementById('progressFill').style.width = progress + '%';
+                document.getElementById('currentQuestion').textContent = num;
+
+                // Update dimension indicator
+                const dimension = card.dataset.dimension;
+                const indicator = document.getElementById('dimensionIndicator');
+                indicator.textContent = dimension === 'personal' ? 'Persoenlich' :
+                                       dimension === 'work' ? 'Arbeit' : 'Zwischenmenschlich';
+                indicator.style.background = dimensionInfo[dimension].color;
+            }
+        }
+
+        function selectOption(element, points) {
             // Mark selected
-            const options = element.parentElement.querySelectorAll('.option');
+            const options = element.parentElement.querySelectorAll('.frequency-option');
             options.forEach(opt => opt.classList.remove('selected'));
             element.classList.add('selected');
 
-            // Add to scores
-            totalScore += points;
-            if (type === 'burnout') burnoutScore++;
-            if (type === 'sinn') sinnScore++;
-            if (type === 'mixed') mixedScore++;
+            // Get dimension and store score
+            const card = element.closest('.question-card');
+            const dimension = card.dataset.dimension;
+            const questionNum = parseInt(card.dataset.question);
 
-            // Delay before next question
+            // Store score for this question
+            const indexInDimension = (questionNum - 1) % 5;
+            scores[dimension][indexInDimension] = points;
+
+            // Move to next question
             setTimeout(() => {
                 if (currentQuestion < totalQuestions) {
-                    // Hide current question
-                    document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.remove('active');
                     currentQuestion++;
-
-                    // Show next question
-                    document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.add('active');
-
-                    // Update progress
-                    const progress = (currentQuestion / totalQuestions) * 100;
-                    document.getElementById('progressFill').style.width = progress + '%';
-                    document.getElementById('currentQuestion').textContent = currentQuestion;
+                    showQuestion(currentQuestion);
                 } else {
                     showResults();
                 }
-            }, 400);
+            }, 350);
+        }
+
+        function calculateDimensionScore(dimension) {
+            const values = scores[dimension];
+            if (values.length === 0) return 0;
+            return values.reduce((a, b) => a + b, 0) / values.length;
+        }
+
+        function getLevel(score) {
+            if (score < 50) return 'low';
+            if (score < 75) return 'medium';
+            return 'high';
+        }
+
+        function getLevelLabel(level) {
+            if (level === 'low') return 'Niedrig';
+            if (level === 'medium') return 'Mittel';
+            return 'Hoch';
         }
 
         function showResults() {
-            // Hide last question and progress
+            // Hide question and progress
             document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.remove('active');
-            document.querySelector('.progress-container').style.display = 'none';
+            document.getElementById('progressContainer').style.display = 'none';
 
-            // Show result
+            // Calculate scores
+            const personalScore = calculateDimensionScore('personal');
+            const workScore = calculateDimensionScore('work');
+            const socialScore = calculateDimensionScore('social');
+            const overallScore = Math.round((personalScore + workScore + socialScore) / 3);
+
+            // Show result card
             const resultCard = document.getElementById('resultCard');
             resultCard.classList.add('active');
 
-            const resultIcon = document.getElementById('resultIcon');
+            // Set overall score circle
+            const scoreCircle = document.getElementById('overallScoreCircle');
+            const level = getLevel(overallScore);
+            const colorMap = { low: 'var(--low-color)', medium: 'var(--medium-color)', high: 'var(--high-color)' };
+            scoreCircle.style.setProperty('--score-color', colorMap[level]);
+            scoreCircle.style.setProperty('--score-percent', overallScore);
+            document.getElementById('scoreNumber').textContent = overallScore;
+
+            // Set title based on overall score
             const resultTitle = document.getElementById('resultTitle');
-            const resultScore = document.getElementById('resultScore');
-            const resultDescription = document.getElementById('resultDescription');
-            const meterIndicator = document.getElementById('meterIndicator');
-            const ctaText = document.getElementById('ctaText');
+            const resultSubtitle = document.getElementById('resultSubtitle');
 
-            // Calculate position on meter (10-40 score range)
-            const meterPosition = Math.min(100, Math.max(0, ((totalScore - 10) / 30) * 100));
-            meterIndicator.style.left = meterPosition + '%';
-            meterIndicator.textContent = totalScore;
-
-            // Determine primary tendency
-            let primaryType = 'healthy';
-            if (burnoutScore >= sinnScore && burnoutScore >= mixedScore && burnoutScore >= 3) {
-                primaryType = 'burnout';
-            } else if (sinnScore >= burnoutScore && sinnScore >= mixedScore && sinnScore >= 3) {
-                primaryType = 'sinn';
-            } else if (mixedScore >= 3 || (burnoutScore >= 2 && sinnScore >= 2)) {
-                primaryType = 'mixed';
-            }
-
-            if (totalScore >= 32) {
-                // Critical - Burnout or Sinnkrise
-                if (primaryType === 'burnout') {
-                    resultIcon.innerHTML = '!';
-                    resultIcon.className = 'result-icon burnout';
-                    resultTitle.textContent = 'Achtung: Burnout-Anzeichen';
-                    resultDescription.innerHTML = `
-                        <p>Deine Antworten zeigen deutliche Zeichen von <strong>Burnout</strong>. Dein Koerper und deine Psyche senden dir klare Warnsignale, dass es so nicht weitergehen kann.</p>
-
-                        <div class="warning-signs">
-                            <h4>Typische Burnout-Anzeichen:</h4>
-                            <ul>
-                                <li>Chronische Erschoepfung, die durch Schlaf nicht besser wird</li>
-                                <li>Zynismus und emotionale Distanz zur Arbeit</li>
-                                <li>Gefuehl der Ineffektivitaet trotz Ueberarbeitung</li>
-                                <li>Koerperliche Symptome ohne medizinische Ursache</li>
-                            </ul>
-                        </div>
-
-                        <p><strong>Das Gute:</strong> Burnout ist kein Versagen - es ist ein Signal. Mit der richtigen Unterstuetzung kannst du wieder in deine Kraft kommen. Aber dafuer brauchst du jetzt Hilfe.</p>
-                    `;
-                    ctaText.textContent = 'In einem Gespraech schauen wir, was du jetzt konkret brauchst, um wieder zu dir zu finden.';
-                } else if (primaryType === 'sinn') {
-                    resultIcon.innerHTML = '?';
-                    resultIcon.className = 'result-icon sinnkrise';
-                    resultTitle.textContent = 'Du steckst in einer Sinnkrise';
-                    resultDescription.innerHTML = `
-                        <p>Deine Antworten deuten auf eine <strong>tiefgreifende Sinnkrise</strong> hin. Du funktionierst vielleicht noch aeusserlich, aber innerlich fragst du dich: "Ist das alles? Wofuer mache ich das?"</p>
-
-                        <p>Das ist keine Schwaehe - es ist ein <strong>wichtiger Ruf deiner Seele</strong>. Viele Menschen um die 40 erleben solche Phasen, wenn sie merken, dass ihr bisheriges Leben nicht mehr zu dem passt, wer sie wirklich sind.</p>
-
-                        <p><strong>Die Chance:</strong> Eine Sinnkrise ist immer auch eine Einladung zum Wachstum. Dahinter wartet oft ein authentischeres, erfuellteres Leben - wenn du den Mut hast, hinzuschauen.</p>
-                    `;
-                    ctaText.textContent = 'Lass uns gemeinsam erkunden, was deine Seele dir sagen will und wohin dein neuer Weg fuehren koennte.';
-                } else {
-                    resultIcon.innerHTML = '!!';
-                    resultIcon.className = 'result-icon mixed';
-                    resultTitle.textContent = 'Burnout trifft Sinnkrise';
-                    resultDescription.innerHTML = `
-                        <p>Deine Antworten zeigen ein komplexes Bild: Du erlebst <strong>sowohl koerperliche/mentale Erschoepfung als auch eine tiefe Sinnfrage</strong>. Das ist haeufiger als du denkst.</p>
-
-                        <p>Oft fuehrt langanhaltender Stress dazu, dass wir grundlegende Lebensfragen verdraengen. Und wenn dann die Kraft nachlässt, kommen alle Zweifel hoch.</p>
-
-                        <p><strong>Was jetzt wichtig ist:</strong> Erstmal zur Ruhe kommen - und dann schauen, was wirklich dahinter steckt. Denn reine Erholung reicht nicht, wenn das zugrundeliegende Problem ein fehlendes "Wozu" ist.</p>
-                    `;
-                    ctaText.textContent = 'In meiner Begleitung arbeiten wir ganzheitlich: Koerper, Geist und Seele - damit du nicht nur wieder funktionierst, sondern wirklich lebst.';
-                }
-            } else if (totalScore >= 24) {
-                resultIcon.innerHTML = '~';
-                resultIcon.className = 'result-icon sinnkrise';
-                resultTitle.textContent = 'Warnsignale sind da';
-                resultDescription.innerHTML = `
-                    <p>Deine Antworten zeigen, dass du dich in einer <strong>ernstzunehmenden Belastungsphase</strong> befindest. Noch ist es kein vollstaendiger Burnout oder eine tiefe Krise - aber die Zeichen sind da.</p>
-
-                    <p>Das ist der <strong>perfekte Zeitpunkt</strong>, um etwas zu veraendern. Denn jetzt hast du noch Energie, um aktiv gegenzusteuern, statt zu warten, bis gar nichts mehr geht.</p>
-
-                    <p>Die Frage ist: Was genau brauchst du gerade? Mehr Pausen? Klarheit ueber deine Werte? Eine neue Richtung? Oder einfach jemanden, der zuhoert?</p>
-                `;
-                ctaText.textContent = 'Lass uns in einem Gespraech herausfinden, was der naechste richtige Schritt fuer dich ist.';
-            } else if (totalScore >= 16) {
-                resultIcon.innerHTML = 'i';
-                resultIcon.className = 'result-icon healthy';
-                resultTitle.textContent = 'Leichte Belastung - normaler Stress';
-                resultDescription.innerHTML = `
-                    <p>Deine Antworten zeigen, dass du <strong>etwas Stress erlebst, aber grundsaetzlich gut aufgestellt bist</strong>. Jeder hat mal anstrengende Phasen.</p>
-
-                    <p>Trotzdem: Wenn du diesen Test gemacht hast, gibt es vermutlich einen Grund. Vielleicht ein leises Gefuehl, dass sich etwas aendern sollte?</p>
-
-                    <p>Das ist ein guter Moment fuer <strong>Praevention</strong> - um zu schauen, wie du langfristig gesund und erfuellt bleiben kannst.</p>
-                `;
-                ctaText.textContent = 'Wenn du magst, koennen wir in einem kurzen Gespraech schauen, ob es Themen gibt, die dich beschaeftigen.';
+            if (overallScore < 50) {
+                resultTitle.textContent = 'Dein Burnout-Risiko ist gering';
+                resultSubtitle.textContent = 'Du scheinst insgesamt gut aufgestellt zu sein';
+            } else if (overallScore < 75) {
+                resultTitle.textContent = 'Erhoehte Erschoepfung erkennbar';
+                resultSubtitle.textContent = 'Einige Bereiche verdienen deine Aufmerksamkeit';
             } else {
-                resultIcon.innerHTML = '';
-                resultIcon.className = 'result-icon healthy';
-                resultTitle.textContent = 'Dir geht es gut!';
-                resultDescription.innerHTML = `
-                    <p>Glueckwunsch! Deine Antworten zeigen, dass du <strong>aktuell weder unter Burnout noch unter einer Sinnkrise leidest</strong>.</p>
-
-                    <p>Das bedeutet nicht, dass dein Leben perfekt ist - aber du hast offenbar gute Strategien, um mit Herausforderungen umzugehen.</p>
-
-                    <p>Falls du diesen Test aus Neugier oder fuer jemand anderen gemacht hast: Teile ihn gerne!</p>
-                `;
-                ctaText.textContent = 'Auch ohne akute Krise kann Coaching helfen. Ich unterstuetze auch bei Weiterentwicklung und Lebensgestaltung.';
+                resultTitle.textContent = 'Deutliche Burnout-Anzeichen';
+                resultSubtitle.textContent = 'Dein Koerper und deine Psyche senden dir Warnsignale';
             }
 
-            resultScore.textContent = `Dein Wert: ${totalScore} von 40 Punkten`;
+            // Build dimension results
+            const dimensionResultsHTML = Object.entries(dimensionInfo).map(([key, info]) => {
+                const score = Math.round(calculateDimensionScore(key));
+                const level = getLevel(score);
+                return `
+                    <div class="dimension-card">
+                        <div class="dimension-header">
+                            <div class="dimension-title">
+                                <div class="dimension-icon ${key}">${info.icon}</div>
+                                <span class="dimension-name">${info.name}</span>
+                            </div>
+                            <span class="dimension-level ${level}">${getLevelLabel(level)}</span>
+                        </div>
+                        <div class="dimension-bar-container">
+                            <div class="dimension-bar ${level}" style="width: ${score}%"></div>
+                        </div>
+                        <p class="dimension-description">${info.description[level]}</p>
+                        <p class="dimension-score">${score} von 100 Punkten</p>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('dimensionResults').innerHTML = dimensionResultsHTML;
+
+            // Set interpretation
+            const interpretationText = document.getElementById('interpretationText');
+            let interpretation = '';
+
+            if (overallScore < 50) {
+                interpretation = `
+                    Deine Werte liegen im gesunden Bereich. Das bedeutet nicht, dass du keinen Stress erlebst -
+                    aber du scheinst gute Strategien zu haben, damit umzugehen. Achte weiterhin auf deine
+                    Balance und die Signale deines Koerpers.
+                `;
+            } else if (overallScore < 75) {
+                interpretation = `
+                    Du zeigst Anzeichen von Erschoepfung in mehreren Bereichen. Das ist ein wichtiges Signal,
+                    das du ernst nehmen solltest. Jetzt ist ein guter Zeitpunkt, um etwas zu veraendern -
+                    bevor die Belastung noch staerker wird.
+                `;
+            } else {
+                interpretation = `
+                    Deine Werte deuten auf eine starke Belastung hin. Das ist ernst zu nehmen, aber kein Grund
+                    zur Panik. Burnout entwickelt sich schleichend - und kann auch wieder heilen. Wichtig ist,
+                    dass du jetzt aktiv wirst und dir Unterstuetzung holst.
+                `;
+            }
+
+            // Add dimension-specific insights
+            const highestDimension = ['personal', 'work', 'social'].reduce((a, b) =>
+                calculateDimensionScore(a) > calculateDimensionScore(b) ? a : b
+            );
+
+            if (calculateDimensionScore(highestDimension) >= 50) {
+                const dimensionName = dimensionInfo[highestDimension].name;
+                interpretation += `<br><br><strong>Besonders im Fokus:</strong> Dein hoechster Wert liegt bei "${dimensionName}".
+                    Das zeigt, wo der groesste Handlungsbedarf besteht.`;
+            }
+
+            interpretationText.innerHTML = interpretation;
 
             // Scroll to result
             resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });

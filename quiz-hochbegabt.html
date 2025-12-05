@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bin ich hochbegabt? Selbsttest fuer Erwachsene | KATHRIN STAHL</title>
-    <meta name="description" content="Kostenloser Hochbegabung-Test fuer Erwachsene. 12 Fragen helfen dir herauszufinden, ob du ueberdurchschnittlich begabt sein koenntest.">
-    <meta name="keywords" content="Hochbegabung Test, hochbegabt Erwachsene, Intelligenz Test, Hochbegabung Selbsttest, IQ Test">
+    <title>Ueberempfindlichkeit & Intensitaet Selbsttest (OE) | KATHRIN STAHL</title>
+    <meta name="description" content="Wissenschaftlich fundierter Selbsttest zu Overexcitabilities (Dabrowskis Ueberempfindlichkeiten) - oft mit Hochbegabung assoziiert. 15 Fragen zu fuenf Intensitaetsbereichen.">
+    <meta name="keywords" content="Overexcitability Test, Dabrowski, Hochbegabung, Intensitaet, OEQ-II, Ueberempfindlichkeit">
     <link rel="canonical" href="https://nickheymann.github.io/kathrin-coaching/quiz-hochbegabt.html">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Bin ich hochbegabt? Selbsttest fuer Erwachsene">
-    <meta property="og:description" content="Ein erster Anhaltspunkt: 12 Fragen helfen dir herauszufinden, ob Hochbegabung ein Thema fuer dich sein koennte.">
+    <meta property="og:title" content="Ueberempfindlichkeit & Intensitaet Test (Overexcitabilities)">
+    <meta property="og:description" content="Erforsche deine Intensitaetsbereiche - basierend auf Dabrowskis OE-Konzept. Wissenschaftlich fundiert, kein IQ-Test.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://nickheymann.github.io/kathrin-coaching/quiz-hochbegabt.html">
 
@@ -19,14 +19,20 @@
     {
         "@context": "https://schema.org",
         "@type": "Quiz",
-        "name": "Bin ich hochbegabt? Selbsttest fuer Erwachsene",
-        "description": "Ein Selbsttest mit 12 Fragen zur ersten Einschaetzung, ob Hochbegabung bei dir vorliegen koennte.",
+        "name": "Overexcitabilities Selbsttest (OE-Profil)",
+        "description": "Selbsttest basierend auf Dabrowskis Theorie der positiven Desintegration und dem OEQ-II. Erfasst fuenf Ueberempfindlichkeitsbereiche: psychomotorisch, sensorisch, intellektuell, imaginativ, emotional.",
         "educationalLevel": "beginner",
         "learningResourceType": "Quiz",
         "provider": {
             "@type": "Person",
             "name": "Kathrin Stahl",
             "url": "https://nickheymann.github.io/kathrin-coaching/"
+        },
+        "citation": {
+            "@type": "ScholarlyArticle",
+            "name": "The Overexcitability Questionnaire-Two (OEQ-II)",
+            "author": "Falk, R.F., Lind, S., Miller, N.B., Piechowski, M.M., & Silverman, L.K.",
+            "datePublished": "1999"
         }
     }
     </script>
@@ -38,6 +44,22 @@
     <link rel="stylesheet" href="modern-design.css" type="text/css" media="all">
 
     <style>
+        :root {
+            --primary-blue: #1a5276;
+            --primary-blue-light: #2471a3;
+            --primary-gold: #D2AB74;
+            --primary-dark: #2c3e50;
+            --bg-warm: #f5f0eb;
+            --psychomotor-color: #e74c3c;
+            --sensual-color: #9b59b6;
+            --intellectual-color: #3498db;
+            --imaginational-color: #1abc9c;
+            --emotional-color: #f39c12;
+            --low-color: #95a5a6;
+            --medium-color: #3498db;
+            --high-color: #27ae60;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -46,89 +68,169 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f0eb 0%, #ebe4dc 100%);
+            background: linear-gradient(135deg, var(--bg-warm) 0%, #ebe4dc 100%);
             min-height: 100vh;
             color: #333;
         }
 
         .quiz-header {
-            background: linear-gradient(135deg, #1a5276 0%, #2471a3 100%);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%);
             color: #fff;
-            padding: 30px 20px;
+            padding: 40px 20px;
             text-align: center;
         }
 
         .quiz-header h1 {
             font-size: clamp(1.5rem, 4vw, 2.2rem);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-weight: 300;
         }
 
-        .quiz-header p {
+        .quiz-header .subtitle {
             opacity: 0.9;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .quiz-header .scientific-note {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            font-style: italic;
         }
 
         .quiz-header a {
-            color: #D2AB74;
+            color: var(--primary-gold);
             text-decoration: none;
         }
 
         .quiz-container {
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 25px;
         }
 
-        .info-box {
-            background: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
-            border-left: 4px solid #1a5276;
+        /* Warning Box */
+        .warning-box {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 5px solid #f39c12;
         }
 
-        .info-box p {
+        .warning-box h3 {
+            color: #856404;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .warning-box p {
+            color: #6d5a00;
+            line-height: 1.7;
             font-size: 0.95rem;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        .progress-container {
-            background: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: #e0e0e0;
-            border-radius: 4px;
-            overflow: hidden;
             margin-bottom: 10px;
         }
 
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #1a5276, #2471a3);
-            border-radius: 4px;
-            transition: width 0.4s ease;
-            width: 0%;
+        .warning-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 20px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .info-box h3 {
+            color: var(--primary-dark);
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        .info-box p {
+            color: #555;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .oe-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .oe-badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .oe-badge.psychomotor { background: var(--psychomotor-color); }
+        .oe-badge.sensual { background: var(--sensual-color); }
+        .oe-badge.intellectual { background: var(--intellectual-color); }
+        .oe-badge.imaginational { background: var(--imaginational-color); }
+        .oe-badge.emotional { background: var(--emotional-color); }
+
+        /* Progress */
+        .progress-container {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 20px rgba(0,0,0,0.08);
+        }
+
+        .progress-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
         }
 
         .progress-text {
             font-size: 0.9rem;
             color: #666;
-            text-align: center;
         }
 
+        .oe-indicator {
+            font-size: 0.8rem;
+            padding: 4px 12px;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-blue-light));
+            border-radius: 3px;
+            transition: width 0.4s ease;
+            width: 0%;
+        }
+
+        /* Question Card */
         .question-card {
             background: #fff;
-            border-radius: 15px;
-            padding: 30px;
+            border-radius: 16px;
+            padding: 35px;
             margin-bottom: 20px;
             box-shadow: 0 5px 30px rgba(0,0,0,0.1);
             display: none;
@@ -136,64 +238,140 @@
 
         .question-card.active {
             display: block;
-            animation: fadeIn 0.4s ease;
+            animation: slideIn 0.4s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .question-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
 
         .question-number {
             font-size: 0.85rem;
-            color: #1a5276;
+            color: var(--primary-blue);
             font-weight: 600;
-            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
+        .question-oe {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 10px;
+            color: #fff;
+            font-weight: 500;
+        }
+
         .question-text {
-            font-size: 1.3rem;
-            color: #2c3e50;
-            margin-bottom: 25px;
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+            margin-bottom: 30px;
             line-height: 1.5;
         }
 
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+        /* Likert Scale */
+        .likert-scale {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
         }
 
-        .option {
-            padding: 18px 20px;
+        @media (max-width: 600px) {
+            .likert-scale {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .likert-option {
+            padding: 16px 10px;
             background: #f8f6f3;
             border: 2px solid transparent;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 1rem;
-            text-align: left;
+            text-align: center;
         }
 
-        .option:hover {
+        .likert-option:hover {
             background: #fff;
-            border-color: #1a5276;
-            transform: translateX(5px);
+            border-color: var(--primary-blue);
+            transform: translateY(-2px);
         }
 
-        .option.selected {
-            background: #1a5276;
+        .likert-option.selected {
+            background: var(--primary-blue);
+            border-color: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        .likert-label {
+            display: block;
+            font-size: 0.9rem;
+            color: #444;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .likert-option.selected .likert-label {
             color: #fff;
-            border-color: #1a5276;
         }
 
+        .likert-value {
+            display: block;
+            font-size: 0.7rem;
+            color: #888;
+            margin-top: 4px;
+            transition: color 0.3s;
+        }
+
+        .likert-option.selected .likert-value {
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Start Section */
+        .start-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .start-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-light));
+            color: #fff;
+            padding: 18px 50px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(26, 82, 118, 0.4);
+        }
+
+        .start-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(26, 82, 118, 0.5);
+        }
+
+        /* Result Card */
         .result-card {
             background: #fff;
-            border-radius: 15px;
-            padding: 40px 30px;
-            text-align: center;
+            border-radius: 16px;
+            padding: 40px;
             box-shadow: 0 5px 30px rgba(0,0,0,0.1);
             display: none;
         }
@@ -203,96 +381,234 @@
             animation: fadeIn 0.5s ease;
         }
 
-        .result-icon {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            font-size: 2.5rem;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .result-icon.high {
-            background: linear-gradient(135deg, #1a5276, #2471a3);
-            color: #fff;
-        }
-
-        .result-icon.medium {
-            background: linear-gradient(135deg, #2471a3, #5dade2);
-            color: #fff;
-        }
-
-        .result-icon.low {
-            background: linear-gradient(135deg, #85c1e9, #aed6f1);
-            color: #1a5276;
+        .result-header {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
         .result-title {
             font-size: 1.8rem;
-            color: #2c3e50;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .result-subtitle {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* OE Profile Visualization */
+        .oe-profile {
+            margin: 35px 0;
+        }
+
+        .oe-profile h3 {
+            color: var(--primary-dark);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .oe-results {
+            display: grid;
+            gap: 20px;
+        }
+
+        .oe-card {
+            background: #f8f6f3;
+            border-radius: 12px;
+            padding: 22px;
+            transition: all 0.3s ease;
+        }
+
+        .oe-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .oe-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 15px;
         }
 
-        .result-score {
-            font-size: 1rem;
-            color: #888;
-            margin-bottom: 20px;
+        .oe-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .result-description {
+        .oe-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+        .oe-icon.psychomotor { background: var(--psychomotor-color); }
+        .oe-icon.sensual { background: var(--sensual-color); }
+        .oe-icon.intellectual { background: var(--intellectual-color); }
+        .oe-icon.imaginational { background: var(--imaginational-color); }
+        .oe-icon.emotional { background: var(--emotional-color); }
+
+        .oe-name {
+            font-size: 1.05rem;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .oe-level {
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .oe-level.low {
+            background: rgba(149, 165, 166, 0.15);
+            color: var(--low-color);
+        }
+
+        .oe-level.medium {
+            background: rgba(52, 152, 219, 0.15);
+            color: var(--medium-color);
+        }
+
+        .oe-level.high {
+            background: rgba(39, 174, 96, 0.15);
+            color: var(--high-color);
+        }
+
+        .oe-bar-container {
+            background: #e0e0e0;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .oe-bar {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.8s ease;
+        }
+
+        .oe-bar.psychomotor { background: var(--psychomotor-color); }
+        .oe-bar.sensual { background: var(--sensual-color); }
+        .oe-bar.intellectual { background: var(--intellectual-color); }
+        .oe-bar.imaginational { background: var(--imaginational-color); }
+        .oe-bar.emotional { background: var(--emotional-color); }
+
+        .oe-description {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .oe-score {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 8px;
+        }
+
+        /* Key Insights */
+        .key-insights {
+            background: linear-gradient(135deg, #f8f6f3 0%, #ebe4dc 100%);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .key-insights h3 {
+            color: var(--primary-dark);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .key-insights p {
             color: #555;
             line-height: 1.8;
-            margin-bottom: 30px;
-            text-align: left;
-            font-size: 1.05rem;
+            margin-bottom: 12px;
         }
 
-        .traits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 25px 0;
-            text-align: left;
-        }
-
-        .trait-item {
-            background: #f8f6f3;
+        .insight-highlight {
+            background: rgba(26, 82, 118, 0.1);
+            border-left: 3px solid var(--primary-blue);
             padding: 15px;
-            border-radius: 10px;
-            border-left: 3px solid #1a5276;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
         }
 
-        .trait-item strong {
-            color: #1a5276;
-            display: block;
-            margin-bottom: 5px;
+        .insight-highlight p {
+            margin: 0;
+            color: var(--primary-dark);
         }
 
-        .trait-item span {
-            font-size: 0.9rem;
-            color: #666;
+        /* Critical Disclaimer */
+        .critical-disclaimer {
+            background: linear-gradient(135deg, #fdeaec 0%, #fad0d5 100%);
+            border-left: 5px solid #e74c3c;
+            padding: 25px;
+            border-radius: 0 12px 12px 0;
+            margin: 30px 0;
         }
 
-        .disclaimer {
-            background: #e8f4f8;
+        .critical-disclaimer h4 {
+            color: #c0392b;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .critical-disclaimer p {
+            color: #a93226;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        .critical-disclaimer p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Scientific Reference */
+        .scientific-reference {
+            background: #f0f4f8;
             border-radius: 10px;
             padding: 20px;
             margin: 25px 0;
+        }
+
+        .scientific-reference h4 {
+            color: var(--primary-dark);
             font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .scientific-reference p {
+            font-size: 0.85rem;
             color: #666;
-            text-align: left;
+            line-height: 1.6;
         }
 
-        .disclaimer strong {
-            color: #1a5276;
-        }
-
+        /* CTA Section */
         .cta-section {
-            background: linear-gradient(135deg, #D2AB74 0%, #c9a066 100%);
-            padding: 30px;
-            border-radius: 15px;
+            background: linear-gradient(135deg, var(--primary-gold) 0%, #c9a066 100%);
+            padding: 35px;
+            border-radius: 16px;
+            text-align: center;
             margin-top: 30px;
         }
 
@@ -306,12 +622,13 @@
             color: rgba(255,255,255,0.9);
             margin-bottom: 20px;
             font-size: 1rem;
+            line-height: 1.6;
         }
 
         .cta-button {
             display: inline-block;
             background: #fff;
-            color: #D2AB74;
+            color: var(--primary-gold);
             padding: 16px 40px;
             border-radius: 30px;
             text-decoration: none;
@@ -323,34 +640,37 @@
         }
 
         .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
 
+        /* Other Quizzes */
         .other-quizzes {
-            margin-top: 40px;
+            margin-top: 35px;
             padding: 25px;
             background: #f8f6f3;
-            border-radius: 10px;
+            border-radius: 12px;
+            text-align: center;
         }
 
         .other-quizzes h4 {
-            color: #2c3e50;
-            margin-bottom: 15px;
+            color: var(--primary-dark);
+            margin-bottom: 18px;
             font-size: 1.1rem;
         }
 
         .quiz-links {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            justify-content: center;
+            gap: 12px;
         }
 
         .quiz-link {
-            padding: 10px 20px;
+            padding: 12px 22px;
             background: #fff;
             border: 1px solid #ddd;
-            border-radius: 20px;
+            border-radius: 25px;
             color: #666;
             text-decoration: none;
             font-size: 0.9rem;
@@ -358,8 +678,9 @@
         }
 
         .quiz-link:hover {
-            border-color: #1a5276;
-            color: #1a5276;
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+            transform: translateY(-2px);
         }
 
         @media (max-width: 600px) {
@@ -368,196 +689,586 @@
             }
 
             .question-card {
-                padding: 20px;
-            }
-
-            .question-text {
-                font-size: 1.1rem;
+                padding: 25px 20px;
             }
 
             .result-card {
-                padding: 25px 20px;
+                padding: 30px 20px;
+            }
+
+            .oe-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
             }
         }
     </style>
 </head>
 <body>
     <header class="quiz-header">
-        <h1>Bin ich hochbegabt?</h1>
-        <p>Ein erster Anhaltspunkt - Selbsttest fuer Erwachsene</p>
+        <h1>Intensitaet & Ueberempfindlichkeit</h1>
+        <p class="subtitle">Overexcitabilities (OE) Selbsttest</p>
+        <p class="scientific-note">Nach Dabrowskis Theorie - oft assoziiert mit Hochbegabung</p>
         <p style="margin-top: 15px;"><a href="index.html">Zurueck zur Startseite</a></p>
     </header>
 
     <main class="quiz-container">
-        <div class="info-box">
-            <p><strong>Hinweis:</strong> Dieser Test ersetzt keine professionelle IQ-Diagnostik. Er kann dir aber erste Hinweise geben, ob Hochbegabung ein Thema fuer dich sein koennte - besonders wenn du dich oft "anders" fuehlst.</p>
+        <!-- Intro Section -->
+        <div id="introSection">
+            <div class="warning-box">
+                <h3>Wichtig zu wissen</h3>
+                <p>
+                    <strong>Dieser Test misst KEINE Intelligenz und diagnostiziert KEINE Hochbegabung.</strong>
+                    Hochbegabung kann nur durch einen standardisierten IQ-Test (z.B. WAIS-IV) bei
+                    einem qualifizierten Psychologen festgestellt werden.
+                </p>
+                <p>
+                    Stattdessen erfasst dieser Test "Overexcitabilities" (Ueberempfindlichkeiten) nach
+                    Dabrowski - Intensitaetsbereiche, die bei hochbegabten Menschen <em>haeufiger</em>,
+                    aber nicht <em>ausschliesslich</em> auftreten.
+                </p>
+            </div>
+
+            <div class="info-box">
+                <h3>Was sind Overexcitabilities?</h3>
+                <p>
+                    Kazimierz Dabrowski identifizierte fuenf Bereiche erhoehter Empfindsamkeit und Intensitaet.
+                    Der OEQ-II (Overexcitability Questionnaire-Two) ist ein wissenschaftlich validiertes
+                    Instrument zur Erfassung dieser Merkmale. Wir messen:
+                </p>
+                <div class="oe-badges">
+                    <span class="oe-badge psychomotor">Psychomotorisch</span>
+                    <span class="oe-badge sensual">Sensorisch</span>
+                    <span class="oe-badge intellectual">Intellektuell</span>
+                    <span class="oe-badge imaginational">Imaginativ</span>
+                    <span class="oe-badge emotional">Emotional</span>
+                </div>
+            </div>
+
+            <div class="start-section">
+                <button class="start-button" onclick="startQuiz()">Test starten (15 Fragen)</button>
+            </div>
         </div>
 
-        <div class="progress-container">
+        <!-- Progress -->
+        <div class="progress-container" id="progressContainer" style="display: none;">
+            <div class="progress-top">
+                <span class="progress-text">Frage <span id="currentQuestion">1</span> von 15</span>
+                <span class="oe-indicator" id="oeIndicator">Psychomotorisch</span>
+            </div>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
             </div>
-            <div class="progress-text"><span id="currentQuestion">1</span> von 12 Fragen</div>
         </div>
 
-        <!-- Question 1 -->
-        <div class="question-card active" data-question="1">
-            <div class="question-number">Frage 1 von 12</div>
-            <div class="question-text">Wie schnell erfasst du komplexe Zusammenhaenge?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4)">Extrem schnell - oft muss ich auf andere warten</div>
-                <div class="option" onclick="selectOption(this, 3)">Schneller als die meisten Menschen in meinem Umfeld</div>
-                <div class="option" onclick="selectOption(this, 2)">Durchschnittlich - je nach Thema unterschiedlich</div>
-                <div class="option" onclick="selectOption(this, 1)">Ich brauche eher Zeit, um Dinge zu verstehen</div>
+        <!-- Questions -->
+        <!-- Psychomotor OE (3 questions) -->
+        <div class="question-card" data-question="1" data-oe="psychomotor">
+            <div class="question-meta">
+                <span class="question-number">Frage 1 von 15</span>
+                <span class="question-oe" style="background: var(--psychomotor-color);">Psychomotorisch</span>
+            </div>
+            <div class="question-text">Ich habe einen starken physischen Bewegungsdrang und fuehle mich unruhig, wenn ich lange stillsitzen muss.</div>
+            <div class="likert-scale">
+                <div class="likert-option" onclick="selectOption(this, 1)">
+                    <span class="likert-label">Trifft nicht zu</span>
+                    <span class="likert-value">1</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 2)">
+                    <span class="likert-label">Trifft kaum zu</span>
+                    <span class="likert-value">2</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 3)">
+                    <span class="likert-label">Teils/teils</span>
+                    <span class="likert-value">3</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 4)">
+                    <span class="likert-label">Trifft eher zu</span>
+                    <span class="likert-value">4</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 5)">
+                    <span class="likert-label">Trifft voll zu</span>
+                    <span class="likert-value">5</span>
+                </div>
             </div>
         </div>
 
-        <!-- Question 2 -->
-        <div class="question-card" data-question="2">
-            <div class="question-number">Frage 2 von 12</div>
-            <div class="question-text">Wie war deine Schulzeit?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4)">Ich war gelangweilt, weil alles zu langsam ging - obwohl meine Noten nicht immer top waren</div>
-                <div class="option" onclick="selectOption(this, 3)">Ich war gut ohne viel Aufwand, fand es aber oft unstimulierend</div>
-                <div class="option" onclick="selectOption(this, 2)">Durchschnittlich - musste fuer gute Noten lernen</div>
-                <div class="option" onclick="selectOption(this, 1)">Ich hatte es eher schwer in der Schule</div>
+        <div class="question-card" data-question="2" data-oe="psychomotor">
+            <div class="question-meta">
+                <span class="question-number">Frage 2 von 15</span>
+                <span class="question-oe" style="background: var(--psychomotor-color);">Psychomotorisch</span>
+            </div>
+            <div class="question-text">Ich spreche schnell und habe oft einen Ueberschuss an Energie, den ich durch Aktivitaet abbauen muss.</div>
+            <div class="likert-scale">
+                <div class="likert-option" onclick="selectOption(this, 1)">
+                    <span class="likert-label">Trifft nicht zu</span>
+                    <span class="likert-value">1</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 2)">
+                    <span class="likert-label">Trifft kaum zu</span>
+                    <span class="likert-value">2</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 3)">
+                    <span class="likert-label">Teils/teils</span>
+                    <span class="likert-value">3</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 4)">
+                    <span class="likert-label">Trifft eher zu</span>
+                    <span class="likert-value">4</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 5)">
+                    <span class="likert-label">Trifft voll zu</span>
+                    <span class="likert-value">5</span>
+                </div>
             </div>
         </div>
 
-        <!-- Question 3 -->
-        <div class="question-card" data-question="3">
-            <div class="question-number">Frage 3 von 12</div>
-            <div class="question-text">Wie gehst du mit Langeweile um?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4)">Ich ertrage sie kaum - mein Kopf braucht staendig Input</div>
-                <div class="option" onclick="selectOption(this, 3)">Ich suche mir dann schnell ein neues Projekt oder Thema</div>
-                <div class="option" onclick="selectOption(this, 2)">Manchmal ist Langeweile auch erholsam</div>
-                <div class="option" onclick="selectOption(this, 1)">Ich kenne Langeweile kaum - mein Alltag ist ausgefuellt genug</div>
+        <div class="question-card" data-question="3" data-oe="psychomotor">
+            <div class="question-meta">
+                <span class="question-number">Frage 3 von 15</span>
+                <span class="question-oe" style="background: var(--psychomotor-color);">Psychomotorisch</span>
+            </div>
+            <div class="question-text">Bei Aufregung zeigt sich das bei mir koerperlich (z.B. schnellerer Herzschlag, Zappeln, Bewegungsdrang).</div>
+            <div class="likert-scale">
+                <div class="likert-option" onclick="selectOption(this, 1)">
+                    <span class="likert-label">Trifft nicht zu</span>
+                    <span class="likert-value">1</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 2)">
+                    <span class="likert-label">Trifft kaum zu</span>
+                    <span class="likert-value">2</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 3)">
+                    <span class="likert-label">Teils/teils</span>
+                    <span class="likert-value">3</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 4)">
+                    <span class="likert-label">Trifft eher zu</span>
+                    <span class="likert-value">4</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 5)">
+                    <span class="likert-label">Trifft voll zu</span>
+                    <span class="likert-value">5</span>
+                </div>
             </div>
         </div>
 
-        <!-- Question 4 -->
-        <div class="question-card" data-question="4">
-            <div class="question-number">Frage 4 von 12</div>
-            <div class="question-text">Wie tief tauchst du in Themen ein, die dich interessieren?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4)">Extrem tief - ich verliere mich darin und vergesse Zeit und Raum</div>
-                <div class="option" onclick="selectOption(this, 3)">Sehr gruendlich - ich moechte wirklich alles verstehen</div>
-                <div class="option" onclick="selectOption(this, 2)">Normal vertieft - aber irgendwann reicht es mir</div>
-                <div class="option" onclick="selectOption(this, 1)">Eher oberflaechlich - mir reicht oft das Wichtigste</div>
+        <!-- Sensual OE (3 questions) -->
+        <div class="question-card" data-question="4" data-oe="sensual">
+            <div class="question-meta">
+                <span class="question-number">Frage 4 von 15</span>
+                <span class="question-oe" style="background: var(--sensual-color);">Sensorisch</span>
+            </div>
+            <div class="question-text">Ich geniesse sinnliche Erfahrungen intensiv - Musik, Geschmack, Gerueche oder Beruehrungen koennen mich tief beruehren.</div>
+            <div class="likert-scale">
+                <div class="likert-option" onclick="selectOption(this, 1)">
+                    <span class="likert-label">Trifft nicht zu</span>
+                    <span class="likert-value">1</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 2)">
+                    <span class="likert-label">Trifft kaum zu</span>
+                    <span class="likert-value">2</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 3)">
+                    <span class="likert-label">Teils/teils</span>
+                    <span class="likert-value">3</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 4)">
+                    <span class="likert-label">Trifft eher zu</span>
+                    <span class="likert-value">4</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 5)">
+                    <span class="likert-label">Trifft voll zu</span>
+                    <span class="likert-value">5</span>
+                </div>
             </div>
         </div>
 
-        <!-- Question 5 -->
-        <div class="question-card" data-question="5">
-            <div class="question-number">Frage 5 von 12</div>
-            <div class="question-text">Wie empfindest du Smalltalk?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4)">Anstrengend und sinnlos - ich sehne mich nach tiefgruendigen Gespraechen</div>
-                <div class="option" onclick="selectOption(this, 3)">Nicht mein Lieblings-Kommunikationsstil, aber ich kann es</div>
-                <div class="option" onclick="selectOption(this, 2)">Ganz angenehm zum Einstieg in Gespraeche</div>
-                <div class="option" onclick="selectOption(this, 1)">Ich mag Smalltalk - er ist leicht und entspannend</div>
+        <div class="question-card" data-question="5" data-oe="sensual">
+            <div class="question-meta">
+                <span class="question-number">Frage 5 von 15</span>
+                <span class="question-oe" style="background: var(--sensual-color);">Sensorisch</span>
+            </div>
+            <div class="question-text">Aesthetik ist mir sehr wichtig - ich achte auf Schoenheit in meiner Umgebung und fuehle mich von Haesslichkeit gestoert.</div>
+            <div class="likert-scale">
+                <div class="likert-option" onclick="selectOption(this, 1)">
+                    <span class="likert-label">Trifft nicht zu</span>
+                    <span class="likert-value">1</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 2)">
+                    <span class="likert-label">Trifft kaum zu</span>
+                    <span class="likert-value">2</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 3)">
+                    <span class="likert-label">Teils/teils</span>
+                    <span class="likert-value">3</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 4)">
+                    <span class="likert-label">Trifft eher zu</span>
+                    <span class="likert-value">4</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 5)">
+                    <span class="likert-label">Trifft voll zu</span>
+                    <span class="likert-value">5</span>
+                </div>
             </div>
         </div>
 
-        <!-- Question 6 -->
-        <div class="question-card" data-question="6">
-            <div class="question-number">Frage 6 von 12</div>
-            <div class="question-text">Wie viele verschiedene Interessen hast du?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4)">Unzaehlige - ich interessiere mich fuer fast alles und habe hundert Ideen</div>
-                <div class="option" onclick="selectOption(this, 3)">Viele verschiedene Gebiete faszinieren mich gleichzeitig</div>
-                <div class="option" onclick="selectOption(this, 2)">Ein paar Hobbys und Interessen, die mir wichtig sind</div>
-                <div class="option" onclick="selectOption(this, 1)">Ich fokussiere mich lieber auf wenige Dinge</div>
+        <div class="question-card" data-question="6" data-oe="sensual">
+            <div class="question-meta">
+                <span class="question-number">Frage 6 von 15</span>
+                <span class="question-oe" style="background: var(--sensual-color);">Sensorisch</span>
+            </div>
+            <div class="question-text">Ich bin empfindlich gegenueber sensorischen Reizen wie hellem Licht, lauten Geraeuschen oder kratzigen Stoffen.</div>
+            <div class="likert-scale">
+                <div class="likert-option" onclick="selectOption(this, 1)">
+                    <span class="likert-label">Trifft nicht zu</span>
+                    <span class="likert-value">1</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 2)">
+                    <span class="likert-label">Trifft kaum zu</span>
+                    <span class="likert-value">2</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 3)">
+                    <span class="likert-label">Teils/teils</span>
+                    <span class="likert-value">3</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 4)">
+                    <span class="likert-label">Trifft eher zu</span>
+                    <span class="likert-value">4</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 5)">
+                    <span class="likert-label">Trifft voll zu</span>
+                    <span class="likert-value">5</span>
+                </div>
             </div>
         </div>
 
-        <!-- Question 7 -->
-        <div class="question-card" data-question="7">
-            <div class="question-number">Frage 7 von 12</div>
-            <div class="question-text">Wie oft fuehlst du dich von anderen "nicht verstanden"?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4)">Sehr oft - ich fuehle mich regelmaessig auf einer anderen Wellenlaenge</div>
-                <div class="option" onclick="selectOption(this, 3)">Haeufig - besonders bei komplexen Themen</div>
-                <div class="option" onclick="selectOption(this, 2)">Manchmal - aber meistens finde ich Anschluss</div>
-                <div class="option" onclick="selectOption(this, 1)">Selten - ich fuehle mich gut eingebunden</div>
+        <!-- Intellectual OE (3 questions) -->
+        <div class="question-card" data-question="7" data-oe="intellectual">
+            <div class="question-meta">
+                <span class="question-number">Frage 7 von 15</span>
+                <span class="question-oe" style="background: var(--intellectual-color);">Intellektuell</span>
+            </div>
+            <div class="question-text">Ich habe einen unstillbaren Wissensdurst und vertiefe mich leidenschaftlich in Themen, die mich interessieren.</div>
+            <div class="likert-scale">
+                <div class="likert-option" onclick="selectOption(this, 1)">
+                    <span class="likert-label">Trifft nicht zu</span>
+                    <span class="likert-value">1</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 2)">
+                    <span class="likert-label">Trifft kaum zu</span>
+                    <span class="likert-value">2</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 3)">
+                    <span class="likert-label">Teils/teils</span>
+                    <span class="likert-value">3</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 4)">
+                    <span class="likert-label">Trifft eher zu</span>
+                    <span class="likert-value">4</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 5)">
+                    <span class="likert-label">Trifft voll zu</span>
+                    <span class="likert-value">5</span>
+                </div>
             </div>
         </div>
 
-        <!-- Question 8 -->
-        <div class="question-card" data-question="8">
-            <div class="question-number">Frage 8 von 12</div>
-            <div class="question-text">Wie gehst du mit Ungerechtigkeit um?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4)">Extrem sensibel - Ungerechtigkeit macht mich emotional und ich muss handeln</div>
-                <div class="option" onclick="selectOption(this, 3)">Es beschaeftigt mich stark und ich denke viel darueber nach</div>
-                <div class="option" onclick="selectOption(this, 2)">Es stoert mich, aber ich kann es meist akzeptieren</div>
-                <div class="option" onclick="selectOption(this, 1)">Ich nehme es nicht so persoenlich</div>
+        <div class="question-card" data-question="8" data-oe="intellectual">
+            <div class="question-meta">
+                <span class="question-number">Frage 8 von 15</span>
+                <span class="question-oe" style="background: var(--intellectual-color);">Intellektuell</span>
+            </div>
+            <div class="question-text">Ich liebe es, komplexe Probleme zu loesen und Zusammenhaenge zu verstehen - mein Kopf arbeitet staendig.</div>
+            <div class="likert-scale">
+                <div class="likert-option" onclick="selectOption(this, 1)">
+                    <span class="likert-label">Trifft nicht zu</span>
+                    <span class="likert-value">1</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 2)">
+                    <span class="likert-label">Trifft kaum zu</span>
+                    <span class="likert-value">2</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 3)">
+                    <span class="likert-label">Teils/teils</span>
+                    <span class="likert-value">3</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 4)">
+                    <span class="likert-label">Trifft eher zu</span>
+                    <span class="likert-value">4</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 5)">
+                    <span class="likert-label">Trifft voll zu</span>
+                    <span class="likert-value">5</span>
+                </div>
             </div>
         </div>
 
-        <!-- Question 9 -->
-        <div class="question-card" data-question="9">
-            <div class="question-number">Frage 9 von 12</div>
-            <div class="question-text">Wie ist dein Denken strukturiert?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4)">Mein Kopf arbeitet staendig - mehrere Gedankenstroeme gleichzeitig</div>
-                <div class="option" onclick="selectOption(this, 3)">Ich denke viel und gruendlich, manchmal zu viel</div>
-                <div class="option" onclick="selectOption(this, 2)">Normal - ich denke, wenn es noetig ist</div>
-                <div class="option" onclick="selectOption(this, 1)">Ich bin eher praktisch veranlagt als ein "Denker"</div>
+        <div class="question-card" data-question="9" data-oe="intellectual">
+            <div class="question-meta">
+                <span class="question-number">Frage 9 von 15</span>
+                <span class="question-oe" style="background: var(--intellectual-color);">Intellektuell</span>
+            </div>
+            <div class="question-text">Ich stelle viele Fragen und akzeptiere selten Erklaerungen ohne sie gruendlich zu hinterfragen.</div>
+            <div class="likert-scale">
+                <div class="likert-option" onclick="selectOption(this, 1)">
+                    <span class="likert-label">Trifft nicht zu</span>
+                    <span class="likert-value">1</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 2)">
+                    <span class="likert-label">Trifft kaum zu</span>
+                    <span class="likert-value">2</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 3)">
+                    <span class="likert-label">Teils/teils</span>
+                    <span class="likert-value">3</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 4)">
+                    <span class="likert-label">Trifft eher zu</span>
+                    <span class="likert-value">4</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 5)">
+                    <span class="likert-label">Trifft voll zu</span>
+                    <span class="likert-value">5</span>
+                </div>
             </div>
         </div>
 
-        <!-- Question 10 -->
-        <div class="question-card" data-question="10">
-            <div class="question-number">Frage 10 von 12</div>
-            <div class="question-text">Wie reagierst du auf Kritik an deiner Arbeit?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4)">Sehr empfindlich - ich habe hohe Ansprueche an mich und Kritik trifft mich</div>
-                <div class="option" onclick="selectOption(this, 3)">Es beruehrt mich, aber ich kann konstruktiv damit umgehen</div>
-                <div class="option" onclick="selectOption(this, 2)">Ich nehme es als Feedback und mache weiter</div>
-                <div class="option" onclick="selectOption(this, 1)">Kritik prallt meistens an mir ab</div>
+        <!-- Imaginational OE (3 questions) -->
+        <div class="question-card" data-question="10" data-oe="imaginational">
+            <div class="question-meta">
+                <span class="question-number">Frage 10 von 15</span>
+                <span class="question-oe" style="background: var(--imaginational-color);">Imaginativ</span>
+            </div>
+            <div class="question-text">Ich habe eine lebhafte Fantasie und erschaffe oft innere Welten, Geschichten oder Szenarien in meinem Kopf.</div>
+            <div class="likert-scale">
+                <div class="likert-option" onclick="selectOption(this, 1)">
+                    <span class="likert-label">Trifft nicht zu</span>
+                    <span class="likert-value">1</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 2)">
+                    <span class="likert-label">Trifft kaum zu</span>
+                    <span class="likert-value">2</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 3)">
+                    <span class="likert-label">Teils/teils</span>
+                    <span class="likert-value">3</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 4)">
+                    <span class="likert-label">Trifft eher zu</span>
+                    <span class="likert-value">4</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 5)">
+                    <span class="likert-label">Trifft voll zu</span>
+                    <span class="likert-value">5</span>
+                </div>
             </div>
         </div>
 
-        <!-- Question 11 -->
-        <div class="question-card" data-question="11">
-            <div class="question-number">Frage 11 von 12</div>
-            <div class="question-text">Wie verhaelt es sich mit deinem Perfektionismus?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4)">Extrem ausgepraegt - ich bin selten zufrieden mit meinen Ergebnissen</div>
-                <div class="option" onclick="selectOption(this, 3)">Hoch - ich habe hohe Standards fuer mich selbst</div>
-                <div class="option" onclick="selectOption(this, 2)">Moderat - "gut genug" ist mir oft gut genug</div>
-                <div class="option" onclick="selectOption(this, 1)">Gering - ich bin mit dem Ergebnis meist zufrieden</div>
+        <div class="question-card" data-question="11" data-oe="imaginational">
+            <div class="question-meta">
+                <span class="question-number">Frage 11 von 15</span>
+                <span class="question-oe" style="background: var(--imaginational-color);">Imaginativ</span>
+            </div>
+            <div class="question-text">Ich traeume haeufig sehr lebhaft und kann mich an meine Traeume oft detailliert erinnern.</div>
+            <div class="likert-scale">
+                <div class="likert-option" onclick="selectOption(this, 1)">
+                    <span class="likert-label">Trifft nicht zu</span>
+                    <span class="likert-value">1</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 2)">
+                    <span class="likert-label">Trifft kaum zu</span>
+                    <span class="likert-value">2</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 3)">
+                    <span class="likert-label">Teils/teils</span>
+                    <span class="likert-value">3</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 4)">
+                    <span class="likert-label">Trifft eher zu</span>
+                    <span class="likert-value">4</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 5)">
+                    <span class="likert-label">Trifft voll zu</span>
+                    <span class="likert-value">5</span>
+                </div>
             </div>
         </div>
 
-        <!-- Question 12 -->
-        <div class="question-card" data-question="12">
-            <div class="question-number">Frage 12 von 12</div>
-            <div class="question-text">Wie wuerdest du deinen Humor beschreiben?</div>
-            <div class="options">
-                <div class="option" onclick="selectOption(this, 4)">Oft sehr trocken oder absurd - viele verstehen meine Witze nicht</div>
-                <div class="option" onclick="selectOption(this, 3)">Eher intellektuell - ich mag Wortspiele und clevere Pointen</div>
-                <div class="option" onclick="selectOption(this, 2)">Normal - ich lache ueber das, worueber alle lachen</div>
-                <div class="option" onclick="selectOption(this, 1)">Eher einfach und direkt</div>
+        <div class="question-card" data-question="12" data-oe="imaginational">
+            <div class="question-meta">
+                <span class="question-number">Frage 12 von 15</span>
+                <span class="question-oe" style="background: var(--imaginational-color);">Imaginativ</span>
+            </div>
+            <div class="question-text">Ich denke oft in Bildern, Metaphern oder unkonventionellen Assoziationen.</div>
+            <div class="likert-scale">
+                <div class="likert-option" onclick="selectOption(this, 1)">
+                    <span class="likert-label">Trifft nicht zu</span>
+                    <span class="likert-value">1</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 2)">
+                    <span class="likert-label">Trifft kaum zu</span>
+                    <span class="likert-value">2</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 3)">
+                    <span class="likert-label">Teils/teils</span>
+                    <span class="likert-value">3</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 4)">
+                    <span class="likert-label">Trifft eher zu</span>
+                    <span class="likert-value">4</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 5)">
+                    <span class="likert-label">Trifft voll zu</span>
+                    <span class="likert-value">5</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Emotional OE (3 questions) -->
+        <div class="question-card" data-question="13" data-oe="emotional">
+            <div class="question-meta">
+                <span class="question-number">Frage 13 von 15</span>
+                <span class="question-oe" style="background: var(--emotional-color);">Emotional</span>
+            </div>
+            <div class="question-text">Ich erlebe Emotionen sehr intensiv - sowohl positive als auch negative Gefuehle sind bei mir stark ausgepraegt.</div>
+            <div class="likert-scale">
+                <div class="likert-option" onclick="selectOption(this, 1)">
+                    <span class="likert-label">Trifft nicht zu</span>
+                    <span class="likert-value">1</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 2)">
+                    <span class="likert-label">Trifft kaum zu</span>
+                    <span class="likert-value">2</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 3)">
+                    <span class="likert-label">Teils/teils</span>
+                    <span class="likert-value">3</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 4)">
+                    <span class="likert-label">Trifft eher zu</span>
+                    <span class="likert-value">4</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 5)">
+                    <span class="likert-label">Trifft voll zu</span>
+                    <span class="likert-value">5</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card" data-question="14" data-oe="emotional">
+            <div class="question-meta">
+                <span class="question-number">Frage 14 von 15</span>
+                <span class="question-oe" style="background: var(--emotional-color);">Emotional</span>
+            </div>
+            <div class="question-text">Ich bin sehr empathisch und spuere oft die Gefuehle anderer Menschen, als waeren sie meine eigenen.</div>
+            <div class="likert-scale">
+                <div class="likert-option" onclick="selectOption(this, 1)">
+                    <span class="likert-label">Trifft nicht zu</span>
+                    <span class="likert-value">1</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 2)">
+                    <span class="likert-label">Trifft kaum zu</span>
+                    <span class="likert-value">2</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 3)">
+                    <span class="likert-label">Teils/teils</span>
+                    <span class="likert-value">3</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 4)">
+                    <span class="likert-label">Trifft eher zu</span>
+                    <span class="likert-value">4</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 5)">
+                    <span class="likert-label">Trifft voll zu</span>
+                    <span class="likert-value">5</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-card" data-question="15" data-oe="emotional">
+            <div class="question-meta">
+                <span class="question-number">Frage 15 von 15</span>
+                <span class="question-oe" style="background: var(--emotional-color);">Emotional</span>
+            </div>
+            <div class="question-text">Ungerechtigkeit, Leid anderer oder ethische Probleme beruehren mich tief und ich kann sie schwer ignorieren.</div>
+            <div class="likert-scale">
+                <div class="likert-option" onclick="selectOption(this, 1)">
+                    <span class="likert-label">Trifft nicht zu</span>
+                    <span class="likert-value">1</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 2)">
+                    <span class="likert-label">Trifft kaum zu</span>
+                    <span class="likert-value">2</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 3)">
+                    <span class="likert-label">Teils/teils</span>
+                    <span class="likert-value">3</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 4)">
+                    <span class="likert-label">Trifft eher zu</span>
+                    <span class="likert-value">4</span>
+                </div>
+                <div class="likert-option" onclick="selectOption(this, 5)">
+                    <span class="likert-label">Trifft voll zu</span>
+                    <span class="likert-value">5</span>
+                </div>
             </div>
         </div>
 
         <!-- Results -->
         <div class="result-card" id="resultCard">
-            <div class="result-icon" id="resultIcon"></div>
-            <h2 class="result-title" id="resultTitle"></h2>
-            <p class="result-score" id="resultScore"></p>
-            <div class="result-description" id="resultDescription"></div>
+            <div class="result-header">
+                <h2 class="result-title">Dein Intensitaetsprofil</h2>
+                <p class="result-subtitle">Overexcitabilities nach Dabrowski</p>
+            </div>
 
-            <div class="disclaimer" id="disclaimer">
-                <strong>Wichtiger Hinweis:</strong> Dieser Test ist kein diagnostisches Instrument. Hochbegabung kann nur durch einen standardisierten IQ-Test (z.B. WAIS-IV) bei einem qualifizierten Psychologen festgestellt werden. Dieser Selbsttest gibt dir lediglich erste Hinweise.
+            <div class="oe-profile">
+                <h3>Deine fuenf Intensitaetsbereiche</h3>
+                <div class="oe-results" id="oeResults">
+                    <!-- Filled by JavaScript -->
+                </div>
+            </div>
+
+            <div class="key-insights" id="keyInsights">
+                <h3>Was dein Profil zeigt</h3>
+                <p id="insightsText"></p>
+            </div>
+
+            <div class="critical-disclaimer">
+                <h4>Kritisch wichtiger Hinweis</h4>
+                <p>
+                    <strong>Dieser Test misst KEINE Intelligenz und kann KEINE Hochbegabung diagnostizieren.</strong>
+                    Hochbegabung ist definiert als IQ ≥ 130 und kann nur durch einen standardisierten
+                    Intelligenztest (z.B. WAIS-IV) bei einem qualifizierten Psychologen festgestellt werden.
+                </p>
+                <p>
+                    Overexcitabilities kommen bei hochbegabten Menschen <em>haeufiger</em> vor, aber auch
+                    bei Menschen mit durchschnittlicher Intelligenz, Hochsensibilitaet, AD(H)S oder
+                    anderen Besonderheiten. Ein hohes OE-Profil ist KEIN Beweis fuer Hochbegabung.
+                </p>
+            </div>
+
+            <div class="scientific-reference">
+                <h4>Wissenschaftliche Grundlage</h4>
+                <p>
+                    <strong>Dabrowskis Theorie der positiven Desintegration</strong><br>
+                    Dabrowski, K. (1964). Positive Disintegration. London: Little, Brown.<br><br>
+                    <strong>OEQ-II (Overexcitability Questionnaire-Two)</strong><br>
+                    Falk, R.F., Lind, S., Miller, N.B., Piechowski, M.M., & Silverman, L.K. (1999).
+                    The Overexcitability Questionnaire-Two (OEQII): Manual, scoring system, and questionnaire.<br><br>
+                    Die fuenf OE-Bereiche zeigen akzeptable Reliabilitaet (alpha = 0.69-0.86).
+                </p>
             </div>
 
             <div class="cta-section">
                 <h3>Du bist nicht allein</h3>
-                <p id="ctaText">Als selbst hochbegabte Frau verstehe ich, wie es sich anfuehlt, "anders" zu sein. In einem Gespraech koennen wir schauen, was du gerade brauchst.</p>
+                <p id="ctaText">
+                    Intensitaet kann eine Gabe sein - aber auch herausfordernd. Wenn du dich oft
+                    "anders" oder "zu viel" fuehlst, kann ein Gespraech helfen, deine Besonderheiten
+                    als Staerke zu leben.
+                </p>
                 <button class="cta-button" onclick="bookErstgespraech()">Kostenloses Gespraech buchen</button>
             </div>
 
@@ -565,7 +1276,7 @@
                 <h4>Diese Tests koennten dich auch interessieren:</h4>
                 <div class="quiz-links">
                     <a href="quiz-hochsensibel.html" class="quiz-link">Bin ich hochsensibel?</a>
-                    <a href="quiz-lebenskrise.html" class="quiz-link">Burnout oder Sinnkrise?</a>
+                    <a href="quiz-lebenskrise.html" class="quiz-link">Burnout-Test</a>
                     <a href="quiz-midlife.html" class="quiz-link">Midlife Crisis Test</a>
                     <a href="quiz-beziehung.html" class="quiz-link">Beziehungs-Check</a>
                 </div>
@@ -575,129 +1286,221 @@
 
     <script src="cal-booking.js"></script>
     <script>
-        let currentQuestion = 1;
-        const totalQuestions = 12;
-        let totalScore = 0;
+        let currentQuestion = 0;
+        const totalQuestions = 15;
+
+        const scores = {
+            psychomotor: [],
+            sensual: [],
+            intellectual: [],
+            imaginational: [],
+            emotional: []
+        };
+
+        const oeInfo = {
+            psychomotor: {
+                name: 'Psychomotorische OE',
+                icon: '⚡',
+                color: 'var(--psychomotor-color)',
+                description: {
+                    low: 'Du hast einen eher ruhigen Energielevel und keinen starken koerperlichen Bewegungsdrang.',
+                    medium: 'Du hast einen moderaten Bewegungsdrang und manchmal einen Ueberschuss an Energie.',
+                    high: 'Du hast einen starken Bewegungsdrang, viel Energie und zeigst Aufregung koerperlich.'
+                }
+            },
+            sensual: {
+                name: 'Sensorische OE',
+                icon: '🎨',
+                color: 'var(--sensual-color)',
+                description: {
+                    low: 'Sinnliche Erfahrungen und Aesthetik spielen keine dominante Rolle in deinem Leben.',
+                    medium: 'Du schaetzt sinnliche Erfahrungen und Schoenheit, aber sie ueberwaeltigen dich nicht.',
+                    high: 'Du erlebst sinnliche Reize sehr intensiv - Schoenheit beruehrt dich tief, und du bist empfindlich.'
+                }
+            },
+            intellectual: {
+                name: 'Intellektuelle OE',
+                icon: '🧠',
+                color: 'var(--intellectual-color)',
+                description: {
+                    low: 'Intellektuelle Taetigkeit ist nicht dein Hauptfokus im Leben.',
+                    medium: 'Du geniesst es, Dinge zu verstehen und zu hinterfragen, aber es dominiert nicht alles.',
+                    high: 'Du hast einen unstillbaren Wissensdurst - dein Kopf arbeitet staendig und du liebst komplexe Probleme.'
+                }
+            },
+            imaginational: {
+                name: 'Imaginative OE',
+                icon: '✨',
+                color: 'var(--imaginational-color)',
+                description: {
+                    low: 'Du bist eher praktisch orientiert und lebst weniger in Fantasiewelten.',
+                    medium: 'Du hast eine gute Vorstellungskraft, die du bei Bedarf einsetzen kannst.',
+                    high: 'Du hast eine ueberaus lebhafte Fantasie - innere Welten, lebhafte Traeume und Metaphern sind dein Zuhause.'
+                }
+            },
+            emotional: {
+                name: 'Emotionale OE',
+                icon: '💗',
+                color: 'var(--emotional-color)',
+                description: {
+                    low: 'Du erlebst Emotionen in moderater Intensitaet und kannst sie gut regulieren.',
+                    medium: 'Du hast ein reiches emotionales Leben, ohne davon ueberwaeltigt zu werden.',
+                    high: 'Du erlebst Gefuehle sehr intensiv - Empathie, Freude und Schmerz sind bei dir stark ausgepraegt.'
+                }
+            }
+        };
+
+        const oeLabelMap = {
+            psychomotor: 'Psychomotorisch',
+            sensual: 'Sensorisch',
+            intellectual: 'Intellektuell',
+            imaginational: 'Imaginativ',
+            emotional: 'Emotional'
+        };
+
+        function startQuiz() {
+            document.getElementById('introSection').style.display = 'none';
+            document.getElementById('progressContainer').style.display = 'block';
+            currentQuestion = 1;
+            showQuestion(1);
+        }
+
+        function showQuestion(num) {
+            document.querySelectorAll('.question-card').forEach(card => {
+                card.classList.remove('active');
+            });
+
+            const card = document.querySelector(`.question-card[data-question="${num}"]`);
+            if (card) {
+                card.classList.add('active');
+
+                const progress = (num / totalQuestions) * 100;
+                document.getElementById('progressFill').style.width = progress + '%';
+                document.getElementById('currentQuestion').textContent = num;
+
+                const oe = card.dataset.oe;
+                const indicator = document.getElementById('oeIndicator');
+                indicator.textContent = oeLabelMap[oe];
+                indicator.style.background = oeInfo[oe].color;
+            }
+        }
 
         function selectOption(element, points) {
-            // Mark selected
-            const options = element.parentElement.querySelectorAll('.option');
+            const options = element.parentElement.querySelectorAll('.likert-option');
             options.forEach(opt => opt.classList.remove('selected'));
             element.classList.add('selected');
 
-            totalScore += points;
+            const card = element.closest('.question-card');
+            const oe = card.dataset.oe;
 
-            // Delay before next question
+            scores[oe].push(points);
+
             setTimeout(() => {
                 if (currentQuestion < totalQuestions) {
-                    document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.remove('active');
                     currentQuestion++;
-                    document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.add('active');
-
-                    const progress = (currentQuestion / totalQuestions) * 100;
-                    document.getElementById('progressFill').style.width = progress + '%';
-                    document.getElementById('currentQuestion').textContent = currentQuestion;
+                    showQuestion(currentQuestion);
                 } else {
                     showResults();
                 }
-            }, 400);
+            }, 350);
+        }
+
+        function calculateOEScore(oe) {
+            const values = scores[oe];
+            if (values.length === 0) return 0;
+            return values.reduce((a, b) => a + b, 0) / values.length;
+        }
+
+        function getLevel(score) {
+            if (score < 2.5) return 'low';
+            if (score < 4) return 'medium';
+            return 'high';
+        }
+
+        function getLevelLabel(level) {
+            if (level === 'low') return 'Niedrig';
+            if (level === 'medium') return 'Mittel';
+            return 'Hoch';
         }
 
         function showResults() {
             document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.remove('active');
-            document.querySelector('.progress-container').style.display = 'none';
-            document.querySelector('.info-box').style.display = 'none';
+            document.getElementById('progressContainer').style.display = 'none';
 
             const resultCard = document.getElementById('resultCard');
             resultCard.classList.add('active');
 
-            const resultIcon = document.getElementById('resultIcon');
-            const resultTitle = document.getElementById('resultTitle');
-            const resultScore = document.getElementById('resultScore');
-            const resultDescription = document.getElementById('resultDescription');
-            const ctaText = document.getElementById('ctaText');
-
-            if (totalScore >= 40) {
-                resultIcon.innerHTML = 'IQ+';
-                resultIcon.className = 'result-icon high';
-                resultTitle.textContent = 'Starke Hinweise auf Hochbegabung';
-                resultDescription.innerHTML = `
-                    <p>Deine Antworten zeigen <strong>deutliche Merkmale, die bei Hochbegabten haeufig vorkommen</strong>. Das bedeutet nicht automatisch, dass du hochbegabt bist - aber es ist wahrscheinlich ein Thema, das es sich lohnt naeher zu betrachten.</p>
-
-                    <div class="traits-grid">
-                        <div class="trait-item">
-                            <strong>Schnelle Auffassung</strong>
-                            <span>Du erfasst Zusammenhaenge rasch</span>
+            // Build OE results
+            const oeResultsHTML = Object.entries(oeInfo).map(([key, info]) => {
+                const score = calculateOEScore(key);
+                const level = getLevel(score);
+                const percent = (score / 5) * 100;
+                return `
+                    <div class="oe-card">
+                        <div class="oe-header">
+                            <div class="oe-title">
+                                <div class="oe-icon ${key}">${info.icon}</div>
+                                <span class="oe-name">${info.name}</span>
+                            </div>
+                            <span class="oe-level ${level}">${getLevelLabel(level)}</span>
                         </div>
-                        <div class="trait-item">
-                            <strong>Vielseitige Interessen</strong>
-                            <span>Dein Wissenshunger ist grenzenlos</span>
+                        <div class="oe-bar-container">
+                            <div class="oe-bar ${key}" style="width: ${percent}%"></div>
                         </div>
-                        <div class="trait-item">
-                            <strong>Anderssein</strong>
-                            <span>Du fuehlst dich oft nicht verstanden</span>
-                        </div>
-                        <div class="trait-item">
-                            <strong>Hohe Standards</strong>
-                            <span>Perfektionismus ist dein Begleiter</span>
-                        </div>
+                        <p class="oe-description">${info.description[level]}</p>
+                        <p class="oe-score">${score.toFixed(1)} von 5 Punkten</p>
                     </div>
-
-                    <p>Viele Hochbegabte erfahren erst als Erwachsene von ihrer Begabung. Das "Anderssein" das sie ihr Leben lang gespuert haben, macht ploetzlich Sinn. Diese Erkenntnis kann sehr befreiend sein.</p>
                 `;
-                ctaText.textContent = 'Als selbst hochbegabte Frau begleite ich Menschen dabei, ihre Besonderheit als Staerke zu leben. Lass uns reden.';
-            } else if (totalScore >= 32) {
-                resultIcon.innerHTML = 'IQ';
-                resultIcon.className = 'result-icon medium';
-                resultTitle.textContent = 'Einige Hinweise auf Hochbegabung';
-                resultDescription.innerHTML = `
-                    <p>Deine Antworten zeigen <strong>mehrere Merkmale, die bei Hochbegabten vorkommen</strong>. Du koenntest ueberdurchschnittlich begabt sein oder eine Teilhochbegabung haben.</p>
+            }).join('');
 
-                    <p>Unabhaengig von einem IQ-Wert: Du hast offenbar <strong>besondere kognitive Faehigkeiten und eine reiche Innenwelt</strong>. Das bringt Staerken mit sich, aber manchmal auch Herausforderungen:</p>
+            document.getElementById('oeResults').innerHTML = oeResultsHTML;
 
-                    <ul style="text-align: left; padding-left: 20px; margin: 20px 0;">
-                        <li>Gefuehl, nicht ganz reinzupassen</li>
-                        <li>Frustration ueber Langsamkeit anderer</li>
-                        <li>Schwierigkeit, sich auf eine Sache zu fokussieren</li>
-                        <li>Hohe Erwartungen an sich selbst</li>
-                    </ul>
+            // Calculate dominant OEs
+            const oeScores = Object.entries(oeInfo).map(([key, info]) => ({
+                key,
+                name: info.name,
+                score: calculateOEScore(key)
+            })).sort((a, b) => b.score - a.score);
 
-                    <p>Ob hochbegabt oder nicht - du verdienst Unterstuetzung dabei, dein Potenzial zu leben.</p>
+            const highOEs = oeScores.filter(oe => getLevel(oe.score) === 'high');
+            const totalScore = oeScores.reduce((sum, oe) => sum + oe.score, 0);
+
+            let insights = '';
+
+            if (highOEs.length >= 3) {
+                insights = `
+                    <p>Dein Profil zeigt <strong>hohe Intensitaet in mehreren Bereichen</strong> gleichzeitig.
+                    Das bedeutet, dass du die Welt wahrscheinlich intensiver erlebst als viele andere Menschen.
+                    Diese Intensitaet kann ein Geschenk sein - kreativ, empathisch, wissbegierig - aber auch
+                    herausfordernd, weil du staendig "auf Empfang" bist.</p>
+
+                    <div class="insight-highlight">
+                        <p>Menschen mit hohen OE-Werten berichten oft, sich "anders" zu fuehlen. Das ist keine
+                        Einbildung - dein Nervensystem verarbeitet tatsaechlich mehr.</p>
+                    </div>
                 `;
-                ctaText.textContent = 'Lass uns schauen, wie du deine besonderen Faehigkeiten besser einsetzen und mit den Herausforderungen umgehen kannst.';
-            } else if (totalScore >= 24) {
-                resultIcon.innerHTML = '~';
-                resultIcon.className = 'result-icon medium';
-                resultTitle.textContent = 'Durchschnittliche Hinweise';
-                resultDescription.innerHTML = `
-                    <p>Deine Antworten zeigen <strong>keine eindeutigen Hinweise auf Hochbegabung</strong>. Das bedeutet nicht, dass du nicht schlau oder faehig bist - nur dass dein Profil nicht typisch fuer Hochbegabung ist.</p>
+            } else if (highOEs.length >= 1) {
+                const dominantOE = highOEs[0].name;
+                insights = `
+                    <p>Dein Profil zeigt eine besondere Intensitaet im Bereich <strong>${dominantOE}</strong>.
+                    Das ist ein Bereich, in dem du verstaerkt erlebst und reagierst.</p>
 
-                    <p>Allerdings: Manchmal versteckt sich Hochbegabung auch. Besonders wenn:</p>
-                    <ul style="text-align: left; padding-left: 20px; margin: 20px 0;">
-                        <li>Du als Kind nicht gefoerdert wurdest</li>
-                        <li>Du gelernt hast, dich anzupassen</li>
-                        <li>Du weiblich sozialisiert wurdest (Frauen verstecken oft ihre Begabung)</li>
-                        <li>Du mit anderen Themen kaempfst (z.B. AD(H)S, Trauma)</li>
-                    </ul>
-
-                    <p>Wenn du trotzdem das Gefuehl hast, dass "etwas anders" ist, solltest du dem nachgehen.</p>
+                    <p>Diese Intensitaet hat Staerken (tiefe Erfahrungen, besondere Faehigkeiten) und
+                    Herausforderungen (Reizueberflutung, Erschoepfung, Anderssein).</p>
                 `;
-                ctaText.textContent = 'Wenn das Thema dich beschaeftigt, lass uns darueber sprechen. Manchmal hilft ein Gespraech von aussen.';
             } else {
-                resultIcon.innerHTML = '-';
-                resultIcon.className = 'result-icon low';
-                resultTitle.textContent = 'Wenig Hinweise auf Hochbegabung';
-                resultDescription.innerHTML = `
-                    <p>Basierend auf deinen Antworten gibt es <strong>wenig typische Hinweise auf Hochbegabung</strong>. Das ist weder gut noch schlecht - jeder Mensch hat seine eigenen Staerken.</p>
+                insights = `
+                    <p>Dein Profil zeigt <strong>moderate Intensitaet</strong> in den meisten Bereichen.
+                    Das bedeutet nicht, dass du weniger wert oder weniger interessant bist - nur dass
+                    Dabrowskis Overexcitabilities nicht dein dominantes Merkmal sind.</p>
 
-                    <p>Vielleicht hast du diesen Test aus Neugier gemacht oder fuer jemand anderen?</p>
-
-                    <p>Falls du nach diesem Test hierher gekommen bist, weil du dich "anders" fuehlst: Vielleicht ist es nicht Hochbegabung, aber etwas anderes - Hochsensibilitaet zum Beispiel. Oder du steckst in einer Lebensphase, die Veraenderung braucht.</p>
+                    <p>Falls du dich trotzdem "anders" fuehlst, koennte es andere Gruende geben -
+                    vielleicht Hochsensibilitaet, bestimmte Lebenserfahrungen oder andere Persoenlichkeitsmerkmale.</p>
                 `;
-                ctaText.textContent = 'Wenn dich etwas beschaeftigt, koennen wir gerne darueber sprechen - auch ohne Hochbegabung als Thema.';
             }
 
-            resultScore.textContent = `Dein Wert: ${totalScore} von 48 Punkten`;
+            document.getElementById('insightsText').innerHTML = insights;
+
             resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     </script>
