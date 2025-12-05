@@ -1692,10 +1692,16 @@
             margin-bottom: 40px;
         }
 
+        .footer-brand .logo {
+            color: var(--color-accent);
+            font-size: 1.4rem;
+        }
+
         .footer-brand p {
-            opacity: 0.7;
-            font-size: 0.9rem;
+            opacity: 0.8;
+            font-size: 0.95rem;
             margin-top: 1rem;
+            line-height: 1.6;
         }
 
         .footer-links h4 {
@@ -2127,7 +2133,7 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 4px 20px rgba(255,165,0,0.5);
-            transition: left 0.1s ease, box-shadow 0.3s ease;
+            transition: left 0.1s ease, box-shadow 0.3s ease, opacity 0.4s ease;
             pointer-events: none;
         }
 
@@ -2291,7 +2297,7 @@
 
         /* Transformation CTA */
         .transformation-cta {
-            margin-top: 50px;
+            margin-top: 30px;
             text-align: center;
             opacity: 0;
             transform: translateY(20px);
@@ -2300,6 +2306,36 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
+        }
+
+        .cta-sun {
+            position: absolute;
+            top: -90px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(255, 200, 0, 0.6), 0 0 80px rgba(255, 165, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cta-sun svg {
+            width: 32px;
+            height: 32px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .transformation-cta.visible .cta-sun {
+            opacity: 1;
         }
 
         .transformation-cta.visible {
@@ -3595,6 +3631,7 @@
 
             <!-- CTA appears when slider reaches end -->
             <div class="transformation-cta" id="transformationCta">
+                <div class="cta-sun"></div>
                 <p class="cta-question">Du möchtest das erleben?</p>
                 <div class="cta-buttons">
                     <a href="#angebote" class="btn btn-primary">1:1 Retreat entdecken</a>
@@ -4544,8 +4581,11 @@
         if (cta) {
             if (value >= 90) {
                 cta.classList.add('visible');
+                // Hide the slider thumb when CTA sun appears
+                thumb.style.opacity = '0';
             } else {
                 cta.classList.remove('visible');
+                thumb.style.opacity = '1';
             }
         }
     }
