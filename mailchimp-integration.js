@@ -92,7 +92,7 @@ function createQuizResultForm(containerId, quizData) {
     container.innerHTML = `
         <div class="mailchimp-form quiz-result-form">
             <h3 class="mailchimp-headline">Dein Ergebnis per E-Mail erhalten</h3>
-            <p class="mailchimp-subheadline">Wir senden dir dein ${quizData.quizName || 'Quiz'}-Ergebnis mit persönlichen Tipps.</p>
+            <p class="mailchimp-subheadline">Ich sende dir dein ${quizData.quizName || 'Quiz'}-Ergebnis mit persönlichen Tipps.</p>
             <form id="mc-quiz-form" class="mc-form" onsubmit="handleQuizSubmit(event)">
                 <div class="mc-field-group">
                     <input type="text" name="FNAME" placeholder="Dein Vorname" class="mc-input" required>
