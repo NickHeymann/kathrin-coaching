@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beziehungs-Check nach Gottman | Ist unsere Beziehung noch zu retten?</title>
-    <meta name="description" content="Wissenschaftlich fundierter Beziehungstest basierend auf Dr. John Gottmans Forschung. Erkennt die 'Four Horsemen' - die staerksten Scheidungspraediktoren.">
-    <meta name="keywords" content="Beziehungstest, Gottman, Four Horsemen, Paartherapie, Beziehungskrise, Eheprobleme, Scheidung">
+    <title>Beziehungs-Check nach Gottman | Die 4 Warnsignale | KATHRIN STAHL</title>
+    <meta name="description" content="Wissenschaftlich fundierter Beziehungstest basierend auf Dr. John Gottmans Forschung. Erkenne die 'Four Horsemen' - die stärksten Scheidungsprädiktoren.">
+    <meta name="keywords" content="Beziehungstest, Gottman, Four Horsemen, Paartherapie, Beziehungskrise, Scheidung">
     <link rel="canonical" href="https://nickheymann.github.io/kathrin-coaching/quiz-beziehung.html">
 
     <!-- Open Graph -->
     <meta property="og:title" content="Beziehungs-Check: Die vier Warnsignale nach Gottman">
-    <meta property="og:description" content="Basierend auf 40 Jahren Forschung von Dr. John Gottman. Er kann Scheidungen mit 94% Genauigkeit vorhersagen.">
+    <meta property="og:description" content="Basierend auf 40 Jahren Forschung von Dr. John Gottman - er kann Scheidungen mit 94% Genauigkeit vorhersagen.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nickheymann.github.io/kathrin-coaching/quiz-beziehung.html">
 
     <!-- Schema.org -->
     <script type="application/ld+json">
@@ -23,344 +24,71 @@
         "citation": "Gottman, J. M. (1994). What Predicts Divorce? Lawrence Erlbaum Associates.",
         "provider": {
             "@type": "Person",
-            "name": "Kathrin Stahl"
+            "name": "Kathrin Stahl",
+            "url": "https://nickheymann.github.io/kathrin-coaching/"
         }
     }
     </script>
 
-    <link rel='stylesheet' href='wp-content/themes/efor/css/normalize32d4.css' type='text/css' media='all'>
-    <link rel='stylesheet' href='wp-content/themes/efor/css/bootstrap32d4.css' type='text/css' media='all'>
-    <link rel="stylesheet" href="custom-fixes.css" type="text/css" media="all">
-    <link rel="stylesheet" href="modern-design.css" type="text/css" media="all">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Unified Quiz Styles -->
+    <link rel="stylesheet" href="quiz-styles.css">
 
     <style>
-        :root {
-            --primary: #8B4557;
-            --primary-light: #A65D6F;
-            --accent: #C4A962;
-            --bg-warm: #FDF8F6;
-            --text-dark: #2D2D2D;
-            --text-light: #666;
-            --success: #4CAF50;
-            --warning: #FF9800;
-            --danger: #E53935;
+        /* Quiz-specific: Four Horsemen Grid */
+        .horsemen-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin: 30px 0;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(180deg, var(--bg-warm) 0%, #f5eeeb 100%);
-            min-height: 100vh;
-            color: var(--text-dark);
-        }
-
-        .quiz-header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: #fff;
-            padding: 40px 20px;
-            text-align: center;
+        .horseman-card {
+            background: var(--color-cream);
+            border-radius: 16px;
+            padding: 20px;
             position: relative;
             overflow: hidden;
+            border-left: 4px solid #ccc;
         }
 
-        .quiz-header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: shimmer 15s infinite linear;
+        .horseman-card.low { border-left-color: var(--color-success); }
+        .horseman-card.medium { border-left-color: var(--color-warning); }
+        .horseman-card.high { border-left-color: var(--color-danger); }
+
+        .horseman-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 8px;
         }
 
-        @keyframes shimmer {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .quiz-header h1 {
-            font-size: clamp(1.6rem, 4vw, 2.4rem);
-            margin-bottom: 12px;
-            font-weight: 300;
-            position: relative;
-        }
-
-        .quiz-header .subtitle {
-            font-size: 1rem;
-            opacity: 0.9;
-            max-width: 500px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .quiz-header a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        .quiz-container {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 25px 20px;
-        }
-
-        /* Science Box */
-        .science-box {
-            background: #fff;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-            border-left: 4px solid var(--primary);
-        }
-
-        .science-box h3 {
-            color: var(--primary);
-            font-size: 1.1rem;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .science-box h3::before {
-            content: '';
-            width: 8px;
-            height: 8px;
-            background: var(--primary);
-            border-radius: 50%;
-        }
-
-        .science-box p {
-            font-size: 0.95rem;
-            color: var(--text-light);
-            line-height: 1.7;
-        }
-
-        .science-box .highlight {
-            background: linear-gradient(180deg, transparent 60%, rgba(139, 69, 87, 0.15) 60%);
+        .horseman-score {
+            font-family: var(--font-heading);
+            font-size: 2rem;
             font-weight: 600;
         }
 
-        .science-box .citation {
-            font-size: 0.8rem;
-            color: #999;
-            font-style: italic;
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid #eee;
-        }
+        .horseman-card.low .horseman-score { color: var(--color-success); }
+        .horseman-card.medium .horseman-score { color: var(--color-warning); }
+        .horseman-card.high .horseman-score { color: var(--color-danger); }
 
-        /* Progress */
-        .progress-wrapper {
-            background: #fff;
-            border-radius: 16px;
-            padding: 20px 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-        }
-
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .progress-step {
-            font-size: 0.9rem;
-            color: var(--text-light);
-        }
-
-        .progress-step strong {
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
-
-        .progress-category {
-            font-size: 0.8rem;
-            color: #999;
+        .horseman-level {
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin-top: 4px;
         }
 
-        .progress-bar {
-            height: 6px;
-            background: #f0f0f0;
-            border-radius: 3px;
-            overflow: hidden;
-        }
+        .horseman-card.low .horseman-level { color: var(--color-success); }
+        .horseman-card.medium .horseman-level { color: var(--color-warning); }
+        .horseman-card.high .horseman-level { color: var(--color-danger); }
 
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--primary-light));
-            border-radius: 3px;
-            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            width: 0%;
-        }
-
-        /* Question Cards */
-        .question-card {
-            background: #fff;
-            border-radius: 20px;
-            padding: 32px 28px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.08);
-            display: none;
-            transform: translateY(20px);
-            opacity: 0;
-        }
-
-        .question-card.active {
-            display: block;
-            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-
-        @keyframes slideUp {
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .question-category-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: linear-gradient(135deg, #f8f4f2, #f0ebe8);
-            color: var(--primary);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 16px;
-        }
-
-        .question-category-badge .icon {
-            font-size: 0.9rem;
-        }
-
-        .question-text {
-            font-size: 1.35rem;
-            color: var(--text-dark);
-            margin-bottom: 28px;
-            line-height: 1.5;
-            font-weight: 400;
-        }
-
-        /* Frequency Scale */
-        .frequency-scale {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-        }
-
-        .frequency-option {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 16px 8px;
-            background: #f8f6f4;
-            border: 2px solid transparent;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            text-align: center;
-        }
-
-        .frequency-option:hover {
-            background: #fff;
-            border-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(139, 69, 87, 0.15);
-        }
-
-        .frequency-option.selected {
-            background: var(--primary);
-            border-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(139, 69, 87, 0.25);
-        }
-
-        .frequency-option.selected .freq-value,
-        .frequency-option.selected .freq-label {
-            color: #fff;
-        }
-
-        .freq-value {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 4px;
-            transition: color 0.25s ease;
-        }
-
-        .freq-label {
-            font-size: 0.7rem;
-            color: var(--text-light);
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            transition: color 0.25s ease;
-        }
-
-        /* Mobile frequency */
-        @media (max-width: 600px) {
-            .frequency-scale {
-                grid-template-columns: 1fr;
-                gap: 8px;
-            }
-
-            .frequency-option {
-                flex-direction: row;
-                justify-content: flex-start;
-                padding: 14px 18px;
-                gap: 15px;
-            }
-
-            .freq-value {
-                font-size: 1.2rem;
-                margin-bottom: 0;
-                min-width: 30px;
-            }
-
-            .freq-label {
-                font-size: 0.85rem;
-                text-transform: none;
-            }
-        }
-
-        /* Results */
-        .result-card {
-            background: #fff;
-            border-radius: 24px;
-            padding: 40px 32px;
-            box-shadow: 0 12px 60px rgba(0,0,0,0.1);
-            display: none;
-        }
-
-        .result-card.active {
-            display: block;
-            animation: fadeIn 0.6s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.98); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .result-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
+        /* Score Circle */
         .result-score-circle {
             width: 120px;
             height: 120px;
@@ -371,844 +99,483 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            background: conic-gradient(var(--score-color, var(--color-primary)) var(--score-percent, 0%), #e8e8e8 var(--score-percent, 0%));
         }
 
         .result-score-circle::before {
             content: '';
             position: absolute;
-            inset: 0;
+            width: 100px;
+            height: 100px;
+            background: var(--color-white);
             border-radius: 50%;
-            padding: 4px;
-            background: conic-gradient(var(--score-color) var(--score-percent), #f0f0f0 var(--score-percent));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
         }
 
         .score-number {
+            position: relative;
+            font-family: var(--font-heading);
             font-size: 2.2rem;
             font-weight: 600;
-            color: var(--text-dark);
+            color: var(--color-text);
         }
 
         .score-label {
+            position: relative;
             font-size: 0.75rem;
-            color: var(--text-light);
+            color: var(--color-text-light);
             text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .result-title {
-            font-size: 1.7rem;
-            color: var(--text-dark);
-            margin-bottom: 10px;
         }
 
         .result-subtitle {
             font-size: 1rem;
-            color: var(--text-light);
+            color: var(--color-text-light);
+            margin-bottom: 20px;
         }
 
-        /* Four Horsemen Display */
-        .horsemen-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin: 30px 0;
+        .result-description h4 {
+            font-family: var(--font-heading);
+            color: var(--color-primary);
+            font-size: 1.2rem;
+            margin-bottom: 12px;
         }
-
-        .horseman-card {
-            background: #f8f6f4;
-            border-radius: 16px;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .horseman-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-        }
-
-        .horseman-card.low::before { background: var(--success); }
-        .horseman-card.medium::before { background: var(--warning); }
-        .horseman-card.high::before { background: var(--danger); }
-
-        .horseman-name {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 8px;
-        }
-
-        .horseman-score {
-            font-size: 1.8rem;
-            font-weight: 600;
-        }
-
-        .horseman-card.low .horseman-score { color: var(--success); }
-        .horseman-card.medium .horseman-score { color: var(--warning); }
-        .horseman-card.high .horseman-score { color: var(--danger); }
-
-        .horseman-level {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 4px;
-        }
-
-        .horseman-card.low .horseman-level { color: var(--success); }
-        .horseman-card.medium .horseman-level { color: var(--warning); }
-        .horseman-card.high .horseman-level { color: var(--danger); }
 
         @media (max-width: 500px) {
             .horsemen-grid {
                 grid-template-columns: 1fr;
             }
         }
-
-        /* Result Description */
-        .result-description {
-            background: #f8f6f4;
-            border-radius: 16px;
-            padding: 24px;
-            margin: 25px 0;
-        }
-
-        .result-description h4 {
-            color: var(--primary);
-            font-size: 1.1rem;
-            margin-bottom: 12px;
-        }
-
-        .result-description p {
-            color: var(--text-light);
-            line-height: 1.8;
-            margin-bottom: 12px;
-        }
-
-        .result-description ul {
-            padding-left: 20px;
-            color: var(--text-light);
-        }
-
-        .result-description li {
-            margin-bottom: 8px;
-            line-height: 1.6;
-        }
-
-        /* Disclaimer */
-        .disclaimer-box {
-            background: #FFF8E1;
-            border-left: 4px solid #FFB300;
-            padding: 16px 20px;
-            margin: 25px 0;
-            border-radius: 0 12px 12px 0;
-        }
-
-        .disclaimer-box h4 {
-            color: #FF8F00;
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-        }
-
-        .disclaimer-box p {
-            color: #795548;
-            font-size: 0.85rem;
-            line-height: 1.5;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, var(--accent), #a68b3d);
-            padding: 32px;
-            border-radius: 20px;
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        .cta-section h3 {
-            color: #fff;
-            font-size: 1.4rem;
-            margin-bottom: 12px;
-        }
-
-        .cta-section p {
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 20px;
-            font-size: 1rem;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: #fff;
-            color: var(--accent);
-            padding: 16px 40px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 1.05rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-
-        /* Source Box */
-        .source-box {
-            background: #f8f6f4;
-            padding: 20px 24px;
-            border-radius: 12px;
-            margin-top: 25px;
-        }
-
-        .source-box h4 {
-            color: var(--primary);
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-
-        .source-box p {
-            font-size: 0.8rem;
-            color: var(--text-light);
-            line-height: 1.6;
-            margin-bottom: 6px;
-        }
-
-        .source-box a {
-            color: var(--primary);
-        }
-
-        /* Other Quizzes */
-        .other-quizzes {
-            margin-top: 30px;
-            padding: 25px;
-            background: #f8f6f4;
-            border-radius: 16px;
-            text-align: center;
-        }
-
-        .other-quizzes h4 {
-            color: var(--text-dark);
-            margin-bottom: 15px;
-            font-size: 1rem;
-        }
-
-        .quiz-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .quiz-link {
-            padding: 10px 20px;
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 25px;
-            color: var(--text-light);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .quiz-link:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        @media (max-width: 600px) {
-            .quiz-container {
-                padding: 15px;
-            }
-
-            .question-card {
-                padding: 24px 20px;
-            }
-
-            .question-text {
-                font-size: 1.15rem;
-            }
-
-            .result-card {
-                padding: 30px 20px;
-            }
-        }
     </style>
 </head>
 <body>
-    <header class="quiz-header">
-        <h1>Beziehungs-Check</h1>
-        <p class="subtitle">Basierend auf Dr. John Gottmans Forschung zu den vier Warnsignalen in Beziehungen</p>
-        <p style="margin-top: 15px;"><a href="index.html">Zurueck zur Startseite</a></p>
-    </header>
+<!-- Header -->
+<header class="site-header">
+    <div class="header-inner">
+        <a href="index.html" class="logo">KATHRIN STAHL</a>
+        <nav id="mainNav">
+            <a href="index.html#angebote">Angebote</a>
+            <a href="index.html#ueber">Über mich</a>
+            <a href="index.html#kontakt">Kontakt</a>
+            <a href="#" class="nav-cta" onclick="bookCall(); return false;">Gespräch buchen</a>
+        </nav>
+        <button class="menu-toggle" aria-label="Menü öffnen" onclick="toggleMobileNav()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</header>
 
-    <main class="quiz-container">
-        <div class="science-box">
-            <h3>Die Wissenschaft dahinter</h3>
-            <p>Dr. John Gottman hat ueber <span class="highlight">40 Jahre lang tausende Paare</span> untersucht. Er identifizierte vier Kommunikationsmuster - die "Four Horsemen" - die <span class="highlight">Scheidungen mit 94% Genauigkeit</span> vorhersagen koennen.</p>
-            <p class="citation">Gottman, J. M. (1994). What Predicts Divorce? The Relationship Between Marital Processes and Marital Outcomes.</p>
+<!-- Quiz Hero -->
+<section class="quiz-hero">
+    <h1>Beziehungs-Check</h1>
+    <p>Wissenschaftlich fundierter Test basierend auf Dr. John Gottmans Forschung zu den vier Warnsignalen in Beziehungen</p>
+</section>
+
+<main class="quiz-container">
+    <div class="science-box">
+        <h3>Die Wissenschaft dahinter</h3>
+        <p>Dr. John Gottman hat über <strong>40 Jahre lang tausende Paare</strong> untersucht. Er identifizierte vier Kommunikationsmuster - die "Four Horsemen" - die <strong>Scheidungen mit 94% Genauigkeit</strong> vorhersagen können.</p>
+        <p class="citation">Gottman, J. M. (1994). What Predicts Divorce? The Relationship Between Marital Processes and Marital Outcomes.</p>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
         </div>
+        <div class="progress-text"><span id="currentQuestion">1</span> von 12 Fragen</div>
+    </div>
 
-        <div class="progress-wrapper">
-            <div class="progress-header">
-                <span class="progress-step">Frage <strong id="currentQ">1</strong> von 12</span>
-                <span class="progress-category" id="categoryLabel">Kritik</span>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
+    <!-- KRITIK: Fragen 1-3 -->
+    <div class="question-card active" data-question="1" data-category="criticism">
+        <div class="question-number">Frage 1 von 12</div>
+        <span class="question-category">Kritik</span>
+        <div class="question-text">Wie oft kritisiert dein Partner/deine Partnerin dich als Person, anstatt ein konkretes Verhalten anzusprechen?</div>
+        <div class="frequency-scale">
+            <div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
         </div>
+    </div>
 
-        <!-- KRITIK: Fragen 1-3 -->
-        <div class="question-card active" data-question="1" data-category="criticism">
-            <span class="question-category-badge"><span class="icon">1</span> Kritik</span>
-            <div class="question-text">Wie oft kritisiert dein Partner/deine Partnerin dich als Person, anstatt ein konkretes Verhalten anzusprechen?</div>
-            <div class="frequency-scale">
-                <div class="frequency-option" onclick="selectFrequency(this, 0)">
-                    <span class="freq-value">1</span>
-                    <span class="freq-label">Nie</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 1)">
-                    <span class="freq-value">2</span>
-                    <span class="freq-label">Selten</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 2)">
-                    <span class="freq-value">3</span>
-                    <span class="freq-label">Manchmal</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 3)">
-                    <span class="freq-value">4</span>
-                    <span class="freq-label">Oft</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 4)">
-                    <span class="freq-value">5</span>
-                    <span class="freq-label">Immer</span>
-                </div>
-            </div>
+    <div class="question-card" data-question="2" data-category="criticism">
+        <div class="question-number">Frage 2 von 12</div>
+        <span class="question-category">Kritik</span>
+        <div class="question-text">Wie oft beginnst DU Gespräche mit Vorwürfen wie "Du machst immer..." oder "Du bist so..."?</div>
+        <div class="frequency-scale">
+            <div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
         </div>
+    </div>
 
-        <div class="question-card" data-question="2" data-category="criticism">
-            <span class="question-category-badge"><span class="icon">1</span> Kritik</span>
-            <div class="question-text">Wie oft beginnst DU Gespraeche mit Vorwuerfen wie "Du machst immer..." oder "Du bist so..."?</div>
-            <div class="frequency-scale">
-                <div class="frequency-option" onclick="selectFrequency(this, 0)">
-                    <span class="freq-value">1</span>
-                    <span class="freq-label">Nie</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 1)">
-                    <span class="freq-value">2</span>
-                    <span class="freq-label">Selten</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 2)">
-                    <span class="freq-value">3</span>
-                    <span class="freq-label">Manchmal</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 3)">
-                    <span class="freq-value">4</span>
-                    <span class="freq-label">Oft</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 4)">
-                    <span class="freq-value">5</span>
-                    <span class="freq-label">Immer</span>
-                </div>
-            </div>
+    <div class="question-card" data-question="3" data-category="criticism">
+        <div class="question-number">Frage 3 von 12</div>
+        <span class="question-category">Kritik</span>
+        <div class="question-text">Wie oft endet eine Beschwerde in einer Grundsatzdiskussion über den Charakter des anderen?</div>
+        <div class="frequency-scale">
+            <div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
         </div>
+    </div>
 
-        <div class="question-card" data-question="3" data-category="criticism">
-            <span class="question-category-badge"><span class="icon">1</span> Kritik</span>
-            <div class="question-text">Wie oft endet eine Beschwerde in einer Grundsatzdiskussion ueber den Charakter des anderen?</div>
-            <div class="frequency-scale">
-                <div class="frequency-option" onclick="selectFrequency(this, 0)">
-                    <span class="freq-value">1</span>
-                    <span class="freq-label">Nie</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 1)">
-                    <span class="freq-value">2</span>
-                    <span class="freq-label">Selten</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 2)">
-                    <span class="freq-value">3</span>
-                    <span class="freq-label">Manchmal</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 3)">
-                    <span class="freq-value">4</span>
-                    <span class="freq-label">Oft</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 4)">
-                    <span class="freq-value">5</span>
-                    <span class="freq-label">Immer</span>
-                </div>
-            </div>
+    <!-- VERACHTUNG: Fragen 4-6 -->
+    <div class="question-card" data-question="4" data-category="contempt">
+        <div class="question-number">Frage 4 von 12</div>
+        <span class="question-category">Verachtung</span>
+        <div class="question-text">Wie oft erlebst du in eurer Beziehung Sarkasmus, Augenrollen oder abwertende Kommentare?</div>
+        <div class="frequency-scale">
+            <div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
         </div>
+    </div>
 
-        <!-- VERACHTUNG: Fragen 4-6 -->
-        <div class="question-card" data-question="4" data-category="contempt">
-            <span class="question-category-badge"><span class="icon">2</span> Verachtung</span>
-            <div class="question-text">Wie oft erlebst du in eurer Beziehung Sarkasmus, Augenrollen oder abwertende Kommentare?</div>
-            <div class="frequency-scale">
-                <div class="frequency-option" onclick="selectFrequency(this, 0)">
-                    <span class="freq-value">1</span>
-                    <span class="freq-label">Nie</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 1)">
-                    <span class="freq-value">2</span>
-                    <span class="freq-label">Selten</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 2)">
-                    <span class="freq-value">3</span>
-                    <span class="freq-label">Manchmal</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 3)">
-                    <span class="freq-value">4</span>
-                    <span class="freq-label">Oft</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 4)">
-                    <span class="freq-value">5</span>
-                    <span class="freq-label">Immer</span>
-                </div>
-            </div>
+    <div class="question-card" data-question="5" data-category="contempt">
+        <div class="question-number">Frage 5 von 12</div>
+        <span class="question-category">Verachtung</span>
+        <div class="question-text">Wie oft fühlt sich einer von euch dem anderen gegenüber moralisch überlegen?</div>
+        <div class="frequency-scale">
+            <div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
         </div>
+    </div>
 
-        <div class="question-card" data-question="5" data-category="contempt">
-            <span class="question-category-badge"><span class="icon">2</span> Verachtung</span>
-            <div class="question-text">Wie oft fuehlt sich einer von euch dem anderen gegenueber moralisch ueberlegen?</div>
-            <div class="frequency-scale">
-                <div class="frequency-option" onclick="selectFrequency(this, 0)">
-                    <span class="freq-value">1</span>
-                    <span class="freq-label">Nie</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 1)">
-                    <span class="freq-value">2</span>
-                    <span class="freq-label">Selten</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 2)">
-                    <span class="freq-value">3</span>
-                    <span class="freq-label">Manchmal</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 3)">
-                    <span class="freq-value">4</span>
-                    <span class="freq-label">Oft</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 4)">
-                    <span class="freq-value">5</span>
-                    <span class="freq-label">Immer</span>
-                </div>
-            </div>
+    <div class="question-card" data-question="6" data-category="contempt">
+        <div class="question-number">Frage 6 von 12</div>
+        <span class="question-category">Verachtung</span>
+        <div class="question-text">Wie oft wird der Partner/die Partnerin vor anderen herabgesetzt oder lächerlich gemacht?</div>
+        <div class="frequency-scale">
+            <div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
         </div>
+    </div>
 
-        <div class="question-card" data-question="6" data-category="contempt">
-            <span class="question-category-badge"><span class="icon">2</span> Verachtung</span>
-            <div class="question-text">Wie oft wird der Partner/die Partnerin vor anderen herabgesetzt oder laecherlich gemacht?</div>
-            <div class="frequency-scale">
-                <div class="frequency-option" onclick="selectFrequency(this, 0)">
-                    <span class="freq-value">1</span>
-                    <span class="freq-label">Nie</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 1)">
-                    <span class="freq-value">2</span>
-                    <span class="freq-label">Selten</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 2)">
-                    <span class="freq-value">3</span>
-                    <span class="freq-label">Manchmal</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 3)">
-                    <span class="freq-value">4</span>
-                    <span class="freq-label">Oft</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 4)">
-                    <span class="freq-value">5</span>
-                    <span class="freq-label">Immer</span>
-                </div>
-            </div>
+    <!-- RECHTFERTIGUNG: Fragen 7-9 -->
+    <div class="question-card" data-question="7" data-category="defensiveness">
+        <div class="question-number">Frage 7 von 12</div>
+        <span class="question-category">Rechtfertigung</span>
+        <div class="question-text">Wie oft reagiert einer von euch auf Kritik mit Gegenangriffen oder Ausreden?</div>
+        <div class="frequency-scale">
+            <div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
         </div>
+    </div>
 
-        <!-- DEFENSIVITAET: Fragen 7-9 -->
-        <div class="question-card" data-question="7" data-category="defensiveness">
-            <span class="question-category-badge"><span class="icon">3</span> Rechtfertigung</span>
-            <div class="question-text">Wie oft reagiert einer von euch auf Kritik mit Gegenangriffen oder Ausreden?</div>
-            <div class="frequency-scale">
-                <div class="frequency-option" onclick="selectFrequency(this, 0)">
-                    <span class="freq-value">1</span>
-                    <span class="freq-label">Nie</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 1)">
-                    <span class="freq-value">2</span>
-                    <span class="freq-label">Selten</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 2)">
-                    <span class="freq-value">3</span>
-                    <span class="freq-label">Manchmal</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 3)">
-                    <span class="freq-value">4</span>
-                    <span class="freq-label">Oft</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 4)">
-                    <span class="freq-value">5</span>
-                    <span class="freq-label">Immer</span>
-                </div>
-            </div>
+    <div class="question-card" data-question="8" data-category="defensiveness">
+        <div class="question-number">Frage 8 von 12</div>
+        <span class="question-category">Rechtfertigung</span>
+        <div class="question-text">Wie oft spielst du oder dein Partner das "Opfer" in Konflikten?</div>
+        <div class="frequency-scale">
+            <div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
         </div>
+    </div>
 
-        <div class="question-card" data-question="8" data-category="defensiveness">
-            <span class="question-category-badge"><span class="icon">3</span> Rechtfertigung</span>
-            <div class="question-text">Wie oft spielst du oder dein Partner das "Opfer" in Konflikten?</div>
-            <div class="frequency-scale">
-                <div class="frequency-option" onclick="selectFrequency(this, 0)">
-                    <span class="freq-value">1</span>
-                    <span class="freq-label">Nie</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 1)">
-                    <span class="freq-value">2</span>
-                    <span class="freq-label">Selten</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 2)">
-                    <span class="freq-value">3</span>
-                    <span class="freq-label">Manchmal</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 3)">
-                    <span class="freq-value">4</span>
-                    <span class="freq-label">Oft</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 4)">
-                    <span class="freq-value">5</span>
-                    <span class="freq-label">Immer</span>
-                </div>
+    <div class="question-card" data-question="9" data-category="defensiveness">
+        <div class="question-number">Frage 9 von 12</div>
+        <span class="question-category">Rechtfertigung</span>
+        <div class="question-text">Wie oft übernimmt keiner von euch Verantwortung für eigene Fehler?</div>
+        <div class="frequency-scale">
+            <div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
+        </div>
+    </div>
+
+    <!-- MAUERN: Fragen 10-12 -->
+    <div class="question-card" data-question="10" data-category="stonewalling">
+        <div class="question-number">Frage 10 von 12</div>
+        <span class="question-category">Mauern</span>
+        <div class="question-text">Wie oft zieht sich einer von euch bei Konflikten komplett zurück und redet nicht mehr?</div>
+        <div class="frequency-scale">
+            <div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
+        </div>
+    </div>
+
+    <div class="question-card" data-question="11" data-category="stonewalling">
+        <div class="question-number">Frage 11 von 12</div>
+        <span class="question-category">Mauern</span>
+        <div class="question-text">Wie oft fühlt es sich so an, als würdest du gegen eine Wand reden?</div>
+        <div class="frequency-scale">
+            <div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
+        </div>
+    </div>
+
+    <div class="question-card" data-question="12" data-category="stonewalling">
+        <div class="question-number">Frage 12 von 12</div>
+        <span class="question-category">Mauern</span>
+        <div class="question-text">Wie oft werden wichtige Themen tagelang oder wochenlang vermieden?</div>
+        <div class="frequency-scale">
+            <div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+            <div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
+        </div>
+    </div>
+
+    <!-- Results -->
+    <div class="result-card" id="resultCard">
+        <div class="result-score-circle" id="scoreCircle">
+            <span class="score-number" id="scoreNumber">0</span>
+            <span class="score-label">von 48</span>
+        </div>
+        <h2 class="result-title" id="resultTitle">Ergebnis</h2>
+        <p class="result-subtitle" id="resultSubtitle"></p>
+
+        <div class="horsemen-grid" id="horsemenGrid">
+            <div class="horseman-card" id="card-criticism">
+                <div class="horseman-name">Kritik</div>
+                <div class="horseman-score" id="score-criticism">0</div>
+                <div class="horseman-level" id="level-criticism">-</div>
+            </div>
+            <div class="horseman-card" id="card-contempt">
+                <div class="horseman-name">Verachtung</div>
+                <div class="horseman-score" id="score-contempt">0</div>
+                <div class="horseman-level" id="level-contempt">-</div>
+            </div>
+            <div class="horseman-card" id="card-defensiveness">
+                <div class="horseman-name">Rechtfertigung</div>
+                <div class="horseman-score" id="score-defensiveness">0</div>
+                <div class="horseman-level" id="level-defensiveness">-</div>
+            </div>
+            <div class="horseman-card" id="card-stonewalling">
+                <div class="horseman-name">Mauern</div>
+                <div class="horseman-score" id="score-stonewalling">0</div>
+                <div class="horseman-level" id="level-stonewalling">-</div>
             </div>
         </div>
 
-        <div class="question-card" data-question="9" data-category="defensiveness">
-            <span class="question-category-badge"><span class="icon">3</span> Rechtfertigung</span>
-            <div class="question-text">Wie oft uebernimmt keiner von euch Verantwortung fuer eigene Fehler?</div>
-            <div class="frequency-scale">
-                <div class="frequency-option" onclick="selectFrequency(this, 0)">
-                    <span class="freq-value">1</span>
-                    <span class="freq-label">Nie</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 1)">
-                    <span class="freq-value">2</span>
-                    <span class="freq-label">Selten</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 2)">
-                    <span class="freq-value">3</span>
-                    <span class="freq-label">Manchmal</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 3)">
-                    <span class="freq-value">4</span>
-                    <span class="freq-label">Oft</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 4)">
-                    <span class="freq-value">5</span>
-                    <span class="freq-label">Immer</span>
-                </div>
-            </div>
+        <div class="result-description" id="resultDescription"></div>
+
+        <div class="disclaimer-box">
+            <h4>Wichtiger Hinweis</h4>
+            <p>Dieser Test ersetzt keine professionelle Paartherapie. Er basiert auf Gottmans Forschung und dient als erste Orientierung. Jede Beziehung ist einzigartig.</p>
         </div>
 
-        <!-- MAUERN: Fragen 10-12 -->
-        <div class="question-card" data-question="10" data-category="stonewalling">
-            <span class="question-category-badge"><span class="icon">4</span> Mauern</span>
-            <div class="question-text">Wie oft zieht sich einer von euch bei Konflikten komplett zurueck und redet nicht mehr?</div>
-            <div class="frequency-scale">
-                <div class="frequency-option" onclick="selectFrequency(this, 0)">
-                    <span class="freq-value">1</span>
-                    <span class="freq-label">Nie</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 1)">
-                    <span class="freq-value">2</span>
-                    <span class="freq-label">Selten</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 2)">
-                    <span class="freq-value">3</span>
-                    <span class="freq-label">Manchmal</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 3)">
-                    <span class="freq-value">4</span>
-                    <span class="freq-label">Oft</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 4)">
-                    <span class="freq-value">5</span>
-                    <span class="freq-label">Immer</span>
-                </div>
-            </div>
+        <div class="cta-section">
+            <h3>Gemeinsam einen Weg finden</h3>
+            <p id="ctaText">In der Paarbegleitung schaffen wir einen sicheren Raum für ehrliche Gespräche - ob für einen Neuanfang oder einen würdevollen Abschied.</p>
+            <button class="cta-button" onclick="bookCall()">Kostenloses Erstgespräch</button>
         </div>
 
-        <div class="question-card" data-question="11" data-category="stonewalling">
-            <span class="question-category-badge"><span class="icon">4</span> Mauern</span>
-            <div class="question-text">Wie oft fuehlt es sich so an, als wuerdest du gegen eine Wand reden?</div>
-            <div class="frequency-scale">
-                <div class="frequency-option" onclick="selectFrequency(this, 0)">
-                    <span class="freq-value">1</span>
-                    <span class="freq-label">Nie</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 1)">
-                    <span class="freq-value">2</span>
-                    <span class="freq-label">Selten</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 2)">
-                    <span class="freq-value">3</span>
-                    <span class="freq-label">Manchmal</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 3)">
-                    <span class="freq-value">4</span>
-                    <span class="freq-label">Oft</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 4)">
-                    <span class="freq-value">5</span>
-                    <span class="freq-label">Immer</span>
-                </div>
-            </div>
+        <div class="source-box">
+            <h4>Wissenschaftliche Grundlage</h4>
+            <p><strong>Four Horsemen:</strong> Gottman, J. M. (1994). What Predicts Divorce? Lawrence Erlbaum Associates.</p>
+            <p><strong>Prädiktive Validität:</strong> Gottman konnte Scheidungen mit 94% Genauigkeit vorhersagen.</p>
+            <p><a href="https://www.gottman.com" target="_blank" rel="noopener">The Gottman Institute</a></p>
         </div>
 
-        <div class="question-card" data-question="12" data-category="stonewalling">
-            <span class="question-category-badge"><span class="icon">4</span> Mauern</span>
-            <div class="question-text">Wie oft werden wichtige Themen tagelang oder wochenlang vermieden?</div>
-            <div class="frequency-scale">
-                <div class="frequency-option" onclick="selectFrequency(this, 0)">
-                    <span class="freq-value">1</span>
-                    <span class="freq-label">Nie</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 1)">
-                    <span class="freq-value">2</span>
-                    <span class="freq-label">Selten</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 2)">
-                    <span class="freq-value">3</span>
-                    <span class="freq-label">Manchmal</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 3)">
-                    <span class="freq-value">4</span>
-                    <span class="freq-label">Oft</span>
-                </div>
-                <div class="frequency-option" onclick="selectFrequency(this, 4)">
-                    <span class="freq-value">5</span>
-                    <span class="freq-label">Immer</span>
-                </div>
+        <div class="other-quizzes">
+            <h4>Weitere Selbsttests</h4>
+            <div class="quiz-links">
+                <a href="quiz-hochsensibel.html" class="quiz-link">HSP-Test</a>
+                <a href="quiz-lebenskrise.html" class="quiz-link">Burnout-Test</a>
+                <a href="quiz-hochbegabt.html" class="quiz-link">Overexcitabilities</a>
+                <a href="quiz-midlife.html" class="quiz-link">Midlife-Reflexion</a>
             </div>
         </div>
+    </div>
+</main>
 
-        <!-- Results -->
-        <div class="result-card" id="resultCard">
-            <div class="result-header">
-                <div class="result-score-circle" id="scoreCircle">
-                    <span class="score-number" id="scoreNumber">0</span>
-                    <span class="score-label">von 48</span>
-                </div>
-                <h2 class="result-title" id="resultTitle">Ergebnis</h2>
-                <p class="result-subtitle" id="resultSubtitle"></p>
-            </div>
-
-            <div class="horsemen-grid" id="horsemenGrid">
-                <div class="horseman-card" id="card-criticism">
-                    <div class="horseman-name">Kritik</div>
-                    <div class="horseman-score" id="score-criticism">0</div>
-                    <div class="horseman-level" id="level-criticism">-</div>
-                </div>
-                <div class="horseman-card" id="card-contempt">
-                    <div class="horseman-name">Verachtung</div>
-                    <div class="horseman-score" id="score-contempt">0</div>
-                    <div class="horseman-level" id="level-contempt">-</div>
-                </div>
-                <div class="horseman-card" id="card-defensiveness">
-                    <div class="horseman-name">Rechtfertigung</div>
-                    <div class="horseman-score" id="score-defensiveness">0</div>
-                    <div class="horseman-level" id="level-defensiveness">-</div>
-                </div>
-                <div class="horseman-card" id="card-stonewalling">
-                    <div class="horseman-name">Mauern</div>
-                    <div class="horseman-score" id="score-stonewalling">0</div>
-                    <div class="horseman-level" id="level-stonewalling">-</div>
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <span class="logo">KATHRIN STAHL</span>
+                <p>Coaching für Menschen in Umbruchphasen.<br>Glück über Zweifel.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/glueckueberzweifel/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                    <a href="https://www.youtube.com/@glueckueberzweifel" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                    </a>
+                    <a href="https://open.spotify.com/show/4Xi66uFrsJSVlskrbuHpCm" target="_blank" rel="noopener noreferrer" aria-label="Spotify">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                    </a>
                 </div>
             </div>
-
-            <div class="result-description" id="resultDescription"></div>
-
-            <div class="disclaimer-box">
-                <h4>Wichtiger Hinweis</h4>
-                <p>Dieser Test ersetzt keine professionelle Paartherapie. Er basiert auf Gottmans Forschung und dient als erste Orientierung. Jede Beziehung ist einzigartig.</p>
+            <div class="footer-links">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="index.html#angebote">Meine Angebote</a></li>
+                    <li><a href="index.html#ueber">Über mich</a></li>
+                    <li><a href="#" onclick="bookCall(); return false;">Erstgespräch buchen</a></li>
+                </ul>
             </div>
-
-            <div class="cta-section">
-                <h3>Gemeinsam einen Weg finden</h3>
-                <p id="ctaText">In der Paarbegleitung schaffen wir einen sicheren Raum fuer ehrliche Gespraeche - ob fuer einen Neuanfang oder einen wuerdevollen Abschied.</p>
-                <button class="cta-button" onclick="bookErstgespraech()">Kostenloses Erstgespraech</button>
-            </div>
-
-            <div class="source-box">
-                <h4>Wissenschaftliche Grundlage</h4>
-                <p><strong>Four Horsemen:</strong> Gottman, J. M. (1994). What Predicts Divorce? Lawrence Erlbaum Associates.</p>
-                <p><strong>Praediktive Validitaet:</strong> Gottman konnte Scheidungen mit 94% Genauigkeit vorhersagen.</p>
-                <p><a href="https://www.gottman.com" target="_blank">The Gottman Institute</a></p>
-            </div>
-
-            <div class="other-quizzes">
-                <h4>Weitere Selbsttests</h4>
-                <div class="quiz-links">
-                    <a href="quiz-hochsensibel.html" class="quiz-link">Bin ich hochsensibel?</a>
-                    <a href="quiz-lebenskrise.html" class="quiz-link">Burnout oder Sinnkrise?</a>
-                    <a href="quiz-midlife.html" class="quiz-link">Midlife Crisis Test</a>
-                    <a href="quiz-hochbegabt.html" class="quiz-link">Bin ich hochbegabt?</a>
-                </div>
+            <div class="footer-links">
+                <h4>Kontakt</h4>
+                <ul>
+                    <li><a href="mailto:kathrin@kathrinstahl.com">kathrin@kathrinstahl.com</a></li>
+                    <li><a href="tel:+4915140436795">+49 151 40436795</a></li>
+                    <li>Alentejo, Portugal</li>
+                </ul>
             </div>
         </div>
-    </main>
+        <div class="footer-bottom">
+            <span>© 2025 Kathrin Stahl. Alle Rechte vorbehalten.</span>
+            <span><a href="impressum.html">Impressum</a> · <a href="datenschutzerklaerung.html">Datenschutz</a></span>
+        </div>
+    </div>
+</footer>
 
-    <script src="cal-booking.js"></script>
-    <script>
-        let currentQuestion = 1;
-        const totalQuestions = 12;
-        const scores = {
-            criticism: 0,
-            contempt: 0,
-            defensiveness: 0,
-            stonewalling: 0
-        };
-
-        const categoryLabels = {
-            criticism: 'Kritik',
-            contempt: 'Verachtung',
-            defensiveness: 'Rechtfertigung',
-            stonewalling: 'Mauern'
-        };
-
-        function selectFrequency(element, value) {
-            const options = element.parentElement.querySelectorAll('.frequency-option');
-            options.forEach(opt => opt.classList.remove('selected'));
-            element.classList.add('selected');
-
-            const card = element.closest('.question-card');
-            const category = card.dataset.category;
-            scores[category] += value;
-
-            setTimeout(() => {
-                if (currentQuestion < totalQuestions) {
-                    card.classList.remove('active');
-                    currentQuestion++;
-
-                    const nextCard = document.querySelector(`.question-card[data-question="${currentQuestion}"]`);
-                    nextCard.classList.add('active');
-
-                    // Update progress
-                    const progress = (currentQuestion / totalQuestions) * 100;
-                    document.getElementById('progressFill').style.width = progress + '%';
-                    document.getElementById('currentQ').textContent = currentQuestion;
-                    document.getElementById('categoryLabel').textContent = categoryLabels[nextCard.dataset.category];
-                } else {
-                    showResults();
-                }
-            }, 350);
-        }
-
-        function getLevel(score, max) {
-            const percent = score / max;
-            if (percent <= 0.25) return { level: 'Niedrig', class: 'low' };
-            if (percent <= 0.58) return { level: 'Mittel', class: 'medium' };
-            return { level: 'Hoch', class: 'high' };
-        }
-
-        function showResults() {
-            document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.remove('active');
-            document.querySelector('.progress-wrapper').style.display = 'none';
-            document.querySelector('.science-box').style.display = 'none';
-
-            const resultCard = document.getElementById('resultCard');
-            resultCard.classList.add('active');
-
-            const totalScore = scores.criticism + scores.contempt + scores.defensiveness + scores.stonewalling;
-            const maxScore = 48;
-
-            // Score circle
-            const scorePercent = (totalScore / maxScore) * 100;
-            const scoreCircle = document.getElementById('scoreCircle');
-            let scoreColor = '#4CAF50';
-            if (totalScore > 16) scoreColor = '#FF9800';
-            if (totalScore > 28) scoreColor = '#E53935';
-            scoreCircle.style.setProperty('--score-percent', scorePercent + '%');
-            scoreCircle.style.setProperty('--score-color', scoreColor);
-            document.getElementById('scoreNumber').textContent = totalScore;
-
-            // Update horsemen cards
-            ['criticism', 'contempt', 'defensiveness', 'stonewalling'].forEach(category => {
-                const score = scores[category];
-                const levelInfo = getLevel(score, 12);
-                document.getElementById(`score-${category}`).textContent = score;
-                document.getElementById(`level-${category}`).textContent = levelInfo.level;
-                document.getElementById(`card-${category}`).className = `horseman-card ${levelInfo.class}`;
-            });
-
-            const resultTitle = document.getElementById('resultTitle');
-            const resultSubtitle = document.getElementById('resultSubtitle');
-            const resultDescription = document.getElementById('resultDescription');
-            const ctaText = document.getElementById('ctaText');
-
-            // Contempt is the strongest predictor
-            const contemptHigh = scores.contempt >= 7;
-
-            if (totalScore <= 12) {
-                resultTitle.textContent = 'Gesunde Kommunikation';
-                resultSubtitle.textContent = 'Eure Beziehung zeigt wenig problematische Muster';
-                resultDescription.innerHTML = `
-                    <h4>Was das bedeutet</h4>
-                    <p>Glueckwunsch! Eure Kommunikation zeigt wenige der "Four Horsemen". Das ist ein gutes Zeichen fuer eine stabile Beziehung.</p>
-                    <p>Trotzdem gilt: Jede Beziehung braucht Pflege. Die 5:1-Regel von Gottman besagt, dass glueckliche Paare fuer jede negative Interaktion <strong>fuenf positive</strong> brauchen.</p>
-                `;
-                ctaText.textContent = 'Auch gute Beziehungen profitieren von regelmaessiger Reflexion. Ich begleite Paare gerne praeventiv.';
-            } else if (totalScore <= 24) {
-                resultTitle.textContent = 'Warnsignale erkennbar';
-                resultSubtitle.textContent = 'Einige problematische Muster sind vorhanden';
-                resultDescription.innerHTML = `
-                    <h4>Was das bedeutet</h4>
-                    <p>Eure Beziehung zeigt <strong>einige der Four Horsemen</strong>. Das ist kein Grund zur Panik, aber ein Signal, genauer hinzuschauen.</p>
-                    <p><strong>Schau dir die einzelnen Bereiche an:</strong></p>
-                    <ul>
-                        <li>Bereiche mit "Hoch" brauchen besondere Aufmerksamkeit</li>
-                        <li>Gottman hat fuer jeden "Horseman" ein Gegenmittel entwickelt</li>
-                        <li>Fruehes Handeln verhindert Eskalation</li>
-                    </ul>
-                `;
-                ctaText.textContent = 'Jetzt ist der richtige Zeitpunkt, um Muster zu durchbrechen. Lass uns schauen, was ihr braucht.';
-            } else if (totalScore <= 36 || contemptHigh) {
-                resultTitle.textContent = 'Beziehung unter Druck';
-                resultSubtitle.textContent = contemptHigh ? 'Verachtung ist der staerkste Scheidungspraediktor' : 'Mehrere Warnsignale sind stark ausgepraegt';
-                resultDescription.innerHTML = `
-                    <h4>Was das bedeutet</h4>
-                    <p>Eure Kommunikation zeigt <strong>mehrere stark ausgeprägte Warnsignale</strong>. ${contemptHigh ? 'Besonders der hohe Verachtungs-Wert ist besorgniserregend - Gottman identifizierte Verachtung als den staerksten Scheidungspraediktor.' : ''}</p>
-                    <p><strong>Die gute Nachricht:</strong> Diese Muster sind erlernbar und koennen veraendert werden. Viele Paare haben ihre Beziehung nach aehnlichen Werten retten koennen.</p>
-                    <p>Aber: Es braucht aktives Handeln - von beiden Seiten. Alleine aendert sich nichts.</p>
-                `;
-                ctaText.textContent = 'Eine Beziehung in der Krise braucht professionelle Begleitung. Ich bin fuer euch da.';
-            } else {
-                resultTitle.textContent = 'Kritische Situation';
-                resultSubtitle.textContent = 'Dringende professionelle Unterstuetzung empfohlen';
-                resultDescription.innerHTML = `
-                    <h4>Was das bedeutet</h4>
-                    <p>Eure Kommunikation zeigt <strong>alle vier Warnsignale in starker Auspraegung</strong>. Das ist ernst - aber noch nicht das Ende.</p>
-                    <p><strong>Was ihr jetzt braucht:</strong></p>
-                    <ul>
-                        <li>Professionelle Begleitung - nicht als Scheitern, sondern als Chance</li>
-                        <li>Einen neutralen Raum, um wieder miteinander zu reden</li>
-                        <li>Die Entscheidung: Wollt ihr kaempfen oder loslassen?</li>
-                    </ul>
-                    <p>Beides ist in Ordnung. Wichtig ist, dass ihr bewusst entscheidet.</p>
-                `;
-                ctaText.textContent = 'Ob Neuanfang oder wuerdevoller Abschied - ich begleite euch durch diese schwere Zeit.';
+<!-- Cal.com Embed -->
+<script>
+    (function (C, A, L) {
+        let p = function (a, ar) { a.q.push(ar); };
+        let d = C.document;
+        C.Cal = C.Cal || function () {
+            let cal = C.Cal; let ar = arguments;
+            if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || [];
+                d.head.appendChild(d.createElement("script")).src = A;
+                cal.loaded = true;
             }
+            if (ar[0] === L) { const api = function () { p(api, arguments); };
+                const namespace = ar[1]; api.q = api.q || [];
+                typeof namespace === "string" ? (cal.ns[namespace] = api) && p(api, ar) : p(cal, ar);
+                return;
+            }
+            p(cal, ar);
+        };
+    })(window, "https://app.cal.com/embed/embed.js", "init");
+    Cal("init", { origin: "https://app.cal.com" });
+</script>
 
-            resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+<script>
+    function toggleMobileNav() {
+        document.getElementById('mainNav').classList.toggle('mobile-open');
+    }
+
+    function bookCall() {
+        if (typeof Cal !== 'undefined') {
+            Cal("openModal", { calLink: "kathrin-stahl/erstgespraech", config: { layout: "month_view", theme: "light" } });
+        } else {
+            window.open('https://cal.com/kathrin-stahl/erstgespraech', '_blank');
         }
-    </script>
+    }
+
+    // Quiz Logic
+    let currentQuestion = 1;
+    const totalQuestions = 12;
+    const scores = { criticism: 0, contempt: 0, defensiveness: 0, stonewalling: 0 };
+
+    function selectAnswer(element, value) {
+        const options = element.parentElement.querySelectorAll('.frequency-option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        element.classList.add('selected');
+
+        const card = element.closest('.question-card');
+        const category = card.dataset.category;
+        scores[category] += value;
+
+        setTimeout(() => {
+            if (currentQuestion < totalQuestions) {
+                card.classList.remove('active');
+                currentQuestion++;
+                document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.add('active');
+                document.getElementById('progressFill').style.width = (currentQuestion / totalQuestions) * 100 + '%';
+                document.getElementById('currentQuestion').textContent = currentQuestion;
+            } else {
+                showResults();
+            }
+        }, 300);
+    }
+
+    function getLevel(score, max) {
+        const percent = score / max;
+        if (percent <= 0.25) return { level: 'Niedrig', class: 'low' };
+        if (percent <= 0.58) return { level: 'Mittel', class: 'medium' };
+        return { level: 'Hoch', class: 'high' };
+    }
+
+    function showResults() {
+        document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.remove('active');
+        document.querySelector('.progress-container').style.display = 'none';
+        document.querySelector('.science-box').style.display = 'none';
+
+        const resultCard = document.getElementById('resultCard');
+        resultCard.classList.add('active');
+
+        const totalScore = scores.criticism + scores.contempt + scores.defensiveness + scores.stonewalling;
+
+        // Score circle
+        const scorePercent = (totalScore / 48) * 100;
+        const scoreCircle = document.getElementById('scoreCircle');
+        let scoreColor = '#27ae60';
+        if (totalScore > 16) scoreColor = '#f39c12';
+        if (totalScore > 28) scoreColor = '#e74c3c';
+        scoreCircle.style.setProperty('--score-percent', scorePercent + '%');
+        scoreCircle.style.setProperty('--score-color', scoreColor);
+        document.getElementById('scoreNumber').textContent = totalScore;
+
+        // Update horsemen cards
+        ['criticism', 'contempt', 'defensiveness', 'stonewalling'].forEach(category => {
+            const score = scores[category];
+            const levelInfo = getLevel(score, 12);
+            document.getElementById(`score-${category}`).textContent = score;
+            document.getElementById(`level-${category}`).textContent = levelInfo.level;
+            document.getElementById(`card-${category}`).className = `horseman-card ${levelInfo.class}`;
+        });
+
+        const contemptHigh = scores.contempt >= 7;
+
+        if (totalScore <= 12) {
+            document.getElementById('resultTitle').textContent = 'Gesunde Kommunikation';
+            document.getElementById('resultSubtitle').textContent = 'Eure Beziehung zeigt wenig problematische Muster';
+            document.getElementById('resultDescription').innerHTML = `<h4>Was das bedeutet</h4><p>Glückwunsch! Eure Kommunikation zeigt wenige der "Four Horsemen". Das ist ein gutes Zeichen für eine stabile Beziehung.</p><p>Die 5:1-Regel von Gottman besagt, dass glückliche Paare für jede negative Interaktion <strong>fünf positive</strong> brauchen.</p>`;
+            document.getElementById('ctaText').textContent = 'Auch gute Beziehungen profitieren von regelmäßiger Reflexion.';
+        } else if (totalScore <= 24) {
+            document.getElementById('resultTitle').textContent = 'Warnsignale erkennbar';
+            document.getElementById('resultSubtitle').textContent = 'Einige problematische Muster sind vorhanden';
+            document.getElementById('resultDescription').innerHTML = `<h4>Was das bedeutet</h4><p>Eure Beziehung zeigt <strong>einige der Four Horsemen</strong>. Das ist kein Grund zur Panik, aber ein Signal, genauer hinzuschauen.</p><ul><li>Bereiche mit "Hoch" brauchen besondere Aufmerksamkeit</li><li>Gottman hat für jeden "Horseman" ein Gegenmittel entwickelt</li><li>Frühes Handeln verhindert Eskalation</li></ul>`;
+            document.getElementById('ctaText').textContent = 'Jetzt ist der richtige Zeitpunkt, um Muster zu durchbrechen.';
+        } else if (totalScore <= 36 || contemptHigh) {
+            document.getElementById('resultTitle').textContent = 'Beziehung unter Druck';
+            document.getElementById('resultSubtitle').textContent = contemptHigh ? 'Verachtung ist der stärkste Scheidungsprädiktor' : 'Mehrere Warnsignale sind stark ausgeprägt';
+            document.getElementById('resultDescription').innerHTML = `<h4>Was das bedeutet</h4><p>Eure Kommunikation zeigt <strong>mehrere stark ausgeprägte Warnsignale</strong>. ${contemptHigh ? 'Besonders der hohe Verachtungs-Wert ist besorgniserregend.' : ''}</p><p><strong>Die gute Nachricht:</strong> Diese Muster können verändert werden. Viele Paare haben ihre Beziehung nach ähnlichen Werten retten können.</p>`;
+            document.getElementById('ctaText').textContent = 'Eine Beziehung in der Krise braucht professionelle Begleitung.';
+        } else {
+            document.getElementById('resultTitle').textContent = 'Kritische Situation';
+            document.getElementById('resultSubtitle').textContent = 'Dringende professionelle Unterstützung empfohlen';
+            document.getElementById('resultDescription').innerHTML = `<h4>Was das bedeutet</h4><p>Eure Kommunikation zeigt <strong>alle vier Warnsignale in starker Ausprägung</strong>. Das ist ernst - aber noch nicht das Ende.</p><ul><li>Professionelle Begleitung - nicht als Scheitern, sondern als Chance</li><li>Einen neutralen Raum, um wieder miteinander zu reden</li><li>Die Entscheidung: Wollt ihr kämpfen oder loslassen?</li></ul>`;
+            document.getElementById('ctaText').textContent = 'Ob Neuanfang oder würdevoller Abschied - ich begleite euch.';
+        }
+
+        resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+</script>
 </body>
 </html>

@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bin ich hochsensibel? HSP-Selbsttest nach Elaine Aron | KATHRIN STAHL</title>
-    <meta name="description" content="Wissenschaftlich fundierter HSP-Selbsttest basierend auf der Highly Sensitive Person Scale von Dr. Elaine Aron. 12 Fragen zur Einschaetzung deiner Sensibilitaet.">
-    <meta name="keywords" content="HSP Test, Hochsensibilitaet Test, Elaine Aron, Highly Sensitive Person, Sensibilitaet, Selbsttest, HSPS">
+    <meta name="description" content="Wissenschaftlich fundierter HSP-Selbsttest basierend auf der Highly Sensitive Person Scale von Dr. Elaine Aron. 12 Fragen zur Einschätzung deiner Sensibilität.">
+    <meta name="keywords" content="HSP Test, Hochsensibilität Test, Elaine Aron, Highly Sensitive Person, Sensibilität, Selbsttest, HSPS">
     <link rel="canonical" href="https://nickheymann.github.io/kathrin-coaching/quiz-hochsensibel.html">
 
     <!-- Open Graph -->
     <meta property="og:title" content="Bin ich hochsensibel? Wissenschaftlicher HSP-Selbsttest">
-    <meta property="og:description" content="Basierend auf der validierten Highly Sensitive Person Scale (HSPS) von Dr. Elaine Aron. Finde heraus, ob Hochsensibilitaet ein Thema fuer dich ist.">
+    <meta property="og:description" content="Basierend auf der validierten Highly Sensitive Person Scale (HSPS) von Dr. Elaine Aron. Finde heraus, ob Hochsensibilität ein Thema für dich ist.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://nickheymann.github.io/kathrin-coaching/quiz-hochsensibel.html">
 
@@ -32,107 +32,210 @@
     }
     </script>
 
-    <!-- Styles -->
-    <link rel='stylesheet' href='wp-content/themes/efor/css/normalize32d4.css' type='text/css' media='all'>
-    <link rel='stylesheet' href='wp-content/themes/efor/css/bootstrap32d4.css' type='text/css' media='all'>
-    <link rel="stylesheet" href="custom-fixes.css" type="text/css" media="all">
-    <link rel="stylesheet" href="modern-design.css" type="text/css" media="all">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
-        * {
+        /* ===== CSS RESET & VARIABLES ===== */
+        *, *::before, *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #2C4A47;
+            --color-primary-light: #3D6B66;
+            --color-accent: #C4A962;
+            --color-accent-dark: #A68B3D;
+            --color-cream: #FAF8F5;
+            --color-white: #FFFFFF;
+            --color-text: #2D2D2D;
+            --color-text-light: #5A5A5A;
+
+            --font-heading: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Montserrat', -apple-system, sans-serif;
+
+            --container-width: 800px;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f5f0eb 0%, #ebe4dc 100%);
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--color-text);
+            background: var(--color-cream);
             min-height: 100vh;
-            color: #333;
         }
 
-        .quiz-header {
-            background: linear-gradient(135deg, #2C4A47 0%, #3D6B66 100%);
-            color: #fff;
-            padding: 30px 20px;
-            text-align: center;
+        /* ===== HEADER ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
-        .quiz-header h1 {
-            font-size: clamp(1.5rem, 4vw, 2.2rem);
-            margin-bottom: 10px;
-            font-weight: 300;
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
         }
 
-        .quiz-header p {
-            opacity: 0.9;
-            font-size: 1rem;
-        }
-
-        .quiz-header a {
-            color: #C4A962;
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--color-primary);
+            letter-spacing: 0.05em;
             text-decoration: none;
         }
 
-        .quiz-container {
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 20px;
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
         }
 
+        nav a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--color-text);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--color-primary);
+        }
+
+        .nav-cta {
+            background: var(--color-accent);
+            color: var(--color-white) !important;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--color-accent-dark);
+            transform: translateY(-1px);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .menu-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--color-text);
+            transition: 0.3s;
+        }
+
+        /* ===== QUIZ HERO ===== */
+        .quiz-hero {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--color-white);
+            padding: 120px 24px 60px;
+            text-align: center;
+        }
+
+        .quiz-hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: var(--color-white);
+        }
+
+        .quiz-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== QUIZ CONTAINER ===== */
+        .quiz-container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 40px 24px 60px;
+        }
+
+        /* ===== SCIENCE BOX ===== */
         .science-box {
-            background: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
-            border-left: 4px solid #2C4A47;
+            background: var(--color-white);
+            border-radius: 16px;
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border-left: 4px solid var(--color-primary);
         }
 
         .science-box h3 {
-            color: #2C4A47;
-            font-size: 1rem;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-family: var(--font-heading);
+            color: var(--color-primary);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            font-weight: 500;
         }
 
         .science-box p {
-            font-size: 0.9rem;
-            color: #666;
-            line-height: 1.6;
+            font-size: 0.95rem;
+            color: var(--color-text-light);
+            line-height: 1.7;
         }
 
         .science-box .citation {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #888;
             font-style: italic;
-            margin-top: 10px;
-            padding-top: 10px;
+            margin-top: 15px;
+            padding-top: 15px;
             border-top: 1px solid #eee;
         }
 
+        /* ===== PROGRESS ===== */
         .progress-container {
-            background: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            background: var(--color-white);
+            border-radius: 16px;
+            padding: 20px 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
         }
 
         .progress-bar {
             height: 8px;
-            background: #e0e0e0;
+            background: #e8e8e8;
             border-radius: 4px;
             overflow: hidden;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #2C4A47, #3D6B66);
+            background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
             border-radius: 4px;
             transition: width 0.4s ease;
             width: 0%;
@@ -140,16 +243,17 @@
 
         .progress-text {
             font-size: 0.9rem;
-            color: #666;
+            color: var(--color-text-light);
             text-align: center;
         }
 
+        /* ===== QUESTION CARD ===== */
         .question-card {
-            background: #fff;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            background: var(--color-white);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.08);
             display: none;
         }
 
@@ -159,92 +263,99 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .question-number {
-            font-size: 0.85rem;
-            color: #2C4A47;
+            font-size: 0.8rem;
+            color: var(--color-accent);
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
         .question-category {
             display: inline-block;
-            background: #f0ebe4;
-            color: #666;
-            padding: 4px 10px;
-            border-radius: 12px;
+            background: var(--color-cream);
+            color: var(--color-text-light);
+            padding: 5px 14px;
+            border-radius: 20px;
             font-size: 0.75rem;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            font-weight: 500;
         }
 
         .question-text {
-            font-size: 1.25rem;
-            color: #2c3e50;
-            margin-bottom: 25px;
-            line-height: 1.5;
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin-bottom: 30px;
+            line-height: 1.4;
+            font-weight: 500;
         }
 
+        /* ===== LIKERT SCALE ===== */
         .likert-scale {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         .likert-option {
             display: flex;
             align-items: center;
-            padding: 15px 20px;
-            background: #f8f6f3;
+            padding: 16px 20px;
+            background: var(--color-cream);
             border: 2px solid transparent;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .likert-option:hover {
-            background: #fff;
-            border-color: #C4A962;
+            background: var(--color-white);
+            border-color: var(--color-accent);
+            transform: translateX(5px);
         }
 
         .likert-option.selected {
-            background: #2C4A47;
-            color: #fff;
-            border-color: #2C4A47;
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-color: var(--color-primary);
         }
 
         .likert-value {
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
-            background: #e0e0e0;
+            background: rgba(0,0,0,0.08);
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 600;
-            margin-right: 15px;
+            margin-right: 16px;
             flex-shrink: 0;
+            font-size: 0.95rem;
         }
 
         .likert-option.selected .likert-value {
-            background: #C4A962;
-            color: #fff;
+            background: var(--color-accent);
+            color: var(--color-white);
         }
 
         .likert-label {
             font-size: 1rem;
         }
 
+        /* ===== RESULT CARD ===== */
         .result-card {
-            background: #fff;
-            border-radius: 15px;
-            padding: 40px 30px;
+            background: var(--color-white);
+            border-radius: 24px;
+            padding: 50px 40px;
             text-align: center;
-            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.08);
             display: none;
         }
 
@@ -253,8 +364,23 @@
             animation: fadeIn 0.5s ease;
         }
 
+        .result-title {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            color: var(--color-primary);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .result-score-display {
+            font-size: 1rem;
+            color: var(--color-text-light);
+            margin-bottom: 30px;
+        }
+
+        /* ===== RESULT METER ===== */
         .result-meter {
-            margin: 30px 0;
+            margin: 35px 0;
         }
 
         .meter-container {
@@ -270,17 +396,17 @@
             top: -5px;
             width: 40px;
             height: 40px;
-            background: #2C4A47;
-            border: 3px solid #fff;
+            background: var(--color-primary);
+            border: 3px solid var(--color-white);
             border-radius: 50%;
             transform: translateX(-50%);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
+            color: var(--color-white);
             font-weight: bold;
             font-size: 0.8rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             transition: left 0.8s ease;
         }
 
@@ -288,766 +414,1016 @@
             display: flex;
             justify-content: space-between;
             font-size: 0.8rem;
-            color: #666;
+            color: var(--color-text-light);
         }
 
-        .result-title {
-            font-size: 1.8rem;
-            color: #2c3e50;
-            margin: 20px 0 15px;
-        }
-
-        .result-score-display {
-            font-size: 1rem;
-            color: #888;
-            margin-bottom: 25px;
-        }
-
+        /* ===== RESULT BREAKDOWN ===== */
         .result-breakdown {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 15px;
-            margin: 25px 0;
+            margin: 30px 0;
             text-align: left;
         }
 
         .breakdown-item {
-            background: #f8f6f3;
-            padding: 15px;
-            border-radius: 10px;
+            background: var(--color-cream);
+            padding: 20px;
+            border-radius: 12px;
         }
 
         .breakdown-item h4 {
-            font-size: 0.85rem;
-            color: #2C4A47;
-            margin-bottom: 5px;
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+            font-weight: 600;
         }
 
         .breakdown-item .score {
-            font-size: 1.5rem;
+            font-family: var(--font-heading);
+            font-size: 2rem;
             font-weight: 600;
-            color: #333;
+            color: var(--color-text);
         }
 
         .breakdown-item .label {
             font-size: 0.75rem;
-            color: #888;
+            color: var(--color-text-light);
         }
 
         .result-description {
-            color: #555;
+            color: var(--color-text-light);
             line-height: 1.8;
             margin-bottom: 30px;
             text-align: left;
             font-size: 1rem;
         }
 
+        .result-description ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .result-description li {
+            margin-bottom: 8px;
+        }
+
+        /* ===== DISCLAIMER BOX ===== */
         .disclaimer-box {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 15px 20px;
-            margin: 25px 0;
-            border-radius: 0 10px 10px 0;
+            background: #fffbeb;
+            border-left: 4px solid var(--color-accent);
+            padding: 20px 25px;
+            margin: 30px 0;
+            border-radius: 0 12px 12px 0;
             text-align: left;
         }
 
         .disclaimer-box h4 {
-            color: #856404;
-            font-size: 0.9rem;
-            margin-bottom: 8px;
+            color: var(--color-accent-dark);
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            font-weight: 600;
         }
 
         .disclaimer-box p {
-            color: #856404;
-            font-size: 0.85rem;
-            line-height: 1.5;
+            color: #7a6a35;
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
 
+        /* ===== CTA SECTION ===== */
         .cta-section {
-            background: linear-gradient(135deg, #C4A962 0%, #a68b3d 100%);
-            padding: 30px;
-            border-radius: 15px;
-            margin-top: 30px;
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 35px;
         }
 
         .cta-section h3 {
-            color: #fff;
-            font-size: 1.4rem;
+            font-family: var(--font-heading);
+            color: var(--color-white);
+            font-size: 1.8rem;
             margin-bottom: 15px;
+            font-weight: 500;
         }
 
         .cta-section p {
             color: rgba(255,255,255,0.9);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             font-size: 1rem;
+            line-height: 1.7;
         }
 
         .cta-button {
             display: inline-block;
-            background: #fff;
-            color: #C4A962;
+            background: var(--color-white);
+            color: var(--color-accent-dark);
             padding: 16px 40px;
             border-radius: 30px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
         }
 
         .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
+        /* ===== SOURCE BOX ===== */
         .source-box {
-            background: #f8f6f3;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 30px;
+            background: var(--color-cream);
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 35px;
             text-align: left;
         }
 
         .source-box h4 {
-            color: #2C4A47;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
+            font-family: var(--font-heading);
+            color: var(--color-primary);
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-weight: 500;
         }
 
         .source-box p {
-            font-size: 0.8rem;
-            color: #666;
-            line-height: 1.6;
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+            line-height: 1.7;
+            margin-bottom: 10px;
         }
 
         .source-box a {
-            color: #2C4A47;
+            color: var(--color-primary);
             text-decoration: underline;
         }
 
+        /* ===== OTHER QUIZZES ===== */
         .other-quizzes {
-            margin-top: 30px;
-            padding: 25px;
-            background: #f8f6f3;
-            border-radius: 10px;
+            margin-top: 35px;
+            padding: 30px;
+            background: var(--color-white);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
         }
 
         .other-quizzes h4 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: 1rem;
+            font-family: var(--font-heading);
+            color: var(--color-primary);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            font-weight: 500;
         }
 
         .quiz-links {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
         }
 
         .quiz-link {
-            padding: 10px 20px;
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            color: #666;
+            padding: 12px 24px;
+            background: var(--color-cream);
+            border: 2px solid transparent;
+            border-radius: 25px;
+            color: var(--color-text);
             text-decoration: none;
             font-size: 0.9rem;
+            font-weight: 500;
             transition: all 0.3s ease;
         }
 
         .quiz-link:hover {
-            border-color: #2C4A47;
-            color: #2C4A47;
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            transform: translateY(-2px);
         }
 
-        @media (max-width: 600px) {
-            .quiz-container {
-                padding: 15px;
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--color-text);
+            color: var(--color-white);
+            padding: 60px 24px 30px;
+            margin-top: 80px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand .logo {
+            color: var(--color-white);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .footer-brand p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: var(--color-white);
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .social-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-links h4 {
+            color: var(--color-accent);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--color-white);
+            opacity: 0.7;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            opacity: 0.6;
+        }
+
+        .footer-bottom a {
+            color: var(--color-white);
+            text-decoration: none;
+        }
+
+        .footer-bottom a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            nav {
+                display: none;
             }
 
-            .question-card {
-                padding: 20px;
+            nav.mobile-open {
+                display: flex;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: white;
+                padding: 20px 24px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                gap: 15px;
             }
 
-            .question-text {
-                font-size: 1.1rem;
+            .menu-toggle {
+                display: flex;
             }
 
-            .result-card {
-                padding: 25px 20px;
+            .quiz-hero {
+                padding: 100px 24px 50px;
             }
 
             .result-breakdown {
                 grid-template-columns: 1fr;
             }
 
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .quiz-container {
+                padding: 25px 16px 50px;
+            }
+
+            .question-card {
+                padding: 25px 20px;
+                border-radius: 16px;
+            }
+
+            .question-text {
+                font-size: 1.25rem;
+            }
+
+            .result-card {
+                padding: 35px 25px;
+            }
+
+            .cta-section {
+                padding: 30px 25px;
+            }
+
             .likert-option {
-                padding: 12px 15px;
+                padding: 14px 16px;
             }
         }
     </style>
 </head>
 <body>
-    <header class="quiz-header">
-        <h1>Bin ich hochsensibel?</h1>
-        <p>Wissenschaftlich fundierter HSP-Selbsttest</p>
-        <p style="margin-top: 15px;"><a href="index.html">Zurueck zur Startseite</a></p>
-    </header>
+<!-- Header -->
+<header>
+    <div class="header-inner">
+        <a href="index.html" class="logo">KATHRIN STAHL</a>
+        <nav id="mainNav">
+            <a href="index.html#angebote">Angebote</a>
+            <a href="index.html#ueber">Über mich</a>
+            <a href="index.html#kontakt">Kontakt</a>
+            <a href="#" class="nav-cta" onclick="bookCall(); return false;">Gespräch buchen</a>
+        </nav>
+        <button class="menu-toggle" aria-label="Menü öffnen" onclick="toggleMobileNav()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</header>
 
-    <main class="quiz-container">
-        <div class="science-box">
-            <h3>Wissenschaftliche Grundlage</h3>
-            <p>Dieser Test basiert auf der <strong>Highly Sensitive Person Scale (HSPS)</strong> von Dr. Elaine Aron. Die HSPS ist das am haeufigsten verwendete und wissenschaftlich validierte Instrument zur Messung von Hochsensibilitaet (Sensory Processing Sensitivity).</p>
-            <p class="citation">Aron, E. N., & Aron, A. (1997). Sensory-processing sensitivity and its relation to introversion and emotionality. Journal of Personality and Social Psychology, 73, 345-368.</p>
+<!-- Quiz Hero -->
+<section class="quiz-hero">
+    <h1>Bin ich hochsensibel?</h1>
+    <p>Wissenschaftlich fundierter Selbsttest basierend auf der Highly Sensitive Person Scale (HSPS) von Dr. Elaine Aron</p>
+</section>
+
+<main class="quiz-container">
+    <div class="science-box">
+        <h3>Wissenschaftliche Grundlage</h3>
+        <p>Dieser Test basiert auf der <strong>Highly Sensitive Person Scale (HSPS)</strong> von Dr. Elaine Aron. Die HSPS ist das am häufigsten verwendete und wissenschaftlich validierte Instrument zur Messung von Hochsensibilität (Sensory Processing Sensitivity).</p>
+        <p class="citation">Aron, E. N., & Aron, A. (1997). Sensory-processing sensitivity and its relation to introversion and emotionality. Journal of Personality and Social Psychology, 73, 345-368.</p>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
         </div>
+        <div class="progress-text"><span id="currentQuestion">1</span> von 12 Fragen</div>
+    </div>
 
-        <div class="progress-container">
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
+    <!-- Frage 1: EOE - Ease of Excitation -->
+    <div class="question-card active" data-question="1">
+        <div class="question-number">Frage 1 von 12</div>
+        <span class="question-category">Reizverarbeitung</span>
+        <div class="question-text">Wirst du leicht von starken Sinneseindrücken überwältigt?</div>
+        <div class="likert-scale">
+            <div class="likert-option" onclick="selectLikert(this, 1)">
+                <span class="likert-value">1</span>
+                <span class="likert-label">Trifft gar nicht zu</span>
             </div>
-            <div class="progress-text"><span id="currentQuestion">1</span> von 12 Fragen</div>
-        </div>
-
-        <!-- Frage 1: EOE - Ease of Excitation -->
-        <div class="question-card active" data-question="1">
-            <div class="question-number">Frage 1 von 12</div>
-            <span class="question-category">Reizverarbeitung</span>
-            <div class="question-text">Wirst du leicht von starken Sinneseindr&uuml;cken &uuml;berw&auml;ltigt?</div>
-            <div class="likert-scale">
-                <div class="likert-option" onclick="selectLikert(this, 1)">
-                    <span class="likert-value">1</span>
-                    <span class="likert-label">Trifft gar nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 2)">
-                    <span class="likert-value">2</span>
-                    <span class="likert-label">Trifft eher nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 3)">
-                    <span class="likert-value">3</span>
-                    <span class="likert-label">Teils/teils</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 4)">
-                    <span class="likert-value">4</span>
-                    <span class="likert-label">Trifft eher zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 5)">
-                    <span class="likert-value">5</span>
-                    <span class="likert-label">Trifft voll zu</span>
-                </div>
+            <div class="likert-option" onclick="selectLikert(this, 2)">
+                <span class="likert-value">2</span>
+                <span class="likert-label">Trifft eher nicht zu</span>
             </div>
-        </div>
-
-        <!-- Frage 2: AES - Aesthetic Sensitivity -->
-        <div class="question-card" data-question="2">
-            <div class="question-number">Frage 2 von 12</div>
-            <span class="question-category">Aesthetische Sensibilitaet</span>
-            <div class="question-text">Wirst du von Kunst oder Musik tief beruehrt?</div>
-            <div class="likert-scale">
-                <div class="likert-option" onclick="selectLikert(this, 1)">
-                    <span class="likert-value">1</span>
-                    <span class="likert-label">Trifft gar nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 2)">
-                    <span class="likert-value">2</span>
-                    <span class="likert-label">Trifft eher nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 3)">
-                    <span class="likert-value">3</span>
-                    <span class="likert-label">Teils/teils</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 4)">
-                    <span class="likert-value">4</span>
-                    <span class="likert-label">Trifft eher zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 5)">
-                    <span class="likert-value">5</span>
-                    <span class="likert-label">Trifft voll zu</span>
-                </div>
+            <div class="likert-option" onclick="selectLikert(this, 3)">
+                <span class="likert-value">3</span>
+                <span class="likert-label">Teils/teils</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 4)">
+                <span class="likert-value">4</span>
+                <span class="likert-label">Trifft eher zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 5)">
+                <span class="likert-value">5</span>
+                <span class="likert-label">Trifft voll zu</span>
             </div>
         </div>
+    </div>
 
-        <!-- Frage 3: EOE -->
-        <div class="question-card" data-question="3">
-            <div class="question-number">Frage 3 von 12</div>
-            <span class="question-category">Reizverarbeitung</span>
-            <div class="question-text">Wirst du leicht von Dingen wie hellem Licht, starken Geruechen, groben Stoffen oder Sirenen in der Naehe ueberwaeltigt?</div>
-            <div class="likert-scale">
-                <div class="likert-option" onclick="selectLikert(this, 1)">
-                    <span class="likert-value">1</span>
-                    <span class="likert-label">Trifft gar nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 2)">
-                    <span class="likert-value">2</span>
-                    <span class="likert-label">Trifft eher nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 3)">
-                    <span class="likert-value">3</span>
-                    <span class="likert-label">Teils/teils</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 4)">
-                    <span class="likert-value">4</span>
-                    <span class="likert-label">Trifft eher zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 5)">
-                    <span class="likert-value">5</span>
-                    <span class="likert-label">Trifft voll zu</span>
-                </div>
+    <!-- Frage 2: AES - Aesthetic Sensitivity -->
+    <div class="question-card" data-question="2">
+        <div class="question-number">Frage 2 von 12</div>
+        <span class="question-category">Ästhetische Sensibilität</span>
+        <div class="question-text">Wirst du von Kunst oder Musik tief berührt?</div>
+        <div class="likert-scale">
+            <div class="likert-option" onclick="selectLikert(this, 1)">
+                <span class="likert-value">1</span>
+                <span class="likert-label">Trifft gar nicht zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 2)">
+                <span class="likert-value">2</span>
+                <span class="likert-label">Trifft eher nicht zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 3)">
+                <span class="likert-value">3</span>
+                <span class="likert-label">Teils/teils</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 4)">
+                <span class="likert-value">4</span>
+                <span class="likert-label">Trifft eher zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 5)">
+                <span class="likert-value">5</span>
+                <span class="likert-label">Trifft voll zu</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Frage 3: EOE -->
+    <div class="question-card" data-question="3">
+        <div class="question-number">Frage 3 von 12</div>
+        <span class="question-category">Reizverarbeitung</span>
+        <div class="question-text">Wirst du leicht von Dingen wie hellem Licht, starken Gerüchen, groben Stoffen oder Sirenen in der Nähe überwältigt?</div>
+        <div class="likert-scale">
+            <div class="likert-option" onclick="selectLikert(this, 1)">
+                <span class="likert-value">1</span>
+                <span class="likert-label">Trifft gar nicht zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 2)">
+                <span class="likert-value">2</span>
+                <span class="likert-label">Trifft eher nicht zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 3)">
+                <span class="likert-value">3</span>
+                <span class="likert-label">Teils/teils</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 4)">
+                <span class="likert-value">4</span>
+                <span class="likert-label">Trifft eher zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 5)">
+                <span class="likert-value">5</span>
+                <span class="likert-label">Trifft voll zu</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Frage 4: LST - Low Sensory Threshold -->
+    <div class="question-card" data-question="4">
+        <div class="question-number">Frage 4 von 12</div>
+        <span class="question-category">Sinnesempfindlichkeit</span>
+        <div class="question-text">Stören dich laute Geräusche?</div>
+        <div class="likert-scale">
+            <div class="likert-option" onclick="selectLikert(this, 1)">
+                <span class="likert-value">1</span>
+                <span class="likert-label">Trifft gar nicht zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 2)">
+                <span class="likert-value">2</span>
+                <span class="likert-label">Trifft eher nicht zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 3)">
+                <span class="likert-value">3</span>
+                <span class="likert-label">Teils/teils</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 4)">
+                <span class="likert-value">4</span>
+                <span class="likert-label">Trifft eher zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 5)">
+                <span class="likert-value">5</span>
+                <span class="likert-label">Trifft voll zu</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Frage 5: EOE -->
+    <div class="question-card" data-question="5">
+        <div class="question-number">Frage 5 von 12</div>
+        <span class="question-category">Reizverarbeitung</span>
+        <div class="question-text">Fühlst du dich manchmal so überreizt, dass du dich zurückziehen musst - ins Bett, in einen abgedunkelten Raum oder an einen Ort, wo du Ruhe findest?</div>
+        <div class="likert-scale">
+            <div class="likert-option" onclick="selectLikert(this, 1)">
+                <span class="likert-value">1</span>
+                <span class="likert-label">Trifft gar nicht zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 2)">
+                <span class="likert-value">2</span>
+                <span class="likert-label">Trifft eher nicht zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 3)">
+                <span class="likert-value">3</span>
+                <span class="likert-label">Teils/teils</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 4)">
+                <span class="likert-value">4</span>
+                <span class="likert-label">Trifft eher zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 5)">
+                <span class="likert-value">5</span>
+                <span class="likert-label">Trifft voll zu</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Frage 6: AES -->
+    <div class="question-card" data-question="6">
+        <div class="question-number">Frage 6 von 12</div>
+        <span class="question-category">Ästhetische Sensibilität</span>
+        <div class="question-text">Hast du ein reiches, komplexes Innenleben?</div>
+        <div class="likert-scale">
+            <div class="likert-option" onclick="selectLikert(this, 1)">
+                <span class="likert-value">1</span>
+                <span class="likert-label">Trifft gar nicht zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 2)">
+                <span class="likert-value">2</span>
+                <span class="likert-label">Trifft eher nicht zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 3)">
+                <span class="likert-value">3</span>
+                <span class="likert-label">Teils/teils</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 4)">
+                <span class="likert-value">4</span>
+                <span class="likert-label">Trifft eher zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 5)">
+                <span class="likert-value">5</span>
+                <span class="likert-label">Trifft voll zu</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Frage 7: EOE -->
+    <div class="question-card" data-question="7">
+        <div class="question-number">Frage 7 von 12</div>
+        <span class="question-category">Reizverarbeitung</span>
+        <div class="question-text">Wirst du nervös, wenn du in kurzer Zeit viel erledigen musst?</div>
+        <div class="likert-scale">
+            <div class="likert-option" onclick="selectLikert(this, 1)">
+                <span class="likert-value">1</span>
+                <span class="likert-label">Trifft gar nicht zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 2)">
+                <span class="likert-value">2</span>
+                <span class="likert-label">Trifft eher nicht zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 3)">
+                <span class="likert-value">3</span>
+                <span class="likert-label">Teils/teils</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 4)">
+                <span class="likert-value">4</span>
+                <span class="likert-label">Trifft eher zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 5)">
+                <span class="likert-value">5</span>
+                <span class="likert-label">Trifft voll zu</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Frage 8: AES -->
+    <div class="question-card" data-question="8">
+        <div class="question-number">Frage 8 von 12</div>
+        <span class="question-category">Ästhetische Sensibilität</span>
+        <div class="question-text">Bemerkst und genießt du feine Gerüche, Geschmäcker, Klänge oder Kunstwerke?</div>
+        <div class="likert-scale">
+            <div class="likert-option" onclick="selectLikert(this, 1)">
+                <span class="likert-value">1</span>
+                <span class="likert-label">Trifft gar nicht zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 2)">
+                <span class="likert-value">2</span>
+                <span class="likert-label">Trifft eher nicht zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 3)">
+                <span class="likert-value">3</span>
+                <span class="likert-label">Teils/teils</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 4)">
+                <span class="likert-value">4</span>
+                <span class="likert-label">Trifft eher zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 5)">
+                <span class="likert-value">5</span>
+                <span class="likert-label">Trifft voll zu</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Frage 9: LST -->
+    <div class="question-card" data-question="9">
+        <div class="question-number">Frage 9 von 12</div>
+        <span class="question-category">Sinnesempfindlichkeit</span>
+        <div class="question-text">Beeinflussen dich die Stimmungen anderer Menschen?</div>
+        <div class="likert-scale">
+            <div class="likert-option" onclick="selectLikert(this, 1)">
+                <span class="likert-value">1</span>
+                <span class="likert-label">Trifft gar nicht zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 2)">
+                <span class="likert-value">2</span>
+                <span class="likert-label">Trifft eher nicht zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 3)">
+                <span class="likert-value">3</span>
+                <span class="likert-label">Teils/teils</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 4)">
+                <span class="likert-value">4</span>
+                <span class="likert-label">Trifft eher zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 5)">
+                <span class="likert-value">5</span>
+                <span class="likert-label">Trifft voll zu</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Frage 10: EOE -->
+    <div class="question-card" data-question="10">
+        <div class="question-number">Frage 10 von 12</div>
+        <span class="question-category">Reizverarbeitung</span>
+        <div class="question-text">Erschreckst du leicht?</div>
+        <div class="likert-scale">
+            <div class="likert-option" onclick="selectLikert(this, 1)">
+                <span class="likert-value">1</span>
+                <span class="likert-label">Trifft gar nicht zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 2)">
+                <span class="likert-value">2</span>
+                <span class="likert-label">Trifft eher nicht zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 3)">
+                <span class="likert-value">3</span>
+                <span class="likert-label">Teils/teils</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 4)">
+                <span class="likert-value">4</span>
+                <span class="likert-label">Trifft eher zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 5)">
+                <span class="likert-value">5</span>
+                <span class="likert-label">Trifft voll zu</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Frage 11: EOE -->
+    <div class="question-card" data-question="11">
+        <div class="question-number">Frage 11 von 12</div>
+        <span class="question-category">Reizverarbeitung</span>
+        <div class="question-text">Bringen dich Veränderungen in deinem Leben durcheinander?</div>
+        <div class="likert-scale">
+            <div class="likert-option" onclick="selectLikert(this, 1)">
+                <span class="likert-value">1</span>
+                <span class="likert-label">Trifft gar nicht zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 2)">
+                <span class="likert-value">2</span>
+                <span class="likert-label">Trifft eher nicht zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 3)">
+                <span class="likert-value">3</span>
+                <span class="likert-label">Teils/teils</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 4)">
+                <span class="likert-value">4</span>
+                <span class="likert-label">Trifft eher zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 5)">
+                <span class="likert-value">5</span>
+                <span class="likert-label">Trifft voll zu</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Frage 12: EOE -->
+    <div class="question-card" data-question="12">
+        <div class="question-number">Frage 12 von 12</div>
+        <span class="question-category">Reizverarbeitung</span>
+        <div class="question-text">Wenn du konkurrieren oder beobachtet werden musst, wirst du dann so nervös, dass du viel schlechter abschneidest als du könntest?</div>
+        <div class="likert-scale">
+            <div class="likert-option" onclick="selectLikert(this, 1)">
+                <span class="likert-value">1</span>
+                <span class="likert-label">Trifft gar nicht zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 2)">
+                <span class="likert-value">2</span>
+                <span class="likert-label">Trifft eher nicht zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 3)">
+                <span class="likert-value">3</span>
+                <span class="likert-label">Teils/teils</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 4)">
+                <span class="likert-value">4</span>
+                <span class="likert-label">Trifft eher zu</span>
+            </div>
+            <div class="likert-option" onclick="selectLikert(this, 5)">
+                <span class="likert-value">5</span>
+                <span class="likert-label">Trifft voll zu</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results -->
+    <div class="result-card" id="resultCard">
+        <h2 class="result-title" id="resultTitle"></h2>
+        <p class="result-score-display" id="resultScore"></p>
+
+        <div class="result-meter">
+            <div class="meter-container">
+                <div class="meter-marker" id="meterMarker"></div>
+            </div>
+            <div class="meter-labels">
+                <span>Niedrig (12)</span>
+                <span>Mittel (36)</span>
+                <span>Hoch (60)</span>
             </div>
         </div>
 
-        <!-- Frage 4: LST - Low Sensory Threshold -->
-        <div class="question-card" data-question="4">
-            <div class="question-number">Frage 4 von 12</div>
-            <span class="question-category">Sinnesempfindlichkeit</span>
-            <div class="question-text">Stoeren dich laute Gerausche?</div>
-            <div class="likert-scale">
-                <div class="likert-option" onclick="selectLikert(this, 1)">
-                    <span class="likert-value">1</span>
-                    <span class="likert-label">Trifft gar nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 2)">
-                    <span class="likert-value">2</span>
-                    <span class="likert-label">Trifft eher nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 3)">
-                    <span class="likert-value">3</span>
-                    <span class="likert-label">Teils/teils</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 4)">
-                    <span class="likert-value">4</span>
-                    <span class="likert-label">Trifft eher zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 5)">
-                    <span class="likert-value">5</span>
-                    <span class="likert-label">Trifft voll zu</span>
-                </div>
+        <div class="result-breakdown" id="resultBreakdown">
+            <div class="breakdown-item">
+                <h4>Reizverarbeitung (EOE)</h4>
+                <div class="score" id="eoeScore">-</div>
+                <div class="label">von 35 Punkten</div>
+            </div>
+            <div class="breakdown-item">
+                <h4>Ästhetische Sensibilität (AES)</h4>
+                <div class="score" id="aesScore">-</div>
+                <div class="label">von 15 Punkten</div>
+            </div>
+            <div class="breakdown-item">
+                <h4>Sinnesempfindlichkeit (LST)</h4>
+                <div class="score" id="lstScore">-</div>
+                <div class="label">von 10 Punkten</div>
             </div>
         </div>
 
-        <!-- Frage 5: EOE -->
-        <div class="question-card" data-question="5">
-            <div class="question-number">Frage 5 von 12</div>
-            <span class="question-category">Reizverarbeitung</span>
-            <div class="question-text">Fuehlst du dich manchmal so ueberreizt, dass du dich zurueckziehen musst - ins Bett, in einen abgedunkelten Raum oder an einen Ort, wo du Ruhe und Erholung von der Stimulation findest?</div>
-            <div class="likert-scale">
-                <div class="likert-option" onclick="selectLikert(this, 1)">
-                    <span class="likert-value">1</span>
-                    <span class="likert-label">Trifft gar nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 2)">
-                    <span class="likert-value">2</span>
-                    <span class="likert-label">Trifft eher nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 3)">
-                    <span class="likert-value">3</span>
-                    <span class="likert-label">Teils/teils</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 4)">
-                    <span class="likert-value">4</span>
-                    <span class="likert-label">Trifft eher zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 5)">
-                    <span class="likert-value">5</span>
-                    <span class="likert-label">Trifft voll zu</span>
-                </div>
-            </div>
+        <div class="result-description" id="resultDescription"></div>
+
+        <div class="disclaimer-box">
+            <h4>Wichtiger Hinweis</h4>
+            <p>Dieser Selbsttest dient der Orientierung und ersetzt keine professionelle Diagnostik. Hochsensibilität ist ein Persönlichkeitsmerkmal, keine Störung. Ca. 20-30% der Bevölkerung sind hochsensibel.</p>
         </div>
 
-        <!-- Frage 6: AES -->
-        <div class="question-card" data-question="6">
-            <div class="question-number">Frage 6 von 12</div>
-            <span class="question-category">Aesthetische Sensibilitaet</span>
-            <div class="question-text">Hast du ein reiches, komplexes Innenleben?</div>
-            <div class="likert-scale">
-                <div class="likert-option" onclick="selectLikert(this, 1)">
-                    <span class="likert-value">1</span>
-                    <span class="likert-label">Trifft gar nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 2)">
-                    <span class="likert-value">2</span>
-                    <span class="likert-label">Trifft eher nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 3)">
-                    <span class="likert-value">3</span>
-                    <span class="likert-label">Teils/teils</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 4)">
-                    <span class="likert-value">4</span>
-                    <span class="likert-label">Trifft eher zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 5)">
-                    <span class="likert-value">5</span>
-                    <span class="likert-label">Trifft voll zu</span>
-                </div>
-            </div>
+        <div class="cta-section">
+            <h3>Du bist nicht allein</h3>
+            <p id="ctaText">Als selbst hochsensible Frau verstehe ich, wie es sich anfühlt, die Welt intensiver wahrzunehmen. Lass uns gemeinsam schauen, wie du deine Sensibilität als Stärke leben kannst.</p>
+            <button class="cta-button" onclick="bookCall()">Kostenloses Erstgespräch</button>
         </div>
 
-        <!-- Frage 7: EOE -->
-        <div class="question-card" data-question="7">
-            <div class="question-number">Frage 7 von 12</div>
-            <span class="question-category">Reizverarbeitung</span>
-            <div class="question-text">Wirst du nervoes, wenn du in kurzer Zeit viel erledigen musst?</div>
-            <div class="likert-scale">
-                <div class="likert-option" onclick="selectLikert(this, 1)">
-                    <span class="likert-value">1</span>
-                    <span class="likert-label">Trifft gar nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 2)">
-                    <span class="likert-value">2</span>
-                    <span class="likert-label">Trifft eher nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 3)">
-                    <span class="likert-value">3</span>
-                    <span class="likert-label">Teils/teils</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 4)">
-                    <span class="likert-value">4</span>
-                    <span class="likert-label">Trifft eher zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 5)">
-                    <span class="likert-value">5</span>
-                    <span class="likert-label">Trifft voll zu</span>
-                </div>
-            </div>
+        <div class="source-box">
+            <h4>Wissenschaftliche Quellen</h4>
+            <p><strong>Originalskala:</strong> Aron, E. N., & Aron, A. (1997). Sensory-processing sensitivity and its relation to introversion and emotionality. Journal of Personality and Social Psychology, 73, 345-368.</p>
+            <p><strong>Drei-Faktoren-Struktur:</strong> Smolewska, K. A., McCabe, S. B., & Woody, E. Z. (2006). A psychometric evaluation of the Highly Sensitive Person Scale. Personality and Individual Differences, 40, 1269-1279.</p>
+            <p><a href="https://hsperson.com" target="_blank" rel="noopener">Offizielle Website von Dr. Elaine Aron</a></p>
         </div>
 
-        <!-- Frage 8: AES -->
-        <div class="question-card" data-question="8">
-            <div class="question-number">Frage 8 von 12</div>
-            <span class="question-category">Aesthetische Sensibilitaet</span>
-            <div class="question-text">Bemerkst und geniesst du feine Gerueche, Geschmaecer, Klaenge oder Kunstwerke?</div>
-            <div class="likert-scale">
-                <div class="likert-option" onclick="selectLikert(this, 1)">
-                    <span class="likert-value">1</span>
-                    <span class="likert-label">Trifft gar nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 2)">
-                    <span class="likert-value">2</span>
-                    <span class="likert-label">Trifft eher nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 3)">
-                    <span class="likert-value">3</span>
-                    <span class="likert-label">Teils/teils</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 4)">
-                    <span class="likert-value">4</span>
-                    <span class="likert-label">Trifft eher zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 5)">
-                    <span class="likert-value">5</span>
-                    <span class="likert-label">Trifft voll zu</span>
-                </div>
+        <div class="other-quizzes">
+            <h4>Weitere Selbsttests</h4>
+            <div class="quiz-links">
+                <a href="quiz-hochbegabt.html" class="quiz-link">Overexcitabilities-Test</a>
+                <a href="quiz-lebenskrise.html" class="quiz-link">Burnout-Test</a>
+                <a href="quiz-beziehung.html" class="quiz-link">Beziehungs-Check</a>
+                <a href="quiz-midlife.html" class="quiz-link">Midlife-Reflexion</a>
             </div>
         </div>
+    </div>
+</main>
 
-        <!-- Frage 9: LST -->
-        <div class="question-card" data-question="9">
-            <div class="question-number">Frage 9 von 12</div>
-            <span class="question-category">Sinnesempfindlichkeit</span>
-            <div class="question-text">Beeinflussen dich die Stimmungen anderer Menschen?</div>
-            <div class="likert-scale">
-                <div class="likert-option" onclick="selectLikert(this, 1)">
-                    <span class="likert-value">1</span>
-                    <span class="likert-label">Trifft gar nicht zu</span>
+<!-- Footer -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <span class="logo">KATHRIN STAHL</span>
+                <p>Coaching für Menschen in Umbruchphasen.<br>Glück über Zweifel.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/glueckueberzweifel/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                    <a href="https://www.youtube.com/@glueckueberzweifel" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                    </a>
+                    <a href="https://open.spotify.com/show/4Xi66uFrsJSVlskrbuHpCm" target="_blank" rel="noopener noreferrer" aria-label="Spotify">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+                    </a>
                 </div>
-                <div class="likert-option" onclick="selectLikert(this, 2)">
-                    <span class="likert-value">2</span>
-                    <span class="likert-label">Trifft eher nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 3)">
-                    <span class="likert-value">3</span>
-                    <span class="likert-label">Teils/teils</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 4)">
-                    <span class="likert-value">4</span>
-                    <span class="likert-label">Trifft eher zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 5)">
-                    <span class="likert-value">5</span>
-                    <span class="likert-label">Trifft voll zu</span>
-                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="index.html#angebote">Meine Angebote</a></li>
+                    <li><a href="index.html#ueber">Über mich</a></li>
+                    <li><a href="#" onclick="bookCall(); return false;">Erstgespräch buchen</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Kontakt</h4>
+                <ul>
+                    <li><a href="mailto:kathrin@kathrinstahl.com">kathrin@kathrinstahl.com</a></li>
+                    <li><a href="tel:+4915140436795">+49 151 40436795</a></li>
+                    <li>Alentejo, Portugal</li>
+                </ul>
             </div>
         </div>
-
-        <!-- Frage 10: EOE -->
-        <div class="question-card" data-question="10">
-            <div class="question-number">Frage 10 von 12</div>
-            <span class="question-category">Reizverarbeitung</span>
-            <div class="question-text">Erschreckst du leicht?</div>
-            <div class="likert-scale">
-                <div class="likert-option" onclick="selectLikert(this, 1)">
-                    <span class="likert-value">1</span>
-                    <span class="likert-label">Trifft gar nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 2)">
-                    <span class="likert-value">2</span>
-                    <span class="likert-label">Trifft eher nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 3)">
-                    <span class="likert-value">3</span>
-                    <span class="likert-label">Teils/teils</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 4)">
-                    <span class="likert-value">4</span>
-                    <span class="likert-label">Trifft eher zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 5)">
-                    <span class="likert-value">5</span>
-                    <span class="likert-label">Trifft voll zu</span>
-                </div>
-            </div>
+        <div class="footer-bottom">
+            <span>© 2025 Kathrin Stahl. Alle Rechte vorbehalten.</span>
+            <span>
+                <a href="impressum.html">Impressum</a> ·
+                <a href="datenschutzerklaerung.html">Datenschutz</a>
+            </span>
         </div>
+    </div>
+</footer>
 
-        <!-- Frage 11: EOE -->
-        <div class="question-card" data-question="11">
-            <div class="question-number">Frage 11 von 12</div>
-            <span class="question-category">Reizverarbeitung</span>
-            <div class="question-text">Bringen dich Veraenderungen in deinem Leben durcheinander?</div>
-            <div class="likert-scale">
-                <div class="likert-option" onclick="selectLikert(this, 1)">
-                    <span class="likert-value">1</span>
-                    <span class="likert-label">Trifft gar nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 2)">
-                    <span class="likert-value">2</span>
-                    <span class="likert-label">Trifft eher nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 3)">
-                    <span class="likert-value">3</span>
-                    <span class="likert-label">Teils/teils</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 4)">
-                    <span class="likert-value">4</span>
-                    <span class="likert-label">Trifft eher zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 5)">
-                    <span class="likert-value">5</span>
-                    <span class="likert-label">Trifft voll zu</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Frage 12: EOE -->
-        <div class="question-card" data-question="12">
-            <div class="question-number">Frage 12 von 12</div>
-            <span class="question-category">Reizverarbeitung</span>
-            <div class="question-text">Wenn du konkurrieren oder beobachtet werden musst, wirst du dann so nervoes, dass du viel schlechter abschneidest als du koenntest?</div>
-            <div class="likert-scale">
-                <div class="likert-option" onclick="selectLikert(this, 1)">
-                    <span class="likert-value">1</span>
-                    <span class="likert-label">Trifft gar nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 2)">
-                    <span class="likert-value">2</span>
-                    <span class="likert-label">Trifft eher nicht zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 3)">
-                    <span class="likert-value">3</span>
-                    <span class="likert-label">Teils/teils</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 4)">
-                    <span class="likert-value">4</span>
-                    <span class="likert-label">Trifft eher zu</span>
-                </div>
-                <div class="likert-option" onclick="selectLikert(this, 5)">
-                    <span class="likert-value">5</span>
-                    <span class="likert-label">Trifft voll zu</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Results -->
-        <div class="result-card" id="resultCard">
-            <h2 class="result-title" id="resultTitle"></h2>
-            <p class="result-score-display" id="resultScore"></p>
-
-            <div class="result-meter">
-                <div class="meter-container">
-                    <div class="meter-marker" id="meterMarker"></div>
-                </div>
-                <div class="meter-labels">
-                    <span>Niedrig (12)</span>
-                    <span>Mittel (36)</span>
-                    <span>Hoch (60)</span>
-                </div>
-            </div>
-
-            <div class="result-breakdown" id="resultBreakdown">
-                <div class="breakdown-item">
-                    <h4>Reizverarbeitung (EOE)</h4>
-                    <div class="score" id="eoeScore">-</div>
-                    <div class="label">von 35 Punkten</div>
-                </div>
-                <div class="breakdown-item">
-                    <h4>Aesthetische Sensibilitaet (AES)</h4>
-                    <div class="score" id="aesScore">-</div>
-                    <div class="label">von 15 Punkten</div>
-                </div>
-                <div class="breakdown-item">
-                    <h4>Sinnesempfindlichkeit (LST)</h4>
-                    <div class="score" id="lstScore">-</div>
-                    <div class="label">von 10 Punkten</div>
-                </div>
-            </div>
-
-            <div class="result-description" id="resultDescription"></div>
-
-            <div class="disclaimer-box">
-                <h4>Wichtiger Hinweis</h4>
-                <p>Dieser Selbsttest dient der Orientierung und ersetzt keine professionelle Diagnostik. Hochsensibilitaet ist ein Persoenlichkeitsmerkmal, keine Stoerung. Ca. 20-30% der Bevoelkerung sind hochsensibel.</p>
-            </div>
-
-            <div class="cta-section">
-                <h3>Du bist nicht allein</h3>
-                <p id="ctaText">Als selbst hochsensible Frau verstehe ich, wie es sich anfuehlt, die Welt intensiver wahrzunehmen. Lass uns gemeinsam schauen, wie du deine Sensibilitaet als Staerke leben kannst.</p>
-                <button class="cta-button" onclick="bookErstgespraech()">Kostenloses Gespraech buchen</button>
-            </div>
-
-            <div class="source-box">
-                <h4>Wissenschaftliche Quellen</h4>
-                <p><strong>Originalskala:</strong> Aron, E. N., & Aron, A. (1997). Sensory-processing sensitivity and its relation to introversion and emotionality. Journal of Personality and Social Psychology, 73, 345-368.</p>
-                <p><strong>Drei-Faktoren-Struktur:</strong> Smolewska, K. A., McCabe, S. B., & Woody, E. Z. (2006). A psychometric evaluation of the Highly Sensitive Person Scale. Personality and Individual Differences, 40, 1269-1279.</p>
-                <p><a href="https://hsperson.com" target="_blank">Offizielle Website von Dr. Elaine Aron</a></p>
-            </div>
-
-            <div class="other-quizzes">
-                <h4>Weitere Selbsttests:</h4>
-                <div class="quiz-links">
-                    <a href="quiz-hochbegabt.html" class="quiz-link">Bin ich hochbegabt?</a>
-                    <a href="quiz-lebenskrise.html" class="quiz-link">Burnout oder Sinnkrise?</a>
-                    <a href="quiz-beziehung.html" class="quiz-link">Beziehungs-Check</a>
-                    <a href="quiz-midlife.html" class="quiz-link">Midlife Crisis Test</a>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script src="cal-booking.js"></script>
-    <script>
-        let currentQuestion = 1;
-        const totalQuestions = 12;
-        let scores = {
-            eoe: 0, // Ease of Excitation: Fragen 1, 3, 5, 7, 10, 11, 12
-            aes: 0, // Aesthetic Sensitivity: Fragen 2, 6, 8
-            lst: 0  // Low Sensory Threshold: Fragen 4, 9
-        };
-
-        // Welche Frage gehoert zu welcher Subskala
-        const questionCategories = {
-            1: 'eoe', 2: 'aes', 3: 'eoe', 4: 'lst',
-            5: 'eoe', 6: 'aes', 7: 'eoe', 8: 'aes',
-            9: 'lst', 10: 'eoe', 11: 'eoe', 12: 'eoe'
-        };
-
-        function selectLikert(element, value) {
-            // Mark selected
-            const options = element.parentElement.querySelectorAll('.likert-option');
-            options.forEach(opt => opt.classList.remove('selected'));
-            element.classList.add('selected');
-
-            // Add to appropriate subscale
-            const category = questionCategories[currentQuestion];
-            scores[category] += value;
-
-            // Delay before next question
-            setTimeout(() => {
-                if (currentQuestion < totalQuestions) {
-                    document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.remove('active');
-                    currentQuestion++;
-                    document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.add('active');
-
-                    const progress = (currentQuestion / totalQuestions) * 100;
-                    document.getElementById('progressFill').style.width = progress + '%';
-                    document.getElementById('currentQuestion').textContent = currentQuestion;
-                } else {
-                    showResults();
-                }
-            }, 300);
-        }
-
-        function showResults() {
-            document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.remove('active');
-            document.querySelector('.progress-container').style.display = 'none';
-            document.querySelector('.science-box').style.display = 'none';
-
-            const resultCard = document.getElementById('resultCard');
-            resultCard.classList.add('active');
-
-            const totalScore = scores.eoe + scores.aes + scores.lst;
-
-            // Update subscale displays
-            document.getElementById('eoeScore').textContent = scores.eoe;
-            document.getElementById('aesScore').textContent = scores.aes;
-            document.getElementById('lstScore').textContent = scores.lst;
-
-            // Position meter marker (12-60 range mapped to 0-100%)
-            const meterPosition = ((totalScore - 12) / 48) * 100;
-            document.getElementById('meterMarker').style.left = meterPosition + '%';
-            document.getElementById('meterMarker').textContent = totalScore;
-
-            const resultTitle = document.getElementById('resultTitle');
-            const resultScore = document.getElementById('resultScore');
-            const resultDescription = document.getElementById('resultDescription');
-            const ctaText = document.getElementById('ctaText');
-
-            resultScore.textContent = `Dein Gesamtwert: ${totalScore} von 60 Punkten`;
-
-            if (totalScore >= 48) {
-                resultTitle.textContent = 'Sehr hohe Sensibilitaet';
-                resultDescription.innerHTML = `
-                    <p>Dein Ergebnis deutet auf eine <strong>stark ausgepragte Hochsensibilitaet</strong> hin. Du nimmst deine Umwelt sehr intensiv wahr und verarbeitest Reize tiefer als die meisten Menschen.</p>
-
-                    <p><strong>Was das bedeutet:</strong></p>
-                    <ul>
-                        <li>Du brauchst wahrscheinlich mehr Ruhezeiten als andere</li>
-                        <li>Du bemerkst Feinheiten, die anderen entgehen</li>
-                        <li>Ueberreizung kann dich stark belasten</li>
-                        <li>Du hast vermutlich ein reiches emotionales und kreatives Innenleben</li>
-                    </ul>
-
-                    <p>Hochsensibilitaet ist keine Schwaeche - es ist eine besondere Art der Wahrnehmung. Mit dem richtigen Wissen kannst du sie als Staerke nutzen.</p>
-                `;
-                ctaText.textContent = 'Als selbst hochsensible Frau verstehe ich deine Erfahrungen. Lass uns gemeinsam Strategien entwickeln, wie du gut fuer dich sorgen und deine Sensibilitaet als Geschenk leben kannst.';
-            } else if (totalScore >= 36) {
-                resultTitle.textContent = 'Ueberdurchschnittliche Sensibilitaet';
-                resultDescription.innerHTML = `
-                    <p>Dein Ergebnis zeigt eine <strong>ueberdurchschnittliche Sensibilitaet</strong>. Du hast wahrscheinlich einige Merkmale der Hochsensibilitaet, ohne dass alle Bereiche stark ausgepraegt sind.</p>
-
-                    <p><strong>Schau dir deine Subskalen an:</strong></p>
-                    <ul>
-                        <li><strong>Reizverarbeitung (EOE):</strong> Wie leicht du ueberreizt wirst</li>
-                        <li><strong>Aesthetische Sensibilitaet (AES):</strong> Dein Sinn fuer Schoenheit und Tiefe</li>
-                        <li><strong>Sinnesempfindlichkeit (LST):</strong> Wie empfindlich deine Sinne reagieren</li>
-                    </ul>
-
-                    <p>Bereiche mit hoeheren Werten zeigen, wo deine Sensibilitaet besonders ausgepraegt ist.</p>
-                `;
-                ctaText.textContent = 'Wenn du mehr ueber deine spezifische Art der Sensibilitaet erfahren moechtest, koennen wir das gemeinsam erkunden.';
-            } else if (totalScore >= 24) {
-                resultTitle.textContent = 'Durchschnittliche Sensibilitaet';
-                resultDescription.innerHTML = `
-                    <p>Dein Ergebnis liegt im <strong>durchschnittlichen Bereich</strong>. Das bedeutet, dass du nicht die typischen Merkmale einer Hochsensibilitaet zeigst.</p>
-
-                    <p>Das bedeutet nicht, dass du unempfindlich bist - jeder Mensch hat seine eigene Art, die Welt wahrzunehmen. Vielleicht hast du in einzelnen Bereichen (siehe Subskalen) hoehere Werte.</p>
-
-                    <p>Wenn du trotzdem das Gefuehl hast, dass etwas "anders" ist, koennte es andere Erklaerungen geben - zum Beispiel Hochbegabung oder besondere Lebenserfahrungen.</p>
-                `;
-                ctaText.textContent = 'Wenn dich ein bestimmtes Thema beschaeftigt, lass uns gerne darueber sprechen.';
-            } else {
-                resultTitle.textContent = 'Niedrige Sensibilitaetswerte';
-                resultDescription.innerHTML = `
-                    <p>Dein Ergebnis zeigt <strong>niedrige Werte</strong> auf der Hochsensibilitaets-Skala. Das bedeutet, dass du wahrscheinlich nicht hochsensibel im Sinne der HSPS bist.</p>
-
-                    <p>Vielleicht hast du diesen Test aus Neugier gemacht oder fuer jemand anderen recherchiert?</p>
-
-                    <p>Bedenke: Jeder Mensch hat seine eigenen Staerken und Herausforderungen. Nicht hochsensibel zu sein, ist genauso wertvoll.</p>
-                `;
-                ctaText.textContent = 'Mein Coaching ist fuer alle Menschen in Umbruchphasen - nicht nur fuer Hochsensible.';
+<!-- Cal.com Embed -->
+<script>
+    (function (C, A, L) {
+        let p = function (a, ar) { a.q.push(ar); };
+        let d = C.document;
+        C.Cal = C.Cal || function () {
+            let cal = C.Cal;
+            let ar = arguments;
+            if (!cal.loaded) {
+                cal.ns = {}; cal.q = cal.q || [];
+                d.head.appendChild(d.createElement("script")).src = A;
+                cal.loaded = true;
             }
+            if (ar[0] === L) {
+                const api = function () { p(api, arguments); };
+                const namespace = ar[1];
+                api.q = api.q || [];
+                typeof namespace === "string" ? (cal.ns[namespace] = api) && p(api, ar) : p(cal, ar);
+                return;
+            }
+            p(cal, ar);
+        };
+    })(window, "https://app.cal.com/embed/embed.js", "init");
+    Cal("init", { origin: "https://app.cal.com" });
+</script>
 
-            resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+<script>
+    // Mobile Navigation
+    function toggleMobileNav() {
+        const nav = document.getElementById('mainNav');
+        nav.classList.toggle('mobile-open');
+    }
+
+    // Book Call
+    function bookCall() {
+        if (typeof Cal !== 'undefined') {
+            Cal("openModal", {
+                calLink: "kathrin-stahl/erstgespraech",
+                config: { layout: "month_view", theme: "light" }
+            });
+        } else {
+            window.open('https://cal.com/kathrin-stahl/erstgespraech', '_blank');
         }
-    </script>
+    }
+
+    // Quiz Logic
+    let currentQuestion = 1;
+    const totalQuestions = 12;
+    let scores = {
+        eoe: 0,
+        aes: 0,
+        lst: 0
+    };
+
+    const questionCategories = {
+        1: 'eoe', 2: 'aes', 3: 'eoe', 4: 'lst',
+        5: 'eoe', 6: 'aes', 7: 'eoe', 8: 'aes',
+        9: 'lst', 10: 'eoe', 11: 'eoe', 12: 'eoe'
+    };
+
+    function selectLikert(element, value) {
+        const options = element.parentElement.querySelectorAll('.likert-option');
+        options.forEach(opt => opt.classList.remove('selected'));
+        element.classList.add('selected');
+
+        const category = questionCategories[currentQuestion];
+        scores[category] += value;
+
+        setTimeout(() => {
+            if (currentQuestion < totalQuestions) {
+                document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.remove('active');
+                currentQuestion++;
+                document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.add('active');
+
+                const progress = (currentQuestion / totalQuestions) * 100;
+                document.getElementById('progressFill').style.width = progress + '%';
+                document.getElementById('currentQuestion').textContent = currentQuestion;
+            } else {
+                showResults();
+            }
+        }, 300);
+    }
+
+    function showResults() {
+        document.querySelector(`.question-card[data-question="${currentQuestion}"]`).classList.remove('active');
+        document.querySelector('.progress-container').style.display = 'none';
+        document.querySelector('.science-box').style.display = 'none';
+
+        const resultCard = document.getElementById('resultCard');
+        resultCard.classList.add('active');
+
+        const totalScore = scores.eoe + scores.aes + scores.lst;
+
+        document.getElementById('eoeScore').textContent = scores.eoe;
+        document.getElementById('aesScore').textContent = scores.aes;
+        document.getElementById('lstScore').textContent = scores.lst;
+
+        const meterPosition = ((totalScore - 12) / 48) * 100;
+        document.getElementById('meterMarker').style.left = meterPosition + '%';
+        document.getElementById('meterMarker').textContent = totalScore;
+
+        const resultTitle = document.getElementById('resultTitle');
+        const resultScore = document.getElementById('resultScore');
+        const resultDescription = document.getElementById('resultDescription');
+        const ctaText = document.getElementById('ctaText');
+
+        resultScore.textContent = `Dein Gesamtwert: ${totalScore} von 60 Punkten`;
+
+        if (totalScore >= 48) {
+            resultTitle.textContent = 'Sehr hohe Sensibilität';
+            resultDescription.innerHTML = `
+                <p>Dein Ergebnis deutet auf eine <strong>stark ausgeprägte Hochsensibilität</strong> hin. Du nimmst deine Umwelt sehr intensiv wahr und verarbeitest Reize tiefer als die meisten Menschen.</p>
+                <p><strong>Was das bedeutet:</strong></p>
+                <ul>
+                    <li>Du brauchst wahrscheinlich mehr Ruhezeiten als andere</li>
+                    <li>Du bemerkst Feinheiten, die anderen entgehen</li>
+                    <li>Überreizung kann dich stark belasten</li>
+                    <li>Du hast vermutlich ein reiches emotionales und kreatives Innenleben</li>
+                </ul>
+                <p>Hochsensibilität ist keine Schwäche - es ist eine besondere Art der Wahrnehmung. Mit dem richtigen Wissen kannst du sie als Stärke nutzen.</p>
+            `;
+            ctaText.textContent = 'Als selbst hochsensible Frau verstehe ich deine Erfahrungen. Lass uns gemeinsam Strategien entwickeln, wie du gut für dich sorgen und deine Sensibilität als Geschenk leben kannst.';
+        } else if (totalScore >= 36) {
+            resultTitle.textContent = 'Überdurchschnittliche Sensibilität';
+            resultDescription.innerHTML = `
+                <p>Dein Ergebnis zeigt eine <strong>überdurchschnittliche Sensibilität</strong>. Du hast wahrscheinlich einige Merkmale der Hochsensibilität, ohne dass alle Bereiche stark ausgeprägt sind.</p>
+                <p><strong>Schau dir deine Subskalen an:</strong></p>
+                <ul>
+                    <li><strong>Reizverarbeitung (EOE):</strong> Wie leicht du überreizt wirst</li>
+                    <li><strong>Ästhetische Sensibilität (AES):</strong> Dein Sinn für Schönheit und Tiefe</li>
+                    <li><strong>Sinnesempfindlichkeit (LST):</strong> Wie empfindlich deine Sinne reagieren</li>
+                </ul>
+                <p>Bereiche mit höheren Werten zeigen, wo deine Sensibilität besonders ausgeprägt ist.</p>
+            `;
+            ctaText.textContent = 'Wenn du mehr über deine spezifische Art der Sensibilität erfahren möchtest, können wir das gemeinsam erkunden.';
+        } else if (totalScore >= 24) {
+            resultTitle.textContent = 'Durchschnittliche Sensibilität';
+            resultDescription.innerHTML = `
+                <p>Dein Ergebnis liegt im <strong>durchschnittlichen Bereich</strong>. Das bedeutet, dass du nicht die typischen Merkmale einer Hochsensibilität zeigst.</p>
+                <p>Das bedeutet nicht, dass du unempfindlich bist - jeder Mensch hat seine eigene Art, die Welt wahrzunehmen. Vielleicht hast du in einzelnen Bereichen (siehe Subskalen) höhere Werte.</p>
+                <p>Wenn du trotzdem das Gefühl hast, dass etwas "anders" ist, könnte es andere Erklärungen geben - zum Beispiel Hochbegabung oder besondere Lebenserfahrungen.</p>
+            `;
+            ctaText.textContent = 'Wenn dich ein bestimmtes Thema beschäftigt, lass uns gerne darüber sprechen.';
+        } else {
+            resultTitle.textContent = 'Niedrige Sensibilitätswerte';
+            resultDescription.innerHTML = `
+                <p>Dein Ergebnis zeigt <strong>niedrige Werte</strong> auf der Hochsensibilitäts-Skala. Das bedeutet, dass du wahrscheinlich nicht hochsensibel im Sinne der HSPS bist.</p>
+                <p>Vielleicht hast du diesen Test aus Neugier gemacht oder für jemand anderen recherchiert?</p>
+                <p>Bedenke: Jeder Mensch hat seine eigenen Stärken und Herausforderungen. Nicht hochsensibel zu sein, ist genauso wertvoll.</p>
+            `;
+            ctaText.textContent = 'Mein Coaching ist für alle Menschen in Umbruchphasen - nicht nur für Hochsensible.';
+        }
+
+        resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+</script>
 </body>
 </html>
