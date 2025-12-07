@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anleitung - Website Editor</title>
+    <style>
+        :root {
+            --primary: #2C4A47;
+            --accent: #D4A574;
+            --bg: #f8f6f3;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: #333;
+            line-height: 1.7;
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: var(--primary);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--accent);
+        }
+        h2 {
+            color: var(--primary);
+            margin: 2rem 0 1rem;
+        }
+        h3 {
+            color: var(--accent);
+            margin: 1.5rem 0 0.75rem;
+        }
+        p { margin-bottom: 1rem; }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .step {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .step-content { flex: 1; }
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 1rem 0;
+        }
+        .btn:hover { background: #c49564; }
+        ul { margin: 1rem 0 1rem 2rem; }
+        li { margin-bottom: 0.5rem; }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .tip {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border: 1px solid #ddd;
+        }
+        code {
+            background: #e9ecef;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>Anleitung: Website Editor</h1>
+
+    <div class="card">
+        <p><strong>Willkommen!</strong> Mit diesem Editor kannst du Texte, Bilder und Videos auf deiner Website bearbeiten - ganz ohne technische Kenntnisse.</p>
+        <a href="cms-editor.html" class="btn">Editor starten</a>
+    </div>
+
+    <h2>So startest du</h2>
+
+    <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+            <strong>Editor öffnen</strong>
+            <p>Doppelklicke auf die Datei <code>cms-editor.html</code> in deinem Projektordner. Der Editor öffnet sich in deinem Browser.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+            <strong>Seite auswählen</strong>
+            <p>Klicke links in der Seitenleiste auf die Seite, die du bearbeiten möchtest. Die Seite wird geladen und du siehst alle bearbeitbaren Inhalte.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+            <strong>Inhalte bearbeiten</strong>
+            <p>Nutze die Tabs oben, um zwischen Texten, Bildern und Videos zu wechseln.</p>
+        </div>
+    </div>
+
+    <h2>Texte bearbeiten</h2>
+
+    <div class="card">
+        <h3>Überschriften ändern</h3>
+        <p>Überschriften sind mit Tags wie <code>H1</code>, <code>H2</code> etc. markiert. Ändere den Text im Eingabefeld und deine Änderung wird gespeichert.</p>
+
+        <h3>Absätze ändern</h3>
+        <p>Längere Textabsätze kannst du in den mehrzeiligen Textfeldern bearbeiten. Der Text passt sich automatisch an.</p>
+
+        <h3>Buttons ändern</h3>
+        <p>Button-Texte wie "Jetzt buchen" kannst du ebenfalls direkt ändern.</p>
+    </div>
+
+    <div class="tip">
+        <strong>Tipp:</strong> Du siehst immer den Anfang des ursprünglichen Textes als Beschreibung, damit du weißt, welchen Text du bearbeitest.
+    </div>
+
+    <h2>Bilder verwalten</h2>
+
+    <div class="card">
+        <h3>Bilder hochladen</h3>
+        <ol>
+            <li>Gehe zum Tab "Bilder verwalten"</li>
+            <li>Ziehe Bilder in den Upload-Bereich oder klicke darauf</li>
+            <li>Wähle die Bilder von deinem Computer aus</li>
+            <li>Die Bilder erscheinen unten in der Galerie</li>
+        </ol>
+
+        <h3>Bilder auf der Seite ersetzen</h3>
+        <ol>
+            <li>Finde das Bild, das du ersetzen möchtest, unter "Bilder auf dieser Seite"</li>
+            <li>Klicke auf "Ersetzen"</li>
+            <li>Wähle aus deinen hochgeladenen Bildern das neue Bild aus</li>
+        </ol>
+    </div>
+
+    <div class="warning">
+        <strong>Wichtig:</strong> Bilder sollten für das Web optimiert sein:
+        <ul>
+            <li>Maximale Größe: 10 MB pro Bild</li>
+            <li>Empfohlene Formate: JPG für Fotos, PNG für Grafiken</li>
+            <li>Für schnelle Ladezeiten: Bilder vorher komprimieren (z.B. mit tinypng.com)</li>
+        </ul>
+    </div>
+
+    <h2>Videos verwalten</h2>
+
+    <div class="card">
+        <h3>Neues Video hinzufügen</h3>
+        <ol>
+            <li>Gehe zum Tab "Videos verwalten"</li>
+            <li>Kopiere die YouTube- oder Vimeo-URL</li>
+            <li>Füge sie in das Eingabefeld ein</li>
+            <li>Klicke auf "Hinzufügen"</li>
+        </ol>
+
+        <h3>Video-URL ändern</h3>
+        <p>Bei bestehenden Videos kannst du direkt die URL im Eingabefeld ändern.</p>
+    </div>
+
+    <h2>Änderungen speichern & exportieren</h2>
+
+    <div class="card">
+        <h3>Exportieren</h3>
+        <p>Wenn du fertig bist, klicke oben rechts auf <strong>"Änderungen exportieren"</strong>. Es werden folgende Dateien heruntergeladen:</p>
+        <ul>
+            <li><strong>website-changes-[datum].json</strong> - Alle Textänderungen</li>
+            <li><strong>Deine neuen Bilder</strong> - Werden einzeln heruntergeladen</li>
+            <li><strong>neue-bilder-info.txt</strong> - Übersicht der neuen Bilder</li>
+        </ul>
+
+        <h3>An Nick schicken</h3>
+        <p>Schicke diese Dateien an Nick, damit er die Änderungen auf der Website einspielt.</p>
+    </div>
+
+    <div class="warning">
+        <strong>Achtung:</strong> Wenn du den Browser schließt ohne zu exportieren, gehen deine Änderungen verloren! Der Editor fragt dich aber vorher, ob du wirklich schließen möchtest.
+    </div>
+
+    <h2>Vorschau</h2>
+
+    <div class="card">
+        <p>Im Tab "Live-Vorschau" siehst du, wie die Seite aktuell aussieht. Du kannst auch auf "Vorschau" oben rechts klicken, um die Seite in einem neuen Fenster zu öffnen.</p>
+    </div>
+
+    <h2>Häufige Fragen</h2>
+
+    <div class="card">
+        <h3>Warum sehe ich manche Texte nicht?</h3>
+        <p>Einige Texte sind in Bildern oder als besondere Elemente eingebettet. Diese können nur von Nick geändert werden.</p>
+
+        <h3>Kann ich die Änderungen rückgängig machen?</h3>
+        <p>Solange du nicht exportiert hast, kannst du das Browserfenster schließen und neu starten. Nach dem Export kann Nick die Änderungen anpassen.</p>
+
+        <h3>Wie groß dürfen Bilder sein?</h3>
+        <p>Maximal 10 MB pro Bild. Für schnellere Ladezeiten empfehle ich aber kleinere Bilder (unter 500 KB für normale Bilder, unter 2 MB für große Hero-Bilder).</p>
+    </div>
+
+    <div class="card" style="margin-top: 3rem; text-align: center;">
+        <p>Bei Fragen melde dich einfach bei Nick!</p>
+        <a href="cms-editor.html" class="btn">Jetzt Editor starten</a>
+    </div>
+</body>
+</html>

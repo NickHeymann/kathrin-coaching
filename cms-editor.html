@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Editor - Glück über Zweifel</title>
+    <style>
+        :root {
+            --primary: #2C4A47;
+            --primary-light: #3d6560;
+            --accent: #D4A574;
+            --accent-hover: #c49564;
+            --bg: #f8f6f3;
+            --card-bg: #ffffff;
+            --text: #333333;
+            --text-light: #666666;
+            --border: #e0ddd8;
+            --success: #4CAF50;
+            --warning: #ff9800;
+            --danger: #f44336;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--card-bg);
+            border-right: 1px solid var(--border);
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            font-size: 1rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .page-list {
+            list-style: none;
+        }
+
+        .page-item {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .page-item:hover {
+            background: var(--bg);
+        }
+
+        .page-item.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .page-item-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-light);
+            border-radius: 8px 8px 0 0;
+            transition: all 0.2s;
+        }
+
+        .tab:hover {
+            color: var(--primary);
+            background: var(--bg);
+        }
+
+        .tab.active {
+            color: var(--primary);
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            border-bottom-color: var(--card-bg);
+            margin-bottom: -2px;
+        }
+
+        /* Panels */
+        .panel {
+            display: none;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .panel.active {
+            display: block;
+        }
+
+        .panel h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        /* Text Editor */
+        .text-section {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .text-section:last-child {
+            border-bottom: none;
+        }
+
+        .text-section label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .text-section .hint {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 0.75rem;
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.2s;
+            resize: vertical;
+        }
+
+        .text-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        textarea.text-input {
+            min-height: 120px;
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .image-card {
+            background: var(--bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .image-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .image-card-info {
+            padding: 1rem;
+        }
+
+        .image-card-name {
+            font-size: 0.85rem;
+            color: var(--text);
+            word-break: break-all;
+            margin-bottom: 0.5rem;
+        }
+
+        .image-card-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .image-card-actions button {
+            flex: 1;
+            padding: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        /* Upload Area */
+        .upload-area {
+            border: 3px dashed var(--border);
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 2rem;
+        }
+
+        .upload-area:hover, .upload-area.dragover {
+            border-color: var(--primary);
+            background: rgba(44, 74, 71, 0.05);
+        }
+
+        .upload-area-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .upload-area p {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-area input {
+            display: none;
+        }
+
+        /* Video Section */
+        .video-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .video-thumbnail {
+            width: 160px;
+            height: 90px;
+            background: #000;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .video-info {
+            flex: 1;
+        }
+
+        .video-info input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Preview Frame */
+        .preview-container {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .preview-header {
+            background: var(--bg);
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .preview-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .preview-dot.red { background: #ff5f56; }
+        .preview-dot.yellow { background: #ffbd2e; }
+        .preview-dot.green { background: #27ca40; }
+
+        .preview-frame {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal h3 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1001;
+        }
+
+        .toast {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: slideIn 0.3s ease;
+        }
+
+        .toast.success { background: var(--success); }
+        .toast.warning { background: var(--warning); }
+        .toast.error { background: var(--danger); }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Status Badge */
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-badge.modified {
+            background: var(--warning);
+            color: white;
+        }
+
+        .status-badge.saved {
+            background: var(--success);
+            color: white;
+        }
+
+        /* Loading */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            color: var(--text-light);
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Media Search */
+        .media-search {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .media-search input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .media-search input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Element Selector */
+        .element-list {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .element-item {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .element-item:hover {
+            background: var(--bg);
+        }
+
+        .element-item:last-child {
+            border-bottom: none;
+        }
+
+        .element-tag {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-right: 0.5rem;
+        }
+
+        .element-preview {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 1rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-box h4 {
+            color: #1565C0;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-box p {
+            color: #1976D2;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .tabs {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Website Editor - Glück über Zweifel</h1>
+        <div class="header-actions">
+            <span id="statusBadge" class="status-badge saved">Bereit</span>
+            <button class="btn btn-secondary" onclick="previewSite()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                Vorschau
+            </button>
+            <button class="btn btn-primary" onclick="exportChanges()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Änderungen exportieren
+            </button>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <h2>Seiten</h2>
+            <ul class="page-list" id="pageList">
+                <!-- Dynamisch befüllt -->
+            </ul>
+        </aside>
+
+        <main class="content-area">
+            <div class="tabs">
+                <button class="tab active" data-tab="texte">Texte bearbeiten</button>
+                <button class="tab" data-tab="bilder">Bilder verwalten</button>
+                <button class="tab" data-tab="videos">Videos verwalten</button>
+                <button class="tab" data-tab="vorschau">Live-Vorschau</button>
+            </div>
+
+            <!-- Texte Panel -->
+            <div class="panel active" id="panel-texte">
+                <h3>Texte auf dieser Seite</h3>
+                <div id="textEditor">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <span>Wähle eine Seite aus der Liste...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bilder Panel -->
+            <div class="panel" id="panel-bilder">
+                <h3>Bilder verwalten</h3>
+
+                <div class="info-box">
+                    <h4>So funktioniert's</h4>
+                    <p>Lade neue Bilder hoch und wähle dann bei "Bilder auf dieser Seite" welches Bild ersetzt werden soll.</p>
+                </div>
+
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-area-icon">📷</div>
+                    <p><strong>Klicke hier oder ziehe Bilder hierher</strong></p>
+                    <p>JPG, PNG, WebP bis 10MB</p>
+                    <input type="file" id="fileInput" accept="image/*" multiple>
+                </div>
+
+                <div class="media-search">
+                    <input type="text" id="imageSearch" placeholder="Bilder durchsuchen...">
+                </div>
+
+                <h4 style="margin-bottom: 1rem;">Bilder auf dieser Seite</h4>
+                <div class="image-gallery" id="pageImages">
+                    <p style="color: var(--text-light);">Wähle zuerst eine Seite aus der Liste.</p>
+                </div>
+
+                <h4 style="margin: 2rem 0 1rem;">Deine hochgeladenen Bilder</h4>
+                <div class="image-gallery" id="allImages">
+                    <p style="color: var(--text-light);">Noch keine Bilder hochgeladen. Ziehe Bilder in den Upload-Bereich oben.</p>
+                </div>
+            </div>
+
+            <!-- Videos Panel -->
+            <div class="panel" id="panel-videos">
+                <h3>Videos verwalten</h3>
+                <p style="color: var(--text-light); margin-bottom: 1.5rem;">
+                    Füge YouTube- oder Vimeo-Videos hinzu, indem du die URL einfügst.
+                </p>
+
+                <div class="text-section">
+                    <label>Neues Video hinzufügen</label>
+                    <div style="display: flex; gap: 1rem;">
+                        <input type="text" class="text-input" id="newVideoUrl" placeholder="https://www.youtube.com/watch?v=..." style="flex: 1;">
+                        <button class="btn btn-primary" onclick="addVideo()">Hinzufügen</button>
+                    </div>
+                </div>
+
+                <h4 style="margin: 2rem 0 1rem;">Videos auf dieser Seite</h4>
+                <div id="pageVideos">
+                    <p style="color: var(--text-light);">Wähle zuerst eine Seite aus der Liste.</p>
+                </div>
+            </div>
+
+            <!-- Vorschau Panel -->
+            <div class="panel" id="panel-vorschau">
+                <h3>Live-Vorschau</h3>
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <div class="preview-dot red"></div>
+                        <div class="preview-dot yellow"></div>
+                        <div class="preview-dot green"></div>
+                        <span style="margin-left: 1rem; font-size: 0.85rem; color: var(--text-light);" id="previewUrl"></span>
+                    </div>
+                    <iframe id="previewFrame" class="preview-frame" src="about:blank"></iframe>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Image Picker Modal -->
+    <div class="modal-overlay" id="imagePickerModal">
+        <div class="modal">
+            <h3>Neues Bild auswählen</h3>
+            <p style="color: var(--text-light); margin-bottom: 1rem;">Wähle eines deiner hochgeladenen Bilder als Ersatz:</p>
+            <div class="image-gallery" id="modalImageGallery">
+                <!-- Dynamisch befüllt -->
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeImagePicker()">Abbrechen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // ============================================
+        // KONFIGURATION - GitHub Pages URL
+        // ============================================
+        const CONFIG = {
+            // Die Basis-URL deiner GitHub Pages Website
+            baseUrl: 'https://nickheymann.github.io/kathrin-coaching/',
+            // Alternativ für lokale Entwicklung:
+            // baseUrl: './'
+        };
+
+        // State Management
+        const state = {
+            currentPage: null,
+            pages: [],
+            changes: {},
+            uploadedImages: [],
+            modified: false,
+            pageCache: {} // Cache für geladene Seiten
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadPages();
+            setupEventListeners();
+            showToast('Editor bereit! Wähle eine Seite aus.', 'success');
+        });
+
+        // Load available pages
+        async function loadPages() {
+            const htmlFiles = [
+                { name: 'Startseite', file: 'index.html' },
+                { name: 'Über Kathrin', file: 'kathrin.html' },
+                { name: 'Blog', file: 'blog.html' },
+                { name: 'Kontakt', file: 'contact.html' },
+                { name: 'Einzelbegleitung', file: 'einzelbegleitung-sinnkrise-lebensumbruch.html' },
+                { name: 'Paarbegleitung', file: 'paarbegleitung-beziehungskrise-neuanfang-kathrin-stahl.html' },
+                { name: 'Paar-Retreat', file: 'paar-retreat.html' },
+                { name: 'Retreats Portugal', file: 'retreats-in-portugal.html' },
+                { name: 'Pferdegestütztes Coaching', file: 'pferdegestuetztes-coaching.html' },
+                { name: 'Systemische Aufstellungen', file: 'systemische-aufstellungen.html' },
+                { name: 'Hochbegabung', file: 'hochbegabung-hochsensibilitat.html' },
+                { name: 'Innere Führung', file: 'innere-fuehrung.html' },
+                { name: 'Love Letters', file: 'love-letters.html' },
+                { name: 'Podcast', file: 'glueck-ueber-zweifel-dein-podcast.html' },
+                { name: 'Quiz: Beziehung', file: 'quiz-beziehung.html' },
+                { name: 'Quiz: Hochsensibel', file: 'quiz-hochsensibel.html' },
+                { name: 'Quiz: Hochbegabt', file: 'quiz-hochbegabt.html' },
+                { name: 'Quiz: Lebenskrise', file: 'quiz-lebenskrise.html' },
+                { name: 'Quiz: Midlife', file: 'quiz-midlife.html' },
+                { name: 'Impressum', file: 'impressum.html' },
+                { name: 'Datenschutz', file: 'datenschutzerklaerung.html' }
+            ];
+
+            state.pages = htmlFiles;
+            renderPageList();
+        }
+
+        // Render page list
+        function renderPageList() {
+            const list = document.getElementById('pageList');
+            list.innerHTML = state.pages.map((page, index) => `
+                <li class="page-item ${state.currentPage === page.file ? 'active' : ''}"
+                    onclick="selectPage('${page.file}')">
+                    <span class="page-item-icon">📄</span>
+                    ${page.name}
+                </li>
+            `).join('');
+        }
+
+        // Select a page
+        async function selectPage(file) {
+            state.currentPage = file;
+            renderPageList();
+            await loadPageContent(file);
+        }
+
+        // Load page content from GitHub Pages
+        async function loadPageContent(file) {
+            const textEditor = document.getElementById('textEditor');
+            textEditor.innerHTML = '<div class="loading"><div class="spinner"></div><span>Lade Seite von der Website...</span></div>';
+
+            try {
+                // Vollständige URL zur Seite auf GitHub Pages
+                const pageUrl = CONFIG.baseUrl + file;
+
+                // Prüfen ob im Cache
+                let html;
+                if (state.pageCache[file]) {
+                    html = state.pageCache[file];
+                } else {
+                    const response = await fetch(pageUrl);
+                    if (!response.ok) {
+                        throw new Error(`Seite nicht gefunden (${response.status})`);
+                    }
+                    html = await response.text();
+                    state.pageCache[file] = html; // Cache speichern
+                }
+
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+
+                // Extract editable elements
+                const editableElements = extractEditableElements(doc);
+                renderTextEditor(editableElements, file);
+
+                // Extract images
+                const images = extractImages(doc);
+                renderPageImages(images);
+
+                // Extract videos
+                const videos = extractVideos(doc);
+                renderPageVideos(videos);
+
+                // Update preview
+                document.getElementById('previewUrl').textContent = pageUrl;
+                document.getElementById('previewFrame').src = pageUrl;
+
+                showToast(`${state.pages.find(p => p.file === file)?.name || file} geladen`, 'success');
+
+            } catch (error) {
+                console.error('Error loading page:', error);
+                textEditor.innerHTML = `
+                    <div style="color: var(--danger); padding: 2rem; text-align: center;">
+                        <h4 style="margin-bottom: 1rem;">Fehler beim Laden der Seite</h4>
+                        <p>${error.message}</p>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-light);">
+                            Stelle sicher, dass die Website auf GitHub Pages veröffentlicht ist.
+                        </p>
+                    </div>
+                `;
+            }
+        }
+
+        // Extract editable elements
+        function extractEditableElements(doc) {
+            const elements = [];
+
+            // Headlines
+            doc.querySelectorAll('h1, h2, h3, h4').forEach((el, i) => {
+                const text = el.textContent.trim();
+                if (text && text.length > 2) {
+                    elements.push({
+                        type: el.tagName.toLowerCase(),
+                        content: text,
+                        selector: generateSelector(el, i),
+                        label: `Überschrift (${el.tagName})`
+                    });
+                }
+            });
+
+            // Paragraphs
+            doc.querySelectorAll('p').forEach((el, i) => {
+                const text = el.textContent.trim();
+                if (text && text.length > 20) {
+                    elements.push({
+                        type: 'p',
+                        content: text,
+                        selector: generateSelector(el, i),
+                        label: 'Absatz'
+                    });
+                }
+            });
+
+            // Buttons
+            doc.querySelectorAll('button, .btn, [class*="button"], a.elementor-button').forEach((el, i) => {
+                const text = el.textContent.trim();
+                if (text && text.length > 2 && text.length < 100) {
+                    elements.push({
+                        type: 'button',
+                        content: text,
+                        selector: generateSelector(el, i),
+                        label: 'Button'
+                    });
+                }
+            });
+
+            return elements;
+        }
+
+        // Generate unique selector
+        function generateSelector(el, index) {
+            const tag = el.tagName.toLowerCase();
+            const id = el.id ? `#${el.id}` : '';
+            const classes = el.className && typeof el.className === 'string'
+                ? `.${el.className.split(' ').filter(c => c).join('.')}`
+                : '';
+            return `${tag}${id}${classes}[${index}]`;
+        }
+
+        // Render text editor
+        function renderTextEditor(elements, file) {
+            const editor = document.getElementById('textEditor');
+
+            if (elements.length === 0) {
+                editor.innerHTML = '<p style="color: var(--text-light);">Keine bearbeitbaren Texte auf dieser Seite gefunden.</p>';
+                return;
+            }
+
+            // Group by type
+            const grouped = {
+                headlines: elements.filter(e => ['h1', 'h2', 'h3', 'h4'].includes(e.type)),
+                paragraphs: elements.filter(e => e.type === 'p'),
+                buttons: elements.filter(e => e.type === 'button')
+            };
+
+            let html = '';
+
+            if (grouped.headlines.length) {
+                html += '<h4 style="margin-bottom: 1rem; color: var(--primary);">Überschriften</h4>';
+                grouped.headlines.forEach((el, i) => {
+                    const changeKey = `${file}:${el.selector}`;
+                    const currentValue = state.changes[changeKey]?.newValue || el.content;
+                    const isChanged = state.changes[changeKey] !== undefined;
+                    html += `
+                        <div class="text-section" ${isChanged ? 'style="border-left: 4px solid var(--warning); padding-left: 1rem;"' : ''}>
+                            <label>
+                                <span class="element-tag">${el.type.toUpperCase()}</span>
+                                ${el.content.substring(0, 50)}${el.content.length > 50 ? '...' : ''}
+                                ${isChanged ? '<span style="color: var(--warning); font-size: 0.8rem;"> (geändert)</span>' : ''}
+                            </label>
+                            <input type="text" class="text-input"
+                                data-file="${file}"
+                                data-selector="${encodeURIComponent(el.selector)}"
+                                data-original="${encodeURIComponent(el.content)}"
+                                value="${escapeHtml(currentValue)}"
+                                onchange="handleTextChange(this)"
+                                oninput="handleTextChange(this)">
+                        </div>
+                    `;
+                });
+            }
+
+            if (grouped.paragraphs.length) {
+                html += '<h4 style="margin: 2rem 0 1rem; color: var(--primary);">Textabsätze</h4>';
+                grouped.paragraphs.slice(0, 30).forEach((el, i) => {
+                    const changeKey = `${file}:${el.selector}`;
+                    const currentValue = state.changes[changeKey]?.newValue || el.content;
+                    const isChanged = state.changes[changeKey] !== undefined;
+                    html += `
+                        <div class="text-section" ${isChanged ? 'style="border-left: 4px solid var(--warning); padding-left: 1rem;"' : ''}>
+                            <label>
+                                <span class="element-tag">P</span>
+                                ${el.content.substring(0, 60)}${el.content.length > 60 ? '...' : ''}
+                                ${isChanged ? '<span style="color: var(--warning); font-size: 0.8rem;"> (geändert)</span>' : ''}
+                            </label>
+                            <textarea class="text-input"
+                                data-file="${file}"
+                                data-selector="${encodeURIComponent(el.selector)}"
+                                data-original="${encodeURIComponent(el.content)}"
+                                onchange="handleTextChange(this)"
+                                oninput="handleTextChange(this)">${escapeHtml(currentValue)}</textarea>
+                        </div>
+                    `;
+                });
+                if (grouped.paragraphs.length > 30) {
+                    html += `<p style="color: var(--text-light); font-style: italic;">... und ${grouped.paragraphs.length - 30} weitere Absätze</p>`;
+                }
+            }
+
+            if (grouped.buttons.length) {
+                html += '<h4 style="margin: 2rem 0 1rem; color: var(--primary);">Buttons</h4>';
+                grouped.buttons.forEach((el, i) => {
+                    const changeKey = `${file}:${el.selector}`;
+                    const currentValue = state.changes[changeKey]?.newValue || el.content;
+                    const isChanged = state.changes[changeKey] !== undefined;
+                    html += `
+                        <div class="text-section" ${isChanged ? 'style="border-left: 4px solid var(--warning); padding-left: 1rem;"' : ''}>
+                            <label>
+                                <span class="element-tag">BTN</span>
+                                ${el.content}
+                                ${isChanged ? '<span style="color: var(--warning); font-size: 0.8rem;"> (geändert)</span>' : ''}
+                            </label>
+                            <input type="text" class="text-input"
+                                data-file="${file}"
+                                data-selector="${encodeURIComponent(el.selector)}"
+                                data-original="${encodeURIComponent(el.content)}"
+                                value="${escapeHtml(currentValue)}"
+                                onchange="handleTextChange(this)"
+                                oninput="handleTextChange(this)">
+                        </div>
+                    `;
+                });
+            }
+
+            editor.innerHTML = html;
+        }
+
+        // Handle text change
+        function handleTextChange(input) {
+            const file = input.dataset.file;
+            const selector = decodeURIComponent(input.dataset.selector);
+            const original = decodeURIComponent(input.dataset.original);
+            const newValue = input.value || input.textContent;
+
+            const changeKey = `${file}:${selector}`;
+
+            if (newValue !== original) {
+                state.changes[changeKey] = {
+                    file: file,
+                    selector: selector,
+                    originalValue: original,
+                    newValue: newValue,
+                    type: 'text'
+                };
+                state.modified = true;
+            } else {
+                delete state.changes[changeKey];
+            }
+
+            updateStatusBadge();
+        }
+
+        // Extract images
+        function extractImages(doc) {
+            const images = [];
+            doc.querySelectorAll('img').forEach((img, i) => {
+                let src = img.getAttribute('src') || img.getAttribute('data-src');
+                if (src && !src.startsWith('data:')) {
+                    // Relative URLs zu absoluten machen
+                    if (!src.startsWith('http')) {
+                        src = CONFIG.baseUrl + src.replace(/^\.?\//, '');
+                    }
+                    images.push({
+                        src: src,
+                        alt: img.getAttribute('alt') || '',
+                        selector: generateSelector(img, i)
+                    });
+                }
+            });
+            return images;
+        }
+
+        // Render page images
+        function renderPageImages(images) {
+            const gallery = document.getElementById('pageImages');
+
+            if (images.length === 0) {
+                gallery.innerHTML = '<p style="color: var(--text-light);">Keine Bilder auf dieser Seite gefunden.</p>';
+                return;
+            }
+
+            gallery.innerHTML = images.map((img, i) => `
+                <div class="image-card">
+                    <img src="${img.src}" alt="${img.alt}"
+                        onerror="this.style.background='#eee'; this.alt='Bild konnte nicht geladen werden';">
+                    <div class="image-card-info">
+                        <div class="image-card-name">${img.src.split('/').pop().substring(0, 30)}...</div>
+                        <div class="image-card-actions">
+                            <button class="btn btn-secondary" onclick="replaceImage('${encodeURIComponent(img.selector)}', '${encodeURIComponent(img.src)}')">Ersetzen</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Extract videos
+        function extractVideos(doc) {
+            const videos = [];
+            doc.querySelectorAll('iframe[src*="youtube"], iframe[src*="vimeo"], iframe[data-src*="youtube"], iframe[data-src*="vimeo"]').forEach((iframe, i) => {
+                const src = iframe.getAttribute('src') || iframe.getAttribute('data-src');
+                if (src) {
+                    videos.push({
+                        type: src.includes('youtube') ? 'youtube' : 'vimeo',
+                        src: src,
+                        selector: generateSelector(iframe, i)
+                    });
+                }
+            });
+            return videos;
+        }
+
+        // Render page videos
+        function renderPageVideos(videos) {
+            const container = document.getElementById('pageVideos');
+
+            if (videos.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-light);">Keine Videos auf dieser Seite gefunden.</p>';
+                return;
+            }
+
+            container.innerHTML = videos.map((video, i) => `
+                <div class="video-item">
+                    <div class="video-thumbnail">▶</div>
+                    <div class="video-info">
+                        <input type="text" value="${video.src}"
+                            data-selector="${encodeURIComponent(video.selector)}"
+                            data-original="${encodeURIComponent(video.src)}"
+                            onchange="handleVideoChange(this)">
+                        <span style="font-size: 0.85rem; color: var(--text-light);">${video.type.toUpperCase()}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Handle video change
+        function handleVideoChange(input) {
+            const selector = decodeURIComponent(input.dataset.selector);
+            const original = decodeURIComponent(input.dataset.original);
+            const newUrl = input.value;
+
+            const changeKey = `${state.currentPage}:video:${selector}`;
+
+            if (newUrl !== original) {
+                state.changes[changeKey] = {
+                    file: state.currentPage,
+                    selector: selector,
+                    originalValue: original,
+                    newValue: newUrl,
+                    type: 'video'
+                };
+                state.modified = true;
+            } else {
+                delete state.changes[changeKey];
+            }
+
+            updateStatusBadge();
+            showToast('Video-URL geändert', 'success');
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.getElementById(`panel-${tab.dataset.tab}`).classList.add('active');
+                });
+            });
+
+            // Upload area
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+
+            uploadArea.addEventListener('click', () => fileInput.click());
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('dragover');
+            });
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                handleFileUpload(e.dataTransfer.files);
+            });
+            fileInput.addEventListener('change', (e) => {
+                handleFileUpload(e.target.files);
+            });
+
+            // Image search
+            document.getElementById('imageSearch').addEventListener('input', (e) => {
+                filterImages(e.target.value);
+            });
+        }
+
+        // Handle file upload
+        async function handleFileUpload(files) {
+            for (const file of files) {
+                if (!file.type.startsWith('image/')) {
+                    showToast(`${file.name} ist kein Bild`, 'error');
+                    continue;
+                }
+
+                if (file.size > 10 * 1024 * 1024) {
+                    showToast(`${file.name} ist zu groß (max 10MB)`, 'error');
+                    continue;
+                }
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const imageData = {
+                        name: file.name,
+                        data: e.target.result,
+                        size: file.size,
+                        type: file.type,
+                        uploaded: new Date().toISOString()
+                    };
+
+                    state.uploadedImages.push(imageData);
+                    renderUploadedImages();
+                    showToast(`${file.name} hochgeladen`, 'success');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Render uploaded images
+        function renderUploadedImages() {
+            const gallery = document.getElementById('allImages');
+
+            if (state.uploadedImages.length === 0) {
+                gallery.innerHTML = '<p style="color: var(--text-light);">Noch keine Bilder hochgeladen. Ziehe Bilder in den Upload-Bereich oben.</p>';
+                return;
+            }
+
+            gallery.innerHTML = state.uploadedImages.map((img, i) => `
+                <div class="image-card">
+                    <img src="${img.data}" alt="${img.name}">
+                    <div class="image-card-info">
+                        <div class="image-card-name">${img.name}</div>
+                        <div class="image-card-actions">
+                            <button class="btn btn-danger" onclick="deleteUploadedImage(${i})">Löschen</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Replace image
+        function replaceImage(selector, originalSrc) {
+            if (state.uploadedImages.length === 0) {
+                showToast('Lade zuerst ein Bild hoch', 'warning');
+                return;
+            }
+
+            const modal = document.getElementById('imagePickerModal');
+            modal.classList.add('active');
+            modal.dataset.selector = selector;
+            modal.dataset.originalSrc = originalSrc;
+
+            const gallery = document.getElementById('modalImageGallery');
+            gallery.innerHTML = state.uploadedImages.map((img, i) => `
+                <div class="image-card" style="cursor: pointer;" onclick="selectNewImage(${i})">
+                    <img src="${img.data}" alt="${img.name}">
+                    <div class="image-card-info">
+                        <div class="image-card-name">${img.name}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Select new image
+        function selectNewImage(imageIndex) {
+            const modal = document.getElementById('imagePickerModal');
+            const selector = decodeURIComponent(modal.dataset.selector);
+            const originalSrc = decodeURIComponent(modal.dataset.originalSrc);
+            const newImage = state.uploadedImages[imageIndex];
+
+            const changeKey = `${state.currentPage}:img:${selector}`;
+            state.changes[changeKey] = {
+                file: state.currentPage,
+                selector: selector,
+                originalValue: originalSrc,
+                newValue: newImage.name,
+                newImageData: newImage.data,
+                type: 'image'
+            };
+
+            state.modified = true;
+            updateStatusBadge();
+            closeImagePicker();
+            showToast(`Bild wird ersetzt durch "${newImage.name}"`, 'success');
+        }
+
+        // Close image picker
+        function closeImagePicker() {
+            document.getElementById('imagePickerModal').classList.remove('active');
+        }
+
+        // Delete uploaded image
+        function deleteUploadedImage(index) {
+            state.uploadedImages.splice(index, 1);
+            renderUploadedImages();
+            showToast('Bild gelöscht', 'success');
+        }
+
+        // Filter images
+        function filterImages(query) {
+            const cards = document.querySelectorAll('#allImages .image-card, #pageImages .image-card');
+            cards.forEach(card => {
+                const name = card.querySelector('.image-card-name')?.textContent.toLowerCase() || '';
+                card.style.display = name.includes(query.toLowerCase()) ? 'block' : 'none';
+            });
+        }
+
+        // Add video
+        function addVideo() {
+            const urlInput = document.getElementById('newVideoUrl');
+            const url = urlInput.value.trim();
+
+            if (!url) {
+                showToast('Bitte gib eine Video-URL ein', 'error');
+                return;
+            }
+
+            if (!url.includes('youtube') && !url.includes('vimeo')) {
+                showToast('Nur YouTube und Vimeo werden unterstützt', 'error');
+                return;
+            }
+
+            const changeKey = `${state.currentPage}:newvideo:${Date.now()}`;
+            state.changes[changeKey] = {
+                file: state.currentPage,
+                newValue: url,
+                type: 'newVideo'
+            };
+            state.modified = true;
+            updateStatusBadge();
+
+            urlInput.value = '';
+            showToast('Video hinzugefügt', 'success');
+        }
+
+        // Update status badge
+        function updateStatusBadge() {
+            const badge = document.getElementById('statusBadge');
+            const changeCount = Object.keys(state.changes).length;
+
+            if (changeCount > 0) {
+                badge.textContent = `${changeCount} Änderung${changeCount > 1 ? 'en' : ''}`;
+                badge.className = 'status-badge modified';
+            } else {
+                badge.textContent = 'Bereit';
+                badge.className = 'status-badge saved';
+            }
+        }
+
+        // Preview site
+        function previewSite() {
+            if (state.currentPage) {
+                window.open(CONFIG.baseUrl + state.currentPage, '_blank');
+            } else {
+                window.open(CONFIG.baseUrl, '_blank');
+            }
+        }
+
+        // Export changes - Erstellt eine übersichtliche Änderungsliste
+        function exportChanges() {
+            const changeCount = Object.keys(state.changes).length;
+
+            if (changeCount === 0 && state.uploadedImages.length === 0) {
+                showToast('Keine Änderungen zum Exportieren', 'warning');
+                return;
+            }
+
+            // Gruppiere Änderungen nach Datei
+            const changesByFile = {};
+            Object.entries(state.changes).forEach(([key, change]) => {
+                const file = change.file || 'Unbekannt';
+                if (!changesByFile[file]) {
+                    changesByFile[file] = [];
+                }
+                changesByFile[file].push(change);
+            });
+
+            // Erstelle lesbare Zusammenfassung
+            let summary = `WEBSITE-ÄNDERUNGEN
+==================
+Erstellt am: ${new Date().toLocaleString('de-DE')}
+Anzahl Änderungen: ${changeCount}
+Neue Bilder: ${state.uploadedImages.length}
+
+`;
+
+            // Textänderungen
+            Object.entries(changesByFile).forEach(([file, changes]) => {
+                const pageName = state.pages.find(p => p.file === file)?.name || file;
+                summary += `\n📄 SEITE: ${pageName}\n`;
+                summary += `${'─'.repeat(40)}\n`;
+
+                changes.forEach(change => {
+                    if (change.type === 'text') {
+                        summary += `\n✏️ TEXT-ÄNDERUNG:\n`;
+                        summary += `   VORHER: "${change.originalValue.substring(0, 100)}${change.originalValue.length > 100 ? '...' : ''}"\n`;
+                        summary += `   NACHHER: "${change.newValue.substring(0, 100)}${change.newValue.length > 100 ? '...' : ''}"\n`;
+                    } else if (change.type === 'image') {
+                        summary += `\n🖼️ BILD-ÄNDERUNG:\n`;
+                        summary += `   ALTES BILD: ${change.originalValue.split('/').pop()}\n`;
+                        summary += `   NEUES BILD: ${change.newValue}\n`;
+                    } else if (change.type === 'video') {
+                        summary += `\n🎬 VIDEO-ÄNDERUNG:\n`;
+                        summary += `   ALTE URL: ${change.originalValue}\n`;
+                        summary += `   NEUE URL: ${change.newValue}\n`;
+                    } else if (change.type === 'newVideo') {
+                        summary += `\n🎬 NEUES VIDEO:\n`;
+                        summary += `   URL: ${change.newValue}\n`;
+                    }
+                });
+            });
+
+            // Neue Bilder
+            if (state.uploadedImages.length > 0) {
+                summary += `\n\n📷 NEUE BILDER ZUM HOCHLADEN\n`;
+                summary += `${'─'.repeat(40)}\n`;
+                state.uploadedImages.forEach(img => {
+                    summary += `   - ${img.name} (${(img.size / 1024).toFixed(1)} KB)\n`;
+                });
+                summary += `\nDiese Bilder werden als separate Dateien heruntergeladen.\n`;
+            }
+
+            summary += `\n\n${'═'.repeat(40)}\n`;
+            summary += `Bitte sende diese Datei an Nick zur Umsetzung.\n`;
+
+            // Download Zusammenfassung
+            const blob = new Blob([summary], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Website-Änderungen-${new Date().toISOString().split('T')[0]}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            // Download auch als JSON (für technische Verarbeitung)
+            const exportData = {
+                timestamp: new Date().toISOString(),
+                changes: state.changes,
+                uploadedImages: state.uploadedImages.map(img => ({
+                    name: img.name,
+                    type: img.type,
+                    size: img.size
+                }))
+            };
+
+            const jsonBlob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+            const jsonUrl = URL.createObjectURL(jsonBlob);
+            const jsonA = document.createElement('a');
+            jsonA.href = jsonUrl;
+            jsonA.download = `website-changes-${new Date().toISOString().split('T')[0]}.json`;
+            jsonA.click();
+            URL.revokeObjectURL(jsonUrl);
+
+            // Download neue Bilder
+            if (state.uploadedImages.length > 0) {
+                setTimeout(() => {
+                    state.uploadedImages.forEach((img, i) => {
+                        setTimeout(() => {
+                            const link = document.createElement('a');
+                            link.href = img.data;
+                            link.download = img.name;
+                            link.click();
+                        }, i * 500); // Verzögerung zwischen Downloads
+                    });
+                }, 1000);
+            }
+
+            showToast('Änderungen exportiert! Bitte alle Dateien an Nick senden.', 'success');
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.remove();
+            }, 4000);
+        }
+
+        // Escape HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Warn before leaving with unsaved changes
+        window.addEventListener('beforeunload', (e) => {
+            if (Object.keys(state.changes).length > 0 || state.uploadedImages.length > 0) {
+                e.preventDefault();
+                e.returnValue = 'Du hast ungespeicherte Änderungen. Wirklich verlassen?';
+            }
+        });
+    </script>
+</body>
+</html>
