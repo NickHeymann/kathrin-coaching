@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Website Editor - Glück über Zweifel</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -795,6 +798,7 @@
         </div>
 
         <div class="toolbar-right">
+            <button class="btn btn-ghost" onclick="forceReload()" title="Seite neu laden ohne Cache">Neu laden</button>
             <button class="btn btn-ghost" onclick="addStickyNote()">Notizen</button>
             <button class="btn btn-ghost" onclick="showVersions()">Versionen</button>
             <button class="btn btn-ghost" onclick="undo()">Rückgängig</button>
@@ -1877,10 +1881,10 @@
         // SEITE LADEN (optimiert mit raw.githubusercontent für Geschwindigkeit)
         // ============================================
 
-        // Cache für geladene Seiten und deren SHA
+        // Cache deaktiviert - immer frisch von GitHub laden
         const pageCache = {};
 
-        async function loadPage(page) {
+        async function loadPage(page, forceRefresh = true) {
             if (!page) return;
 
             // Warnung bei ungespeicherten Änderungen
@@ -1903,31 +1907,21 @@
             try {
                 let html;
 
-                // Erst Cache prüfen (sofort verfügbar!)
-                if (pageCache[page]) {
-                    html = pageCache[page];
-                    // SHA im Hintergrund holen für späteres Speichern
+                // Immer frisch von GitHub laden (kein Cache mehr)
+                const rawUrl = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.branch}/${page}`;
+
+                const [htmlResponse] = await Promise.all([
+                    fetch(rawUrl + '?t=' + Date.now(), { cache: 'no-store' }),
                     github.request(`/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${page}?ref=${CONFIG.branch}`)
                         .then(data => { state.fileSha[page] = data.sha; })
-                        .catch(() => {});
-                } else {
-                    // Nicht im Cache: von GitHub laden
-                    const rawUrl = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.branch}/${page}`;
+                        .catch(() => {})
+                ]);
 
-                    const [htmlResponse] = await Promise.all([
-                        fetch(rawUrl + '?t=' + Date.now()),
-                        github.request(`/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${page}?ref=${CONFIG.branch}`)
-                            .then(data => { state.fileSha[page] = data.sha; })
-                            .catch(() => {})
-                    ]);
-
-                    if (!htmlResponse.ok) {
-                        throw new Error('Seite nicht gefunden');
-                    }
-
-                    html = await htmlResponse.text();
-                    pageCache[page] = html; // Im Cache speichern
+                if (!htmlResponse.ok) {
+                    throw new Error('Seite nicht gefunden');
                 }
+
+                html = await htmlResponse.text();
 
                 // Original speichern
                 state.originalContent[page] = html;
@@ -3280,6 +3274,24 @@
         // ============================================
         // MODALS & TOAST
         // ============================================
+
+        // Force reload - kompletter Refresh der Seite ohne Cache
+        function forceReload() {
+            if (state.hasUnsavedChanges) {
+                if (!confirm('Es gibt ungespeicherte Änderungen. Trotzdem neu laden?')) {
+                    return;
+                }
+            }
+            // Cache leeren und kompletten Reload erzwingen
+            if ('caches' in window) {
+                caches.keys().then(names => {
+                    names.forEach(name => caches.delete(name));
+                });
+            }
+            // Seite komplett neu laden ohne Cache
+            window.location.reload(true);
+        }
+
         function showHelp() {
             document.getElementById('helpModal').classList.add('active');
         }
