@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website bearbeiten - Glück über Zweifel</title>
+    <title>Website Editor - Glück über Zweifel</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: system-ui, -apple-system, sans-serif; background: #1a1a1a; }
@@ -25,41 +25,42 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        .toolbar-left, .toolbar-right {
+        .toolbar-left, .toolbar-center, .toolbar-right {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
         }
 
         .toolbar-logo {
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
         }
 
-        .toolbar-logo span { opacity: 0.6; font-weight: 400; }
-
         select {
-            padding: 0.4rem 0.8rem;
+            padding: 0.35rem 0.6rem;
             border-radius: 6px;
             border: 1px solid rgba(255,255,255,0.3);
             background: rgba(255,255,255,0.1);
             color: white;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             cursor: pointer;
+            max-width: 200px;
         }
         select option { background: #2C4A47; }
 
         .btn {
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 0.8rem;
             border: none;
             border-radius: 6px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.3rem;
             font-weight: 500;
             transition: all 0.15s;
+            white-space: nowrap;
         }
 
         .btn-ghost {
@@ -75,26 +76,202 @@
         }
         .btn-primary:hover { background: #c49564; }
 
-        .change-badge {
-            background: #ff9800;
+        .btn-success {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #f44336;
+            color: white;
+        }
+
+        .status-badge {
             padding: 0.25rem 0.6rem;
             border-radius: 12px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
         }
-        .change-badge.empty { background: rgba(255,255,255,0.2); }
+        .status-saved { background: #4CAF50; }
+        .status-unsaved { background: #ff9800; }
+        .status-saving { background: #2196F3; }
+        .status-error { background: #f44336; }
+        .status-offline { background: #9e9e9e; }
 
         /* Website Frame */
         .website-frame {
             position: fixed;
             top: 50px;
             left: 0;
-            right: 0;
+            right: 300px;
             bottom: 0;
             border: none;
-            width: 100%;
+            width: calc(100% - 300px);
             height: calc(100vh - 50px);
             background: white;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 50px;
+            right: 0;
+            width: 300px;
+            height: calc(100vh - 50px);
+            background: #f5f5f5;
+            border-left: 1px solid #ddd;
+            overflow-y: auto;
+            z-index: 99998;
+        }
+
+        .sidebar-section {
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .sidebar-section h3 {
+            font-size: 0.85rem;
+            color: #2C4A47;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .version-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .version-item {
+            padding: 0.6rem;
+            background: white;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.15s;
+            border: 1px solid #e0e0e0;
+        }
+        .version-item:hover { border-color: #2C4A47; }
+        .version-item.current { border-color: #4CAF50; background: #e8f5e9; }
+
+        .version-date {
+            font-size: 0.75rem;
+            color: #666;
+        }
+        .version-msg {
+            font-size: 0.8rem;
+            color: #333;
+            margin-top: 0.25rem;
+        }
+
+        .change-item {
+            padding: 0.5rem;
+            background: white;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+            border-left: 3px solid #D4A574;
+        }
+        .change-item.image { border-left-color: #2196F3; }
+        .change-item.video { border-left-color: #9c27b0; }
+
+        .change-type {
+            font-size: 0.7rem;
+            color: #666;
+            text-transform: uppercase;
+        }
+        .change-preview {
+            color: #333;
+            margin-top: 0.25rem;
+            word-break: break-word;
+        }
+
+        /* Setup Screen */
+        .setup-screen {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #f8f6f3 0%, #ece8e1 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100000;
+        }
+        .setup-screen.hidden { display: none; }
+
+        .setup-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .setup-card h1 {
+            color: #2C4A47;
+            margin-bottom: 0.5rem;
+        }
+        .setup-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .setup-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        .setup-input:focus {
+            outline: none;
+            border-color: #2C4A47;
+        }
+
+        .setup-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #2C4A47;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .setup-btn:hover { background: #1e3533; }
+        .setup-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+        .setup-help {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+        .setup-help summary {
+            cursor: pointer;
+            color: #2C4A47;
+            font-weight: 500;
+        }
+        .setup-help-content {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.6;
+        }
+        .setup-help-content ol {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        .setup-help-content li {
+            margin-bottom: 0.5rem;
+        }
+        .setup-help-content code {
+            background: #f0f0f0;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
         }
 
         /* Loading Overlay */
@@ -102,14 +279,14 @@
             position: fixed;
             top: 50px;
             left: 0;
-            right: 0;
+            right: 300px;
             bottom: 0;
             background: white;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            z-index: 99998;
+            z-index: 99997;
             transition: opacity 0.3s;
         }
         .loading-overlay.hidden { opacity: 0; pointer-events: none; }
@@ -130,13 +307,38 @@
             font-size: 0.95rem;
         }
 
+        /* Start Screen */
+        .start-screen {
+            position: fixed;
+            top: 50px;
+            left: 0;
+            right: 300px;
+            bottom: 0;
+            background: linear-gradient(135deg, #f8f6f3 0%, #ece8e1 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 99996;
+        }
+        .start-screen.hidden { display: none; }
+
+        .start-screen h2 {
+            font-size: 1.5rem;
+            color: #2C4A47;
+            margin-bottom: 0.5rem;
+        }
+        .start-screen p {
+            color: #666;
+        }
+
         /* Toast */
         .toast-container {
             position: fixed;
             bottom: 1.5rem;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 100000;
+            z-index: 100001;
         }
 
         .toast {
@@ -146,9 +348,11 @@
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             animation: fadeIn 0.2s;
+            margin-top: 0.5rem;
         }
         .toast.success { background: #4CAF50; }
         .toast.error { background: #f44336; }
+        .toast.info { background: #2196F3; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -161,7 +365,7 @@
             position: fixed;
             inset: 0;
             background: rgba(0,0,0,0.5);
-            z-index: 100001;
+            z-index: 100002;
             align-items: center;
             justify-content: center;
         }
@@ -211,7 +415,7 @@
         .btn-cancel { background: #eee; color: #333; }
         .btn-cancel:hover { background: #ddd; }
 
-        .video-input {
+        .modal-input {
             width: 100%;
             padding: 0.6rem;
             border: 2px solid #ddd;
@@ -219,60 +423,69 @@
             font-size: 0.95rem;
         }
 
-        /* Hilfe Modal */
-        .help-content h4 { color: #2C4A47; margin: 1rem 0 0.5rem; }
-        .help-content p { color: #555; line-height: 1.5; margin-bottom: 0.5rem; }
-        .help-tip {
-            background: #e8f5e9;
-            border-left: 3px solid #4CAF50;
-            padding: 0.75rem;
-            margin: 1rem 0;
-            border-radius: 0 6px 6px 0;
-        }
-
-        /* Start Screen */
-        .start-screen {
-            position: fixed;
-            top: 50px;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, #f8f6f3 0%, #ece8e1 100%);
+        /* Autosave indicator */
+        .autosave-indicator {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            z-index: 99997;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.7);
         }
-        .start-screen.hidden { display: none; }
+        .autosave-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4CAF50;
+        }
+        .autosave-dot.saving {
+            background: #ff9800;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
 
-        .start-screen h1 {
-            font-size: 2rem;
-            color: #2C4A47;
-            margin-bottom: 0.5rem;
-        }
-        .start-screen p {
-            color: #666;
-            margin-bottom: 2rem;
-        }
-        .start-arrow {
-            position: absolute;
-            top: 20px;
-            left: 180px;
-            font-size: 3rem;
-            color: #D4A574;
-            animation: bounce 1s infinite;
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        /* Responsive */
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .website-frame { right: 0; width: 100%; }
+            .loading-overlay { right: 0; }
+            .start-screen { right: 0; }
         }
     </style>
 </head>
 <body>
+    <!-- Setup Screen -->
+    <div class="setup-screen" id="setupScreen">
+        <div class="setup-card">
+            <h1>Website Editor einrichten</h1>
+            <p>Um Änderungen automatisch zu speichern, benötigst du einen GitHub-Zugang.</p>
+
+            <input type="password" class="setup-input" id="tokenInput" placeholder="GitHub Token eingeben...">
+            <button class="setup-btn" id="setupBtn" onclick="setupToken()">Editor starten</button>
+
+            <details class="setup-help">
+                <summary>Wie bekomme ich einen Token?</summary>
+                <div class="setup-help-content">
+                    <ol>
+                        <li>Gehe zu <a href="https://github.com/settings/tokens/new" target="_blank">github.com/settings/tokens/new</a></li>
+                        <li>Melde dich mit deinem GitHub-Konto an</li>
+                        <li>Gib einen Namen ein, z.B. <code>Website Editor</code></li>
+                        <li>Wähle bei "Expiration" einen langen Zeitraum (z.B. 1 Jahr)</li>
+                        <li>Aktiviere die Checkbox <code>repo</code> (für Repository-Zugriff)</li>
+                        <li>Klicke unten auf "Generate token"</li>
+                        <li>Kopiere den Token und füge ihn hier ein</li>
+                    </ol>
+                    <p style="margin-top: 1rem;"><strong>Hinweis:</strong> Der Token wird nur lokal in deinem Browser gespeichert.</p>
+                </div>
+            </details>
+        </div>
+    </div>
+
     <div class="toolbar">
         <div class="toolbar-left">
-            <div class="toolbar-logo">Website bearbeiten</div>
+            <div class="toolbar-logo">Editor</div>
             <select id="pageSelect" onchange="loadPage(this.value)">
                 <option value="">Seite wählen...</option>
                 <optgroup label="Hauptseiten">
@@ -318,19 +531,51 @@
             </select>
         </div>
 
-        <span class="change-badge empty" id="changeBadge">Keine Änderungen</span>
+        <div class="toolbar-center">
+            <div class="autosave-indicator">
+                <div class="autosave-dot" id="autosaveDot"></div>
+                <span id="autosaveText">Autosave aktiv</span>
+            </div>
+            <span class="status-badge status-saved" id="statusBadge">Gespeichert</span>
+        </div>
 
         <div class="toolbar-right">
-            <button class="btn btn-ghost" onclick="resetAll()">Zurücksetzen</button>
-            <button class="btn btn-primary" onclick="saveChanges()">Speichern</button>
-            <button class="btn btn-ghost" onclick="showHelp()" style="padding: 0.5rem 0.7rem;">?</button>
+            <button class="btn btn-ghost" onclick="showVersions()">Versionen</button>
+            <button class="btn btn-ghost" onclick="undoLastChange()">Rückgängig</button>
+            <button class="btn btn-primary" onclick="saveNow()">Jetzt speichern</button>
+            <button class="btn btn-ghost" onclick="showHelp()">?</button>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-section">
+            <h3>Aktuelle Änderungen</h3>
+            <div id="changesList">
+                <p style="color: #999; font-size: 0.85rem;">Noch keine Änderungen</p>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <h3>Letzte Versionen</h3>
+            <div class="version-list" id="versionList">
+                <p style="color: #999; font-size: 0.85rem;">Wird geladen...</p>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <h3>Info</h3>
+            <p style="font-size: 0.8rem; color: #666; line-height: 1.5;">
+                Änderungen werden automatisch alle 30 Sekunden gespeichert.
+                Du arbeitest auf dem Branch <code style="background:#e0e0e0;padding:0.1rem 0.3rem;border-radius:3px;">kathrin-edits</code> -
+                der Hauptbranch bleibt als Backup unverändert.
+            </p>
         </div>
     </div>
 
     <!-- Start Screen -->
     <div class="start-screen" id="startScreen">
-        <div class="start-arrow">^</div>
-        <h1>Willkommen!</h1>
+        <h2>Willkommen!</h2>
         <p>Wähle oben eine Seite aus, um mit dem Bearbeiten zu beginnen.</p>
     </div>
 
@@ -366,7 +611,7 @@
         <div class="modal">
             <h3>Video ändern</h3>
             <p style="color:#666; margin-bottom:1rem;">YouTube oder Vimeo URL eingeben:</p>
-            <input type="text" class="video-input" id="videoInput" placeholder="https://youtube.com/watch?v=...">
+            <input type="text" class="modal-input" id="videoInput" placeholder="https://youtube.com/watch?v=...">
             <div class="modal-btns">
                 <button class="btn btn-cancel" onclick="closeVideoModal()">Abbrechen</button>
                 <button class="btn btn-primary" onclick="confirmVideo()">Ändern</button>
@@ -374,21 +619,32 @@
         </div>
     </div>
 
+    <!-- Version Modal -->
+    <div class="modal-bg" id="versionModal">
+        <div class="modal" style="max-width: 600px;">
+            <h3>Version wiederherstellen</h3>
+            <p style="color:#666; margin-bottom:1rem;" id="versionInfo"></p>
+            <div class="modal-btns">
+                <button class="btn btn-cancel" onclick="closeVersionModal()">Abbrechen</button>
+                <button class="btn btn-danger" onclick="confirmRestore()">Diese Version wiederherstellen</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Hilfe Modal -->
     <div class="modal-bg" id="helpModal">
-        <div class="modal help-content" style="max-width: 500px;">
+        <div class="modal" style="max-width: 500px;">
             <h3>So funktioniert der Editor</h3>
-            <h4>Texte bearbeiten</h4>
-            <p>Klicke auf einen Text - er wird gelb markiert. Dann kannst du ihn ändern.</p>
-            <h4>Bilder ersetzen</h4>
-            <p>Klicke auf ein Bild - ein Fenster öffnet sich zum Hochladen eines neuen Bildes.</p>
-            <h4>Videos ändern</h4>
-            <p>Klicke auf ein Video - gib eine neue YouTube/Vimeo URL ein.</p>
-            <div class="help-tip">
-                <strong>Tipp:</strong> Elemente werden beim Darüberfahren farbig markiert.
+            <div style="font-size: 0.9rem; color: #555; line-height: 1.6;">
+                <p><strong>Texte bearbeiten:</strong> Klicke auf einen Text (wird orange umrandet) und tippe los.</p>
+                <p style="margin-top: 0.75rem;"><strong>Bilder ersetzen:</strong> Klicke auf ein Bild (wird blau umrandet) und wähle ein neues aus.</p>
+                <p style="margin-top: 0.75rem;"><strong>Videos ändern:</strong> Klicke auf ein Video und gib eine neue URL ein.</p>
+                <p style="margin-top: 0.75rem;"><strong>Autosave:</strong> Änderungen werden automatisch alle 30 Sekunden zu GitHub gespeichert.</p>
+                <p style="margin-top: 0.75rem;"><strong>Versionen:</strong> Du kannst jederzeit zu einer früheren Version zurückkehren.</p>
+                <div style="background: #e8f5e9; padding: 0.75rem; border-radius: 8px; margin-top: 1rem;">
+                    <strong>Tipp:</strong> Der Hauptbranch (main) bleibt immer als Backup erhalten!
+                </div>
             </div>
-            <h4>Speichern</h4>
-            <p>Klicke "Speichern" - Du bekommst eine Datei mit allen Änderungen für Nick.</p>
             <div class="modal-btns">
                 <button class="btn btn-primary" onclick="closeHelp()">Verstanden!</button>
             </div>
@@ -396,86 +652,295 @@
     </div>
 
     <script>
-        let changes = [];
-        let images = [];
-        let currentImg = null;
-        let currentVideo = null;
-        let newImgData = null;
-        let currentPage = null;
-        let originalHTML = {};
+        // ============================================
+        // KONFIGURATION
+        // ============================================
+        const CONFIG = {
+            owner: 'NickHeymann',
+            repo: 'kathrin-coaching',
+            branch: 'kathrin-edits',
+            mainBranch: 'main',
+            autosaveInterval: 30000 // 30 Sekunden
+        };
 
-        // Seite laden
+        // ============================================
+        // STATE
+        // ============================================
+        let state = {
+            token: null,
+            currentPage: null,
+            changes: [],
+            pendingChanges: [],
+            images: [],
+            versions: [],
+            originalContent: {},
+            fileSha: {},
+            isSaving: false,
+            hasUnsavedChanges: false,
+            autosaveTimer: null,
+            selectedVersion: null
+        };
+
+        // ============================================
+        // GITHUB API
+        // ============================================
+        const github = {
+            async request(endpoint, options = {}) {
+                const url = `https://api.github.com${endpoint}`;
+                const response = await fetch(url, {
+                    ...options,
+                    headers: {
+                        'Authorization': `token ${state.token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    }
+                });
+
+                if (!response.ok) {
+                    const error = await response.json().catch(() => ({}));
+                    throw new Error(error.message || `GitHub API Error: ${response.status}`);
+                }
+
+                return response.json();
+            },
+
+            async getFile(path) {
+                try {
+                    const data = await this.request(
+                        `/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${path}?ref=${CONFIG.branch}`
+                    );
+                    state.fileSha[path] = data.sha;
+                    return atob(data.content);
+                } catch (e) {
+                    // Datei existiert nicht auf kathrin-edits, hole von main
+                    try {
+                        const data = await this.request(
+                            `/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${path}?ref=${CONFIG.mainBranch}`
+                        );
+                        return atob(data.content);
+                    } catch (e2) {
+                        throw new Error('Datei nicht gefunden');
+                    }
+                }
+            },
+
+            async saveFile(path, content, message) {
+                const body = {
+                    message: message,
+                    content: btoa(unescape(encodeURIComponent(content))),
+                    branch: CONFIG.branch
+                };
+
+                // SHA hinzufügen wenn Datei existiert
+                if (state.fileSha[path]) {
+                    body.sha = state.fileSha[path];
+                }
+
+                const data = await this.request(
+                    `/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${path}`,
+                    { method: 'PUT', body: JSON.stringify(body) }
+                );
+
+                state.fileSha[path] = data.content.sha;
+                return data;
+            },
+
+            async getCommits(path = null) {
+                let endpoint = `/repos/${CONFIG.owner}/${CONFIG.repo}/commits?sha=${CONFIG.branch}&per_page=10`;
+                if (path) endpoint += `&path=${path}`;
+                return this.request(endpoint);
+            },
+
+            async getFileAtCommit(path, sha) {
+                const data = await this.request(
+                    `/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${path}?ref=${sha}`
+                );
+                return atob(data.content);
+            },
+
+            async uploadImage(filename, base64Data) {
+                // Entferne data:image/...;base64, prefix
+                const content = base64Data.split(',')[1];
+
+                const body = {
+                    message: `Bild hochgeladen: ${filename}`,
+                    content: content,
+                    branch: CONFIG.branch
+                };
+
+                return this.request(
+                    `/repos/${CONFIG.owner}/${CONFIG.repo}/contents/images/${filename}`,
+                    { method: 'PUT', body: JSON.stringify(body) }
+                );
+            }
+        };
+
+        // ============================================
+        // SETUP
+        // ============================================
+        function checkSetup() {
+            const savedToken = localStorage.getItem('github_token');
+            if (savedToken) {
+                state.token = savedToken;
+                document.getElementById('setupScreen').classList.add('hidden');
+                startEditor();
+            }
+        }
+
+        async function setupToken() {
+            const token = document.getElementById('tokenInput').value.trim();
+            if (!token) {
+                toast('Bitte Token eingeben', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('setupBtn');
+            btn.disabled = true;
+            btn.textContent = 'Prüfe Token...';
+
+            try {
+                state.token = token;
+                // Test API-Zugriff
+                await github.request(`/repos/${CONFIG.owner}/${CONFIG.repo}`);
+
+                localStorage.setItem('github_token', token);
+                document.getElementById('setupScreen').classList.add('hidden');
+                toast('Erfolgreich eingerichtet!', 'success');
+                startEditor();
+            } catch (e) {
+                toast('Token ungültig oder keine Berechtigung', 'error');
+                state.token = null;
+            }
+
+            btn.disabled = false;
+            btn.textContent = 'Editor starten';
+        }
+
+        function startEditor() {
+            loadVersions();
+            startAutosave();
+        }
+
+        // ============================================
+        // AUTOSAVE
+        // ============================================
+        function startAutosave() {
+            state.autosaveTimer = setInterval(async () => {
+                if (state.hasUnsavedChanges && !state.isSaving) {
+                    await saveChanges(true);
+                }
+            }, CONFIG.autosaveInterval);
+        }
+
+        function updateStatus(status) {
+            const badge = document.getElementById('statusBadge');
+            const dot = document.getElementById('autosaveDot');
+            const text = document.getElementById('autosaveText');
+
+            badge.className = 'status-badge';
+            dot.className = 'autosave-dot';
+
+            switch (status) {
+                case 'saved':
+                    badge.classList.add('status-saved');
+                    badge.textContent = 'Gespeichert';
+                    text.textContent = 'Autosave aktiv';
+                    break;
+                case 'unsaved':
+                    badge.classList.add('status-unsaved');
+                    badge.textContent = `${state.pendingChanges.length} Änderung${state.pendingChanges.length > 1 ? 'en' : ''}`;
+                    text.textContent = 'Nicht gespeichert';
+                    break;
+                case 'saving':
+                    badge.classList.add('status-saving');
+                    badge.textContent = 'Speichert...';
+                    dot.classList.add('saving');
+                    text.textContent = 'Speichert...';
+                    break;
+                case 'error':
+                    badge.classList.add('status-error');
+                    badge.textContent = 'Fehler';
+                    text.textContent = 'Speichern fehlgeschlagen';
+                    break;
+            }
+        }
+
+        // ============================================
+        // SEITE LADEN
+        // ============================================
         async function loadPage(page) {
             if (!page) return;
+
+            // Warnung bei ungespeicherten Änderungen
+            if (state.hasUnsavedChanges) {
+                if (!confirm('Es gibt ungespeicherte Änderungen. Trotzdem Seite wechseln?')) {
+                    document.getElementById('pageSelect').value = state.currentPage || '';
+                    return;
+                }
+            }
 
             document.getElementById('startScreen').classList.add('hidden');
             document.getElementById('loadingOverlay').classList.remove('hidden');
 
-            currentPage = page;
+            state.currentPage = page;
+            state.pendingChanges = [];
+            state.hasUnsavedChanges = false;
+            updateStatus('saved');
+            updateChangesList();
 
             try {
-                // HTML-Datei laden (aus gleichem Ordner)
-                const response = await fetch(page);
-                if (!response.ok) throw new Error('Seite nicht gefunden');
-
-                let html = await response.text();
+                // HTML von GitHub laden
+                let html = await github.getFile(page);
 
                 // Original speichern
-                originalHTML[page] = html;
+                state.originalContent[page] = html;
 
-                // Relative URLs zu absoluten machen für Bilder
+                // URLs fixieren und Editor-Code einfügen
                 html = fixRelativeUrls(html);
-
-                // Editor-Styles und Scripts einfügen
                 html = injectEditorCode(html);
 
                 // In iframe laden
                 const frame = document.getElementById('siteFrame');
                 frame.srcdoc = html;
 
-                // Warten bis geladen
                 frame.onload = () => {
                     setupFrameEditing(frame);
                     document.getElementById('loadingOverlay').classList.add('hidden');
-                    toast('Seite geladen - klicke auf Elemente zum Bearbeiten', 'success');
+                    toast('Seite geladen', 'success');
                 };
 
-            } catch(e) {
+            } catch (e) {
                 console.error(e);
                 document.getElementById('loadingOverlay').classList.add('hidden');
                 toast('Fehler beim Laden: ' + e.message, 'error');
             }
         }
 
-        // Relative URLs zu absoluten machen
         function fixRelativeUrls(html) {
-            // Base URL für Assets
-            const baseUrl = window.location.href.replace(/[^/]*$/, '');
+            const baseUrl = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.branch}/`;
+            const cdnUrl = `https://cdn.jsdelivr.net/gh/${CONFIG.owner}/${CONFIG.repo}@${CONFIG.branch}/`;
 
-            // CSS-Links
-            html = html.replace(/href="([^"]+\.css)"/g, (match, url) => {
-                if (url.startsWith('http') || url.startsWith('//')) return match;
-                return `href="${baseUrl}${url}"`;
+            // CSS & JS
+            html = html.replace(/href="([^"]+\.css)"/g, (m, url) => {
+                if (url.startsWith('http')) return m;
+                return `href="${cdnUrl}${url}"`;
             });
-
-            // JS-Scripts
-            html = html.replace(/src="([^"]+\.js)"/g, (match, url) => {
-                if (url.startsWith('http') || url.startsWith('//')) return match;
-                return `src="${baseUrl}${url}"`;
+            html = html.replace(/src="([^"]+\.js)"/g, (m, url) => {
+                if (url.startsWith('http')) return m;
+                return `src="${cdnUrl}${url}"`;
             });
 
             // Bilder
-            html = html.replace(/src="(images\/[^"]+)"/g, `src="${baseUrl}$1"`);
-            html = html.replace(/url\(['"]?(images\/[^'")]+)['"]?\)/g, `url('${baseUrl}$1')`);
+            html = html.replace(/src="(images\/[^"]+)"/g, `src="${cdnUrl}$1"`);
+            html = html.replace(/url\(['"]?(images\/[^'")]+)['"]?\)/g, `url('${cdnUrl}$1')`);
 
             return html;
         }
 
-        // Editor-Code in HTML einfügen
         function injectEditorCode(html) {
             const editorStyles = `
                 <style id="editor-styles">
-                    /* Texte hover */
                     h1,h2,h3,h4,h5,h6,p,span,li,td,th,label,a,button {
                         transition: outline 0.15s, background 0.15s !important;
                     }
@@ -492,7 +957,6 @@
                     [data-changed] {
                         background: #c8e6c9 !important;
                     }
-                    /* Bilder hover */
                     img {
                         transition: outline 0.15s !important;
                         cursor: pointer !important;
@@ -504,7 +968,6 @@
                     img[data-changed] {
                         outline: 3px solid #4CAF50 !important;
                     }
-                    /* Videos hover */
                     .video-overlay {
                         position: absolute;
                         inset: 0;
@@ -515,12 +978,9 @@
                     .video-overlay:hover {
                         background: rgba(156, 39, 176, 0.2);
                     }
-                    /* Links deaktivieren */
-                    a { pointer-events: auto !important; }
                 </style>
             `;
 
-            // Vor </head> einfügen
             if (html.includes('</head>')) {
                 html = html.replace('</head>', editorStyles + '</head>');
             } else {
@@ -530,21 +990,19 @@
             return html;
         }
 
-        // Frame-Editing einrichten
+        // ============================================
+        // FRAME EDITING
+        // ============================================
         function setupFrameEditing(frame) {
             const doc = frame.contentDocument;
             if (!doc) return;
 
-            // Texte klickbar machen
-            const textElements = doc.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,label,span,button');
-            textElements.forEach((el, i) => {
+            // Texte
+            doc.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,label,span,button').forEach((el, i) => {
                 const txt = el.textContent.trim();
-                // Nur Elemente mit Text und ohne Kinder-Bilder
-                if (txt.length > 2 && !el.querySelector('img') && !el.closest('[data-no-edit]')) {
+                if (txt.length > 2 && !el.querySelector('img')) {
                     el.dataset.editIdx = i;
                     el.dataset.editOrig = txt;
-                    el.style.cursor = 'text';
-
                     el.addEventListener('click', (e) => {
                         e.preventDefault();
                         e.stopPropagation();
@@ -553,14 +1011,11 @@
                 }
             });
 
-            // Bilder klickbar
-            const images = doc.querySelectorAll('img');
-            images.forEach((img, i) => {
-                const src = img.src;
-                if (src && !src.startsWith('data:') && !img.closest('[data-no-edit]')) {
+            // Bilder
+            doc.querySelectorAll('img').forEach((img, i) => {
+                if (img.src && !img.src.startsWith('data:')) {
                     img.dataset.editIdx = i;
-                    img.dataset.editOrig = src;
-
+                    img.dataset.editOrig = img.src;
                     img.addEventListener('click', (e) => {
                         e.preventDefault();
                         e.stopPropagation();
@@ -569,18 +1024,15 @@
                 }
             });
 
-            // Videos (iframes)
-            const iframes = doc.querySelectorAll('iframe');
-            iframes.forEach((iframe, i) => {
+            // Videos
+            doc.querySelectorAll('iframe').forEach((iframe, i) => {
                 const src = iframe.src || '';
                 if (src.includes('youtube') || src.includes('vimeo')) {
-                    // Wrapper erstellen
                     const wrapper = doc.createElement('div');
                     wrapper.style.cssText = 'position:relative;display:inline-block;width:100%;';
                     iframe.parentNode.insertBefore(wrapper, iframe);
                     wrapper.appendChild(iframe);
 
-                    // Overlay für Klick
                     const overlay = doc.createElement('div');
                     overlay.className = 'video-overlay';
                     overlay.dataset.editIdx = i;
@@ -597,19 +1049,20 @@
             // Links deaktivieren
             doc.querySelectorAll('a').forEach(a => {
                 a.addEventListener('click', (e) => {
-                    // Nur verhindern wenn es ein echter Link ist
                     const href = a.getAttribute('href');
-                    if (href && !href.startsWith('#') && !href.startsWith('javascript:')) {
+                    if (href && !href.startsWith('#')) {
                         e.preventDefault();
                     }
                 });
             });
         }
 
-        // Text bearbeiten
+        // ============================================
+        // TEXT EDITING
+        // ============================================
         let activeEl = null;
+
         function editText(el) {
-            // Vorheriges Element zurücksetzen
             if (activeEl) {
                 activeEl.removeAttribute('data-editing');
                 activeEl.contentEditable = 'false';
@@ -620,7 +1073,6 @@
             el.contentEditable = 'true';
             el.focus();
 
-            // Cursor ans Ende
             const doc = el.ownerDocument;
             const range = doc.createRange();
             range.selectNodeContents(el);
@@ -629,7 +1081,6 @@
             sel.removeAllRanges();
             sel.addRange(range);
 
-            // Bei Blur speichern
             el.onblur = () => finishText(el);
             el.onkeydown = (e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
@@ -653,38 +1104,31 @@
             if (now !== orig) {
                 el.setAttribute('data-changed', 'true');
 
-                // Bestehende Änderung aktualisieren oder neue hinzufügen
-                const existing = changes.find(c => c.idx === el.dataset.editIdx && c.type === 'text' && c.page === currentPage);
-                if (existing) {
-                    existing.newVal = now;
-                } else {
-                    changes.push({
-                        type: 'text',
-                        idx: el.dataset.editIdx,
-                        tag: el.tagName,
-                        selector: getSelector(el),
-                        orig: orig,
-                        newVal: now,
-                        page: currentPage
-                    });
-                }
-                updateBadge();
+                const change = {
+                    type: 'text',
+                    idx: el.dataset.editIdx,
+                    tag: el.tagName,
+                    orig: orig,
+                    newVal: now,
+                    page: state.currentPage,
+                    timestamp: Date.now()
+                };
+
+                state.pendingChanges.push(change);
+                state.hasUnsavedChanges = true;
+                updateStatus('unsaved');
+                updateChangesList();
                 toast('Text geändert', 'success');
             }
             activeEl = null;
         }
 
-        // CSS-Selector für Element generieren
-        function getSelector(el) {
-            if (el.id) return '#' + el.id;
-            if (el.className) {
-                const classes = el.className.split(' ').filter(c => c).slice(0, 2).join('.');
-                if (classes) return el.tagName.toLowerCase() + '.' + classes;
-            }
-            return el.tagName.toLowerCase();
-        }
+        // ============================================
+        // IMAGE EDITING
+        // ============================================
+        let currentImg = null;
+        let newImgData = null;
 
-        // Bild bearbeiten
         function editImg(img) {
             currentImg = img;
             document.getElementById('imgModal').classList.add('active');
@@ -705,21 +1149,30 @@
             currentImg.src = newImgData.data;
             currentImg.setAttribute('data-changed', 'true');
 
-            changes.push({
+            const change = {
                 type: 'image',
                 idx: currentImg.dataset.editIdx,
                 orig: currentImg.dataset.editOrig,
                 newFile: newImgData.name,
-                page: currentPage
-            });
-            images.push(newImgData);
+                newData: newImgData.data,
+                page: state.currentPage,
+                timestamp: Date.now()
+            };
 
-            updateBadge();
+            state.pendingChanges.push(change);
+            state.images.push(newImgData);
+            state.hasUnsavedChanges = true;
+            updateStatus('unsaved');
+            updateChangesList();
             closeImgModal();
             toast('Bild ersetzt', 'success');
         }
 
-        // Video bearbeiten
+        // ============================================
+        // VIDEO EDITING
+        // ============================================
+        let currentVideo = null;
+
         function editVideo(iframe, overlay) {
             currentVideo = { iframe, overlay };
             document.getElementById('videoInput').value = overlay.dataset.editOrig;
@@ -733,12 +1186,11 @@
 
         function confirmVideo() {
             let url = document.getElementById('videoInput').value.trim();
-            if (!url) return toast('Bitte URL eingeben', 'error');
+            if (!url) return toast('URL eingeben', 'error');
             if (!url.includes('youtube') && !url.includes('vimeo')) {
-                return toast('Nur YouTube oder Vimeo URLs', 'error');
+                return toast('Nur YouTube oder Vimeo', 'error');
             }
 
-            // URL zu Embed-Format konvertieren
             if (url.includes('youtube.com/watch')) {
                 const id = new URL(url).searchParams.get('v');
                 url = `https://www.youtube.com/embed/${id}`;
@@ -750,103 +1202,239 @@
             currentVideo.iframe.src = url;
             currentVideo.iframe.style.outline = '3px solid #4CAF50';
 
-            changes.push({
+            const change = {
                 type: 'video',
                 idx: currentVideo.overlay.dataset.editIdx,
                 orig: currentVideo.overlay.dataset.editOrig,
                 newVal: url,
-                page: currentPage
-            });
+                page: state.currentPage,
+                timestamp: Date.now()
+            };
 
-            updateBadge();
+            state.pendingChanges.push(change);
+            state.hasUnsavedChanges = true;
+            updateStatus('unsaved');
+            updateChangesList();
             closeVideoModal();
             toast('Video geändert', 'success');
         }
 
-        // Badge aktualisieren
-        function updateBadge() {
-            const badge = document.getElementById('changeBadge');
-            const n = changes.length;
-            badge.textContent = n ? `${n} Änderung${n > 1 ? 'en' : ''}` : 'Keine Änderungen';
-            badge.classList.toggle('empty', !n);
-        }
+        // ============================================
+        // SPEICHERN
+        // ============================================
+        async function saveChanges(isAutosave = false) {
+            if (!state.currentPage || state.pendingChanges.length === 0) return;
+            if (state.isSaving) return;
 
-        // Reset
-        function resetAll() {
-            if (!changes.length) return toast('Nichts zum Zurücksetzen');
-            if (!confirm('Alle Änderungen verwerfen?')) return;
-            changes = [];
-            images = [];
-            updateBadge();
-            if (currentPage) loadPage(currentPage);
-            toast('Zurückgesetzt', 'success');
-        }
+            state.isSaving = true;
+            updateStatus('saving');
 
-        // Speichern / Export
-        function saveChanges() {
-            if (!changes.length) return toast('Keine Änderungen zum Speichern', 'error');
-
-            let txt = `WEBSITE-ÄNDERUNGEN\n${'='.repeat(50)}\nErstellt am: ${new Date().toLocaleString('de')}\n\n`;
-
-            // Nach Seiten gruppieren
-            const byPage = {};
-            changes.forEach(c => {
-                if (!byPage[c.page]) byPage[c.page] = [];
-                byPage[c.page].push(c);
-            });
-
-            Object.entries(byPage).forEach(([page, list]) => {
-                txt += `\nSEITE: ${page}\n${'-'.repeat(50)}\n`;
-
-                list.forEach((c, i) => {
-                    txt += `\n[${i + 1}] `;
-                    if (c.type === 'text') {
-                        txt += `TEXT (${c.tag})\n`;
-                        txt += `    Vorher: "${c.orig.substring(0, 80)}${c.orig.length > 80 ? '...' : ''}"\n`;
-                        txt += `    Nachher: "${c.newVal.substring(0, 80)}${c.newVal.length > 80 ? '...' : ''}"\n`;
-                    } else if (c.type === 'image') {
-                        txt += `BILD\n`;
-                        txt += `    Altes Bild: ${c.orig.split('/').pop()}\n`;
-                        txt += `    Neues Bild: ${c.newFile}\n`;
-                    } else if (c.type === 'video') {
-                        txt += `VIDEO\n`;
-                        txt += `    Alte URL: ${c.orig}\n`;
-                        txt += `    Neue URL: ${c.newVal}\n`;
+            try {
+                // Bilder hochladen
+                for (const change of state.pendingChanges) {
+                    if (change.type === 'image' && change.newData) {
+                        await github.uploadImage(change.newFile, change.newData);
+                        delete change.newData; // Nicht mehr benötigt
                     }
-                });
-            });
+                }
 
-            if (images.length) {
-                txt += `\n\nNEUE BILDER (${images.length} Dateien)\n${'-'.repeat(50)}\n`;
-                images.forEach((img, i) => {
-                    txt += `  ${i + 1}. ${img.name}\n`;
+                // HTML aktualisieren
+                const frame = document.getElementById('siteFrame');
+                const doc = frame.contentDocument;
+
+                // Editor-Styles entfernen
+                const editorStyle = doc.getElementById('editor-styles');
+                if (editorStyle) editorStyle.remove();
+
+                // data-* Attribute entfernen
+                doc.querySelectorAll('[data-editing], [data-changed], [data-edit-idx], [data-edit-orig]').forEach(el => {
+                    el.removeAttribute('data-editing');
+                    el.removeAttribute('data-changed');
+                    el.removeAttribute('data-edit-idx');
+                    el.removeAttribute('data-edit-orig');
+                    el.removeAttribute('contenteditable');
                 });
-                txt += `\nDiese Bilder werden separat heruntergeladen.\n`;
+
+                // Video overlays entfernen
+                doc.querySelectorAll('.video-overlay').forEach(el => el.remove());
+
+                // HTML holen
+                let html = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+
+                // URLs zurück zu relativ
+                const cdnUrl = `https://cdn.jsdelivr.net/gh/${CONFIG.owner}/${CONFIG.repo}@${CONFIG.branch}/`;
+                html = html.replace(new RegExp(cdnUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), '');
+
+                // Speichern
+                const changeCount = state.pendingChanges.length;
+                const message = isAutosave
+                    ? `Autosave: ${changeCount} Änderung${changeCount > 1 ? 'en' : ''} an ${state.currentPage}`
+                    : `${changeCount} Änderung${changeCount > 1 ? 'en' : ''} an ${state.currentPage}`;
+
+                await github.saveFile(state.currentPage, html, message);
+
+                // State zurücksetzen
+                state.changes = state.changes.concat(state.pendingChanges);
+                state.pendingChanges = [];
+                state.hasUnsavedChanges = false;
+                updateStatus('saved');
+                updateChangesList();
+                loadVersions();
+
+                toast(isAutosave ? 'Automatisch gespeichert' : 'Gespeichert!', 'success');
+
+                // Seite neu laden um sauberen State zu haben
+                await loadPage(state.currentPage);
+
+            } catch (e) {
+                console.error(e);
+                updateStatus('error');
+                toast('Speichern fehlgeschlagen: ' + e.message, 'error');
             }
 
-            txt += `\n${'='.repeat(50)}\nBitte diese Datei an Nick senden!\n`;
-
-            // Änderungen als Textdatei downloaden
-            const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = `Website-Aenderungen-${new Date().toISOString().split('T')[0]}.txt`;
-            a.click();
-
-            // Neue Bilder downloaden
-            images.forEach((img, i) => {
-                setTimeout(() => {
-                    const link = document.createElement('a');
-                    link.href = img.data;
-                    link.download = img.name;
-                    link.click();
-                }, (i + 1) * 500);
-            });
-
-            toast('Gespeichert! Dateien werden heruntergeladen...', 'success');
+            state.isSaving = false;
         }
 
-        // Hilfe
+        function saveNow() {
+            if (state.pendingChanges.length === 0) {
+                toast('Keine Änderungen zum Speichern', 'info');
+                return;
+            }
+            saveChanges(false);
+        }
+
+        // ============================================
+        // VERSIONEN
+        // ============================================
+        async function loadVersions() {
+            try {
+                const commits = await github.getCommits();
+                state.versions = commits;
+                renderVersions();
+            } catch (e) {
+                console.error('Fehler beim Laden der Versionen:', e);
+            }
+        }
+
+        function renderVersions() {
+            const list = document.getElementById('versionList');
+
+            if (state.versions.length === 0) {
+                list.innerHTML = '<p style="color: #999; font-size: 0.85rem;">Keine Versionen gefunden</p>';
+                return;
+            }
+
+            list.innerHTML = state.versions.slice(0, 5).map((v, i) => {
+                const date = new Date(v.commit.author.date);
+                const dateStr = date.toLocaleDateString('de') + ' ' + date.toLocaleTimeString('de', { hour: '2-digit', minute: '2-digit' });
+                return `
+                    <div class="version-item ${i === 0 ? 'current' : ''}" onclick="selectVersion('${v.sha}', '${dateStr}', '${v.commit.message.replace(/'/g, "\\'")}')">
+                        <div class="version-date">${dateStr}</div>
+                        <div class="version-msg">${v.commit.message.substring(0, 50)}${v.commit.message.length > 50 ? '...' : ''}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showVersions() {
+            loadVersions();
+            toast('Versionen in der Seitenleiste', 'info');
+        }
+
+        function selectVersion(sha, date, message) {
+            state.selectedVersion = sha;
+            document.getElementById('versionInfo').innerHTML = `
+                <strong>Datum:</strong> ${date}<br>
+                <strong>Beschreibung:</strong> ${message}<br><br>
+                <span style="color: #f44336;">Achtung: Alle Änderungen nach dieser Version werden überschrieben!</span>
+            `;
+            document.getElementById('versionModal').classList.add('active');
+        }
+
+        function closeVersionModal() {
+            document.getElementById('versionModal').classList.remove('active');
+            state.selectedVersion = null;
+        }
+
+        async function confirmRestore() {
+            if (!state.selectedVersion || !state.currentPage) return;
+
+            closeVersionModal();
+            document.getElementById('loadingOverlay').classList.remove('hidden');
+
+            try {
+                // Alten Inhalt holen
+                const content = await github.getFileAtCommit(state.currentPage, state.selectedVersion);
+
+                // Als neuen Commit speichern
+                await github.saveFile(
+                    state.currentPage,
+                    content,
+                    `Wiederhergestellt: ${state.currentPage} auf Version ${state.selectedVersion.substring(0, 7)}`
+                );
+
+                toast('Version wiederhergestellt!', 'success');
+                await loadPage(state.currentPage);
+                loadVersions();
+
+            } catch (e) {
+                console.error(e);
+                toast('Fehler beim Wiederherstellen: ' + e.message, 'error');
+                document.getElementById('loadingOverlay').classList.add('hidden');
+            }
+        }
+
+        // ============================================
+        // RÜCKGÄNGIG
+        // ============================================
+        function undoLastChange() {
+            if (state.pendingChanges.length === 0) {
+                toast('Keine Änderungen zum Rückgängig machen', 'info');
+                return;
+            }
+
+            state.pendingChanges.pop();
+            state.hasUnsavedChanges = state.pendingChanges.length > 0;
+            updateStatus(state.hasUnsavedChanges ? 'unsaved' : 'saved');
+            updateChangesList();
+
+            // Seite neu laden um Änderungen zu verwerfen
+            loadPage(state.currentPage);
+            toast('Letzte Änderung rückgängig gemacht', 'success');
+        }
+
+        // ============================================
+        // UI UPDATES
+        // ============================================
+        function updateChangesList() {
+            const list = document.getElementById('changesList');
+
+            if (state.pendingChanges.length === 0) {
+                list.innerHTML = '<p style="color: #999; font-size: 0.85rem;">Noch keine Änderungen</p>';
+                return;
+            }
+
+            list.innerHTML = state.pendingChanges.map(c => {
+                let preview = '';
+                if (c.type === 'text') {
+                    preview = c.newVal.substring(0, 30) + (c.newVal.length > 30 ? '...' : '');
+                } else if (c.type === 'image') {
+                    preview = c.newFile;
+                } else if (c.type === 'video') {
+                    preview = 'Neues Video';
+                }
+                return `
+                    <div class="change-item ${c.type}">
+                        <div class="change-type">${c.type === 'text' ? 'Text' : c.type === 'image' ? 'Bild' : 'Video'}</div>
+                        <div class="change-preview">${preview}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ============================================
+        // MODALS & TOAST
+        // ============================================
         function showHelp() {
             document.getElementById('helpModal').classList.add('active');
         }
@@ -854,7 +1442,6 @@
             document.getElementById('helpModal').classList.remove('active');
         }
 
-        // Toast
         function toast(msg, type = '') {
             const t = document.createElement('div');
             t.className = `toast ${type}`;
@@ -863,13 +1450,14 @@
             setTimeout(() => t.remove(), 3000);
         }
 
-        // Upload Setup
+        // ============================================
+        // FILE UPLOAD
+        // ============================================
         document.addEventListener('DOMContentLoaded', () => {
             const zone = document.getElementById('uploadZone');
             const input = document.getElementById('imgInput');
 
             zone.onclick = () => input.click();
-
             zone.ondragover = (e) => {
                 e.preventDefault();
                 zone.classList.add('dragover');
@@ -880,19 +1468,15 @@
                 zone.classList.remove('dragover');
                 handleFile(e.dataTransfer.files[0]);
             };
-
             input.onchange = (e) => handleFile(e.target.files[0]);
 
-            // Hilfe beim ersten Mal
-            if (!localStorage.getItem('editorSeenV2')) {
-                setTimeout(showHelp, 500);
-                localStorage.setItem('editorSeenV2', '1');
-            }
+            // Setup prüfen
+            checkSetup();
         });
 
         function handleFile(file) {
-            if (!file?.type.startsWith('image/')) return toast('Nur Bilddateien erlaubt', 'error');
-            if (file.size > 10 * 1024 * 1024) return toast('Bild zu groß (max 10MB)', 'error');
+            if (!file?.type.startsWith('image/')) return toast('Nur Bilder', 'error');
+            if (file.size > 10 * 1024 * 1024) return toast('Max 10MB', 'error');
 
             const reader = new FileReader();
             reader.onload = (e) => {
@@ -904,11 +1488,13 @@
             reader.readAsDataURL(file);
         }
 
-        // Warnung bei ungespeicherten Änderungen
+        // ============================================
+        // WARNUNG BEI VERLASSEN
+        // ============================================
         window.onbeforeunload = (e) => {
-            if (changes.length) {
+            if (state.hasUnsavedChanges) {
                 e.preventDefault();
-                return e.returnValue = 'Du hast ungespeicherte Änderungen!';
+                return e.returnValue = 'Ungespeicherte Änderungen!';
             }
         };
     </script>
