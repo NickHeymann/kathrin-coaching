@@ -492,22 +492,33 @@
                     <option value="index.html">Startseite</option>
                     <option value="kathrin.html">Über Kathrin</option>
                     <option value="contact.html">Kontakt</option>
+                    <option value="impressum.html">Impressum</option>
+                    <option value="datenschutzerklaerung.html">Datenschutz</option>
                 </optgroup>
-                <optgroup label="Coaching">
+                <optgroup label="Coaching Angebote">
                     <option value="einzelbegleitung-sinnkrise-lebensumbruch.html">Einzelbegleitung</option>
                     <option value="paarbegleitung-beziehungskrise-neuanfang-kathrin-stahl.html">Paarbegleitung</option>
                     <option value="paar-retreat-in-portugal-beziehung-krise-kathrin-stahl.html">Paar-Retreat</option>
+                    <option value="ansaetze-ganzheitliche-begleitung-fuer-einzelne-paare.html">Ganzheitliche Begleitung</option>
+                    <option value="investition.html">Investition</option>
                 </optgroup>
                 <optgroup label="Portugal & Retreats">
-                    <option value="retreats-in-portugal.html">Retreats Portugal</option>
+                    <option value="retreats-in-portugal.html">Retreats Übersicht</option>
                     <option value="retreat-portugal-alentejo-kathrin-stahl.html">Retreat Alentejo</option>
                     <option value="einzelretreat-portugal-alentejo-kathrin-stahl.html">Einzelretreat</option>
-                    <option value="ruhiges-ferienhaus-im-alentejo-fuer-1-2-personen-kathrin-stahl.html">Ferienhaus</option>
+                    <option value="gruppenretreats-in-portugal_begleitung-mit-pferden.html">Gruppenretreats</option>
+                    <option value="ruhiges-ferienhaus-im-alentejo-fuer-1-2-personen-kathrin-stahl.html">Ferienhaus Alentejo</option>
+                    <option value="casinha.html">Casinha</option>
+                    <option value="wunder-retreat.html">Wunder Retreat</option>
+                    <option value="coaching-retreats-fuer-neubeginn-ab-40.html">Neubeginn ab 40</option>
                 </optgroup>
                 <optgroup label="Methoden">
                     <option value="systemische-aufstellungen.html">Systemische Aufstellungen</option>
-                    <option value="heilen-im-schutz-der-pferde.html">Pferdegestütztes Coaching</option>
+                    <option value="heilen-im-schutz-der-pferde.html">Heilen mit Pferden</option>
+                    <option value="pferdegestuetztes-coaching.html">Pferdegestütztes Coaching</option>
                     <option value="innere-fuehrung.html">Innere Führung</option>
+                    <option value="ausbildung-pferdegestuetztes-coaching.html">Ausbildung Coaching</option>
+                    <option value="holotropes-atmen-und-pferde.html">Holotropes Atmen</option>
                 </optgroup>
                 <optgroup label="Quiz & Tests">
                     <option value="quiz-paar-kompass.html">Paar-Kompass Quiz</option>
@@ -518,14 +529,16 @@
                     <option value="quiz-midlife.html">Midlife Quiz</option>
                 </optgroup>
                 <optgroup label="Themen">
-                    <option value="hochbegabung-hochsensibilitat.html">Hochbegabung</option>
+                    <option value="hochbegabung-hochsensibilitat.html">Hochbegabung & Hochsensibilität</option>
                     <option value="beziehungsprobleme.html">Beziehungsprobleme</option>
                     <option value="ehe-retten.html">Ehe retten</option>
                     <option value="gehen-oder-bleiben.html">Gehen oder Bleiben</option>
+                    <option value="entrollen-neuausrichtung.html">Entrollen & Neuausrichtung</option>
                 </optgroup>
                 <optgroup label="Blog & Medien">
-                    <option value="blog.html">Blog</option>
+                    <option value="blog.html">Blog Übersicht</option>
                     <option value="glueck-ueber-zweifel-dein-podcast.html">Podcast</option>
+                    <option value="glueck-ueber-zweifel-videos-mit-kathrin-stahl.html">Videos</option>
                     <option value="love-letters.html">Love Letters</option>
                 </optgroup>
             </select>
@@ -540,6 +553,7 @@
         </div>
 
         <div class="toolbar-right">
+            <button class="btn btn-ghost" id="annotateBtn" onclick="toggleAnnotateMode()">Notizen</button>
             <button class="btn btn-ghost" onclick="showVersions()">Versionen</button>
             <button class="btn btn-ghost" onclick="undoLastChange()">Rückgängig</button>
             <button class="btn btn-primary" onclick="saveNow()">Jetzt speichern</button>
@@ -587,6 +601,25 @@
 
     <iframe id="siteFrame" class="website-frame"></iframe>
 
+    <!-- Annotations Canvas Overlay -->
+    <canvas id="annotateCanvas" style="display:none; position:fixed; top:50px; left:0; right:300px; bottom:0; z-index:99995; cursor:crosshair;"></canvas>
+
+    <!-- Annotations Toolbar -->
+    <div id="annotateToolbar" style="display:none; position:fixed; top:60px; left:10px; background:white; border-radius:8px; padding:0.5rem; box-shadow:0 2px 15px rgba(0,0,0,0.2); z-index:99999; display:flex; flex-direction:column; gap:0.5rem;">
+        <button class="btn btn-ghost" onclick="setAnnotateTool('draw')" id="toolDraw" style="background:#e3f2fd;">Zeichnen</button>
+        <button class="btn btn-ghost" onclick="setAnnotateTool('arrow')" id="toolArrow">Pfeil</button>
+        <button class="btn btn-ghost" onclick="setAnnotateTool('text')" id="toolText">Text</button>
+        <div style="display:flex; gap:0.25rem; justify-content:center;">
+            <div onclick="setAnnotateColor('#f44336')" style="width:24px;height:24px;background:#f44336;border-radius:4px;cursor:pointer;border:2px solid transparent;" class="color-pick" data-color="#f44336"></div>
+            <div onclick="setAnnotateColor('#2196F3')" style="width:24px;height:24px;background:#2196F3;border-radius:4px;cursor:pointer;border:2px solid transparent;" class="color-pick" data-color="#2196F3"></div>
+            <div onclick="setAnnotateColor('#4CAF50')" style="width:24px;height:24px;background:#4CAF50;border-radius:4px;cursor:pointer;border:2px solid transparent;" class="color-pick" data-color="#4CAF50"></div>
+        </div>
+        <hr style="border:none;border-top:1px solid #ddd;margin:0.25rem 0;">
+        <button class="btn btn-ghost" onclick="clearAnnotations()">Löschen</button>
+        <button class="btn btn-primary" onclick="saveAnnotations()">Speichern</button>
+        <button class="btn btn-danger" onclick="toggleAnnotateMode()" style="font-size:0.75rem;">Beenden</button>
+    </div>
+
     <div class="toast-container" id="toasts"></div>
 
     <!-- Bild Upload Modal -->
@@ -606,15 +639,39 @@
         </div>
     </div>
 
-    <!-- Video URL Modal -->
+    <!-- Video Modal -->
     <div class="modal-bg" id="videoModal">
-        <div class="modal">
+        <div class="modal" style="max-width: 500px;">
             <h3>Video ändern</h3>
-            <p style="color:#666; margin-bottom:1rem;">YouTube oder Vimeo URL eingeben:</p>
-            <input type="text" class="modal-input" id="videoInput" placeholder="https://youtube.com/watch?v=...">
+
+            <!-- Tab-Auswahl -->
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                <button class="btn btn-primary" id="videoTabUrl" onclick="switchVideoTab('url')" style="flex:1;">YouTube/Vimeo URL</button>
+                <button class="btn btn-ghost" id="videoTabUpload" onclick="switchVideoTab('upload')" style="flex:1;">Video hochladen</button>
+            </div>
+
+            <!-- URL Eingabe -->
+            <div id="videoUrlSection">
+                <p style="color:#666; margin-bottom:0.75rem; font-size: 0.9rem;">YouTube oder Vimeo URL eingeben:</p>
+                <input type="text" class="modal-input" id="videoInput" placeholder="https://youtube.com/watch?v=...">
+            </div>
+
+            <!-- Video Upload -->
+            <div id="videoUploadSection" style="display: none;">
+                <div class="upload-zone" id="videoUploadZone">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎬</div>
+                    <p><strong>Video hierher ziehen</strong></p>
+                    <p style="font-size: 0.8rem; color: #999;">oder klicken zum Auswählen</p>
+                    <p style="font-size: 0.75rem; color: #999; margin-top: 0.5rem;">MP4, WebM, MOV (max. 50 MB)</p>
+                    <input type="file" id="videoFileInput" accept="video/mp4,video/webm,video/quicktime">
+                </div>
+                <video id="videoPreview" style="display:none; max-width:100%; max-height:150px; border-radius:8px; margin-top:1rem;" controls></video>
+                <p id="videoFileName" style="display:none; font-size:0.85rem; color:#666; margin-top:0.5rem;"></p>
+            </div>
+
             <div class="modal-btns">
                 <button class="btn btn-cancel" onclick="closeVideoModal()">Abbrechen</button>
-                <button class="btn btn-primary" onclick="confirmVideo()">Ändern</button>
+                <button class="btn btn-primary" id="videoConfirmBtn" onclick="confirmVideo()">Ändern</button>
             </div>
         </div>
     </div>
@@ -783,6 +840,22 @@
                     `/repos/${CONFIG.owner}/${CONFIG.repo}/contents/images/${filename}`,
                     { method: 'PUT', body: JSON.stringify(body) }
                 );
+            },
+
+            async uploadVideo(filename, base64Data) {
+                // Entferne data:video/...;base64, prefix
+                const content = base64Data.split(',')[1];
+
+                const body = {
+                    message: `Video hochgeladen: ${filename}`,
+                    content: content,
+                    branch: CONFIG.branch
+                };
+
+                return this.request(
+                    `/repos/${CONFIG.owner}/${CONFIG.repo}/contents/videos/${filename}`,
+                    { method: 'PUT', body: JSON.stringify(body) }
+                );
             }
         };
 
@@ -830,6 +903,37 @@
         function startEditor() {
             loadVersions();
             startAutosave();
+            preloadPages(); // Alle Seiten im Hintergrund laden
+        }
+
+        // ============================================
+        // PRELOADING (für schnelleres Laden)
+        // ============================================
+        async function preloadPages() {
+            // Alle verfügbaren Seiten aus dem Dropdown holen
+            const select = document.getElementById('pageSelect');
+            const pages = Array.from(select.options)
+                .filter(opt => opt.value && opt.value !== '')
+                .map(opt => opt.value);
+
+            // Im Hintergrund laden (ohne UI zu blockieren)
+            for (const page of pages) {
+                if (pageCache[page]) continue; // Schon geladen
+
+                try {
+                    const rawUrl = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.branch}/${page}`;
+                    const response = await fetch(rawUrl);
+                    if (response.ok) {
+                        pageCache[page] = await response.text();
+                    }
+                } catch (e) {
+                    // Fehler ignorieren, wird später erneut versucht
+                }
+
+                // Kleine Pause um Browser nicht zu überlasten
+                await new Promise(r => setTimeout(r, 100));
+            }
+            console.log('Preload abgeschlossen:', Object.keys(pageCache).length, 'Seiten');
         }
 
         // ============================================
@@ -904,22 +1008,33 @@
             updateChangesList();
 
             try {
-                // Zwei Requests parallel: schneller raw-Content + SHA für Speichern
-                const rawUrl = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.branch}/${page}`;
+                let html;
 
-                // Beide parallel starten für maximale Geschwindigkeit
-                const [htmlResponse, shaPromise] = await Promise.all([
-                    fetch(rawUrl + '?t=' + Date.now()), // Cache-Busting
+                // Erst Cache prüfen (sofort verfügbar!)
+                if (pageCache[page]) {
+                    html = pageCache[page];
+                    // SHA im Hintergrund holen für späteres Speichern
                     github.request(`/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${page}?ref=${CONFIG.branch}`)
                         .then(data => { state.fileSha[page] = data.sha; })
-                        .catch(() => {}) // SHA-Fehler ignorieren, wird später geholt
-                ]);
+                        .catch(() => {});
+                } else {
+                    // Nicht im Cache: von GitHub laden
+                    const rawUrl = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.branch}/${page}`;
 
-                if (!htmlResponse.ok) {
-                    throw new Error('Seite nicht gefunden');
+                    const [htmlResponse] = await Promise.all([
+                        fetch(rawUrl + '?t=' + Date.now()),
+                        github.request(`/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${page}?ref=${CONFIG.branch}`)
+                            .then(data => { state.fileSha[page] = data.sha; })
+                            .catch(() => {})
+                    ]);
+
+                    if (!htmlResponse.ok) {
+                        throw new Error('Seite nicht gefunden');
+                    }
+
+                    html = await htmlResponse.text();
+                    pageCache[page] = html; // Im Cache speichern
                 }
-
-                let html = await htmlResponse.text();
 
                 // Original speichern
                 state.originalContent[page] = html;
@@ -970,20 +1085,21 @@
             const editorStyles = `
                 <style id="editor-styles">
                     h1,h2,h3,h4,h5,h6,p,span,li,td,th,label,a,button {
-                        transition: outline 0.15s, background 0.15s !important;
+                        transition: outline 0.15s !important;
                     }
                     h1:hover,h2:hover,h3:hover,h4:hover,h5:hover,h6:hover,
-                    p:hover,li:hover,label:hover,button:hover {
+                    p:hover,li:hover,label:hover,button:hover,span:hover,td:hover,th:hover {
                         outline: 2px dashed #D4A574 !important;
                         outline-offset: 3px !important;
                         cursor: text !important;
                     }
                     [data-editing] {
-                        background: #fff3cd !important;
                         outline: 2px solid #D4A574 !important;
+                        outline-offset: 2px !important;
                     }
                     [data-changed] {
-                        background: #c8e6c9 !important;
+                        outline: 2px solid #4CAF50 !important;
+                        outline-offset: 2px !important;
                     }
                     img {
                         transition: outline 0.15s !important;
@@ -1025,16 +1141,51 @@
             const doc = frame.contentDocument;
             if (!doc) return;
 
-            // Texte
-            doc.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,label,span,button').forEach((el, i) => {
+            // Texte (erweitert um Quiz-Elemente)
+            const textSelectors = 'h1,h2,h3,h4,h5,h6,p,li,label,span,button,td,th,.quiz-question,.quiz-answer,.question-text,.answer-text,.option-text,[data-question],[data-answer]';
+            doc.querySelectorAll(textSelectors).forEach((el, i) => {
                 const txt = el.textContent.trim();
-                if (txt.length > 2 && !el.querySelector('img')) {
+                // Text muss mindestens 2 Zeichen haben und kein Bild/Input enthalten
+                if (txt.length > 2 && !el.querySelector('img') && !el.querySelector('input') && !el.querySelector('textarea')) {
                     el.dataset.editIdx = i;
                     el.dataset.editOrig = txt;
                     el.addEventListener('click', (e) => {
                         e.preventDefault();
                         e.stopPropagation();
                         editText(el);
+                    });
+                }
+            });
+
+            // Input/Textarea-Platzhalter editierbar machen (für Quiz-Eingabefelder)
+            doc.querySelectorAll('input[placeholder], textarea[placeholder]').forEach((input, i) => {
+                const placeholder = input.placeholder;
+                if (placeholder && placeholder.length > 1) {
+                    // Wrapper für besseres Klick-Handling
+                    input.dataset.editIdx = 'placeholder-' + i;
+                    input.dataset.editOrig = placeholder;
+                    input.addEventListener('dblclick', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const newPlaceholder = prompt('Neuer Platzhalter-Text:', placeholder);
+                        if (newPlaceholder && newPlaceholder !== placeholder) {
+                            input.placeholder = newPlaceholder;
+                            input.style.outline = '2px solid #4CAF50';
+
+                            const change = {
+                                type: 'placeholder',
+                                idx: input.dataset.editIdx,
+                                orig: placeholder,
+                                newVal: newPlaceholder,
+                                page: state.currentPage,
+                                timestamp: Date.now()
+                            };
+                            state.pendingChanges.push(change);
+                            state.hasUnsavedChanges = true;
+                            updateStatus('unsaved');
+                            updateChangesList();
+                            toast('Platzhalter geändert', 'success');
+                        }
                     });
                 }
             });
@@ -1052,7 +1203,7 @@
                 }
             });
 
-            // Videos
+            // Videos (YouTube/Vimeo iframes)
             doc.querySelectorAll('iframe').forEach((iframe, i) => {
                 const src = iframe.src || '';
                 if (src.includes('youtube') || src.includes('vimeo')) {
@@ -1072,6 +1223,26 @@
                         editVideo(iframe, overlay);
                     });
                 }
+            });
+
+            // Native Video-Elemente
+            doc.querySelectorAll('video').forEach((video, i) => {
+                video.style.cursor = 'pointer';
+                video.dataset.editIdx = 'native-' + i;
+                const src = video.src || video.querySelector('source')?.src || '';
+                video.dataset.editOrig = src;
+
+                video.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    // Für native Videos: direkt Upload-Dialog öffnen
+                    currentVideo = { video: video, isNative: true };
+                    videoMode = 'upload';
+                    switchVideoTab('upload');
+                    document.getElementById('videoPreview').style.display = 'none';
+                    document.getElementById('videoFileName').style.display = 'none';
+                    document.getElementById('videoModal').classList.add('active');
+                });
             });
 
             // Links deaktivieren
@@ -1200,51 +1371,134 @@
         // VIDEO EDITING
         // ============================================
         let currentVideo = null;
+        let newVideoData = null;
+        let videoMode = 'url'; // 'url' oder 'upload'
 
         function editVideo(iframe, overlay) {
             currentVideo = { iframe, overlay };
             document.getElementById('videoInput').value = overlay.dataset.editOrig;
+            newVideoData = null;
+            videoMode = 'url';
+            switchVideoTab('url');
+            document.getElementById('videoPreview').style.display = 'none';
+            document.getElementById('videoFileName').style.display = 'none';
             document.getElementById('videoModal').classList.add('active');
+        }
+
+        function switchVideoTab(tab) {
+            videoMode = tab;
+            const urlBtn = document.getElementById('videoTabUrl');
+            const uploadBtn = document.getElementById('videoTabUpload');
+            const urlSection = document.getElementById('videoUrlSection');
+            const uploadSection = document.getElementById('videoUploadSection');
+
+            if (tab === 'url') {
+                urlBtn.className = 'btn btn-primary';
+                uploadBtn.className = 'btn btn-ghost';
+                urlSection.style.display = 'block';
+                uploadSection.style.display = 'none';
+            } else {
+                urlBtn.className = 'btn btn-ghost';
+                uploadBtn.className = 'btn btn-primary';
+                urlSection.style.display = 'none';
+                uploadSection.style.display = 'block';
+            }
         }
 
         function closeVideoModal() {
             document.getElementById('videoModal').classList.remove('active');
+            document.getElementById('videoFileInput').value = '';
+            document.getElementById('videoPreview').style.display = 'none';
             currentVideo = null;
+            newVideoData = null;
         }
 
-        function confirmVideo() {
-            let url = document.getElementById('videoInput').value.trim();
-            if (!url) return toast('URL eingeben', 'error');
-            if (!url.includes('youtube') && !url.includes('vimeo')) {
-                return toast('Nur YouTube oder Vimeo', 'error');
+        function handleVideoFile(file) {
+            if (!file) return;
+            const validTypes = ['video/mp4', 'video/webm', 'video/quicktime'];
+            if (!validTypes.includes(file.type)) {
+                return toast('Nur MP4, WebM oder MOV', 'error');
+            }
+            if (file.size > 50 * 1024 * 1024) {
+                return toast('Max. 50 MB', 'error');
             }
 
-            if (url.includes('youtube.com/watch')) {
-                const id = new URL(url).searchParams.get('v');
-                url = `https://www.youtube.com/embed/${id}`;
-            } else if (url.includes('youtu.be/')) {
-                const id = url.split('youtu.be/')[1].split('?')[0];
-                url = `https://www.youtube.com/embed/${id}`;
-            }
-
-            currentVideo.iframe.src = url;
-            currentVideo.iframe.style.outline = '3px solid #4CAF50';
-
-            const change = {
-                type: 'video',
-                idx: currentVideo.overlay.dataset.editIdx,
-                orig: currentVideo.overlay.dataset.editOrig,
-                newVal: url,
-                page: state.currentPage,
-                timestamp: Date.now()
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                newVideoData = { data: e.target.result, name: file.name, type: file.type };
+                document.getElementById('videoPreview').src = e.target.result;
+                document.getElementById('videoPreview').style.display = 'block';
+                document.getElementById('videoFileName').textContent = file.name;
+                document.getElementById('videoFileName').style.display = 'block';
             };
+            reader.readAsDataURL(file);
+        }
 
-            state.pendingChanges.push(change);
-            state.hasUnsavedChanges = true;
-            updateStatus('unsaved');
-            updateChangesList();
-            closeVideoModal();
-            toast('Video geändert', 'success');
+        async function confirmVideo() {
+            if (videoMode === 'upload' && newVideoData) {
+                // Video hochladen
+                try {
+                    toast('Video wird hochgeladen...', 'info');
+                    await github.uploadVideo(newVideoData.name, newVideoData.data);
+
+                    // iframe durch video-Element ersetzen
+                    const videoUrl = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.branch}/videos/${newVideoData.name}`;
+
+                    const change = {
+                        type: 'video-upload',
+                        idx: currentVideo.overlay.dataset.editIdx,
+                        orig: currentVideo.overlay.dataset.editOrig,
+                        newFile: newVideoData.name,
+                        newUrl: videoUrl,
+                        page: state.currentPage,
+                        timestamp: Date.now()
+                    };
+
+                    state.pendingChanges.push(change);
+                    state.hasUnsavedChanges = true;
+                    updateStatus('unsaved');
+                    updateChangesList();
+                    closeVideoModal();
+                    toast('Video hochgeladen!', 'success');
+
+                } catch (e) {
+                    toast('Upload fehlgeschlagen: ' + e.message, 'error');
+                }
+            } else {
+                // YouTube/Vimeo URL
+                let url = document.getElementById('videoInput').value.trim();
+                if (!url) return toast('URL eingeben', 'error');
+                if (!url.includes('youtube') && !url.includes('vimeo')) {
+                    return toast('Nur YouTube oder Vimeo', 'error');
+                }
+
+                if (url.includes('youtube.com/watch')) {
+                    const id = new URL(url).searchParams.get('v');
+                    url = `https://www.youtube.com/embed/${id}`;
+                } else if (url.includes('youtu.be/')) {
+                    const id = url.split('youtu.be/')[1].split('?')[0];
+                    url = `https://www.youtube.com/embed/${id}`;
+                }
+
+                currentVideo.iframe.src = url;
+                currentVideo.iframe.style.outline = '3px solid #4CAF50';
+
+                const change = {
+                    type: 'video',
+                    idx: currentVideo.overlay.dataset.editIdx,
+                    orig: currentVideo.overlay.dataset.editOrig,
+                    newVal: url,
+                    page: state.currentPage,
+                    timestamp: Date.now()
+                };
+
+                state.pendingChanges.push(change);
+                state.hasUnsavedChanges = true;
+                updateStatus('unsaved');
+                updateChangesList();
+                closeVideoModal();
+                toast('Video geändert', 'success');
+            }
         }
 
         // ============================================
@@ -1432,6 +1686,198 @@
         }
 
         // ============================================
+        // ANNOTATIONS / FEEDBACK MODUS
+        // ============================================
+        let annotateMode = false;
+        let annotateTool = 'draw';
+        let annotateColor = '#f44336';
+        let annotateCtx = null;
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        let annotations = []; // Speichert alle Annotationen
+
+        function toggleAnnotateMode() {
+            annotateMode = !annotateMode;
+            const canvas = document.getElementById('annotateCanvas');
+            const toolbar = document.getElementById('annotateToolbar');
+            const btn = document.getElementById('annotateBtn');
+
+            if (annotateMode) {
+                // Canvas initialisieren
+                canvas.style.display = 'block';
+                toolbar.style.display = 'flex';
+                btn.classList.add('btn-primary');
+                btn.classList.remove('btn-ghost');
+
+                // Canvas-Größe anpassen
+                const rect = document.getElementById('siteFrame').getBoundingClientRect();
+                canvas.width = rect.width;
+                canvas.height = rect.height;
+                canvas.style.width = rect.width + 'px';
+                canvas.style.height = rect.height + 'px';
+
+                annotateCtx = canvas.getContext('2d');
+                annotateCtx.lineCap = 'round';
+                annotateCtx.lineJoin = 'round';
+                annotateCtx.lineWidth = 3;
+                annotateCtx.strokeStyle = annotateColor;
+
+                // Event-Listener
+                canvas.addEventListener('mousedown', startDrawing);
+                canvas.addEventListener('mousemove', draw);
+                canvas.addEventListener('mouseup', stopDrawing);
+                canvas.addEventListener('mouseout', stopDrawing);
+                canvas.addEventListener('click', handleCanvasClick);
+
+                toast('Feedback-Modus aktiv - Zeichne auf die Website!', 'info');
+            } else {
+                canvas.style.display = 'none';
+                toolbar.style.display = 'none';
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-ghost');
+
+                // Event-Listener entfernen
+                canvas.removeEventListener('mousedown', startDrawing);
+                canvas.removeEventListener('mousemove', draw);
+                canvas.removeEventListener('mouseup', stopDrawing);
+                canvas.removeEventListener('mouseout', stopDrawing);
+                canvas.removeEventListener('click', handleCanvasClick);
+            }
+        }
+
+        function setAnnotateTool(tool) {
+            annotateTool = tool;
+            document.getElementById('toolDraw').style.background = tool === 'draw' ? '#e3f2fd' : 'transparent';
+            document.getElementById('toolArrow').style.background = tool === 'arrow' ? '#e3f2fd' : 'transparent';
+            document.getElementById('toolText').style.background = tool === 'text' ? '#e3f2fd' : 'transparent';
+
+            const canvas = document.getElementById('annotateCanvas');
+            canvas.style.cursor = tool === 'text' ? 'text' : 'crosshair';
+        }
+
+        function setAnnotateColor(color) {
+            annotateColor = color;
+            if (annotateCtx) annotateCtx.strokeStyle = color;
+
+            // Farb-Auswahl visuell aktualisieren
+            document.querySelectorAll('.color-pick').forEach(el => {
+                el.style.border = el.dataset.color === color ? '2px solid #333' : '2px solid transparent';
+            });
+        }
+
+        function startDrawing(e) {
+            if (annotateTool === 'text') return;
+            isDrawing = true;
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+
+            if (annotateTool === 'arrow') {
+                // Pfeil-Startpunkt merken
+                annotateCtx.arrowStart = { x: lastX, y: lastY };
+            }
+        }
+
+        function draw(e) {
+            if (!isDrawing || annotateTool !== 'draw') return;
+
+            annotateCtx.beginPath();
+            annotateCtx.moveTo(lastX, lastY);
+            annotateCtx.lineTo(e.offsetX, e.offsetY);
+            annotateCtx.stroke();
+
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        }
+
+        function stopDrawing(e) {
+            if (!isDrawing) return;
+            isDrawing = false;
+
+            if (annotateTool === 'arrow' && annotateCtx.arrowStart) {
+                // Pfeil zeichnen
+                const start = annotateCtx.arrowStart;
+                const end = { x: e.offsetX, y: e.offsetY };
+                drawArrow(start.x, start.y, end.x, end.y);
+                annotateCtx.arrowStart = null;
+            }
+        }
+
+        function drawArrow(fromX, fromY, toX, toY) {
+            const headLength = 15;
+            const angle = Math.atan2(toY - fromY, toX - fromX);
+
+            annotateCtx.beginPath();
+            annotateCtx.moveTo(fromX, fromY);
+            annotateCtx.lineTo(toX, toY);
+            annotateCtx.stroke();
+
+            // Pfeilspitze
+            annotateCtx.beginPath();
+            annotateCtx.moveTo(toX, toY);
+            annotateCtx.lineTo(toX - headLength * Math.cos(angle - Math.PI / 6), toY - headLength * Math.sin(angle - Math.PI / 6));
+            annotateCtx.moveTo(toX, toY);
+            annotateCtx.lineTo(toX - headLength * Math.cos(angle + Math.PI / 6), toY - headLength * Math.sin(angle + Math.PI / 6));
+            annotateCtx.stroke();
+        }
+
+        function handleCanvasClick(e) {
+            if (annotateTool !== 'text') return;
+
+            const text = prompt('Notiz eingeben:');
+            if (text) {
+                annotateCtx.font = '14px sans-serif';
+                annotateCtx.fillStyle = annotateColor;
+
+                // Hintergrund für bessere Lesbarkeit
+                const metrics = annotateCtx.measureText(text);
+                annotateCtx.fillStyle = 'rgba(255,255,255,0.9)';
+                annotateCtx.fillRect(e.offsetX - 2, e.offsetY - 16, metrics.width + 4, 20);
+
+                annotateCtx.fillStyle = annotateColor;
+                annotateCtx.fillText(text, e.offsetX, e.offsetY);
+
+                annotations.push({ type: 'text', x: e.offsetX, y: e.offsetY, text: text, color: annotateColor });
+            }
+        }
+
+        function clearAnnotations() {
+            const canvas = document.getElementById('annotateCanvas');
+            annotateCtx.clearRect(0, 0, canvas.width, canvas.height);
+            annotations = [];
+            toast('Alle Notizen gelöscht', 'info');
+        }
+
+        async function saveAnnotations() {
+            const canvas = document.getElementById('annotateCanvas');
+            const dataUrl = canvas.toDataURL('image/png');
+
+            // Screenshot als Feedback speichern
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            const filename = `feedback-${state.currentPage.replace('.html', '')}-${timestamp}.png`;
+
+            try {
+                await github.uploadImage(filename.replace('feedback-', 'feedback/'), dataUrl);
+                toast('Feedback gespeichert!', 'success');
+
+                // Auch als Änderung tracken
+                const change = {
+                    type: 'feedback',
+                    page: state.currentPage,
+                    filename: filename,
+                    timestamp: Date.now()
+                };
+                state.changes.push(change);
+
+            } catch (e) {
+                // Fallback: als Download anbieten
+                const link = document.createElement('a');
+                link.download = filename;
+                link.href = dataUrl;
+                link.click();
+                toast('Feedback als Datei heruntergeladen', 'success');
+            }
+        }
+
+        // ============================================
         // UI UPDATES
         // ============================================
         function updateChangesList() {
@@ -1482,6 +1928,7 @@
         // FILE UPLOAD
         // ============================================
         document.addEventListener('DOMContentLoaded', () => {
+            // Bild Upload
             const zone = document.getElementById('uploadZone');
             const input = document.getElementById('imgInput');
 
@@ -1497,6 +1944,23 @@
                 handleFile(e.dataTransfer.files[0]);
             };
             input.onchange = (e) => handleFile(e.target.files[0]);
+
+            // Video Upload
+            const videoZone = document.getElementById('videoUploadZone');
+            const videoInput = document.getElementById('videoFileInput');
+
+            videoZone.onclick = () => videoInput.click();
+            videoZone.ondragover = (e) => {
+                e.preventDefault();
+                videoZone.classList.add('dragover');
+            };
+            videoZone.ondragleave = () => videoZone.classList.remove('dragover');
+            videoZone.ondrop = (e) => {
+                e.preventDefault();
+                videoZone.classList.remove('dragover');
+                handleVideoFile(e.dataTransfer.files[0]);
+            };
+            videoInput.onchange = (e) => handleVideoFile(e.target.files[0]);
 
             // Setup prüfen
             checkSetup();
