@@ -705,20 +705,30 @@
                 return response.json();
             },
 
+            // UTF-8 korrekt dekodieren (für Umlaute)
+            decodeBase64UTF8(base64) {
+                const binary = atob(base64);
+                const bytes = new Uint8Array(binary.length);
+                for (let i = 0; i < binary.length; i++) {
+                    bytes[i] = binary.charCodeAt(i);
+                }
+                return new TextDecoder('utf-8').decode(bytes);
+            },
+
             async getFile(path) {
                 try {
                     const data = await this.request(
                         `/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${path}?ref=${CONFIG.branch}`
                     );
                     state.fileSha[path] = data.sha;
-                    return atob(data.content);
+                    return this.decodeBase64UTF8(data.content);
                 } catch (e) {
                     // Datei existiert nicht auf kathrin-edits, hole von main
                     try {
                         const data = await this.request(
                             `/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${path}?ref=${CONFIG.mainBranch}`
                         );
-                        return atob(data.content);
+                        return this.decodeBase64UTF8(data.content);
                     } catch (e2) {
                         throw new Error('Datei nicht gefunden');
                     }
@@ -756,7 +766,7 @@
                 const data = await this.request(
                     `/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${path}?ref=${sha}`
                 );
-                return atob(data.content);
+                return this.decodeBase64UTF8(data.content);
             },
 
             async uploadImage(filename, base64Data) {
