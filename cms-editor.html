@@ -3,23 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Editor - Glück über Zweifel</title>
+    <title>Website bearbeiten - Glück über Zweifel</title>
     <style>
-        :root {
-            --primary: #2C4A47;
-            --primary-light: #3d6560;
-            --accent: #D4A574;
-            --accent-hover: #c49564;
-            --bg: #f8f6f3;
-            --card-bg: #ffffff;
-            --text: #333333;
-            --text-light: #666666;
-            --border: #e0ddd8;
-            --success: #4CAF50;
-            --warning: #ff9800;
-            --danger: #f44336;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -28,42 +13,82 @@
 
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
         }
 
-        /* Header */
-        .header {
-            background: var(--primary);
-            color: white;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
+        /* Editor Toolbar - Fixed am oberen Rand */
+        .editor-toolbar {
+            position: fixed;
             top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .header h1 {
-            font-size: 1.5rem;
-            font-weight: 500;
-        }
-
-        .header-actions {
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(135deg, #2C4A47 0%, #1a2e2c 100%);
+            color: white;
             display: flex;
-            gap: 1rem;
             align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            z-index: 10000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
         }
 
-        /* Buttons */
+        .toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .toolbar-logo {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toolbar-logo span {
+            opacity: 0.7;
+            font-weight: 400;
+        }
+
+        .page-selector {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 0.95rem;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .page-selector:focus {
+            outline: none;
+            border-color: #D4A574;
+        }
+
+        .page-selector option {
+            background: #2C4A47;
+            color: white;
+        }
+
+        .toolbar-center {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toolbar-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
         .btn {
-            padding: 0.75rem 1.5rem;
+            padding: 0.6rem 1.2rem;
             border: none;
             border-radius: 8px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: all 0.2s;
             display: inline-flex;
@@ -73,348 +98,159 @@
         }
 
         .btn-primary {
-            background: var(--accent);
+            background: #D4A574;
             color: white;
         }
 
         .btn-primary:hover {
-            background: var(--accent-hover);
+            background: #c49564;
             transform: translateY(-1px);
         }
 
         .btn-secondary {
-            background: white;
-            color: var(--primary);
-            border: 2px solid var(--primary);
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
         .btn-secondary:hover {
-            background: var(--primary);
-            color: white;
+            background: rgba(255,255,255,0.25);
         }
 
         .btn-success {
-            background: var(--success);
+            background: #4CAF50;
             color: white;
         }
 
-        .btn-danger {
-            background: var(--danger);
+        .btn-success:hover {
+            background: #43a047;
+        }
+
+        .change-counter {
+            background: #ff9800;
             color: white;
-        }
-
-        /* Main Layout */
-        .main-container {
-            display: flex;
-            min-height: calc(100vh - 70px);
-        }
-
-        /* Sidebar */
-        .sidebar {
-            width: 280px;
-            background: var(--card-bg);
-            border-right: 1px solid var(--border);
-            padding: 1.5rem;
-            overflow-y: auto;
-        }
-
-        .sidebar h2 {
-            font-size: 1rem;
-            color: var(--text-light);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 1rem;
-        }
-
-        .page-list {
-            list-style: none;
-        }
-
-        .page-item {
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-bottom: 0.5rem;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .page-item:hover {
-            background: var(--bg);
-        }
-
-        .page-item.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        .page-item-icon {
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Content Area */
-        .content-area {
-            flex: 1;
-            padding: 2rem;
-            overflow-y: auto;
-        }
-
-        /* Tabs */
-        .tabs {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 0.5rem;
-        }
-
-        .tab {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            font-size: 1rem;
-            color: var(--text-light);
-            border-radius: 8px 8px 0 0;
-            transition: all 0.2s;
-        }
-
-        .tab:hover {
-            color: var(--primary);
-            background: var(--bg);
-        }
-
-        .tab.active {
-            color: var(--primary);
-            background: var(--card-bg);
-            border: 2px solid var(--border);
-            border-bottom-color: var(--card-bg);
-            margin-bottom: -2px;
-        }
-
-        /* Panels */
-        .panel {
-            display: none;
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .panel.active {
-            display: block;
-        }
-
-        .panel h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary);
-        }
-
-        /* Text Editor */
-        .text-section {
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .text-section:last-child {
-            border-bottom: none;
-        }
-
-        .text-section label {
-            display: block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--text);
         }
 
-        .text-section .hint {
-            font-size: 0.85rem;
-            color: var(--text-light);
-            margin-bottom: 0.75rem;
+        .change-counter.empty {
+            background: rgba(255,255,255,0.2);
         }
 
-        .text-input {
-            width: 100%;
-            padding: 1rem;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: border-color 0.2s;
-            resize: vertical;
-        }
-
-        .text-input:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        textarea.text-input {
-            min-height: 120px;
-        }
-
-        /* Image Gallery */
-        .image-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .image-card {
-            background: var(--bg);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .image-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .image-card img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-        }
-
-        .image-card-info {
-            padding: 1rem;
-        }
-
-        .image-card-name {
-            font-size: 0.85rem;
-            color: var(--text);
-            word-break: break-all;
-            margin-bottom: 0.5rem;
-        }
-
-        .image-card-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .image-card-actions button {
-            flex: 1;
-            padding: 0.5rem;
-            font-size: 0.8rem;
-        }
-
-        /* Upload Area */
-        .upload-area {
-            border: 3px dashed var(--border);
-            border-radius: 12px;
-            padding: 3rem;
-            text-align: center;
+        /* Hilfe-Button */
+        .help-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
             cursor: pointer;
-            transition: all 0.2s;
-            margin-bottom: 2rem;
-        }
-
-        .upload-area:hover, .upload-area.dragover {
-            border-color: var(--primary);
-            background: rgba(44, 74, 71, 0.05);
-        }
-
-        .upload-area-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .upload-area p {
-            color: var(--text-light);
-            margin-bottom: 0.5rem;
-        }
-
-        .upload-area input {
-            display: none;
-        }
-
-        /* Video Section */
-        .video-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: var(--bg);
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-
-        .video-thumbnail {
-            width: 160px;
-            height: 90px;
-            background: #000;
-            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 2rem;
+            font-size: 1.1rem;
+            transition: all 0.2s;
         }
 
-        .video-info {
-            flex: 1;
+        .help-btn:hover {
+            background: rgba(255,255,255,0.25);
         }
 
-        .video-info input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Preview Frame */
-        .preview-container {
-            background: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .preview-header {
-            background: var(--bg);
-            padding: 0.75rem 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .preview-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .preview-dot.red { background: #ff5f56; }
-        .preview-dot.yellow { background: #ffbd2e; }
-        .preview-dot.green { background: #27ca40; }
-
-        .preview-frame {
-            width: 100%;
-            height: 600px;
+        /* Website Frame */
+        .website-frame {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            bottom: 0;
             border: none;
+            width: 100%;
+            height: calc(100vh - 60px);
         }
 
-        /* Modal */
-        .modal-overlay {
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #f8f6f3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loading-overlay.hidden {
             display: none;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #e0ddd8;
+            border-top-color: #2C4A47;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10001;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .toast {
+            background: #2C4A47;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            animation: toastIn 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .toast.success { background: #4CAF50; }
+        .toast.warning { background: #ff9800; }
+        .toast.error { background: #f44336; }
+
+        @keyframes toastIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Hilfe Modal */
+        .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
+            background: rgba(0,0,0,0.6);
+            z-index: 10002;
+            display: none;
             align-items: center;
             justify-content: center;
         }
@@ -424,1027 +260,821 @@
         }
 
         .modal {
-            background: var(--card-bg);
-            border-radius: 12px;
+            background: white;
+            border-radius: 16px;
             padding: 2rem;
             max-width: 600px;
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .modal h2 {
+            color: #2C4A47;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .modal h3 {
-            margin-bottom: 1.5rem;
-            color: var(--primary);
+            color: #2C4A47;
+            margin: 1.5rem 0 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .modal p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+        }
+
+        .modal ul {
+            color: #555;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal li {
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        .tip-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1rem 0;
+        }
+
+        .tip-box strong {
+            color: #2e7d32;
+        }
+
+        /* Image Upload Modal */
+        .upload-modal {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .upload-modal h3 {
+            color: #2C4A47;
+            margin-bottom: 1rem;
+        }
+
+        .upload-area {
+            border: 3px dashed #ddd;
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 1rem;
+        }
+
+        .upload-area:hover, .upload-area.dragover {
+            border-color: #2C4A47;
+            background: #f8f6f3;
+        }
+
+        .upload-area-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-area p {
+            color: #666;
+        }
+
+        .upload-area input {
+            display: none;
+        }
+
+        .upload-preview {
+            margin-top: 1rem;
+        }
+
+        .upload-preview img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
         }
 
         .modal-actions {
             display: flex;
             justify-content: flex-end;
             gap: 1rem;
-            margin-top: 2rem;
+            margin-top: 1.5rem;
         }
 
-        /* Toast Notifications */
-        .toast-container {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            z-index: 1001;
+        .modal-actions .btn {
+            padding: 0.75rem 1.5rem;
         }
 
-        .toast {
-            background: var(--primary);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            margin-top: 0.5rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            animation: slideIn 0.3s ease;
+        .btn-cancel {
+            background: #eee;
+            color: #333;
         }
 
-        .toast.success { background: var(--success); }
-        .toast.warning { background: var(--warning); }
-        .toast.error { background: var(--danger); }
-
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        /* Status Badge */
-        .status-badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .status-badge.modified {
-            background: var(--warning);
-            color: white;
-        }
-
-        .status-badge.saved {
-            background: var(--success);
-            color: white;
-        }
-
-        /* Loading */
-        .loading {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 3rem;
-            color: var(--text-light);
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid var(--border);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Media Search */
-        .media-search {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .media-search input {
-            flex: 1;
-            padding: 0.75rem 1rem;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            font-size: 1rem;
-        }
-
-        .media-search input:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        /* Element Selector */
-        .element-list {
-            max-height: 400px;
-            overflow-y: auto;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-        }
-
-        .element-item {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .element-item:hover {
-            background: var(--bg);
-        }
-
-        .element-item:last-child {
-            border-bottom: none;
-        }
-
-        .element-tag {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            margin-right: 0.5rem;
-        }
-
-        .element-preview {
-            font-size: 0.9rem;
-            color: var(--text-light);
-            margin-top: 0.5rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* Info Box */
-        .info-box {
-            background: #e3f2fd;
-            border-left: 4px solid #2196F3;
-            padding: 1rem 1.5rem;
-            border-radius: 0 8px 8px 0;
-            margin-bottom: 1.5rem;
-        }
-
-        .info-box h4 {
-            color: #1565C0;
-            margin-bottom: 0.5rem;
-        }
-
-        .info-box p {
-            color: #1976D2;
-            font-size: 0.9rem;
-            margin: 0;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .main-container {
-                flex-direction: column;
-            }
-
-            .sidebar {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid var(--border);
-            }
-
-            .header {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .tabs {
-                flex-wrap: wrap;
-            }
+        .btn-cancel:hover {
+            background: #ddd;
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <h1>Website Editor - Glück über Zweifel</h1>
-        <div class="header-actions">
-            <span id="statusBadge" class="status-badge saved">Bereit</span>
-            <button class="btn btn-secondary" onclick="previewSite()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                Vorschau
-            </button>
-            <button class="btn btn-primary" onclick="exportChanges()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Änderungen exportieren
-            </button>
+    <!-- Editor Toolbar -->
+    <div class="editor-toolbar">
+        <div class="toolbar-left">
+            <div class="toolbar-logo">
+                ✏️ Editor <span>| Glück über Zweifel</span>
+            </div>
+            <select class="page-selector" id="pageSelector" onchange="loadPage(this.value)">
+                <option value="">— Seite wählen —</option>
+                <option value="index.html">Startseite</option>
+                <option value="kathrin.html">Über Kathrin</option>
+                <option value="blog.html">Blog</option>
+                <option value="contact.html">Kontakt</option>
+                <option value="einzelbegleitung-sinnkrise-lebensumbruch.html">Einzelbegleitung</option>
+                <option value="paarbegleitung-beziehungskrise-neuanfang-kathrin-stahl.html">Paarbegleitung</option>
+                <option value="paar-retreat.html">Paar-Retreat</option>
+                <option value="retreats-in-portugal.html">Retreats Portugal</option>
+                <option value="pferdegestuetztes-coaching.html">Pferdegestütztes Coaching</option>
+                <option value="systemische-aufstellungen.html">Systemische Aufstellungen</option>
+                <option value="hochbegabung-hochsensibilitat.html">Hochbegabung</option>
+                <option value="innere-fuehrung.html">Innere Führung</option>
+                <option value="love-letters.html">Love Letters</option>
+                <option value="glueck-ueber-zweifel-dein-podcast.html">Podcast</option>
+                <option value="quiz-beziehung.html">Quiz: Beziehung</option>
+                <option value="quiz-hochsensibel.html">Quiz: Hochsensibel</option>
+                <option value="quiz-hochbegabt.html">Quiz: Hochbegabt</option>
+                <option value="quiz-lebenskrise.html">Quiz: Lebenskrise</option>
+                <option value="quiz-midlife.html">Quiz: Midlife</option>
+            </select>
         </div>
-    </header>
 
-    <div class="main-container">
-        <aside class="sidebar">
-            <h2>Seiten</h2>
-            <ul class="page-list" id="pageList">
-                <!-- Dynamisch befüllt -->
-            </ul>
-        </aside>
+        <div class="toolbar-center">
+            <span class="change-counter empty" id="changeCounter">Keine Änderungen</span>
+        </div>
 
-        <main class="content-area">
-            <div class="tabs">
-                <button class="tab active" data-tab="texte">Texte bearbeiten</button>
-                <button class="tab" data-tab="bilder">Bilder verwalten</button>
-                <button class="tab" data-tab="videos">Videos verwalten</button>
-                <button class="tab" data-tab="vorschau">Live-Vorschau</button>
-            </div>
-
-            <!-- Texte Panel -->
-            <div class="panel active" id="panel-texte">
-                <h3>Texte auf dieser Seite</h3>
-                <div id="textEditor">
-                    <div class="loading">
-                        <div class="spinner"></div>
-                        <span>Wähle eine Seite aus der Liste...</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Bilder Panel -->
-            <div class="panel" id="panel-bilder">
-                <h3>Bilder verwalten</h3>
-
-                <div class="info-box">
-                    <h4>So funktioniert's</h4>
-                    <p>Lade neue Bilder hoch und wähle dann bei "Bilder auf dieser Seite" welches Bild ersetzt werden soll.</p>
-                </div>
-
-                <div class="upload-area" id="uploadArea">
-                    <div class="upload-area-icon">📷</div>
-                    <p><strong>Klicke hier oder ziehe Bilder hierher</strong></p>
-                    <p>JPG, PNG, WebP bis 10MB</p>
-                    <input type="file" id="fileInput" accept="image/*" multiple>
-                </div>
-
-                <div class="media-search">
-                    <input type="text" id="imageSearch" placeholder="Bilder durchsuchen...">
-                </div>
-
-                <h4 style="margin-bottom: 1rem;">Bilder auf dieser Seite</h4>
-                <div class="image-gallery" id="pageImages">
-                    <p style="color: var(--text-light);">Wähle zuerst eine Seite aus der Liste.</p>
-                </div>
-
-                <h4 style="margin: 2rem 0 1rem;">Deine hochgeladenen Bilder</h4>
-                <div class="image-gallery" id="allImages">
-                    <p style="color: var(--text-light);">Noch keine Bilder hochgeladen. Ziehe Bilder in den Upload-Bereich oben.</p>
-                </div>
-            </div>
-
-            <!-- Videos Panel -->
-            <div class="panel" id="panel-videos">
-                <h3>Videos verwalten</h3>
-                <p style="color: var(--text-light); margin-bottom: 1.5rem;">
-                    Füge YouTube- oder Vimeo-Videos hinzu, indem du die URL einfügst.
-                </p>
-
-                <div class="text-section">
-                    <label>Neues Video hinzufügen</label>
-                    <div style="display: flex; gap: 1rem;">
-                        <input type="text" class="text-input" id="newVideoUrl" placeholder="https://www.youtube.com/watch?v=..." style="flex: 1;">
-                        <button class="btn btn-primary" onclick="addVideo()">Hinzufügen</button>
-                    </div>
-                </div>
-
-                <h4 style="margin: 2rem 0 1rem;">Videos auf dieser Seite</h4>
-                <div id="pageVideos">
-                    <p style="color: var(--text-light);">Wähle zuerst eine Seite aus der Liste.</p>
-                </div>
-            </div>
-
-            <!-- Vorschau Panel -->
-            <div class="panel" id="panel-vorschau">
-                <h3>Live-Vorschau</h3>
-                <div class="preview-container">
-                    <div class="preview-header">
-                        <div class="preview-dot red"></div>
-                        <div class="preview-dot yellow"></div>
-                        <div class="preview-dot green"></div>
-                        <span style="margin-left: 1rem; font-size: 0.85rem; color: var(--text-light);" id="previewUrl"></span>
-                    </div>
-                    <iframe id="previewFrame" class="preview-frame" src="about:blank"></iframe>
-                </div>
-            </div>
-        </main>
+        <div class="toolbar-right">
+            <button class="btn btn-secondary" onclick="resetChanges()">
+                ↩️ Zurücksetzen
+            </button>
+            <button class="btn btn-success" onclick="exportChanges()">
+                💾 Änderungen speichern
+            </button>
+            <button class="help-btn" onclick="showHelp()">?</button>
+        </div>
     </div>
 
-    <!-- Image Picker Modal -->
-    <div class="modal-overlay" id="imagePickerModal">
-        <div class="modal">
-            <h3>Neues Bild auswählen</h3>
-            <p style="color: var(--text-light); margin-bottom: 1rem;">Wähle eines deiner hochgeladenen Bilder als Ersatz:</p>
-            <div class="image-gallery" id="modalImageGallery">
-                <!-- Dynamisch befüllt -->
-            </div>
-            <div class="modal-actions">
-                <button class="btn btn-secondary" onclick="closeImagePicker()">Abbrechen</button>
-            </div>
-        </div>
+    <!-- Website wird hier geladen -->
+    <iframe id="websiteFrame" class="website-frame" src="about:blank"></iframe>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <div class="loading-text">Wähle oben eine Seite aus...</div>
     </div>
 
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
 
+    <!-- Hilfe Modal -->
+    <div class="modal-overlay" id="helpModal">
+        <div class="modal" style="position: relative;">
+            <button class="modal-close" onclick="closeHelp()">×</button>
+            <h2>✏️ So bearbeitest du die Website</h2>
+
+            <h3>📝 Texte ändern</h3>
+            <p>Klicke einfach auf einen Text, den du ändern möchtest. Er wird gelb markiert und du kannst direkt lostippen.</p>
+
+            <h3>🖼️ Bilder austauschen</h3>
+            <p>Klicke auf ein Bild, das du ersetzen möchtest. Es öffnet sich ein Dialog, in dem du ein neues Bild hochladen kannst.</p>
+
+            <h3>🎬 Videos ändern</h3>
+            <p>Klicke auf ein Video. Du kannst dann eine neue YouTube- oder Vimeo-URL eingeben.</p>
+
+            <div class="tip-box">
+                <strong>💡 Tipp:</strong> Bearbeitbare Elemente werden beim Überfahren mit der Maus leicht hervorgehoben.
+            </div>
+
+            <h3>💾 Änderungen speichern</h3>
+            <p>Wenn du fertig bist, klicke auf "Änderungen speichern". Du erhältst dann Dateien, die du an Nick schicken kannst.</p>
+
+            <ul>
+                <li>Eine <strong>Textdatei</strong> mit allen Änderungen als Übersicht</li>
+                <li>Alle <strong>neuen Bilder</strong> werden heruntergeladen</li>
+            </ul>
+
+            <div class="modal-actions">
+                <button class="btn btn-primary" onclick="closeHelp()">Verstanden!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Upload Modal -->
+    <div class="modal-overlay" id="imageUploadModal">
+        <div class="upload-modal">
+            <h3>🖼️ Neues Bild auswählen</h3>
+            <p style="color: #666; margin-bottom: 1rem;">Wähle ein Bild von deinem Computer:</p>
+
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-area-icon">📷</div>
+                <p><strong>Klicke hier oder ziehe ein Bild hierher</strong></p>
+                <p style="font-size: 0.85rem;">JPG, PNG, WebP</p>
+                <input type="file" id="imageFileInput" accept="image/*">
+            </div>
+
+            <div class="upload-preview" id="uploadPreview" style="display: none;">
+                <p style="color: #666; margin-bottom: 0.5rem;">Vorschau:</p>
+                <img id="previewImage" src="" alt="Vorschau">
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn btn-cancel" onclick="closeImageUpload()">Abbrechen</button>
+                <button class="btn btn-primary" id="confirmImageBtn" onclick="confirmImageChange()" disabled>Bild einsetzen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video URL Modal -->
+    <div class="modal-overlay" id="videoUrlModal">
+        <div class="upload-modal">
+            <h3>🎬 Video-URL ändern</h3>
+            <p style="color: #666; margin-bottom: 1rem;">Gib die neue YouTube- oder Vimeo-URL ein:</p>
+
+            <input type="text" id="videoUrlInput" placeholder="https://www.youtube.com/watch?v=..."
+                   style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;">
+
+            <div class="modal-actions">
+                <button class="btn btn-cancel" onclick="closeVideoModal()">Abbrechen</button>
+                <button class="btn btn-primary" onclick="confirmVideoChange()">Video ändern</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ============================================
-        // KONFIGURATION - GitHub Pages URL
+        // KONFIGURATION
         // ============================================
         const CONFIG = {
-            // Die Basis-URL deiner GitHub Pages Website
-            baseUrl: 'https://nickheymann.github.io/kathrin-coaching/',
-            // Alternativ für lokale Entwicklung:
-            // baseUrl: './'
+            baseUrl: 'https://nickheymann.github.io/kathrin-coaching/'
         };
 
-        // State Management
+        // State
         const state = {
             currentPage: null,
-            pages: [],
-            changes: {},
+            changes: [],
             uploadedImages: [],
-            modified: false,
-            pageCache: {} // Cache für geladene Seiten
+            currentEditingElement: null,
+            currentEditingImage: null,
+            currentEditingVideo: null,
+            newImageData: null
         };
 
         // Initialize
-        document.addEventListener('DOMContentLoaded', async () => {
-            await loadPages();
-            setupEventListeners();
-            showToast('Editor bereit! Wähle eine Seite aus.', 'success');
+        document.addEventListener('DOMContentLoaded', () => {
+            setupUploadArea();
+
+            // Zeige Hilfe beim ersten Besuch
+            if (!localStorage.getItem('editorHelpSeen')) {
+                setTimeout(() => {
+                    showHelp();
+                    localStorage.setItem('editorHelpSeen', 'true');
+                }, 500);
+            }
         });
 
-        // Load available pages
-        async function loadPages() {
-            const htmlFiles = [
-                { name: 'Startseite', file: 'index.html' },
-                { name: 'Über Kathrin', file: 'kathrin.html' },
-                { name: 'Blog', file: 'blog.html' },
-                { name: 'Kontakt', file: 'contact.html' },
-                { name: 'Einzelbegleitung', file: 'einzelbegleitung-sinnkrise-lebensumbruch.html' },
-                { name: 'Paarbegleitung', file: 'paarbegleitung-beziehungskrise-neuanfang-kathrin-stahl.html' },
-                { name: 'Paar-Retreat', file: 'paar-retreat.html' },
-                { name: 'Retreats Portugal', file: 'retreats-in-portugal.html' },
-                { name: 'Pferdegestütztes Coaching', file: 'pferdegestuetztes-coaching.html' },
-                { name: 'Systemische Aufstellungen', file: 'systemische-aufstellungen.html' },
-                { name: 'Hochbegabung', file: 'hochbegabung-hochsensibilitat.html' },
-                { name: 'Innere Führung', file: 'innere-fuehrung.html' },
-                { name: 'Love Letters', file: 'love-letters.html' },
-                { name: 'Podcast', file: 'glueck-ueber-zweifel-dein-podcast.html' },
-                { name: 'Quiz: Beziehung', file: 'quiz-beziehung.html' },
-                { name: 'Quiz: Hochsensibel', file: 'quiz-hochsensibel.html' },
-                { name: 'Quiz: Hochbegabt', file: 'quiz-hochbegabt.html' },
-                { name: 'Quiz: Lebenskrise', file: 'quiz-lebenskrise.html' },
-                { name: 'Quiz: Midlife', file: 'quiz-midlife.html' },
-                { name: 'Impressum', file: 'impressum.html' },
-                { name: 'Datenschutz', file: 'datenschutzerklaerung.html' }
-            ];
+        // Seite laden
+        async function loadPage(page) {
+            if (!page) return;
 
-            state.pages = htmlFiles;
-            renderPageList();
-        }
+            state.currentPage = page;
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const loadingText = loadingOverlay.querySelector('.loading-text');
 
-        // Render page list
-        function renderPageList() {
-            const list = document.getElementById('pageList');
-            list.innerHTML = state.pages.map((page, index) => `
-                <li class="page-item ${state.currentPage === page.file ? 'active' : ''}"
-                    onclick="selectPage('${page.file}')">
-                    <span class="page-item-icon">📄</span>
-                    ${page.name}
-                </li>
-            `).join('');
-        }
-
-        // Select a page
-        async function selectPage(file) {
-            state.currentPage = file;
-            renderPageList();
-            await loadPageContent(file);
-        }
-
-        // Load page content from GitHub Pages
-        async function loadPageContent(file) {
-            const textEditor = document.getElementById('textEditor');
-            textEditor.innerHTML = '<div class="loading"><div class="spinner"></div><span>Lade Seite von der Website...</span></div>';
+            loadingOverlay.classList.remove('hidden');
+            loadingText.textContent = 'Lade Seite...';
 
             try {
-                // Vollständige URL zur Seite auf GitHub Pages
-                const pageUrl = CONFIG.baseUrl + file;
+                const response = await fetch(CONFIG.baseUrl + page);
+                if (!response.ok) throw new Error('Seite nicht gefunden');
 
-                // Prüfen ob im Cache
-                let html;
-                if (state.pageCache[file]) {
-                    html = state.pageCache[file];
-                } else {
-                    const response = await fetch(pageUrl);
-                    if (!response.ok) {
-                        throw new Error(`Seite nicht gefunden (${response.status})`);
-                    }
-                    html = await response.text();
-                    state.pageCache[file] = html; // Cache speichern
-                }
+                let html = await response.text();
 
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
+                // CSS und JS für Editor-Funktionalität injizieren
+                html = injectEditorStyles(html);
 
-                // Extract editable elements
-                const editableElements = extractEditableElements(doc);
-                renderTextEditor(editableElements, file);
+                const frame = document.getElementById('websiteFrame');
+                frame.srcdoc = html;
 
-                // Extract images
-                const images = extractImages(doc);
-                renderPageImages(images);
-
-                // Extract videos
-                const videos = extractVideos(doc);
-                renderPageVideos(videos);
-
-                // Update preview
-                document.getElementById('previewUrl').textContent = pageUrl;
-                document.getElementById('previewFrame').src = pageUrl;
-
-                showToast(`${state.pages.find(p => p.file === file)?.name || file} geladen`, 'success');
+                frame.onload = () => {
+                    setupEditableElements(frame);
+                    loadingOverlay.classList.add('hidden');
+                    showToast('Seite geladen - klicke auf Elemente zum Bearbeiten', 'success');
+                };
 
             } catch (error) {
-                console.error('Error loading page:', error);
-                textEditor.innerHTML = `
-                    <div style="color: var(--danger); padding: 2rem; text-align: center;">
-                        <h4 style="margin-bottom: 1rem;">Fehler beim Laden der Seite</h4>
-                        <p>${error.message}</p>
-                        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-light);">
-                            Stelle sicher, dass die Website auf GitHub Pages veröffentlicht ist.
-                        </p>
-                    </div>
-                `;
+                console.error(error);
+                loadingText.textContent = 'Fehler beim Laden: ' + error.message;
+                showToast('Fehler beim Laden der Seite', 'error');
             }
         }
 
-        // Extract editable elements
-        function extractEditableElements(doc) {
-            const elements = [];
-
-            // Headlines
-            doc.querySelectorAll('h1, h2, h3, h4').forEach((el, i) => {
-                const text = el.textContent.trim();
-                if (text && text.length > 2) {
-                    elements.push({
-                        type: el.tagName.toLowerCase(),
-                        content: text,
-                        selector: generateSelector(el, i),
-                        label: `Überschrift (${el.tagName})`
-                    });
-                }
-            });
-
-            // Paragraphs
-            doc.querySelectorAll('p').forEach((el, i) => {
-                const text = el.textContent.trim();
-                if (text && text.length > 20) {
-                    elements.push({
-                        type: 'p',
-                        content: text,
-                        selector: generateSelector(el, i),
-                        label: 'Absatz'
-                    });
-                }
-            });
-
-            // Buttons
-            doc.querySelectorAll('button, .btn, [class*="button"], a.elementor-button').forEach((el, i) => {
-                const text = el.textContent.trim();
-                if (text && text.length > 2 && text.length < 100) {
-                    elements.push({
-                        type: 'button',
-                        content: text,
-                        selector: generateSelector(el, i),
-                        label: 'Button'
-                    });
-                }
-            });
-
-            return elements;
-        }
-
-        // Generate unique selector
-        function generateSelector(el, index) {
-            const tag = el.tagName.toLowerCase();
-            const id = el.id ? `#${el.id}` : '';
-            const classes = el.className && typeof el.className === 'string'
-                ? `.${el.className.split(' ').filter(c => c).join('.')}`
-                : '';
-            return `${tag}${id}${classes}[${index}]`;
-        }
-
-        // Render text editor
-        function renderTextEditor(elements, file) {
-            const editor = document.getElementById('textEditor');
-
-            if (elements.length === 0) {
-                editor.innerHTML = '<p style="color: var(--text-light);">Keine bearbeitbaren Texte auf dieser Seite gefunden.</p>';
-                return;
-            }
-
-            // Group by type
-            const grouped = {
-                headlines: elements.filter(e => ['h1', 'h2', 'h3', 'h4'].includes(e.type)),
-                paragraphs: elements.filter(e => e.type === 'p'),
-                buttons: elements.filter(e => e.type === 'button')
-            };
-
-            let html = '';
-
-            if (grouped.headlines.length) {
-                html += '<h4 style="margin-bottom: 1rem; color: var(--primary);">Überschriften</h4>';
-                grouped.headlines.forEach((el, i) => {
-                    const changeKey = `${file}:${el.selector}`;
-                    const currentValue = state.changes[changeKey]?.newValue || el.content;
-                    const isChanged = state.changes[changeKey] !== undefined;
-                    html += `
-                        <div class="text-section" ${isChanged ? 'style="border-left: 4px solid var(--warning); padding-left: 1rem;"' : ''}>
-                            <label>
-                                <span class="element-tag">${el.type.toUpperCase()}</span>
-                                ${el.content.substring(0, 50)}${el.content.length > 50 ? '...' : ''}
-                                ${isChanged ? '<span style="color: var(--warning); font-size: 0.8rem;"> (geändert)</span>' : ''}
-                            </label>
-                            <input type="text" class="text-input"
-                                data-file="${file}"
-                                data-selector="${encodeURIComponent(el.selector)}"
-                                data-original="${encodeURIComponent(el.content)}"
-                                value="${escapeHtml(currentValue)}"
-                                onchange="handleTextChange(this)"
-                                oninput="handleTextChange(this)">
-                        </div>
-                    `;
-                });
-            }
-
-            if (grouped.paragraphs.length) {
-                html += '<h4 style="margin: 2rem 0 1rem; color: var(--primary);">Textabsätze</h4>';
-                grouped.paragraphs.slice(0, 30).forEach((el, i) => {
-                    const changeKey = `${file}:${el.selector}`;
-                    const currentValue = state.changes[changeKey]?.newValue || el.content;
-                    const isChanged = state.changes[changeKey] !== undefined;
-                    html += `
-                        <div class="text-section" ${isChanged ? 'style="border-left: 4px solid var(--warning); padding-left: 1rem;"' : ''}>
-                            <label>
-                                <span class="element-tag">P</span>
-                                ${el.content.substring(0, 60)}${el.content.length > 60 ? '...' : ''}
-                                ${isChanged ? '<span style="color: var(--warning); font-size: 0.8rem;"> (geändert)</span>' : ''}
-                            </label>
-                            <textarea class="text-input"
-                                data-file="${file}"
-                                data-selector="${encodeURIComponent(el.selector)}"
-                                data-original="${encodeURIComponent(el.content)}"
-                                onchange="handleTextChange(this)"
-                                oninput="handleTextChange(this)">${escapeHtml(currentValue)}</textarea>
-                        </div>
-                    `;
-                });
-                if (grouped.paragraphs.length > 30) {
-                    html += `<p style="color: var(--text-light); font-style: italic;">... und ${grouped.paragraphs.length - 30} weitere Absätze</p>`;
-                }
-            }
-
-            if (grouped.buttons.length) {
-                html += '<h4 style="margin: 2rem 0 1rem; color: var(--primary);">Buttons</h4>';
-                grouped.buttons.forEach((el, i) => {
-                    const changeKey = `${file}:${el.selector}`;
-                    const currentValue = state.changes[changeKey]?.newValue || el.content;
-                    const isChanged = state.changes[changeKey] !== undefined;
-                    html += `
-                        <div class="text-section" ${isChanged ? 'style="border-left: 4px solid var(--warning); padding-left: 1rem;"' : ''}>
-                            <label>
-                                <span class="element-tag">BTN</span>
-                                ${el.content}
-                                ${isChanged ? '<span style="color: var(--warning); font-size: 0.8rem;"> (geändert)</span>' : ''}
-                            </label>
-                            <input type="text" class="text-input"
-                                data-file="${file}"
-                                data-selector="${encodeURIComponent(el.selector)}"
-                                data-original="${encodeURIComponent(el.content)}"
-                                value="${escapeHtml(currentValue)}"
-                                onchange="handleTextChange(this)"
-                                oninput="handleTextChange(this)">
-                        </div>
-                    `;
-                });
-            }
-
-            editor.innerHTML = html;
-        }
-
-        // Handle text change
-        function handleTextChange(input) {
-            const file = input.dataset.file;
-            const selector = decodeURIComponent(input.dataset.selector);
-            const original = decodeURIComponent(input.dataset.original);
-            const newValue = input.value || input.textContent;
-
-            const changeKey = `${file}:${selector}`;
-
-            if (newValue !== original) {
-                state.changes[changeKey] = {
-                    file: file,
-                    selector: selector,
-                    originalValue: original,
-                    newValue: newValue,
-                    type: 'text'
-                };
-                state.modified = true;
-            } else {
-                delete state.changes[changeKey];
-            }
-
-            updateStatusBadge();
-        }
-
-        // Extract images
-        function extractImages(doc) {
-            const images = [];
-            doc.querySelectorAll('img').forEach((img, i) => {
-                let src = img.getAttribute('src') || img.getAttribute('data-src');
-                if (src && !src.startsWith('data:')) {
-                    // Relative URLs zu absoluten machen
-                    if (!src.startsWith('http')) {
-                        src = CONFIG.baseUrl + src.replace(/^\.?\//, '');
+        // Editor-Styles in die Seite injizieren
+        function injectEditorStyles(html) {
+            const editorStyles = `
+                <style id="editor-styles">
+                    /* Bearbeitbare Texte */
+                    h1, h2, h3, h4, h5, h6, p, span, a, li, td, th, label, button {
+                        cursor: text !important;
+                        transition: outline 0.2s, background-color 0.2s !important;
                     }
-                    images.push({
-                        src: src,
-                        alt: img.getAttribute('alt') || '',
-                        selector: generateSelector(img, i)
+
+                    h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover,
+                    p:hover, span:hover, a:hover, li:hover, label:hover {
+                        outline: 2px dashed #D4A574 !important;
+                        outline-offset: 4px !important;
+                    }
+
+                    [data-editing="true"] {
+                        background-color: #fff3cd !important;
+                        outline: 3px solid #D4A574 !important;
+                        outline-offset: 2px !important;
+                    }
+
+                    /* Bearbeitbare Bilder */
+                    img {
+                        cursor: pointer !important;
+                        transition: outline 0.2s, opacity 0.2s !important;
+                    }
+
+                    img:hover {
+                        outline: 3px solid #2196F3 !important;
+                        outline-offset: 4px !important;
+                    }
+
+                    img[data-changed="true"] {
+                        outline: 3px solid #4CAF50 !important;
+                        outline-offset: 4px !important;
+                    }
+
+                    /* Bearbeitbare Videos/Iframes */
+                    iframe {
+                        cursor: pointer !important;
+                        transition: outline 0.2s !important;
+                    }
+
+                    iframe:hover {
+                        outline: 3px solid #9c27b0 !important;
+                        outline-offset: 4px !important;
+                    }
+
+                    /* Geänderte Texte markieren */
+                    [data-changed="true"] {
+                        background-color: #c8e6c9 !important;
+                    }
+
+                    /* Editor-Hinweis */
+                    .editor-hint {
+                        position: fixed;
+                        bottom: 20px;
+                        right: 20px;
+                        background: #2C4A47;
+                        color: white;
+                        padding: 0.75rem 1.25rem;
+                        border-radius: 8px;
+                        font-size: 0.9rem;
+                        z-index: 9999;
+                        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+                    }
+                </style>
+            `;
+
+            return html.replace('</head>', editorStyles + '</head>');
+        }
+
+        // Bearbeitbare Elemente einrichten
+        function setupEditableElements(frame) {
+            const doc = frame.contentDocument;
+
+            // Hint hinzufügen
+            const hint = doc.createElement('div');
+            hint.className = 'editor-hint';
+            hint.innerHTML = '✏️ Klicke auf Texte, Bilder oder Videos zum Bearbeiten';
+            doc.body.appendChild(hint);
+
+            // Nach 5 Sekunden ausblenden
+            setTimeout(() => {
+                hint.style.transition = 'opacity 0.5s';
+                hint.style.opacity = '0';
+                setTimeout(() => hint.remove(), 500);
+            }, 5000);
+
+            // Texte bearbeitbar machen
+            const textElements = doc.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, li, td, th, label');
+            textElements.forEach((el, index) => {
+                const text = el.textContent.trim();
+                if (text && text.length > 2 && !el.querySelector('img') && !el.closest('script') && !el.closest('style')) {
+                    el.dataset.editorId = `text-${index}`;
+                    el.dataset.originalText = text;
+
+                    el.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        startTextEditing(el);
                     });
                 }
             });
-            return images;
-        }
 
-        // Render page images
-        function renderPageImages(images) {
-            const gallery = document.getElementById('pageImages');
+            // Bilder klickbar machen
+            const images = doc.querySelectorAll('img');
+            images.forEach((img, index) => {
+                const src = img.getAttribute('src');
+                if (src && !src.startsWith('data:')) {
+                    img.dataset.editorId = `img-${index}`;
+                    img.dataset.originalSrc = src;
 
-            if (images.length === 0) {
-                gallery.innerHTML = '<p style="color: var(--text-light);">Keine Bilder auf dieser Seite gefunden.</p>';
-                return;
-            }
-
-            gallery.innerHTML = images.map((img, i) => `
-                <div class="image-card">
-                    <img src="${img.src}" alt="${img.alt}"
-                        onerror="this.style.background='#eee'; this.alt='Bild konnte nicht geladen werden';">
-                    <div class="image-card-info">
-                        <div class="image-card-name">${img.src.split('/').pop().substring(0, 30)}...</div>
-                        <div class="image-card-actions">
-                            <button class="btn btn-secondary" onclick="replaceImage('${encodeURIComponent(img.selector)}', '${encodeURIComponent(img.src)}')">Ersetzen</button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Extract videos
-        function extractVideos(doc) {
-            const videos = [];
-            doc.querySelectorAll('iframe[src*="youtube"], iframe[src*="vimeo"], iframe[data-src*="youtube"], iframe[data-src*="vimeo"]').forEach((iframe, i) => {
-                const src = iframe.getAttribute('src') || iframe.getAttribute('data-src');
-                if (src) {
-                    videos.push({
-                        type: src.includes('youtube') ? 'youtube' : 'vimeo',
-                        src: src,
-                        selector: generateSelector(iframe, i)
+                    img.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        startImageEditing(img);
                     });
                 }
             });
-            return videos;
-        }
 
-        // Render page videos
-        function renderPageVideos(videos) {
-            const container = document.getElementById('pageVideos');
+            // Videos/Iframes klickbar machen
+            const iframes = doc.querySelectorAll('iframe');
+            iframes.forEach((iframe, index) => {
+                const src = iframe.getAttribute('src') || '';
+                if (src.includes('youtube') || src.includes('vimeo')) {
+                    // Overlay für Iframe erstellen (da Iframes schwer zu klicken sind)
+                    const wrapper = doc.createElement('div');
+                    wrapper.style.cssText = 'position: relative; display: inline-block;';
+                    iframe.parentNode.insertBefore(wrapper, iframe);
+                    wrapper.appendChild(iframe);
 
-            if (videos.length === 0) {
-                container.innerHTML = '<p style="color: var(--text-light);">Keine Videos auf dieser Seite gefunden.</p>';
-                return;
-            }
+                    const overlay = doc.createElement('div');
+                    overlay.style.cssText = `
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        cursor: pointer;
+                        z-index: 10;
+                    `;
+                    overlay.dataset.editorId = `video-${index}`;
+                    overlay.dataset.originalSrc = src;
+                    wrapper.appendChild(overlay);
 
-            container.innerHTML = videos.map((video, i) => `
-                <div class="video-item">
-                    <div class="video-thumbnail">▶</div>
-                    <div class="video-info">
-                        <input type="text" value="${video.src}"
-                            data-selector="${encodeURIComponent(video.selector)}"
-                            data-original="${encodeURIComponent(video.src)}"
-                            onchange="handleVideoChange(this)">
-                        <span style="font-size: 0.85rem; color: var(--text-light);">${video.type.toUpperCase()}</span>
-                    </div>
-                </div>
-            `).join('');
-        }
+                    overlay.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        startVideoEditing(iframe, overlay);
+                    });
+                }
+            });
 
-        // Handle video change
-        function handleVideoChange(input) {
-            const selector = decodeURIComponent(input.dataset.selector);
-            const original = decodeURIComponent(input.dataset.original);
-            const newUrl = input.value;
-
-            const changeKey = `${state.currentPage}:video:${selector}`;
-
-            if (newUrl !== original) {
-                state.changes[changeKey] = {
-                    file: state.currentPage,
-                    selector: selector,
-                    originalValue: original,
-                    newValue: newUrl,
-                    type: 'video'
-                };
-                state.modified = true;
-            } else {
-                delete state.changes[changeKey];
-            }
-
-            updateStatusBadge();
-            showToast('Video-URL geändert', 'success');
-        }
-
-        // Setup event listeners
-        function setupEventListeners() {
-            // Tabs
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-                    tab.classList.add('active');
-                    document.getElementById(`panel-${tab.dataset.tab}`).classList.add('active');
+            // Links deaktivieren
+            doc.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
                 });
             });
+        }
 
-            // Upload area
+        // Text-Bearbeitung starten
+        function startTextEditing(el) {
+            // Vorherige Bearbeitung beenden
+            if (state.currentEditingElement) {
+                state.currentEditingElement.removeAttribute('data-editing');
+                state.currentEditingElement.contentEditable = 'false';
+            }
+
+            state.currentEditingElement = el;
+            el.dataset.editing = 'true';
+            el.contentEditable = 'true';
+            el.focus();
+
+            // Auswahl am Ende positionieren
+            const range = el.ownerDocument.createRange();
+            range.selectNodeContents(el);
+            range.collapse(false);
+            const sel = el.ownerDocument.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+
+            // Bei Blur speichern
+            el.addEventListener('blur', () => finishTextEditing(el), { once: true });
+
+            // Bei Enter beenden
+            el.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    el.blur();
+                }
+            });
+        }
+
+        // Text-Bearbeitung beenden
+        function finishTextEditing(el) {
+            el.removeAttribute('data-editing');
+            el.contentEditable = 'false';
+
+            const originalText = el.dataset.originalText;
+            const newText = el.textContent.trim();
+
+            if (newText !== originalText) {
+                el.dataset.changed = 'true';
+
+                // Änderung speichern
+                const existingChange = state.changes.find(c => c.id === el.dataset.editorId);
+                if (existingChange) {
+                    existingChange.newValue = newText;
+                } else {
+                    state.changes.push({
+                        id: el.dataset.editorId,
+                        type: 'text',
+                        element: el.tagName.toLowerCase(),
+                        originalValue: originalText,
+                        newValue: newText,
+                        page: state.currentPage
+                    });
+                }
+
+                updateChangeCounter();
+                showToast('Text geändert ✓', 'success');
+            }
+
+            state.currentEditingElement = null;
+        }
+
+        // Bild-Bearbeitung starten
+        function startImageEditing(img) {
+            state.currentEditingImage = img;
+            document.getElementById('imageUploadModal').classList.add('active');
+            document.getElementById('uploadPreview').style.display = 'none';
+            document.getElementById('confirmImageBtn').disabled = true;
+            state.newImageData = null;
+        }
+
+        // Video-Bearbeitung starten
+        function startVideoEditing(iframe, overlay) {
+            state.currentEditingVideo = { iframe, overlay };
+            const currentSrc = overlay.dataset.originalSrc;
+            document.getElementById('videoUrlInput').value = currentSrc;
+            document.getElementById('videoUrlModal').classList.add('active');
+        }
+
+        // Upload-Area einrichten
+        function setupUploadArea() {
             const uploadArea = document.getElementById('uploadArea');
-            const fileInput = document.getElementById('fileInput');
+            const fileInput = document.getElementById('imageFileInput');
 
             uploadArea.addEventListener('click', () => fileInput.click());
+
             uploadArea.addEventListener('dragover', (e) => {
                 e.preventDefault();
                 uploadArea.classList.add('dragover');
             });
+
             uploadArea.addEventListener('dragleave', () => {
                 uploadArea.classList.remove('dragover');
             });
+
             uploadArea.addEventListener('drop', (e) => {
                 e.preventDefault();
                 uploadArea.classList.remove('dragover');
-                handleFileUpload(e.dataTransfer.files);
+                handleImageFile(e.dataTransfer.files[0]);
             });
+
             fileInput.addEventListener('change', (e) => {
-                handleFileUpload(e.target.files);
-            });
-
-            // Image search
-            document.getElementById('imageSearch').addEventListener('input', (e) => {
-                filterImages(e.target.value);
+                handleImageFile(e.target.files[0]);
             });
         }
 
-        // Handle file upload
-        async function handleFileUpload(files) {
-            for (const file of files) {
-                if (!file.type.startsWith('image/')) {
-                    showToast(`${file.name} ist kein Bild`, 'error');
-                    continue;
-                }
+        // Bild-Datei verarbeiten
+        function handleImageFile(file) {
+            if (!file || !file.type.startsWith('image/')) {
+                showToast('Bitte wähle eine Bilddatei', 'error');
+                return;
+            }
 
-                if (file.size > 10 * 1024 * 1024) {
-                    showToast(`${file.name} ist zu groß (max 10MB)`, 'error');
-                    continue;
-                }
-
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const imageData = {
-                        name: file.name,
-                        data: e.target.result,
-                        size: file.size,
-                        type: file.type,
-                        uploaded: new Date().toISOString()
-                    };
-
-                    state.uploadedImages.push(imageData);
-                    renderUploadedImages();
-                    showToast(`${file.name} hochgeladen`, 'success');
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                state.newImageData = {
+                    data: e.target.result,
+                    name: file.name,
+                    size: file.size,
+                    type: file.type
                 };
-                reader.readAsDataURL(file);
-            }
-        }
 
-        // Render uploaded images
-        function renderUploadedImages() {
-            const gallery = document.getElementById('allImages');
-
-            if (state.uploadedImages.length === 0) {
-                gallery.innerHTML = '<p style="color: var(--text-light);">Noch keine Bilder hochgeladen. Ziehe Bilder in den Upload-Bereich oben.</p>';
-                return;
-            }
-
-            gallery.innerHTML = state.uploadedImages.map((img, i) => `
-                <div class="image-card">
-                    <img src="${img.data}" alt="${img.name}">
-                    <div class="image-card-info">
-                        <div class="image-card-name">${img.name}</div>
-                        <div class="image-card-actions">
-                            <button class="btn btn-danger" onclick="deleteUploadedImage(${i})">Löschen</button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Replace image
-        function replaceImage(selector, originalSrc) {
-            if (state.uploadedImages.length === 0) {
-                showToast('Lade zuerst ein Bild hoch', 'warning');
-                return;
-            }
-
-            const modal = document.getElementById('imagePickerModal');
-            modal.classList.add('active');
-            modal.dataset.selector = selector;
-            modal.dataset.originalSrc = originalSrc;
-
-            const gallery = document.getElementById('modalImageGallery');
-            gallery.innerHTML = state.uploadedImages.map((img, i) => `
-                <div class="image-card" style="cursor: pointer;" onclick="selectNewImage(${i})">
-                    <img src="${img.data}" alt="${img.name}">
-                    <div class="image-card-info">
-                        <div class="image-card-name">${img.name}</div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Select new image
-        function selectNewImage(imageIndex) {
-            const modal = document.getElementById('imagePickerModal');
-            const selector = decodeURIComponent(modal.dataset.selector);
-            const originalSrc = decodeURIComponent(modal.dataset.originalSrc);
-            const newImage = state.uploadedImages[imageIndex];
-
-            const changeKey = `${state.currentPage}:img:${selector}`;
-            state.changes[changeKey] = {
-                file: state.currentPage,
-                selector: selector,
-                originalValue: originalSrc,
-                newValue: newImage.name,
-                newImageData: newImage.data,
-                type: 'image'
+                document.getElementById('previewImage').src = e.target.result;
+                document.getElementById('uploadPreview').style.display = 'block';
+                document.getElementById('confirmImageBtn').disabled = false;
             };
-
-            state.modified = true;
-            updateStatusBadge();
-            closeImagePicker();
-            showToast(`Bild wird ersetzt durch "${newImage.name}"`, 'success');
+            reader.readAsDataURL(file);
         }
 
-        // Close image picker
-        function closeImagePicker() {
-            document.getElementById('imagePickerModal').classList.remove('active');
-        }
+        // Bild-Änderung bestätigen
+        function confirmImageChange() {
+            if (!state.currentEditingImage || !state.newImageData) return;
 
-        // Delete uploaded image
-        function deleteUploadedImage(index) {
-            state.uploadedImages.splice(index, 1);
-            renderUploadedImages();
-            showToast('Bild gelöscht', 'success');
-        }
+            const img = state.currentEditingImage;
+            const originalSrc = img.dataset.originalSrc;
 
-        // Filter images
-        function filterImages(query) {
-            const cards = document.querySelectorAll('#allImages .image-card, #pageImages .image-card');
-            cards.forEach(card => {
-                const name = card.querySelector('.image-card-name')?.textContent.toLowerCase() || '';
-                card.style.display = name.includes(query.toLowerCase()) ? 'block' : 'none';
+            // Bild im Frame ändern
+            img.src = state.newImageData.data;
+            img.dataset.changed = 'true';
+
+            // Änderung speichern
+            state.changes.push({
+                id: img.dataset.editorId,
+                type: 'image',
+                originalValue: originalSrc,
+                newValue: state.newImageData.name,
+                imageData: state.newImageData.data,
+                page: state.currentPage
             });
+
+            state.uploadedImages.push(state.newImageData);
+
+            updateChangeCounter();
+            closeImageUpload();
+            showToast('Bild ersetzt ✓', 'success');
         }
 
-        // Add video
-        function addVideo() {
-            const urlInput = document.getElementById('newVideoUrl');
-            const url = urlInput.value.trim();
+        // Bild-Upload Modal schließen
+        function closeImageUpload() {
+            document.getElementById('imageUploadModal').classList.remove('active');
+            document.getElementById('imageFileInput').value = '';
+            state.currentEditingImage = null;
+            state.newImageData = null;
+        }
 
-            if (!url) {
-                showToast('Bitte gib eine Video-URL ein', 'error');
+        // Video-Änderung bestätigen
+        function confirmVideoChange() {
+            const newUrl = document.getElementById('videoUrlInput').value.trim();
+
+            if (!newUrl) {
+                showToast('Bitte gib eine URL ein', 'error');
                 return;
             }
 
-            if (!url.includes('youtube') && !url.includes('vimeo')) {
+            if (!newUrl.includes('youtube') && !newUrl.includes('vimeo')) {
                 showToast('Nur YouTube und Vimeo werden unterstützt', 'error');
                 return;
             }
 
-            const changeKey = `${state.currentPage}:newvideo:${Date.now()}`;
-            state.changes[changeKey] = {
-                file: state.currentPage,
-                newValue: url,
-                type: 'newVideo'
-            };
-            state.modified = true;
-            updateStatusBadge();
+            const { iframe, overlay } = state.currentEditingVideo;
+            const originalSrc = overlay.dataset.originalSrc;
 
-            urlInput.value = '';
-            showToast('Video hinzugefügt', 'success');
+            // URL für Embed formatieren
+            let embedUrl = newUrl;
+            if (newUrl.includes('youtube.com/watch')) {
+                const videoId = new URL(newUrl).searchParams.get('v');
+                embedUrl = `https://www.youtube.com/embed/${videoId}`;
+            } else if (newUrl.includes('youtu.be/')) {
+                const videoId = newUrl.split('youtu.be/')[1].split('?')[0];
+                embedUrl = `https://www.youtube.com/embed/${videoId}`;
+            }
+
+            // Video ändern
+            iframe.src = embedUrl;
+            iframe.style.outline = '3px solid #4CAF50';
+
+            // Änderung speichern
+            state.changes.push({
+                id: overlay.dataset.editorId,
+                type: 'video',
+                originalValue: originalSrc,
+                newValue: embedUrl,
+                page: state.currentPage
+            });
+
+            updateChangeCounter();
+            closeVideoModal();
+            showToast('Video geändert ✓', 'success');
         }
 
-        // Update status badge
-        function updateStatusBadge() {
-            const badge = document.getElementById('statusBadge');
-            const changeCount = Object.keys(state.changes).length;
+        // Video Modal schließen
+        function closeVideoModal() {
+            document.getElementById('videoUrlModal').classList.remove('active');
+            state.currentEditingVideo = null;
+        }
 
-            if (changeCount > 0) {
-                badge.textContent = `${changeCount} Änderung${changeCount > 1 ? 'en' : ''}`;
-                badge.className = 'status-badge modified';
+        // Änderungs-Counter aktualisieren
+        function updateChangeCounter() {
+            const counter = document.getElementById('changeCounter');
+            const count = state.changes.length;
+
+            if (count === 0) {
+                counter.textContent = 'Keine Änderungen';
+                counter.classList.add('empty');
             } else {
-                badge.textContent = 'Bereit';
-                badge.className = 'status-badge saved';
+                counter.textContent = `${count} Änderung${count > 1 ? 'en' : ''}`;
+                counter.classList.remove('empty');
             }
         }
 
-        // Preview site
-        function previewSite() {
-            if (state.currentPage) {
-                window.open(CONFIG.baseUrl + state.currentPage, '_blank');
-            } else {
-                window.open(CONFIG.baseUrl, '_blank');
-            }
-        }
-
-        // Export changes - Erstellt eine übersichtliche Änderungsliste
-        function exportChanges() {
-            const changeCount = Object.keys(state.changes).length;
-
-            if (changeCount === 0 && state.uploadedImages.length === 0) {
-                showToast('Keine Änderungen zum Exportieren', 'warning');
+        // Änderungen zurücksetzen
+        function resetChanges() {
+            if (state.changes.length === 0) {
+                showToast('Keine Änderungen zum Zurücksetzen', 'warning');
                 return;
             }
 
-            // Gruppiere Änderungen nach Datei
-            const changesByFile = {};
-            Object.entries(state.changes).forEach(([key, change]) => {
-                const file = change.file || 'Unbekannt';
-                if (!changesByFile[file]) {
-                    changesByFile[file] = [];
-                }
-                changesByFile[file].push(change);
-            });
+            if (confirm('Alle Änderungen verwerfen?')) {
+                state.changes = [];
+                state.uploadedImages = [];
+                updateChangeCounter();
 
-            // Erstelle lesbare Zusammenfassung
-            let summary = `WEBSITE-ÄNDERUNGEN
-==================
+                // Seite neu laden
+                if (state.currentPage) {
+                    loadPage(state.currentPage);
+                }
+
+                showToast('Änderungen zurückgesetzt', 'success');
+            }
+        }
+
+        // Änderungen exportieren
+        function exportChanges() {
+            if (state.changes.length === 0) {
+                showToast('Keine Änderungen zum Speichern', 'warning');
+                return;
+            }
+
+            // Lesbare Zusammenfassung erstellen
+            let summary = `WEBSITE-ÄNDERUNGEN FÜR NICK
+============================
 Erstellt am: ${new Date().toLocaleString('de-DE')}
-Anzahl Änderungen: ${changeCount}
-Neue Bilder: ${state.uploadedImages.length}
+Anzahl Änderungen: ${state.changes.length}
 
 `;
 
-            // Textänderungen
-            Object.entries(changesByFile).forEach(([file, changes]) => {
-                const pageName = state.pages.find(p => p.file === file)?.name || file;
-                summary += `\n📄 SEITE: ${pageName}\n`;
+            // Nach Seiten gruppieren
+            const byPage = {};
+            state.changes.forEach(change => {
+                if (!byPage[change.page]) byPage[change.page] = [];
+                byPage[change.page].push(change);
+            });
+
+            Object.entries(byPage).forEach(([page, changes]) => {
+                summary += `\n📄 SEITE: ${page}\n`;
                 summary += `${'─'.repeat(40)}\n`;
 
                 changes.forEach(change => {
                     if (change.type === 'text') {
-                        summary += `\n✏️ TEXT-ÄNDERUNG:\n`;
-                        summary += `   VORHER: "${change.originalValue.substring(0, 100)}${change.originalValue.length > 100 ? '...' : ''}"\n`;
-                        summary += `   NACHHER: "${change.newValue.substring(0, 100)}${change.newValue.length > 100 ? '...' : ''}"\n`;
+                        summary += `\n✏️ TEXT GEÄNDERT (${change.element.toUpperCase()}):\n`;
+                        summary += `   VORHER: "${change.originalValue.substring(0, 80)}${change.originalValue.length > 80 ? '...' : ''}"\n`;
+                        summary += `   NACHHER: "${change.newValue.substring(0, 80)}${change.newValue.length > 80 ? '...' : ''}"\n`;
                     } else if (change.type === 'image') {
-                        summary += `\n🖼️ BILD-ÄNDERUNG:\n`;
+                        summary += `\n🖼️ BILD ERSETZT:\n`;
                         summary += `   ALTES BILD: ${change.originalValue.split('/').pop()}\n`;
                         summary += `   NEUES BILD: ${change.newValue}\n`;
                     } else if (change.type === 'video') {
-                        summary += `\n🎬 VIDEO-ÄNDERUNG:\n`;
+                        summary += `\n🎬 VIDEO GEÄNDERT:\n`;
                         summary += `   ALTE URL: ${change.originalValue}\n`;
                         summary += `   NEUE URL: ${change.newValue}\n`;
-                    } else if (change.type === 'newVideo') {
-                        summary += `\n🎬 NEUES VIDEO:\n`;
-                        summary += `   URL: ${change.newValue}\n`;
                     }
                 });
             });
 
-            // Neue Bilder
             if (state.uploadedImages.length > 0) {
-                summary += `\n\n📷 NEUE BILDER ZUM HOCHLADEN\n`;
+                summary += `\n\n📷 NEUE BILDER (werden separat heruntergeladen):\n`;
                 summary += `${'─'.repeat(40)}\n`;
                 state.uploadedImages.forEach(img => {
-                    summary += `   - ${img.name} (${(img.size / 1024).toFixed(1)} KB)\n`;
+                    summary += `   - ${img.name}\n`;
                 });
-                summary += `\nDiese Bilder werden als separate Dateien heruntergeladen.\n`;
             }
 
             summary += `\n\n${'═'.repeat(40)}\n`;
-            summary += `Bitte sende diese Datei an Nick zur Umsetzung.\n`;
+            summary += `Bitte diese Datei + alle Bilder an Nick senden!\n`;
 
-            // Download Zusammenfassung
+            // Textdatei herunterladen
             const blob = new Blob([summary], { type: 'text/plain;charset=utf-8' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -1453,26 +1083,7 @@ Neue Bilder: ${state.uploadedImages.length}
             a.click();
             URL.revokeObjectURL(url);
 
-            // Download auch als JSON (für technische Verarbeitung)
-            const exportData = {
-                timestamp: new Date().toISOString(),
-                changes: state.changes,
-                uploadedImages: state.uploadedImages.map(img => ({
-                    name: img.name,
-                    type: img.type,
-                    size: img.size
-                }))
-            };
-
-            const jsonBlob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
-            const jsonUrl = URL.createObjectURL(jsonBlob);
-            const jsonA = document.createElement('a');
-            jsonA.href = jsonUrl;
-            jsonA.download = `website-changes-${new Date().toISOString().split('T')[0]}.json`;
-            jsonA.click();
-            URL.revokeObjectURL(jsonUrl);
-
-            // Download neue Bilder
+            // Bilder herunterladen
             if (state.uploadedImages.length > 0) {
                 setTimeout(() => {
                     state.uploadedImages.forEach((img, i) => {
@@ -1481,15 +1092,25 @@ Neue Bilder: ${state.uploadedImages.length}
                             link.href = img.data;
                             link.download = img.name;
                             link.click();
-                        }, i * 500); // Verzögerung zwischen Downloads
+                        }, i * 500);
                     });
                 }, 1000);
             }
 
-            showToast('Änderungen exportiert! Bitte alle Dateien an Nick senden.', 'success');
+            showToast('Änderungen gespeichert! Dateien werden heruntergeladen...', 'success');
         }
 
-        // Show toast notification
+        // Hilfe anzeigen
+        function showHelp() {
+            document.getElementById('helpModal').classList.add('active');
+        }
+
+        // Hilfe schließen
+        function closeHelp() {
+            document.getElementById('helpModal').classList.remove('active');
+        }
+
+        // Toast anzeigen
         function showToast(message, type = 'info') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
@@ -1498,22 +1119,17 @@ Neue Bilder: ${state.uploadedImages.length}
             container.appendChild(toast);
 
             setTimeout(() => {
-                toast.remove();
-            }, 4000);
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(20px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
         }
 
-        // Escape HTML
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        // Warn before leaving with unsaved changes
+        // Warnung vor Verlassen
         window.addEventListener('beforeunload', (e) => {
-            if (Object.keys(state.changes).length > 0 || state.uploadedImages.length > 0) {
+            if (state.changes.length > 0) {
                 e.preventDefault();
-                e.returnValue = 'Du hast ungespeicherte Änderungen. Wirklich verlassen?';
+                e.returnValue = 'Du hast ungespeicherte Änderungen!';
             }
         });
     </script>
