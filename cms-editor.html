@@ -867,8 +867,12 @@
         }
 
         // ============================================
-        // SEITE LADEN
+        // SEITE LADEN (optimiert mit raw.githubusercontent für Geschwindigkeit)
         // ============================================
+
+        // Cache für geladene Seiten und deren SHA
+        const pageCache = {};
+
         async function loadPage(page) {
             if (!page) return;
 
@@ -890,8 +894,22 @@
             updateChangesList();
 
             try {
-                // HTML von GitHub laden
-                let html = await github.getFile(page);
+                // Zwei Requests parallel: schneller raw-Content + SHA für Speichern
+                const rawUrl = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.branch}/${page}`;
+
+                // Beide parallel starten für maximale Geschwindigkeit
+                const [htmlResponse, shaPromise] = await Promise.all([
+                    fetch(rawUrl + '?t=' + Date.now()), // Cache-Busting
+                    github.request(`/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${page}?ref=${CONFIG.branch}`)
+                        .then(data => { state.fileSha[page] = data.sha; })
+                        .catch(() => {}) // SHA-Fehler ignorieren, wird später geholt
+                ]);
+
+                if (!htmlResponse.ok) {
+                    throw new Error('Seite nicht gefunden');
+                }
+
+                let html = await htmlResponse.text();
 
                 // Original speichern
                 state.originalContent[page] = html;
