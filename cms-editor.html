@@ -5,754 +5,591 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website bearbeiten - Glück über Zweifel</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: system-ui, -apple-system, sans-serif; background: #1a1a1a; }
 
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }
-
-        /* Editor Toolbar - Fixed am oberen Rand */
-        .editor-toolbar {
+        /* Toolbar */
+        .toolbar {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            height: 60px;
-            background: linear-gradient(135deg, #2C4A47 0%, #1a2e2c 100%);
+            height: 50px;
+            background: #2C4A47;
             color: white;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 1.5rem;
-            z-index: 10000;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            padding: 0 1rem;
+            z-index: 99999;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        .toolbar-left {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .toolbar-logo {
-            font-size: 1.1rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .toolbar-logo span {
-            opacity: 0.7;
-            font-weight: 400;
-        }
-
-        .page-selector {
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(255,255,255,0.1);
-            color: white;
-            font-size: 0.95rem;
-            cursor: pointer;
-            min-width: 200px;
-        }
-
-        .page-selector:focus {
-            outline: none;
-            border-color: #D4A574;
-        }
-
-        .page-selector option {
-            background: #2C4A47;
-            color: white;
-        }
-
-        .toolbar-center {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .toolbar-right {
+        .toolbar-left, .toolbar-right {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
 
-        .btn {
-            padding: 0.6rem 1.2rem;
-            border: none;
-            border-radius: 8px;
+        .toolbar-logo {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .toolbar-logo span { opacity: 0.6; font-weight: 400; }
+
+        select {
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            color: white;
             font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 500;
         }
+        select option { background: #2C4A47; }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-weight: 500;
+            transition: all 0.15s;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .btn-ghost:hover { background: rgba(255,255,255,0.1); }
 
         .btn-primary {
             background: #D4A574;
             color: white;
         }
+        .btn-primary:hover { background: #c49564; }
 
-        .btn-primary:hover {
-            background: #c49564;
-            transform: translateY(-1px);
-        }
-
-        .btn-secondary {
-            background: rgba(255,255,255,0.15);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.25);
-        }
-
-        .btn-success {
-            background: #4CAF50;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: #43a047;
-        }
-
-        .change-counter {
+        .change-badge {
             background: #ff9800;
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
             font-weight: 600;
         }
-
-        .change-counter.empty {
-            background: rgba(255,255,255,0.2);
-        }
-
-        /* Hilfe-Button */
-        .help-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.3);
-            color: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            transition: all 0.2s;
-        }
-
-        .help-btn:hover {
-            background: rgba(255,255,255,0.25);
-        }
+        .change-badge.empty { background: rgba(255,255,255,0.2); }
 
         /* Website Frame */
         .website-frame {
             position: fixed;
-            top: 60px;
+            top: 50px;
             left: 0;
             right: 0;
             bottom: 0;
             border: none;
             width: 100%;
-            height: calc(100vh - 60px);
+            height: calc(100vh - 50px);
+            background: white;
         }
 
         /* Loading Overlay */
         .loading-overlay {
             position: fixed;
-            top: 60px;
+            top: 50px;
             left: 0;
             right: 0;
             bottom: 0;
-            background: #f8f6f3;
+            background: white;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            z-index: 9999;
+            z-index: 99998;
+            transition: opacity 0.3s;
         }
+        .loading-overlay.hidden { opacity: 0; pointer-events: none; }
 
-        .loading-overlay.hidden {
-            display: none;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #e0ddd8;
-            border-top-color: #2C4A47;
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #2C4A47;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 1rem;
+            animation: spin 0.8s linear infinite;
         }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         .loading-text {
+            margin-top: 1rem;
             color: #666;
-            font-size: 1.1rem;
-        }
-
-        /* Toast Notifications */
-        .toast-container {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10001;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .toast {
-            background: #2C4A47;
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            animation: toastIn 0.3s ease;
             font-size: 0.95rem;
         }
 
-        .toast.success { background: #4CAF50; }
-        .toast.warning { background: #ff9800; }
-        .toast.error { background: #f44336; }
-
-        @keyframes toastIn {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100000;
         }
 
-        /* Hilfe Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.6);
-            z-index: 10002;
+        .toast {
+            background: #333;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            animation: fadeIn 0.2s;
+        }
+        .toast.success { background: #4CAF50; }
+        .toast.error { background: #f44336; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Modal */
+        .modal-bg {
             display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 100001;
             align-items: center;
             justify-content: center;
         }
-
-        .modal-overlay.active {
-            display: flex;
-        }
+        .modal-bg.active { display: flex; }
 
         .modal {
             background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            max-width: 600px;
+            border-radius: 12px;
+            padding: 1.5rem;
+            max-width: 450px;
             width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-        }
-
-        .modal h2 {
-            color: #2C4A47;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         .modal h3 {
             color: #2C4A47;
-            margin: 1.5rem 0 0.75rem;
-            font-size: 1.1rem;
-        }
-
-        .modal p {
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 0.75rem;
-        }
-
-        .modal ul {
-            color: #555;
-            margin-left: 1.5rem;
             margin-bottom: 1rem;
         }
 
-        .modal li {
-            margin-bottom: 0.5rem;
-            line-height: 1.5;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #999;
-        }
-
-        .modal-close:hover {
-            color: #333;
-        }
-
-        .tip-box {
-            background: #e8f5e9;
-            border-left: 4px solid #4CAF50;
-            padding: 1rem;
-            border-radius: 0 8px 8px 0;
-            margin: 1rem 0;
-        }
-
-        .tip-box strong {
-            color: #2e7d32;
-        }
-
-        /* Image Upload Modal */
-        .upload-modal {
-            background: white;
-            border-radius: 16px;
+        .upload-zone {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
             padding: 2rem;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-        }
-
-        .upload-modal h3 {
-            color: #2C4A47;
-            margin-bottom: 1rem;
-        }
-
-        .upload-area {
-            border: 3px dashed #ddd;
-            border-radius: 12px;
-            padding: 3rem;
             text-align: center;
             cursor: pointer;
             transition: all 0.2s;
-            margin-bottom: 1rem;
         }
+        .upload-zone:hover { border-color: #2C4A47; background: #f9f9f9; }
+        .upload-zone.dragover { border-color: #D4A574; background: #fef9f5; }
+        .upload-zone input { display: none; }
 
-        .upload-area:hover, .upload-area.dragover {
-            border-color: #2C4A47;
-            background: #f8f6f3;
-        }
-
-        .upload-area-icon {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .upload-area p {
-            color: #666;
-        }
-
-        .upload-area input {
-            display: none;
-        }
-
-        .upload-preview {
+        .preview-img {
+            max-width: 100%;
+            max-height: 150px;
+            border-radius: 8px;
             margin-top: 1rem;
         }
 
-        .upload-preview img {
-            max-width: 100%;
-            max-height: 200px;
-            border-radius: 8px;
-        }
-
-        .modal-actions {
+        .modal-btns {
             display: flex;
             justify-content: flex-end;
-            gap: 1rem;
+            gap: 0.75rem;
             margin-top: 1.5rem;
         }
 
-        .modal-actions .btn {
-            padding: 0.75rem 1.5rem;
+        .modal-btns .btn { padding: 0.6rem 1.2rem; }
+        .btn-cancel { background: #eee; color: #333; }
+        .btn-cancel:hover { background: #ddd; }
+
+        .video-input {
+            width: 100%;
+            padding: 0.6rem;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.95rem;
         }
 
-        .btn-cancel {
-            background: #eee;
-            color: #333;
+        /* Hilfe Modal */
+        .help-content h4 { color: #2C4A47; margin: 1rem 0 0.5rem; }
+        .help-content p { color: #555; line-height: 1.5; margin-bottom: 0.5rem; }
+        .help-tip {
+            background: #e8f5e9;
+            border-left: 3px solid #4CAF50;
+            padding: 0.75rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
         }
 
-        .btn-cancel:hover {
-            background: #ddd;
+        /* Start Screen */
+        .start-screen {
+            position: fixed;
+            top: 50px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #f8f6f3 0%, #ece8e1 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 99997;
+        }
+        .start-screen.hidden { display: none; }
+
+        .start-screen h1 {
+            font-size: 2rem;
+            color: #2C4A47;
+            margin-bottom: 0.5rem;
+        }
+        .start-screen p {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        .start-arrow {
+            position: absolute;
+            top: 20px;
+            left: 180px;
+            font-size: 3rem;
+            color: #D4A574;
+            animation: bounce 1s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
     </style>
 </head>
 <body>
-    <!-- Editor Toolbar -->
-    <div class="editor-toolbar">
+    <div class="toolbar">
         <div class="toolbar-left">
-            <div class="toolbar-logo">
-                ✏️ Editor <span>| Glück über Zweifel</span>
-            </div>
-            <select class="page-selector" id="pageSelector" onchange="loadPage(this.value)">
-                <option value="">— Seite wählen —</option>
-                <option value="index.html">Startseite</option>
-                <option value="kathrin.html">Über Kathrin</option>
-                <option value="blog.html">Blog</option>
-                <option value="contact.html">Kontakt</option>
-                <option value="einzelbegleitung-sinnkrise-lebensumbruch.html">Einzelbegleitung</option>
-                <option value="paarbegleitung-beziehungskrise-neuanfang-kathrin-stahl.html">Paarbegleitung</option>
-                <option value="paar-retreat.html">Paar-Retreat</option>
-                <option value="retreats-in-portugal.html">Retreats Portugal</option>
-                <option value="pferdegestuetztes-coaching.html">Pferdegestütztes Coaching</option>
-                <option value="systemische-aufstellungen.html">Systemische Aufstellungen</option>
-                <option value="hochbegabung-hochsensibilitat.html">Hochbegabung</option>
-                <option value="innere-fuehrung.html">Innere Führung</option>
-                <option value="love-letters.html">Love Letters</option>
-                <option value="glueck-ueber-zweifel-dein-podcast.html">Podcast</option>
-                <option value="quiz-beziehung.html">Quiz: Beziehung</option>
-                <option value="quiz-hochsensibel.html">Quiz: Hochsensibel</option>
-                <option value="quiz-hochbegabt.html">Quiz: Hochbegabt</option>
-                <option value="quiz-lebenskrise.html">Quiz: Lebenskrise</option>
-                <option value="quiz-midlife.html">Quiz: Midlife</option>
+            <div class="toolbar-logo">Website bearbeiten</div>
+            <select id="pageSelect" onchange="loadPage(this.value)">
+                <option value="">Seite wählen...</option>
+                <optgroup label="Hauptseiten">
+                    <option value="index.html">Startseite</option>
+                    <option value="kathrin.html">Über Kathrin</option>
+                    <option value="contact.html">Kontakt</option>
+                </optgroup>
+                <optgroup label="Coaching">
+                    <option value="einzelbegleitung-sinnkrise-lebensumbruch.html">Einzelbegleitung</option>
+                    <option value="paarbegleitung-beziehungskrise-neuanfang-kathrin-stahl.html">Paarbegleitung</option>
+                    <option value="paar-retreat-in-portugal-beziehung-krise-kathrin-stahl.html">Paar-Retreat</option>
+                </optgroup>
+                <optgroup label="Portugal & Retreats">
+                    <option value="retreats-in-portugal.html">Retreats Portugal</option>
+                    <option value="retreat-portugal-alentejo-kathrin-stahl.html">Retreat Alentejo</option>
+                    <option value="einzelretreat-portugal-alentejo-kathrin-stahl.html">Einzelretreat</option>
+                    <option value="ruhiges-ferienhaus-im-alentejo-fuer-1-2-personen-kathrin-stahl.html">Ferienhaus</option>
+                </optgroup>
+                <optgroup label="Methoden">
+                    <option value="systemische-aufstellungen.html">Systemische Aufstellungen</option>
+                    <option value="heilen-im-schutz-der-pferde.html">Pferdegestütztes Coaching</option>
+                    <option value="innere-fuehrung.html">Innere Führung</option>
+                </optgroup>
+                <optgroup label="Quiz & Tests">
+                    <option value="quiz-paar-kompass.html">Paar-Kompass Quiz</option>
+                    <option value="quiz-beziehung.html">Beziehungs-Quiz</option>
+                    <option value="quiz-hochsensibel.html">Hochsensibel Quiz</option>
+                    <option value="quiz-hochbegabt.html">Hochbegabt Quiz</option>
+                    <option value="quiz-lebenskrise.html">Lebenskrise Quiz</option>
+                    <option value="quiz-midlife.html">Midlife Quiz</option>
+                </optgroup>
+                <optgroup label="Themen">
+                    <option value="hochbegabung-hochsensibilitat.html">Hochbegabung</option>
+                    <option value="beziehungsprobleme.html">Beziehungsprobleme</option>
+                    <option value="ehe-retten.html">Ehe retten</option>
+                    <option value="gehen-oder-bleiben.html">Gehen oder Bleiben</option>
+                </optgroup>
+                <optgroup label="Blog & Medien">
+                    <option value="blog.html">Blog</option>
+                    <option value="glueck-ueber-zweifel-dein-podcast.html">Podcast</option>
+                    <option value="love-letters.html">Love Letters</option>
+                </optgroup>
             </select>
         </div>
 
-        <div class="toolbar-center">
-            <span class="change-counter empty" id="changeCounter">Keine Änderungen</span>
-        </div>
+        <span class="change-badge empty" id="changeBadge">Keine Änderungen</span>
 
         <div class="toolbar-right">
-            <button class="btn btn-secondary" onclick="resetChanges()">
-                ↩️ Zurücksetzen
-            </button>
-            <button class="btn btn-success" onclick="exportChanges()">
-                💾 Änderungen speichern
-            </button>
-            <button class="help-btn" onclick="showHelp()">?</button>
+            <button class="btn btn-ghost" onclick="resetAll()">Zurücksetzen</button>
+            <button class="btn btn-primary" onclick="saveChanges()">Speichern</button>
+            <button class="btn btn-ghost" onclick="showHelp()" style="padding: 0.5rem 0.7rem;">?</button>
         </div>
     </div>
 
-    <!-- Website wird hier geladen -->
-    <iframe id="websiteFrame" class="website-frame" src="about:blank"></iframe>
+    <!-- Start Screen -->
+    <div class="start-screen" id="startScreen">
+        <div class="start-arrow">^</div>
+        <h1>Willkommen!</h1>
+        <p>Wähle oben eine Seite aus, um mit dem Bearbeiten zu beginnen.</p>
+    </div>
 
     <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="spinner"></div>
-        <div class="loading-text">Wähle oben eine Seite aus...</div>
+    <div class="loading-overlay hidden" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Seite wird geladen...</div>
     </div>
 
-    <!-- Toast Container -->
-    <div class="toast-container" id="toastContainer"></div>
+    <iframe id="siteFrame" class="website-frame"></iframe>
 
-    <!-- Hilfe Modal -->
-    <div class="modal-overlay" id="helpModal">
-        <div class="modal" style="position: relative;">
-            <button class="modal-close" onclick="closeHelp()">×</button>
-            <h2>✏️ So bearbeitest du die Website</h2>
+    <div class="toast-container" id="toasts"></div>
 
-            <h3>📝 Texte ändern</h3>
-            <p>Klicke einfach auf einen Text, den du ändern möchtest. Er wird gelb markiert und du kannst direkt lostippen.</p>
-
-            <h3>🖼️ Bilder austauschen</h3>
-            <p>Klicke auf ein Bild, das du ersetzen möchtest. Es öffnet sich ein Dialog, in dem du ein neues Bild hochladen kannst.</p>
-
-            <h3>🎬 Videos ändern</h3>
-            <p>Klicke auf ein Video. Du kannst dann eine neue YouTube- oder Vimeo-URL eingeben.</p>
-
-            <div class="tip-box">
-                <strong>💡 Tipp:</strong> Bearbeitbare Elemente werden beim Überfahren mit der Maus leicht hervorgehoben.
+    <!-- Bild Upload Modal -->
+    <div class="modal-bg" id="imgModal">
+        <div class="modal">
+            <h3>Bild ersetzen</h3>
+            <div class="upload-zone" id="uploadZone">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">+</div>
+                <p><strong>Klicken oder Bild hierher ziehen</strong></p>
+                <input type="file" id="imgInput" accept="image/*">
             </div>
-
-            <h3>💾 Änderungen speichern</h3>
-            <p>Wenn du fertig bist, klicke auf "Änderungen speichern". Du erhältst dann Dateien, die du an Nick schicken kannst.</p>
-
-            <ul>
-                <li>Eine <strong>Textdatei</strong> mit allen Änderungen als Übersicht</li>
-                <li>Alle <strong>neuen Bilder</strong> werden heruntergeladen</li>
-            </ul>
-
-            <div class="modal-actions">
-                <button class="btn btn-primary" onclick="closeHelp()">Verstanden!</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Image Upload Modal -->
-    <div class="modal-overlay" id="imageUploadModal">
-        <div class="upload-modal">
-            <h3>🖼️ Neues Bild auswählen</h3>
-            <p style="color: #666; margin-bottom: 1rem;">Wähle ein Bild von deinem Computer:</p>
-
-            <div class="upload-area" id="uploadArea">
-                <div class="upload-area-icon">📷</div>
-                <p><strong>Klicke hier oder ziehe ein Bild hierher</strong></p>
-                <p style="font-size: 0.85rem;">JPG, PNG, WebP</p>
-                <input type="file" id="imageFileInput" accept="image/*">
-            </div>
-
-            <div class="upload-preview" id="uploadPreview" style="display: none;">
-                <p style="color: #666; margin-bottom: 0.5rem;">Vorschau:</p>
-                <img id="previewImage" src="" alt="Vorschau">
-            </div>
-
-            <div class="modal-actions">
-                <button class="btn btn-cancel" onclick="closeImageUpload()">Abbrechen</button>
-                <button class="btn btn-primary" id="confirmImageBtn" onclick="confirmImageChange()" disabled>Bild einsetzen</button>
+            <img id="imgPreview" class="preview-img" style="display:none;">
+            <div class="modal-btns">
+                <button class="btn btn-cancel" onclick="closeImgModal()">Abbrechen</button>
+                <button class="btn btn-primary" id="imgConfirmBtn" onclick="confirmImg()" disabled>Einsetzen</button>
             </div>
         </div>
     </div>
 
     <!-- Video URL Modal -->
-    <div class="modal-overlay" id="videoUrlModal">
-        <div class="upload-modal">
-            <h3>🎬 Video-URL ändern</h3>
-            <p style="color: #666; margin-bottom: 1rem;">Gib die neue YouTube- oder Vimeo-URL ein:</p>
-
-            <input type="text" id="videoUrlInput" placeholder="https://www.youtube.com/watch?v=..."
-                   style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem;">
-
-            <div class="modal-actions">
+    <div class="modal-bg" id="videoModal">
+        <div class="modal">
+            <h3>Video ändern</h3>
+            <p style="color:#666; margin-bottom:1rem;">YouTube oder Vimeo URL eingeben:</p>
+            <input type="text" class="video-input" id="videoInput" placeholder="https://youtube.com/watch?v=...">
+            <div class="modal-btns">
                 <button class="btn btn-cancel" onclick="closeVideoModal()">Abbrechen</button>
-                <button class="btn btn-primary" onclick="confirmVideoChange()">Video ändern</button>
+                <button class="btn btn-primary" onclick="confirmVideo()">Ändern</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hilfe Modal -->
+    <div class="modal-bg" id="helpModal">
+        <div class="modal help-content" style="max-width: 500px;">
+            <h3>So funktioniert der Editor</h3>
+            <h4>Texte bearbeiten</h4>
+            <p>Klicke auf einen Text - er wird gelb markiert. Dann kannst du ihn ändern.</p>
+            <h4>Bilder ersetzen</h4>
+            <p>Klicke auf ein Bild - ein Fenster öffnet sich zum Hochladen eines neuen Bildes.</p>
+            <h4>Videos ändern</h4>
+            <p>Klicke auf ein Video - gib eine neue YouTube/Vimeo URL ein.</p>
+            <div class="help-tip">
+                <strong>Tipp:</strong> Elemente werden beim Darüberfahren farbig markiert.
+            </div>
+            <h4>Speichern</h4>
+            <p>Klicke "Speichern" - Du bekommst eine Datei mit allen Änderungen für Nick.</p>
+            <div class="modal-btns">
+                <button class="btn btn-primary" onclick="closeHelp()">Verstanden!</button>
             </div>
         </div>
     </div>
 
     <script>
-        // ============================================
-        // KONFIGURATION
-        // ============================================
-        const CONFIG = {
-            baseUrl: 'https://nickheymann.github.io/kathrin-coaching/'
-        };
-
-        // State
-        const state = {
-            currentPage: null,
-            changes: [],
-            uploadedImages: [],
-            currentEditingElement: null,
-            currentEditingImage: null,
-            currentEditingVideo: null,
-            newImageData: null
-        };
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            setupUploadArea();
-
-            // Zeige Hilfe beim ersten Besuch
-            if (!localStorage.getItem('editorHelpSeen')) {
-                setTimeout(() => {
-                    showHelp();
-                    localStorage.setItem('editorHelpSeen', 'true');
-                }, 500);
-            }
-        });
+        let changes = [];
+        let images = [];
+        let currentImg = null;
+        let currentVideo = null;
+        let newImgData = null;
+        let currentPage = null;
+        let originalHTML = {};
 
         // Seite laden
         async function loadPage(page) {
             if (!page) return;
 
-            state.currentPage = page;
-            const loadingOverlay = document.getElementById('loadingOverlay');
-            const loadingText = loadingOverlay.querySelector('.loading-text');
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('loadingOverlay').classList.remove('hidden');
 
-            loadingOverlay.classList.remove('hidden');
-            loadingText.textContent = 'Lade Seite...';
+            currentPage = page;
 
             try {
-                const response = await fetch(CONFIG.baseUrl + page);
+                // HTML-Datei laden (aus gleichem Ordner)
+                const response = await fetch(page);
                 if (!response.ok) throw new Error('Seite nicht gefunden');
 
                 let html = await response.text();
 
-                // CSS und JS für Editor-Funktionalität injizieren
-                html = injectEditorStyles(html);
+                // Original speichern
+                originalHTML[page] = html;
 
-                const frame = document.getElementById('websiteFrame');
+                // Relative URLs zu absoluten machen für Bilder
+                html = fixRelativeUrls(html);
+
+                // Editor-Styles und Scripts einfügen
+                html = injectEditorCode(html);
+
+                // In iframe laden
+                const frame = document.getElementById('siteFrame');
                 frame.srcdoc = html;
 
+                // Warten bis geladen
                 frame.onload = () => {
-                    setupEditableElements(frame);
-                    loadingOverlay.classList.add('hidden');
-                    showToast('Seite geladen - klicke auf Elemente zum Bearbeiten', 'success');
+                    setupFrameEditing(frame);
+                    document.getElementById('loadingOverlay').classList.add('hidden');
+                    toast('Seite geladen - klicke auf Elemente zum Bearbeiten', 'success');
                 };
 
-            } catch (error) {
-                console.error(error);
-                loadingText.textContent = 'Fehler beim Laden: ' + error.message;
-                showToast('Fehler beim Laden der Seite', 'error');
+            } catch(e) {
+                console.error(e);
+                document.getElementById('loadingOverlay').classList.add('hidden');
+                toast('Fehler beim Laden: ' + e.message, 'error');
             }
         }
 
-        // Editor-Styles in die Seite injizieren
-        function injectEditorStyles(html) {
+        // Relative URLs zu absoluten machen
+        function fixRelativeUrls(html) {
+            // Base URL für Assets
+            const baseUrl = window.location.href.replace(/[^/]*$/, '');
+
+            // CSS-Links
+            html = html.replace(/href="([^"]+\.css)"/g, (match, url) => {
+                if (url.startsWith('http') || url.startsWith('//')) return match;
+                return `href="${baseUrl}${url}"`;
+            });
+
+            // JS-Scripts
+            html = html.replace(/src="([^"]+\.js)"/g, (match, url) => {
+                if (url.startsWith('http') || url.startsWith('//')) return match;
+                return `src="${baseUrl}${url}"`;
+            });
+
+            // Bilder
+            html = html.replace(/src="(images\/[^"]+)"/g, `src="${baseUrl}$1"`);
+            html = html.replace(/url\(['"]?(images\/[^'")]+)['"]?\)/g, `url('${baseUrl}$1')`);
+
+            return html;
+        }
+
+        // Editor-Code in HTML einfügen
+        function injectEditorCode(html) {
             const editorStyles = `
                 <style id="editor-styles">
-                    /* Bearbeitbare Texte */
-                    h1, h2, h3, h4, h5, h6, p, span, a, li, td, th, label, button {
-                        cursor: text !important;
-                        transition: outline 0.2s, background-color 0.2s !important;
+                    /* Texte hover */
+                    h1,h2,h3,h4,h5,h6,p,span,li,td,th,label,a,button {
+                        transition: outline 0.15s, background 0.15s !important;
                     }
-
-                    h1:hover, h2:hover, h3:hover, h4:hover, h5:hover, h6:hover,
-                    p:hover, span:hover, a:hover, li:hover, label:hover {
+                    h1:hover,h2:hover,h3:hover,h4:hover,h5:hover,h6:hover,
+                    p:hover,li:hover,label:hover,button:hover {
                         outline: 2px dashed #D4A574 !important;
-                        outline-offset: 4px !important;
+                        outline-offset: 3px !important;
+                        cursor: text !important;
                     }
-
-                    [data-editing="true"] {
-                        background-color: #fff3cd !important;
-                        outline: 3px solid #D4A574 !important;
-                        outline-offset: 2px !important;
+                    [data-editing] {
+                        background: #fff3cd !important;
+                        outline: 2px solid #D4A574 !important;
                     }
-
-                    /* Bearbeitbare Bilder */
+                    [data-changed] {
+                        background: #c8e6c9 !important;
+                    }
+                    /* Bilder hover */
                     img {
+                        transition: outline 0.15s !important;
                         cursor: pointer !important;
-                        transition: outline 0.2s, opacity 0.2s !important;
                     }
-
                     img:hover {
                         outline: 3px solid #2196F3 !important;
-                        outline-offset: 4px !important;
+                        outline-offset: 3px !important;
                     }
-
-                    img[data-changed="true"] {
+                    img[data-changed] {
                         outline: 3px solid #4CAF50 !important;
-                        outline-offset: 4px !important;
                     }
-
-                    /* Bearbeitbare Videos/Iframes */
-                    iframe {
-                        cursor: pointer !important;
-                        transition: outline 0.2s !important;
+                    /* Videos hover */
+                    .video-overlay {
+                        position: absolute;
+                        inset: 0;
+                        cursor: pointer;
+                        z-index: 10;
+                        transition: background 0.15s;
                     }
-
-                    iframe:hover {
-                        outline: 3px solid #9c27b0 !important;
-                        outline-offset: 4px !important;
+                    .video-overlay:hover {
+                        background: rgba(156, 39, 176, 0.2);
                     }
-
-                    /* Geänderte Texte markieren */
-                    [data-changed="true"] {
-                        background-color: #c8e6c9 !important;
-                    }
-
-                    /* Editor-Hinweis */
-                    .editor-hint {
-                        position: fixed;
-                        bottom: 20px;
-                        right: 20px;
-                        background: #2C4A47;
-                        color: white;
-                        padding: 0.75rem 1.25rem;
-                        border-radius: 8px;
-                        font-size: 0.9rem;
-                        z-index: 9999;
-                        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-                    }
+                    /* Links deaktivieren */
+                    a { pointer-events: auto !important; }
                 </style>
             `;
 
-            return html.replace('</head>', editorStyles + '</head>');
+            // Vor </head> einfügen
+            if (html.includes('</head>')) {
+                html = html.replace('</head>', editorStyles + '</head>');
+            } else {
+                html = editorStyles + html;
+            }
+
+            return html;
         }
 
-        // Bearbeitbare Elemente einrichten
-        function setupEditableElements(frame) {
+        // Frame-Editing einrichten
+        function setupFrameEditing(frame) {
             const doc = frame.contentDocument;
+            if (!doc) return;
 
-            // Hint hinzufügen
-            const hint = doc.createElement('div');
-            hint.className = 'editor-hint';
-            hint.innerHTML = '✏️ Klicke auf Texte, Bilder oder Videos zum Bearbeiten';
-            doc.body.appendChild(hint);
-
-            // Nach 5 Sekunden ausblenden
-            setTimeout(() => {
-                hint.style.transition = 'opacity 0.5s';
-                hint.style.opacity = '0';
-                setTimeout(() => hint.remove(), 500);
-            }, 5000);
-
-            // Texte bearbeitbar machen
-            const textElements = doc.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, li, td, th, label');
-            textElements.forEach((el, index) => {
-                const text = el.textContent.trim();
-                if (text && text.length > 2 && !el.querySelector('img') && !el.closest('script') && !el.closest('style')) {
-                    el.dataset.editorId = `text-${index}`;
-                    el.dataset.originalText = text;
+            // Texte klickbar machen
+            const textElements = doc.querySelectorAll('h1,h2,h3,h4,h5,h6,p,li,label,span,button');
+            textElements.forEach((el, i) => {
+                const txt = el.textContent.trim();
+                // Nur Elemente mit Text und ohne Kinder-Bilder
+                if (txt.length > 2 && !el.querySelector('img') && !el.closest('[data-no-edit]')) {
+                    el.dataset.editIdx = i;
+                    el.dataset.editOrig = txt;
+                    el.style.cursor = 'text';
 
                     el.addEventListener('click', (e) => {
                         e.preventDefault();
                         e.stopPropagation();
-                        startTextEditing(el);
+                        editText(el);
                     });
                 }
             });
 
-            // Bilder klickbar machen
+            // Bilder klickbar
             const images = doc.querySelectorAll('img');
-            images.forEach((img, index) => {
-                const src = img.getAttribute('src');
-                if (src && !src.startsWith('data:')) {
-                    img.dataset.editorId = `img-${index}`;
-                    img.dataset.originalSrc = src;
+            images.forEach((img, i) => {
+                const src = img.src;
+                if (src && !src.startsWith('data:') && !img.closest('[data-no-edit]')) {
+                    img.dataset.editIdx = i;
+                    img.dataset.editOrig = src;
 
                     img.addEventListener('click', (e) => {
                         e.preventDefault();
                         e.stopPropagation();
-                        startImageEditing(img);
+                        editImg(img);
                     });
                 }
             });
 
-            // Videos/Iframes klickbar machen
+            // Videos (iframes)
             const iframes = doc.querySelectorAll('iframe');
-            iframes.forEach((iframe, index) => {
-                const src = iframe.getAttribute('src') || '';
+            iframes.forEach((iframe, i) => {
+                const src = iframe.src || '';
                 if (src.includes('youtube') || src.includes('vimeo')) {
-                    // Overlay für Iframe erstellen (da Iframes schwer zu klicken sind)
+                    // Wrapper erstellen
                     const wrapper = doc.createElement('div');
-                    wrapper.style.cssText = 'position: relative; display: inline-block;';
+                    wrapper.style.cssText = 'position:relative;display:inline-block;width:100%;';
                     iframe.parentNode.insertBefore(wrapper, iframe);
                     wrapper.appendChild(iframe);
 
+                    // Overlay für Klick
                     const overlay = doc.createElement('div');
-                    overlay.style.cssText = `
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
-                        cursor: pointer;
-                        z-index: 10;
-                    `;
-                    overlay.dataset.editorId = `video-${index}`;
-                    overlay.dataset.originalSrc = src;
+                    overlay.className = 'video-overlay';
+                    overlay.dataset.editIdx = i;
+                    overlay.dataset.editOrig = src;
                     wrapper.appendChild(overlay);
 
                     overlay.addEventListener('click', (e) => {
                         e.preventDefault();
-                        e.stopPropagation();
-                        startVideoEditing(iframe, overlay);
+                        editVideo(iframe, overlay);
                     });
                 }
             });
@@ -760,378 +597,320 @@
             // Links deaktivieren
             doc.querySelectorAll('a').forEach(a => {
                 a.addEventListener('click', (e) => {
-                    e.preventDefault();
+                    // Nur verhindern wenn es ein echter Link ist
+                    const href = a.getAttribute('href');
+                    if (href && !href.startsWith('#') && !href.startsWith('javascript:')) {
+                        e.preventDefault();
+                    }
                 });
             });
         }
 
-        // Text-Bearbeitung starten
-        function startTextEditing(el) {
-            // Vorherige Bearbeitung beenden
-            if (state.currentEditingElement) {
-                state.currentEditingElement.removeAttribute('data-editing');
-                state.currentEditingElement.contentEditable = 'false';
+        // Text bearbeiten
+        let activeEl = null;
+        function editText(el) {
+            // Vorheriges Element zurücksetzen
+            if (activeEl) {
+                activeEl.removeAttribute('data-editing');
+                activeEl.contentEditable = 'false';
             }
 
-            state.currentEditingElement = el;
-            el.dataset.editing = 'true';
+            activeEl = el;
+            el.setAttribute('data-editing', 'true');
             el.contentEditable = 'true';
             el.focus();
 
-            // Auswahl am Ende positionieren
-            const range = el.ownerDocument.createRange();
+            // Cursor ans Ende
+            const doc = el.ownerDocument;
+            const range = doc.createRange();
             range.selectNodeContents(el);
             range.collapse(false);
-            const sel = el.ownerDocument.getSelection();
+            const sel = doc.getSelection();
             sel.removeAllRanges();
             sel.addRange(range);
 
             // Bei Blur speichern
-            el.addEventListener('blur', () => finishTextEditing(el), { once: true });
-
-            // Bei Enter beenden
-            el.addEventListener('keydown', (e) => {
+            el.onblur = () => finishText(el);
+            el.onkeydown = (e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
                     el.blur();
                 }
-            });
+                if (e.key === 'Escape') {
+                    el.textContent = el.dataset.editOrig;
+                    el.blur();
+                }
+            };
         }
 
-        // Text-Bearbeitung beenden
-        function finishTextEditing(el) {
+        function finishText(el) {
             el.removeAttribute('data-editing');
             el.contentEditable = 'false';
 
-            const originalText = el.dataset.originalText;
-            const newText = el.textContent.trim();
+            const orig = el.dataset.editOrig;
+            const now = el.textContent.trim();
 
-            if (newText !== originalText) {
-                el.dataset.changed = 'true';
+            if (now !== orig) {
+                el.setAttribute('data-changed', 'true');
 
-                // Änderung speichern
-                const existingChange = state.changes.find(c => c.id === el.dataset.editorId);
-                if (existingChange) {
-                    existingChange.newValue = newText;
+                // Bestehende Änderung aktualisieren oder neue hinzufügen
+                const existing = changes.find(c => c.idx === el.dataset.editIdx && c.type === 'text' && c.page === currentPage);
+                if (existing) {
+                    existing.newVal = now;
                 } else {
-                    state.changes.push({
-                        id: el.dataset.editorId,
+                    changes.push({
                         type: 'text',
-                        element: el.tagName.toLowerCase(),
-                        originalValue: originalText,
-                        newValue: newText,
-                        page: state.currentPage
+                        idx: el.dataset.editIdx,
+                        tag: el.tagName,
+                        selector: getSelector(el),
+                        orig: orig,
+                        newVal: now,
+                        page: currentPage
                     });
                 }
-
-                updateChangeCounter();
-                showToast('Text geändert ✓', 'success');
+                updateBadge();
+                toast('Text geändert', 'success');
             }
-
-            state.currentEditingElement = null;
+            activeEl = null;
         }
 
-        // Bild-Bearbeitung starten
-        function startImageEditing(img) {
-            state.currentEditingImage = img;
-            document.getElementById('imageUploadModal').classList.add('active');
-            document.getElementById('uploadPreview').style.display = 'none';
-            document.getElementById('confirmImageBtn').disabled = true;
-            state.newImageData = null;
-        }
-
-        // Video-Bearbeitung starten
-        function startVideoEditing(iframe, overlay) {
-            state.currentEditingVideo = { iframe, overlay };
-            const currentSrc = overlay.dataset.originalSrc;
-            document.getElementById('videoUrlInput').value = currentSrc;
-            document.getElementById('videoUrlModal').classList.add('active');
-        }
-
-        // Upload-Area einrichten
-        function setupUploadArea() {
-            const uploadArea = document.getElementById('uploadArea');
-            const fileInput = document.getElementById('imageFileInput');
-
-            uploadArea.addEventListener('click', () => fileInput.click());
-
-            uploadArea.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                uploadArea.classList.add('dragover');
-            });
-
-            uploadArea.addEventListener('dragleave', () => {
-                uploadArea.classList.remove('dragover');
-            });
-
-            uploadArea.addEventListener('drop', (e) => {
-                e.preventDefault();
-                uploadArea.classList.remove('dragover');
-                handleImageFile(e.dataTransfer.files[0]);
-            });
-
-            fileInput.addEventListener('change', (e) => {
-                handleImageFile(e.target.files[0]);
-            });
-        }
-
-        // Bild-Datei verarbeiten
-        function handleImageFile(file) {
-            if (!file || !file.type.startsWith('image/')) {
-                showToast('Bitte wähle eine Bilddatei', 'error');
-                return;
+        // CSS-Selector für Element generieren
+        function getSelector(el) {
+            if (el.id) return '#' + el.id;
+            if (el.className) {
+                const classes = el.className.split(' ').filter(c => c).slice(0, 2).join('.');
+                if (classes) return el.tagName.toLowerCase() + '.' + classes;
             }
-
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                state.newImageData = {
-                    data: e.target.result,
-                    name: file.name,
-                    size: file.size,
-                    type: file.type
-                };
-
-                document.getElementById('previewImage').src = e.target.result;
-                document.getElementById('uploadPreview').style.display = 'block';
-                document.getElementById('confirmImageBtn').disabled = false;
-            };
-            reader.readAsDataURL(file);
+            return el.tagName.toLowerCase();
         }
 
-        // Bild-Änderung bestätigen
-        function confirmImageChange() {
-            if (!state.currentEditingImage || !state.newImageData) return;
+        // Bild bearbeiten
+        function editImg(img) {
+            currentImg = img;
+            document.getElementById('imgModal').classList.add('active');
+            document.getElementById('imgPreview').style.display = 'none';
+            document.getElementById('imgConfirmBtn').disabled = true;
+            newImgData = null;
+        }
 
-            const img = state.currentEditingImage;
-            const originalSrc = img.dataset.originalSrc;
+        function closeImgModal() {
+            document.getElementById('imgModal').classList.remove('active');
+            document.getElementById('imgInput').value = '';
+            currentImg = null;
+        }
 
-            // Bild im Frame ändern
-            img.src = state.newImageData.data;
-            img.dataset.changed = 'true';
+        function confirmImg() {
+            if (!currentImg || !newImgData) return;
 
-            // Änderung speichern
-            state.changes.push({
-                id: img.dataset.editorId,
+            currentImg.src = newImgData.data;
+            currentImg.setAttribute('data-changed', 'true');
+
+            changes.push({
                 type: 'image',
-                originalValue: originalSrc,
-                newValue: state.newImageData.name,
-                imageData: state.newImageData.data,
-                page: state.currentPage
+                idx: currentImg.dataset.editIdx,
+                orig: currentImg.dataset.editOrig,
+                newFile: newImgData.name,
+                page: currentPage
             });
+            images.push(newImgData);
 
-            state.uploadedImages.push(state.newImageData);
-
-            updateChangeCounter();
-            closeImageUpload();
-            showToast('Bild ersetzt ✓', 'success');
+            updateBadge();
+            closeImgModal();
+            toast('Bild ersetzt', 'success');
         }
 
-        // Bild-Upload Modal schließen
-        function closeImageUpload() {
-            document.getElementById('imageUploadModal').classList.remove('active');
-            document.getElementById('imageFileInput').value = '';
-            state.currentEditingImage = null;
-            state.newImageData = null;
+        // Video bearbeiten
+        function editVideo(iframe, overlay) {
+            currentVideo = { iframe, overlay };
+            document.getElementById('videoInput').value = overlay.dataset.editOrig;
+            document.getElementById('videoModal').classList.add('active');
         }
 
-        // Video-Änderung bestätigen
-        function confirmVideoChange() {
-            const newUrl = document.getElementById('videoUrlInput').value.trim();
-
-            if (!newUrl) {
-                showToast('Bitte gib eine URL ein', 'error');
-                return;
-            }
-
-            if (!newUrl.includes('youtube') && !newUrl.includes('vimeo')) {
-                showToast('Nur YouTube und Vimeo werden unterstützt', 'error');
-                return;
-            }
-
-            const { iframe, overlay } = state.currentEditingVideo;
-            const originalSrc = overlay.dataset.originalSrc;
-
-            // URL für Embed formatieren
-            let embedUrl = newUrl;
-            if (newUrl.includes('youtube.com/watch')) {
-                const videoId = new URL(newUrl).searchParams.get('v');
-                embedUrl = `https://www.youtube.com/embed/${videoId}`;
-            } else if (newUrl.includes('youtu.be/')) {
-                const videoId = newUrl.split('youtu.be/')[1].split('?')[0];
-                embedUrl = `https://www.youtube.com/embed/${videoId}`;
-            }
-
-            // Video ändern
-            iframe.src = embedUrl;
-            iframe.style.outline = '3px solid #4CAF50';
-
-            // Änderung speichern
-            state.changes.push({
-                id: overlay.dataset.editorId,
-                type: 'video',
-                originalValue: originalSrc,
-                newValue: embedUrl,
-                page: state.currentPage
-            });
-
-            updateChangeCounter();
-            closeVideoModal();
-            showToast('Video geändert ✓', 'success');
-        }
-
-        // Video Modal schließen
         function closeVideoModal() {
-            document.getElementById('videoUrlModal').classList.remove('active');
-            state.currentEditingVideo = null;
+            document.getElementById('videoModal').classList.remove('active');
+            currentVideo = null;
         }
 
-        // Änderungs-Counter aktualisieren
-        function updateChangeCounter() {
-            const counter = document.getElementById('changeCounter');
-            const count = state.changes.length;
-
-            if (count === 0) {
-                counter.textContent = 'Keine Änderungen';
-                counter.classList.add('empty');
-            } else {
-                counter.textContent = `${count} Änderung${count > 1 ? 'en' : ''}`;
-                counter.classList.remove('empty');
+        function confirmVideo() {
+            let url = document.getElementById('videoInput').value.trim();
+            if (!url) return toast('Bitte URL eingeben', 'error');
+            if (!url.includes('youtube') && !url.includes('vimeo')) {
+                return toast('Nur YouTube oder Vimeo URLs', 'error');
             }
+
+            // URL zu Embed-Format konvertieren
+            if (url.includes('youtube.com/watch')) {
+                const id = new URL(url).searchParams.get('v');
+                url = `https://www.youtube.com/embed/${id}`;
+            } else if (url.includes('youtu.be/')) {
+                const id = url.split('youtu.be/')[1].split('?')[0];
+                url = `https://www.youtube.com/embed/${id}`;
+            }
+
+            currentVideo.iframe.src = url;
+            currentVideo.iframe.style.outline = '3px solid #4CAF50';
+
+            changes.push({
+                type: 'video',
+                idx: currentVideo.overlay.dataset.editIdx,
+                orig: currentVideo.overlay.dataset.editOrig,
+                newVal: url,
+                page: currentPage
+            });
+
+            updateBadge();
+            closeVideoModal();
+            toast('Video geändert', 'success');
         }
 
-        // Änderungen zurücksetzen
-        function resetChanges() {
-            if (state.changes.length === 0) {
-                showToast('Keine Änderungen zum Zurücksetzen', 'warning');
-                return;
-            }
-
-            if (confirm('Alle Änderungen verwerfen?')) {
-                state.changes = [];
-                state.uploadedImages = [];
-                updateChangeCounter();
-
-                // Seite neu laden
-                if (state.currentPage) {
-                    loadPage(state.currentPage);
-                }
-
-                showToast('Änderungen zurückgesetzt', 'success');
-            }
+        // Badge aktualisieren
+        function updateBadge() {
+            const badge = document.getElementById('changeBadge');
+            const n = changes.length;
+            badge.textContent = n ? `${n} Änderung${n > 1 ? 'en' : ''}` : 'Keine Änderungen';
+            badge.classList.toggle('empty', !n);
         }
 
-        // Änderungen exportieren
-        function exportChanges() {
-            if (state.changes.length === 0) {
-                showToast('Keine Änderungen zum Speichern', 'warning');
-                return;
-            }
+        // Reset
+        function resetAll() {
+            if (!changes.length) return toast('Nichts zum Zurücksetzen');
+            if (!confirm('Alle Änderungen verwerfen?')) return;
+            changes = [];
+            images = [];
+            updateBadge();
+            if (currentPage) loadPage(currentPage);
+            toast('Zurückgesetzt', 'success');
+        }
 
-            // Lesbare Zusammenfassung erstellen
-            let summary = `WEBSITE-ÄNDERUNGEN FÜR NICK
-============================
-Erstellt am: ${new Date().toLocaleString('de-DE')}
-Anzahl Änderungen: ${state.changes.length}
+        // Speichern / Export
+        function saveChanges() {
+            if (!changes.length) return toast('Keine Änderungen zum Speichern', 'error');
 
-`;
+            let txt = `WEBSITE-ÄNDERUNGEN\n${'='.repeat(50)}\nErstellt am: ${new Date().toLocaleString('de')}\n\n`;
 
             // Nach Seiten gruppieren
             const byPage = {};
-            state.changes.forEach(change => {
-                if (!byPage[change.page]) byPage[change.page] = [];
-                byPage[change.page].push(change);
+            changes.forEach(c => {
+                if (!byPage[c.page]) byPage[c.page] = [];
+                byPage[c.page].push(c);
             });
 
-            Object.entries(byPage).forEach(([page, changes]) => {
-                summary += `\n📄 SEITE: ${page}\n`;
-                summary += `${'─'.repeat(40)}\n`;
+            Object.entries(byPage).forEach(([page, list]) => {
+                txt += `\nSEITE: ${page}\n${'-'.repeat(50)}\n`;
 
-                changes.forEach(change => {
-                    if (change.type === 'text') {
-                        summary += `\n✏️ TEXT GEÄNDERT (${change.element.toUpperCase()}):\n`;
-                        summary += `   VORHER: "${change.originalValue.substring(0, 80)}${change.originalValue.length > 80 ? '...' : ''}"\n`;
-                        summary += `   NACHHER: "${change.newValue.substring(0, 80)}${change.newValue.length > 80 ? '...' : ''}"\n`;
-                    } else if (change.type === 'image') {
-                        summary += `\n🖼️ BILD ERSETZT:\n`;
-                        summary += `   ALTES BILD: ${change.originalValue.split('/').pop()}\n`;
-                        summary += `   NEUES BILD: ${change.newValue}\n`;
-                    } else if (change.type === 'video') {
-                        summary += `\n🎬 VIDEO GEÄNDERT:\n`;
-                        summary += `   ALTE URL: ${change.originalValue}\n`;
-                        summary += `   NEUE URL: ${change.newValue}\n`;
+                list.forEach((c, i) => {
+                    txt += `\n[${i + 1}] `;
+                    if (c.type === 'text') {
+                        txt += `TEXT (${c.tag})\n`;
+                        txt += `    Vorher: "${c.orig.substring(0, 80)}${c.orig.length > 80 ? '...' : ''}"\n`;
+                        txt += `    Nachher: "${c.newVal.substring(0, 80)}${c.newVal.length > 80 ? '...' : ''}"\n`;
+                    } else if (c.type === 'image') {
+                        txt += `BILD\n`;
+                        txt += `    Altes Bild: ${c.orig.split('/').pop()}\n`;
+                        txt += `    Neues Bild: ${c.newFile}\n`;
+                    } else if (c.type === 'video') {
+                        txt += `VIDEO\n`;
+                        txt += `    Alte URL: ${c.orig}\n`;
+                        txt += `    Neue URL: ${c.newVal}\n`;
                     }
                 });
             });
 
-            if (state.uploadedImages.length > 0) {
-                summary += `\n\n📷 NEUE BILDER (werden separat heruntergeladen):\n`;
-                summary += `${'─'.repeat(40)}\n`;
-                state.uploadedImages.forEach(img => {
-                    summary += `   - ${img.name}\n`;
+            if (images.length) {
+                txt += `\n\nNEUE BILDER (${images.length} Dateien)\n${'-'.repeat(50)}\n`;
+                images.forEach((img, i) => {
+                    txt += `  ${i + 1}. ${img.name}\n`;
                 });
+                txt += `\nDiese Bilder werden separat heruntergeladen.\n`;
             }
 
-            summary += `\n\n${'═'.repeat(40)}\n`;
-            summary += `Bitte diese Datei + alle Bilder an Nick senden!\n`;
+            txt += `\n${'='.repeat(50)}\nBitte diese Datei an Nick senden!\n`;
 
-            // Textdatei herunterladen
-            const blob = new Blob([summary], { type: 'text/plain;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
+            // Änderungen als Textdatei downloaden
+            const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
             const a = document.createElement('a');
-            a.href = url;
-            a.download = `Website-Änderungen-${new Date().toISOString().split('T')[0]}.txt`;
+            a.href = URL.createObjectURL(blob);
+            a.download = `Website-Aenderungen-${new Date().toISOString().split('T')[0]}.txt`;
             a.click();
-            URL.revokeObjectURL(url);
 
-            // Bilder herunterladen
-            if (state.uploadedImages.length > 0) {
+            // Neue Bilder downloaden
+            images.forEach((img, i) => {
                 setTimeout(() => {
-                    state.uploadedImages.forEach((img, i) => {
-                        setTimeout(() => {
-                            const link = document.createElement('a');
-                            link.href = img.data;
-                            link.download = img.name;
-                            link.click();
-                        }, i * 500);
-                    });
-                }, 1000);
-            }
+                    const link = document.createElement('a');
+                    link.href = img.data;
+                    link.download = img.name;
+                    link.click();
+                }, (i + 1) * 500);
+            });
 
-            showToast('Änderungen gespeichert! Dateien werden heruntergeladen...', 'success');
+            toast('Gespeichert! Dateien werden heruntergeladen...', 'success');
         }
 
-        // Hilfe anzeigen
+        // Hilfe
         function showHelp() {
             document.getElementById('helpModal').classList.add('active');
         }
-
-        // Hilfe schließen
         function closeHelp() {
             document.getElementById('helpModal').classList.remove('active');
         }
 
-        // Toast anzeigen
-        function showToast(message, type = 'info') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            toast.textContent = message;
-            container.appendChild(toast);
-
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateY(20px)';
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
+        // Toast
+        function toast(msg, type = '') {
+            const t = document.createElement('div');
+            t.className = `toast ${type}`;
+            t.textContent = msg;
+            document.getElementById('toasts').appendChild(t);
+            setTimeout(() => t.remove(), 3000);
         }
 
-        // Warnung vor Verlassen
-        window.addEventListener('beforeunload', (e) => {
-            if (state.changes.length > 0) {
+        // Upload Setup
+        document.addEventListener('DOMContentLoaded', () => {
+            const zone = document.getElementById('uploadZone');
+            const input = document.getElementById('imgInput');
+
+            zone.onclick = () => input.click();
+
+            zone.ondragover = (e) => {
                 e.preventDefault();
-                e.returnValue = 'Du hast ungespeicherte Änderungen!';
+                zone.classList.add('dragover');
+            };
+            zone.ondragleave = () => zone.classList.remove('dragover');
+            zone.ondrop = (e) => {
+                e.preventDefault();
+                zone.classList.remove('dragover');
+                handleFile(e.dataTransfer.files[0]);
+            };
+
+            input.onchange = (e) => handleFile(e.target.files[0]);
+
+            // Hilfe beim ersten Mal
+            if (!localStorage.getItem('editorSeenV2')) {
+                setTimeout(showHelp, 500);
+                localStorage.setItem('editorSeenV2', '1');
             }
         });
+
+        function handleFile(file) {
+            if (!file?.type.startsWith('image/')) return toast('Nur Bilddateien erlaubt', 'error');
+            if (file.size > 10 * 1024 * 1024) return toast('Bild zu groß (max 10MB)', 'error');
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                newImgData = { data: e.target.result, name: file.name };
+                document.getElementById('imgPreview').src = e.target.result;
+                document.getElementById('imgPreview').style.display = 'block';
+                document.getElementById('imgConfirmBtn').disabled = false;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Warnung bei ungespeicherten Änderungen
+        window.onbeforeunload = (e) => {
+            if (changes.length) {
+                e.preventDefault();
+                return e.returnValue = 'Du hast ungespeicherte Änderungen!';
+            }
+        };
     </script>
 </body>
 </html>
