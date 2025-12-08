@@ -11,7 +11,8 @@
     <meta name="apple-mobile-web-app-title" content="Editor">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#2C4A47">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src https://api.github.com https://raw.githubusercontent.com https://cdn.jsdelivr.net; img-src 'self' https: data: blob:; media-src 'self' https: blob:; frame-src 'self' blob: data:;">
+    <!-- CSP: unsafe-inline für Styles nötig wegen inline-styles, Script via nonce -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-cms-editor-2024' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; connect-src https://api.github.com https://raw.githubusercontent.com https://cdn.jsdelivr.net; img-src 'self' https: data: blob:; media-src 'self' https: blob:; frame-src 'self' blob: data:;">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="wp-content/uploads/2025/01/Kathrin_Stahl_Logo_RGB_gold.png">
     <title>Website Editor - Glück über Zweifel</title>
@@ -81,48 +82,6 @@
         }
         .btn-ghost:hover { background: rgba(255,255,255,0.1); }
 
-        /* Contact Dropdown */
-        .contact-dropdown {
-            position: relative;
-            display: inline-block;
-        }
-        .contact-dropdown-btn {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-        .contact-dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: #2C4A47;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            min-width: 160px;
-            z-index: 1000;
-            overflow: hidden;
-            margin-top: 4px;
-        }
-        .contact-dropdown-menu.active {
-            display: block;
-        }
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1rem;
-            color: white;
-            text-decoration: none;
-            transition: background 0.2s;
-        }
-        .contact-item:hover {
-            background: rgba(255,255,255,0.15);
-        }
-        .contact-icon {
-            font-size: 1.1rem;
-        }
-
         .btn-primary {
             background: #D4A574;
             color: white;
@@ -151,20 +110,21 @@
         .status-error { background: #f44336; }
         .status-offline { background: #9e9e9e; }
 
-        /* Website Frame */
+        /* Website Frame - fullscreen by default */
         .website-frame {
             position: fixed;
             top: 50px;
             left: 0;
-            right: 300px;
+            right: 0;
             bottom: 0;
             border: none;
-            width: calc(100% - 300px);
+            width: 100%;
             height: calc(100vh - 50px);
             background: white;
+            transition: none;
         }
 
-        /* Sidebar */
+        /* Sidebar - overlays the website instead of pushing it */
         .sidebar {
             position: fixed;
             top: 50px;
@@ -174,9 +134,10 @@
             background: #f5f5f5;
             border-left: 1px solid #ddd;
             overflow-y: auto;
-            z-index: 99998;
+            z-index: 99999;
             transform: translateX(100%);
             transition: transform 0.3s ease;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.15);
         }
         .sidebar.open {
             transform: translateX(0);
@@ -350,7 +311,7 @@
             position: fixed;
             top: 50px;
             left: 0;
-            right: 300px;
+            right: 0;
             bottom: 0;
             background: white;
             display: flex;
@@ -383,7 +344,7 @@
             position: fixed;
             top: 50px;
             left: 0;
-            right: 300px;
+            right: 0;
             bottom: 0;
             background: linear-gradient(135deg, #f8f6f3 0%, #ece8e1 100%);
             display: flex;
@@ -801,7 +762,7 @@
             position: fixed;
             top: 50px;
             left: 0;
-            right: 300px;
+            right: 0;
             bottom: 0;
             z-index: 99998;
             background: white;
@@ -1028,22 +989,6 @@
                     <option value="datenschutzerklaerung.html">Datenschutz</option>
                 </optgroup>
             </select>
-            <div class="contact-dropdown">
-                <button class="btn btn-ghost contact-dropdown-btn" onclick="toggleContactDropdown(event)">
-                    Kontakt ▼
-                </button>
-                <div class="contact-dropdown-menu" id="contactDropdownMenu">
-                    <a href="https://wa.me/4915140436795" target="_blank" class="contact-item">
-                        <span class="contact-icon">💬</span> WhatsApp
-                    </a>
-                    <a href="mailto:kathrin@kathrinstahl.com" class="contact-item">
-                        <span class="contact-icon">✉️</span> Mail
-                    </a>
-                    <a href="https://cal.com/kathrinstahl" target="_blank" class="contact-item">
-                        <span class="contact-icon">📅</span> Erstgespräch
-                    </a>
-                </div>
-            </div>
         </div>
 
         <div class="toolbar-center">
@@ -1608,7 +1553,7 @@
                 <p><strong>Klicken oder Bild hierher ziehen</strong></p>
                 <input type="file" id="imgInput" accept="image/*">
             </div>
-            <img id="imgPreview" class="preview-img" style="display:none;">
+            <img id="imgPreview" class="preview-img" style="display:none;" loading="lazy">
             <div class="modal-btns">
                 <button class="btn btn-cancel" onclick="closeImgModal()">Abbrechen</button>
                 <button class="btn btn-primary" id="imgConfirmBtn" onclick="confirmImg()" disabled>Einsetzen</button>
@@ -1759,7 +1704,12 @@
         </div>
     </div>
 
-    <script>
+    <!-- DOMPurify für sichere HTML-Sanitization -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js"
+            integrity="sha384-3XJAN3rswrHdGqLHC3V5s0ERRmJrqtOvC/1qVz8gg4RZMlWBNB9VCRa9Z6H/TqRt"
+            crossorigin="anonymous"
+            nonce="cms-editor-2024"></script>
+    <script nonce="cms-editor-2024">
         // ============================================
         // KONFIGURATION (dynamisch aus URL-Parametern oder Defaults)
         // ============================================
@@ -1787,6 +1737,29 @@
                 .replace(/>/g, '&gt;')
                 .replace(/"/g, '&quot;')
                 .replace(/'/g, '&#039;');
+        }
+
+        // HTML-Sanitization mit DOMPurify (für dynamischen HTML-Content)
+        function sanitizeHTML(dirty) {
+            if (typeof DOMPurify !== 'undefined') {
+                return DOMPurify.sanitize(dirty, {
+                    ALLOWED_TAGS: ['p', 'br', 'b', 'i', 'u', 'strong', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+                                   'ul', 'ol', 'li', 'a', 'img', 'blockquote', 'pre', 'code', 'div', 'span',
+                                   'table', 'thead', 'tbody', 'tr', 'th', 'td', 'hr', 'figure', 'figcaption'],
+                    ALLOWED_ATTR: ['href', 'src', 'alt', 'title', 'class', 'id', 'style', 'target', 'rel',
+                                   'width', 'height', 'loading', 'data-*'],
+                    FORBID_TAGS: ['script', 'iframe', 'object', 'embed', 'form'],
+                    FORBID_ATTR: ['onerror', 'onload', 'onclick', 'onmouseover']
+                });
+            }
+            return escapeHtml(dirty);
+        }
+
+        // Sichere innerHTML-Zuweisung
+        function safeSetHTML(element, html) {
+            if (element) {
+                element.innerHTML = sanitizeHTML(html);
+            }
         }
 
         // Sichere UTF-8 Base64 Encoding (ersetzt deprecated unescape)
@@ -2358,21 +2331,23 @@
 
         function fixRelativeUrls(html) {
             const baseUrl = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.branch}/`;
+            // Cache-Busting: Timestamp für alle CDN-URLs
+            const cacheBust = Date.now();
             const cdnUrl = `https://cdn.jsdelivr.net/gh/${CONFIG.owner}/${CONFIG.repo}@${CONFIG.branch}/`;
 
-            // CSS & JS
+            // CSS & JS mit Cache-Busting
             html = html.replace(/href="([^"]+\.css)"/g, (m, url) => {
                 if (url.startsWith('http')) return m;
-                return `href="${cdnUrl}${url}"`;
+                return `href="${cdnUrl}${url}?v=${cacheBust}"`;
             });
             html = html.replace(/src="([^"]+\.js)"/g, (m, url) => {
                 if (url.startsWith('http')) return m;
-                return `src="${cdnUrl}${url}"`;
+                return `src="${cdnUrl}${url}?v=${cacheBust}"`;
             });
 
-            // Bilder
-            html = html.replace(/src="(images\/[^"]+)"/g, `src="${cdnUrl}$1"`);
-            html = html.replace(/url\(['"]?(images\/[^'")]+)['"]?\)/g, `url('${cdnUrl}$1')`);
+            // Bilder mit Cache-Busting
+            html = html.replace(/src="(images\/[^"]+)"/g, `src="${cdnUrl}$1?v=${cacheBust}"`);
+            html = html.replace(/url\(['"]?(images\/[^'")]+)['"]?\)/g, `url('${cdnUrl}$1?v=${cacheBust}')`);
 
             return html;
         }
@@ -3003,22 +2978,6 @@
         function showVersions() {
             toggleVersionsSidebar();
         }
-
-        // Kontakt-Dropdown Funktionen
-        function toggleContactDropdown(event) {
-            event.stopPropagation();
-            const menu = document.getElementById('contactDropdownMenu');
-            menu.classList.toggle('active');
-        }
-
-        // Dropdown schließen wenn außerhalb geklickt
-        document.addEventListener('click', function(e) {
-            const dropdown = document.querySelector('.contact-dropdown');
-            const menu = document.getElementById('contactDropdownMenu');
-            if (dropdown && menu && !dropdown.contains(e.target)) {
-                menu.classList.remove('active');
-            }
-        });
 
         function toggleVersionsSidebar() {
             const sidebar = document.getElementById('versionsSidebar');
@@ -3894,19 +3853,42 @@
         // ============================================
 
         // Force reload - kompletter Refresh der Seite ohne Cache
-        function forceReload() {
+        async function forceReload() {
             if (state.hasUnsavedChanges) {
                 if (!confirm('Es gibt ungespeicherte Änderungen. Trotzdem neu laden?')) {
                     return;
                 }
             }
-            // Cache leeren und kompletten Reload erzwingen
+
+            // Wenn eine Seite geladen ist, nur diese neu laden (nicht ganzen Editor)
+            if (state.currentPage) {
+                toast('Lade neueste Version...', 'info');
+
+                // Cache leeren
+                if ('caches' in window) {
+                    try {
+                        const names = await caches.keys();
+                        await Promise.all(names.map(name => caches.delete(name)));
+                    } catch (e) {
+                        console.log('Cache clear failed:', e);
+                    }
+                }
+
+                // PageCache leeren
+                Object.keys(pageCache).forEach(key => delete pageCache[key]);
+
+                // Seite neu laden
+                await loadPage(state.currentPage, true);
+                toast('Neueste Version geladen', 'success');
+                return;
+            }
+
+            // Falls keine Seite geladen, ganzen Editor neu laden
             if ('caches' in window) {
                 caches.keys().then(names => {
                     names.forEach(name => caches.delete(name));
                 });
             }
-            // Seite komplett neu laden ohne Cache
             window.location.reload(true);
         }
 
@@ -4808,7 +4790,7 @@
                 position: fixed;
                 top: 50px;
                 left: 0;
-                right: 300px;
+                right: 0;
                 bottom: 0;
                 background: rgba(255,249,196,0.2);
                 z-index: 99990;
