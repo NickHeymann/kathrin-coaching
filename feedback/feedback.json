@@ -1,0 +1,32 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2025-12-08T11:11:00.587Z",
+  "modules": {
+    "quiz": {
+      "name": "Welcher Coaching-Weg passt zu dir?",
+      "active": true,
+      "page": "index.html"
+    },
+    "angebote": {
+      "name": "Meine Angebote",
+      "active": true,
+      "page": "index.html"
+    },
+    "ueber": {
+      "name": "Mein Herz führt mich durchs Leben",
+      "active": true,
+      "page": "index.html"
+    },
+    "methoden": {
+      "name": "Mit welchen Methoden ich arbeite",
+      "active": true,
+      "page": "index.html"
+    },
+    "kontakt": {
+      "name": "Bereit für den ersten Schritt?",
+      "active": true,
+      "page": "index.html"
+    }
+  },
+  "feedback": []
+}
