@@ -476,6 +476,57 @@
             color: var(--color-primary);
         }
 
+        /* Contact Dropdown in Header */
+        .contact-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .contact-dropdown-trigger {
+            cursor: pointer;
+        }
+
+        .contact-dropdown .contact-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: white;
+            border-radius: 16px;
+            padding: 10px 0;
+            min-width: 220px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .contact-dropdown .contact-dropdown-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .contact-dropdown .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            color: var(--color-text);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .contact-dropdown .contact-item:hover {
+            background: var(--color-cream);
+            color: var(--color-primary);
+        }
+
+        .contact-dropdown .contact-icon {
+            font-size: 1.2rem;
+        }
+
         .dropdown-icon {
             width: 36px;
             height: 36px;
@@ -3415,6 +3466,396 @@
                 margin-left: 0;
             }
         }
+
+        /* ==========================================
+           BLOG SECTION
+        ========================================== */
+        .blog-section {
+            padding: 100px 0;
+            background: linear-gradient(180deg, #f8f6f3 0%, #fff 100%);
+        }
+
+        .blog-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .blog-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .blog-header p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Kategorie-Filter */
+        .blog-categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .category-btn {
+            padding: 10px 24px;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Blog Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .blog-card.hidden {
+            display: none;
+        }
+
+        .blog-card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .blog-card-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .blog-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .blog-card:hover .blog-card-image img {
+            transform: scale(1.08);
+        }
+
+        .blog-card-category {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .blog-card-content {
+            padding: 25px;
+        }
+
+        .blog-card-content h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .blog-card-content p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .blog-card-meta {
+            font-size: 0.8rem;
+            color: #999;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Leseliste Button */
+        .reading-list-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .reading-list-btn svg {
+            width: 20px;
+            height: 20px;
+            color: #999;
+            transition: all 0.3s ease;
+        }
+
+        .reading-list-btn:hover svg,
+        .reading-list-btn.active svg {
+            color: var(--accent);
+            fill: var(--accent);
+        }
+
+        .reading-list-btn.active {
+            background: var(--accent);
+        }
+
+        .reading-list-btn.active svg {
+            color: white;
+            fill: white;
+        }
+
+        /* Floating Action Button für Leseliste */
+        .reading-list-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 25px rgba(44, 74, 71, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .reading-list-fab.visible {
+            display: flex;
+        }
+
+        .reading-list-fab:hover {
+            transform: scale(1.1);
+        }
+
+        .reading-list-fab svg {
+            width: 28px;
+            height: 28px;
+            color: white;
+        }
+
+        .reading-list-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.75rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Leseliste Modal */
+        .reading-list-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 20px;
+        }
+
+        .reading-list-modal.active {
+            display: flex;
+        }
+
+        .reading-list-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 80vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .reading-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .reading-list-header h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 0;
+        }
+
+        .reading-list-header .close-btn {
+            width: 40px;
+            height: 40px;
+            background: #f5f5f5;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .reading-list-items {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .reading-list-items .empty-list {
+            text-align: center;
+            color: #999;
+            padding: 40px 20px;
+        }
+
+        .reading-list-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-radius: 12px;
+            transition: background 0.3s;
+        }
+
+        .reading-list-item:hover {
+            background: #f8f6f3;
+        }
+
+        .reading-list-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .reading-list-item-content {
+            flex: 1;
+        }
+
+        .reading-list-item-content h4 {
+            font-size: 0.95rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .reading-list-item-content span {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        .reading-list-item-remove {
+            background: none;
+            border: none;
+            color: #ccc;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 5px;
+        }
+
+        .reading-list-item-remove:hover {
+            color: #e74c3c;
+        }
+
+        /* Blog CTA */
+        .blog-cta {
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .blog-section {
+                padding: 60px 0;
+            }
+
+            .blog-header h2 {
+                font-size: 2rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .blog-categories {
+                gap: 8px;
+            }
+
+            .category-btn {
+                padding: 8px 18px;
+                font-size: 0.85rem;
+            }
+
+            .reading-list-fab {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -3518,9 +3959,25 @@
                     </a>
                 </div>
             </div>
-            <a href="blog/was-ist-pferdegestuetztes-coaching.html">Blog</a>
+            <a href="#blog">Blog</a>
             <a href="#ueber">Über mich</a>
-            <a href="#kontakt">Kontakt</a>
+            <div class="contact-dropdown">
+                <a href="#kontakt" class="contact-dropdown-trigger" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+                <div class="contact-dropdown-menu">
+                    <a href="https://wa.me/4915140436795" target="_blank" class="contact-item">
+                        <span class="contact-icon">💬</span>
+                        <span>WhatsApp</span>
+                    </a>
+                    <a href="mailto:kathrin@kathrinstahl.com" class="contact-item">
+                        <span class="contact-icon">✉️</span>
+                        <span>E-Mail</span>
+                    </a>
+                    <a href="https://cal.com/kathrinstahl" target="_blank" class="contact-item">
+                        <span class="contact-icon">📅</span>
+                        <span>Erstgespräch buchen</span>
+                    </a>
+                </div>
+            </div>
             <a href="#" class="nav-cta" onclick="bookCall(); return false;">Gespräch buchen</a>
         </nav>
         <button class="menu-toggle" aria-label="Menu öffnen" onclick="toggleMobileNav()">
@@ -3990,6 +4447,176 @@
         </div>
     </div>
 </section>
+
+<!-- Blog Section - Neugierig geworden? -->
+<section class="blog-section" id="blog">
+    <div class="container">
+        <div class="blog-header">
+            <span class="section-label">Inspiration</span>
+            <h2>Neugierig geworden?</h2>
+            <p>Lass dich inspirieren – Gedanken, Impulse und Geschichten für deinen Weg</p>
+        </div>
+
+        <!-- Kategorie-Filter -->
+        <div class="blog-categories">
+            <button class="category-btn active" data-category="all">Alle</button>
+            <button class="category-btn" data-category="achtsamkeit">Achtsamkeit</button>
+            <button class="category-btn" data-category="selbstliebe">Selbstliebe</button>
+            <button class="category-btn" data-category="heldinnenreise">Heldinnenreise</button>
+            <button class="category-btn" data-category="hochbegabung">Hochbegabung</button>
+            <button class="category-btn" data-category="podcast">Podcast</button>
+        </div>
+
+        <!-- Blog Grid -->
+        <div class="blog-grid">
+            <!-- Artikel 1 -->
+            <article class="blog-card" data-category="achtsamkeit selbstliebe">
+                <a href="blog/wie-du-achtsam-mit-deinen-gefuehlen-umgehen-kannst.html" class="blog-card-link">
+                    <div class="blog-card-image">
+                        <img src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg" alt="Achtsamkeit mit Gefühlen" loading="lazy">
+                        <span class="blog-card-category">Achtsamkeit</span>
+                    </div>
+                    <div class="blog-card-content">
+                        <h3>Wie du achtsam mit deinen Gefühlen umgehen kannst</h3>
+                        <p>Entdecke praktische Wege, deine Emotionen wahrzunehmen und zu verstehen, ohne dich von ihnen überwältigen zu lassen.</p>
+                        <span class="blog-card-meta">5 Min. Lesezeit</span>
+                    </div>
+                </a>
+                <button class="reading-list-btn" onclick="toggleReadingList(this, event)" title="Zur Leseliste hinzufügen">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                </button>
+            </article>
+
+            <!-- Artikel 2 -->
+            <article class="blog-card" data-category="heldinnenreise">
+                <a href="blog/herzenswunsch-folge-deiner-sehnsucht.html" class="blog-card-link">
+                    <div class="blog-card-image">
+                        <img src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg" alt="Herzenswunsch" loading="lazy">
+                        <span class="blog-card-category">Heldinnenreise</span>
+                    </div>
+                    <div class="blog-card-content">
+                        <h3>Herzenswunsch – Folge deiner Sehnsucht</h3>
+                        <p>Was wäre, wenn du deiner tiefsten Sehnsucht folgst? Eine Einladung, dich auf den Weg zu machen.</p>
+                        <span class="blog-card-meta">7 Min. Lesezeit</span>
+                    </div>
+                </a>
+                <button class="reading-list-btn" onclick="toggleReadingList(this, event)" title="Zur Leseliste hinzufügen">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                </button>
+            </article>
+
+            <!-- Artikel 3 -->
+            <article class="blog-card" data-category="selbstliebe achtsamkeit">
+                <a href="blog/dankbarkeit.html" class="blog-card-link">
+                    <div class="blog-card-image">
+                        <img src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg" alt="Dankbarkeit" loading="lazy">
+                        <span class="blog-card-category">Selbstliebe</span>
+                    </div>
+                    <div class="blog-card-content">
+                        <h3>Die Kraft der Dankbarkeit</h3>
+                        <p>Wie ein einfaches Dankbarkeitstagebuch dein Leben verändern kann – und warum es mehr ist als positives Denken.</p>
+                        <span class="blog-card-meta">4 Min. Lesezeit</span>
+                    </div>
+                </a>
+                <button class="reading-list-btn" onclick="toggleReadingList(this, event)" title="Zur Leseliste hinzufügen">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                </button>
+            </article>
+
+            <!-- Artikel 4 -->
+            <article class="blog-card" data-category="podcast">
+                <a href="podcast-9-deine-umwelt-ist-dein-spiegel.html" class="blog-card-link">
+                    <div class="blog-card-image">
+                        <img src="wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg" alt="Podcast" loading="lazy">
+                        <span class="blog-card-category">Podcast</span>
+                    </div>
+                    <div class="blog-card-content">
+                        <h3>Deine Umwelt ist dein Spiegel</h3>
+                        <p>Warum Krisen eine Schatzkiste sein können und wie neue Fragen ein neues Leben ermöglichen.</p>
+                        <span class="blog-card-meta">25 Min. Hörzeit</span>
+                    </div>
+                </a>
+                <button class="reading-list-btn" onclick="toggleReadingList(this, event)" title="Zur Leseliste hinzufügen">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                </button>
+            </article>
+
+            <!-- Artikel 5 -->
+            <article class="blog-card" data-category="hochbegabung">
+                <a href="hochbegabt-dein-bunter-weg.html" class="blog-card-link">
+                    <div class="blog-card-image">
+                        <img src="wp-content/uploads/2023/01/Hochbegabung-Coaching-300x200.jpg" alt="Hochbegabung" loading="lazy">
+                        <span class="blog-card-category">Hochbegabung</span>
+                    </div>
+                    <div class="blog-card-content">
+                        <h3>Hochbegabt – Dein bunter Weg</h3>
+                        <p>Über das Anderssein, die Suche nach dem eigenen Platz und wie du deine Besonderheit als Stärke erkennst.</p>
+                        <span class="blog-card-meta">6 Min. Lesezeit</span>
+                    </div>
+                </a>
+                <button class="reading-list-btn" onclick="toggleReadingList(this, event)" title="Zur Leseliste hinzufügen">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                </button>
+            </article>
+
+            <!-- Artikel 6 -->
+            <article class="blog-card" data-category="achtsamkeit heldinnenreise">
+                <a href="freude-als-wegweiser.html" class="blog-card-link">
+                    <div class="blog-card-image">
+                        <img src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg" alt="Freude als Wegweiser" loading="lazy">
+                        <span class="blog-card-category">Achtsamkeit</span>
+                    </div>
+                    <div class="blog-card-content">
+                        <h3>Freude als Wegweiser</h3>
+                        <p>Was passiert, wenn wir der Freude folgen statt der Pflicht? Eine Reflexion über authentisches Leben.</p>
+                        <span class="blog-card-meta">5 Min. Lesezeit</span>
+                    </div>
+                </a>
+                <button class="reading-list-btn" onclick="toggleReadingList(this, event)" title="Zur Leseliste hinzufügen">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                </button>
+            </article>
+        </div>
+
+        <!-- Mehr Artikel Button -->
+        <div class="blog-cta">
+            <a href="blog.html" class="btn btn-secondary">Alle Artikel entdecken</a>
+        </div>
+
+        <!-- Leseliste Floating Button -->
+        <div class="reading-list-fab" id="readingListFab" onclick="openReadingList()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span class="reading-list-count" id="readingListCount">0</span>
+        </div>
+    </div>
+</section>
+
+<!-- Leseliste Modal -->
+<div class="reading-list-modal" id="readingListModal">
+    <div class="reading-list-content">
+        <div class="reading-list-header">
+            <h3>Deine Leseliste</h3>
+            <button class="close-btn" onclick="closeReadingList()">&times;</button>
+        </div>
+        <div class="reading-list-items" id="readingListItems">
+            <p class="empty-list">Noch keine Artikel gespeichert. Klicke auf das Lesezeichen-Symbol bei einem Artikel, um ihn hinzuzufügen.</p>
+        </div>
+    </div>
+</div>
 
 <!-- Methoden & Werkzeuge Section -->
 <section class="methods-section" id="methoden">
@@ -4840,7 +5467,141 @@ function closeServiceModal() {
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         closeServiceModal();
+        closeReadingList();
     }
+});
+
+// ==========================================
+// BLOG FUNKTIONEN
+// ==========================================
+
+// Kategorie-Filter
+document.querySelectorAll('.category-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        // Active class wechseln
+        document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        const category = this.dataset.category;
+        const cards = document.querySelectorAll('.blog-card');
+
+        cards.forEach(card => {
+            if (category === 'all' || card.dataset.category.includes(category)) {
+                card.classList.remove('hidden');
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+    });
+});
+
+// Leseliste Funktionen
+let readingList = JSON.parse(localStorage.getItem('readingList') || '[]');
+
+function updateReadingListUI() {
+    const count = readingList.length;
+    const countEl = document.getElementById('readingListCount');
+    const fabEl = document.getElementById('readingListFab');
+
+    if (countEl) countEl.textContent = count;
+    if (fabEl) {
+        fabEl.classList.toggle('visible', count > 0);
+    }
+
+    // Buttons aktualisieren
+    document.querySelectorAll('.reading-list-btn').forEach(btn => {
+        const card = btn.closest('.blog-card');
+        if (card) {
+            const link = card.querySelector('.blog-card-link');
+            const url = link ? link.getAttribute('href') : '';
+            btn.classList.toggle('active', readingList.some(item => item.url === url));
+        }
+    });
+}
+
+function toggleReadingList(btn, event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const card = btn.closest('.blog-card');
+    const link = card.querySelector('.blog-card-link');
+    const url = link.getAttribute('href');
+    const title = card.querySelector('h3').textContent;
+    const img = card.querySelector('.blog-card-image img').getAttribute('src');
+    const category = card.querySelector('.blog-card-category').textContent;
+
+    const existingIndex = readingList.findIndex(item => item.url === url);
+
+    if (existingIndex > -1) {
+        readingList.splice(existingIndex, 1);
+    } else {
+        readingList.push({ url, title, img, category });
+    }
+
+    localStorage.setItem('readingList', JSON.stringify(readingList));
+    updateReadingListUI();
+}
+
+function openReadingList() {
+    document.getElementById('readingListModal').classList.add('active');
+    renderReadingListItems();
+}
+
+function closeReadingList() {
+    document.getElementById('readingListModal').classList.remove('active');
+}
+
+function renderReadingListItems() {
+    const container = document.getElementById('readingListItems');
+
+    if (readingList.length === 0) {
+        container.innerHTML = '<p class="empty-list">Noch keine Artikel gespeichert. Klicke auf das Lesezeichen-Symbol bei einem Artikel, um ihn hinzuzufügen.</p>';
+        return;
+    }
+
+    container.innerHTML = readingList.map((item, index) => `
+        <div class="reading-list-item">
+            <a href="${item.url}"><img src="${item.img}" alt="${item.title}"></a>
+            <div class="reading-list-item-content">
+                <a href="${item.url}" style="text-decoration:none;"><h4>${item.title}</h4></a>
+                <span>${item.category}</span>
+            </div>
+            <button class="reading-list-item-remove" onclick="removeFromReadingList(${index})">&times;</button>
+        </div>
+    `).join('');
+}
+
+function removeFromReadingList(index) {
+    readingList.splice(index, 1);
+    localStorage.setItem('readingList', JSON.stringify(readingList));
+    updateReadingListUI();
+    renderReadingListItems();
+}
+
+// Leseliste bei Seitenladung initialisieren
+document.addEventListener('DOMContentLoaded', function() {
+    updateReadingListUI();
+});
+
+// ==========================================
+// KONTAKT DROPDOWN
+// ==========================================
+function toggleContactDropdown(btn, event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const dropdown = btn.closest('.contact-dropdown');
+    const menu = dropdown.querySelector('.contact-dropdown-menu');
+    menu.classList.toggle('active');
+}
+
+// Schließe Dropdown bei Klick außerhalb
+document.addEventListener('click', function(e) {
+    const dropdowns = document.querySelectorAll('.contact-dropdown-menu');
+    dropdowns.forEach(menu => {
+        if (!menu.closest('.contact-dropdown').contains(e.target)) {
+            menu.classList.remove('active');
+        }
+    });
 });
 </script>
 
