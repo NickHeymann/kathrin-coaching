@@ -1,0 +1,26 @@
+{
+  "name": "Kathrin Coaching Editor",
+  "short_name": "Editor",
+  "description": "Website Editor für Glück über Zweifel",
+  "start_url": "/cms-editor.html",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#2C4A47",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/wp-content/uploads/2025/01/Kathrin_Stahl_Logo_RGB_gold.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/wp-content/uploads/2025/01/Kathrin_Stahl_Logo_RGB_gold.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "utilities"],
+  "lang": "de"
+}

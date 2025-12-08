@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Kathrin Stahl | Impulse für Transformation</title>
+    <meta name="description" content="Inspirierende Blog-Beiträge zu Achtsamkeit, Beziehungen, Pferdecoaching und persönlichem Wachstum von Kathrin Stahl.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --color-primary: #2C4A47;
+            --color-primary-light: #3D6B66;
+            --color-accent: #D4A574;
+            --color-accent-dark: #B8956A;
+            --color-cream: #FAF8F5;
+            --color-white: #FFFFFF;
+            --color-text: #2D2D2D;
+            --color-text-light: #5A5A5A;
+            --font-heading: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Montserrat', -apple-system, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text);
+            line-height: 1.7;
+            background: var(--color-cream);
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--color-white);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--color-text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--color-accent); }
+
+        /* Hero */
+        .hero {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: var(--color-white);
+        }
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Content */
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 3rem;
+        }
+
+        /* Sidebar - Inhaltsverzeichnis */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+        .toc {
+            background: var(--color-white);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        .toc h3 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--color-accent);
+        }
+        .toc-list {
+            list-style: none;
+        }
+        .toc-list li {
+            margin-bottom: 0.5rem;
+        }
+        .toc-list a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-text);
+            text-decoration: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .toc-list a:hover {
+            background: var(--color-cream);
+            color: var(--color-primary);
+        }
+        .toc-list a.active {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+        .toc-icon {
+            width: 20px;
+            text-align: center;
+        }
+        .toc-count {
+            margin-left: auto;
+            background: var(--color-cream);
+            color: var(--color-text-light);
+            font-size: 0.75rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+        }
+        .toc-list a.active .toc-count {
+            background: rgba(255,255,255,0.2);
+            color: var(--color-white);
+        }
+
+        /* Main Content */
+        .main {
+            min-width: 0;
+        }
+
+        /* Category Section */
+        .category-section {
+            margin-bottom: 3rem;
+            scroll-margin-top: 100px;
+        }
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--color-accent);
+        }
+        .category-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .category-header h2 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--color-primary);
+            font-weight: 500;
+        }
+
+        /* Post Grid */
+        .post-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .post-card {
+            background: var(--color-white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .post-image {
+            height: 160px;
+            background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-white);
+            font-size: 3rem;
+            opacity: 0.9;
+        }
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .post-content {
+            padding: 1.25rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .post-title {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+        .post-excerpt {
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+            flex: 1;
+        }
+        .post-meta {
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #eee;
+            font-size: 0.75rem;
+            color: var(--color-text-light);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Podcast Section */
+        .podcast-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .podcast-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--color-white);
+            border-radius: 12px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+            align-items: center;
+        }
+        .podcast-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        .podcast-number {
+            width: 50px;
+            height: 50px;
+            background: var(--color-accent);
+            color: var(--color-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .podcast-info h4 {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            color: var(--color-primary);
+            margin-bottom: 0.25rem;
+        }
+        .podcast-info p {
+            font-size: 0.85rem;
+            color: var(--color-text-light);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--color-primary);
+            color: var(--color-white);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        .footer a {
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+
+        /* Mobile */
+        @media (max-width: 900px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static;
+            }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo">Kathrin Stahl</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Start</a></li>
+                <li><a href="kathrin.html">Über mich</a></li>
+                <li><a href="einzelbegleitung-sinnkrise-lebensumbruch.html">Coaching</a></li>
+                <li><a href="retreats-in-portugal.html">Retreats</a></li>
+                <li><a href="blog-neu.html" style="color: var(--color-accent);">Blog</a></li>
+                <li><a href="contact.html">Kontakt</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Blog & Impulse</h1>
+        <p>Gedanken, Erfahrungen und Inspirationen für deinen Weg zu mehr Klarheit und innerem Frieden</p>
+    </header>
+
+    <div class="content">
+        <aside class="sidebar">
+            <div class="toc">
+                <h3>Themengebiete</h3>
+                <ul class="toc-list">
+                    <li><a href="#podcast"><span class="toc-icon">🎙️</span>Podcast-Folgen<span class="toc-count">12</span></a></li>
+                    <li><a href="#beziehung"><span class="toc-icon">💑</span>Beziehung & Partnerschaft<span class="toc-count">6</span></a></li>
+                    <li><a href="#achtsamkeit"><span class="toc-icon">🧘</span>Selbstliebe & Achtsamkeit<span class="toc-count">10</span></a></li>
+                    <li><a href="#wachstum"><span class="toc-icon">🌱</span>Persönliches Wachstum<span class="toc-count">14</span></a></li>
+                    <li><a href="#pferde"><span class="toc-icon">🐴</span>Pferdecoaching & Aufstellung<span class="toc-count">11</span></a></li>
+                    <li><a href="#neuanfang"><span class="toc-icon">🌅</span>Lebenskrisen & Neuanfang<span class="toc-count">11</span></a></li>
+                    <li><a href="#events"><span class="toc-icon">✨</span>Events & Zeremonien<span class="toc-count">9</span></a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="main">
+            <!-- Podcast Section -->
+            <section id="podcast" class="category-section">
+                <div class="category-header">
+                    <div class="category-icon">🎙️</div>
+                    <h2>Podcast: Glück über Zweifel</h2>
+                </div>
+                <div class="podcast-list">
+                    <a href="podcast-1-wie-du-in-dein-wunschleben-hinein-leben-kannst.html" class="podcast-item">
+                        <div class="podcast-number">1</div>
+                        <div class="podcast-info">
+                            <h4>Wie du in dein Wunschleben hinein leben kannst</h4>
+                            <p>Der Start in ein erfülltes Leben</p>
+                        </div>
+                    </a>
+                    <a href="podcast-4-wenn-du-dir-selber-glaubst.html" class="podcast-item">
+                        <div class="podcast-number">4</div>
+                        <div class="podcast-info">
+                            <h4>Wenn du dir selber glaubst</h4>
+                            <p>Selbstvertrauen stärken</p>
+                        </div>
+                    </a>
+                    <a href="podcast-5-bist-du-die-wichtigste-instanz-in-deinem-leben.html" class="podcast-item">
+                        <div class="podcast-number">5</div>
+                        <div class="podcast-info">
+                            <h4>Bist du die wichtigste Instanz in deinem Leben?</h4>
+                            <p>Prioritäten setzen</p>
+                        </div>
+                    </a>
+                    <a href="podcast-6-tue-was-dir-wichtig-ist.html" class="podcast-item">
+                        <div class="podcast-number">6</div>
+                        <div class="podcast-info">
+                            <h4>Tue was dir wichtig ist</h4>
+                            <p>Werte leben</p>
+                        </div>
+                    </a>
+                    <a href="podcast-7-hol-dir-hilfe-wenn-du-an-deine-grenzen-kommst.html" class="podcast-item">
+                        <div class="podcast-number">7</div>
+                        <div class="podcast-info">
+                            <h4>Hol dir Hilfe wenn du an deine Grenzen kommst</h4>
+                            <p>Unterstützung annehmen</p>
+                        </div>
+                    </a>
+                    <a href="podcast-8-eine-glueckliche-ehe-ist-auch-eine-entscheidung.html" class="podcast-item">
+                        <div class="podcast-number">8</div>
+                        <div class="podcast-info">
+                            <h4>Eine glückliche Ehe ist auch eine Entscheidung</h4>
+                            <p>Bewusste Beziehungsgestaltung</p>
+                        </div>
+                    </a>
+                    <a href="podcast-9-deine-umwelt-ist-dein-spiegel.html" class="podcast-item">
+                        <div class="podcast-number">9</div>
+                        <div class="podcast-info">
+                            <h4>Deine Umwelt ist dein Spiegel</h4>
+                            <p>Spiegelgesetze verstehen</p>
+                        </div>
+                    </a>
+                    <a href="podcast-10-mache-niemals-deine-traeume-klein.html" class="podcast-item">
+                        <div class="podcast-number">10</div>
+                        <div class="podcast-info">
+                            <h4>Mache niemals deine Träume klein</h4>
+                            <p>Groß denken dürfen</p>
+                        </div>
+                    </a>
+                    <a href="podcast-11-innere-arbeit-als-rettung.html" class="podcast-item">
+                        <div class="podcast-number">11</div>
+                        <div class="podcast-info">
+                            <h4>Innere Arbeit als Rettung</h4>
+                            <p>Selbstreflexion</p>
+                        </div>
+                    </a>
+                    <a href="podcast-13-selbststaendig-als-mutter.html" class="podcast-item">
+                        <div class="podcast-number">13</div>
+                        <div class="podcast-info">
+                            <h4>Selbständig als Mutter</h4>
+                            <p>Beruf und Familie</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Beziehung & Partnerschaft -->
+            <section id="beziehung" class="category-section">
+                <div class="category-header">
+                    <div class="category-icon">💑</div>
+                    <h2>Beziehung & Partnerschaft</h2>
+                </div>
+                <div class="post-grid">
+                    <a href="ehe-retten.html" class="post-card">
+                        <div class="post-image">💕</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Ehe retten</h3>
+                            <p class="post-excerpt">Wege aus der Beziehungskrise und zurück zueinander finden.</p>
+                        </div>
+                    </a>
+                    <a href="beziehungsprobleme.html" class="post-card">
+                        <div class="post-image">💔</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Beziehungsprobleme</h3>
+                            <p class="post-excerpt">Häufige Muster erkennen und auflösen.</p>
+                        </div>
+                    </a>
+                    <a href="gehen-oder-bleiben.html" class="post-card">
+                        <div class="post-image">🚪</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Gehen oder bleiben?</h3>
+                            <p class="post-excerpt">Die schwierigste Entscheidung und wie du Klarheit findest.</p>
+                        </div>
+                    </a>
+                    <a href="leben-und-lieben-als-regenbogenfamilie-kevin-silvergieter.html" class="post-card">
+                        <div class="post-image">🌈</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Leben als Regenbogenfamilie</h3>
+                            <p class="post-excerpt">Interview: Liebe in allen Formen.</p>
+                        </div>
+                    </a>
+                    <a href="wenn-wir-unsere-liebeskraft-leben-ordnet-sich-alles-neu-juuna-kastrup.html" class="post-card">
+                        <div class="post-image">❤️</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Liebeskraft leben</h3>
+                            <p class="post-excerpt">Wenn wir aus der Liebe heraus handeln.</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Selbstliebe & Achtsamkeit -->
+            <section id="achtsamkeit" class="category-section">
+                <div class="category-header">
+                    <div class="category-icon">🧘</div>
+                    <h2>Selbstliebe & Achtsamkeit</h2>
+                </div>
+                <div class="post-grid">
+                    <a href="dankbarkeit.html" class="post-card">
+                        <div class="post-image">🙏</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Dankbarkeit</h3>
+                            <p class="post-excerpt">Die transformative Kraft der Wertschätzung.</p>
+                        </div>
+                    </a>
+                    <a href="deine-einzigartigkeit.html" class="post-card">
+                        <div class="post-image">⭐</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Deine Einzigartigkeit</h3>
+                            <p class="post-excerpt">Warum du genau richtig bist.</p>
+                        </div>
+                    </a>
+                    <a href="selbstvergessen.html" class="post-card">
+                        <div class="post-image">🌊</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Selbstvergessen</h3>
+                            <p class="post-excerpt">Die Schönheit des Moments.</p>
+                        </div>
+                    </a>
+                    <a href="verlass-dich-nicht.html" class="post-card">
+                        <div class="post-image">🤝</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Verlass dich nicht</h3>
+                            <p class="post-excerpt">Bei dir selbst ankommen.</p>
+                        </div>
+                    </a>
+                    <a href="mit-allen-sinnen-achtsamkeit.html" class="post-card">
+                        <div class="post-image">👁️</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Mit allen Sinnen</h3>
+                            <p class="post-excerpt">Achtsam im Alltag leben.</p>
+                        </div>
+                    </a>
+                    <a href="angst-achtsamkeit-und-frieden.html" class="post-card">
+                        <div class="post-image">☮️</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Angst, Achtsamkeit und Frieden</h3>
+                            <p class="post-excerpt">Den inneren Frieden finden.</p>
+                        </div>
+                    </a>
+                    <a href="stille_heilung.html" class="post-card">
+                        <div class="post-image">🤫</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Stille Heilung</h3>
+                            <p class="post-excerpt">Die Kraft der Stille.</p>
+                        </div>
+                    </a>
+                    <a href="wo-ich-bin-will-ich-ganz-sein.html" class="post-card">
+                        <div class="post-image">🎯</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Wo ich bin, will ich ganz sein</h3>
+                            <p class="post-excerpt">Präsenz und Vollständigkeit.</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Persönliches Wachstum -->
+            <section id="wachstum" class="category-section">
+                <div class="category-header">
+                    <div class="category-icon">🌱</div>
+                    <h2>Persönliches Wachstum</h2>
+                </div>
+                <div class="post-grid">
+                    <a href="das-geschenk-deiner-wut.html" class="post-card">
+                        <div class="post-image">🔥</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Das Geschenk deiner Wut</h3>
+                            <p class="post-excerpt">Wut als Wegweiser verstehen.</p>
+                        </div>
+                    </a>
+                    <a href="die-angst-vor-deiner-power.html" class="post-card">
+                        <div class="post-image">💪</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Die Angst vor deiner Power</h3>
+                            <p class="post-excerpt">Deine Stärke annehmen.</p>
+                        </div>
+                    </a>
+                    <a href="freude-als-wegweiser.html" class="post-card">
+                        <div class="post-image">😊</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Freude als Wegweiser</h3>
+                            <p class="post-excerpt">Folge dem, was dich lebendig macht.</p>
+                        </div>
+                    </a>
+                    <a href="gedankenkarussell.html" class="post-card">
+                        <div class="post-image">🎠</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Gedankenkarussell</h3>
+                            <p class="post-excerpt">Aus dem Kopfkino aussteigen.</p>
+                        </div>
+                    </a>
+                    <a href="innere-fuehrung.html" class="post-card">
+                        <div class="post-image">🧭</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Innere Führung</h3>
+                            <p class="post-excerpt">Deiner Intuition vertrauen.</p>
+                        </div>
+                    </a>
+                    <a href="wie-du-gesunde-grenzen-setzen-kannst-ohne-schlechtes-gewissen.html" class="post-card">
+                        <div class="post-image">🚧</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Gesunde Grenzen setzen</h3>
+                            <p class="post-excerpt">Nein sagen ohne schlechtes Gewissen.</p>
+                        </div>
+                    </a>
+                    <a href="wer-bist-du-wenn-du-niemand-sein-musst.html" class="post-card">
+                        <div class="post-image">❓</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Wer bist du wirklich?</h3>
+                            <p class="post-excerpt">Jenseits aller Rollen.</p>
+                        </div>
+                    </a>
+                    <a href="ueber-fehler-und-deinen-selbstwert.html" class="post-card">
+                        <div class="post-image">💎</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Fehler und Selbstwert</h3>
+                            <p class="post-excerpt">Fehler als Lernchance.</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Pferdecoaching -->
+            <section id="pferde" class="category-section">
+                <div class="category-header">
+                    <div class="category-icon">🐴</div>
+                    <h2>Pferdecoaching & Aufstellung</h2>
+                </div>
+                <div class="post-grid">
+                    <a href="die-liebe-der-pferde.html" class="post-card">
+                        <div class="post-image">💝</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Die Liebe der Pferde</h3>
+                            <p class="post-excerpt">Was uns Pferde über bedingungslose Liebe lehren.</p>
+                        </div>
+                    </a>
+                    <a href="heilen-im-schutz-der-pferde.html" class="post-card">
+                        <div class="post-image">🩹</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Heilen im Schutz der Pferde</h3>
+                            <p class="post-excerpt">Transformation im sicheren Raum.</p>
+                        </div>
+                    </a>
+                    <a href="mit-pferden-sein-und-heilen.html" class="post-card">
+                        <div class="post-image">🌿</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Mit Pferden sein und heilen</h3>
+                            <p class="post-excerpt">Die heilende Präsenz der Pferde.</p>
+                        </div>
+                    </a>
+                    <a href="systemische-aufstellungen.html" class="post-card">
+                        <div class="post-image">🔗</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Systemische Aufstellungen</h3>
+                            <p class="post-excerpt">Verborgene Dynamiken sichtbar machen.</p>
+                        </div>
+                    </a>
+                    <a href="klossgefuehl-im-hals-wie-eine-aufstellung-hilft.html" class="post-card">
+                        <div class="post-image">🗣️</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Kloß im Hals</h3>
+                            <p class="post-excerpt">Wie eine Aufstellung hilft.</p>
+                        </div>
+                    </a>
+                    <a href="glaubenssatzarbeit-pferdegestuetztescoaching.html" class="post-card">
+                        <div class="post-image">💭</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Glaubenssatzarbeit</h3>
+                            <p class="post-excerpt">Alte Muster mit Pferden lösen.</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Lebenskrisen & Neuanfang -->
+            <section id="neuanfang" class="category-section">
+                <div class="category-header">
+                    <div class="category-icon">🌅</div>
+                    <h2>Lebenskrisen & Neuanfang</h2>
+                </div>
+                <div class="post-grid">
+                    <a href="gib-deinem-leben-deinen-sinn-eine-heldinnenreise.html" class="post-card">
+                        <div class="post-image">🦸‍♀️</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Die Heldinnenreise</h3>
+                            <p class="post-excerpt">Gib deinem Leben deinen Sinn.</p>
+                        </div>
+                    </a>
+                    <a href="entrollen-neuausrichtung.html" class="post-card">
+                        <div class="post-image">🎭</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Entrollen</h3>
+                            <p class="post-excerpt">Neuausrichtung nach der Krise.</p>
+                        </div>
+                    </a>
+                    <a href="endlich-innerer-frieden.html" class="post-card">
+                        <div class="post-image">🕊️</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Endlich innerer Frieden</h3>
+                            <p class="post-excerpt">Der Weg zur inneren Ruhe.</p>
+                        </div>
+                    </a>
+                    <a href="hochbegabt-dein-bunter-weg.html" class="post-card">
+                        <div class="post-image">🧠</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Hochbegabt</h3>
+                            <p class="post-excerpt">Dein bunter Weg.</p>
+                        </div>
+                    </a>
+                    <a href="hochbegabung-hochsensibilitat.html" class="post-card">
+                        <div class="post-image">✨</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Hochbegabung & Hochsensibilität</h3>
+                            <p class="post-excerpt">Die Gabe verstehen.</p>
+                        </div>
+                    </a>
+                    <a href="unterstuetzung-fuer-partner-von-burnout-betroffenen-kathrin-stahl.html" class="post-card">
+                        <div class="post-image">🤲</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Partner von Burnout-Betroffenen</h3>
+                            <p class="post-excerpt">Unterstützung für Angehörige.</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Events & Zeremonien -->
+            <section id="events" class="category-section">
+                <div class="category-header">
+                    <div class="category-icon">✨</div>
+                    <h2>Events & Zeremonien</h2>
+                </div>
+                <div class="post-grid">
+                    <a href="wunder-retreat.html" class="post-card">
+                        <div class="post-image">🌟</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Wunder Retreat</h3>
+                            <p class="post-excerpt">Transformative Tage in Portugal.</p>
+                        </div>
+                    </a>
+                    <a href="wunder-pferde-und-cacao.html" class="post-card">
+                        <div class="post-image">🍫</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Wunder, Pferde und Cacao</h3>
+                            <p class="post-excerpt">Magische Verbindungen.</p>
+                        </div>
+                    </a>
+                    <a href="seelenschwingen-und-cacao.html" class="post-card">
+                        <div class="post-image">🎵</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Seelenschwingen und Cacao</h3>
+                            <p class="post-excerpt">Klang und Herzöffnung.</p>
+                        </div>
+                    </a>
+                    <a href="innerer-frieden-und-cacao-online-kakaozeremonie.html" class="post-card">
+                        <div class="post-image">☕</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Online Kakaozeremonie</h3>
+                            <p class="post-excerpt">Innerer Frieden mit Cacao.</p>
+                        </div>
+                    </a>
+                    <a href="deine-vision-noch-schoner-mit-einem-vision-board.html" class="post-card">
+                        <div class="post-image">📋</div>
+                        <div class="post-content">
+                            <h3 class="post-title">Vision Board</h3>
+                            <p class="post-excerpt">Deine Träume visualisieren.</p>
+                        </div>
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Kathrin Stahl | <a href="impressum.html">Impressum</a> | <a href="datenschutzerklaerung.html">Datenschutz</a></p>
+    </footer>
+
+    <script>
+        // Highlight active TOC item on scroll
+        const sections = document.querySelectorAll('.category-section');
+        const tocLinks = document.querySelectorAll('.toc-list a');
+
+        function updateActiveLink() {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveLink);
+        updateActiveLink();
+    </script>
+</body>
+</html>
