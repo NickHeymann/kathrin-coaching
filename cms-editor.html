@@ -2355,14 +2355,20 @@
         function injectEditorCode(html) {
             const editorStyles = `
                 <style id="editor-styles">
-                    h1,h2,h3,h4,h5,h6,p,span,li,td,th,label,a,button {
+                    h1,h2,h3,h4,h5,h6,p,span,li,td,th,label,a,button,.btn,.nav-cta {
                         transition: outline 0.15s !important;
                     }
                     h1:hover,h2:hover,h3:hover,h4:hover,h5:hover,h6:hover,
-                    p:hover,li:hover,label:hover,button:hover,span:hover,td:hover,th:hover {
+                    p:hover,li:hover,label:hover,button:hover,span:hover,td:hover,th:hover,
+                    a:hover,.btn:hover,.nav-cta:hover {
                         outline: 2px dashed #D4A574 !important;
                         outline-offset: 3px !important;
                         cursor: text !important;
+                    }
+                    /* CTA Buttons mit speziellem Highlight */
+                    .btn:hover,.nav-cta:hover,a.btn:hover {
+                        outline: 3px dashed #2196F3 !important;
+                        outline-offset: 4px !important;
                     }
                     [data-editing] {
                         outline: 2px solid #D4A574 !important;
@@ -2412,14 +2418,18 @@
             const doc = frame.contentDocument;
             if (!doc) return;
 
-            // Texte (erweitert um Quiz-Elemente)
-            const textSelectors = 'h1,h2,h3,h4,h5,h6,p,li,label,span,button,td,th,.quiz-question,.quiz-answer,.question-text,.answer-text,.option-text,[data-question],[data-answer]';
+            // Texte (erweitert um Quiz-Elemente, CTA-Buttons, Links)
+            const textSelectors = 'h1,h2,h3,h4,h5,h6,p,li,label,span,button,td,th,a,.btn,.nav-cta,.cta-question,.quiz-question,.quiz-answer,.question-text,.answer-text,.option-text,[data-question],[data-answer]';
             doc.querySelectorAll(textSelectors).forEach((el, i) => {
                 const txt = el.textContent.trim();
-                // Text muss mindestens 2 Zeichen haben und kein Bild/Input enthalten
-                if (txt.length > 2 && !el.querySelector('img') && !el.querySelector('input') && !el.querySelector('textarea')) {
+                // Text muss mindestens 1 Zeichen haben und kein Bild/Input enthalten
+                // Buttons/Links auch mit kurzem Text editierbar
+                const isButton = el.tagName === 'BUTTON' || el.tagName === 'A' || el.classList.contains('btn');
+                const minLength = isButton ? 1 : 2;
+                if (txt.length >= minLength && !el.querySelector('img') && !el.querySelector('input') && !el.querySelector('textarea')) {
                     el.dataset.editIdx = i;
                     el.dataset.editOrig = txt;
+                    el.style.cursor = 'text';
                     el.addEventListener('click', (e) => {
                         e.preventDefault();
                         e.stopPropagation();
