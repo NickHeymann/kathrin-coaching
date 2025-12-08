@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Videos & Podcast | Glück über Zweifel - Kathrin Stahl</title>
-    <meta name="description" content="Entdecke inspirierende Videos und Podcast-Episoden von Kathrin Stahl. Themen: Selbstfindung, Achtsamkeit, Beziehungen, Hochsensibilität und pferdegestütztes Coaching.">
-    <meta name="keywords" content="Podcast, YouTube, Glück über Zweifel, Kathrin Stahl, Coaching Videos, Selbstfindung, Achtsamkeit">
+    <title>Videos | Glück über Zweifel - Kathrin Stahl</title>
+    <meta name="description" content="Entdecke inspirierende Videos von Kathrin Stahl. Themen: Selbstfindung, Achtsamkeit, Beziehungen, Hochsensibilität und pferdegestütztes Coaching.">
+    <meta name="keywords" content="YouTube, Glück über Zweifel, Kathrin Stahl, Coaching Videos, Selbstfindung, Achtsamkeit">
     <link rel="canonical" href="https://nickheymann.github.io/kathrin-coaching/media.html">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Videos & Podcast | Glück über Zweifel">
-    <meta property="og:description" content="Inspirierende Videos und Podcast-Episoden zu Selbstfindung, Achtsamkeit und persönlicher Transformation.">
+    <meta property="og:title" content="Videos | Glück über Zweifel">
+    <meta property="og:description" content="Inspirierende Videos zu Selbstfindung, Achtsamkeit und persönlicher Transformation.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://nickheymann.github.io/kathrin-coaching/media.html">
 
@@ -162,57 +162,9 @@
             margin: 0 auto;
         }
 
-        /* Tab Navigation */
-        .tab-nav {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 30px 0;
-            background: var(--color-cream);
-            position: sticky;
-            top: 80px;
-            z-index: 100;
-        }
-
-        .tab-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 28px;
-            border: none;
-            background: var(--color-white);
-            border-radius: 50px;
-            font-family: var(--font-body);
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--color-text);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .tab-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .tab-btn.active {
-            background: var(--color-primary);
-            color: var(--color-white);
-        }
-
-        .tab-btn svg {
-            width: 20px;
-            height: 20px;
-        }
-
         /* Content Sections */
         .media-section {
             padding: 80px 0;
-        }
-
-        .media-section.hidden {
-            display: none;
         }
 
         .section-header {
@@ -224,6 +176,22 @@
             color: var(--color-text-light);
             max-width: 600px;
             margin: 0 auto;
+        }
+
+        /* Video Count & Last Update */
+        .video-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+        }
+
+        .video-stats span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         /* Category Filter */
@@ -279,6 +247,7 @@
             aspect-ratio: 16/9;
             background: var(--color-cream);
             overflow: hidden;
+            cursor: pointer;
         }
 
         .video-thumbnail img {
@@ -357,103 +326,6 @@
             color: var(--color-text-light);
         }
 
-        /* Podcast List */
-        .podcast-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .podcast-card {
-            display: flex;
-            gap: 25px;
-            padding: 25px;
-            background: var(--color-white);
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .podcast-card:hover {
-            transform: translateX(5px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-        }
-
-        .podcast-artwork {
-            width: 120px;
-            height: 120px;
-            flex-shrink: 0;
-            border-radius: 12px;
-            overflow: hidden;
-            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
-        }
-
-        .podcast-artwork img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .podcast-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .podcast-episode {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--color-accent);
-            margin-bottom: 6px;
-        }
-
-        .podcast-content h3 {
-            margin-bottom: 8px;
-        }
-
-        .podcast-content p {
-            font-size: 0.9rem;
-            color: var(--color-text-light);
-            margin-bottom: 12px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .podcast-actions {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .podcast-play-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: var(--color-primary);
-            color: var(--color-white);
-            border: none;
-            border-radius: 25px;
-            font-family: var(--font-body);
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .podcast-play-btn:hover {
-            background: var(--color-primary-light);
-            transform: scale(1.05);
-        }
-
-        .podcast-duration {
-            font-size: 0.85rem;
-            color: var(--color-text-light);
-        }
-
         /* Platform Links */
         .platform-links {
             display: flex;
@@ -485,24 +357,6 @@
         .platform-link svg {
             width: 24px;
             height: 24px;
-        }
-
-        /* Featured Section */
-        .featured-section {
-            background: var(--color-cream);
-            padding: 80px 0;
-        }
-
-        .featured-video {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .featured-video iframe {
-            width: 100%;
-            aspect-ratio: 16/9;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
         }
 
         /* CTA Section */
@@ -661,39 +515,24 @@
                 grid-template-columns: 1fr;
             }
 
-            .podcast-card {
-                flex-direction: column;
-            }
-
-            .podcast-artwork {
-                width: 100%;
-                height: 200px;
-            }
-
             .footer-content {
                 grid-template-columns: 1fr;
             }
 
-            .tab-nav {
-                padding: 15px;
+            .video-stats {
+                flex-direction: column;
                 gap: 10px;
-            }
-
-            .tab-btn {
-                padding: 12px 20px;
-                font-size: 0.85rem;
-            }
-
-            .tab-btn span {
-                display: none;
             }
         }
 
         /* Loading Animation */
         .loading {
             display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
             padding: 60px;
+            gap: 20px;
         }
 
         .loading-spinner {
@@ -705,8 +544,60 @@
             animation: spin 1s linear infinite;
         }
 
+        .loading-text {
+            color: var(--color-text-light);
+            font-size: 0.9rem;
+        }
+
         @keyframes spin {
             to { transform: rotate(360deg); }
+        }
+
+        /* Error State */
+        .error-message {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--color-text-light);
+        }
+
+        .error-message h3 {
+            color: var(--color-primary);
+            margin-bottom: 15px;
+        }
+
+        .error-message a {
+            color: var(--color-accent);
+            text-decoration: underline;
+        }
+
+        /* Load More Button */
+        .load-more {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .load-more-btn {
+            padding: 14px 32px;
+            background: transparent;
+            border: 2px solid var(--color-primary);
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .load-more-btn:hover {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .load-more-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
     </style>
 </head>
@@ -721,7 +612,7 @@
                     <a href="index.html#angebote">Angebote</a>
                     <a href="kathrin.html">Über mich</a>
                     <a href="blog.html">Blog</a>
-                    <a href="media.html" style="color: var(--color-primary);">Videos & Podcast</a>
+                    <a href="media.html" style="color: var(--color-primary);">Videos</a>
                     <a href="https://cal.com/kathrinstahl" target="_blank" class="nav-cta">Erstgespräch</a>
                 </nav>
                 <button class="menu-toggle" onclick="document.getElementById('mainNav').classList.toggle('mobile-open')">
@@ -736,37 +627,34 @@
     <!-- Hero -->
     <section class="hero">
         <div class="container">
-            <h1>Videos & Podcast</h1>
+            <h1>Videos</h1>
             <p>Inspiration für deinen Weg zu mehr Selbstliebe, Achtsamkeit und innerer Klarheit</p>
         </div>
     </section>
-
-    <!-- Tab Navigation -->
-    <div class="tab-nav">
-        <button class="tab-btn active" data-tab="videos">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
-                <polygon points="10 8 16 12 10 16 10 8"/>
-            </svg>
-            <span>YouTube Videos</span>
-        </button>
-        <button class="tab-btn" data-tab="podcast">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-                <line x1="12" y1="19" x2="12" y2="23"/>
-                <line x1="8" y1="23" x2="16" y2="23"/>
-            </svg>
-            <span>Podcast Episoden</span>
-        </button>
-    </div>
 
     <!-- Videos Section -->
     <section id="videos" class="media-section">
         <div class="container">
             <div class="section-header">
-                <h2>Neueste Videos</h2>
-                <p>Einblicke in pferdegestütztes Coaching, Retreats in Portugal und Impulse für deine persönliche Entwicklung</p>
+                <h2>YouTube Videos</h2>
+                <p>Alle Videos vom Kanal "Glück über Zweifel" – automatisch aktualisiert</p>
+            </div>
+
+            <div class="video-stats">
+                <span id="videoCount">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                        <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                    </svg>
+                    <span id="totalVideos">Lade Videos...</span>
+                </span>
+                <span id="lastUpdate">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <span id="updateTime">–</span>
+                </span>
             </div>
 
             <div class="category-filter">
@@ -774,74 +662,27 @@
                 <button class="filter-btn" data-filter="coaching">Coaching</button>
                 <button class="filter-btn" data-filter="retreat">Retreats</button>
                 <button class="filter-btn" data-filter="inspiration">Inspiration</button>
-                <button class="filter-btn" data-filter="podcast">Podcast</button>
+                <button class="filter-btn" data-filter="podcast">Gespräche</button>
             </div>
 
             <div class="video-grid" id="videoGrid">
-                <!-- Videos werden dynamisch geladen -->
                 <div class="loading">
                     <div class="loading-spinner"></div>
+                    <span class="loading-text">Lade Videos von YouTube...</span>
                 </div>
+            </div>
+
+            <div class="load-more" id="loadMore" style="display: none;">
+                <button class="load-more-btn" onclick="loadMoreVideos()">Mehr Videos laden</button>
             </div>
 
             <div class="platform-links">
-                <a href="https://www.youtube.com/@glueckueberzweifel" target="_blank" class="platform-link">
+                <a href="https://www.youtube.com/channel/UCxjysqaDv62bNh5bwaHLIbQ" target="_blank" class="platform-link">
                     <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                     </svg>
-                    YouTube abonnieren
+                    Kanal auf YouTube öffnen
                 </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Podcast Section -->
-    <section id="podcast" class="media-section hidden">
-        <div class="container">
-            <div class="section-header">
-                <h2>Glück über Zweifel Podcast</h2>
-                <p>Gespräche und Impulse für Menschen, die nach einem erfüllten Leben suchen</p>
-            </div>
-
-            <div class="platform-links" style="margin-bottom: 40px;">
-                <a href="https://open.spotify.com/show/4Xi66uFrsJSVlskrbuHpCm" target="_blank" class="platform-link">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-                    </svg>
-                    Spotify
-                </a>
-                <a href="https://podcasts.apple.com/podcast/gl%C3%BCck-%C3%BCber-zweifel/id1555841542" target="_blank" class="platform-link">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M5.34 0A5.328 5.328 0 0 0 0 5.34v13.32A5.328 5.328 0 0 0 5.34 24h13.32A5.328 5.328 0 0 0 24 18.66V5.34A5.328 5.328 0 0 0 18.66 0H5.34zm6.525 2.568c2.336 0 4.448.902 6.056 2.587 1.224 1.272 1.912 2.619 2.264 4.392.12.6-.12 1.2-.72 1.32-.6.12-1.2-.12-1.32-.72-.264-1.32-.78-2.4-1.68-3.36-1.32-1.38-3.06-2.1-5.04-2.1s-3.72.72-5.04 2.1c-.9.96-1.416 2.04-1.68 3.36-.12.6-.72.84-1.32.72-.6-.12-.84-.72-.72-1.32.352-1.773 1.04-3.12 2.264-4.392 1.608-1.685 3.72-2.587 6.056-2.587zm-.12 3.84c1.608 0 3.12.672 4.248 1.824.84.84 1.32 1.8 1.608 2.928.12.6-.12 1.2-.72 1.32s-1.2-.12-1.32-.72c-.18-.72-.48-1.32-1.02-1.86-.72-.72-1.68-1.14-2.76-1.14-1.08 0-2.04.42-2.76 1.14-.54.54-.84 1.14-1.02 1.86-.12.6-.72.84-1.32.72-.6-.12-.84-.72-.72-1.32.288-1.128.768-2.088 1.608-2.928 1.128-1.152 2.64-1.824 4.248-1.824zm-.012 4.908a2.04 2.04 0 1 1 0 4.08 2.04 2.04 0 0 1 0-4.08zm0 3.96c.276 0 .516.24.516.516v5.688c0 .276-.24.516-.516.516a.52.52 0 0 1-.516-.516V15.78c0-.276.24-.516.516-.516z"/>
-                    </svg>
-                    Apple Podcasts
-                </a>
-            </div>
-
-            <div class="podcast-list" id="podcastList">
-                <!-- Podcast-Episoden werden dynamisch geladen -->
-                <div class="loading">
-                    <div class="loading-spinner"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Section -->
-    <section class="featured-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Empfohlen für dich</h2>
-                <p>Dieser Beitrag hat vielen Menschen geholfen, einen neuen Blickwinkel zu finden</p>
-            </div>
-            <div class="featured-video">
-                <iframe
-                    src="https://www.youtube.com/embed/3YGKvO4TE9o"
-                    title="Wie viel Liebe kannst du reinlassen?"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
             </div>
         </div>
     </section>
@@ -892,146 +733,109 @@
     <div class="video-modal" id="videoModal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeVideoModal()">&times;</button>
-            <iframe id="modalVideo" src="" frameborder="0" allowfullscreen></iframe>
+            <iframe id="modalVideo" src="" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
         </div>
     </div>
 
     <script>
-        // Video und Podcast Daten (statisch definiert - kann später durch API ersetzt werden)
-        const videos = [
-            {
-                id: '3YGKvO4TE9o',
-                title: 'Wie viel Liebe kannst du reinlassen?',
-                description: 'Über die Fähigkeit, Liebe anzunehmen und warum das manchmal so schwer fällt.',
-                category: 'inspiration',
-                duration: '12:34',
-                date: '2025-06'
-            },
-            {
-                id: 'dQw4w9WgXcQ',
-                title: 'Retreat Impressionen Portugal',
-                description: 'Einblicke in unsere Retreats im wunderschönen Alentejo mit den Pferden.',
-                category: 'retreat',
-                duration: '8:45',
-                date: '2025-05'
-            },
-            {
-                id: 'Podcast1',
-                title: 'Wie du in dein Wunschleben hinein leben kannst',
-                description: 'Podcast Episode 1 - Der Beginn deiner Reise zu mehr Selbstbestimmung.',
-                category: 'podcast',
-                duration: '32:18',
-                date: '2025-04'
-            },
-            {
-                id: 'Coaching1',
-                title: 'Was ist pferdegestütztes Coaching?',
-                description: 'Eine Einführung in die transformative Kraft der Arbeit mit Pferden.',
-                category: 'coaching',
-                duration: '15:22',
-                date: '2025-03'
-            },
-            {
-                id: 'Podcast2',
-                title: 'Bist du die wichtigste Instanz in deinem Leben?',
-                description: 'Podcast Episode 5 - Über Selbstverantwortung und innere Führung.',
-                category: 'podcast',
-                duration: '28:45',
-                date: '2025-02'
-            },
-            {
-                id: 'Inspiration1',
-                title: 'Das Geschenk deiner Wut',
-                description: 'Wie du die Kraft deiner Emotionen für positive Veränderung nutzen kannst.',
-                category: 'inspiration',
-                duration: '18:30',
-                date: '2025-01'
-            }
-        ];
+        // YouTube Channel ID
+        const CHANNEL_ID = 'UCxjysqaDv62bNh5bwaHLIbQ';
 
-        const podcastEpisodes = [
-            {
-                number: 13,
-                title: 'Selbstständig als Mutter',
-                description: 'Über den Spagat zwischen Familie und Berufung, und wie beides gelingen kann.',
-                duration: '45:23',
-                spotifyUrl: 'https://open.spotify.com/episode/xxx',
-                image: 'wp-content/uploads/2024/04/Glueck-ueber-Zweifel-Podcast.jpg'
-            },
-            {
-                number: 11,
-                title: 'Innere Arbeit als Rettung',
-                description: 'Wie tiefe innere Arbeit mir in meiner dunkelsten Zeit geholfen hat.',
-                duration: '38:15',
-                spotifyUrl: 'https://open.spotify.com/episode/xxx',
-                image: 'wp-content/uploads/2024/04/Glueck-ueber-Zweifel-Podcast.jpg'
-            },
-            {
-                number: 10,
-                title: 'Mache niemals deine Träume klein',
-                description: 'Ein Gespräch über Mut, Visionen und den Glauben an sich selbst.',
-                duration: '42:08',
-                spotifyUrl: 'https://open.spotify.com/episode/xxx',
-                image: 'wp-content/uploads/2024/04/Glueck-ueber-Zweifel-Podcast.jpg'
-            },
-            {
-                number: 9,
-                title: 'Deine Umwelt ist dein Spiegel',
-                description: 'Was uns unsere Beziehungen und Begegnungen über uns selbst verraten.',
-                duration: '35:50',
-                spotifyUrl: 'https://open.spotify.com/episode/xxx',
-                image: 'wp-content/uploads/2024/04/Glueck-ueber-Zweifel-Podcast.jpg'
-            },
-            {
-                number: 8,
-                title: 'Eine glückliche Ehe ist auch eine Entscheidung',
-                description: 'Über bewusste Beziehungsgestaltung und die Arbeit an der Partnerschaft.',
-                duration: '48:32',
-                spotifyUrl: 'https://open.spotify.com/episode/xxx',
-                image: 'wp-content/uploads/2024/04/Glueck-ueber-Zweifel-Podcast.jpg'
-            },
-            {
-                number: 7,
-                title: 'Hol dir Hilfe, wenn du an deine Grenzen kommst',
-                description: 'Warum es Stärke ist, sich Unterstützung zu holen.',
-                duration: '33:17',
-                spotifyUrl: 'https://open.spotify.com/episode/xxx',
-                image: 'wp-content/uploads/2024/04/Glueck-ueber-Zweifel-Podcast.jpg'
-            },
-            {
-                number: 6,
-                title: 'Tue was dir wichtig ist',
-                description: 'Über Prioritäten, Werte und ein Leben nach deinen eigenen Maßstäben.',
-                duration: '29:44',
-                spotifyUrl: 'https://open.spotify.com/episode/xxx',
-                image: 'wp-content/uploads/2024/04/Glueck-ueber-Zweifel-Podcast.jpg'
-            },
-            {
-                number: 5,
-                title: 'Bist du die wichtigste Instanz in deinem Leben?',
-                description: 'Über Selbstverantwortung und die Rückeroberung deiner inneren Autorität.',
-                duration: '36:22',
-                spotifyUrl: 'https://open.spotify.com/episode/xxx',
-                image: 'wp-content/uploads/2024/04/Glueck-ueber-Zweifel-Podcast.jpg'
-            }
-        ];
+        // State
+        let allVideos = [];
+        let displayedVideos = 0;
+        const VIDEOS_PER_PAGE = 12;
 
-        // Seite initialisieren
-        document.addEventListener('DOMContentLoaded', function() {
-            renderVideos(videos);
-            renderPodcasts(podcastEpisodes);
-            initTabs();
-            initFilters();
-        });
+        // Kategorien basierend auf Video-Titeln/Beschreibungen
+        const categoryKeywords = {
+            'coaching': ['coaching', 'begleitung', 'session', 'pferd', 'horse', 'therapie'],
+            'retreat': ['retreat', 'portugal', 'alentejo', 'reise', 'gruppe'],
+            'podcast': ['podcast', 'gespräch', 'interview', 'episode', 'folge'],
+            'inspiration': ['inspiration', 'gedanken', 'impuls', 'meditation', 'achtsamkeit', 'liebe', 'selbst']
+        };
+
+        // Videos von YouTube laden via RSS Feed (über cors-anywhere oder ähnlichen Proxy)
+        async function loadYouTubeVideos() {
+            const grid = document.getElementById('videoGrid');
+
+            try {
+                // YouTube RSS Feed URL
+                const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
+
+                // Wir nutzen einen öffentlichen RSS-to-JSON Service
+                const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
+
+                const response = await fetch(proxyUrl);
+                const data = await response.json();
+
+                if (data.status === 'ok' && data.items && data.items.length > 0) {
+                    // Videos verarbeiten
+                    allVideos = data.items.map(item => {
+                        // Video ID aus Link extrahieren
+                        const videoId = item.link.split('v=')[1] || item.guid.split(':').pop();
+
+                        return {
+                            id: videoId,
+                            title: item.title,
+                            description: item.description || '',
+                            publishedAt: new Date(item.pubDate),
+                            thumbnail: item.thumbnail || `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
+                            category: detectCategory(item.title, item.description || '')
+                        };
+                    });
+
+                    // Nach Datum sortieren (neueste zuerst)
+                    allVideos.sort((a, b) => b.publishedAt - a.publishedAt);
+
+                    // Statistiken aktualisieren
+                    document.getElementById('totalVideos').textContent = `${allVideos.length} Videos`;
+                    document.getElementById('updateTime').textContent = `Aktualisiert: ${new Date().toLocaleDateString('de-DE')}`;
+
+                    // Videos anzeigen
+                    displayedVideos = 0;
+                    renderVideos();
+
+                    // Load More Button anzeigen wenn mehr Videos vorhanden
+                    if (allVideos.length > VIDEOS_PER_PAGE) {
+                        document.getElementById('loadMore').style.display = 'flex';
+                    }
+                } else {
+                    throw new Error('Keine Videos gefunden');
+                }
+            } catch (error) {
+                console.error('Fehler beim Laden der Videos:', error);
+                showFallbackVideos();
+            }
+        }
+
+        // Kategorie basierend auf Titel/Beschreibung erkennen
+        function detectCategory(title, description) {
+            const text = (title + ' ' + description).toLowerCase();
+
+            for (const [category, keywords] of Object.entries(categoryKeywords)) {
+                if (keywords.some(keyword => text.includes(keyword))) {
+                    return category;
+                }
+            }
+
+            return 'inspiration'; // Default
+        }
 
         // Videos rendern
-        function renderVideos(videoList) {
+        function renderVideos(filter = 'all') {
             const grid = document.getElementById('videoGrid');
-            grid.innerHTML = videoList.map(video => `
+            const videosToShow = filter === 'all'
+                ? allVideos
+                : allVideos.filter(v => v.category === filter);
+
+            const endIndex = Math.min(displayedVideos + VIDEOS_PER_PAGE, videosToShow.length);
+            const newVideos = videosToShow.slice(0, endIndex);
+
+            grid.innerHTML = newVideos.map(video => `
                 <div class="video-card" data-category="${video.category}">
                     <div class="video-thumbnail" onclick="openVideo('${video.id}')">
                         <img src="https://img.youtube.com/vi/${video.id}/maxresdefault.jpg"
-                             alt="${video.title}"
+                             alt="${escapeHtml(video.title)}"
                              onerror="this.src='https://img.youtube.com/vi/${video.id}/hqdefault.jpg'">
                         <div class="play-btn">
                             <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -1039,67 +843,48 @@
                     </div>
                     <div class="video-info">
                         <span class="video-category">${getCategoryLabel(video.category)}</span>
-                        <h3>${video.title}</h3>
-                        <p>${video.description}</p>
+                        <h3>${escapeHtml(video.title)}</h3>
+                        <p>${escapeHtml(video.description.substring(0, 150))}${video.description.length > 150 ? '...' : ''}</p>
                         <div class="video-meta">
-                            <span>${video.duration}</span>
-                            <span>${formatDate(video.date)}</span>
+                            <span>${formatDate(video.publishedAt)}</span>
                         </div>
                     </div>
                 </div>
             `).join('');
+
+            displayedVideos = endIndex;
+
+            // Load More Button verstecken wenn alle Videos angezeigt
+            const loadMoreBtn = document.getElementById('loadMore');
+            if (displayedVideos >= videosToShow.length) {
+                loadMoreBtn.style.display = 'none';
+            } else {
+                loadMoreBtn.style.display = 'flex';
+            }
         }
 
-        // Podcasts rendern
-        function renderPodcasts(episodes) {
-            const list = document.getElementById('podcastList');
-            list.innerHTML = episodes.map(ep => `
-                <div class="podcast-card">
-                    <div class="podcast-artwork">
-                        <img src="${ep.image}" alt="Glück über Zweifel Podcast">
-                    </div>
-                    <div class="podcast-content">
-                        <span class="podcast-episode">Episode ${ep.number}</span>
-                        <h3>${ep.title}</h3>
-                        <p>${ep.description}</p>
-                        <div class="podcast-actions">
-                            <a href="${ep.spotifyUrl}" target="_blank" class="podcast-play-btn">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                    <polygon points="5 3 19 12 5 21 5 3"/>
-                                </svg>
-                                Anhören
-                            </a>
-                            <span class="podcast-duration">${ep.duration}</span>
-                        </div>
-                    </div>
+        // Fallback: Statische Videos wenn API nicht erreichbar
+        function showFallbackVideos() {
+            const grid = document.getElementById('videoGrid');
+            grid.innerHTML = `
+                <div class="error-message">
+                    <h3>Videos konnten nicht geladen werden</h3>
+                    <p>Besuche unseren YouTube-Kanal direkt:</p>
+                    <p><a href="https://www.youtube.com/channel/${CHANNEL_ID}" target="_blank">Glück über Zweifel auf YouTube</a></p>
                 </div>
-            `).join('');
+            `;
+
+            document.getElementById('totalVideos').textContent = '–';
+            document.getElementById('updateTime').textContent = '–';
         }
 
-        // Tab Navigation
-        function initTabs() {
-            const tabBtns = document.querySelectorAll('.tab-btn');
-            const sections = document.querySelectorAll('.media-section');
-
-            tabBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const tab = btn.dataset.tab;
-
-                    tabBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-
-                    sections.forEach(section => {
-                        if (section.id === tab) {
-                            section.classList.remove('hidden');
-                        } else {
-                            section.classList.add('hidden');
-                        }
-                    });
-                });
-            });
+        // Mehr Videos laden
+        function loadMoreVideos() {
+            const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+            renderVideos(activeFilter);
         }
 
-        // Filter Funktion
+        // Filter initialisieren
         function initFilters() {
             const filterBtns = document.querySelectorAll('.filter-btn');
 
@@ -1110,14 +895,8 @@
                     filterBtns.forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
 
-                    const cards = document.querySelectorAll('.video-card');
-                    cards.forEach(card => {
-                        if (filter === 'all' || card.dataset.category === filter) {
-                            card.style.display = 'block';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
+                    displayedVideos = 0;
+                    renderVideos(filter);
                 });
             });
         }
@@ -1159,16 +938,30 @@
                 'coaching': 'Coaching',
                 'retreat': 'Retreats',
                 'inspiration': 'Inspiration',
-                'podcast': 'Podcast'
+                'podcast': 'Gespräche'
             };
-            return labels[category] || category;
+            return labels[category] || 'Video';
         }
 
-        function formatDate(dateStr) {
-            const [year, month] = dateStr.split('-');
-            const months = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
-            return `${months[parseInt(month) - 1]} ${year}`;
+        function formatDate(date) {
+            return date.toLocaleDateString('de-DE', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
         }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Seite initialisieren
+        document.addEventListener('DOMContentLoaded', function() {
+            initFilters();
+            loadYouTubeVideos();
+        });
     </script>
 </body>
 </html>
