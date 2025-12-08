@@ -80,6 +80,48 @@
         }
         .btn-ghost:hover { background: rgba(255,255,255,0.1); }
 
+        /* Contact Dropdown */
+        .contact-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .contact-dropdown-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .contact-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #2C4A47;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            min-width: 160px;
+            z-index: 1000;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+        .contact-dropdown-menu.active {
+            display: block;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            color: white;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .contact-item:hover {
+            background: rgba(255,255,255,0.15);
+        }
+        .contact-icon {
+            font-size: 1.1rem;
+        }
+
         .btn-primary {
             background: #D4A574;
             color: white;
@@ -132,7 +174,25 @@
             border-left: 1px solid #ddd;
             overflow-y: auto;
             z-index: 99998;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
         }
+        .sidebar.open {
+            transform: translateX(0);
+        }
+        .sidebar-close {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            line-height: 1;
+            z-index: 10;
+        }
+        .sidebar-close:hover { color: #333; }
 
         .sidebar-section {
             padding: 1rem;
@@ -469,18 +529,48 @@
             cursor: move;
             font-size: 0.85rem;
             font-family: 'Comic Sans MS', cursive, sans-serif;
+            transition: all 0.2s ease;
+        }
+        .sticky-note.minimized {
+            width: 40px;
+            min-height: 40px;
+            height: 40px;
+            overflow: hidden;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .sticky-note.minimized .sticky-note-header,
+        .sticky-note.minimized .sticky-note-content {
+            display: none;
+        }
+        .sticky-note.minimized::after {
+            content: '📝';
+            font-size: 1.2rem;
         }
         .sticky-note-header {
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
             margin-bottom: 4px;
+            gap: 4px;
         }
+        .sticky-note-header-btns {
+            display: flex;
+            gap: 4px;
+        }
+        .sticky-note-minimize,
         .sticky-note-close {
             cursor: pointer;
             color: #999;
-            font-size: 1.2rem;
+            font-size: 1rem;
             line-height: 1;
+            background: none;
+            border: none;
+            padding: 0;
         }
+        .sticky-note-minimize:hover { color: #2196F3; }
         .sticky-note-close:hover { color: #f44336; }
         .sticky-note-content {
             width: 100%;
@@ -492,6 +582,54 @@
             font-size: inherit;
         }
         .sticky-note-content:focus { outline: none; }
+
+        /* Rechtsklick-Kontextmenü */
+        .context-menu {
+            position: fixed;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            padding: 0.5rem 0;
+            z-index: 100001;
+            min-width: 150px;
+            display: none;
+        }
+        .context-menu.active { display: block; }
+        .context-menu-item {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .context-menu-item:hover { background: #f5f5f5; }
+
+        /* Notiz-Marker (Indikator wo Notizen sind) */
+        .note-marker {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: #fff9c4;
+            border: 2px solid #ffeb3b;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 99989;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            animation: pulse-marker 2s infinite;
+        }
+        @keyframes pulse-marker {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+            50% { box-shadow: 0 4px 20px rgba(255,235,59,0.6); }
+        }
 
         /* Trash Panel */
         .trash-panel {
@@ -868,6 +1006,9 @@
                 <optgroup label="Startseite">
                     <option value="index.html">Startseite</option>
                 </optgroup>
+                <optgroup label="Über mich">
+                    <option value="kathrin.html">Über mich</option>
+                </optgroup>
                 <optgroup label="Portugal">
                     <option value="paar-retreat.html">Paar-Retreat</option>
                     <option value="pferdegestuetztes-coaching.html">Pferdegestütztes Coaching</option>
@@ -886,6 +1027,22 @@
                     <option value="datenschutzerklaerung.html">Datenschutz</option>
                 </optgroup>
             </select>
+            <div class="contact-dropdown">
+                <button class="btn btn-ghost contact-dropdown-btn" onclick="toggleContactDropdown(event)">
+                    Kontakt ▼
+                </button>
+                <div class="contact-dropdown-menu" id="contactDropdownMenu">
+                    <a href="https://wa.me/4915140436795" target="_blank" class="contact-item">
+                        <span class="contact-icon">💬</span> WhatsApp
+                    </a>
+                    <a href="mailto:kathrin@kathrinstahl.com" class="contact-item">
+                        <span class="contact-icon">✉️</span> Mail
+                    </a>
+                    <a href="https://cal.com/kathrinstahl" target="_blank" class="contact-item">
+                        <span class="contact-icon">📅</span> Erstgespräch
+                    </a>
+                </div>
+            </div>
         </div>
 
         <div class="toolbar-center">
@@ -898,7 +1055,7 @@
 
         <div class="toolbar-right">
             <button class="btn btn-ghost" onclick="forceReload()" title="Seite neu laden ohne Cache">Neu laden</button>
-            <button class="btn btn-ghost" onclick="addStickyNote()">Notizen</button>
+            <button class="btn btn-ghost" onclick="toggleNotesSidebar()">Notizen</button>
             <button class="btn btn-ghost" onclick="showVersions()">Versionen</button>
             <button class="btn btn-ghost" onclick="undo()">Rückgängig</button>
             <button class="btn btn-primary" onclick="saveNow()">Jetzt speichern</button>
@@ -907,28 +1064,48 @@
     </div>
 
     <!-- Sidebar -->
-    <div class="sidebar">
+    <!-- Versionen Sidebar -->
+    <div class="sidebar" id="versionsSidebar">
+        <button class="sidebar-close" onclick="toggleVersionsSidebar()">&times;</button>
         <div class="sidebar-section">
-            <h3>Aktuelle Änderungen</h3>
+            <h3>📋 Aktuelle Änderungen</h3>
             <div id="changesList">
                 <p style="color: #999; font-size: 0.85rem;">Noch keine Änderungen</p>
             </div>
         </div>
 
         <div class="sidebar-section">
-            <h3>Letzte Versionen</h3>
+            <h3>🕐 Letzte Versionen</h3>
             <div class="version-list" id="versionList">
                 <p style="color: #999; font-size: 0.85rem;">Wird geladen...</p>
             </div>
         </div>
 
         <div class="sidebar-section">
-            <h3>Info</h3>
+            <h3>ℹ️ Info</h3>
             <p style="font-size: 0.8rem; color: #666; line-height: 1.5;">
                 Änderungen werden automatisch alle 30 Sekunden gespeichert.
                 Du arbeitest auf dem Branch <code style="background:#e0e0e0;padding:0.1rem 0.3rem;border-radius:3px;">kathrin-edits</code> -
                 der Hauptbranch bleibt als Backup unverändert.
             </p>
+        </div>
+    </div>
+
+    <!-- Notizen Sidebar -->
+    <div class="sidebar" id="notesSidebar">
+        <button class="sidebar-close" onclick="toggleNotesSidebar()">&times;</button>
+        <div class="sidebar-section" style="padding-bottom:0.5rem;">
+            <h3 style="margin-bottom:0.5rem;">📝 Notizen</h3>
+            <div style="display:flex; gap:0.5rem; margin-bottom:0.75rem;">
+                <button class="btn btn-ghost" style="flex:1; font-size:0.75rem; padding:0.3rem;" onclick="filterNotes('current')" id="notesFilterCurrent">Diese Seite</button>
+                <button class="btn btn-ghost" style="flex:1; font-size:0.75rem; padding:0.3rem;" onclick="filterNotes('all')" id="notesFilterAll">Alle Seiten</button>
+            </div>
+        </div>
+        <div id="notesListContainer" style="padding:0 1rem 1rem;">
+            <p style="color: #999; font-size: 0.85rem;">Noch keine Notizen</p>
+        </div>
+        <div style="padding:1rem; border-top:1px solid #ddd;">
+            <button class="btn btn-primary" style="width:100%;" onclick="addStickyNote()">+ Neue Notiz</button>
         </div>
     </div>
 
@@ -1571,6 +1748,16 @@
         </div>
     </div>
 
+    <!-- Rechtsklick Kontextmenü -->
+    <div class="context-menu" id="contextMenu">
+        <div class="context-menu-item" onclick="createNoteAtPosition()">
+            <span>📝</span> Notiz erstellen
+        </div>
+        <div class="context-menu-item" onclick="showElementHistoryFromContext()">
+            <span>📜</span> Änderungsverlauf
+        </div>
+    </div>
+
     <script>
         // ============================================
         // KONFIGURATION
@@ -2061,13 +2248,18 @@
                 frame.onload = () => {
                     setupFrameEditing(frame);
                     document.getElementById('loadingOverlay').classList.add('hidden');
+                    // Notiz-Marker für diese Seite rendern
+                    setTimeout(() => renderNoteMarkers(), 100);
                     toast('Seite geladen', 'success');
                 };
 
             } catch (e) {
                 console.error(e);
                 document.getElementById('loadingOverlay').classList.add('hidden');
-                toast('Fehler beim Laden: ' + e.message, 'error');
+                document.getElementById('startScreen').classList.remove('hidden');
+                document.getElementById('pageSelect').value = '';
+                state.currentPage = null;
+                toast('Seite nicht gefunden. Bitte wähle eine andere Seite.', 'error');
             }
         }
 
@@ -2290,14 +2482,24 @@
                 }
             });
 
-            // Rechtsklick für Element-History
+            // Rechtsklick für Kontextmenü (Notizen + Element-History)
             doc.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
                 const el = e.target;
-                if (el.dataset?.editIdx) {
-                    e.preventDefault();
-                    const frameRect = document.getElementById('siteFrame').getBoundingClientRect();
-                    showElementHistory(el.dataset.editIdx, frameRect.left + e.clientX, frameRect.top + e.clientY);
-                }
+                const frameRect = document.getElementById('siteFrame').getBoundingClientRect();
+                const x = frameRect.left + e.clientX;
+                const y = frameRect.top + e.clientY;
+
+                // Speichere Position und Element für spätere Verwendung
+                window.contextMenuData = {
+                    x: x,
+                    y: y,
+                    element: el,
+                    hasEditIdx: !!el.dataset?.editIdx,
+                    editIdx: el.dataset?.editIdx
+                };
+
+                showContextMenu(x, y, !!el.dataset?.editIdx);
             });
 
             // Image-Resize für alle Bilder aktivieren
@@ -2705,8 +2907,144 @@
         }
 
         function showVersions() {
-            loadVersions();
-            toast('Versionen in der Seitenleiste', 'info');
+            toggleVersionsSidebar();
+        }
+
+        // Kontakt-Dropdown Funktionen
+        function toggleContactDropdown(event) {
+            event.stopPropagation();
+            const menu = document.getElementById('contactDropdownMenu');
+            menu.classList.toggle('active');
+        }
+
+        // Dropdown schließen wenn außerhalb geklickt
+        document.addEventListener('click', function(e) {
+            const dropdown = document.querySelector('.contact-dropdown');
+            const menu = document.getElementById('contactDropdownMenu');
+            if (dropdown && menu && !dropdown.contains(e.target)) {
+                menu.classList.remove('active');
+            }
+        });
+
+        function toggleVersionsSidebar() {
+            const sidebar = document.getElementById('versionsSidebar');
+            const notesSidebar = document.getElementById('notesSidebar');
+
+            // Notizen-Sidebar schließen wenn offen
+            if (notesSidebar.classList.contains('open')) {
+                notesSidebar.classList.remove('open');
+            }
+
+            sidebar.classList.toggle('open');
+
+            if (sidebar.classList.contains('open')) {
+                loadVersions();
+            }
+        }
+
+        function toggleNotesSidebar() {
+            const sidebar = document.getElementById('notesSidebar');
+            const versionsSidebar = document.getElementById('versionsSidebar');
+
+            // Versionen-Sidebar schließen wenn offen
+            if (versionsSidebar.classList.contains('open')) {
+                versionsSidebar.classList.remove('open');
+            }
+
+            sidebar.classList.toggle('open');
+
+            if (sidebar.classList.contains('open')) {
+                renderNotesList('current');
+            }
+        }
+
+        let notesFilter = 'current';
+
+        function filterNotes(filter) {
+            notesFilter = filter;
+
+            // Button-Styles aktualisieren
+            const currentBtn = document.getElementById('notesFilterCurrent');
+            const allBtn = document.getElementById('notesFilterAll');
+
+            if (filter === 'current') {
+                currentBtn.classList.add('btn-primary');
+                currentBtn.classList.remove('btn-ghost');
+                allBtn.classList.remove('btn-primary');
+                allBtn.classList.add('btn-ghost');
+            } else {
+                allBtn.classList.add('btn-primary');
+                allBtn.classList.remove('btn-ghost');
+                currentBtn.classList.remove('btn-primary');
+                currentBtn.classList.add('btn-ghost');
+            }
+
+            renderNotesList(filter);
+        }
+
+        function renderNotesList(filter) {
+            const container = document.getElementById('notesListContainer');
+
+            let notes = state.stickyNotes || [];
+
+            if (filter === 'current' && state.currentPage) {
+                notes = notes.filter(n => n.page === state.currentPage || !n.page);
+            }
+
+            if (notes.length === 0) {
+                container.innerHTML = `
+                    <p style="color: #999; font-size: 0.85rem; text-align:center; padding:2rem 0;">
+                        ${filter === 'current' ? 'Keine Notizen auf dieser Seite' : 'Noch keine Notizen'}
+                    </p>
+                `;
+                return;
+            }
+
+            // Nach Seiten gruppieren wenn "alle"
+            if (filter === 'all') {
+                const notesByPage = {};
+                notes.forEach(note => {
+                    const page = note.page || 'Allgemein';
+                    if (!notesByPage[page]) notesByPage[page] = [];
+                    notesByPage[page].push(note);
+                });
+
+                let html = '';
+                for (const [page, pageNotes] of Object.entries(notesByPage)) {
+                    html += `<div style="font-weight:600; color:#2C4A47; margin:1rem 0 0.5rem; font-size:0.85rem; border-bottom:1px solid #ddd; padding-bottom:0.25rem;">${page}</div>`;
+                    pageNotes.forEach(note => {
+                        html += renderNoteItem(note);
+                    });
+                }
+                container.innerHTML = html;
+            } else {
+                let html = '';
+                notes.forEach(note => {
+                    html += renderNoteItem(note);
+                });
+                container.innerHTML = html;
+            }
+        }
+
+        function renderNoteItem(note) {
+            const text = note.text || note.content || 'Leere Notiz';
+            const truncated = text.length > 50 ? text.substring(0, 50) + '...' : text;
+
+            return `
+                <div class="note-list-item" onclick="scrollToNote('${note.id}')" style="background:#fff9c4; padding:0.5rem; border-radius:4px; margin-bottom:0.5rem; cursor:pointer; font-size:0.8rem; display:flex; justify-content:space-between; align-items:center;">
+                    <span style="flex:1;">${truncated}</span>
+                    <button onclick="event.stopPropagation(); removeStickyNote('${note.id}')" style="background:none; border:none; color:#999; cursor:pointer; font-size:1rem;">&times;</button>
+                </div>
+            `;
+        }
+
+        function scrollToNote(noteId) {
+            const note = document.getElementById(noteId);
+            if (note) {
+                note.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                note.style.animation = 'pulse 0.5s ease 2';
+                setTimeout(() => { note.style.animation = ''; }, 1000);
+            }
         }
 
         function selectVersion(sha, date, message) {
@@ -4153,7 +4491,8 @@
                 id: note.id,
                 x: x,
                 y: y,
-                content: ''
+                content: '',
+                page: state.currentPage
             });
 
             saveToLocalBackup();
@@ -4249,6 +4588,161 @@
                 document.onmousemove = null;
                 saveStickyNotes();
             }
+        }
+
+        // ============================================
+        // KONTEXTMENÜ FUNKTIONEN
+        // ============================================
+        function showContextMenu(x, y, hasHistory) {
+            const menu = document.getElementById('contextMenu');
+            const historyItem = menu.querySelector('.context-menu-item:nth-child(2)');
+
+            // Änderungsverlauf nur anzeigen wenn Element bearbeitbar
+            historyItem.style.display = hasHistory ? 'flex' : 'none';
+
+            menu.style.left = x + 'px';
+            menu.style.top = y + 'px';
+            menu.classList.add('active');
+        }
+
+        function hideContextMenu() {
+            document.getElementById('contextMenu').classList.remove('active');
+        }
+
+        // Kontextmenü schließen bei Klick außerhalb
+        document.addEventListener('click', () => {
+            hideContextMenu();
+        });
+
+        function createNoteAtPosition() {
+            hideContextMenu();
+            if (window.contextMenuData) {
+                const { x, y } = window.contextMenuData;
+                createStickyAtPosition(x, y);
+
+                // Marker an Position erstellen
+                createNoteMarker(x, y, `sticky-${stickyNoteIdCounter}`);
+            }
+        }
+
+        function showElementHistoryFromContext() {
+            hideContextMenu();
+            if (window.contextMenuData && window.contextMenuData.hasEditIdx) {
+                showElementHistory(
+                    window.contextMenuData.editIdx,
+                    window.contextMenuData.x,
+                    window.contextMenuData.y
+                );
+            }
+        }
+
+        // ============================================
+        // NOTIZ-MARKER
+        // ============================================
+        function createNoteMarker(x, y, noteId) {
+            // Marker im iframe erstellen (relativ zur Seite)
+            const frame = document.getElementById('siteFrame');
+            if (!frame || !frame.contentDocument) return;
+
+            const frameRect = frame.getBoundingClientRect();
+            const doc = frame.contentDocument;
+
+            // Position relativ zum iframe berechnen
+            const relX = x - frameRect.left + frame.contentWindow.scrollX;
+            const relY = y - frameRect.top + frame.contentWindow.scrollY;
+
+            // Marker erstellen
+            const marker = doc.createElement('div');
+            marker.className = 'note-marker';
+            marker.dataset.noteId = noteId;
+            marker.style.cssText = `
+                position: absolute;
+                left: ${relX}px;
+                top: ${relY}px;
+                width: 24px;
+                height: 24px;
+                background: #fff59d;
+                border: 2px solid #f9a825;
+                border-radius: 50%;
+                cursor: pointer;
+                z-index: 99999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 12px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+                animation: pulse-marker 2s infinite;
+            `;
+            marker.innerHTML = '📝';
+            marker.title = 'Notiz hier';
+
+            // Klick auf Marker zeigt/fokussiert die Notiz
+            marker.onclick = () => {
+                const note = document.getElementById(noteId);
+                if (note) {
+                    note.classList.remove('minimized');
+                    note.querySelector('textarea').focus();
+                    note.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            };
+
+            doc.body.appendChild(marker);
+
+            // Marker-ID in der Notiz speichern
+            const noteIdx = state.stickyNotes.findIndex(n => n.id === noteId);
+            if (noteIdx >= 0) {
+                state.stickyNotes[noteIdx].markerX = relX;
+                state.stickyNotes[noteIdx].markerY = relY;
+            }
+        }
+
+        function renderNoteMarkers() {
+            const frame = document.getElementById('siteFrame');
+            if (!frame || !frame.contentDocument) return;
+
+            const doc = frame.contentDocument;
+
+            // Bestehende Marker entfernen
+            doc.querySelectorAll('.note-marker').forEach(m => m.remove());
+
+            // Notizen für aktuelle Seite mit Marker-Position rendern
+            state.stickyNotes.forEach(note => {
+                if (note.page === state.currentPage && note.markerX && note.markerY) {
+                    const marker = doc.createElement('div');
+                    marker.className = 'note-marker';
+                    marker.dataset.noteId = note.id;
+                    marker.style.cssText = `
+                        position: absolute;
+                        left: ${note.markerX}px;
+                        top: ${note.markerY}px;
+                        width: 24px;
+                        height: 24px;
+                        background: #fff59d;
+                        border: 2px solid #f9a825;
+                        border-radius: 50%;
+                        cursor: pointer;
+                        z-index: 99999;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 12px;
+                        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+                        animation: pulse-marker 2s infinite;
+                    `;
+                    marker.innerHTML = '📝';
+                    marker.title = 'Notiz hier';
+
+                    marker.onclick = () => {
+                        const noteEl = document.getElementById(note.id);
+                        if (noteEl) {
+                            noteEl.classList.remove('minimized');
+                            noteEl.querySelector('textarea').focus();
+                        }
+                    };
+
+                    doc.body.appendChild(marker);
+                }
+            });
         }
 
         // ============================================
