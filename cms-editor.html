@@ -11,6 +11,7 @@
     <meta name="apple-mobile-web-app-title" content="Editor">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#2C4A47">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src https://api.github.com https://raw.githubusercontent.com https://cdn.jsdelivr.net; img-src 'self' https: data: blob:; media-src 'self' https: blob:; frame-src 'self' blob: data:;">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="wp-content/uploads/2025/01/Kathrin_Stahl_Logo_RGB_gold.png">
     <title>Website Editor - Glück über Zweifel</title>
@@ -1760,14 +1761,65 @@
 
     <script>
         // ============================================
-        // KONFIGURATION
+        // KONFIGURATION (dynamisch aus URL-Parametern oder Defaults)
         // ============================================
+        const urlParams = new URLSearchParams(window.location.search);
         const CONFIG = {
-            owner: 'NickHeymann',
-            repo: 'kathrin-coaching',
-            branch: 'kathrin-edits',
-            mainBranch: 'main',
-            autosaveInterval: 30000 // 30 Sekunden
+            owner: urlParams.get('owner') || 'NickHeymann',
+            repo: urlParams.get('repo') || 'kathrin-coaching',
+            branch: urlParams.get('branch') || 'kathrin-edits',
+            mainBranch: urlParams.get('main') || 'main',
+            autosaveInterval: parseInt(urlParams.get('autosave')) || 30000, // 30 Sekunden
+            apiRateLimit: 30, // Max API calls pro Minute
+            apiRateLimitWindow: 60000 // 1 Minute
+        };
+
+        // ============================================
+        // SECURITY UTILITIES
+        // ============================================
+
+        // HTML-Escaping um XSS zu verhindern
+        function escapeHtml(unsafe) {
+            if (unsafe == null) return '';
+            return String(unsafe)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // Sichere UTF-8 Base64 Encoding (ersetzt deprecated unescape)
+        function utf8ToBase64(str) {
+            return btoa(new TextEncoder().encode(str).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+        }
+
+        function base64ToUtf8(base64) {
+            const binary = atob(base64);
+            const bytes = new Uint8Array(binary.length);
+            for (let i = 0; i < binary.length; i++) {
+                bytes[i] = binary.charCodeAt(i);
+            }
+            return new TextDecoder().decode(bytes);
+        }
+
+        // Rate Limiter für API-Aufrufe
+        const rateLimiter = {
+            calls: [],
+            canMakeCall() {
+                const now = Date.now();
+                // Alte Calls entfernen
+                this.calls = this.calls.filter(t => now - t < CONFIG.apiRateLimitWindow);
+                return this.calls.length < CONFIG.apiRateLimit;
+            },
+            recordCall() {
+                this.calls.push(Date.now());
+            },
+            getWaitTime() {
+                if (this.canMakeCall()) return 0;
+                const oldest = Math.min(...this.calls);
+                return CONFIG.apiRateLimitWindow - (Date.now() - oldest) + 100;
+            }
         };
 
         // ============================================
@@ -1853,10 +1905,19 @@
         }
 
         // ============================================
-        // GITHUB API
+        // GITHUB API (mit Rate-Limiting)
         // ============================================
         const github = {
             async request(endpoint, options = {}) {
+                // Rate-Limiting prüfen
+                if (!rateLimiter.canMakeCall()) {
+                    const waitTime = rateLimiter.getWaitTime();
+                    console.warn(`Rate limit erreicht. Warte ${Math.ceil(waitTime/1000)}s...`);
+                    await new Promise(resolve => setTimeout(resolve, waitTime));
+                }
+
+                rateLimiter.recordCall();
+
                 const url = `https://api.github.com${endpoint}`;
                 const response = await fetch(url, {
                     ...options,
@@ -1870,7 +1931,12 @@
 
                 if (!response.ok) {
                     const error = await response.json().catch(() => ({}));
-                    throw new Error(error.message || `GitHub API Error: ${response.status}`);
+                    // Generische Fehlermeldung für Benutzer, Details nur in Konsole
+                    console.error('GitHub API Error:', error.message, response.status);
+                    throw new Error(response.status === 401 ? 'Nicht autorisiert - Token ungültig' :
+                                   response.status === 403 ? 'Zugriff verweigert - Rate Limit oder Berechtigungen' :
+                                   response.status === 404 ? 'Nicht gefunden' :
+                                   'GitHub API Fehler');
                 }
 
                 return response.json();
@@ -1909,7 +1975,7 @@
             async saveFile(path, content, message) {
                 const body = {
                     message: message,
-                    content: btoa(unescape(encodeURIComponent(content))),
+                    content: utf8ToBase64(content),
                     branch: CONFIG.branch
                 };
 
@@ -1974,10 +2040,24 @@
         };
 
         // ============================================
-        // SETUP
+        // SETUP (Token in sessionStorage - sicherer als localStorage)
         // ============================================
         function checkSetup() {
-            const savedToken = localStorage.getItem('github_token');
+            // Zuerst sessionStorage prüfen (aktuelle Session)
+            let savedToken = sessionStorage.getItem('github_token');
+
+            // Fallback: Migration von localStorage (einmalig)
+            if (!savedToken) {
+                const oldToken = localStorage.getItem('github_token');
+                if (oldToken) {
+                    // Token migrieren und aus localStorage entfernen
+                    sessionStorage.setItem('github_token', oldToken);
+                    localStorage.removeItem('github_token');
+                    savedToken = oldToken;
+                    console.log('Token von localStorage zu sessionStorage migriert');
+                }
+            }
+
             if (savedToken) {
                 state.token = savedToken;
                 document.getElementById('setupScreen').classList.add('hidden');
@@ -1992,6 +2072,12 @@
                 return;
             }
 
+            // Basis-Validierung des Token-Formats
+            if (!token.startsWith('ghp_') && !token.startsWith('github_pat_')) {
+                toast('Ungültiges Token-Format. GitHub Tokens beginnen mit ghp_ oder github_pat_', 'error');
+                return;
+            }
+
             const btn = document.getElementById('setupBtn');
             btn.disabled = true;
             btn.textContent = 'Prüfe Token...';
@@ -2001,7 +2087,11 @@
                 // Test API-Zugriff
                 await github.request(`/repos/${CONFIG.owner}/${CONFIG.repo}`);
 
-                localStorage.setItem('github_token', token);
+                // Token in sessionStorage speichern (wird bei Tab-Schließung gelöscht)
+                sessionStorage.setItem('github_token', token);
+                // Sicherstellen, dass kein Token in localStorage verbleibt
+                localStorage.removeItem('github_token');
+
                 document.getElementById('setupScreen').classList.add('hidden');
                 toast('Erfolgreich eingerichtet!', 'success');
                 startEditor();
@@ -2900,10 +2990,11 @@
             list.innerHTML = state.versions.slice(0, 5).map((v, i) => {
                 const date = new Date(v.commit.author.date);
                 const dateStr = date.toLocaleDateString('de') + ' ' + date.toLocaleTimeString('de', { hour: '2-digit', minute: '2-digit' });
+                const safeMessage = escapeHtml(v.commit.message);
                 return `
-                    <div class="version-item ${i === 0 ? 'current' : ''}" onclick="selectVersion('${v.sha}', '${dateStr}', '${v.commit.message.replace(/'/g, "\\'")}')">
-                        <div class="version-date">${dateStr}</div>
-                        <div class="version-msg">${v.commit.message.substring(0, 50)}${v.commit.message.length > 50 ? '...' : ''}</div>
+                    <div class="version-item ${i === 0 ? 'current' : ''}" onclick="selectVersion('${escapeHtml(v.sha)}', '${escapeHtml(dateStr)}', '${safeMessage.replace(/'/g, "\\'")}')">
+                        <div class="version-date">${escapeHtml(dateStr)}</div>
+                        <div class="version-msg">${safeMessage.substring(0, 50)}${safeMessage.length > 50 ? '...' : ''}</div>
                     </div>
                 `;
             }).join('');
@@ -3783,14 +3874,14 @@
             list.innerHTML = state.pendingChanges.map(c => {
                 let preview = '';
                 if (c.type === 'text') {
-                    preview = c.newVal.substring(0, 30) + (c.newVal.length > 30 ? '...' : '');
+                    preview = escapeHtml(c.newVal.substring(0, 30) + (c.newVal.length > 30 ? '...' : ''));
                 } else if (c.type === 'image') {
-                    preview = c.newFile;
+                    preview = escapeHtml(c.newFile);
                 } else if (c.type === 'video') {
                     preview = 'Neues Video';
                 }
                 return `
-                    <div class="change-item ${c.type}">
+                    <div class="change-item ${escapeHtml(c.type)}">
                         <div class="change-type">${c.type === 'text' ? 'Text' : c.type === 'image' ? 'Bild' : 'Video'}</div>
                         <div class="change-preview">${preview}</div>
                     </div>
@@ -3859,13 +3950,14 @@
             if (Object.keys(changesByPage).length > 0) {
                 html += '<div style="max-height:250px; overflow-y:auto; border:1px solid #eee; border-radius:8px; padding:0.75rem;">';
                 for (const [page, changes] of Object.entries(changesByPage)) {
-                    html += `<div style="font-weight:600; color:#2C4A47; margin-bottom:0.5rem; border-bottom:1px solid #eee; padding-bottom:0.25rem;">${page}</div>`;
+                    html += `<div style="font-weight:600; color:#2C4A47; margin-bottom:0.5rem; border-bottom:1px solid #eee; padding-bottom:0.25rem;">${escapeHtml(page)}</div>`;
                     changes.forEach(c => {
                         let changeText = '';
                         if (c.type === 'text') {
-                            changeText = `Text: "${(c.newValue || '').substring(0, 50)}${(c.newValue || '').length > 50 ? '...' : ''}"`;
+                            const textPreview = escapeHtml((c.newValue || '').substring(0, 50));
+                            changeText = `Text: "${textPreview}${(c.newValue || '').length > 50 ? '...' : ''}"`;
                         } else if (c.type === 'image') {
-                            changeText = `Bild ersetzt: ${c.filename || 'neues Bild'}`;
+                            changeText = `Bild ersetzt: ${escapeHtml(c.filename || 'neues Bild')}`;
                         } else if (c.type === 'video') {
                             changeText = `Video geaendert`;
                         } else if (c.type === 'feedback') {
@@ -3881,13 +3973,13 @@
                 html += '<div style="text-align:center; color:#999; padding:2rem;">Keine Änderungen in dieser Session.</div>';
             }
 
-            // Sticky Notes hinzufuegen
+            // Sticky Notes hinzufuegen (mit HTML-Escaping)
             if (state.stickyNotes && state.stickyNotes.length > 0) {
                 html += '<div style="margin-top:1rem; padding-top:1rem; border-top:1px solid #eee;">';
                 html += '<div style="font-weight:600; color:#2C4A47; margin-bottom:0.5rem;">Notizen:</div>';
                 state.stickyNotes.forEach(note => {
                     if (note.text && note.text.trim()) {
-                        html += `<div style="background:#fff9c4; padding:0.5rem; border-radius:4px; margin-bottom:0.25rem; font-size:0.85rem;">${note.text}</div>`;
+                        html += `<div style="background:#fff9c4; padding:0.5rem; border-radius:4px; margin-bottom:0.25rem; font-size:0.85rem;">${escapeHtml(note.text)}</div>`;
                     }
                 });
                 html += '</div>';
@@ -4038,10 +4130,10 @@
                 day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
             });
 
-            // Modul-Badge erstellen
+            // Modul-Badge erstellen (mit Escaping)
             const moduleName = item.moduleId ? (feedbackData.modules[item.moduleId]?.name || item.moduleId) : null;
             const moduleBadge = moduleName
-                ? `<span style="background:#e3f2fd; color:#1976d2; padding:0.15rem 0.4rem; border-radius:4px; font-size:0.65rem; margin-left:0.5rem;">${moduleName}</span>`
+                ? `<span style="background:#e3f2fd; color:#1976d2; padding:0.15rem 0.4rem; border-radius:4px; font-size:0.65rem; margin-left:0.5rem;">${escapeHtml(moduleName)}</span>`
                 : '';
 
             // Hidden-Badge für inaktive Module
@@ -4049,25 +4141,28 @@
                 ? `<span style="background:#ffebee; color:#c62828; padding:0.15rem 0.4rem; border-radius:4px; font-size:0.65rem; margin-left:0.5rem;">Modul entfernt</span>`
                 : '';
 
+            // Sichere ID für Event-Handler
+            const safeId = escapeHtml(String(item.id));
+
             return `
                 <div style="background:${item.hidden ? '#fafafa' : item.status === 'done' ? '#f5f5f5' : 'white'}; border:1px solid ${item.hidden ? '#e0e0e0' : '#eee'}; border-left:4px solid ${item.hidden ? '#9e9e9e' : statusColors[item.status]}; border-radius:8px; padding:0.75rem; margin-bottom:0.5rem; ${item.status === 'done' || item.hidden ? 'opacity:0.7;' : ''}">
                     <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem;">
                         <div style="flex:1;">
                             <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.25rem; flex-wrap:wrap;">
                                 <span>${typeIcons[item.type] || '💬'}</span>
-                                <span style="font-weight:600; ${item.status === 'done' || item.hidden ? 'text-decoration:line-through;' : ''}">${item.description}</span>
+                                <span style="font-weight:600; ${item.status === 'done' || item.hidden ? 'text-decoration:line-through;' : ''}">${escapeHtml(item.description)}</span>
                                 ${moduleBadge}
                                 ${hiddenBadge}
                             </div>
-                            <div style="font-size:0.75rem; color:#999;">${item.page || 'Allgemein'} • ${date}</div>
+                            <div style="font-size:0.75rem; color:#999;">${escapeHtml(item.page || 'Allgemein')} • ${escapeHtml(date)}</div>
                         </div>
                         <div style="display:flex; gap:0.5rem; align-items:center;">
-                            <select onchange="updateFeedbackStatus('${item.id}', this.value)" style="padding:0.25rem 0.5rem; border-radius:4px; border:1px solid #ddd; font-size:0.75rem; cursor:pointer;" ${item.hidden ? 'disabled' : ''}>
+                            <select onchange="updateFeedbackStatus('${safeId}', this.value)" style="padding:0.25rem 0.5rem; border-radius:4px; border:1px solid #ddd; font-size:0.75rem; cursor:pointer;" ${item.hidden ? 'disabled' : ''}>
                                 <option value="open" ${item.status === 'open' ? 'selected' : ''}>Offen</option>
                                 <option value="in_progress" ${item.status === 'in_progress' ? 'selected' : ''}>In Bearbeitung</option>
                                 <option value="done" ${item.status === 'done' ? 'selected' : ''}>Erledigt</option>
                             </select>
-                            <button onclick="deleteFeedbackItem('${item.id}')" style="background:none; border:none; cursor:pointer; color:#999; font-size:1.2rem;" title="Löschen">×</button>
+                            <button onclick="deleteFeedbackItem('${safeId}')" style="background:none; border:none; cursor:pointer; color:#999; font-size:1.2rem;" title="Löschen">×</button>
                         </div>
                     </div>
                 </div>
@@ -4252,7 +4347,7 @@
                 feedbackData.lastUpdated = new Date().toISOString();
 
                 const content = JSON.stringify(feedbackData, null, 2);
-                const encodedContent = btoa(unescape(encodeURIComponent(content)));
+                const encodedContent = utf8ToBase64(content);
 
                 const body = {
                     message: `Feedback aktualisiert: ${new Date().toLocaleString('de-DE')}`,
@@ -4660,19 +4755,20 @@
             list.innerHTML = state.trash.slice(-10).reverse().map((item, i) => {
                 let preview = '';
                 if (item.type === 'text') {
-                    preview = item.newVal?.substring(0, 20) + '...' || 'Text';
+                    preview = escapeHtml(item.newVal?.substring(0, 20) + '...' || 'Text');
                 } else if (item.type === 'image') {
-                    preview = item.newFile || 'Bild';
+                    preview = escapeHtml(item.newFile || 'Bild');
                 } else {
-                    preview = item.type;
+                    preview = escapeHtml(item.type);
                 }
 
                 const time = item.deletedAt ? new Date(item.deletedAt).toLocaleTimeString('de', { hour: '2-digit', minute: '2-digit' }) : '';
+                const restoreIndex = state.trash.length - 1 - i;
 
                 return `
                     <div class="trash-item">
-                        <span>${preview} <small style="color:#999">${time}</small></span>
-                        <button onclick="restoreFromTrash(${state.trash.length - 1 - i})">Wiederherstellen</button>
+                        <span>${preview} <small style="color:#999">${escapeHtml(time)}</small></span>
+                        <button onclick="restoreFromTrash(${restoreIndex})">Wiederherstellen</button>
                     </div>
                 `;
             }).join('');
@@ -5230,11 +5326,13 @@
             if (history.length === 0) {
                 list.innerHTML = '<p style="color:#999; font-size:0.8rem;">Keine Historie</p>';
             } else {
+                const safeElementId = escapeHtml(elementId);
                 list.innerHTML = history.slice().reverse().map((item, i) => {
-                    const time = new Date(item.timestamp).toLocaleString('de');
-                    const preview = item.newVal?.substring(0, 20) || item.orig?.substring(0, 20) || '';
+                    const time = escapeHtml(new Date(item.timestamp).toLocaleString('de'));
+                    const preview = escapeHtml(item.newVal?.substring(0, 20) || item.orig?.substring(0, 20) || '');
+                    const restoreIndex = history.length - 1 - i;
                     return `
-                        <div class="history-item" onclick="restoreFromHistory('${elementId}', ${history.length - 1 - i})">
+                        <div class="history-item" onclick="restoreFromHistory('${safeElementId}', ${restoreIndex})">
                             <div class="history-item-time">${time}</div>
                             <div>${preview}...</div>
                         </div>
