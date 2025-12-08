@@ -70,6 +70,16 @@
         .footer-bottom a{color:white}
         @media(max-width:992px){nav{display:none}nav.mobile-open{display:flex;position:absolute;top:80px;left:0;right:0;flex-direction:column;background:white;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.1)}nav.mobile-open a{padding:15px 0;border-bottom:1px solid rgba(0,0,0,.05)}.menu-toggle{display:flex}}
         @media(max-width:768px){.footer-content{grid-template-columns:1fr;gap:40px}}
+    
+        .bookmark-floating{position:fixed;bottom:100px;right:30px;z-index:999;display:flex;flex-direction:column;gap:10px}
+        .bookmark-btn-float{width:50px;height:50px;background:white;border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,.2);transition:transform .2s,box-shadow .2s}
+        .bookmark-btn-float:hover{transform:scale(1.1);box-shadow:0 6px 20px rgba(0,0,0,.25)}
+        .bookmark-btn-float svg{width:24px;height:24px;color:var(--color-text-light);transition:color .2s}
+        .bookmark-btn-float.saved svg{color:var(--color-accent);fill:var(--color-accent)}
+        .library-btn-float{width:50px;height:50px;background:var(--color-accent);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 15px rgba(0,0,0,.2);transition:transform .2s;text-decoration:none}
+        .library-btn-float:hover{transform:scale(1.1)}
+        .library-btn-float svg{width:24px;height:24px;color:white}
+        .library-count-float{position:absolute;top:-5px;right:-5px;background:var(--color-primary);color:white;font-size:.7rem;padding:2px 6px;border-radius:10px;font-weight:600}
     </style>
 </head>
 <body>
@@ -210,5 +220,52 @@
             </div>
         </div>
     </footer>
+
+    <div class="bookmark-floating">
+        <button class="bookmark-btn-float" id="bookmarkBtn" title="Artikel merken">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+        </button>
+        <a href="blog.html" class="library-btn-float" title="Zur Bibliothek">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            <span class="library-count-float" id="libraryCount">0</span>
+        </a>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'kathrin-blog-library';
+        const CURRENT_SLUG = 'glaubenssatzarbeit-hilfe-annehmen.html';
+
+        function getLibrary() {
+            try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+            catch (e) { return []; }
+        }
+
+        function saveLibrary(library) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(library));
+        }
+
+        function updateUI() {
+            const library = getLibrary();
+            const btn = document.getElementById('bookmarkBtn');
+            const count = document.getElementById('libraryCount');
+
+            btn.classList.toggle('saved', library.includes(CURRENT_SLUG));
+            count.textContent = library.length;
+        }
+
+        document.getElementById('bookmarkBtn').addEventListener('click', function() {
+            const library = getLibrary();
+            const index = library.indexOf(CURRENT_SLUG);
+            if (index > -1) {
+                library.splice(index, 1);
+            } else {
+                library.push(CURRENT_SLUG);
+            }
+            saveLibrary(library);
+            updateUI();
+        });
+
+        updateUI();
+    </script>
 </body>
 </html>
