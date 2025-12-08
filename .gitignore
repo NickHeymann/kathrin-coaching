@@ -1,0 +1,14 @@
+# Archiv (alte/verwaiste Dateien)
+_archive/
+
+# macOS
+.DS_Store
+*.swp
+
+# Editor
+*.bak
+*~
+
+# Lokale Entwicklung
+.env
+.env.local

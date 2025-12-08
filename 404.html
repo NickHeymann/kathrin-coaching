@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seite nicht gefunden | Kathrin Stahl</title>
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-primary: #2C4A47;
+            --color-accent: #C4A962;
+            --color-cream: #FAF8F5;
+            --color-text: #2D2D2D;
+            --font-heading: 'Cormorant Garamond', Georgia, serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-cream);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 500px;
+        }
+
+        h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 400;
+            color: var(--color-primary);
+            opacity: 0.3;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 500;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: var(--color-text);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--color-primary);
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: #3D6B66;
+        }
+
+        .links {
+            margin-top: 2rem;
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .links a {
+            color: var(--color-primary);
+            font-size: 0.9rem;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .links a:hover {
+            color: var(--color-accent);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>404</h1>
+        <h2>Diese Seite gibt es nicht mehr</h2>
+        <p>Die Seite wurde möglicherweise verschoben oder existiert nicht mehr. Kein Problem – hier findest du zurück.</p>
+        <a href="index.html" class="btn">Zur Startseite</a>
+        <div class="links">
+            <a href="blog.html">Blog</a>
+            <a href="kathrin.html">Über Kathrin</a>
+            <a href="https://cal.com/kathrinstahl">Erstgespräch</a>
+        </div>
+    </div>
+</body>
+</html>
