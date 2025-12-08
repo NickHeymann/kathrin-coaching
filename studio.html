@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-studio-2024' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; connect-src https://api.github.com https://raw.githubusercontent.com; img-src 'self' https: data: blob:; media-src 'self' https: blob:;">
     <title>Glück über Zweifel - Content Studio</title>
     <style>
         :root {
@@ -1426,7 +1427,54 @@
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <script>
+    <!-- DOMPurify für sichere HTML-Sanitization -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js"
+            integrity="sha384-3XJAN3rswrHdGqLHC3V5s0ERRmJrqtOvC/1qVz8gg4RZMlWBNB9VCRa9Z6H/TqRt"
+            crossorigin="anonymous"
+            nonce="studio-2024"></script>
+    <script nonce="studio-2024">
+        // ============================================
+        // SECURITY UTILITIES
+        // ============================================
+        function escapeHtml(unsafe) {
+            if (unsafe == null) return '';
+            return String(unsafe)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function sanitizeHTML(dirty) {
+            if (typeof DOMPurify !== 'undefined') {
+                return DOMPurify.sanitize(dirty, {
+                    ALLOWED_TAGS: ['p', 'br', 'b', 'i', 'u', 'strong', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+                                   'ul', 'ol', 'li', 'a', 'img', 'blockquote', 'pre', 'code', 'div', 'span',
+                                   'table', 'thead', 'tbody', 'tr', 'th', 'td', 'hr', 'figure', 'figcaption'],
+                    ALLOWED_ATTR: ['href', 'src', 'alt', 'title', 'class', 'id', 'style', 'target', 'rel',
+                                   'width', 'height', 'loading'],
+                    FORBID_TAGS: ['script', 'iframe', 'object', 'embed', 'form'],
+                    FORBID_ATTR: ['onerror', 'onload', 'onclick', 'onmouseover']
+                });
+            }
+            return escapeHtml(dirty);
+        }
+
+        // Sichere UTF-8 Base64 Encoding (ersetzt deprecated unescape)
+        function utf8ToBase64(str) {
+            return btoa(new TextEncoder().encode(str).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+        }
+
+        function base64ToUtf8(base64) {
+            const binary = atob(base64);
+            const bytes = new Uint8Array(binary.length);
+            for (let i = 0; i < binary.length; i++) {
+                bytes[i] = binary.charCodeAt(i);
+            }
+            return new TextDecoder().decode(bytes);
+        }
+
         // ============================================
         // CONFIGURATION
         // ============================================
@@ -1491,7 +1539,7 @@
                 const existing = await this.getFile(path);
                 const body = {
                     message: message,
-                    content: btoa(unescape(encodeURIComponent(content))),
+                    content: utf8ToBase64(content),
                     branch: CONFIG.branch
                 };
                 if (existing) body.sha = existing.sha;
@@ -1539,10 +1587,23 @@
         };
 
         // ============================================
-        // SETUP
+        // SETUP (Token in sessionStorage für Sicherheit)
         // ============================================
         function checkSetup() {
-            const savedToken = localStorage.getItem('github_token');
+            // Zuerst sessionStorage prüfen
+            let savedToken = sessionStorage.getItem('github_token');
+
+            // Migration von localStorage (einmalig)
+            if (!savedToken) {
+                const oldToken = localStorage.getItem('github_token');
+                if (oldToken) {
+                    sessionStorage.setItem('github_token', oldToken);
+                    localStorage.removeItem('github_token');
+                    savedToken = oldToken;
+                    console.log('Token von localStorage zu sessionStorage migriert');
+                }
+            }
+
             if (savedToken) {
                 state.token = savedToken;
                 document.getElementById('setupScreen').classList.add('hidden');
@@ -1561,7 +1622,9 @@
             try {
                 state.token = token;
                 await github.request(`/repos/${CONFIG.owner}/${CONFIG.repo}`);
-                localStorage.setItem('github_token', token);
+                // Token in sessionStorage speichern (sicherer)
+                sessionStorage.setItem('github_token', token);
+                localStorage.removeItem('github_token'); // Alte Tokens entfernen
                 document.getElementById('setupScreen').classList.add('hidden');
                 toast('Erfolgreich eingerichtet!', 'success');
                 initStudio();
@@ -2256,7 +2319,7 @@
             return `<div style="padding: 2rem; font-family: Georgia, serif; max-width: 800px; margin: 0 auto;">
                 <h1 style="color: #2C4A47; font-size: 2rem;">${escapeHtml(post?.title || 'Titel')}</h1>
                 <div style="color: #666; font-size: 0.9rem; margin-bottom: 1.5rem;">Von Kathrin Stahl · ${formatDate(new Date().toISOString())}</div>
-                ${post?.featuredImage ? `<img src="${post.featuredImage}" style="width: 100%; border-radius: 12px; margin-bottom: 1.5rem;">` : ''}
+                ${post?.featuredImage ? `<img src="${post.featuredImage}" style="width: 100%; border-radius: 12px; margin-bottom: 1.5rem;" alt="${post">` : ''}
                 <div style="line-height: 1.8;">${post?.content || '<p>Kein Inhalt</p>'}</div>
             </div>`;
         }
@@ -2345,7 +2408,7 @@
                 try {
                     await github.uploadImage(filename, base64);
                     state.selectedImage = `wp-content/uploads/blog/${filename}`;
-                    document.getElementById('imageDropZone').innerHTML = `<img src="${base64}" style="max-height: 120px; border-radius: 8px;"><div style="margin-top: 0.5rem;">Hochgeladen!</div>`;
+                    document.getElementById('imageDropZone').innerHTML = `<img src="${base64}" style="max-height: 120px; border-radius: 8px;" alt="${base64}"><div style="margin-top: 0.5rem;">Hochgeladen!</div>`;
                     toast('Bild hochgeladen', 'success');
                 } catch (e) {
                     toast('Fehler', 'error');

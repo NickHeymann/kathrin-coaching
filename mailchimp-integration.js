@@ -135,8 +135,9 @@ function handleQuizSubmit(event) {
 
 /**
  * An Mailchimp senden
+ * Verwendet Fetch API mit POST statt unsicheres JSONP
  */
-function submitToMailchimp(form, source) {
+async function submitToMailchimp(form, source) {
     const formData = new FormData(form);
     const submitBtn = form.querySelector('.mc-submit');
     const successDiv = form.parentElement.querySelector('.mc-success');
@@ -145,62 +146,110 @@ function submitToMailchimp(form, source) {
     submitBtn.disabled = true;
     submitBtn.textContent = 'Wird gesendet...';
 
-    // Mailchimp verwendet JSONP für Cross-Origin Requests
-    // Wir bauen die URL zusammen
+    // Formulardaten extrahieren
     const email = formData.get('EMAIL');
     const fname = formData.get('FNAME');
     const quiz = formData.get('QUIZ') || '';
     const score = formData.get('SCORE') || '';
 
-    // Mailchimp JSONP URL
-    const url = `${MailchimpConfig.formActionUrl}-json?u=${MailchimpConfig.u}&id=${MailchimpConfig.id}&EMAIL=${encodeURIComponent(email)}&FNAME=${encodeURIComponent(fname)}&QUIZ=${encodeURIComponent(quiz)}&SCORE=${encodeURIComponent(score)}&SOURCE=${encodeURIComponent(source)}&c=mailchimpCallback`;
+    // Input-Validierung
+    if (!isValidEmail(email)) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Nochmal versuchen';
+        showFormError(form, 'Bitte gib eine gültige E-Mail-Adresse ein.');
+        return;
+    }
 
-    // JSONP Request
-    const script = document.createElement('script');
-    script.src = url;
+    if (!fname || fname.trim().length < 2) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Nochmal versuchen';
+        showFormError(form, 'Bitte gib deinen Vornamen ein.');
+        return;
+    }
 
-    // Callback für JSONP
-    window.mailchimpCallback = function(response) {
-        if (response.result === 'success') {
-            // Erfolg
-            form.style.display = 'none';
-            successDiv.style.display = 'block';
+    try {
+        // Mailchimp POST URL (standard form submission)
+        const url = `${MailchimpConfig.formActionUrl}?u=${MailchimpConfig.u}&id=${MailchimpConfig.id}`;
 
-            // Event für Analytics
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'newsletter_signup', {
-                    'event_category': 'engagement',
-                    'event_label': source
-                });
-            }
-        } else {
-            // Fehler
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Nochmal versuchen';
+        // FormData für POST-Request
+        const postData = new URLSearchParams();
+        postData.append('EMAIL', email);
+        postData.append('FNAME', fname);
+        postData.append('QUIZ', quiz);
+        postData.append('SCORE', score);
+        postData.append('SOURCE', source);
+        postData.append('subscribe', 'Subscribe');
 
-            // Fehlermeldung anzeigen
-            let errorMsg = response.msg || 'Ein Fehler ist aufgetreten.';
-            // Mailchimp gibt manchmal HTML zurück
-            errorMsg = errorMsg.replace(/<[^>]*>/g, '');
+        // Da Mailchimp kein CORS unterstützt, nutzen wir einen Workaround:
+        // Wir senden das Formular als no-cors Request und zeigen sofort Erfolg
+        // Alternative: Eigenen Backend-Proxy verwenden
+        const response = await fetch(url, {
+            method: 'POST',
+            mode: 'no-cors', // Mailchimp unterstützt kein CORS
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: postData.toString()
+        });
 
-            alert(errorMsg);
+        // Bei no-cors können wir die Response nicht lesen
+        // Wir zeigen optimistisch Erfolg an
+        form.style.display = 'none';
+        successDiv.style.display = 'block';
+
+        // Event für Analytics
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'newsletter_signup', {
+                'event_category': 'engagement',
+                'event_label': source
+            });
         }
 
-        // Script entfernen
-        document.body.removeChild(script);
-        delete window.mailchimpCallback;
-    };
+        // Erfolg in Console loggen (für Debugging)
+        console.log('Mailchimp submission sent for:', email);
 
-    document.body.appendChild(script);
+    } catch (error) {
+        console.error('Mailchimp submission error:', error);
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Nochmal versuchen';
+        showFormError(form, 'Ein Fehler ist aufgetreten. Bitte versuche es erneut.');
+    }
+}
 
-    // Timeout für langsame Verbindungen
-    setTimeout(function() {
-        if (window.mailchimpCallback) {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Nochmal versuchen';
-            alert('Die Verbindung war zu langsam. Bitte versuche es erneut.');
-        }
-    }, 10000);
+/**
+ * E-Mail-Validierung
+ */
+function isValidEmail(email) {
+    if (!email) return false;
+    // Einfache aber effektive E-Mail-Validierung
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email.trim());
+}
+
+/**
+ * Fehlermeldung im Formular anzeigen
+ */
+function showFormError(form, message) {
+    // Bestehende Fehlermeldung entfernen
+    const existingError = form.querySelector('.mc-error');
+    if (existingError) {
+        existingError.remove();
+    }
+
+    // Neue Fehlermeldung erstellen
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'mc-error';
+    errorDiv.textContent = message;
+    errorDiv.style.cssText = 'color: #e74c3c; font-size: 0.9em; margin: 0.5rem 0; padding: 0.5rem; background: #fdf2f2; border-radius: 4px;';
+
+    // Vor dem Submit-Button einfügen
+    const submitBtn = form.querySelector('.mc-submit');
+    submitBtn.parentNode.insertBefore(errorDiv, submitBtn);
+
+    // Nach 5 Sekunden automatisch ausblenden
+    setTimeout(() => {
+        errorDiv.remove();
+    }, 5000);
 }
 
 /**
@@ -287,11 +336,13 @@ function closeLeadPopup() {
     }
 }
 
-// Cookie Hilfsfunktionen
+// Cookie Hilfsfunktionen (mit Sicherheitsattributen)
 function setCookie(name, value, days) {
     const expires = new Date();
     expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
-    document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+    // SameSite=Lax verhindert CSRF, Secure nur bei HTTPS
+    const secure = location.protocol === 'https:' ? ';Secure' : '';
+    document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/;SameSite=Lax${secure}`;
 }
 
 function getCookie(name) {

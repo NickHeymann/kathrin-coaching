@@ -199,10 +199,26 @@
             font-family: var(--font-body);
         }
 
-        .category-btn:hover,
+        .category-btn:hover {
+            background: var(--color-primary);
+            color: white;
+        }
+
         .category-btn.active {
             background: var(--color-primary);
             color: white;
+            box-shadow: 0 2px 8px rgba(44, 74, 71, 0.3);
+        }
+
+        .category-btn:focus {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        .category-btn:active {
+            background: var(--color-primary);
+            color: white;
+            transform: scale(0.98);
         }
 
         /* Suchfeld */
@@ -754,7 +770,7 @@
                     <a href="index.html#angebote">Angebote</a>
                     <a href="kathrin.html">Über mich</a>
                     <a href="blog.html" style="color: var(--color-primary);">Blog</a>
-                    <a href="media.html">Videos & Podcast</a>
+                    <a href="media.html">Videos</a>
                     <a href="https://cal.com/kathrinstahl" target="_blank" class="nav-cta">Erstgespräch</a>
                 </nav>
                 <button class="menu-toggle" onclick="document.getElementById('mainNav').classList.toggle('mobile-open')">
@@ -785,7 +801,6 @@
                     <button class="category-btn" data-category="selbstliebe">Selbstliebe</button>
                     <button class="category-btn" data-category="heldinnenreise">Heldinnenreise</button>
                     <button class="category-btn" data-category="hochbegabung">Hochbegabung</button>
-                    <button class="category-btn" data-category="podcast">Podcast</button>
                 </div>
 
                 <!-- Suche und Sortierung -->
@@ -882,29 +897,6 @@
                     </button>
                 </article>
 
-                <!-- Artikel 4 - Podcast -->
-                <article class="blog-card" data-category="podcast" data-date="2024-08-25" data-reading-time="25">
-                    <a href="podcast-9-deine-umwelt-ist-dein-spiegel.html" class="blog-card-link">
-                        <div class="blog-card-image">
-                            <img src="wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg" alt="Podcast" loading="lazy">
-                            <span class="blog-card-category">Podcast</span>
-                        </div>
-                        <div class="blog-card-content">
-                            <h3>Deine Umwelt ist dein Spiegel</h3>
-                            <p>Warum Krisen eine Schatzkiste sein können und wie neue Fragen ein neues Leben ermöglichen.</p>
-                            <div class="blog-card-meta">
-                                <span>25 Min. Hörzeit</span>
-                                <span>25. August 2024</span>
-                            </div>
-                        </div>
-                    </a>
-                    <button class="reading-list-btn" onclick="toggleReadingList(this, event)" title="Zur Leseliste hinzufügen">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                    </button>
-                </article>
-
                 <!-- Artikel 5 -->
                 <article class="blog-card" data-category="hochbegabung" data-date="2024-08-12" data-reading-time="6">
                     <a href="hochbegabt-dein-bunter-weg.html" class="blog-card-link">
@@ -964,29 +956,6 @@
                             <div class="blog-card-meta">
                                 <span>8 Min. Lesezeit</span>
                                 <span>15. Juli 2024</span>
-                            </div>
-                        </div>
-                    </a>
-                    <button class="reading-list-btn" onclick="toggleReadingList(this, event)" title="Zur Leseliste hinzufügen">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                    </button>
-                </article>
-
-                <!-- Artikel 8 - Podcast -->
-                <article class="blog-card" data-category="podcast" data-date="2024-07-01" data-reading-time="30">
-                    <a href="podcast-8-innere-kritikerin.html" class="blog-card-link">
-                        <div class="blog-card-image">
-                            <img src="wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg" alt="Podcast innere Kritikerin" loading="lazy">
-                            <span class="blog-card-category">Podcast</span>
-                        </div>
-                        <div class="blog-card-content">
-                            <h3>Die innere Kritikerin zähmen</h3>
-                            <p>Wie du mit deiner inneren Stimme Freundschaft schließen und aus dem Hamsterrad der Selbstkritik aussteigen kannst.</p>
-                            <div class="blog-card-meta">
-                                <span>30 Min. Hörzeit</span>
-                                <span>1. Juli 2024</span>
                             </div>
                         </div>
                     </a>
@@ -1144,7 +1113,7 @@
                         <li><a href="index.html#angebote">Angebote</a></li>
                         <li><a href="kathrin.html">Über mich</a></li>
                         <li><a href="blog.html">Blog</a></li>
-                        <li><a href="media.html">Videos & Podcast</a></li>
+                        <li><a href="media.html">Videos</a></li>
                     </ul>
                 </div>
                 <div class="footer-contact">
@@ -1303,7 +1272,7 @@
             } else {
                 itemsContainer.innerHTML = readingList.map((item, index) => `
                     <div class="reading-list-item">
-                        <img src="${item.img}" alt="${item.title}">
+                        <img src="${item.img}" alt="${item.title}" loading="lazy">
                         <div class="reading-list-item-content">
                             <h4><a href="${item.url}">${item.title}</a></h4>
                             <p>${item.meta}</p>

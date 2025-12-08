@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-blog-editor-2024' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; connect-src https://api.github.com https://raw.githubusercontent.com; img-src 'self' https: data: blob:; media-src 'self' https: blob:;">
     <title>Blog Editor - Glück über Zweifel</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1165,7 +1166,54 @@
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <script>
+    <!-- DOMPurify für sichere HTML-Sanitization -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js"
+            integrity="sha384-3XJAN3rswrHdGqLHC3V5s0ERRmJrqtOvC/1qVz8gg4RZMlWBNB9VCRa9Z6H/TqRt"
+            crossorigin="anonymous"
+            nonce="blog-editor-2024"></script>
+    <script nonce="blog-editor-2024">
+        // ============================================
+        // SECURITY UTILITIES
+        // ============================================
+        function escapeHtml(unsafe) {
+            if (unsafe == null) return '';
+            return String(unsafe)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function sanitizeHTML(dirty) {
+            if (typeof DOMPurify !== 'undefined') {
+                return DOMPurify.sanitize(dirty, {
+                    ALLOWED_TAGS: ['p', 'br', 'b', 'i', 'u', 'strong', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+                                   'ul', 'ol', 'li', 'a', 'img', 'blockquote', 'pre', 'code', 'div', 'span',
+                                   'table', 'thead', 'tbody', 'tr', 'th', 'td', 'hr', 'figure', 'figcaption'],
+                    ALLOWED_ATTR: ['href', 'src', 'alt', 'title', 'class', 'id', 'style', 'target', 'rel',
+                                   'width', 'height', 'loading'],
+                    FORBID_TAGS: ['script', 'iframe', 'object', 'embed', 'form'],
+                    FORBID_ATTR: ['onerror', 'onload', 'onclick', 'onmouseover']
+                });
+            }
+            return escapeHtml(dirty);
+        }
+
+        // Sichere UTF-8 Base64 Encoding (ersetzt deprecated unescape)
+        function utf8ToBase64(str) {
+            return btoa(new TextEncoder().encode(str).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+        }
+
+        function base64ToUtf8(base64) {
+            const binary = atob(base64);
+            const bytes = new Uint8Array(binary.length);
+            for (let i = 0; i < binary.length; i++) {
+                bytes[i] = binary.charCodeAt(i);
+            }
+            return new TextDecoder().decode(bytes);
+        }
+
         // ============================================
         // CONFIGURATION
         // ============================================
@@ -1233,7 +1281,7 @@
 
                 const body = {
                     message: message,
-                    content: btoa(unescape(encodeURIComponent(content))),
+                    content: utf8ToBase64(content),
                     branch: CONFIG.branch
                 };
 
@@ -1292,10 +1340,23 @@
         };
 
         // ============================================
-        // SETUP & INIT
+        // SETUP & INIT (Token in sessionStorage für Sicherheit)
         // ============================================
         function checkSetup() {
-            const savedToken = localStorage.getItem('github_token');
+            // Zuerst sessionStorage prüfen
+            let savedToken = sessionStorage.getItem('github_token');
+
+            // Migration von localStorage (einmalig)
+            if (!savedToken) {
+                const oldToken = localStorage.getItem('github_token');
+                if (oldToken) {
+                    sessionStorage.setItem('github_token', oldToken);
+                    localStorage.removeItem('github_token');
+                    savedToken = oldToken;
+                    console.log('Token von localStorage zu sessionStorage migriert');
+                }
+            }
+
             if (savedToken) {
                 state.token = savedToken;
                 document.getElementById('setupScreen').classList.add('hidden');
@@ -1314,7 +1375,9 @@
                 state.token = token;
                 await github.request(`/repos/${CONFIG.owner}/${CONFIG.repo}`);
 
-                localStorage.setItem('github_token', token);
+                // Token in sessionStorage speichern (sicherer)
+                sessionStorage.setItem('github_token', token);
+                localStorage.removeItem('github_token'); // Alte Tokens entfernen
                 document.getElementById('setupScreen').classList.add('hidden');
                 toast('Erfolgreich eingerichtet!', 'success');
                 initEditor();
@@ -1391,7 +1454,7 @@
             // Featured Image
             const upload = document.getElementById('featuredImageUpload');
             if (post.featuredImage) {
-                upload.innerHTML = `<img src="${post.featuredImage}" alt="">`;
+                upload.innerHTML = `<img src="${post.featuredImage}" alt="" loading="lazy">`;
                 upload.classList.add('has-image');
                 state.featuredImage = post.featuredImage;
             } else {
@@ -1681,7 +1744,7 @@
                 <span>${calculateReadingTime(post.content)} Min. Lesezeit</span>
             </div>
 
-            ${post.featuredImage ? `<img src="${post.featuredImage}" alt="${escapeHtml(post.featuredImageAlt || post.title)}" class="featured-image">` : ''}
+            ${post.featuredImage ? `<img src="${post.featuredImage}" alt="${escapeHtml(post.featuredImageAlt || post.title)}" class="featured-image" loading="lazy">` : ''}
 
             <div class="entry-content">
                 ${post.content}
@@ -1918,7 +1981,7 @@
             const altText = document.getElementById('imageAltText').value;
 
             if (state.selectedImage) {
-                const html = `<img src="${state.selectedImage}" alt="${escapeHtml(altText)}">`;
+                const html = `<img src="${state.selectedImage}" alt="${escapeHtml(altText)}" loading="lazy">`;
                 execCmd('insertHTML', html);
                 closeImageModal();
                 toast('Bild eingefügt', 'success');
@@ -1955,7 +2018,7 @@
                         state.featuredImage = imageUrl;
 
                         const upload = document.getElementById('featuredImageUpload');
-                        upload.innerHTML = `<img src="${base64}" alt="">`;
+                        upload.innerHTML = `<img src="${base64}" alt="" loading="lazy">`;
                         upload.classList.add('has-image');
 
                         state.hasUnsavedChanges = true;
@@ -2025,7 +2088,7 @@
 
                     // Vorschau zeigen
                     document.getElementById('imageDropZone').innerHTML = `
-                        <img src="${base64}" style="max-height: 150px; border-radius: 8px;">
+                        <img src="${base64}" style="max-height: 150px; border-radius: 8px;" loading="lazy" alt="${base64}">
                         <div style="margin-top: 0.5rem;">Bild hochgeladen!</div>
                     `;
 
@@ -2077,7 +2140,7 @@
                         ${calculateReadingTime(post?.content || '')} Min. Lesezeit
                     </div>
 
-                    ${post?.featuredImage ? `<img src="${post.featuredImage}" style="width: 100%; border-radius: 12px; margin-bottom: 1.5rem;">` : ''}
+                    ${post?.featuredImage ? `<img src="${post.featuredImage}" style="width: 100%; border-radius: 12px; margin-bottom: 1.5rem;" loading="lazy" alt="${post">` : ''}
 
                     <div style="line-height: 1.8; font-size: 1.1rem;">
                         ${post?.content || '<p>Kein Inhalt</p>'}

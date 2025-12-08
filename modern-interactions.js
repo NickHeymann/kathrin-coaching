@@ -415,9 +415,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Auto-truncate disabled for performance
 
-    // -----------------------------------------
-    // CONSOLE LOG
-    // -----------------------------------------
-    console.log('Modern Interactions loaded successfully.');
+    // Module loaded (debug log removed for production)
 
 });

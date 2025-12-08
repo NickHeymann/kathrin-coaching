@@ -229,4 +229,4 @@ function createFloatingBookingButton() {
 // document.addEventListener('DOMContentLoaded', createFloatingBookingButton);
 */
 
-console.log('Cal.com Booking Integration loaded. Available functions: bookErstgespraech(), bookEinzelcoaching(), bookPaarcoaching(), bookRetreatBeratung(), openBooking(eventType)');
+// Cal.com Booking Integration loaded

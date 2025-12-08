@@ -2507,103 +2507,6 @@
             margin-bottom: 2rem;
         }
 
-        .story-expand-btn {
-            background: transparent;
-            border: 2px solid var(--color-primary);
-            color: var(--color-primary);
-            padding: 14px 28px;
-            border-radius: 4px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .story-expand-btn:hover {
-            background: var(--color-primary);
-            color: white;
-        }
-
-        .story-timeline {
-            display: none;
-            margin-top: 60px;
-            padding-top: 60px;
-            border-top: 1px solid rgba(0,0,0,0.1);
-        }
-
-        .story-timeline.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 2px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--color-accent), var(--color-primary));
-        }
-
-        .timeline-item {
-            display: flex;
-            margin-bottom: 50px;
-            position: relative;
-        }
-
-        .timeline-item:nth-child(odd) {
-            flex-direction: row-reverse;
-        }
-
-        .timeline-content {
-            width: 45%;
-            padding: 25px 30px;
-            background: var(--color-cream);
-            border-radius: 12px;
-            position: relative;
-        }
-
-        .timeline-item:nth-child(odd) .timeline-content {
-            text-align: right;
-        }
-
-        .timeline-year {
-            font-family: var(--font-heading);
-            font-size: 1.1rem;
-            color: var(--color-accent);
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .timeline-text {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: var(--color-text-light);
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 16px;
-            height: 16px;
-            background: var(--color-accent);
-            border-radius: 50%;
-            border: 3px solid var(--color-white);
-            box-shadow: 0 0 0 3px var(--color-accent);
-        }
-
         /* ===== WHATSAPP BUTTON ===== */
         .whatsapp-btn {
             position: fixed;
@@ -4201,7 +4104,7 @@
                 </div>
             </div>
             <a href="#blog">Blog</a>
-            <a href="media.html">Videos & Podcast</a>
+            <a href="media.html">Videos</a>
             <a href="#ueber">Über mich</a>
             <div class="contact-dropdown">
                 <a href="#kontakt" class="contact-dropdown-trigger" onclick="toggleContactDropdown(this, event)">Kontakt</a>
@@ -4239,9 +4142,9 @@
 <section class="hero">
     <div class="container">
         <div class="hero-content">
-            <p class="hero-tagline">"Wer bist du, wenn du niemand sein musst?"</p>
-            <h1>Finde zurück zu dir selbst</h1>
-            <p>Ganzheitliches Coaching für Menschen in Umbruchphasen. Mit Pferden, Aufstellungen und Retreats in Portugal begleite ich dich auf dem Weg zu mehr Klarheit und Lebendigkeit.</p>
+            <p class="hero-tagline">Für Menschen, die tief fühlen, tief denken und tief in Beziehung gehen</p>
+            <h1>Der Moment, in dem etwas aufgeht</h1>
+            <p>Ich arbeite nicht mit Konzepten, sondern mit Wahrnehmung. Mit Bildern, Augenblicken, Stille. Mit dem, was sich zwischen zwei Atemzügen zeigt. In Portugal, mit Pferden, in der Begegnung mit dir selbst.</p>
             <div class="hero-buttons">
                 <a href="#" class="btn btn-primary" onclick="bookCall(); return false;">Kostenloses Erstgespräch</a>
                 <a href="#angebote" class="btn btn-secondary">Mehr erfahren</a>
@@ -4523,8 +4426,8 @@
 <section class="services-section" id="angebote">
     <div class="container">
         <div class="services-header">
-            <h2>Meine Angebote</h2>
-            <p>Jeder Mensch ist einzigartig. Finde den Weg, der zu dir passt.</p>
+            <h2>Räume für das, was sich zeigen will</h2>
+            <p>Ich arbeite mit Wahrnehmung, nicht mit Konzepten. Jeder dieser Wege öffnet einen anderen Raum – für das, was in dir aufgehen möchte.</p>
         </div>
         <div class="services-grid">
             <!-- 1:1 Coaching -->
@@ -4533,8 +4436,8 @@
                     <img src="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-8-scaled.jpg" alt="1:1 Einzelcoaching mit Kathrin Stahl - individuelle Begleitung online und vor Ort" loading="lazy">
                 </div>
                 <div class="service-content">
-                    <h3>1:1 Coaching</h3>
-                    <p>Intensive Einzelbegleitung online oder vor Ort. Für tiefgreifende Veränderung in deinem eigenen Tempo.</p>
+                    <h3>1:1 Begleitung</h3>
+                    <p>Ein geschützter Raum für dich allein. Hier ist Platz für das, was zwischen zwei Atemzügen liegt. Online oder vor Ort in Portugal.</p>
                     <div class="service-price">ab 110 Euro / Session</div>
                     <div class="service-toggle" onclick="toggleService(this)">
                         <span>Mehr erfahren</span>
@@ -4549,8 +4452,8 @@
                     <img src="wp-content/uploads/2025/05/2025_04_Paartherapie_Ehekrise-22.jpg" alt="Paar-Coaching" loading="lazy">
                 </div>
                 <div class="service-content">
-                    <h3>Paar-Coaching</h3>
-                    <p>Ein Raum, in dem ihr euch wieder begegnen könnt - jenseits alter Muster. Ob für Neuanfang oder würdevollen Abschied.</p>
+                    <h3>Paar-Begleitung</h3>
+                    <p>Für zwei Menschen, die tief in Beziehung gehen – und genau daran wachsen möchten. Ein Raum jenseits alter Muster, in dem Begegnung wieder möglich wird.</p>
                     <div class="service-price">auf Anfrage</div>
                     <div class="service-toggle" onclick="toggleService(this)">
                         <span>Mehr erfahren</span>
@@ -4566,7 +4469,7 @@
                 </div>
                 <div class="service-content">
                     <h3>Retreats in Portugal</h3>
-                    <p>Eintauchen in Stille, Weite und die heilsame Kraft der Pferde. Im Alentejo findest du zurück zu dir selbst.</p>
+                    <p>Stille. Weite. Die Pferde. Im Alentejo öffnet sich ein Raum, in dem sich zeigt, was aufgehen will. Für den Moment, der alles verändert.</p>
                     <div class="service-price">ab 1.200 Euro</div>
                     <div class="service-toggle" onclick="toggleService(this)">
                         <span>Mehr erfahren</span>
@@ -4616,7 +4519,7 @@
     </div>
 </section>
 
-<!-- Meine Geschichte Section -->
+<!-- Über mich Section -->
 <section class="story-section" id="ueber">
     <div class="container">
         <div class="story-preview">
@@ -4624,61 +4527,13 @@
                 <img src="wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg" alt="Kathrin Stahl - Coach für Persönlichkeitsentwicklung und Beziehungscoaching" loading="lazy">
             </div>
             <div class="story-content">
-                <h2>Mein Herz führt mich durchs Leben</h2>
-                <p class="story-teaser">Ich bin Kathrin - Coach, Fotografin, Mutter von drei Kindern. Mit 50 Jahren habe ich selbst eine tiefe Krise durchlebt und mich auf die Suche nach meiner Wahrheit gemacht.</p>
-                <p>Diese Reise hat mich nach Portugal geführt, wo ich nun mit Pferden einen Heilort gestalte. Ich bin selbst hochbegabt und hochsensibel - ich kenne das Gefühl, "anders" zu sein.</p>
-                <p>Heute begleite ich Menschen, die den Mut haben, ihr eigenes Leben zu leben.</p>
+                <h2>Ich folge einem künstlerischen Blick</h2>
+                <p class="story-teaser">Dem leisen Moment, in dem etwas aufgeht, sich zeigt, sich berührt. Das ist meine Signatur.</p>
+                <p>Ich bin Kathrin – Fotografin, Coach, Mutter. Ich kenne das Gefühl, tief zu fühlen, tief zu denken und genau daran zu scheitern. Diese Reise hat mich nach Portugal geführt, wo ich mit Pferden einen Ort gestalte für das, was sich zeigen will.</p>
+                <p>Ich arbeite nicht mit Konzepten. Ich arbeite mit Wahrnehmung – mit dem, was zwischen zwei Atemzügen passiert.</p>
                 <p class="about-signature" style="font-family: var(--font-heading); font-size: 1.5rem; font-style: italic; color: var(--color-primary); margin-top: 2rem;">Glück über Zweifel — Kathrin</p>
-                <button class="story-expand-btn" onclick="toggleStory()">Meine ganze Geschichte</button>
-            </div>
-        </div>
-
-        <!-- Expandable Timeline -->
-        <div class="story-timeline" id="storyTimeline">
-            <h3 style="text-align: center; margin-bottom: 50px;">Mein Weg zur Transformation</h3>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-year">Die frühen Jahre</div>
-                        <p class="timeline-text">Aufgewachsen mit dem Gefühl, "anders" zu sein. Immer auf der Suche nach tieferem Sinn, während andere mit dem Alltäglichen zufrieden schienen.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-year">Karriere & Familie</div>
-                        <p class="timeline-text">Erfolgreiche Fotografin, Mutter von drei wunderbaren Kindern. Von außen sah alles perfekt aus - doch innerlich wuchs die Leere.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-year">Die Krise mit 50</div>
-                        <p class="timeline-text">Der Wendepunkt. Alles brach zusammen - und zum ersten Mal fragte ich mich wirklich: Wer bin ich, wenn ich niemand sein muss?</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-year">Die Suche</div>
-                        <p class="timeline-text">Ausbildungen in systemischer Arbeit, Aufstellungen, Körperarbeit. Die Begegnung mit Pferden als Spiegel der Seele veränderte alles.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-year">Portugal</div>
-                        <p class="timeline-text">Der Ruf nach Weite und Stille. Im Alentejo fand ich den Ort, an dem Heilung möglich ist - für mich und für andere.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-year">Heute</div>
-                        <p class="timeline-text">Ich begleite Menschen durch ihre eigenen Krisen. Weil ich weiß: Am Ende des Tunnels wartet nicht das alte Leben - sondern dein wahres.</p>
-                    </div>
-                </div>
+                <p class="about-more" style="margin-top: 1.5rem; font-size: 1.1rem;">Du möchtest noch mehr über mich erfahren?</p>
+                <a href="kathrin.html" class="btn btn-primary" style="margin-top: 1rem;">Mehr über mich</a>
             </div>
         </div>
     </div>
@@ -5457,24 +5312,6 @@
             }
         }
     });
-
-    // ===== STORY TIMELINE TOGGLE =====
-    function toggleStory() {
-        const timeline = document.getElementById('storyTimeline');
-        const btn = document.querySelector('.story-expand-btn');
-
-        if (timeline.classList.contains('active')) {
-            timeline.classList.remove('active');
-            btn.textContent = 'Meine ganze Geschichte';
-        } else {
-            timeline.classList.add('active');
-            btn.textContent = 'Weniger anzeigen';
-            // Scroll to timeline
-            setTimeout(() => {
-                timeline.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
-        }
-    }
 
     // ===== FAQ TOGGLE =====
     function toggleFaq(element) {
