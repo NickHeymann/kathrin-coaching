@@ -1,0 +1,36 @@
+name: Update YouTube Videos
+
+  on:
+    schedule:
+      - cron: '0 6 * * *'
+    workflow_dispatch:
+
+  jobs:
+    update-videos:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Checkout repository
+          uses: actions/checkout@v4
+
+        - name: Setup Python
+          uses: actions/setup-python@v5
+          with:
+            python-version: '3.11'
+
+        - name: Scrape YouTube videos
+          run: python scripts/scrape-youtube.py
+
+        - name: Check for changes
+          id: git-check
+          run: |
+            git diff --exit-code media.html || echo "changes=true" >> $GITHUB_OUTPUT
+
+        - name: Commit and push if changed
+          if: steps.git-check.outputs.changes == 'true'
+          run: |
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git add media.html
+            git commit -m "Auto-Update: Neue YouTube Videos"
+            git push origin main
