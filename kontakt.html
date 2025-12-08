@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt - Kathrin Stahl</title>
+    <meta name="description" content="Kontaktiere Kathrin Stahl für Coaching, Retreats und persönliche Begleitung.">
+    <link rel="stylesheet" href="css/kontakt.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Kontakt</h1>
+            <p class="subtitle">Schreib mir oder ruf mich einfach an</p>
+        </header>
+
+        <main>
+            <div class="contact-grid">
+                <!-- Kontaktinformationen -->
+                <div class="contact-info">
+                    <div class="info-card">
+                        <h2>Kathrin Stahl</h2>
+                        <p>Mehrfach zertifizierte Wegbegleiterin</p>
+
+                        <div class="contact-methods">
+                            <div class="method">
+                                <span class="icon">📞</span>
+                                <div>
+                                    <strong>Telefon</strong>
+                                    <a href="tel:+4915140436795">+49 151 40436795</a>
+                                </div>
+                            </div>
+
+                            <div class="method">
+                                <span class="icon">✉️</span>
+                                <div>
+                                    <strong>E-Mail</strong>
+                                    <a href="mailto:kathrin@kathrinstahl.com">kathrin@kathrinstahl.com</a>
+                                </div>
+                            </div>
+
+                            <div class="method">
+                                <span class="icon">💬</span>
+                                <div>
+                                    <strong>WhatsApp</strong>
+                                    <a href="https://chat.whatsapp.com/your-link" target="_blank">Zur WhatsApp-Gruppe</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kontaktformular -->
+                <div class="contact-form-wrapper">
+                    <form id="contactForm" class="contact-form" novalidate>
+                        <div class="form-group">
+                            <label for="name">Name <span class="required">*</span></label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                required
+                                autocomplete="name"
+                                aria-required="true"
+                            >
+                            <span class="error-message" id="nameError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">E-Mail <span class="required">*</span></label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                required
+                                autocomplete="email"
+                                aria-required="true"
+                            >
+                            <span class="error-message" id="emailError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Telefon (optional)</label>
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                autocomplete="tel"
+                            >
+                            <span class="error-message" id="phoneError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Betreff <span class="required">*</span></label>
+                            <select id="subject" name="subject" required aria-required="true">
+                                <option value="">Bitte wählen...</option>
+                                <option value="coaching">Coaching-Anfrage</option>
+                                <option value="retreat">Retreat-Anfrage</option>
+                                <option value="paarbegleitung">Paarbegleitung</option>
+                                <option value="ausbildung">Ausbildung</option>
+                                <option value="sonstiges">Sonstiges</option>
+                            </select>
+                            <span class="error-message" id="subjectError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Nachricht <span class="required">*</span></label>
+                            <textarea
+                                id="message"
+                                name="message"
+                                rows="6"
+                                required
+                                aria-required="true"
+                            ></textarea>
+                            <span class="error-message" id="messageError"></span>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input
+                                    type="checkbox"
+                                    id="privacy"
+                                    name="privacy"
+                                    required
+                                    aria-required="true"
+                                >
+                                <span>Ich habe die <a href="datenschutzerklaerung.html" target="_blank">Datenschutzerklärung</a> gelesen und akzeptiert. <span class="required">*</span></span>
+                            </label>
+                            <span class="error-message" id="privacyError"></span>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text">Nachricht senden</span>
+                            <span class="btn-loader" style="display: none;">Wird gesendet...</span>
+                        </button>
+
+                        <div class="form-message" id="formMessage"></div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/kontakt.js"></script>
+</body>
+</html>

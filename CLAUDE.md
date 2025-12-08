@@ -2,8 +2,6 @@
 
 > Globale Coding-Regeln, Prompt-Optimierung & Self-Review siehe: `~/CLAUDE.md`
 
-DEFAULT_MODEL: haiku
-
 ## Projekt-Übersicht
 Coaching-Website für Kathrin Stahl (kathrinstahl.com) - statische HTML-Seite gehostet auf GitHub Pages.
 

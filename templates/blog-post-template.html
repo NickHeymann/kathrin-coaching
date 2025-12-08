@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hochbegabt - Dein bunter Weg | Kathrin Stahl</title>
-    <meta name="description" content="Über das Anderssein, die Suche nach dem eigenen Platz und wie du deine Hochbegabung als Geschenk annehmen kannst.">
-    <link rel="canonical" href="https://nickheymann.github.io/kathrin-coaching/hochbegabt-dein-bunter-weg.html">
+    <title>{{TITLE}} | Kathrin Stahl</title>
+    <meta name="description" content="{{DESCRIPTION}}">
+    <link rel="canonical" href="https://nickheymann.github.io/kathrin-coaching/{{FILENAME}}">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Hochbegabt - Dein bunter Weg | Kathrin Stahl">
-    <meta property="og:description" content="Über das Anderssein, die Suche nach dem eigenen Platz und wie du deine Hochbegabung als Geschenk annehmen kannst.">
+    <meta property="og:title" content="{{TITLE}} | Kathrin Stahl">
+    <meta property="og:description" content="{{DESCRIPTION}}">
     <meta property="og:type" content="article">
-    <meta property="og:image" content="https://nickheymann.github.io/kathrin-coaching/wp-content/uploads/2022/02/PferdegestuetztesCoaching-Hochbegabung-Hamburg.jpg">
+    <meta property="og:image" content="https://nickheymann.github.io/kathrin-coaching/{{IMAGE}}">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,7 +59,7 @@
         .article-hero { padding: 140px 0 60px; background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%); text-align: center; color: white; }
         .article-hero h1 { color: white; max-width: 800px; margin: 0 auto 1rem; }
         .article-meta { display: flex; justify-content: center; gap: 20px; font-size: 0.9rem; opacity: 0.9; flex-wrap: wrap; }
-        .article-category { background: var(--color-accent); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; text-transform: uppercase; font-weight: 600; margin-bottom: 1rem; display: inline-block; }
+        .article-category { background: var(--color-accent); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; text-transform: uppercase; font-weight: 600; }
 
         /* Featured Image */
         .featured-image { margin: -40px auto 0; max-width: 900px; padding: 0 24px; }
@@ -68,11 +68,9 @@
         /* Content */
         .article-content { padding: 60px 0 80px; }
         .article-content p { font-size: 1.1rem; }
-        .article-content blockquote { border-left: 4px solid var(--color-accent); padding-left: 24px; margin: 2rem 0; font-style: italic; color: var(--color-text-light); font-size: 1.2rem; }
+        .article-content blockquote { border-left: 4px solid var(--color-accent); padding-left: 24px; margin: 2rem 0; font-style: italic; color: var(--color-text-light); }
         .article-content ul, .article-content ol { margin: 1.5rem 0; padding-left: 1.5rem; }
-        .article-content li { margin-bottom: 0.75rem; font-size: 1.1rem; }
-        .highlight-box { background: var(--color-cream); padding: 30px; border-radius: 12px; margin: 2rem 0; }
-        .highlight-box h3 { margin-top: 0; }
+        .article-content li { margin-bottom: 0.75rem; }
 
         /* CTA */
         .cta-section { background: var(--color-cream); padding: 80px 0; text-align: center; }
@@ -81,19 +79,23 @@
         .cta-btn { display: inline-block; background: var(--color-primary); color: white; padding: 16px 32px; border-radius: 4px; font-weight: 600; text-decoration: none; }
         .cta-btn:hover { background: var(--color-primary-light); text-decoration: none; }
 
-        /* Back Link */
-        .back-link { padding: 20px 0; }
-        .back-link a { display: inline-flex; align-items: center; gap: 8px; color: var(--color-text-light); font-size: 0.9rem; }
-        .back-link a:hover { color: var(--color-primary); }
+        /* Related */
+        .related-posts { padding: 60px 0; background: white; }
+        .related-posts h2 { text-align: center; margin-bottom: 2rem; }
+        .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .related-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.08); transition: transform 0.3s; }
+        .related-card:hover { transform: translateY(-5px); }
+        .related-card img { height: 160px; object-fit: cover; width: 100%; }
+        .related-card-content { padding: 20px; }
+        .related-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .related-card p { font-size: 0.9rem; color: var(--color-text-light); margin: 0; }
 
         /* Footer */
         footer { background: var(--color-primary); color: white; padding: 60px 0 30px; }
         .footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 40px; }
         .footer-brand h3 { font-size: 1.5rem; color: white; margin-bottom: 1rem; }
-        .footer-brand p { opacity: 0.8; }
         .footer-links h4 { color: var(--color-accent); margin-bottom: 1rem; font-family: var(--font-body); font-weight: 600; }
         .footer-links ul { list-style: none; }
-        .footer-links li { margin-bottom: 0.5rem; }
         .footer-links a { color: white; opacity: 0.8; }
         .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; text-align: center; font-size: 0.85rem; opacity: 0.7; }
         .footer-bottom a { color: white; }
@@ -101,9 +103,9 @@
         /* Responsive */
         @media (max-width: 992px) {
             nav { display: none; }
-            nav.mobile-open { display: flex; position: absolute; top: 80px; left: 0; right: 0; flex-direction: column; background: white; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-            nav.mobile-open a { padding: 15px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+            nav.mobile-open { display: flex; position: absolute; top: 80px; left: 0; right: 0; flex-direction: column; background: white; padding: 20px; }
             .menu-toggle { display: flex; }
+            .related-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 768px) {
             .footer-content { grid-template-columns: 1fr; gap: 40px; }
@@ -130,78 +132,28 @@
 
     <section class="article-hero">
         <div class="container">
-            <span class="article-category">Hochbegabung</span>
-            <h1>Hochbegabt - Dein bunter Weg</h1>
+            <span class="article-category">{{CATEGORY}}</span>
+            <h1>{{TITLE}}</h1>
             <div class="article-meta">
-                <span>7 Min. Lesezeit</span>
+                <span>{{READ_TIME}} Min. Lesezeit</span>
             </div>
         </div>
     </section>
 
     <div class="featured-image">
-        <img src="wp-content/uploads/2022/02/PferdegestuetztesCoaching-Hochbegabung-Hamburg.jpg" alt="Pferdegestütztes Coaching für Hochbegabte">
+        <img src="{{IMAGE}}" alt="{{TITLE}}">
     </div>
 
     <article class="article-content">
         <div class="container">
-            <div class="back-link">
-                <a href="blog.html">← Zurück zum Blog</a>
-            </div>
-
-            <p>Liebe Mama, lieber Papa eines hochbegabten und/oder hochsensiblen Kindes – was wünschst du dir für euer Kind?</p>
-
-            <p><em>Das Leben mit besonderen Begabungen ist nicht immer einfach. Viele Steine können dein Kind auf seinem bunten Weg ins Stolpern bringen.</em></p>
-
-            <p>In einer Welt, die oft wenig Verständnis für die Bedürfnisse hochbegabter und hochsensibler Kinder zeigt, kann es herausfordernd sein, die richtige Unterstützung zu finden.</p>
-
-            <blockquote>
-                Dein Kind ist wahrhaftig ein Wunder, und seine Einzigartigkeit bringt besondere Herausforderungen mit sich.
-            </blockquote>
-
-            <p>Hochbegabte Menschen fühlen sich häufig unverstanden und irgendwie fremd in dieser Welt. Das ist schmerzhaft. Für Kinder umso mehr.</p>
-
-            <p>Endlich verstanden und angenommen zu werden, ist eines der größten Geschenke, das wir hochbegabten Kindern machen können.</p>
-
-            <h2>Warum pferdegestütztes Coaching bei Hochbegabung und Hochsensibilität?</h2>
-
-            <p>Pferde sind wertungsfrei. Sie haben keine Erwartungen an uns und begegnen uns authentisch. Einzigartig und besonders zu sein, ist für sie völlig selbstverständlich, denn nur so kann eine Herde funktionieren.</p>
-
-            <div class="highlight-box">
-                <h3>Die Pferde schenken einen geschützten Rahmen</h3>
-                <p>In diesem Rahmen kann das Kind alleine und mit euch als Eltern seine Einzigartigkeit erkunden und lieben lernen, statt dagegen zu kämpfen.</p>
-            </div>
-
-            <p>Die Arbeit mit Pferden ist mit anderen Ansätzen nicht zu vergleichen. <strong>Pferde fordern uns auf, unsere Einzigartigkeit zu leben.</strong></p>
-
-            <p>Das Zusammensein mit ihnen spricht dein Kind auf allen Ebenen an. Mit ihrer Ruhe und absoluten Präsenz ko-regulieren sie außerdem das Nervensystem deines Kindes.</p>
-
-            <h3>Was dein Kind durch die Pferde erfahren kann:</h3>
-
-            <ul>
-                <li>Dein Kind fühlt sich angenommen</li>
-                <li>Es erfährt, wie es ist, wenn niemand Erwartungen hat</li>
-                <li>Es lernt sich und seine Bedürfnisse besser kennen</li>
-                <li>Das alles schafft die Voraussetzung für ein gelingendes Leben</li>
-            </ul>
-
-            <h2>Ein Ansatz, der die ganze Familie stärkt</h2>
-
-            <p>Die positiven Effekte des pferdegestützten Coachings beschränken sich nicht nur auf dein Kind. Als Familie werdet auch ihr von einer entspannteren Atmosphäre profitieren, wenn dein Kind lernt, mit seinen besonderen Begabungen umzugehen und diese als Stärke zu sehen.</p>
-
-            <p>Wir freuen uns darauf, euch und eure Kinder kennenzulernen. Eure Kinder sind wahre Wunder, und wir sind hier, um sie auf ihrem bunten Lebensweg zu begleiten und zu unterstützen.</p>
-
-            <p><em>Keine Reiterfahrung ist nötig – im pferdegestützten Coaching geht es um das Erleben und Wachsen im Zusammensein mit den Pferden.</em></p>
-
-            <blockquote>
-                Dein Kind ist ein Wunder. Aber das weißt du ja schon.
-            </blockquote>
+            {{CONTENT}}
         </div>
     </article>
 
     <section class="cta-section">
         <div class="container">
             <h2>Bereit für den nächsten Schritt?</h2>
-            <p>Lass uns in einem kostenlosen Erstgespräch herausfinden, wie ich dich und dein Kind auf eurem Weg begleiten kann.</p>
+            <p>Lass uns in einem kostenlosen Erstgespräch herausfinden, wie ich dich auf deinem Weg begleiten kann.</p>
             <a href="https://cal.com/kathrinstahl" target="_blank" class="cta-btn">Kostenloses Erstgespräch buchen</a>
         </div>
     </section>
