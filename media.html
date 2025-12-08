@@ -754,53 +754,102 @@
             'koerper': ['körper', 'nervensystem', 'pferd', 'atmen', 'holotrop', 'heilung', 'stille', 'pause', 'angst', 'welle', 'trägt', 'ahnen', 'spuren']
         };
 
-        // Videos von YouTube laden via RSS Feed (über cors-anywhere oder ähnlichen Proxy)
+        // Eingebettete Video-Daten (gescraped von YouTube - wird regelmäßig aktualisiert)
+        // Letztes Update: 2024-12-08
+        const EMBEDDED_VIDEOS = [
+            {"id": "k8ez_RptaA4", "title": "Warum du deine Möglichkeiten unterschätzt", "description": "Vielleicht kennst du das Gefühl, etwas sei „einfach unmöglich". Aber stimmt das wirklich? Viele Menschen unterschätzen ihre Möglichkeiten.", "published": "2024-11-28"},
+            {"id": "_GPF4uYbV4U", "title": "Wenn die Nähe verloren geht: Liebe wieder mit allen Sinnen spüren", "description": "In dieser Folge am virtuellen Lagerfeuer geht es um emotionale Distanz in Beziehungen.", "published": "2024-11-17"},
+            {"id": "1Dc0ECDQ5do", "title": "Wie toxische Positivität eure Beziehung zerstört", "description": "Good vibes only? Toxische Positivität kann Liebe verhindern. Wie die Liebe wieder zwischen euch fließen kann.", "published": "2024-11-08"},
+            {"id": "Dv46eDGlODo", "title": "Wenn die Freude verloren geht: Nervensystem und Sinnlichkeit verstehen", "description": "Dein Nervensystem braucht keine Disziplin, sondern Sinnlichkeit. Zurück in dein Leben mit allen Sinnen.", "published": "2024-11-01"},
+            {"id": "4gDLdVd_bOI", "title": "Innere Antreiber: Wenn das Leben nicht leicht sein darf", "description": "Wann haben wir eigentlich gelernt, dass das Leben anstrengend sein muss? Sätze aus unserer Kindheit wirken nach.", "published": "2024-10-08"},
+            {"id": "EensGx5RqQE", "title": "Wie deine Ahnen deine Liebe beeinflussen – und wie du dich befreien kannst", "description": "Wusstest du, dass die Geschichte deiner Ahnen bis in deine Partnerschaft hineinwirken kann?", "published": "2024-10-01"},
+            {"id": "-ZzwICQG0ck", "title": "Kleine Momente der Heilung: Wenn scheinbar nichts passiert und doch alles", "description": "Innerer Frieden kommt in unscheinbaren Momenten. Was das mit Beziehungsproblemen zu tun hat.", "published": "2024-09-24"},
+            {"id": "L_k2GxBV9sA", "title": "Beziehungskrise: Was euer Unbehagen wirklich bedeutet", "description": "Viele Paare erleben Unruhe und Unbehagen. Warum das nicht das Ende sein muss.", "published": "2024-09-08"},
+            {"id": "EtkuphquPlg", "title": "Türen zum wahren Selbst: Holotropes Atmen & Pferde", "description": "Holotropes Atmen und pferdegestützte Begleitung öffnen Türen zum wahren Selbst.", "published": "2024-09-01"},
+            {"id": "NGwaWYL5MVA", "title": "Warum wir unsere Wünsche klein machen und wie du deiner Sehnsucht folgen kannst", "description": "Folgst du deinem Herzenswunsch – oder hält dich etwas zurück?", "published": "2024-08-25"},
+            {"id": "vFDDTwJVVIE", "title": "Feinfühligkeit und Hochsensibilität ohne Erschöpfung: So gelingt dir der innere Shift", "description": "Feinfühligkeit und Hochsensibilität: Du bist nicht für diese Welt gemacht? Doch!", "published": "2024-08-18"},
+            {"id": "wbl61eO30O4", "title": "Die Welle surfen? Was dich trägt, wenn du denkst, du gehst unter", "description": "Was hilft, wenn du denkst, du gehst unter? Für dich, wenn du in einer Umbruchphase steckst.", "published": "2024-08-04"},
+            {"id": "EIZlnFXadEk", "title": "Lass los!? Nein! Dein Festhalten hat einen wichtigen Grund", "description": "Loslassen - ein Konzept, das in der Persönlichkeitsentwicklung eine große Rolle spielt. Warum das gefährlich sein kann.", "published": "2024-07-28"},
+            {"id": "6vU3KceRIaE", "title": "Warum Pausen so schwer sind: Was dich WIRKLICH davon abhält", "description": "Pausen machen – klingt leicht. Ist es aber nicht. Der Kampf, der beginnt, sobald wir zur Ruhe kommen.", "published": "2024-07-21"},
+            {"id": "3VUgqQLCq0o", "title": "Wie dein Körper leidet, wenn du dich immer zurückhältst", "description": "Unsere Körper und unsere Psyche haben eine tiefe Weisheit: Sie wissen genau, wie Lebenslust geht.", "published": "2024-07-14"},
+            {"id": "YDkS4mPlTFk", "title": "Hochsensibel, hochbegabt, anders: Du sein, oder normal sein?", "description": "Fühlst du dich manchmal falsch? Was, wenn du einfach nur nicht einer falschen Norm entsprichst?", "published": "2024-07-01"},
+            {"id": "HtnsuVejtSU", "title": "Wer bist du, wenn du niemand sein musst?", "description": "Neu anfangen, neue Wege beschreiten: Wer möchtest du sein, nach dieser Sinnkrise?", "published": "2024-06-24"},
+            {"id": "-IyA3x9O6CI", "title": "Angst vor Nähe: Was dein Körper dir sagen will", "description": "Nähe kann wunderschön sein. Und manchmal beängstigend. Du wünschst dir Verbindung.", "published": "2024-06-17"},
+            {"id": "dOzBI79Ey_k", "title": "Stille ist so schwer zu finden. Aber es ist möglich", "description": "Warum wir STILLE oft genau dann VERLIEREN, wenn wir denken, sie gefunden zu haben.", "published": "2024-06-10"},
+            {"id": "bwb3idO08XM", "title": "Du bist erschöpft und…", "description": "Du bist erschöpft und vielleicht sogar einsam in deiner Beziehung. Du funktionierst. Aber ein Teil von dir weiß: da ist noch mehr.", "published": "2024-06-03"},
+            {"id": "jTPrBAC4GTs", "title": "Was dich durch schwere Zeiten trägt", "description": "Innere Leere. Das Gefühl, nicht weiterzukommen. Umbruch. Sinnkrise. Vielleicht bist auch du erschöpft.", "published": "2024-05-27"},
+            {"id": "V52hvJg-f6g", "title": "Zeit für eure Liebe: Warum es uns so schwerfällt, Nähe zuzulassen", "description": "Wie viel Liebe kannst du wirklich in dein Leben lassen?", "published": "2024-05-01"},
+            {"id": "DxeeTdFtscI", "title": "Warum Selbstregulation nicht reicht: Du musst das nicht alleine schaffen", "description": "Fühlst du dich manchmal nicht sicher in dir? Was deinem Nervensystem fehlt: Co-Regulation.", "published": "2024-04-24"},
+            {"id": "R2jyTIIvDQs", "title": "Welche Spuren hinterlassen wir? Finde heraus, was wirklich zählt", "description": "Hast du dich schon einmal gefragt, was von dir bleibt, wenn du nicht mehr da bist?", "published": "2024-04-01"},
+            {"id": "BXR04be8kpM", "title": "Umbruch und kein Land in Sicht – wenn dein innerer Kompass dich nicht mehr leitet", "description": "Bist du noch auf deinem eigenen Weg – oder läufst du jemand anderem hinterher?", "published": "2024-03-01"},
+            {"id": "1_4WXOtqj4w", "title": "Abschied und Neuanfang: Ein kraftvoller Satz, der dich im Schmerz unterstützt", "description": "Neuanfang bedeutet immer auch Abschied. Wie können wir beides in uns vereinbaren?", "published": "2024-03-01"},
+            {"id": "nufZK_gODBI", "title": "Das Leben hat einen Plan – du auch?", "description": "Das Leben verstehen wir oft erst rückblickend – warum das eine riesige Erleichterung sein kann!", "published": "2024-02-01"},
+            {"id": "Vj3cUy_n7GY", "title": "Essstörungen verstehen - eine Heldenreise: Leona über ihren Weg zur Heilung", "description": "In dieser Folge spreche ich mit Leona Kringe über ein tief bewegendes Thema: Essstörungen.", "published": "2024-01-01"},
+            {"id": "pCrfd1GpGxQ", "title": "Bist du noch im richtigen Umfeld? Zwei junge Fische im Wasser", "description": "Welches UMFELD brauchen wir, um ein ERFÜLLTES LEBEN zu leben?", "published": "2024-01-01"},
+            {"id": "mhFBts57-F4", "title": "Darfst du oder willst du? Wie ein einziges Wort dich stärkt", "description": "Wie scheinbar harmlose Wörter wie „dürfen", „müssen" oder „sollen" dein Leben prägen.", "published": "2023-12-01"}
+        ];
+
+        // Videos laden - kombiniert eingebettete Daten mit RSS für Updates
         async function loadYouTubeVideos() {
             const grid = document.getElementById('videoGrid');
 
             try {
-                // YouTube RSS Feed URL
-                const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
+                // Zuerst eingebettete Videos verwenden
+                allVideos = EMBEDDED_VIDEOS.map(video => ({
+                    id: video.id,
+                    title: video.title,
+                    description: video.description,
+                    publishedAt: new Date(video.published),
+                    category: detectCategory(video.title, video.description)
+                }));
 
-                // Wir nutzen einen öffentlichen RSS-to-JSON Service
-                const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
+                // Versuche RSS für neueste Videos zu laden (könnte neuere haben)
+                try {
+                    const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
+                    const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
+                    const response = await fetch(proxyUrl);
+                    const data = await response.json();
 
-                const response = await fetch(proxyUrl);
-                const data = await response.json();
+                    if (data.status === 'ok' && data.items) {
+                        // Neue Videos hinzufügen, die nicht in EMBEDDED_VIDEOS sind
+                        const existingIds = new Set(EMBEDDED_VIDEOS.map(v => v.id));
+                        const newVideos = data.items
+                            .filter(item => {
+                                const videoId = item.link.split('v=')[1] || item.guid.split(':').pop();
+                                return !existingIds.has(videoId);
+                            })
+                            .map(item => {
+                                const videoId = item.link.split('v=')[1] || item.guid.split(':').pop();
+                                return {
+                                    id: videoId,
+                                    title: item.title,
+                                    description: item.description || '',
+                                    publishedAt: new Date(item.pubDate),
+                                    category: detectCategory(item.title, item.description || '')
+                                };
+                            });
 
-                if (data.status === 'ok' && data.items && data.items.length > 0) {
-                    // Videos verarbeiten
-                    allVideos = data.items.map(item => {
-                        // Video ID aus Link extrahieren
-                        const videoId = item.link.split('v=')[1] || item.guid.split(':').pop();
-
-                        return {
-                            id: videoId,
-                            title: item.title,
-                            description: item.description || '',
-                            publishedAt: new Date(item.pubDate),
-                            thumbnail: item.thumbnail || `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
-                            category: detectCategory(item.title, item.description || '')
-                        };
-                    });
-
-                    // Nach Datum sortieren (neueste zuerst)
-                    allVideos.sort((a, b) => b.publishedAt - a.publishedAt);
-
-                    // Statistiken aktualisieren
-                    document.getElementById('totalVideos').textContent = `${allVideos.length} Videos`;
-                    document.getElementById('updateTime').textContent = `Aktualisiert: ${new Date().toLocaleDateString('de-DE')}`;
-
-                    // Videos anzeigen
-                    displayedVideos = 0;
-                    renderVideos();
-
-                    // Load More Button anzeigen wenn mehr Videos vorhanden
-                    if (allVideos.length > VIDEOS_PER_PAGE) {
-                        document.getElementById('loadMore').style.display = 'flex';
+                        // Neue Videos an den Anfang
+                        allVideos = [...newVideos, ...allVideos];
                     }
-                } else {
-                    throw new Error('Keine Videos gefunden');
+                } catch (rssError) {
+                    console.log('RSS nicht verfügbar, nutze eingebettete Daten');
+                }
+
+                // Nach Datum sortieren (neueste zuerst)
+                allVideos.sort((a, b) => b.publishedAt - a.publishedAt);
+
+                // Statistiken aktualisieren
+                document.getElementById('totalVideos').textContent = `${allVideos.length} Videos`;
+                document.getElementById('updateTime').textContent = `Aktualisiert: ${new Date().toLocaleDateString('de-DE')}`;
+
+                // Videos anzeigen
+                displayedVideos = 0;
+                renderVideos();
+
+                // Load More Button anzeigen wenn mehr Videos vorhanden
+                if (allVideos.length > VIDEOS_PER_PAGE) {
+                    document.getElementById('loadMore').style.display = 'flex';
                 }
             } catch (error) {
                 console.error('Fehler beim Laden der Videos:', error);
