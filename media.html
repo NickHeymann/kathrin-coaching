@@ -124,6 +124,24 @@
             background: var(--color-accent-dark);
         }
 
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .menu-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--color-primary);
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
         /* Hero */
         .hero {
             padding: 160px 0 80px;
@@ -602,9 +620,42 @@
             border-radius: 8px;
         }
 
-        /* Responsive */
+        /* Responsive - Tablets */
+        @media (max-width: 992px) {
+            nav {
+                display: none;
+            }
+
+            nav.mobile-open {
+                display: flex;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: white;
+                padding: 20px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                gap: 0;
+            }
+
+            nav.mobile-open > a {
+                padding: 15px 0;
+                border-bottom: 1px solid rgba(0,0,0,0.05);
+            }
+
+            nav.mobile-open .nav-cta {
+                margin-top: 15px;
+                text-align: center;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+        }
+
+        /* Responsive - Mobile */
         @media (max-width: 768px) {
-            nav { display: none; }
 
             .video-grid {
                 grid-template-columns: 1fr;
@@ -665,7 +716,7 @@
         <div class="container">
             <div class="header-inner">
                 <a href="index.html" class="logo">Kathrin Stahl</a>
-                <nav>
+                <nav id="mainNav">
                     <a href="index.html">Start</a>
                     <a href="index.html#angebote">Angebote</a>
                     <a href="kathrin.html">Über mich</a>
@@ -673,6 +724,11 @@
                     <a href="media.html" style="color: var(--color-primary);">Videos & Podcast</a>
                     <a href="https://cal.com/kathrinstahl" target="_blank" class="nav-cta">Erstgespräch</a>
                 </nav>
+                <button class="menu-toggle" onclick="document.getElementById('mainNav').classList.toggle('mobile-open')">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
     </header>
