@@ -32,5 +32,5 @@ name: Update YouTube Videos
             git config --local user.email "action@github.com"
             git config --local user.name "GitHub Action"
             git add media.html
-            git commit -m "🎬 Auto-Update: Neue YouTube Videos hinzugefügt"
+            git commit -m "Auto-Update: Neue YouTube Videos"
             git push origin main
