@@ -1,5 +1,7 @@
 # Kathrin Coaching Website - Claude Code Context
 
+> Globale Coding-Regeln, Prompt-Optimierung & Self-Review siehe: `~/CLAUDE.md`
+
 ## Projekt-Übersicht
 Coaching-Website für Kathrin Stahl (kathrinstahl.com) - statische HTML-Seite gehostet auf GitHub Pages.
 
