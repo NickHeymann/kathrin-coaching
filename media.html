@@ -659,10 +659,10 @@
 
             <div class="category-filter">
                 <button class="filter-btn active" data-filter="all">Alle</button>
-                <button class="filter-btn" data-filter="coaching">Coaching</button>
-                <button class="filter-btn" data-filter="retreat">Retreats</button>
-                <button class="filter-btn" data-filter="inspiration">Inspiration</button>
-                <button class="filter-btn" data-filter="podcast">Gespräche</button>
+                <button class="filter-btn" data-filter="beziehung">Beziehung</button>
+                <button class="filter-btn" data-filter="selbstfindung">Selbstfindung</button>
+                <button class="filter-btn" data-filter="hochsensibel">Hochsensibilität</button>
+                <button class="filter-btn" data-filter="koerper">Körper & Heilung</button>
             </div>
 
             <div class="video-grid" id="videoGrid">
@@ -748,10 +748,10 @@
 
         // Kategorien basierend auf Video-Titeln/Beschreibungen
         const categoryKeywords = {
-            'coaching': ['coaching', 'begleitung', 'session', 'pferd', 'horse', 'therapie'],
-            'retreat': ['retreat', 'portugal', 'alentejo', 'reise', 'gruppe'],
-            'podcast': ['podcast', 'gespräch', 'interview', 'episode', 'folge'],
-            'inspiration': ['inspiration', 'gedanken', 'impuls', 'meditation', 'achtsamkeit', 'liebe', 'selbst']
+            'beziehung': ['beziehung', 'partnerschaft', 'nähe', 'liebe', 'paar', 'ehe', 'partner', 'trennung', 'toxisch', 'freude verloren', 'zeit für eure'],
+            'selbstfindung': ['selbst', 'wer bist du', 'möglichkeiten', 'sehnsucht', 'wünsche', 'antreiber', 'umbruch', 'neuanfang', 'abschied', 'festhalten', 'loslassen', 'darfst du', 'willst du', 'plan', 'umfeld'],
+            'hochsensibel': ['hochsensib', 'feinfühl', 'hochbegab', 'anders', 'erschöpf', 'reizüberflut', 'sensibel'],
+            'koerper': ['körper', 'nervensystem', 'pferd', 'atmen', 'holotrop', 'heilung', 'stille', 'pause', 'angst', 'welle', 'trägt', 'ahnen', 'spuren']
         };
 
         // Videos von YouTube laden via RSS Feed (über cors-anywhere oder ähnlichen Proxy)
@@ -818,7 +818,7 @@
                 }
             }
 
-            return 'inspiration'; // Default
+            return 'selbstfindung'; // Default
         }
 
         // Videos rendern
@@ -935,12 +935,12 @@
         // Hilfsfunktionen
         function getCategoryLabel(category) {
             const labels = {
-                'coaching': 'Coaching',
-                'retreat': 'Retreats',
-                'inspiration': 'Inspiration',
-                'podcast': 'Gespräche'
+                'beziehung': 'Beziehung',
+                'selbstfindung': 'Selbstfindung',
+                'hochsensibel': 'Hochsensibilität',
+                'koerper': 'Körper & Heilung'
             };
-            return labels[category] || 'Video';
+            return labels[category] || 'Inspiration';
         }
 
         function formatDate(date) {
