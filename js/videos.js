@@ -240,12 +240,15 @@ function renderVideos(filter = 'all') {
     const endIndex = Math.min(displayedVideos + VIDEOS_PER_PAGE, videosToShow.length);
     const newVideos = videosToShow.slice(0, endIndex);
 
-    grid.innerHTML = newVideos.map(video => `
+    // mqdefault.jpg = 320x180 (schneller), hqdefault.jpg = 480x360 (Fallback)
+    grid.innerHTML = newVideos.map((video, index) => `
         <div class="video-card" data-category="${video.category}">
             <div class="video-thumbnail" onclick="openVideo('${video.id}')">
-                <img src="https://img.youtube.com/vi/${video.id}/maxresdefault.jpg"
+                <img src="https://i.ytimg.com/vi/${video.id}/mqdefault.jpg"
                      alt="${escapeHtml(video.title)}"
-                     onerror="this.src='https://img.youtube.com/vi/${video.id}/hqdefault.jpg'">
+                     loading="${index < 6 ? 'eager' : 'lazy'}"
+                     decoding="async"
+                     onerror="this.src='https://i.ytimg.com/vi/${video.id}/hqdefault.jpg'">
                 <div class="play-btn">
                     <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                 </div>
