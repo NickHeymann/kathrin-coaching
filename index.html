@@ -3856,6 +3856,184 @@
                 height: 50px;
             }
         }
+
+        /* ===== FULLWIDTH IMAGE SECTIONS ===== */
+        .fullwidth-image-section {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            min-height: 400px;
+            max-height: 700px;
+            overflow: hidden;
+        }
+
+        .fullwidth-image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .fullwidth-image-section.parallax img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            object-fit: cover;
+        }
+
+        .fullwidth-image-section .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(44,74,71,0.2), rgba(44,74,71,0.4));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fullwidth-image-section .image-caption {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: white;
+            padding: 15px 30px;
+            background: rgba(44,74,71,0.8);
+            border-radius: 4px;
+            max-width: 90%;
+        }
+
+        .fullwidth-image-section .image-caption h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .fullwidth-image-section .image-caption p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        .fullwidth-image-section.short {
+            height: 40vh;
+            min-height: 300px;
+            max-height: 500px;
+        }
+
+        .fullwidth-image-section.tall {
+            height: 80vh;
+            min-height: 500px;
+            max-height: 900px;
+        }
+
+        /* Image with Quote Overlay */
+        .image-quote-section {
+            position: relative;
+            width: 100%;
+            height: 70vh;
+            min-height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .image-quote-section img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-quote-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(44,74,71,0.6);
+            z-index: 1;
+        }
+
+        .image-quote-section .quote-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 0 30px;
+        }
+
+        .image-quote-section .quote-text {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-style: italic;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .image-quote-section .quote-author {
+            font-size: 1rem;
+            opacity: 0.9;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Split Image Section */
+        .split-image-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 500px;
+        }
+
+        .split-image-section .split-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .split-image-section .split-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .split-image-section .split-image:hover img {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .fullwidth-image-section {
+                height: 50vh;
+                min-height: 300px;
+            }
+
+            .fullwidth-image-section.tall {
+                height: 60vh;
+            }
+
+            .image-quote-section {
+                height: 60vh;
+            }
+
+            .split-image-section {
+                grid-template-columns: 1fr;
+            }
+
+            .split-image-section .split-image {
+                height: 40vh;
+            }
+        }
     </style>
 </head>
 <body>
@@ -3960,6 +4138,7 @@
                 </div>
             </div>
             <a href="#blog">Blog</a>
+            <a href="media.html">Videos & Podcast</a>
             <a href="#ueber">Über mich</a>
             <div class="contact-dropdown">
                 <a href="#kontakt" class="contact-dropdown-trigger" onclick="toggleContactDropdown(this, event)">Kontakt</a>
@@ -4073,6 +4252,17 @@
         </div>
     </div>
 </section>
+
+<!-- Großformatiges Bild mit Zitat -->
+<div class="image-quote-section">
+    <img src="wp-content/uploads/2025/08/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-21-scaled.jpg"
+         alt="Pferdeherde in weiter Landschaft während eines Aufstellungs-Retreats mit Pferden in Portugal"
+         loading="lazy">
+    <div class="quote-content">
+        <p class="quote-text">"Die Pferde zeigen uns, wer wir wirklich sind – ohne Maske, ohne Rolle. In ihrer Gegenwart dürfen wir einfach sein."</p>
+        <p class="quote-author">— Kathrin Stahl</p>
+    </div>
+</div>
 
 <!-- Transformation Section (Vorher/Nachher) - Interactive Sunrise Slider -->
 <section class="transformation-section">
@@ -4255,6 +4445,17 @@
     </div>
 </section>
 
+<!-- Großformatiges Bild - Retreat Portugal Landschaft -->
+<div class="fullwidth-image-section tall">
+    <img src="wp-content/uploads/2025/11/Retreat-Portugal-Pferde-Kathrin-Stahl-19-scaled.jpg"
+         alt="Retreat in Portugal - Weite Landschaft im Alentejo mit Pferden bei Sonnenuntergang"
+         loading="lazy">
+    <div class="image-caption">
+        <h3>Retreats im Alentejo, Portugal</h3>
+        <p>Ein Ort der Stille, wo Transformation geschieht</p>
+    </div>
+</div>
+
 <!-- Services Section -->
 <section class="services-section" id="angebote">
     <div class="container">
@@ -4313,6 +4514,20 @@
         </div>
     </div>
 </section>
+
+<!-- Split Image Section - Paararbeit & Einzelarbeit -->
+<div class="split-image-section">
+    <div class="split-image">
+        <img src="wp-content/uploads/2025/05/2025_04_Paartherapie_Ehekrise-50.jpg"
+             alt="Paar-Retreat in Portugal - Beziehungsarbeit mit Pferden"
+             loading="lazy">
+    </div>
+    <div class="split-image">
+        <img src="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-4-scaled.jpg"
+             alt="Einzelretreat Portugal - Frau mit Pferd bei der Heldinnenreise"
+             loading="lazy">
+    </div>
+</div>
 
 <!-- Testimonials -->
 <section class="testimonials-section">
@@ -4406,6 +4621,17 @@
     </div>
 </section>
 
+<!-- Großformatiges Bild - Weite Landschaft Alentejo -->
+<div class="image-quote-section">
+    <img src="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-29-scaled.jpg"
+         alt="Weite Landschaft im Alentejo Portugal - Ort für Retreat und Transformation"
+         loading="lazy">
+    <div class="quote-content">
+        <p class="quote-text">"In der Weite des Alentejo findest du die Stille, die du brauchst, um dich selbst wieder zu hören."</p>
+        <p class="quote-author">— Retreat-Teilnehmerin</p>
+    </div>
+</div>
+
 <!-- Video Testimonials Section -->
 <section class="video-testimonials-section">
     <div class="container">
@@ -4447,6 +4673,13 @@
         </div>
     </div>
 </section>
+
+<!-- Großformatiges Bild - Pferd Close-up -->
+<div class="fullwidth-image-section short">
+    <img src="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-8-scaled.jpg"
+         alt="Pferdegestütztes Coaching - Nahaufnahme eines Pferdes im Alentejo Portugal"
+         loading="lazy">
+</div>
 
 <!-- Blog Section - Neugierig geworden? -->
 <section class="blog-section" id="blog">
