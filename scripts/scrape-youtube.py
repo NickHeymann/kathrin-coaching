@@ -253,11 +253,13 @@ def update_media_html(videos):
 
     # Neuen Block erstellen
     today = datetime.now().strftime('%Y-%m-%d')
+    separator = ",\n            "
+    entries_str = separator.join(all_entries)
     new_block = f'''// Eingebettete Video-Daten (gescraped von YouTube - wird regelmäßig aktualisiert)
         // Letztes Update: {today}
         // Gesamt: {len(all_entries)} Videos
         const EMBEDDED_VIDEOS = [
-            {",\n            ".join(all_entries)}
+            {entries_str}
         ];'''
 
     # Block in Datei ersetzen
