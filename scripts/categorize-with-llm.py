@@ -25,6 +25,10 @@ USE_OLLAMA = False  # True = Ollama lokal, False = Groq API
 OLLAMA_MODEL = "llama3.2"
 GROQ_MODEL = "llama-3.1-8b-instant"
 
+# Rate Limiting für Groq Free Tier (30 requests/minute, 14400/day)
+REQUESTS_PER_MINUTE = 25  # Sicherheitspuffer
+MAX_REQUESTS_PER_RUN = 150  # Max Videos pro Durchlauf
+
 # Kathrin's Kategorien mit Beschreibungen für das LLM
 CATEGORIES = {
     "beziehung": "Partnerschaft, Ehe, Liebe, Nähe, Paarbeziehung, Trennung, toxische Beziehungen, Intimität",
@@ -34,14 +38,15 @@ CATEGORIES = {
 }
 
 def get_transcript(video_id):
-    """Holt YouTube-Transkript falls verfügbar"""
+    """Holt YouTube-Transkript falls verfügbar (neue API v1.x)"""
     try:
         from youtube_transcript_api import YouTubeTranscriptApi
-        transcript_list = YouTubeTranscriptApi.get_transcript(video_id, languages=['de', 'en'])
-        text = ' '.join([t['text'] for t in transcript_list[:50]])  # Erste 50 Segmente
+        api = YouTubeTranscriptApi()
+        transcript = api.fetch(video_id, languages=['de', 'en'])
+        text = ' '.join([t.text for t in transcript[:50]])  # Erste 50 Segmente
         return text[:2000]  # Max 2000 Zeichen
     except Exception as e:
-        print(f"  Kein Transkript für {video_id}: {e}")
+        print(f"  Kein Transkript: {str(e)[:50]}")
         return None
 
 def categorize_with_groq(title, description, transcript=None):
@@ -176,6 +181,10 @@ def main():
 
     # Neue Videos kategorisieren
     new_count = 0
+    request_count = 0
+    import time
+    last_request_time = time.time()
+
     for i, video in enumerate(videos):
         video_id = video.get('id')
         title = video.get('title', '')
@@ -185,17 +194,34 @@ def main():
         if video_id in video_categories:
             continue
 
+        # Max Requests pro Run prüfen (Free Tier schonen)
+        if request_count >= MAX_REQUESTS_PER_RUN:
+            print(f"\nMax {MAX_REQUESTS_PER_RUN} Requests erreicht - Rest beim nächsten Durchlauf")
+            break
+
         new_count += 1
         print(f"[{new_count}] {title[:50]}...")
 
         # Transkript holen (optional)
         transcript = get_transcript(video_id)
 
+        # Rate Limiting: Max 25 requests pro Minute
+        if not USE_OLLAMA:
+            elapsed = time.time() - last_request_time
+            if request_count > 0 and request_count % REQUESTS_PER_MINUTE == 0:
+                wait_time = max(0, 65 - elapsed)  # 65 Sekunden Sicherheit
+                if wait_time > 0:
+                    print(f"  (Warte {int(wait_time)}s für Rate Limit...)")
+                    time.sleep(wait_time)
+                last_request_time = time.time()
+
         # Kategorisieren
         if USE_OLLAMA:
             category = categorize_with_ollama(title, desc, transcript)
         else:
             category = categorize_with_groq(title, desc, transcript)
+
+        request_count += 1
 
         if category:
             video_categories[video_id] = {
@@ -204,12 +230,6 @@ def main():
                 "categorized_at": datetime.now().isoformat()
             }
             print(f"  → {category}")
-
-        # Rate limiting für Groq (30 req/min)
-        if not USE_OLLAMA and new_count % 25 == 0:
-            import time
-            print("  (Pause für Rate Limit...)")
-            time.sleep(60)
 
     if new_count == 0:
         print("Alle Videos sind bereits kategorisiert!")
