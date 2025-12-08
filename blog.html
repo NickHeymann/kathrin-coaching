@@ -20,12 +20,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         :root {
             --color-primary: #2C4A47;
             --color-primary-light: #3D6B66;
@@ -39,723 +34,94 @@
             --font-body: 'Montserrat', -apple-system, sans-serif;
             --container-width: 1200px;
         }
-
         html { scroll-behavior: smooth; }
-
-        body {
-            font-family: var(--font-body);
-            font-size: 16px;
-            line-height: 1.7;
-            color: var(--color-text);
-            background: var(--color-white);
-        }
-
+        body { font-family: var(--font-body); font-size: 16px; line-height: 1.7; color: var(--color-text); background: var(--color-white); }
         img { max-width: 100%; height: auto; display: block; }
         a { color: inherit; text-decoration: none; }
-
-        h1, h2, h3, h4 {
-            font-family: var(--font-heading);
-            font-weight: 500;
-            line-height: 1.2;
-            color: var(--color-primary);
-        }
-
+        h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 500; line-height: 1.2; color: var(--color-primary); }
         h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
         h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1.5rem; }
         h3 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); margin-bottom: 0.75rem; }
-
-        .container {
-            width: 100%;
-            max-width: var(--container-width);
-            margin: 0 auto;
-            padding: 0 24px;
-        }
+        .container { width: 100%; max-width: var(--container-width); margin: 0 auto; padding: 0 24px; }
 
         /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .header-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 80px;
-        }
-
-        .logo {
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
-            font-weight: 500;
-            color: var(--color-primary);
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 35px;
-        }
-
-        nav a {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--color-text);
-            transition: color 0.2s;
-        }
-
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+        .logo { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 500; color: var(--color-primary); }
+        nav { display: flex; align-items: center; gap: 35px; }
+        nav a { font-size: 0.9rem; font-weight: 500; color: var(--color-text); transition: color 0.2s; }
         nav a:hover { color: var(--color-primary); }
-
-        .nav-cta {
-            background: var(--color-accent);
-            color: var(--color-white) !important;
-            padding: 12px 24px;
-            border-radius: 4px;
-            font-weight: 600;
-        }
-
-        .nav-cta:hover {
-            background: var(--color-accent-dark);
-        }
-
-        /* Mobile Menu */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 10px;
-        }
-
-        .menu-toggle span {
-            width: 24px;
-            height: 2px;
-            background: var(--color-primary);
-            transition: transform 0.3s, opacity 0.3s;
-        }
+        .nav-cta { background: var(--color-accent); color: var(--color-white) !important; padding: 12px 24px; border-radius: 4px; font-weight: 600; }
+        .nav-cta:hover { background: var(--color-accent-dark); }
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 10px; }
+        .menu-toggle span { width: 24px; height: 2px; background: var(--color-primary); transition: transform 0.3s, opacity 0.3s; }
 
         /* Hero */
-        .hero {
-            padding: 160px 0 80px;
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
-            text-align: center;
-            color: var(--color-white);
-        }
+        .hero { padding: 160px 0 80px; background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%); text-align: center; color: var(--color-white); }
+        .hero h1 { color: var(--color-white); margin-bottom: 1rem; }
+        .hero p { font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
 
-        .hero h1 {
-            color: var(--color-white);
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Smart Blog Selection */
-        .blog-selection {
-            background: var(--color-cream);
-            padding: 30px 0;
-            position: sticky;
-            top: 80px;
-            z-index: 100;
-        }
-
-        .selection-inner {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
-
-        /* Kategorie-Filter */
-        .blog-categories {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .category-btn {
-            padding: 10px 24px;
-            border: 2px solid var(--color-primary);
-            background: transparent;
-            color: var(--color-primary);
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: var(--font-body);
-        }
-
-        .category-btn:hover {
-            background: var(--color-primary);
-            color: white;
-        }
-
-        .category-btn.active {
-            background: var(--color-primary);
-            color: white;
-            box-shadow: 0 2px 8px rgba(44, 74, 71, 0.3);
-        }
-
-        .category-btn:focus {
-            outline: 2px solid var(--color-accent);
-            outline-offset: 2px;
-        }
-
-        .category-btn:active {
-            background: var(--color-primary);
-            color: white;
-            transform: scale(0.98);
-        }
-
-        /* Suchfeld */
-        .search-box {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: white;
-            padding: 8px 16px;
-            border-radius: 30px;
-            border: 2px solid transparent;
-            transition: border-color 0.3s;
-        }
-
-        .search-box:focus-within {
-            border-color: var(--color-primary);
-        }
-
-        .search-box svg {
-            width: 20px;
-            height: 20px;
-            color: var(--color-text-light);
-        }
-
-        .search-box input {
-            border: none;
-            outline: none;
-            font-size: 0.9rem;
-            font-family: var(--font-body);
-            width: 200px;
-            background: transparent;
-        }
-
-        /* Sortierung */
-        .sort-select {
-            padding: 10px 16px;
-            border: 2px solid var(--color-primary);
-            border-radius: 30px;
-            background: white;
-            font-size: 0.9rem;
-            font-family: var(--font-body);
-            color: var(--color-primary);
-            cursor: pointer;
-        }
+        /* Blog Selection */
+        .blog-selection { background: var(--color-cream); padding: 30px 0; position: sticky; top: 80px; z-index: 100; }
+        .selection-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
+        .blog-categories { display: flex; flex-wrap: wrap; gap: 10px; }
+        .category-btn { padding: 10px 24px; border: 2px solid var(--color-primary); background: transparent; color: var(--color-primary); border-radius: 30px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body); }
+        .category-btn:hover, .category-btn.active { background: var(--color-primary); color: white; }
+        .search-box { display: flex; align-items: center; gap: 10px; background: white; padding: 8px 16px; border-radius: 30px; border: 2px solid transparent; transition: border-color 0.3s; }
+        .search-box:focus-within { border-color: var(--color-primary); }
+        .search-box svg { width: 20px; height: 20px; color: var(--color-text-light); }
+        .search-box input { border: none; outline: none; font-size: 0.9rem; font-family: var(--font-body); width: 200px; background: transparent; }
 
         /* Blog Grid */
-        .blog-section {
-            padding: 60px 0 100px;
-        }
-
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-
-        .blog-card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .blog-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        }
-
-        .blog-card.hidden {
-            display: none;
-        }
-
-        .blog-card-link {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-
-        .blog-card-image {
-            position: relative;
-            height: 200px;
-            overflow: hidden;
-        }
-
-        .blog-card-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .blog-card:hover .blog-card-image img {
-            transform: scale(1.08);
-        }
-
-        .blog-card-category {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: var(--color-accent);
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .blog-card-content {
-            padding: 25px;
-        }
-
-        .blog-card-content h3 {
-            font-size: 1.2rem;
-            color: var(--color-primary);
-            margin-bottom: 12px;
-            line-height: 1.4;
-        }
-
-        .blog-card-content p {
-            font-size: 0.95rem;
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .blog-card-meta {
-            font-size: 0.8rem;
-            color: #999;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .blog-card-meta span {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        /* Leseliste Button */
-        .reading-list-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            width: 40px;
-            height: 40px;
-            background: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-
-        .reading-list-btn svg {
-            width: 20px;
-            height: 20px;
-            color: #999;
-            transition: all 0.3s ease;
-        }
-
-        .reading-list-btn:hover svg,
-        .reading-list-btn.active svg {
-            color: var(--color-accent);
-            fill: var(--color-accent);
-        }
-
-        .reading-list-btn.active {
-            background: var(--color-accent);
-        }
-
-        .reading-list-btn.active svg {
-            color: white;
-            fill: white;
-        }
-
-        /* Floating Action Button für Leseliste */
-        .reading-list-fab {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: var(--color-primary);
-            border-radius: 50%;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 5px 25px rgba(44, 74, 71, 0.4);
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .reading-list-fab.visible {
-            display: flex;
-        }
-
-        .reading-list-fab:hover {
-            transform: scale(1.1);
-        }
-
-        .reading-list-fab svg {
-            width: 28px;
-            height: 28px;
-            color: white;
-        }
-
-        .reading-list-count {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            width: 24px;
-            height: 24px;
-            background: var(--color-accent);
-            color: white;
-            border-radius: 50%;
-            font-size: 0.75rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Leseliste Modal */
-        .reading-list-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.6);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            padding: 20px;
-        }
-
-        .reading-list-modal.active {
-            display: flex;
-        }
-
-        .reading-list-content {
-            background: white;
-            border-radius: 16px;
-            max-width: 500px;
-            width: 100%;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .reading-list-header {
-            padding: 25px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            background: white;
-            border-radius: 16px 16px 0 0;
-        }
-
-        .reading-list-header h3 {
-            margin: 0;
-            color: var(--color-primary);
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #999;
-            line-height: 1;
-        }
-
-        .reading-list-items {
-            padding: 20px;
-        }
-
-        .reading-list-item {
-            display: flex;
-            gap: 15px;
-            padding: 15px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .reading-list-item:last-child {
-            border-bottom: none;
-        }
-
-        .reading-list-item img {
-            width: 80px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-
-        .reading-list-item-content {
-            flex: 1;
-        }
-
-        .reading-list-item-content h4 {
-            font-size: 1rem;
-            margin-bottom: 5px;
-            color: var(--color-primary);
-        }
-
-        .reading-list-item-content p {
-            font-size: 0.8rem;
-            color: #999;
-        }
-
-        .remove-item-btn {
-            background: none;
-            border: none;
-            color: #ccc;
-            cursor: pointer;
-            padding: 5px;
-            transition: color 0.3s;
-        }
-
-        .remove-item-btn:hover {
-            color: #e74c3c;
-        }
-
-        .empty-list {
-            text-align: center;
-            color: #999;
-            padding: 30px;
-        }
-
-        /* Mehr laden Button */
-        .load-more {
-            text-align: center;
-            margin-top: 40px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 16px 32px;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            font-family: var(--font-body);
-        }
-
-        .btn-primary {
-            background: var(--color-accent);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: var(--color-accent-dark);
-        }
-
-        /* No Results */
-        .no-results {
-            text-align: center;
-            padding: 60px 20px;
-            display: none;
-        }
-
-        .no-results.visible {
-            display: block;
-        }
-
-        .no-results svg {
-            width: 80px;
-            height: 80px;
-            color: var(--color-text-light);
-            margin-bottom: 20px;
-        }
-
-        .no-results h3 {
-            color: var(--color-text);
-            margin-bottom: 10px;
-        }
-
-        .no-results p {
-            color: var(--color-text-light);
-        }
-
-        /* Stats */
-        .results-count {
-            font-size: 0.9rem;
-            color: var(--color-text-light);
-            margin-bottom: 20px;
-        }
+        .blog-section { padding: 60px 0 100px; }
+        .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 50px; }
+        .blog-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.08); transition: all 0.3s ease; }
+        .blog-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
+        .blog-card.hidden { display: none; }
+        .blog-card-link { text-decoration: none; color: inherit; display: block; }
+        .blog-card-image { position: relative; height: 200px; overflow: hidden; background: var(--color-cream); }
+        .blog-card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .blog-card:hover .blog-card-image img { transform: scale(1.08); }
+        .blog-card-category { position: absolute; top: 15px; left: 15px; background: var(--color-accent); color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+        .blog-card-content { padding: 25px; }
+        .blog-card-content h3 { font-size: 1.2rem; color: var(--color-primary); margin-bottom: 12px; line-height: 1.4; }
+        .blog-card-content p { font-size: 0.95rem; color: #666; line-height: 1.6; margin-bottom: 15px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .blog-card-meta { font-size: 0.8rem; color: #999; }
+        .results-count { font-size: 0.9rem; color: var(--color-text-light); margin-bottom: 20px; }
+        .no-results { text-align: center; padding: 60px 20px; display: none; }
+        .no-results.visible { display: block; }
+        .no-results h3 { color: var(--color-text); margin-bottom: 10px; }
 
         /* Footer */
-        footer {
-            background: var(--color-primary);
-            color: var(--color-white);
-            padding: 60px 0 30px;
-        }
+        footer { background: var(--color-primary); color: var(--color-white); padding: 60px 0 30px; }
+        .footer-content { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 40px; }
+        .footer-brand h3 { font-size: 1.5rem; color: var(--color-white); margin-bottom: 1rem; }
+        .footer-brand p { opacity: 0.8; line-height: 1.8; }
+        .footer-links h4, .footer-contact h4 { font-size: 1rem; color: var(--color-accent); margin-bottom: 1rem; font-family: var(--font-body); font-weight: 600; }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 0.5rem; }
+        .footer-links a { opacity: 0.8; transition: opacity 0.2s; }
+        .footer-links a:hover { opacity: 1; }
+        .footer-contact p { opacity: 0.8; margin-bottom: 0.5rem; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; text-align: center; font-size: 0.85rem; opacity: 0.7; }
 
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 40px;
-        }
-
-        .footer-brand h3 {
-            font-size: 1.5rem;
-            color: var(--color-white);
-            margin-bottom: 1rem;
-        }
-
-        .footer-brand p {
-            opacity: 0.8;
-            line-height: 1.8;
-        }
-
-        .footer-links h4,
-        .footer-contact h4 {
-            font-size: 1rem;
-            color: var(--color-accent);
-            margin-bottom: 1rem;
-            font-family: var(--font-body);
-            font-weight: 600;
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-links a {
-            opacity: 0.8;
-            transition: opacity 0.2s;
-        }
-
-        .footer-links a:hover {
-            opacity: 1;
-        }
-
-        .footer-contact p {
-            opacity: 0.8;
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 30px;
-            text-align: center;
-            font-size: 0.85rem;
-            opacity: 0.7;
-        }
-
-        /* Responsive - Tablets */
+        /* Responsive */
         @media (max-width: 992px) {
-            nav {
-                display: none;
-            }
-
-            nav.mobile-open {
-                display: flex;
-                position: absolute;
-                top: 80px;
-                left: 0;
-                right: 0;
-                flex-direction: column;
-                background: white;
-                padding: 20px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-                gap: 0;
-            }
-
-            nav.mobile-open > a {
-                padding: 15px 0;
-                border-bottom: 1px solid rgba(0,0,0,0.05);
-            }
-
-            nav.mobile-open .nav-cta {
-                margin-top: 15px;
-                text-align: center;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-
-            .blog-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .selection-inner {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .blog-categories {
-                justify-content: center;
-            }
-
-            .search-box {
-                width: 100%;
-            }
-
-            .search-box input {
-                width: 100%;
-            }
+            nav { display: none; }
+            nav.mobile-open { display: flex; position: absolute; top: 80px; left: 0; right: 0; flex-direction: column; background: white; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); gap: 0; }
+            nav.mobile-open > a { padding: 15px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
+            nav.mobile-open .nav-cta { margin-top: 15px; text-align: center; }
+            .menu-toggle { display: flex; }
+            .blog-grid { grid-template-columns: repeat(2, 1fr); }
+            .selection-inner { flex-direction: column; align-items: stretch; }
+            .blog-categories { justify-content: center; }
+            .search-box { width: 100%; }
+            .search-box input { width: 100%; }
         }
-
-        /* Responsive - Mobile */
         @media (max-width: 768px) {
-            .blog-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .category-btn {
-                padding: 8px 16px;
-                font-size: 0.8rem;
-            }
+            .blog-grid { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: 1fr; gap: 40px; }
+            .category-btn { padding: 8px 16px; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -774,9 +140,7 @@
                     <a href="https://cal.com/kathrinstahl" target="_blank" class="nav-cta">Erstgespräch</a>
                 </nav>
                 <button class="menu-toggle" onclick="document.getElementById('mainNav').classList.toggle('mobile-open')">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span></span><span></span><span></span>
                 </button>
             </div>
         </div>
@@ -790,33 +154,25 @@
         </div>
     </section>
 
-    <!-- Smart Blog Selection -->
+    <!-- Blog Selection -->
     <div class="blog-selection">
         <div class="container">
             <div class="selection-inner">
-                <!-- Kategorie-Filter -->
                 <div class="blog-categories">
                     <button class="category-btn active" data-category="all">Alle</button>
                     <button class="category-btn" data-category="achtsamkeit">Achtsamkeit</button>
                     <button class="category-btn" data-category="selbstliebe">Selbstliebe</button>
+                    <button class="category-btn" data-category="beziehung">Beziehung</button>
                     <button class="category-btn" data-category="heldinnenreise">Heldinnenreise</button>
                     <button class="category-btn" data-category="hochbegabung">Hochbegabung</button>
+                    <button class="category-btn" data-category="koerper">Körper & Heilung</button>
                 </div>
-
-                <!-- Suche und Sortierung -->
-                <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
-                    <div class="search-box">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="M21 21l-4.35-4.35"></path>
-                        </svg>
-                        <input type="text" id="searchInput" placeholder="Artikel suchen...">
-                    </div>
-                    <select class="sort-select" id="sortSelect">
-                        <option value="newest">Neueste zuerst</option>
-                        <option value="oldest">Älteste zuerst</option>
-                        <option value="reading-time">Lesezeit</option>
-                    </select>
+                <div class="search-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="M21 21l-4.35-4.35"></path>
+                    </svg>
+                    <input type="text" id="searchInput" placeholder="Artikel suchen...">
                 </div>
             </div>
         </div>
@@ -825,103 +181,76 @@
     <!-- Blog Section -->
     <section class="blog-section">
         <div class="container">
-            <p class="results-count" id="resultsCount">24 Artikel gefunden</p>
-
+            <p class="results-count" id="resultsCount"></p>
             <div class="blog-grid" id="blogGrid">
-                <!-- Artikel 1 -->
-                <article class="blog-card" data-category="achtsamkeit" data-date="2024-10-15" data-reading-time="5">
-                    <a href="wie-du-achtsam-mit-deinen-gefuehlen-umgehen-kannst-und-dabei-jede-menge-ueber-dich-erfaehrst.html" class="blog-card-link">
+
+                <!-- ACHTSAMKEIT -->
+                <article class="blog-card" data-category="achtsamkeit">
+                    <a href="angst-achtsamkeit-und-frieden.html" class="blog-card-link">
                         <div class="blog-card-image">
-                            <img src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg" alt="Achtsamkeit mit Gefühlen" loading="lazy">
+                            <img src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg" alt="Angst, Achtsamkeit und Frieden" loading="lazy">
                             <span class="blog-card-category">Achtsamkeit</span>
                         </div>
                         <div class="blog-card-content">
-                            <h3>Wie du achtsam mit deinen Gefühlen umgehen kannst</h3>
-                            <p>Entdecke praktische Wege, deine Emotionen wahrzunehmen und zu verstehen, ohne dich von ihnen überwältigen zu lassen.</p>
-                            <div class="blog-card-meta">
-                                <span>5 Min. Lesezeit</span>
-                                <span>15. Oktober 2024</span>
-                            </div>
+                            <h3>Angst, Achtsamkeit und Frieden</h3>
+                            <p>Wie du mit Angst umgehen und durch Achtsamkeit inneren Frieden finden kannst.</p>
                         </div>
                     </a>
-                    <button class="reading-list-btn" onclick="toggleReadingList(this, event)" title="Zur Leseliste hinzufügen">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                    </button>
                 </article>
 
-                <!-- Artikel 2 -->
-                <article class="blog-card" data-category="heldinnenreise" data-date="2024-09-28" data-reading-time="7">
-                    <a href="herzenswunsch-folge-deiner-sehnsucht.html" class="blog-card-link">
+                <article class="blog-card" data-category="achtsamkeit">
+                    <a href="mit-allen-sinnen-achtsamkeit.html" class="blog-card-link">
                         <div class="blog-card-image">
-                            <img src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg" alt="Herzenswunsch" loading="lazy">
-                            <span class="blog-card-category">Heldinnenreise</span>
+                            <img src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg" alt="Mit allen Sinnen Achtsamkeit" loading="lazy">
+                            <span class="blog-card-category">Achtsamkeit</span>
                         </div>
                         <div class="blog-card-content">
-                            <h3>Herzenswunsch – Folge deiner Sehnsucht</h3>
-                            <p>Was wäre, wenn du deiner tiefsten Sehnsucht folgst? Eine Einladung, dich auf den Weg zu machen.</p>
-                            <div class="blog-card-meta">
-                                <span>7 Min. Lesezeit</span>
-                                <span>28. September 2024</span>
-                            </div>
+                            <h3>Mit allen Sinnen: Achtsamkeit</h3>
+                            <p>Entdecke, wie du durch deine Sinne mehr Präsenz im Alltag finden kannst.</p>
                         </div>
                     </a>
-                    <button class="reading-list-btn" onclick="toggleReadingList(this, event)" title="Zur Leseliste hinzufügen">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                    </button>
                 </article>
 
-                <!-- Artikel 3 -->
-                <article class="blog-card" data-category="selbstliebe" data-date="2024-09-10" data-reading-time="4">
-                    <a href="dankbarkeit.html" class="blog-card-link">
+                <article class="blog-card" data-category="achtsamkeit">
+                    <a href="sonnenuntergang-in-grignan.html" class="blog-card-link">
                         <div class="blog-card-image">
-                            <img src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg" alt="Dankbarkeit" loading="lazy">
-                            <span class="blog-card-category">Selbstliebe</span>
+                            <img src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg" alt="Sonnenuntergang in Grignan" loading="lazy">
+                            <span class="blog-card-category">Achtsamkeit</span>
                         </div>
                         <div class="blog-card-content">
-                            <h3>Die Kraft der Dankbarkeit</h3>
-                            <p>Wie ein einfaches Dankbarkeitstagebuch dein Leben verändern kann – und warum es mehr ist als positives Denken.</p>
-                            <div class="blog-card-meta">
-                                <span>4 Min. Lesezeit</span>
-                                <span>10. September 2024</span>
-                            </div>
+                            <h3>Achtsamkeit mit dem Handy - Sonnenuntergang in Grignan</h3>
+                            <p>Wie ein Sonnenuntergang mich lehrte, den Moment wirklich zu erleben.</p>
                         </div>
                     </a>
-                    <button class="reading-list-btn" onclick="toggleReadingList(this, event)" title="Zur Leseliste hinzufügen">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                    </button>
                 </article>
 
-                <!-- Artikel 5 -->
-                <article class="blog-card" data-category="hochbegabung" data-date="2024-08-12" data-reading-time="6">
-                    <a href="hochbegabt-dein-bunter-weg.html" class="blog-card-link">
+                <article class="blog-card" data-category="achtsamkeit">
+                    <a href="stille_heilung.html" class="blog-card-link">
                         <div class="blog-card-image">
-                            <img src="wp-content/uploads/2025/05/Neuanfang-Umbruchphase-1024x1024.jpg" alt="Hochbegabt - Dein bunter Weg" loading="lazy">
-                            <span class="blog-card-category">Hochbegabung</span>
+                            <img src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg" alt="Stille ist Heilung" loading="lazy">
+                            <span class="blog-card-category">Achtsamkeit</span>
                         </div>
                         <div class="blog-card-content">
-                            <h3>Hochbegabt – Dein bunter Weg</h3>
-                            <p>Über das Anderssein, die Suche nach dem eigenen Platz und wie du deine Besonderheit als Stärke erkennst.</p>
-                            <div class="blog-card-meta">
-                                <span>6 Min. Lesezeit</span>
-                                <span>12. August 2024</span>
-                            </div>
+                            <h3>Stille ist Heilung</h3>
+                            <p>Über die transformative Kraft der Stille und warum wir sie so dringend brauchen.</p>
                         </div>
                     </a>
-                    <button class="reading-list-btn" onclick="toggleReadingList(this, event)" title="Zur Leseliste hinzufügen">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                    </button>
                 </article>
 
-                <!-- Artikel 6 -->
-                <article class="blog-card" data-category="achtsamkeit" data-date="2024-07-30" data-reading-time="5">
+                <article class="blog-card" data-category="achtsamkeit">
+                    <a href="qarrtsiluni-neues-entsteht-in-der-stille.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg" alt="Qarrtsiluni" loading="lazy">
+                            <span class="blog-card-category">Achtsamkeit</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Qarrtsiluni - Neues entsteht in der Stille</h3>
+                            <p>Ein Inuit-Wort, das beschreibt, wie Neues in der Dunkelheit und Stille entsteht.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="achtsamkeit">
                     <a href="freude-als-wegweiser.html" class="blog-card-link">
                         <div class="blog-card-image">
                             <img src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg" alt="Freude als Wegweiser" loading="lazy">
@@ -929,174 +258,545 @@
                         </div>
                         <div class="blog-card-content">
                             <h3>Freude als Wegweiser</h3>
-                            <p>Was passiert, wenn wir der Freude folgen statt der Pflicht? Eine Reflexion über authentisches Leben.</p>
-                            <div class="blog-card-meta">
-                                <span>5 Min. Lesezeit</span>
-                                <span>30. Juli 2024</span>
-                            </div>
+                            <p>Was passiert, wenn wir der Freude folgen statt der Pflicht?</p>
                         </div>
                     </a>
-                    <button class="reading-list-btn" onclick="toggleReadingList(this, event)" title="Zur Leseliste hinzufügen">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                    </button>
                 </article>
 
-                <!-- Artikel 7 -->
-                <article class="blog-card" data-category="selbstliebe" data-date="2024-07-15" data-reading-time="8">
-                    <a href="wer-bist-du-wenn-du-niemand-sein-musst.html" class="blog-card-link">
+                <!-- SELBSTLIEBE -->
+                <article class="blog-card" data-category="selbstliebe">
+                    <a href="dankbarkeit.html" class="blog-card-link">
                         <div class="blog-card-image">
-                            <img src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg" alt="Selbstliebe lernen" loading="lazy">
+                            <img src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg" alt="Dankbarkeit" loading="lazy">
                             <span class="blog-card-category">Selbstliebe</span>
                         </div>
                         <div class="blog-card-content">
-                            <h3>Selbstliebe lernen – Ein Weg zu dir selbst</h3>
-                            <p>Die wichtigste Beziehung in deinem Leben ist die zu dir selbst. Wie du sie stärken kannst.</p>
-                            <div class="blog-card-meta">
-                                <span>8 Min. Lesezeit</span>
-                                <span>15. Juli 2024</span>
-                            </div>
+                            <h3>Dankbarkeit in schweren Zeiten</h3>
+                            <p>Wie Dankbarkeit uns auch in schwierigen Momenten trägt.</p>
                         </div>
                     </a>
-                    <button class="reading-list-btn" onclick="toggleReadingList(this, event)" title="Zur Leseliste hinzufügen">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                    </button>
                 </article>
 
-                <!-- Artikel 9 -->
-                <article class="blog-card" data-category="heldinnenreise" data-date="2024-06-18" data-reading-time="6">
-                    <a href="gib-deinem-leben-deinen-sinn-eine-heldinnenreise.html" class="blog-card-link">
+                <article class="blog-card" data-category="selbstliebe">
+                    <a href="deine-einzigartigkeit.html" class="blog-card-link">
                         <div class="blog-card-image">
-                            <img src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg" alt="Aufbruch ins Unbekannte" loading="lazy">
-                            <span class="blog-card-category">Heldinnenreise</span>
+                            <img src="wp-content/uploads/2024/05/hochbegabt-hochsensibel-550x550.jpg" alt="Deine Einzigartigkeit" loading="lazy">
+                            <span class="blog-card-category">Selbstliebe</span>
                         </div>
                         <div class="blog-card-content">
-                            <h3>Aufbruch ins Unbekannte</h3>
-                            <p>Der erste Schritt ist der schwerste – und der wichtigste. Über den Mut, das Vertraute zu verlassen.</p>
-                            <div class="blog-card-meta">
-                                <span>6 Min. Lesezeit</span>
-                                <span>18. Juni 2024</span>
-                            </div>
+                            <h3>Deine Einzigartigkeit</h3>
+                            <p>Warum deine Besonderheit dein größtes Geschenk ist.</p>
                         </div>
                     </a>
-                    <button class="reading-list-btn" onclick="toggleReadingList(this, event)" title="Zur Leseliste hinzufügen">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                    </button>
                 </article>
 
-                <!-- Artikel 10 -->
-                <article class="blog-card" data-category="hochbegabung" data-date="2024-06-05" data-reading-time="7">
-                    <a href="hochbegabung-hochsensibilitat.html" class="blog-card-link">
+                <article class="blog-card" data-category="selbstliebe">
+                    <a href="ueber-fehler-und-deinen-selbstwert.html" class="blog-card-link">
                         <div class="blog-card-image">
-                            <img src="wp-content/uploads/2024/05/hochbegabt-hochsensibel-550x550.jpg" alt="Hochsensibel und Hochbegabt" loading="lazy">
-                            <span class="blog-card-category">Hochbegabung</span>
+                            <img src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg" alt="Über Fehler und Selbstwert" loading="lazy">
+                            <span class="blog-card-category">Selbstliebe</span>
                         </div>
                         <div class="blog-card-content">
-                            <h3>Hochsensibel und hochbegabt – Ein Geschenk?</h3>
-                            <p>Die doppelte Besonderheit verstehen und als Ressource nutzen lernen.</p>
-                            <div class="blog-card-meta">
-                                <span>7 Min. Lesezeit</span>
-                                <span>5. Juni 2024</span>
-                            </div>
+                            <h3>Über Fehler und deinen Selbstwert</h3>
+                            <p>Wie du lernst, Fehler als Teil deines Wachstums zu sehen.</p>
                         </div>
                     </a>
-                    <button class="reading-list-btn" onclick="toggleReadingList(this, event)" title="Zur Leseliste hinzufügen">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                    </button>
                 </article>
 
-                <!-- Artikel 11 -->
-                <article class="blog-card" data-category="achtsamkeit" data-date="2024-05-20" data-reading-time="4">
-                    <a href="mit-allen-sinnen-achtsamkeit.html" class="blog-card-link">
+                <article class="blog-card" data-category="selbstliebe">
+                    <a href="verlass-dich-nicht.html" class="blog-card-link">
                         <div class="blog-card-image">
-                            <img src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg" alt="Im Hier und Jetzt" loading="lazy">
-                            <span class="blog-card-category">Achtsamkeit</span>
+                            <img src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg" alt="Verlass dich nicht" loading="lazy">
+                            <span class="blog-card-category">Selbstliebe</span>
                         </div>
                         <div class="blog-card-content">
-                            <h3>Im Hier und Jetzt ankommen</h3>
-                            <p>Einfache Übungen für mehr Präsenz im Alltag und warum der gegenwärtige Moment so kostbar ist.</p>
-                            <div class="blog-card-meta">
-                                <span>4 Min. Lesezeit</span>
-                                <span>20. Mai 2024</span>
-                            </div>
+                            <h3>Verlass dich nicht</h3>
+                            <p>Über die Wichtigkeit, bei dir selbst zu bleiben.</p>
                         </div>
                     </a>
-                    <button class="reading-list-btn" onclick="toggleReadingList(this, event)" title="Zur Leseliste hinzufügen">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                    </button>
                 </article>
 
-                <!-- Artikel 12 -->
-                <article class="blog-card" data-category="selbstliebe" data-date="2024-05-08" data-reading-time="5">
+                <article class="blog-card" data-category="selbstliebe">
+                    <a href="wer-bist-du-wenn-du-niemand-sein-musst.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2024/05/hochbegabt-hochsensibel-550x550.jpg" alt="Wer bist du wenn du niemand sein musst" loading="lazy">
+                            <span class="blog-card-category">Selbstliebe</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Wer bist du, wenn du niemand sein musst?</h3>
+                            <p>Eine Einladung, dich jenseits von Rollen und Erwartungen zu entdecken.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="selbstliebe">
                     <a href="wie-du-gesunde-grenzen-setzen-kannst-ohne-schlechtes-gewissen.html" class="blog-card-link">
                         <div class="blog-card-image">
                             <img src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg" alt="Grenzen setzen" loading="lazy">
                             <span class="blog-card-category">Selbstliebe</span>
                         </div>
                         <div class="blog-card-content">
-                            <h3>Grenzen setzen – Ein Akt der Selbstliebe</h3>
-                            <p>Warum Nein-Sagen keine Schwäche ist und wie du liebevoll für dich einstehen kannst.</p>
-                            <div class="blog-card-meta">
-                                <span>5 Min. Lesezeit</span>
-                                <span>8. Mai 2024</span>
-                            </div>
+                            <h3>Wie du gesunde Grenzen setzen kannst – ohne schlechtes Gewissen</h3>
+                            <p>Grenzen setzen ist ein Akt der Selbstliebe.</p>
                         </div>
                     </a>
-                    <button class="reading-list-btn" onclick="toggleReadingList(this, event)" title="Zur Leseliste hinzufügen">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                    </button>
                 </article>
+
+                <article class="blog-card" data-category="selbstliebe">
+                    <a href="es-ist-okay.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg" alt="Es ist okay" loading="lazy">
+                            <span class="blog-card-category">Selbstliebe</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Es ist okay</h3>
+                            <p>Manchmal brauchen wir die Erlaubnis, einfach zu sein.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="selbstliebe">
+                    <a href="selbstvergessen.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg" alt="Selbstvergessen" loading="lazy">
+                            <span class="blog-card-category">Selbstliebe</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Selbstvergessen</h3>
+                            <p>Wenn wir uns selbst vergessen – und wie wir zurückfinden.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- BEZIEHUNG -->
+                <article class="blog-card" data-category="beziehung">
+                    <a href="beziehungsprobleme.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2025/05/Paartherapie-Beziehungskrise-Neubeginn-550x550.jpg" alt="Beziehungsprobleme" loading="lazy">
+                            <span class="blog-card-category">Beziehung</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Wenn deine Beziehungsprobleme älter sind als du</h3>
+                            <p>Über die Muster, die wir aus unserer Herkunftsfamilie mitbringen.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="beziehung">
+                    <a href="ehe-retten.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2025/05/Paartherapie-Beziehungskrise-Neubeginn-550x550.jpg" alt="Ehe retten" loading="lazy">
+                            <span class="blog-card-category">Beziehung</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Wie kann ich meine Ehe retten?</h3>
+                            <p>Wege aus der Krise – und wann es Zeit ist loszulassen.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="beziehung">
+                    <a href="gehen-oder-bleiben.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2025/05/Paartherapie-Beziehungskrise-Neubeginn-550x550.jpg" alt="Gehen oder bleiben" loading="lazy">
+                            <span class="blog-card-category">Beziehung</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Gehen oder bleiben?</h3>
+                            <p>Pferde spüren die Liebe: Eine wahre Geschichte aus dem pferdegestützten Coaching.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="beziehung">
+                    <a href="love-letters.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2025/05/Paartherapie-Beziehungskrise-Neubeginn-550x550.jpg" alt="Love Letters" loading="lazy">
+                            <span class="blog-card-category">Beziehung</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Love Letters</h3>
+                            <p>Über die Kraft geschriebener Worte in der Liebe.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="beziehung">
+                    <a href="gemeinsam-jammern.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2025/05/Paartherapie-Beziehungskrise-Neubeginn-550x550.jpg" alt="Gemeinsam Jammern" loading="lazy">
+                            <span class="blog-card-category">Beziehung</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Gemeinsam Jammern?</h3>
+                            <p>Warum gegenseitiges Klagen keine echte Verbindung schafft.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- HELDINNENREISE -->
+                <article class="blog-card" data-category="heldinnenreise">
+                    <a href="gib-deinem-leben-deinen-sinn-eine-heldinnenreise.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2025/05/Neuanfang-Umbruchphase-1024x1024.jpg" alt="Heldinnenreise" loading="lazy">
+                            <span class="blog-card-category">Heldinnenreise</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Gib deinem Leben deinen Sinn - Eine Heldinnenreise</h3>
+                            <p>Der Ruf zum Abenteuer und wie du ihm folgen kannst.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="heldinnenreise">
+                    <a href="herzenswunsch-folge-deiner-sehnsucht.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg" alt="Herzenswunsch" loading="lazy">
+                            <span class="blog-card-category">Heldinnenreise</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Herzenswunsch - Folge deiner Sehnsucht</h3>
+                            <p>Was wäre, wenn du deiner tiefsten Sehnsucht folgst?</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="heldinnenreise">
+                    <a href="leben-planen.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2025/05/Neuanfang-Umbruchphase-1024x1024.jpg" alt="Leben planen" loading="lazy">
+                            <span class="blog-card-category">Heldinnenreise</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Können wir Leben planen?</h3>
+                            <p>Über Kontrolle, Vertrauen und das Loslassen von Plänen.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="heldinnenreise">
+                    <a href="ueber-gewohnheiten-und-das-verlassen-der-komfortzone.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2025/05/Neuanfang-Umbruchphase-1024x1024.jpg" alt="Komfortzone verlassen" loading="lazy">
+                            <span class="blog-card-category">Heldinnenreise</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Über Gewohnheiten und das Verlassen der Komfortzone</h3>
+                            <p>Warum Veränderung so schwer ist – und wie sie gelingt.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="heldinnenreise">
+                    <a href="freiheit-ist-niemals-groesser-als-der-kopf-der-sie-denkt.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2025/05/Neuanfang-Umbruchphase-1024x1024.jpg" alt="Freiheit" loading="lazy">
+                            <span class="blog-card-category">Heldinnenreise</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Freiheit ist niemals größer als der Mensch, der sie denkt</h3>
+                            <p>Über innere Begrenzungen und wahre Freiheit.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="heldinnenreise">
+                    <a href="was-ist-wirklich-wichtig.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg" alt="Was ist wirklich wichtig" loading="lazy">
+                            <span class="blog-card-category">Heldinnenreise</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Was ist wirklich wichtig?</h3>
+                            <p>Eine Frage, die alles verändert.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="heldinnenreise">
+                    <a href="wie-fuehlt-sich-ein-erfuelltes-leben-an.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg" alt="Erfülltes Leben" loading="lazy">
+                            <span class="blog-card-category">Heldinnenreise</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Wie fühlt sich ein erfülltes Leben an?</h3>
+                            <p>Jenseits von Erfolg und Leistung.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="heldinnenreise">
+                    <a href="wo-ich-bin-will-ich-ganz-sein.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg" alt="Ganz sein" loading="lazy">
+                            <span class="blog-card-category">Heldinnenreise</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Wo ich bin, will ich ganz sein</h3>
+                            <p>Über Präsenz und das volle Dasein im Moment.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="heldinnenreise">
+                    <a href="wunschlos-gluecklich-schade-eigentlich.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg" alt="Wunschlos glücklich" loading="lazy">
+                            <span class="blog-card-category">Heldinnenreise</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Wunschlos glücklich - schade eigentlich</h3>
+                            <p>Warum Wünsche und Träume wichtig sind.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="heldinnenreise">
+                    <a href="endlich-innerer-frieden.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg" alt="Innerer Frieden" loading="lazy">
+                            <span class="blog-card-category">Heldinnenreise</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Endlich innerer Frieden</h3>
+                            <p>Der Weg zu innerem Frieden ist oft anders als gedacht.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="heldinnenreise">
+                    <a href="deine-vision-noch-schoner-mit-einem-vision-board.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg" alt="Vision Board" loading="lazy">
+                            <span class="blog-card-category">Heldinnenreise</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Deine Vision – mach sie greifbar mit einem Vision Board</h3>
+                            <p>Wie du deine Träume sichtbar machst.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="heldinnenreise">
+                    <a href="mein-suedfrankreich-happymefree.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg" alt="Südfrankreich" loading="lazy">
+                            <span class="blog-card-category">Heldinnenreise</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Mamaauszeit - Zwei Monate nur für mich</h3>
+                            <p>Wie ich mir zwei Monate Auszeit in Südfrankreich nahm.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="heldinnenreise">
+                    <a href="letzte-male-abschied.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg" alt="Letzte Male" loading="lazy">
+                            <span class="blog-card-category">Heldinnenreise</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Letzte Male - Abschied</h3>
+                            <p>Über Abschiede und die Kunst des Loslassens.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- HOCHBEGABUNG -->
+                <article class="blog-card" data-category="hochbegabung">
+                    <a href="hochbegabt-dein-bunter-weg.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2025/05/Neuanfang-Umbruchphase-1024x1024.jpg" alt="Hochbegabt" loading="lazy">
+                            <span class="blog-card-category">Hochbegabung</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Hochbegabt - dein bunter Weg</h3>
+                            <p>Über das Anderssein und die Suche nach dem eigenen Platz.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="hochbegabung">
+                    <a href="hochbegabung-hochsensibilitat.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2024/05/hochbegabt-hochsensibel-550x550.jpg" alt="Hochbegabung Hochsensibilität" loading="lazy">
+                            <span class="blog-card-category">Hochbegabung</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Hochbegabung, Hochsensibilität</h3>
+                            <p>Die doppelte Besonderheit verstehen und als Ressource nutzen.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- KÖRPER & HEILUNG -->
+                <article class="blog-card" data-category="koerper">
+                    <a href="das-geschenk-deiner-wut.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg" alt="Geschenk der Wut" loading="lazy">
+                            <span class="blog-card-category">Körper & Heilung</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Das Geschenk deiner Wut</h3>
+                            <p>Warum Wut eine wichtige Botschaft für dich hat.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="koerper">
+                    <a href="die-angst-vor-deiner-power.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg" alt="Angst vor Power" loading="lazy">
+                            <span class="blog-card-category">Körper & Heilung</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Die Angst vor deiner Power</h3>
+                            <p>Warum wir manchmal Angst vor unserer eigenen Kraft haben.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="koerper">
+                    <a href="gedankenkarussell.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg" alt="Gedankenkarussell" loading="lazy">
+                            <span class="blog-card-category">Körper & Heilung</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Gedankenkarussell?</h3>
+                            <p>Wie du aus dem endlosen Grübeln aussteigen kannst.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="koerper">
+                    <a href="glaubenssatzarbeit-hilfe-annehmen.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2022/07/Coaching-Pferde-Hamburg-KathrinStahl-17-550x550.jpg" alt="Glaubenssatzarbeit" loading="lazy">
+                            <span class="blog-card-category">Körper & Heilung</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Glaubenssatzarbeit - Hilfe annehmen</h3>
+                            <p>Warum es so schwer ist, Hilfe anzunehmen.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="koerper">
+                    <a href="glaubenssatzarbeit-pferdegestuetztescoaching.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2022/07/Coaching-Pferde-Hamburg-KathrinStahl-17-550x550.jpg" alt="Glaubenssatzarbeit Pferde" loading="lazy">
+                            <span class="blog-card-category">Körper & Heilung</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Glaubenssatzarbeit mit Pferden - Wann bin ich wertvoll?</h3>
+                            <p>Wie Pferde uns helfen, alte Glaubenssätze zu erkennen.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="koerper">
+                    <a href="innere-fuehrung.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg" alt="Innere Führung" loading="lazy">
+                            <span class="blog-card-category">Körper & Heilung</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Innere Führung</h3>
+                            <p>Wie du deine innere Stimme wiederfindest.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="koerper">
+                    <a href="klossgefuehl-im-hals-wie-eine-aufstellung-hilft.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg" alt="Kloßgefühl im Hals" loading="lazy">
+                            <span class="blog-card-category">Körper & Heilung</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Kloßgefühl im Hals - wie eine Aufstellung hilft</h3>
+                            <p>Wenn der Körper spricht: Symptome als Botschaft verstehen.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="koerper">
+                    <a href="nackenschmerzen-symptome-als-wegweiser.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg" alt="Nackenschmerzen" loading="lazy">
+                            <span class="blog-card-category">Körper & Heilung</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Nackenschmerzen? Symptome als Wegweiser</h3>
+                            <p>Was dein Körper dir sagen will.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="koerper">
+                    <a href="wen-ziehst-du-hinter-dir-her.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg" alt="Wen ziehst du hinter dir her" loading="lazy">
+                            <span class="blog-card-category">Körper & Heilung</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Wen ziehst du hinter dir her?</h3>
+                            <p>Über die Last, die wir unbewusst tragen.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="koerper">
+                    <a href="wie-du-achtsam-mit-deinen-gefuehlen-umgehen-kannst-und-dabei-jede-menge-ueber-dich-erfaehrst.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg" alt="Achtsam mit Gefühlen" loading="lazy">
+                            <span class="blog-card-category">Körper & Heilung</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Wie du achtsam mit deinen Gefühlen umgehen kannst</h3>
+                            <p>Gefühle wahrnehmen und verstehen, ohne von ihnen überwältigt zu werden.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="koerper">
+                    <a href="die-liebe-der-pferde.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2022/07/Coaching-Pferde-Hamburg-KathrinStahl-17-550x550.jpg" alt="Liebe der Pferde" loading="lazy">
+                            <span class="blog-card-category">Körper & Heilung</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Die Liebe der Pferde</h3>
+                            <p>Was Pferde uns über bedingungslose Annahme lehren.</p>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="blog-card" data-category="koerper">
+                    <a href="mit-pferden-sein-und-heilen.html" class="blog-card-link">
+                        <div class="blog-card-image">
+                            <img src="wp-content/uploads/2022/07/Coaching-Pferde-Hamburg-KathrinStahl-17-550x550.jpg" alt="Mit Pferden heilen" loading="lazy">
+                            <span class="blog-card-category">Körper & Heilung</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <h3>Mit Pferden sein und heilen</h3>
+                            <p>Die heilsame Kraft der Begegnung mit Pferden.</p>
+                        </div>
+                    </a>
+                </article>
+
             </div>
 
             <!-- No Results -->
             <div class="no-results" id="noResults">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <path d="M21 21l-4.35-4.35"></path>
-                    <path d="M8 8l6 6M14 8l-6 6"></path>
-                </svg>
                 <h3>Keine Artikel gefunden</h3>
                 <p>Versuche einen anderen Suchbegriff oder wähle eine andere Kategorie.</p>
             </div>
-
-            <!-- Load More -->
-            <div class="load-more" id="loadMore">
-                <button class="btn btn-primary" onclick="loadMoreArticles()">Mehr Artikel laden</button>
-            </div>
         </div>
     </section>
-
-    <!-- Leseliste Floating Button -->
-    <div class="reading-list-fab" id="readingListFab" onclick="openReadingList()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-        </svg>
-        <span class="reading-list-count" id="readingListCount">0</span>
-    </div>
-
-    <!-- Leseliste Modal -->
-    <div class="reading-list-modal" id="readingListModal">
-        <div class="reading-list-content">
-            <div class="reading-list-header">
-                <h3>Deine Leseliste</h3>
-                <button class="close-btn" onclick="closeReadingList()">&times;</button>
-            </div>
-            <div class="reading-list-items" id="readingListItems">
-                <p class="empty-list">Noch keine Artikel gespeichert. Klicke auf das Lesezeichen-Symbol bei einem Artikel, um ihn hinzuzufügen.</p>
-            </div>
-        </div>
-    </div>
 
     <!-- Footer -->
     <footer>
@@ -1126,47 +826,23 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2024 Kathrin Stahl. Alle Rechte vorbehalten. | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutz</a></p>
+                <p>© 2025 Kathrin Stahl. Alle Rechte vorbehalten. | <a href="impressum.html">Impressum</a> | <a href="datenschutzerklaerung.html">Datenschutz</a></p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Leseliste aus localStorage laden
-        let readingList = JSON.parse(localStorage.getItem('readingList')) || [];
-
-        // Initial State setzen
-        document.addEventListener('DOMContentLoaded', function() {
-            updateReadingListUI();
-            filterArticles();
-            updateResultsCount();
-        });
-
-        // Kategorie-Filter
+        // Blog-Posts filtern
         const categoryBtns = document.querySelectorAll('.category-btn');
-        categoryBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                categoryBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                filterArticles();
-            });
-        });
-
-        // Suchfeld
         const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('input', filterArticles);
-
-        // Sortierung
-        const sortSelect = document.getElementById('sortSelect');
-        sortSelect.addEventListener('change', sortArticles);
+        const blogCards = document.querySelectorAll('.blog-card');
 
         function filterArticles() {
             const category = document.querySelector('.category-btn.active').dataset.category;
             const searchTerm = searchInput.value.toLowerCase();
-            const cards = document.querySelectorAll('.blog-card');
             let visibleCount = 0;
 
-            cards.forEach(card => {
+            blogCards.forEach(card => {
                 const cardCategory = card.dataset.category;
                 const title = card.querySelector('h3').textContent.toLowerCase();
                 const description = card.querySelector('p').textContent.toLowerCase();
@@ -1182,146 +858,22 @@
                 }
             });
 
-            updateResultsCount();
-
-            // No Results anzeigen
-            const noResults = document.getElementById('noResults');
-            const loadMore = document.getElementById('loadMore');
-            if (visibleCount === 0) {
-                noResults.classList.add('visible');
-                loadMore.style.display = 'none';
-            } else {
-                noResults.classList.remove('visible');
-                loadMore.style.display = 'block';
-            }
+            document.getElementById('resultsCount').textContent = `${visibleCount} Artikel`;
+            document.getElementById('noResults').classList.toggle('visible', visibleCount === 0);
         }
 
-        function sortArticles() {
-            const sortBy = sortSelect.value;
-            const grid = document.getElementById('blogGrid');
-            const cards = Array.from(grid.querySelectorAll('.blog-card'));
-
-            cards.sort((a, b) => {
-                if (sortBy === 'newest') {
-                    return new Date(b.dataset.date) - new Date(a.dataset.date);
-                } else if (sortBy === 'oldest') {
-                    return new Date(a.dataset.date) - new Date(b.dataset.date);
-                } else if (sortBy === 'reading-time') {
-                    return parseInt(a.dataset.readingTime) - parseInt(b.dataset.readingTime);
-                }
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                filterArticles();
             });
-
-            cards.forEach(card => grid.appendChild(card));
-        }
-
-        function updateResultsCount() {
-            const visibleCards = document.querySelectorAll('.blog-card:not(.hidden)').length;
-            const totalCards = document.querySelectorAll('.blog-card').length;
-            document.getElementById('resultsCount').textContent =
-                visibleCards === totalCards
-                    ? `${totalCards} Artikel`
-                    : `${visibleCards} von ${totalCards} Artikeln`;
-        }
-
-        // Leseliste Funktionen
-        function toggleReadingList(btn, event) {
-            event.preventDefault();
-            event.stopPropagation();
-
-            const card = btn.closest('.blog-card');
-            const link = card.querySelector('.blog-card-link');
-            const title = card.querySelector('h3').textContent;
-            const img = card.querySelector('img').src;
-            const meta = card.querySelector('.blog-card-meta span').textContent;
-            const url = link.href;
-
-            const index = readingList.findIndex(item => item.url === url);
-
-            if (index > -1) {
-                readingList.splice(index, 1);
-                btn.classList.remove('active');
-            } else {
-                readingList.push({ title, img, meta, url });
-                btn.classList.add('active');
-            }
-
-            localStorage.setItem('readingList', JSON.stringify(readingList));
-            updateReadingListUI();
-        }
-
-        function updateReadingListUI() {
-            const count = readingList.length;
-            const countEl = document.getElementById('readingListCount');
-            const fabEl = document.getElementById('readingListFab');
-
-            countEl.textContent = count;
-            fabEl.classList.toggle('visible', count > 0);
-
-            // Buttons aktualisieren
-            document.querySelectorAll('.reading-list-btn').forEach(btn => {
-                const card = btn.closest('.blog-card');
-                const url = card.querySelector('.blog-card-link').href;
-                const isInList = readingList.some(item => item.url === url);
-                btn.classList.toggle('active', isInList);
-            });
-
-            // Modal aktualisieren
-            const itemsContainer = document.getElementById('readingListItems');
-            if (count === 0) {
-                itemsContainer.innerHTML = '<p class="empty-list">Noch keine Artikel gespeichert. Klicke auf das Lesezeichen-Symbol bei einem Artikel, um ihn hinzuzufügen.</p>';
-            } else {
-                itemsContainer.innerHTML = readingList.map((item, index) => `
-                    <div class="reading-list-item">
-                        <img src="${item.img}" alt="${item.title}" loading="lazy">
-                        <div class="reading-list-item-content">
-                            <h4><a href="${item.url}">${item.title}</a></h4>
-                            <p>${item.meta}</p>
-                        </div>
-                        <button class="remove-item-btn" onclick="removeFromList(${index})">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M18 6L6 18M6 6l12 12"></path>
-                            </svg>
-                        </button>
-                    </div>
-                `).join('');
-            }
-        }
-
-        function removeFromList(index) {
-            readingList.splice(index, 1);
-            localStorage.setItem('readingList', JSON.stringify(readingList));
-            updateReadingListUI();
-        }
-
-        function openReadingList() {
-            document.getElementById('readingListModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeReadingList() {
-            document.getElementById('readingListModal').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // Modal schließen bei Klick außerhalb
-        document.getElementById('readingListModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeReadingList();
-            }
         });
 
-        // Escape-Taste zum Schließen
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeReadingList();
-            }
-        });
+        searchInput.addEventListener('input', filterArticles);
 
-        // Mehr Artikel laden (Placeholder)
-        function loadMoreArticles() {
-            // Hier könnte eine echte Ladefunktion implementiert werden
-            alert('Alle verfügbaren Artikel werden bereits angezeigt.');
-        }
+        // Initial count
+        document.addEventListener('DOMContentLoaded', filterArticles);
     </script>
 </body>
 </html>
