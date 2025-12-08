@@ -2022,6 +2022,7 @@
             setupOfflineDetection(); // Offline-Modus
             setupKeyboardShortcuts(); // Cmd+Z, Shift+Cmd+Z
             initEmojiPicker(); // Emoji-Picker initialisieren
+            loadFeedbackFromGitHub(); // Feedback von GitHub laden
 
             // Regelmäßiges lokales Backup (alle 10 Sekunden)
             setInterval(saveToLocalBackup, 10000);
@@ -2250,6 +2251,8 @@
                     document.getElementById('loadingOverlay').classList.add('hidden');
                     // Notiz-Marker für diese Seite rendern
                     setTimeout(() => renderNoteMarkers(), 100);
+                    // Modul-Status für Feedback synchronisieren
+                    setTimeout(() => syncModuleStatus(), 200);
                     toast('Seite geladen', 'success');
                 };
 
@@ -3911,6 +3914,14 @@
             document.getElementById('feedbackModal').classList.remove('active');
         }
 
+        // Toggle für verstecktes Feedback
+        let showHiddenFeedback = false;
+
+        function toggleHiddenFeedback() {
+            showHiddenFeedback = !showHiddenFeedback;
+            renderFeedbackList();
+        }
+
         function renderFeedbackList() {
             const container = document.getElementById('feedbackListContainer');
 
@@ -3924,19 +3935,22 @@
                     state.feedbackItems.push({
                         id: fc.id || Date.now() + Math.random(),
                         type: fc.type,
+                        moduleId: fc.moduleId || null,
                         description: fc.description || (fc.type === 'video-feedback' ? 'Video-Feedback aufgenommen' : 'Markierung/Feedback'),
                         page: fc.page || state.currentPage,
                         status: 'open', // open, in_progress, done
                         createdAt: fc.timestamp || new Date().toISOString(),
-                        linkedChangeId: null
+                        linkedChangeId: null,
+                        hidden: false
                     });
                 }
             });
 
-            // Von localStorage laden falls vorhanden
-            loadFeedbackFromStorage();
+            // Aktive und versteckte Items zählen
+            const activeItems = state.feedbackItems.filter(f => !f.hidden);
+            const hiddenItems = state.feedbackItems.filter(f => f.hidden);
 
-            if (state.feedbackItems.length === 0) {
+            if (activeItems.length === 0 && hiddenItems.length === 0) {
                 container.innerHTML = `
                     <div style="text-align:center; color:#999; padding:3rem;">
                         <div style="font-size:3rem; margin-bottom:1rem;">💬</div>
@@ -3949,16 +3963,33 @@
 
             let html = '';
 
+            // Toggle für verstecktes Feedback anzeigen wenn es welches gibt
+            if (hiddenItems.length > 0) {
+                html += `
+                    <div style="background:#fff3e0; border:1px solid #ffcc80; border-radius:8px; padding:0.75rem; margin-bottom:1rem; display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:0.85rem; color:#e65100;">
+                            ${hiddenItems.length} Feedback-Eintrag/Einträge für entfernte Module
+                        </span>
+                        <button onclick="toggleHiddenFeedback()" style="background:${showHiddenFeedback ? '#e65100' : 'white'}; color:${showHiddenFeedback ? 'white' : '#e65100'}; border:1px solid #e65100; padding:0.35rem 0.75rem; border-radius:4px; cursor:pointer; font-size:0.8rem;">
+                            ${showHiddenFeedback ? 'Verstecken' : 'Anzeigen'}
+                        </button>
+                    </div>
+                `;
+            }
+
+            // Items zum Anzeigen (aktive + optional versteckte)
+            const itemsToShow = showHiddenFeedback ? state.feedbackItems : activeItems;
+
             // Gruppiert nach Status
-            const openItems = state.feedbackItems.filter(f => f.status === 'open');
-            const inProgressItems = state.feedbackItems.filter(f => f.status === 'in_progress');
-            const doneItems = state.feedbackItems.filter(f => f.status === 'done');
+            const openItems = itemsToShow.filter(f => f.status === 'open');
+            const inProgressItems = itemsToShow.filter(f => f.status === 'in_progress');
+            const doneItems = itemsToShow.filter(f => f.status === 'done');
 
             if (openItems.length > 0) {
                 html += '<div style="margin-bottom:1.5rem;">';
                 html += '<h4 style="color:#f44336; font-size:0.9rem; margin-bottom:0.5rem; display:flex; align-items:center; gap:0.5rem;"><span style="width:10px;height:10px;background:#f44336;border-radius:50%;"></span> Offen (' + openItems.length + ')</h4>';
                 openItems.forEach(item => {
-                    html += renderFeedbackItem(item);
+                    html += renderFeedbackItem(item, showHiddenFeedback);
                 });
                 html += '</div>';
             }
@@ -3967,7 +3998,7 @@
                 html += '<div style="margin-bottom:1.5rem;">';
                 html += '<h4 style="color:#ff9800; font-size:0.9rem; margin-bottom:0.5rem; display:flex; align-items:center; gap:0.5rem;"><span style="width:10px;height:10px;background:#ff9800;border-radius:50%;"></span> In Bearbeitung (' + inProgressItems.length + ')</h4>';
                 inProgressItems.forEach(item => {
-                    html += renderFeedbackItem(item);
+                    html += renderFeedbackItem(item, showHiddenFeedback);
                 });
                 html += '</div>';
             }
@@ -3976,7 +4007,7 @@
                 html += '<div style="margin-bottom:1.5rem;">';
                 html += '<h4 style="color:#4CAF50; font-size:0.9rem; margin-bottom:0.5rem; display:flex; align-items:center; gap:0.5rem;"><span style="width:10px;height:10px;background:#4CAF50;border-radius:50%;"></span> Erledigt (' + doneItems.length + ')</h4>';
                 doneItems.forEach(item => {
-                    html += renderFeedbackItem(item);
+                    html += renderFeedbackItem(item, showHiddenFeedback);
                 });
                 html += '</div>';
             }
@@ -3984,7 +4015,10 @@
             container.innerHTML = html;
         }
 
-        function renderFeedbackItem(item) {
+        function renderFeedbackItem(item, showHidden = false) {
+            // Ausgeblendete Items nur anzeigen wenn explizit angefordert
+            if (item.hidden && !showHidden) return '';
+
             const statusColors = {
                 'open': '#f44336',
                 'in_progress': '#ff9800',
@@ -4004,18 +4038,31 @@
                 day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
             });
 
+            // Modul-Badge erstellen
+            const moduleName = item.moduleId ? (feedbackData.modules[item.moduleId]?.name || item.moduleId) : null;
+            const moduleBadge = moduleName
+                ? `<span style="background:#e3f2fd; color:#1976d2; padding:0.15rem 0.4rem; border-radius:4px; font-size:0.65rem; margin-left:0.5rem;">${moduleName}</span>`
+                : '';
+
+            // Hidden-Badge für inaktive Module
+            const hiddenBadge = item.hidden
+                ? `<span style="background:#ffebee; color:#c62828; padding:0.15rem 0.4rem; border-radius:4px; font-size:0.65rem; margin-left:0.5rem;">Modul entfernt</span>`
+                : '';
+
             return `
-                <div style="background:${item.status === 'done' ? '#f5f5f5' : 'white'}; border:1px solid #eee; border-left:4px solid ${statusColors[item.status]}; border-radius:8px; padding:0.75rem; margin-bottom:0.5rem; ${item.status === 'done' ? 'opacity:0.7;' : ''}">
+                <div style="background:${item.hidden ? '#fafafa' : item.status === 'done' ? '#f5f5f5' : 'white'}; border:1px solid ${item.hidden ? '#e0e0e0' : '#eee'}; border-left:4px solid ${item.hidden ? '#9e9e9e' : statusColors[item.status]}; border-radius:8px; padding:0.75rem; margin-bottom:0.5rem; ${item.status === 'done' || item.hidden ? 'opacity:0.7;' : ''}">
                     <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem;">
                         <div style="flex:1;">
-                            <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.25rem;">
+                            <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.25rem; flex-wrap:wrap;">
                                 <span>${typeIcons[item.type] || '💬'}</span>
-                                <span style="font-weight:600; ${item.status === 'done' ? 'text-decoration:line-through;' : ''}">${item.description}</span>
+                                <span style="font-weight:600; ${item.status === 'done' || item.hidden ? 'text-decoration:line-through;' : ''}">${item.description}</span>
+                                ${moduleBadge}
+                                ${hiddenBadge}
                             </div>
                             <div style="font-size:0.75rem; color:#999;">${item.page || 'Allgemein'} • ${date}</div>
                         </div>
                         <div style="display:flex; gap:0.5rem; align-items:center;">
-                            <select onchange="updateFeedbackStatus('${item.id}', this.value)" style="padding:0.25rem 0.5rem; border-radius:4px; border:1px solid #ddd; font-size:0.75rem; cursor:pointer;">
+                            <select onchange="updateFeedbackStatus('${item.id}', this.value)" style="padding:0.25rem 0.5rem; border-radius:4px; border:1px solid #ddd; font-size:0.75rem; cursor:pointer;" ${item.hidden ? 'disabled' : ''}>
                                 <option value="open" ${item.status === 'open' ? 'selected' : ''}>Offen</option>
                                 <option value="in_progress" ${item.status === 'in_progress' ? 'selected' : ''}>In Bearbeitung</option>
                                 <option value="done" ${item.status === 'done' ? 'selected' : ''}>Erledigt</option>
@@ -4046,47 +4093,271 @@
             }
         }
 
-        function addNewFeedback() {
+        function addNewFeedback(moduleId = null) {
+            // Modul-Auswahl anzeigen wenn kein Modul übergeben wurde
+            const modules = extractModulesFromPage();
+            const moduleOptions = Object.entries(modules).map(([id, m]) => `${id}: ${m.name}`);
+
+            let selectedModuleId = moduleId;
+            if (!selectedModuleId && Object.keys(modules).length > 0) {
+                const moduleList = moduleOptions.join('\n');
+                const moduleInput = prompt(`Feedback zu welchem Modul? (Leer lassen für allgemeines Feedback)\n\nVerfügbare Module:\n${moduleList}\n\nModul-ID eingeben:`);
+                if (moduleInput && modules[moduleInput]) {
+                    selectedModuleId = moduleInput;
+                }
+            }
+
             const description = prompt('Beschreibung des Feedbacks:');
             if (description && description.trim()) {
-                state.feedbackItems.push({
+                const newFeedback = {
                     id: Date.now(),
                     type: 'feedback',
+                    moduleId: selectedModuleId,
                     description: description.trim(),
                     page: state.currentPage || 'Allgemein',
                     status: 'open',
                     createdAt: new Date().toISOString(),
-                    linkedChangeId: null
-                });
+                    linkedChangeId: null,
+                    hidden: false
+                };
+                state.feedbackItems.push(newFeedback);
                 saveFeedbackToStorage();
                 renderFeedbackList();
-                toast('Feedback hinzugefügt', 'success');
+                toast(`Feedback hinzugefügt${selectedModuleId ? ` (Modul: ${selectedModuleId})` : ''}`, 'success');
             }
         }
 
-        function saveFeedbackToStorage() {
+        // Feedback beim Klicken auf ein Element hinzufügen
+        function addFeedbackForElement(element) {
+            // Nächstes Modul (Section mit ID) finden
+            let moduleId = null;
+            let current = element;
+            while (current && !moduleId) {
+                if (current.id || current.dataset?.moduleId) {
+                    moduleId = current.dataset?.moduleId || current.id;
+                }
+                current = current.parentElement;
+            }
+
+            addNewFeedback(moduleId);
+        }
+
+        // ============================================
+        // MODULBASIERTES FEEDBACK SYSTEM (GitHub-basiert)
+        // ============================================
+
+        // Feedback-Daten Struktur
+        let feedbackData = {
+            version: '1.0',
+            lastUpdated: null,
+            modules: {},  // moduleId -> { name, active, page }
+            feedback: []  // Array von Feedback-Einträgen
+        };
+        let feedbackFileSha = null;
+
+        // Module aus der geladenen Seite extrahieren
+        function extractModulesFromPage() {
+            const frame = document.getElementById('siteFrame');
+            if (!frame?.contentDocument) return {};
+
+            const doc = frame.contentDocument;
+            const modules = {};
+
+            // Alle Sections mit IDs als Module identifizieren
+            doc.querySelectorAll('section[id], [data-module-id]').forEach(el => {
+                const moduleId = el.dataset.moduleId || el.id;
+                if (moduleId) {
+                    // Modulname aus Überschrift oder ID ableiten
+                    const heading = el.querySelector('h1, h2, h3');
+                    const name = heading?.textContent?.trim()?.substring(0, 50) || moduleId;
+                    modules[moduleId] = {
+                        name: name,
+                        active: true,
+                        page: state.currentPage
+                    };
+                }
+            });
+
+            return modules;
+        }
+
+        // Feedback von GitHub laden
+        async function loadFeedbackFromGitHub() {
+            try {
+                const data = await github.request(
+                    `/repos/${CONFIG.owner}/${CONFIG.repo}/contents/feedback/feedback.json?ref=${CONFIG.branch}`
+                );
+                feedbackFileSha = data.sha;
+                const content = github.decodeBase64UTF8(data.content);
+                feedbackData = JSON.parse(content);
+
+                // Feedback-Items in state übernehmen
+                state.feedbackItems = feedbackData.feedback.map(f => ({
+                    ...f,
+                    // Nur aktive Feedback-Items anzeigen
+                    hidden: feedbackData.modules[f.moduleId]?.active === false
+                }));
+
+                console.log('Feedback von GitHub geladen:', feedbackData.feedback.length, 'Einträge');
+            } catch (e) {
+                console.log('Keine Feedback-Datei gefunden oder Fehler:', e.message);
+                // Neue Feedback-Struktur initialisieren
+                feedbackData = {
+                    version: '1.0',
+                    lastUpdated: null,
+                    modules: {},
+                    feedback: []
+                };
+            }
+        }
+
+        // Feedback zu GitHub speichern
+        async function saveFeedbackToGitHub() {
+            try {
+                // Module aktualisieren
+                const currentModules = extractModulesFromPage();
+
+                // Bestehende Module behalten, aber active-Status aktualisieren
+                Object.keys(feedbackData.modules).forEach(moduleId => {
+                    if (!currentModules[moduleId]) {
+                        // Modul existiert nicht mehr -> als inaktiv markieren
+                        feedbackData.modules[moduleId].active = false;
+                    }
+                });
+
+                // Neue Module hinzufügen
+                Object.keys(currentModules).forEach(moduleId => {
+                    if (!feedbackData.modules[moduleId]) {
+                        feedbackData.modules[moduleId] = currentModules[moduleId];
+                    } else {
+                        // Modul wieder aktivieren wenn es zurückkehrt
+                        feedbackData.modules[moduleId].active = true;
+                    }
+                });
+
+                // Feedback aus state übernehmen
+                feedbackData.feedback = state.feedbackItems.map(item => ({
+                    id: item.id,
+                    moduleId: item.moduleId || null,
+                    type: item.type,
+                    description: item.description,
+                    page: item.page,
+                    status: item.status,
+                    createdAt: item.createdAt,
+                    linkedChangeId: item.linkedChangeId,
+                    videoUrl: item.videoUrl || null,
+                    screenshot: item.screenshot || null
+                }));
+
+                feedbackData.lastUpdated = new Date().toISOString();
+
+                const content = JSON.stringify(feedbackData, null, 2);
+                const encodedContent = btoa(unescape(encodeURIComponent(content)));
+
+                const body = {
+                    message: `Feedback aktualisiert: ${new Date().toLocaleString('de-DE')}`,
+                    content: encodedContent,
+                    branch: CONFIG.branch
+                };
+
+                if (feedbackFileSha) {
+                    body.sha = feedbackFileSha;
+                }
+
+                const result = await github.request(
+                    `/repos/${CONFIG.owner}/${CONFIG.repo}/contents/feedback/feedback.json`,
+                    { method: 'PUT', body: JSON.stringify(body) }
+                );
+
+                feedbackFileSha = result.content.sha;
+                console.log('Feedback zu GitHub gespeichert');
+
+            } catch (e) {
+                console.error('Feedback speichern fehlgeschlagen:', e);
+                // Fallback: localStorage
+                saveFeedbackToLocalStorage();
+            }
+        }
+
+        // LocalStorage als Backup
+        function saveFeedbackToLocalStorage() {
             try {
                 localStorage.setItem('editor_feedback_items', JSON.stringify(state.feedbackItems));
+                localStorage.setItem('editor_feedback_data', JSON.stringify(feedbackData));
             } catch (e) {
-                console.warn('Feedback konnte nicht gespeichert werden:', e);
+                console.warn('Feedback konnte nicht lokal gespeichert werden:', e);
             }
         }
 
         function loadFeedbackFromStorage() {
             try {
-                const saved = localStorage.getItem('editor_feedback_items');
-                if (saved) {
-                    const parsed = JSON.parse(saved);
-                    // Merge mit existierenden Items (keine Duplikate)
-                    parsed.forEach(savedItem => {
-                        if (!state.feedbackItems.find(fi => fi.id === savedItem.id)) {
-                            state.feedbackItems.push(savedItem);
-                        }
-                    });
-                }
+                // Erst von GitHub laden (async)
+                loadFeedbackFromGitHub().then(() => {
+                    renderFeedbackList();
+                }).catch(() => {
+                    // Fallback: localStorage
+                    const saved = localStorage.getItem('editor_feedback_items');
+                    if (saved) {
+                        const parsed = JSON.parse(saved);
+                        parsed.forEach(savedItem => {
+                            if (!state.feedbackItems.find(fi => fi.id === savedItem.id)) {
+                                state.feedbackItems.push(savedItem);
+                            }
+                        });
+                    }
+                });
             } catch (e) {
                 console.warn('Feedback konnte nicht geladen werden:', e);
             }
+        }
+
+        // Module-Status synchronisieren wenn Seite geladen wird
+        async function syncModuleStatus() {
+            const currentModules = extractModulesFromPage();
+            let hasChanges = false;
+
+            // Bestehende Module prüfen
+            Object.keys(feedbackData.modules).forEach(moduleId => {
+                const wasActive = feedbackData.modules[moduleId].active;
+                const isActive = !!currentModules[moduleId];
+
+                if (wasActive !== isActive) {
+                    feedbackData.modules[moduleId].active = isActive;
+                    hasChanges = true;
+
+                    if (!isActive) {
+                        console.log(`Modul "${moduleId}" ist nicht mehr aktiv - Feedback wird ausgeblendet`);
+                    } else {
+                        console.log(`Modul "${moduleId}" wurde wiederhergestellt - Feedback wird angezeigt`);
+                    }
+                }
+            });
+
+            // Neue Module hinzufügen
+            Object.keys(currentModules).forEach(moduleId => {
+                if (!feedbackData.modules[moduleId]) {
+                    feedbackData.modules[moduleId] = currentModules[moduleId];
+                    hasChanges = true;
+                }
+            });
+
+            if (hasChanges) {
+                await saveFeedbackToGitHub();
+            }
+
+            // Feedback-Items hidden-Status aktualisieren
+            state.feedbackItems.forEach(item => {
+                if (item.moduleId) {
+                    item.hidden = feedbackData.modules[item.moduleId]?.active === false;
+                }
+            });
+        }
+
+        function saveFeedbackToStorage() {
+            // Zuerst lokal speichern (schnell)
+            saveFeedbackToLocalStorage();
+            // Dann zu GitHub (async im Hintergrund)
+            saveFeedbackToGitHub().catch(e => console.warn('GitHub-Sync fehlgeschlagen:', e));
         }
 
         // Automatisch Feedback als erledigt markieren wenn entsprechende Änderung gemacht wurde
