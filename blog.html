@@ -89,13 +89,20 @@
 
         /* Blog Selection */
         .blog-selection { background: var(--color-cream); padding: 30px 0; position: sticky; top: 80px; z-index: 100; }
-        .selection-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
-        .blog-categories { display: flex; flex-wrap: wrap; gap: 10px; }
+        .selection-inner { display: flex; flex-direction: column; gap: 20px; }
+        .blog-categories { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
         .category-btn { padding: 10px 24px; border: 2px solid var(--color-primary); background: transparent; color: var(--color-primary); border-radius: 30px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body); }
         .category-btn:hover, .category-btn.active { background: var(--color-primary); color: white; }
+        .blog-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 15px; }
+        .library-toggle { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: white; border: 2px solid var(--color-accent); color: var(--color-accent); border-radius: 30px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: var(--font-body); white-space: nowrap; }
+        .library-toggle:hover, .library-toggle.active { background: var(--color-accent); color: white; }
+        .library-toggle svg { width: 18px; height: 18px; flex-shrink: 0; }
+        .library-text { white-space: nowrap; }
+        .library-count { background: var(--color-accent); color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; }
+        .library-toggle.active .library-count { background: white; color: var(--color-accent); }
         .search-box { display: flex; align-items: center; gap: 10px; background: white; padding: 8px 16px; border-radius: 30px; border: 2px solid transparent; transition: border-color 0.3s; }
         .search-box:focus-within { border-color: var(--color-primary); }
-        .search-box svg { width: 20px; height: 20px; color: var(--color-text-light); }
+        .search-box svg { width: 20px; height: 20px; color: var(--color-text-light); flex-shrink: 0; }
         .search-box input { border: none; outline: none; font-size: 0.9rem; font-family: var(--font-body); width: 200px; background: transparent; }
 
         /* Blog Grid */
@@ -113,11 +120,6 @@
         .bookmark-btn:hover { transform: scale(1.1); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
         .bookmark-btn svg { width: 20px; height: 20px; color: var(--color-text-light); transition: color 0.2s; }
         .bookmark-btn.saved svg { color: var(--color-accent); fill: var(--color-accent); }
-        .library-toggle { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: white; border: 2px solid var(--color-accent); color: var(--color-accent); border-radius: 30px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: var(--font-body); }
-        .library-toggle:hover, .library-toggle.active { background: var(--color-accent); color: white; }
-        .library-toggle svg { width: 18px; height: 18px; }
-        .library-count { background: var(--color-accent); color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; margin-left: 5px; }
-        .library-toggle.active .library-count { background: white; color: var(--color-accent); }
         .blog-card-content { padding: 25px; }
         .blog-card-content h3 { font-size: 1.2rem; color: var(--color-primary); margin-bottom: 12px; line-height: 1.4; }
         .blog-card-content p { font-size: 0.95rem; color: #666; line-height: 1.6; margin-bottom: 15px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
@@ -148,15 +150,18 @@
             nav.mobile-open .nav-cta { margin-top: 15px; text-align: center; }
             .menu-toggle { display: flex; }
             .blog-grid { grid-template-columns: repeat(2, 1fr); }
-            .selection-inner { flex-direction: column; align-items: stretch; }
             .blog-categories { justify-content: center; }
-            .search-box { width: 100%; }
+            .blog-actions { width: 100%; justify-content: center; }
+            .search-box { flex: 1; min-width: 200px; max-width: 300px; }
             .search-box input { width: 100%; }
         }
         @media (max-width: 768px) {
             .blog-grid { grid-template-columns: 1fr; }
             .footer-content { grid-template-columns: 1fr; gap: 40px; }
             .category-btn { padding: 8px 16px; font-size: 0.8rem; }
+            .blog-actions { flex-direction: column; gap: 12px; }
+            .library-toggle { width: 100%; justify-content: center; }
+            .search-box { width: 100%; max-width: none; }
         }
     
         /* Contact Dropdown in Header */
@@ -464,13 +469,13 @@
 <button class="category-btn" data-category="hochbegabung">Hochbegabung</button>
 <button class="category-btn" data-category="koerper">Körper &amp; Heilung</button>
 </div>
-<div>
+<div class="blog-actions">
 <button class="library-toggle" id="libraryToggle">
 <svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
 <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
 </svg>
-                        Meine Bibliothek
-                        <span class="library-count" id="libraryCount">0</span>
+<span class="library-text">Meine Bibliothek</span>
+<span class="library-count" id="libraryCount">0</span>
 </button>
 <div class="search-box">
 <svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
