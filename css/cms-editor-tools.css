@@ -1,0 +1,415 @@
+/* ===== CMS EDITOR TOOLS STYLES =====
+ * Datei: css/cms-editor-tools.css
+ * Floating Toolbar, Draw Tools, Annotations, Sticky Notes, Recording
+ * ~290 Zeilen
+ */
+
+/* Schwebende Toolbar */
+.floating-toolbar {
+    position: fixed;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    z-index: 99998;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.ft-section { display: flex; flex-direction: column; gap: 6px; }
+.ft-btn {
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 10px;
+    background: #f5f5f5;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+}
+.ft-btn:hover { background: #e0e0e0; }
+.ft-btn-draw.active { background: #2C4A47; color: white; }
+.ft-btn-green { background: #e8f5e9; color: #4CAF50; }
+.ft-btn-green:hover { background: #c8e6c9; }
+.ft-colors {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 8px;
+    border-top: 1px solid #eee;
+}
+.ft-color {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    margin: 0 auto;
+}
+.ft-color:hover, .ft-color-active { border-color: #333; }
+
+/* Zeichnen-Werkzeuge Panel */
+.draw-tools-panel {
+    position: fixed;
+    left: 70px;
+    top: 60px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.2);
+    z-index: 99999;
+    min-width: 200px;
+    overflow: hidden;
+}
+.dtp-header {
+    background: #2C4A47;
+    color: white;
+    padding: 10px 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.dtp-header span { flex: 1; }
+.dtp-minimize, .dtp-close {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    line-height: 1;
+}
+.dtp-minimize:hover, .dtp-close:hover { background: rgba(255,255,255,0.3); }
+.dtp-content { padding: 12px; }
+.dtp-content.minimized { display: none; }
+.dtp-tools { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin-bottom: 12px; }
+.dtp-tool {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 4px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    font-size: 0.7rem;
+    color: #666;
+}
+.dtp-tool:hover { border-color: #2C4A47; background: #f5f5f5; }
+.dtp-tool-active { border-color: #2C4A47; background: #e3f2fd; color: #2C4A47; }
+.dtp-section { margin-bottom: 12px; }
+.dtp-label { font-size: 0.75rem; color: #666; display: block; margin-bottom: 6px; }
+.dtp-colors { display: flex; gap: 6px; }
+.dtp-color {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+.dtp-color:hover, .dtp-color-active { border-color: #333; transform: scale(1.1); }
+.dtp-widths { display: flex; gap: 8px; }
+.dtp-width {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.dtp-width:hover, .dtp-width-active { border-color: #2C4A47; }
+.dtp-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.dtp-action {
+    flex: 1;
+    min-width: 80px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+.dtp-action:hover { background: #f5f5f5; }
+.dtp-action-primary { background: #2C4A47; color: white; border-color: #2C4A47; }
+.dtp-action-primary:hover { background: #1e3533; }
+
+/* Formatting Toolbar */
+.format-toolbar {
+    position: absolute;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+    padding: 0.25rem;
+    display: none;
+    z-index: 99999;
+    gap: 0.25rem;
+}
+.format-toolbar.active { display: flex; }
+.format-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+.format-btn:hover { background: #e0e0e0; }
+.format-btn.active { background: #e3f2fd; color: #2196F3; }
+
+/* Color Picker */
+.color-picker-popup {
+    position: absolute;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+    padding: 0.5rem;
+    display: none;
+    z-index: 100000;
+    flex-wrap: wrap;
+    width: 150px;
+    gap: 0.25rem;
+}
+.color-picker-popup.active { display: flex; }
+.color-swatch {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+.color-swatch:hover { border-color: #333; }
+
+/* Emoji Picker */
+.emoji-picker {
+    position: absolute;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    padding: 0.5rem;
+    display: none;
+    z-index: 100000;
+    max-width: 280px;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+.emoji-picker.active { display: flex; }
+.emoji-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1.2rem;
+    border-radius: 4px;
+}
+.emoji-btn:hover { background: #f0f0f0; }
+
+/* Image Resize Handles */
+.img-resize-wrapper {
+    position: relative;
+    display: inline-block;
+}
+.img-resize-handle {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #2196F3;
+    border: 2px solid white;
+    border-radius: 2px;
+    cursor: se-resize;
+    right: -6px;
+    bottom: -6px;
+    z-index: 100;
+}
+
+/* Sticky Notes */
+.sticky-note {
+    position: absolute;
+    width: 200px;
+    min-height: 100px;
+    background: #fff9c4;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    padding: 8px;
+    z-index: 99990;
+    cursor: move;
+    font-size: 0.85rem;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    transition: all 0.2s ease;
+}
+.sticky-note.minimized {
+    width: 40px;
+    min-height: 40px;
+    height: 40px;
+    overflow: hidden;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.sticky-note.minimized .sticky-note-header,
+.sticky-note.minimized .sticky-note-content {
+    display: none;
+}
+.sticky-note.minimized::after {
+    content: '📝';
+    font-size: 1.2rem;
+}
+.sticky-note-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    gap: 4px;
+}
+.sticky-note-header-btns {
+    display: flex;
+    gap: 4px;
+}
+.sticky-note-minimize,
+.sticky-note-close {
+    cursor: pointer;
+    color: #999;
+    font-size: 1rem;
+    line-height: 1;
+    background: none;
+    border: none;
+    padding: 0;
+}
+.sticky-note-minimize:hover { color: #2196F3; }
+.sticky-note-close:hover { color: #f44336; }
+.sticky-note-content {
+    width: 100%;
+    min-height: 60px;
+    border: none;
+    background: transparent;
+    resize: none;
+    font-family: inherit;
+    font-size: inherit;
+}
+.sticky-note-content:focus { outline: none; }
+
+/* Note Marker */
+.note-marker {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: #fff9c4;
+    border: 2px solid #ffeb3b;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 99989;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    animation: pulse-marker 2s infinite;
+}
+
+/* Recording Options Panel */
+.record-options-panel {
+    position: fixed;
+    left: 70px;
+    top: 120px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.2);
+    z-index: 99999;
+    min-width: 180px;
+    overflow: hidden;
+}
+.rop-header {
+    background: #f44336;
+    color: white;
+    padding: 10px 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+}
+.rop-header span { flex: 1; }
+.rop-close {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+.rop-content { padding: 12px; }
+.rop-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+.rop-option:hover { background: #f5f5f5; }
+.rop-option input { width: 18px; height: 18px; }
+.rop-start {
+    width: 100%;
+    padding: 10px;
+    background: #f44336;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.rop-start:hover { background: #d32f2f; }
+
+/* Recording Indicator */
+.recording-indicator {
+    position: fixed;
+    top: 60px;
+    left: 70px;
+    background: #f44336;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(244,67,54,0.4);
+}
+.rec-dot {
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    animation: blink 1s infinite;
+}
+.rec-stop {
+    background: white;
+    color: #f44336;
+    border: none;
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}

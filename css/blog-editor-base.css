@@ -72,6 +72,35 @@ body {
     font-size: 1.2rem;
 }
 
+/* Mode Switch (Seiten/Blog) */
+.mode-switch {
+    display: flex;
+    background: rgba(255,255,255,0.1);
+    border-radius: 6px;
+    padding: 2px;
+    margin-left: 0.5rem;
+}
+
+.mode-btn {
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    transition: all 0.15s;
+}
+
+.mode-btn:hover {
+    color: white;
+    background: rgba(255,255,255,0.1);
+}
+
+.mode-btn.active {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    font-weight: 500;
+}
+
 .status-indicator {
     display: flex;
     align-items: center;

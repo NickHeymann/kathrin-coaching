@@ -7,6 +7,7 @@
 | Task | Dateien | Suche nach |
 |------|---------|------------|
 | Header/Navigation ändern | `css/components/header.css`, `js/core/navigation.js` | `.header-inner`, `toggleDropdown` |
+| **Index Homepage Styling** | `css/pages/index.css`, `css/pages/index/*.css` | `.hero`, `.services-grid` |
 | Blog-Artikel Styling | `css/pages/blog.css` | `.article-content`, `.blog-card` |
 | Related Posts | `js/pages/blog.js`, `data/blog-intelligence.json` | `initRelatedPosts`, `connections` |
 | Video-Seite | `css/pages/videos.css`, `js/pages/videos.js` | `EMBEDDED_VIDEOS`, `.video-card` |
@@ -18,16 +19,17 @@
 | **Blog-Editor Logic** | `js/blog-editor-core.js` | `publishPost`, `saveDraft` |
 | **Blog-Editor AI** | `js/blog-editor-ai.js` | `groqAPI`, `aiCategorize` |
 | **Blog-Editor Config** | `js/blog-editor-config.js` | `CONFIG`, `state`, `BLOG_CATEGORIES` |
+| **CMS-Editor UI** | `css/cms-editor-*.css` | `.toolbar`, `.sidebar`, `.modal` |
 
 ## Projektstruktur
 
 ```
 kathrin-coaching/
-├── index.html                    # Hauptseite (hat eigenes inline CSS)
+├── index.html                    # Hauptseite (modularisiert, ~1960 Z.)
 ├── blog.html                     # Blog-Übersicht
 ├── blog-editor-modular.html      # Blog-Editor (LLM-optimiert, modular)
 ├── blog-editor.html              # Blog-Editor (Legacy, ~3500 Zeilen)
-├── cms-editor.html               # CMS-Editor
+├── cms-editor.html               # CMS-Editor (modularisiert, ~4330 Z.)
 ├── *.html                        # Weitere Seiten
 │
 ├── css/
@@ -46,6 +48,20 @@ kathrin-coaching/
 │   │   └── modals.css            # Dialoge
 │   │
 │   ├── pages/                    # Seiten-spezifisches CSS
+│   │   ├── index.css             # Index Page Import (importiert index/*)
+│   │   ├── index/                # Index Page Module (<300 Z. pro Datei)
+│   │   │   ├── hero.css          # Hero & Trust Bar (117 Z.)
+│   │   │   ├── sections.css      # Problem & Solution (160 Z.)
+│   │   │   ├── services.css      # Service Cards (156 Z.)
+│   │   │   ├── modals.css        # Service Modals (285 Z.)
+│   │   │   ├── quiz.css          # Quiz & Self-Tests (234 Z.)
+│   │   │   ├── testimonials.css  # Testimonials (223 Z.)
+│   │   │   ├── video.css         # Video, About, CTA (311 Z.)
+│   │   │   ├── transformation.css # Slider (532 Z.)
+│   │   │   ├── methods.css       # Methods & Guarantee (309 Z.)
+│   │   │   ├── faq.css           # FAQ & Images (270 Z.)
+│   │   │   ├── blog-section.css  # Blog Preview (392 Z.)
+│   │   │   └── responsive.css    # Responsive & Footer (401 Z.)
 │   │   ├── blog.css              # Blog-Artikel & Listing
 │   │   ├── videos.css            # Video-Galerie
 │   │   ├── quiz.css              # Quiz-Seiten
@@ -54,6 +70,12 @@ kathrin-coaching/
 │   ├── blog-editor-base.css      # Blog-Editor: Layout, Buttons, Forms (~350 Z.)
 │   ├── blog-editor-panels.css    # Blog-Editor: Modals, Queue, Toast (~200 Z.)
 │   ├── blog-editor-ai.css        # Blog-Editor: AI Panel, Voice (~180 Z.)
+│   │
+│   ├── cms-editor-base.css       # CMS-Editor: Reset, Toolbar, Buttons (~185 Z.)
+│   ├── cms-editor-layout.css     # CMS-Editor: Frame, Sidebar, Screens (~230 Z.)
+│   ├── cms-editor-panels.css     # CMS-Editor: Modals, Toasts (~195 Z.)
+│   ├── cms-editor-tools.css      # CMS-Editor: Draw, Annotations (~290 Z.)
+│   ├── cms-editor-responsive.css # CMS-Editor: Media Queries (~100 Z.)
 │   │
 │   ├── utilities/                # Helper-Klassen
 │   │   ├── helpers.css           # .hidden, .text-center, etc.
@@ -122,6 +144,20 @@ css/
 │   └── animations.css       # Keyframes (141 Z.) ✅
 │
 └── pages/                   # Seiten-spezifisch
+    ├── index.css            # Index Import (44 Z.) ✅
+    ├── index/               # Index Page Module (12 Dateien, alle <300 Z.) ✅
+    │   ├── hero.css         # (117 Z.) ✅
+    │   ├── sections.css     # (160 Z.) ✅
+    │   ├── services.css     # (156 Z.) ✅
+    │   ├── modals.css       # (285 Z.) ✅
+    │   ├── quiz.css         # (234 Z.) ✅
+    │   ├── testimonials.css # (223 Z.) ✅
+    │   ├── video.css        # (311 Z.) - leicht über Limit
+    │   ├── transformation.css # (532 Z.) - große Komponente
+    │   ├── methods.css      # (309 Z.) - leicht über Limit
+    │   ├── faq.css          # (270 Z.) ✅
+    │   ├── blog-section.css # (392 Z.) - über Limit
+    │   └── responsive.css   # (401 Z.) - über Limit
     ├── blog.css             # Blog-Artikel (1738 Z.) - well-organized
     ├── videos.css           # Video-Galerie (806 Z.)
     ├── quiz.css             # Quiz-Seiten (1189 Z.)

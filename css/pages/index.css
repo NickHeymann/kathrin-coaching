@@ -1,0 +1,43 @@
+/* ===== INDEX PAGE STYLES =====
+ * Datei: css/pages/index.css
+ * Haupt-Import für alle Homepage-Module
+ *
+ * Dieses File importiert alle modularen CSS-Dateien für die Homepage.
+ * Jedes Modul ist <300 Zeilen für LLM-optimiertes Editing.
+ */
+
+/* Hero & Trust Bar */
+@import url('./index/hero.css');
+
+/* Problem & Solution Sections */
+@import url('./index/sections.css');
+
+/* Service Cards */
+@import url('./index/services.css');
+
+/* Service Modals */
+@import url('./index/modals.css');
+
+/* Quiz & Self-Tests */
+@import url('./index/quiz.css');
+
+/* Testimonials & Social Proof */
+@import url('./index/testimonials.css');
+
+/* Video, About, CTA, WhatsApp */
+@import url('./index/video.css');
+
+/* Transformation Slider */
+@import url('./index/transformation.css');
+
+/* Methods & Guarantee */
+@import url('./index/methods.css');
+
+/* FAQ & Image Sections */
+@import url('./index/faq.css');
+
+/* Blog Section on Homepage */
+@import url('./index/blog-section.css');
+
+/* Responsive Breakpoints & Footer */
+@import url('./index/responsive.css');
