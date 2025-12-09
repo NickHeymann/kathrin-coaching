@@ -1,0 +1,99 @@
+# Daily LLM Analysis for Blog Posts
+# Läuft täglich nach Mitternacht UTC, wenn Groq Rate-Limit resettet ist
+# API Key wird sicher als GitHub Secret gespeichert
+
+name: Daily LLM Analysis
+
+on:
+  schedule:
+    # 00:30 UTC täglich (nach Rate-Limit Reset)
+    - cron: '30 0 * * *'
+  workflow_dispatch:  # Ermöglicht manuelles Auslösen
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install groq beautifulsoup4
+
+      - name: Check for pending analyses
+        id: check
+        run: |
+          FALLBACK_COUNT=$(python3 -c "
+          import json
+          from pathlib import Path
+
+          f = Path('data/blog-intelligence.json')
+          if not f.exists():
+              print(999)
+          else:
+              data = json.load(open(f))
+              fallbacks = sum(1 for a in data.get('articles', [])
+                              if a.get('analysis', {}).get('_isFallback')
+                              or not a.get('analysis', {}).get('kernbotschaft')
+                              or a.get('analysis', {}).get('transformation', {}).get('von') == 'Suche')
+              print(fallbacks)
+          ")
+          echo "fallback_count=$FALLBACK_COUNT" >> $GITHUB_OUTPUT
+          echo "📊 $FALLBACK_COUNT Artikel mit Fallback-Analyse gefunden"
+
+      - name: Run LLM Analysis
+        if: steps.check.outputs.fallback_count != '0'
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: |
+          echo "🔄 Starte LLM-Analyse..."
+          python scripts/analyze-with-llm.py || echo "⚠️ Analyse mit Fehlern beendet (möglicherweise Rate-Limit)"
+
+      - name: Generate Smart Connections
+        if: steps.check.outputs.fallback_count != '0'
+        run: |
+          echo "🔗 Generiere Smart Connections..."
+          python scripts/generate-smart-connections.py --no-embeddings
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet data/blog-intelligence.json 2>/dev/null; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "📝 Keine Änderungen"
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "✅ Änderungen gefunden"
+          fi
+
+      - name: Commit and push changes
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          git add data/blog-intelligence.json
+          git commit -m "Auto-update: LLM analysis for blog posts [GitHub Actions]
+
+          🤖 Generated with [Claude Code](https://claude.com/claude-code)"
+          git push
+
+      - name: Summary
+        run: |
+          echo "### Daily LLM Analysis Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.check.outputs.fallback_count }}" == "0" ]; then
+            echo "✅ Alle Artikel bereits mit LLM analysiert. Nichts zu tun." >> $GITHUB_STEP_SUMMARY
+          elif [ "${{ steps.changes.outputs.has_changes }}" == "true" ]; then
+            echo "✅ Neue Analysen committed und gepusht." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "⚠️ Rate-Limit erreicht. Versuche es morgen erneut." >> $GITHUB_STEP_SUMMARY
+          fi
