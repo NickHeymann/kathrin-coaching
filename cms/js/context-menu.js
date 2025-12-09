@@ -26,16 +26,26 @@ export function showContextMenu(x, y, hasHistory = false) {
         historyItem.style.display = hasHistory ? 'flex' : 'none';
     }
 
-    // Klick außerhalb schließt Menü
+    // Klick außerhalb schließt Menü (auch im iframe)
     const closeHandler = (e) => {
         if (!menu.contains(e.target)) {
             hideContextMenu();
             document.removeEventListener('click', closeHandler);
+            // Auch iframe-Listener entfernen
+            const frame = document.getElementById('siteFrame');
+            if (frame?.contentDocument) {
+                frame.contentDocument.removeEventListener('click', closeHandler);
+            }
         }
     };
 
     setTimeout(() => {
         document.addEventListener('click', closeHandler);
+        // Auch Klicks im iframe erfassen
+        const frame = document.getElementById('siteFrame');
+        if (frame?.contentDocument) {
+            frame.contentDocument.addEventListener('click', closeHandler);
+        }
     }, 0);
 }
 
