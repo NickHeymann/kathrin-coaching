@@ -152,8 +152,29 @@ def analyze_with_openai(article, api_key):
         return None
 
 
+def is_real_llm_analysis(analysis):
+    """Prüft ob eine Analyse von einem LLM stammt oder ein Fallback ist"""
+    if not analysis:
+        return False
+
+    # Fallback-Analysen haben diese generischen Werte
+    fallback_indicators = [
+        analysis.get('transformation', {}).get('von') == 'Suche',
+        analysis.get('transformation', {}).get('zu') == 'Erkenntnis',
+        analysis.get('leserProfil') == 'Menschen auf der Suche nach Orientierung',
+        'Dieser Artikel könnte dir neue Perspektiven eröffnen.' in analysis.get('empfehlungsBegründungen', [])
+    ]
+
+    # Wenn 3+ Indikatoren zutreffen, ist es wahrscheinlich ein Fallback
+    return sum(fallback_indicators) < 3
+
+
 def create_default_analysis(article):
-    """Erstellt eine Fallback-Analyse wenn LLM fehlschlägt"""
+    """Erstellt eine Fallback-Analyse wenn LLM fehlschlägt
+
+    WICHTIG: Diese Fallback-Analysen werden mit _isFallback=True markiert,
+    damit sie später von echten LLM-Analysen überschrieben werden können.
+    """
     category_themes = {
         'achtsamkeit': ['praesenz', 'innere-ruhe', 'moment'],
         'selbstliebe': ['selbstakzeptanz', 'selbstwert', 'innerer-kritiker'],
@@ -166,6 +187,7 @@ def create_default_analysis(article):
     category = article.get('category', 'allgemein')
 
     return {
+        "_isFallback": True,  # Marker für Fallback-Analyse
         "kernbotschaft": article.get('excerpt', '')[:150],
         "emotionaleTonalitaet": "reflektierend",
         "transformation": {
@@ -228,14 +250,34 @@ def main():
     articles = data['articles']
 
     # Lade bestehende Analysen (falls vorhanden)
+    # WICHTIG: Echte LLM-Analysen werden IMMER geschützt, Fallbacks können überschrieben werden
     existing_analyses = {}
-    if args.skip_existing and OUTPUT_FILE.exists():
+    protected_analyses = {}  # Echte LLM-Analysen die nicht überschrieben werden dürfen
+    fallback_analyses = {}   # Fallback-Analysen die überschrieben werden können
+
+    if OUTPUT_FILE.exists():
         with open(OUTPUT_FILE, 'r', encoding='utf-8') as f:
             existing_data = json.load(f)
             for art in existing_data.get('articles', []):
                 if art.get('analysis'):
-                    existing_analyses[art['url']] = art['analysis']
-        print(f"📚 {len(existing_analyses)} bestehende Analysen geladen")
+                    url = art['url']
+                    analysis = art['analysis']
+
+                    # Prüfe ob es eine echte LLM-Analyse ist
+                    if analysis.get('_isFallback') or not is_real_llm_analysis(analysis):
+                        fallback_analyses[url] = analysis
+                    else:
+                        protected_analyses[url] = analysis
+
+        print(f"📚 {len(protected_analyses)} echte LLM-Analysen (geschützt)")
+        print(f"📝 {len(fallback_analyses)} Fallback-Analysen (können überschrieben werden)")
+
+    # Bei --skip-existing: Überspringe ALLE bestehenden Analysen
+    # Ohne Flag: Überspringe nur geschützte (echte) Analysen, versuche Fallbacks zu ersetzen
+    if args.skip_existing:
+        existing_analyses = {**protected_analyses, **fallback_analyses}
+    else:
+        existing_analyses = protected_analyses  # Nur echte Analysen schützen
 
     # Filtere nur Blog-Posts (keine Quizze, Angebote etc.)
     blog_articles = [a for a in articles if a.get('type') == 'blog']
@@ -257,11 +299,14 @@ def main():
 
         print(f"[{i+1}/{len(blog_articles)}] {title}...")
 
-        # Überspringe bereits analysierte
-        if args.skip_existing and url in existing_analyses:
+        # Überspringe bereits analysierte (echte LLM-Analysen sind immer geschützt)
+        if url in existing_analyses:
             article['analysis'] = existing_analyses[url]
             results.append(article)
-            print(f"    ⏭️  Übersprungen (bereits analysiert)")
+            if url in protected_analyses:
+                print(f"    🛡️  Geschützt (echte LLM-Analyse)")
+            else:
+                print(f"    ⏭️  Übersprungen (bereits analysiert)")
             continue
 
         # LLM Analyse
