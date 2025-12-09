@@ -140,12 +140,20 @@ function getCleanHtml() {
     // Video overlays entfernen
     doc.querySelectorAll('.video-overlay').forEach(el => el.remove());
 
+    // Base-Tag entfernen (wurde vom Editor eingefügt)
+    const baseTag = doc.querySelector('base');
+    if (baseTag) baseTag.remove();
+
     // HTML zusammenbauen
     let html = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
 
-    // CDN URLs zurück zu relativen Pfaden konvertieren (sourceBranch wurde beim Laden verwendet)
+    // CDN URLs zurück zu relativen Pfaden konvertieren
     const cdnUrl = `https://cdn.jsdelivr.net/gh/${CONFIG.owner}/${CONFIG.repo}@${CONFIG.sourceBranch}/`;
+    const rawUrl = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.sourceBranch}/`;
+
+    // Beide URL-Varianten entfernen
     html = html.replace(new RegExp(cdnUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), '');
+    html = html.replace(new RegExp(rawUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), '');
 
     // Cache-Busting Parameter entfernen
     html = html.replace(/\?v=\d+/g, '');

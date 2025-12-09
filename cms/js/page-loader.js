@@ -18,22 +18,39 @@ import { toast, updateStatus, updateChangesList, showLoading, showStartScreen } 
 export function fixRelativeUrls(html) {
     const cacheBust = Date.now();
     // Lade Assets von sourceBranch (Live-Website)
+    const baseUrl = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.sourceBranch}/`;
     const cdnUrl = `https://cdn.jsdelivr.net/gh/${CONFIG.owner}/${CONFIG.repo}@${CONFIG.sourceBranch}/`;
 
-    // CSS & JS mit Cache-Busting
+    // CSS-Dateien (relativ)
     html = html.replace(/href="([^"]+\.css)"/g, (m, url) => {
-        if (url.startsWith('http')) return m;
+        if (url.startsWith('http') || url.startsWith('//') || url.startsWith('#')) return m;
         return `href="${cdnUrl}${url}?v=${cacheBust}"`;
     });
 
+    // JS-Dateien (relativ)
     html = html.replace(/src="([^"]+\.js)"/g, (m, url) => {
+        if (url.startsWith('http') || url.startsWith('//')) return m;
+        return `src="${cdnUrl}${url}?v=${cacheBust}"`;
+    });
+
+    // Alle Bilder mit src-Attribut (wp-content, images, etc.)
+    html = html.replace(/src="((?:wp-content|images|assets|img)[^"]+)"/gi, (m, url) => {
         if (url.startsWith('http')) return m;
         return `src="${cdnUrl}${url}?v=${cacheBust}"`;
     });
 
-    // Bilder mit Cache-Busting
-    html = html.replace(/src="(images\/[^"]+)"/g, `src="${cdnUrl}$1?v=${cacheBust}"`);
-    html = html.replace(/url\(['"]?(images\/[^'")]+)['"]?\)/g, `url('${cdnUrl}$1?v=${cacheBust}')`);
+    // Background URLs in CSS (inline styles und style-Blöcke)
+    // Erfasst: url('wp-content/...'), url("wp-content/..."), url(wp-content/...)
+    html = html.replace(/url\(\s*['"]?((?:wp-content|images|assets|img)[^'")]+)['"]?\s*\)/gi, (m, url) => {
+        if (url.startsWith('http')) return m;
+        return `url('${cdnUrl}${url}?v=${cacheBust}')`;
+    });
+
+    // Füge base-Tag ein für alle anderen relativen Links
+    if (html.includes('<head>')) {
+        const baseTag = `<base href="${cdnUrl}">`;
+        html = html.replace('<head>', `<head>\n    ${baseTag}`);
+    }
 
     return html;
 }
