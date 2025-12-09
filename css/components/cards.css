@@ -1,0 +1,196 @@
+/* ============================================
+   Card Components
+   Kathrin Coaching Website
+   ============================================ */
+
+/* Base Card Styles */
+.elementor-post,
+.elementor-grid-item,
+article.post,
+.target-group-card {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.elementor-post:hover,
+.elementor-grid-item:hover,
+article.post:hover,
+.target-group-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Card Image */
+.elementor-post__thumbnail,
+.post-thumbnail {
+    overflow: hidden;
+    min-height: 200px;
+    background: var(--color-light-gray);
+    position: relative;
+}
+
+.elementor-post__thumbnail img,
+.post-thumbnail img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+/* Image placeholder */
+.elementor-post__thumbnail:empty::before,
+.post-thumbnail:empty::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, var(--color-light-gray) 0%, var(--color-off-white) 100%);
+}
+
+/* Image hover zoom */
+.elementor-post:hover .elementor-post__thumbnail img,
+article.post:hover .post-thumbnail img {
+    transform: scale(1.05);
+}
+
+/* Card Content */
+.elementor-post__text,
+.entry-content {
+    padding: var(--spacing-md);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Card Title */
+.elementor-post__title,
+.entry-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+}
+
+/* Card Excerpt */
+.elementor-post__excerpt {
+    flex: 1;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-light);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Read More Wrapper - Bottom alignment */
+.elementor-post__read-more,
+.read-more,
+.elementor-post__read-more__wrapper {
+    margin-top: auto !important;
+    padding-top: var(--spacing-sm);
+}
+
+/* Blog Grid Container */
+.elementor-posts-container,
+.elementor-posts,
+.blog-posts-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    align-items: stretch;
+}
+
+.elementor-posts-container .elementor-post,
+.elementor-posts .elementor-post {
+    height: 100%;
+}
+
+/* Compact Card Variant */
+.compact-card {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
+}
+
+.compact-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+/* Testimonial Card */
+.elementor-testimonial,
+.testimonial-card {
+    background: var(--color-white);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+    position: relative;
+}
+
+.elementor-testimonial::before,
+.testimonial-card::before {
+    content: '"';
+    font-family: Georgia, serif;
+    font-size: 6rem;
+    color: var(--color-primary-light);
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    line-height: 1;
+    opacity: 0.5;
+}
+
+.elementor-testimonial-content,
+.testimonial-text {
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 1.8;
+    color: var(--color-dark-gray);
+    margin-bottom: var(--spacing-md);
+}
+
+.elementor-testimonial-name,
+.testimonial-author {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: var(--color-secondary);
+    font-weight: 500;
+}
+
+/* Expandable Content Card */
+.expandable-content {
+    position: relative;
+}
+
+.expandable-content .content-preview {
+    max-height: 200px;
+    overflow: hidden;
+    position: relative;
+    transition: max-height 0.5s ease;
+}
+
+.expandable-content .content-preview::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(transparent, var(--color-white));
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.expandable-content.expanded .content-preview {
+    max-height: 2000px;
+}
+
+.expandable-content.expanded .content-preview::after {
+    opacity: 0;
+}

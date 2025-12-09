@@ -1,0 +1,325 @@
+/* Kontaktformular Styles */
+:root {
+    --primary-color: #5a4a6f;
+    --primary-dark: #442e66;
+    --accent-color: #ffb606;
+    --text-dark: #2c2c2c;
+    --text-light: #666;
+    --border-color: #ddd;
+    --error-color: #d32f2f;
+    --success-color: #388e3c;
+    --background-light: #f9f9f9;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: #fff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--text-light);
+}
+
+/* Grid Layout */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+/* Kontaktinformationen */
+.contact-info {
+    position: sticky;
+    top: 2rem;
+}
+
+.info-card {
+    background: var(--background-light);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.info-card h2 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.info-card > p {
+    color: var(--text-light);
+    margin-bottom: 2rem;
+}
+
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.method {
+    display: flex;
+    gap: 1rem;
+    align-items: start;
+}
+
+.method .icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.method strong {
+    display: block;
+    color: var(--primary-color);
+    margin-bottom: 0.25rem;
+}
+
+.method a {
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.method a:hover {
+    color: var(--accent-color);
+}
+
+/* Formular Styles */
+.contact-form-wrapper {
+    background: #fff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+.required {
+    color: var(--error-color);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(90, 74, 111, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form-group select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+}
+
+/* Checkbox */
+.checkbox-group {
+    margin-top: 0.5rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: start;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-top: 0.15rem;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.checkbox-label span {
+    flex: 1;
+}
+
+.checkbox-label a {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.checkbox-label a:hover {
+    color: var(--accent-color);
+}
+
+/* Error States */
+.form-group.has-error input,
+.form-group.has-error select,
+.form-group.has-error textarea {
+    border-color: var(--error-color);
+}
+
+.error-message {
+    color: var(--error-color);
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    display: none;
+}
+
+.form-group.has-error .error-message {
+    display: block;
+}
+
+/* Submit Button */
+.submit-btn {
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    position: relative;
+}
+
+.submit-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+.submit-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Form Messages */
+.form-message {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    display: none;
+    font-weight: 500;
+}
+
+.form-message.success {
+    display: block;
+    background: #e8f5e9;
+    color: var(--success-color);
+    border: 1px solid var(--success-color);
+}
+
+.form-message.error {
+    display: block;
+    background: #ffebee;
+    color: var(--error-color);
+    border: 1px solid var(--error-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .contact-info {
+        position: static;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .contact-form-wrapper {
+        padding: 1.5rem;
+    }
+
+    .info-card {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem 0.5rem;
+    }
+
+    header h1 {
+        font-size: 1.75rem;
+    }
+
+    .contact-form-wrapper {
+        padding: 1rem;
+    }
+
+    .submit-btn {
+        width: 100%;
+    }
+}

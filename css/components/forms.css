@@ -1,0 +1,108 @@
+/* ============================================
+   Form Elements
+   Kathrin Coaching Website
+   ============================================ */
+
+/* Input Fields */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 16px 20px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-dark-gray);
+    background: var(--color-off-white);
+    border: 2px solid transparent;
+    border-radius: var(--radius-md);
+    transition: var(--transition-fast);
+}
+
+/* Focus State */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: var(--color-white);
+    box-shadow: 0 0 0 4px rgba(210, 171, 116, 0.1);
+}
+
+/* Labels */
+label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-secondary);
+    margin-bottom: var(--spacing-xs);
+}
+
+/* Textarea */
+textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* Select Dropdown */
+select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%232c3e50' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+}
+
+/* Checkbox & Radio */
+input[type="checkbox"],
+input[type="radio"] {
+    width: auto;
+    margin-right: 8px;
+    accent-color: var(--color-primary);
+}
+
+/* Form Groups */
+.form-group,
+.elementor-field-group {
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Error State */
+input.error,
+textarea.error,
+select.error {
+    border-color: #e74c3c;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: var(--spacing-xs);
+}
+
+/* Success State */
+input.success,
+textarea.success,
+select.success {
+    border-color: #27ae60;
+}
+
+/* Placeholder */
+::placeholder {
+    color: var(--color-medium-gray);
+    opacity: 1;
+}
+
+/* Disabled State */
+input:disabled,
+textarea:disabled,
+select:disabled {
+    background: var(--color-light-gray);
+    cursor: not-allowed;
+    opacity: 0.7;
+}

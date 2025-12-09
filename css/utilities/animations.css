@@ -1,0 +1,141 @@
+/* ============================================
+   Animations & Transitions
+   Kathrin Coaching Website
+   ============================================ */
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 4px 20px rgba(210, 171, 116, 0.5);
+    }
+    50% {
+        box-shadow: 0 4px 30px rgba(210, 171, 116, 0.8);
+    }
+}
+
+/* Hero Text Animations */
+.elementor-section-height-full .elementor-heading-title,
+.elementor-section-height-min-height .elementor-heading-title {
+    animation: fadeInUp 1s ease-out;
+}
+
+.elementor-section-height-full .elementor-widget-text-editor,
+.elementor-section-height-min-height .elementor-widget-text-editor {
+    animation: fadeInUp 1s ease-out 0.2s backwards;
+}
+
+.elementor-section-height-full .elementor-button-wrapper,
+.elementor-section-height-min-height .elementor-button-wrapper {
+    animation: fadeInUp 1s ease-out 0.4s backwards;
+}
+
+/* Accordion Animation */
+.elementor-tab-content,
+.faq-answer {
+    animation: fadeInUp 0.3s ease-out;
+}
+
+/* Section Animation - Respects reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+    .elementor-section {
+        animation: fadeIn 0.4s ease-out;
+    }
+}
+
+/* Animation Utility Classes */
+.animate-fadeIn {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.animate-fadeInUp {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.animate-slideInRight {
+    animation: slideInRight 0.5s ease-out;
+}
+
+.animate-slideInLeft {
+    animation: slideInLeft 0.5s ease-out;
+}
+
+/* Hover Transitions */
+.hover-lift {
+    transition: transform var(--transition-normal);
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+}
+
+.hover-scale {
+    transition: transform var(--transition-normal);
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+/* Image Hover */
+.elementor-widget-image img,
+.wp-post-image {
+    border-radius: var(--radius-md);
+    transition: var(--transition-normal);
+}
+
+.elementor-widget-image:hover img {
+    transform: scale(1.02);
+}

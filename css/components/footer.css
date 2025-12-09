@@ -1,0 +1,97 @@
+/* ============================================
+   Footer Styles
+   Kathrin Coaching Website
+   ============================================ */
+
+/* Main Footer */
+.site-footer,
+footer,
+#colophon {
+    background: #2c3e50 !important;
+    color: #ffffff !important;
+    padding: 60px 0 30px !important;
+}
+
+/* Reset all text colors in footer */
+.site-footer *,
+footer *,
+#colophon * {
+    color: #ffffff !important;
+}
+
+/* Footer Links */
+.site-footer a,
+footer a,
+#colophon a {
+    color: var(--color-primary-light) !important;
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.site-footer a:hover,
+footer a:hover,
+#colophon a:hover {
+    color: var(--color-primary) !important;
+}
+
+/* Footer Widgets Grid */
+.footer-widgets,
+.site-footer .widget-area {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+/* Widget Titles */
+.site-footer .widget-title {
+    color: var(--color-primary) !important;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+}
+
+/* Footer Bottom Bar */
+.site-info,
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 30px;
+    text-align: center;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Footer Navigation */
+.footer-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-nav li {
+    margin-bottom: 10px;
+}
+
+/* Social Icons in Footer */
+.footer-social {
+    display: flex;
+    gap: 15px;
+    margin-top: var(--spacing-sm);
+}
+
+.footer-social a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: var(--transition-fast);
+}
+
+.footer-social a:hover {
+    background: var(--color-primary);
+    transform: translateY(-3px);
+}

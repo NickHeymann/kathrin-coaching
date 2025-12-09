@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; connect-src https://api.github.com https://raw.githubusercontent.com https://api.groq.com https://www.googleapis.com; img-src 'self' https: data: blob:; media-src 'self' https: blob:;">
+    <title>Blog Editor - Glück über Zweifel</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+
+    <!-- Modular CSS -->
+    <link rel="stylesheet" href="css/blog-editor-base.css">
+    <link rel="stylesheet" href="css/blog-editor-panels.css">
+    <link rel="stylesheet" href="css/blog-editor-ai.css">
+</head>
+<body>
+
+<!-- Setup Screen -->
+<div class="setup-screen" id="setupScreen">
+    <div class="setup-card">
+        <div style="font-size: 3rem;">✎</div>
+        <h1>Blog Editor</h1>
+        <p>Schreibe und veröffentliche Blog-Posts direkt auf deiner Website.</p>
+        <input class="setup-input" id="tokenInput" placeholder="GitHub Token eingeben..." type="password">
+        <button class="setup-btn" onclick="setupToken()">Editor starten</button>
+        <a class="setup-link" href="cms-editor.html">Zurück zum Website-Editor</a>
+    </div>
+</div>
+
+<!-- Header -->
+<header class="header">
+    <div class="header-left">
+        <div class="logo">
+            <div class="logo-icon">✎</div>
+            Blog Editor
+        </div>
+    </div>
+    <div class="header-center">
+        <div class="autosave-indicator">
+            <div class="autosave-dot"></div>
+            <span id="autosaveText">Autosave aktiv</span>
+        </div>
+        <div class="status-indicator">
+            <div class="status-dot" id="statusDot"></div>
+            <span id="statusText">Bereit</span>
+        </div>
+    </div>
+    <div class="header-right">
+        <button class="ai-header-btn" onclick="toggleAIPanel()">✨ KI-Assistent</button>
+        <button class="btn btn-ghost" onclick="openPreview()">Vorschau</button>
+        <button class="btn btn-ghost" onclick="toggleQueue()">Warteschlange</button>
+        <button class="btn btn-ghost" onclick="saveDraft()">Entwurf speichern</button>
+        <button class="btn btn-success" onclick="publishPost()">Veröffentlichen</button>
+    </div>
+</header>
+
+<!-- Main Container -->
+<main class="main-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>Beiträge</h2>
+        </div>
+        <div class="sidebar-tabs">
+            <button class="sidebar-tab active" onclick="showTab('drafts')">Entwürfe</button>
+            <button class="sidebar-tab" onclick="showTab('published')">Veröffentlicht</button>
+            <button class="sidebar-tab" onclick="showTab('scheduled')">Geplant</button>
+        </div>
+        <button class="new-post-btn" onclick="createNewPost()">
+            <span>+</span> Neuer Beitrag
+        </button>
+        <div class="sidebar-content" id="postList"></div>
+    </aside>
+
+    <!-- Editor -->
+    <div class="editor-container">
+        <!-- Toolbar -->
+        <div class="editor-toolbar">
+            <div class="toolbar-group">
+                <select class="toolbar-select" id="blockType" onchange="formatBlock(this.value)">
+                    <option value="p">Absatz</option>
+                    <option value="h2">Überschrift 2</option>
+                    <option value="h3">Überschrift 3</option>
+                    <option value="h4">Überschrift 4</option>
+                    <option value="blockquote">Zitat</option>
+                </select>
+            </div>
+            <div class="toolbar-group">
+                <button class="toolbar-btn" onclick="execCmd('bold')" title="Fett (Cmd+B)"><strong>B</strong></button>
+                <button class="toolbar-btn" onclick="execCmd('italic')" title="Kursiv (Cmd+I)"><em>I</em></button>
+                <button class="toolbar-btn" onclick="execCmd('underline')" title="Unterstrichen"><u>U</u></button>
+                <button class="toolbar-btn" onclick="execCmd('strikeThrough')" title="Durchgestrichen"><s>S</s></button>
+            </div>
+            <div class="toolbar-group">
+                <button class="toolbar-btn" onclick="execCmd('insertUnorderedList')" title="Aufzählung">•</button>
+                <button class="toolbar-btn" onclick="execCmd('insertOrderedList')" title="Nummerierung">1.</button>
+            </div>
+            <div class="toolbar-group">
+                <button class="toolbar-btn" onclick="insertLink()" title="Link einfügen">🔗</button>
+                <button class="toolbar-btn" onclick="openImageModal()" title="Bild einfügen">📷</button>
+                <button class="toolbar-btn" onclick="insertVideo()" title="Video einfügen">🎥</button>
+            </div>
+            <div class="toolbar-group">
+                <button class="toolbar-btn" onclick="execCmd('justifyLeft')" title="Links">⇤</button>
+                <button class="toolbar-btn" onclick="execCmd('justifyCenter')" title="Zentriert">↔</button>
+                <button class="toolbar-btn" onclick="execCmd('justifyRight')" title="Rechts">⇥</button>
+            </div>
+            <div class="toolbar-group">
+                <button class="toolbar-btn" onclick="execCmd('undo')" title="Rückgängig">↶</button>
+                <button class="toolbar-btn" onclick="execCmd('redo')" title="Wiederholen">↷</button>
+            </div>
+            <div class="toolbar-group">
+                <button class="toolbar-btn" onclick="toggleFullscreen()" title="Vollbild">⛶</button>
+            </div>
+            <div class="toolbar-group">
+                <button class="toolbar-btn ai" onclick="aiImproveText()" title="Text mit KI verbessern">✨</button>
+                <button class="toolbar-btn" onclick="toggleVoiceInput()" title="Spracheingabe" id="voiceToolbarBtn">🎤</button>
+            </div>
+        </div>
+
+        <!-- Editor Content -->
+        <div class="editor-main">
+            <div class="editor-content">
+                <input class="title-input" id="postTitle" oninput="onContentChange()" placeholder="Titel eingeben..." type="text">
+                <textarea class="excerpt-input" id="postExcerpt" oninput="onContentChange()" placeholder="Kurzbeschreibung für SEO und Vorschau..." rows="2"></textarea>
+                <div class="content-editor" contenteditable="true" id="postContent" oninput="onContentChange()">
+                    <p>Beginne hier mit deinem Beitrag...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Panel -->
+    <aside class="settings-panel">
+        <div class="settings-section">
+            <h3>📷 Beitragsbild</h3>
+            <div class="featured-image-upload" id="featuredImageUpload" onclick="uploadFeaturedImage()">
+                <div class="upload-text">
+                    <div class="upload-icon">📷</div>
+                    <div>Bild hochladen oder ziehen</div>
+                </div>
+            </div>
+            <div class="settings-row">
+                <label class="settings-label">Alt-Text (SEO)</label>
+                <input class="settings-input" id="featuredImageAlt" placeholder="Bildbeschreibung für SEO..." type="text">
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <h3>📁 Kategorien</h3>
+            <div class="category-tags" id="categoryTags">
+                <span class="category-tag" data-cat="achtsamkeit">Achtsamkeit</span>
+                <span class="category-tag" data-cat="selbstliebe">Selbstliebe</span>
+                <span class="category-tag" data-cat="beziehung">Beziehung</span>
+                <span class="category-tag" data-cat="heldinnenreise">Heldinnenreise</span>
+                <span class="category-tag" data-cat="hochbegabung">Hochbegabung</span>
+                <span class="category-tag" data-cat="koerper">Körper & Nervensystem</span>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <h3>🔖 SEO</h3>
+            <div class="settings-row">
+                <label class="settings-label">Meta-Titel</label>
+                <input class="settings-input" id="metaTitle" placeholder="SEO Titel (max 60 Zeichen)" type="text">
+                <small><span id="metaTitleCount">0</span>/60 Zeichen</small>
+            </div>
+            <div class="settings-row">
+                <label class="settings-label">Meta-Beschreibung</label>
+                <textarea class="settings-textarea" id="metaDescription" placeholder="SEO Beschreibung (max 160 Zeichen)"></textarea>
+                <small><span id="metaDescCount">0</span>/160 Zeichen</small>
+            </div>
+            <div class="settings-row">
+                <label class="settings-label">URL-Slug</label>
+                <input class="settings-input" id="urlSlug" placeholder="url-freundlicher-name" type="text">
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <h3>📅 Veröffentlichung</h3>
+            <div class="settings-row">
+                <label class="settings-label">Zeitplan</label>
+                <div class="schedule-picker">
+                    <input id="scheduleDate" type="date">
+                    <input id="scheduleTime" type="time" value="09:00">
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="schedulePost()">Planen</button>
+        </div>
+
+        <div class="settings-section">
+            <h3>⚙ Autor</h3>
+            <div class="settings-row">
+                <label class="settings-label">Autor</label>
+                <input class="settings-input" id="authorName" type="text" value="Kathrin Stahl">
+            </div>
+        </div>
+    </aside>
+</main>
+
+<!-- Publishing Queue Panel -->
+<div class="queue-panel" id="queuePanel">
+    <div class="queue-header">
+        <h3>Veröffentlichungs-Warteschlange</h3>
+        <button class="btn btn-ghost" onclick="toggleQueue()">×</button>
+    </div>
+    <div class="queue-content" id="queueContent"></div>
+</div>
+
+<!-- Preview Modal -->
+<div class="preview-modal" id="previewModal">
+    <div class="preview-container">
+        <div class="preview-header">
+            <h3>Vorschau</h3>
+            <div class="preview-device-toggle">
+                <button class="preview-device-btn active" onclick="setPreviewDevice('desktop')">Desktop</button>
+                <button class="preview-device-btn" onclick="setPreviewDevice('tablet')">Tablet</button>
+                <button class="preview-device-btn" onclick="setPreviewDevice('mobile')">Mobil</button>
+            </div>
+            <button class="btn btn-ghost" onclick="closePreview()">× Schließen</button>
+        </div>
+        <div class="preview-content">
+            <div class="preview-frame desktop" id="previewFrame"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Image Upload Modal -->
+<div class="image-modal" id="imageModal">
+    <div class="image-modal-content">
+        <div class="image-modal-header">
+            <h3>Bild einfügen</h3>
+            <button class="btn btn-ghost" onclick="closeImageModal()">×</button>
+        </div>
+        <div class="image-modal-body">
+            <div class="image-drop-zone" id="imageDropZone">
+                <div style="font-size: 2rem;">📷</div>
+                <div>Bild hierher ziehen oder klicken zum Auswählen</div>
+                <input accept="image/*" id="imageFileInput" type="file" style="display: none;">
+            </div>
+            <h4>Oder aus Mediathek wählen:</h4>
+            <div class="image-gallery" id="imageGallery"></div>
+            <div class="settings-row">
+                <label class="settings-label">Alt-Text</label>
+                <input class="settings-input" id="imageAltText" placeholder="Bildbeschreibung..." type="text">
+            </div>
+            <button class="btn btn-primary" onclick="insertSelectedImage()">Bild einfügen</button>
+        </div>
+    </div>
+</div>
+
+<!-- Editor Stats -->
+<div class="editor-stats">
+    <div class="stat-item">
+        <span>📝</span>
+        <span id="wordCount">0</span> Wörter
+    </div>
+    <div class="stat-item">
+        <span>🕑</span>
+        <span id="readingTime">0</span> Min. Lesezeit
+    </div>
+    <div class="stat-item">
+        <span>📄</span>
+        <span id="charCount">0</span> Zeichen
+    </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- AI Assistant Panel -->
+<div class="ai-panel" id="aiPanel">
+    <div class="ai-panel-header">
+        <h3>✨ KI-Assistent</h3>
+        <button class="btn btn-ghost" onclick="toggleAIPanel()" style="padding: 0.25rem 0.5rem;">×</button>
+    </div>
+    <div class="ai-panel-content">
+        <!-- Voice Input -->
+        <div class="ai-section">
+            <h4>🎤 Spracheingabe</h4>
+            <button class="voice-btn" id="voiceBtn" onclick="toggleVoiceInput()">🎤</button>
+            <div class="voice-status" id="voiceStatus">Klicke zum Sprechen</div>
+            <div class="voice-transcript" id="voiceTranscript" style="display: none;"></div>
+            <button class="ai-btn" id="insertVoiceBtn" onclick="insertVoiceText()" style="display: none; margin-top: 0.5rem;">↓ Text einfügen</button>
+        </div>
+
+        <!-- Writing Assistance -->
+        <div class="ai-section">
+            <h4>✍️ Schreibhilfe</h4>
+            <button class="ai-btn" onclick="aiImproveGrammar()" id="btnGrammar">📝 Grammatik & Stil verbessern</button>
+            <button class="ai-btn" onclick="aiChangeTone('warmherzig')" id="btnTone">💝 Warmherziger Ton</button>
+            <button class="ai-btn" onclick="aiShortenText()" id="btnShorten">✂️ Text kürzen</button>
+            <button class="ai-btn" onclick="aiExpandText()" id="btnExpand">📖 Text erweitern</button>
+            <div class="ai-result" id="aiWritingResult" style="display: none;"></div>
+            <button class="ai-btn ai-btn-primary" id="applyAIBtn" onclick="applyAISuggestion()" style="display: none;">✓ Änderung übernehmen</button>
+        </div>
+
+        <!-- Auto-Categorization -->
+        <div class="ai-section">
+            <h4>🏷️ Automatische Kategorisierung</h4>
+            <button class="ai-btn ai-btn-primary" onclick="aiCategorize()" id="btnCategorize">🔮 Kategorien vorschlagen</button>
+            <div class="ai-categories" id="aiCategories"></div>
+        </div>
+
+        <!-- Content Generation -->
+        <div class="ai-section">
+            <h4>📝 Inhalt generieren</h4>
+            <button class="ai-btn" onclick="aiGenerateSummary()" id="btnSummary">📋 Zusammenfassung erstellen</button>
+            <button class="ai-btn" onclick="aiGenerateTitle()" id="btnTitle">💡 Titel vorschlagen</button>
+            <button class="ai-btn" onclick="aiGenerateMetaDescription()" id="btnMeta">🔍 Meta-Beschreibung (SEO)</button>
+            <button class="ai-btn" onclick="aiGenerateOutline()" id="btnOutline">📑 Gliederung erstellen</button>
+            <div class="ai-result" id="aiContentResult" style="display: none;"></div>
+        </div>
+
+        <!-- YouTube Topic Ideas -->
+        <div class="ai-section">
+            <h4>🎬 Themenvorschläge aus Videos</h4>
+            <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.75rem;">Basierend auf Kathrins neuesten YouTube-Videos</p>
+            <button class="ai-btn" onclick="loadYouTubeIdeas()" id="btnYouTube">🔄 Ideen laden</button>
+            <div id="youtubeIdeas"></div>
+        </div>
+
+        <!-- Smart Formatting -->
+        <div class="ai-section">
+            <h4>🎨 Smart-Formatierung</h4>
+            <button class="ai-btn" onclick="insertHighlightBox()" id="btnHighlight">💡 Highlight-Box einfügen</button>
+            <button class="ai-btn" onclick="insertCallout()" id="btnCallout">📌 Callout einfügen</button>
+            <button class="ai-btn" onclick="insertBlockquote()" id="btnQuote">❝ Inspirierendes Zitat</button>
+            <button class="ai-btn" onclick="aiFormatForReadability()" id="btnReadability">📖 Lesbarkeit verbessern</button>
+        </div>
+    </div>
+</div>
+
+<!-- AI Setup Modal -->
+<div class="ai-setup-modal" id="aiSetupModal">
+    <div class="ai-setup-card">
+        <h2>✨ KI-Assistent einrichten</h2>
+        <p>
+            Um den KI-Assistenten zu nutzen, benötigst du einen kostenlosen Groq API-Key.<br><br>
+            <a href="https://console.groq.com/keys" target="_blank">→ Groq API Key erstellen (kostenlos)</a>
+        </p>
+        <input class="setup-input" id="groqKeyInput" placeholder="gsk_xxxxxxxxxxxxx" type="password">
+        <button class="setup-btn" onclick="saveGroqKey()" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">KI aktivieren</button>
+        <button class="btn btn-ghost" onclick="closeAISetup()" style="width: 100%; margin-top: 0.5rem; color: var(--text-light);">Später einrichten</button>
+    </div>
+</div>
+
+<!-- DOMPurify für sichere HTML-Sanitization -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js" crossorigin="anonymous"></script>
+
+<!-- Modular JavaScript (Reihenfolge wichtig!) -->
+<script src="js/blog-editor-config.js"></script>
+<script src="js/blog-editor-utils.js"></script>
+<script src="js/blog-editor-github.js"></script>
+<script src="js/blog-editor-core.js"></script>
+<script src="js/blog-editor-ai.js"></script>
+
+<!-- Init -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        checkSetup();
+        initAI();
+    });
+</script>
+
+</body>
+</html>

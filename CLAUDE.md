@@ -14,6 +14,10 @@
 | Farben/Fonts | `css/core/variables.css` | `--color-`, `--font-` |
 | Buttons/CTAs | `css/components/buttons.css` | `.btn-`, `.cta-` |
 | Cards | `css/components/cards.css` | `.card-`, `.service-card` |
+| **Blog-Editor UI** | `css/blog-editor-*.css` | `.ai-panel`, `.editor-toolbar` |
+| **Blog-Editor Logic** | `js/blog-editor-core.js` | `publishPost`, `saveDraft` |
+| **Blog-Editor AI** | `js/blog-editor-ai.js` | `groqAPI`, `aiCategorize` |
+| **Blog-Editor Config** | `js/blog-editor-config.js` | `CONFIG`, `state`, `BLOG_CATEGORIES` |
 
 ## Projektstruktur
 
@@ -21,6 +25,9 @@
 kathrin-coaching/
 ├── index.html                    # Hauptseite (hat eigenes inline CSS)
 ├── blog.html                     # Blog-Übersicht
+├── blog-editor-modular.html      # Blog-Editor (LLM-optimiert, modular)
+├── blog-editor.html              # Blog-Editor (Legacy, ~3500 Zeilen)
+├── cms-editor.html               # CMS-Editor
 ├── *.html                        # Weitere Seiten
 │
 ├── css/
@@ -44,8 +51,15 @@ kathrin-coaching/
 │   │   ├── quiz.css              # Quiz-Seiten
 │   │   └── kontakt.css           # Kontakt
 │   │
-│   └── utilities/                # Helper-Klassen
-│       └── helpers.css           # .hidden, .text-center, etc.
+│   ├── blog-editor-base.css      # Blog-Editor: Layout, Buttons, Forms (~350 Z.)
+│   ├── blog-editor-panels.css    # Blog-Editor: Modals, Queue, Toast (~200 Z.)
+│   ├── blog-editor-ai.css        # Blog-Editor: AI Panel, Voice (~180 Z.)
+│   │
+│   ├── utilities/                # Helper-Klassen
+│   │   ├── helpers.css           # .hidden, .text-center, etc.
+│   │   └── animations.css        # Keyframes, transitions
+│   │
+│   └── main.css                  # Import-Datei für alle Module
 │
 ├── js/
 │   ├── core/                     # Basis-Funktionen
@@ -57,10 +71,16 @@ kathrin-coaching/
 │   │   ├── carousel.js           # Slider/Carousel
 │   │   └── modal.js              # Modal-Handler
 │   │
-│   └── pages/                    # Seiten-spezifisch
-│       ├── blog.js               # Related Posts, Blog-Logik
-│       ├── videos.js             # Video-Galerie
-│       └── quiz.js               # Quiz-Logik
+│   ├── pages/                    # Seiten-spezifisch
+│   │   ├── blog.js               # Related Posts, Blog-Logik
+│   │   ├── videos.js             # Video-Galerie
+│   │   └── quiz.js               # Quiz-Logik
+│   │
+│   ├── blog-editor-config.js     # Blog-Editor: Config & State (~55 Z.)
+│   ├── blog-editor-utils.js      # Blog-Editor: escapeHtml, sanitize, slug (~100 Z.)
+│   ├── blog-editor-github.js     # Blog-Editor: GitHub API (~120 Z.)
+│   ├── blog-editor-core.js       # Blog-Editor: Drafts, Publish, Toolbar (~450 Z.)
+│   └── blog-editor-ai.js         # Blog-Editor: Groq API, Voice, AI (~350 Z.)
 │
 ├── data/
 │   ├── blog-intelligence.json    # LLM-Analysen der Blog-Artikel
@@ -77,16 +97,40 @@ kathrin-coaching/
     └── update-videos.yml         # Video-Updates
 ```
 
-## CSS Module (Zielstruktur)
+## CSS Module (Modular Structure - DONE)
 
-### Aktueller Stand → Migration nötig
+### Modulare CSS Dateien (Stand: Dezember 2024)
 ```
-AKTUELL (zu große Dateien):          ZIEL (modularisiert):
-modern-design.css (1500 Zeilen)  →   css/core/* + css/components/*
-css/blog-enhancements.css (1700)  →   css/pages/blog.css
-css/videos.css (800)              →   css/pages/videos.css (OK)
-css/kontakt.css (325)             →   css/pages/kontakt.css (OK)
+css/
+├── main.css                 # Import-Datei (42 Zeilen)
+│
+├── core/                    # Basis-Styles
+│   ├── variables.css        # CSS Custom Properties (51 Z.) ✅
+│   ├── reset.css            # Minimal Reset (44 Z.) ✅
+│   ├── typography.css       # Schriften (80 Z.) ✅
+│   └── layout.css           # Container, Grid (163 Z.) ✅
+│
+├── components/              # UI-Elemente
+│   ├── header.css           # Header & Nav (402 Z.) ✅
+│   ├── footer.css           # Footer (97 Z.) ✅
+│   ├── buttons.css          # Buttons, CTAs (177 Z.) ✅
+│   ├── cards.css            # Card Components (196 Z.) ✅
+│   └── forms.css            # Formulare (108 Z.) ✅
+│
+├── utilities/               # Helper-Klassen
+│   ├── helpers.css          # Utility Classes (121 Z.) ✅
+│   └── animations.css       # Keyframes (141 Z.) ✅
+│
+└── pages/                   # Seiten-spezifisch
+    ├── blog.css             # Blog-Artikel (1738 Z.) - well-organized
+    ├── videos.css           # Video-Galerie (806 Z.)
+    ├── quiz.css             # Quiz-Seiten (1189 Z.)
+    └── kontakt.css          # Kontakt (325 Z.) ✅
 ```
+
+### Legacy Dateien (können später entfernt werden)
+- `modern-design.css` - Ursprungsdatei, Module extrahiert
+- `css/blog-enhancements.css` - Kopiert nach css/pages/blog.css
 
 ### CSS Custom Properties (variables.css)
 ```css

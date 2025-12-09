@@ -1,0 +1,42 @@
+/* ============================================
+   MAIN CSS - Imports all modules
+   Kathrin Coaching Website
+
+   Usage: Link this single file in HTML
+   <link rel="stylesheet" href="css/main.css">
+   ============================================ */
+
+/* Core - Load first (order matters!) */
+@import url('core/variables.css');
+@import url('core/reset.css');
+@import url('core/typography.css');
+@import url('core/layout.css');
+
+/* Components - Reusable UI elements */
+@import url('components/header.css');
+@import url('components/footer.css');
+@import url('components/buttons.css');
+@import url('components/cards.css');
+@import url('components/forms.css');
+
+/* Utilities - Helper classes & animations */
+@import url('utilities/helpers.css');
+@import url('utilities/animations.css');
+
+/* ============================================
+   Page-specific CSS - Import as needed
+   ============================================
+
+   For Blog pages:
+   @import url('pages/blog.css');
+
+   For Video pages:
+   @import url('pages/videos.css');
+
+   For Quiz pages:
+   @import url('pages/quiz.css');
+
+   For Kontakt page:
+   @import url('pages/kontakt.css');
+
+   ============================================ */
