@@ -1,0 +1,222 @@
+/* blog-editor-ai.css
+ * AI Assistant Panel Styles: Groq Integration, Voice, Smart-Formatting
+ * Zeilen: ~180 | Verantwortung: AI Features UI
+ */
+
+/* === AI HEADER BUTTON === */
+.ai-header-btn {
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.15s;
+}
+.ai-header-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(102,126,234,0.3); }
+
+/* === AI ASSISTANT PANEL === */
+.ai-panel {
+    position: fixed;
+    right: -420px;
+    top: 60px;
+    width: 420px;
+    height: calc(100vh - 60px);
+    background: white;
+    box-shadow: -5px 0 30px rgba(0,0,0,0.15);
+    z-index: 1001;
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+.ai-panel.open { right: 0; }
+
+.ai-panel-header {
+    padding: 1rem 1.25rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.ai-panel-header h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.ai-panel-content { flex: 1; overflow-y: auto; padding: 1rem; }
+
+.ai-section {
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+.ai-section h4 {
+    font-size: 0.9rem;
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* === AI BUTTONS === */
+.ai-btn {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+.ai-btn:hover { border-color: var(--primary); background: #f8f8f8; }
+.ai-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.ai-btn.loading {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.ai-btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+}
+.ai-btn-primary:hover { background: linear-gradient(135deg, #5a6fd6 0%, #6a4190 100%); }
+
+/* === AI RESULTS === */
+.ai-result {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    max-height: 300px;
+    overflow-y: auto;
+}
+.ai-result.suggestion { border-left: 3px solid #667eea; }
+
+.ai-suggestion-item {
+    padding: 0.75rem;
+    background: var(--bg);
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.ai-suggestion-item:hover { background: #e8e8e8; }
+
+/* === AI CATEGORIES === */
+.ai-categories { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.ai-category-tag {
+    padding: 0.4rem 0.8rem;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+.ai-category-tag.suggested {
+    border-color: #667eea;
+    background: #f0f2ff;
+    color: #667eea;
+}
+
+/* === VOICE INPUT === */
+.voice-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    transition: all 0.2s;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+.voice-btn:hover { transform: scale(1.05); }
+.voice-btn.recording {
+    background: linear-gradient(135deg, #f44336 0%, #e91e63 100%);
+    animation: voicePulse 1s infinite;
+}
+
+@keyframes voicePulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.4); }
+    50% { box-shadow: 0 0 0 20px rgba(244, 67, 54, 0); }
+}
+
+.voice-status { text-align: center; margin-top: 0.75rem; font-size: 0.85rem; color: var(--text-light); }
+.voice-transcript {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1rem;
+    min-height: 80px;
+    font-size: 0.9rem;
+    color: var(--text);
+}
+
+/* === YOUTUBE IDEAS === */
+.youtube-idea {
+    padding: 1rem;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+.youtube-idea:hover { border-color: var(--primary); background: #fafafa; }
+.youtube-idea-title { font-weight: 600; color: var(--text); margin-bottom: 0.25rem; }
+.youtube-idea-desc { font-size: 0.85rem; color: var(--text-light); }
+
+/* === AI SETUP MODAL === */
+.ai-setup-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 3500;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+.ai-setup-modal.open { display: flex; }
+
+.ai-setup-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+}
+.ai-setup-card h2 { color: var(--primary); margin-bottom: 1rem; }
+.ai-setup-card p { color: var(--text-light); margin-bottom: 1.5rem; line-height: 1.6; }
+.ai-setup-card a { color: #667eea; }

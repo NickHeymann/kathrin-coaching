@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com" rel="preconnect"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="default-src 'self'; script-src 'self' 'nonce-blog-editor-2024' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; connect-src https://api.github.com https://raw.githubusercontent.com; img-src 'self' https: data: blob:; media-src 'self' https: blob:;" http-equiv="Content-Security-Policy"/>
+<meta content="default-src 'self'; script-src 'self' 'nonce-blog-editor-2024' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; connect-src https://api.github.com https://raw.githubusercontent.com https://api.groq.com https://www.googleapis.com; img-src 'self' https: data: blob:; media-src 'self' https: blob:;" http-equiv="Content-Security-Policy"/>
 <title>Blog Editor - Glück über Zweifel</title>
 <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -882,6 +882,310 @@
             background: var(--success);
             animation: pulse 2s infinite;
         }
+
+        /* ============================================
+           AI ASSISTANT PANEL
+           ============================================ */
+        .ai-panel {
+            position: fixed;
+            right: -420px;
+            top: 60px;
+            width: 420px;
+            height: calc(100vh - 60px);
+            background: white;
+            box-shadow: -5px 0 30px rgba(0,0,0,0.15);
+            z-index: 1001;
+            transition: right 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .ai-panel.open { right: 0; }
+
+        .ai-panel-header {
+            padding: 1rem 1.25rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .ai-panel-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .ai-panel-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .ai-section {
+            background: var(--bg);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .ai-section h4 {
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ai-btn {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            text-align: left;
+        }
+        .ai-btn:hover { border-color: var(--primary); background: #f8f8f8; }
+        .ai-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .ai-btn.loading {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .ai-btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+        }
+        .ai-btn-primary:hover {
+            background: linear-gradient(135deg, #5a6fd6 0%, #6a4190 100%);
+        }
+
+        .ai-result {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 0.75rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .ai-result.suggestion {
+            border-left: 3px solid #667eea;
+        }
+
+        .ai-suggestion-item {
+            padding: 0.75rem;
+            background: var(--bg);
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .ai-suggestion-item:hover { background: #e8e8e8; }
+
+        .ai-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .ai-category-tag {
+            padding: 0.4rem 0.8rem;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+        .ai-category-tag.suggested {
+            border-color: #667eea;
+            background: #f0f2ff;
+            color: #667eea;
+        }
+
+        /* Voice Input */
+        .voice-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .voice-btn:hover { transform: scale(1.05); }
+        .voice-btn.recording {
+            background: linear-gradient(135deg, #f44336 0%, #e91e63 100%);
+            animation: voicePulse 1s infinite;
+        }
+
+        @keyframes voicePulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.4); }
+            50% { box-shadow: 0 0 0 20px rgba(244, 67, 54, 0); }
+        }
+
+        .voice-status {
+            text-align: center;
+            margin-top: 0.75rem;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .voice-transcript {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            min-height: 80px;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        /* YouTube Ideas */
+        .youtube-idea {
+            padding: 1rem;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .youtube-idea:hover { border-color: #ff0000; }
+
+        .youtube-idea-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .youtube-idea-desc {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* AI Setup Modal */
+        .ai-setup-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 3001;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .ai-setup-modal.open { display: flex; }
+
+        .ai-setup-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .ai-setup-card h2 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .ai-setup-card p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .ai-setup-card a {
+            color: #667eea;
+        }
+
+        /* Smart Formatting Toolbar */
+        .smart-format-bar {
+            position: absolute;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            padding: 0.5rem;
+            display: none;
+            gap: 0.25rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+        .smart-format-bar.visible { display: flex; }
+
+        .smart-format-btn {
+            width: 32px;
+            height: 32px;
+            background: transparent;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+        .smart-format-btn:hover { background: rgba(255,255,255,0.2); }
+
+        /* AI Header Button */
+        .ai-header-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.15s;
+        }
+        .ai-header-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(102,126,234,0.3); }
+
+        /* Toolbar AI Button */
+        .toolbar-btn.ai {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .toolbar-btn.ai:hover {
+            background: linear-gradient(135deg, #5a6fd6 0%, #6a4190 100%);
+        }
     </style>
 </head>
 <body>
@@ -915,6 +1219,7 @@
 </div>
 </div>
 <div class="header-right">
+<button class="ai-header-btn" onclick="toggleAIPanel()">✨ KI-Assistent</button>
 <button class="btn btn-ghost" onclick="openPreview()">Vorschau</button>
 <button class="btn btn-ghost" onclick="toggleQueue()">Warteschlange</button>
 <button class="btn btn-ghost" onclick="saveDraft()">Entwurf speichern</button>
@@ -977,6 +1282,10 @@
 </div>
 <div class="toolbar-group">
 <button class="toolbar-btn" onclick="toggleFullscreen()" title="Vollbild">⛶</button>
+</div>
+<div class="toolbar-group">
+<button class="toolbar-btn ai" onclick="aiImproveText()" title="Text mit KI verbessern">✨</button>
+<button class="toolbar-btn" onclick="toggleVoiceInput()" title="Spracheingabe" id="voiceToolbarBtn">🎤</button>
 </div>
 </div>
 <!-- Editor Content -->
@@ -1121,6 +1430,121 @@
 </div>
 <!-- Toast Container -->
 <div class="toast-container" id="toastContainer"></div>
+
+<!-- AI Assistant Panel -->
+<div class="ai-panel" id="aiPanel">
+    <div class="ai-panel-header">
+        <h3>✨ KI-Assistent</h3>
+        <button class="btn btn-ghost" onclick="toggleAIPanel()" style="padding: 0.25rem 0.5rem;">×</button>
+    </div>
+    <div class="ai-panel-content">
+        <!-- Voice Input Section -->
+        <div class="ai-section">
+            <h4>🎤 Spracheingabe</h4>
+            <button class="voice-btn" id="voiceBtn" onclick="toggleVoiceInput()">🎤</button>
+            <div class="voice-status" id="voiceStatus">Klicke zum Sprechen</div>
+            <div class="voice-transcript" id="voiceTranscript" style="display: none;"></div>
+            <button class="ai-btn" id="insertVoiceBtn" onclick="insertVoiceText()" style="display: none; margin-top: 0.5rem;">
+                ↓ Text einfügen
+            </button>
+        </div>
+
+        <!-- AI Writing Assistance -->
+        <div class="ai-section">
+            <h4>✍️ Schreibhilfe</h4>
+            <button class="ai-btn" onclick="aiImproveGrammar()" id="btnGrammar">
+                📝 Grammatik & Stil verbessern
+            </button>
+            <button class="ai-btn" onclick="aiChangeTone('warmherzig')" id="btnTone">
+                💝 Warmherziger Ton
+            </button>
+            <button class="ai-btn" onclick="aiShortenText()" id="btnShorten">
+                ✂️ Text kürzen
+            </button>
+            <button class="ai-btn" onclick="aiExpandText()" id="btnExpand">
+                📖 Text erweitern
+            </button>
+            <div class="ai-result" id="aiWritingResult" style="display: none;"></div>
+            <button class="ai-btn ai-btn-primary" id="applyAIBtn" onclick="applyAISuggestion()" style="display: none;">
+                ✓ Änderung übernehmen
+            </button>
+        </div>
+
+        <!-- Auto-Categorization -->
+        <div class="ai-section">
+            <h4>🏷️ Automatische Kategorisierung</h4>
+            <button class="ai-btn ai-btn-primary" onclick="aiCategorize()" id="btnCategorize">
+                🔮 Kategorien vorschlagen
+            </button>
+            <div class="ai-categories" id="aiCategories"></div>
+        </div>
+
+        <!-- Content Generation -->
+        <div class="ai-section">
+            <h4>📝 Inhalt generieren</h4>
+            <button class="ai-btn" onclick="aiGenerateSummary()" id="btnSummary">
+                📋 Zusammenfassung erstellen
+            </button>
+            <button class="ai-btn" onclick="aiGenerateTitle()" id="btnTitle">
+                💡 Titel vorschlagen
+            </button>
+            <button class="ai-btn" onclick="aiGenerateMetaDescription()" id="btnMeta">
+                🔍 Meta-Beschreibung (SEO)
+            </button>
+            <button class="ai-btn" onclick="aiGenerateOutline()" id="btnOutline">
+                📑 Gliederung erstellen
+            </button>
+            <div class="ai-result" id="aiContentResult" style="display: none;"></div>
+        </div>
+
+        <!-- YouTube Topic Ideas -->
+        <div class="ai-section">
+            <h4>🎬 Themenvorschläge aus Videos</h4>
+            <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.75rem;">
+                Basierend auf Kathrins neuesten YouTube-Videos
+            </p>
+            <button class="ai-btn" onclick="loadYouTubeIdeas()" id="btnYouTube">
+                🔄 Ideen laden
+            </button>
+            <div id="youtubeIdeas"></div>
+        </div>
+
+        <!-- Smart Formatting -->
+        <div class="ai-section">
+            <h4>🎨 Smart-Formatierung</h4>
+            <button class="ai-btn" onclick="insertHighlightBox()" id="btnHighlight">
+                💡 Highlight-Box einfügen
+            </button>
+            <button class="ai-btn" onclick="insertCallout()" id="btnCallout">
+                📌 Callout einfügen
+            </button>
+            <button class="ai-btn" onclick="insertBlockquote()" id="btnQuote">
+                ❝ Inspirierendes Zitat
+            </button>
+            <button class="ai-btn" onclick="aiFormatForReadability()" id="btnReadability">
+                📖 Lesbarkeit verbessern
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- AI Setup Modal -->
+<div class="ai-setup-modal" id="aiSetupModal">
+    <div class="ai-setup-card">
+        <h2>✨ KI-Assistent einrichten</h2>
+        <p>
+            Um den KI-Assistenten zu nutzen, benötigst du einen kostenlosen Groq API-Key.<br><br>
+            <a href="https://console.groq.com/keys" target="_blank">→ Groq API Key erstellen (kostenlos)</a>
+        </p>
+        <input class="setup-input" id="groqKeyInput" placeholder="gsk_xxxxxxxxxxxxx" type="password"/>
+        <button class="setup-btn" onclick="saveGroqKey()" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            KI aktivieren
+        </button>
+        <button class="btn btn-ghost" onclick="closeAISetup()" style="width: 100%; margin-top: 0.5rem; color: var(--text-light);">
+            Später einrichten
+        </button>
+    </div>
+</div>
 <!-- DOMPurify für sichere HTML-Sanitization -->
 <script crossorigin="anonymous" integrity="sha384-3XJAN3rswrHdGqLHC3V5s0ERRmJrqtOvC/1qVz8gg4RZMlWBNB9VCRa9Z6H/TqRt" nonce="blog-editor-2024" src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js"></script>
 <script nonce="blog-editor-2024">
@@ -2297,9 +2721,780 @@
         }
 
         // ============================================
+        // AI ASSISTANT - GROQ API INTEGRATION
+        // ============================================
+
+        // AI State
+        let aiState = {
+            groqKey: null,
+            isRecording: false,
+            recognition: null,
+            currentTranscript: '',
+            lastAISuggestion: '',
+            youtubeVideos: []
+        };
+
+        // Groq API Wrapper
+        const groqAPI = {
+            async call(systemPrompt, userContent, model = 'llama-3.1-8b-instant') {
+                if (!aiState.groqKey) {
+                    openAISetup();
+                    throw new Error('Groq API Key nicht konfiguriert');
+                }
+
+                try {
+                    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${aiState.groqKey}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            model: model,
+                            messages: [
+                                { role: 'system', content: systemPrompt },
+                                { role: 'user', content: userContent }
+                            ],
+                            temperature: 0.7,
+                            max_tokens: 2048
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const err = await response.json();
+                        throw new Error(err.error?.message || 'API Fehler');
+                    }
+
+                    const data = await response.json();
+                    return data.choices[0].message.content;
+                } catch (e) {
+                    console.error('Groq API Error:', e);
+                    throw e;
+                }
+            }
+        };
+
+        // AI Panel Toggle
+        function toggleAIPanel() {
+            const panel = document.getElementById('aiPanel');
+            panel.classList.toggle('open');
+
+            // Check if Groq Key exists
+            if (!aiState.groqKey && panel.classList.contains('open')) {
+                const savedKey = localStorage.getItem('groq_api_key');
+                if (savedKey) {
+                    aiState.groqKey = savedKey;
+                }
+            }
+        }
+
+        // AI Setup Modal
+        function openAISetup() {
+            document.getElementById('aiSetupModal').classList.add('open');
+        }
+
+        function closeAISetup() {
+            document.getElementById('aiSetupModal').classList.remove('open');
+        }
+
+        function saveGroqKey() {
+            const key = document.getElementById('groqKeyInput').value.trim();
+            if (!key || !key.startsWith('gsk_')) {
+                toast('Bitte einen gültigen Groq API Key eingeben (beginnt mit gsk_)', 'error');
+                return;
+            }
+
+            aiState.groqKey = key;
+            localStorage.setItem('groq_api_key', key);
+            closeAISetup();
+            toast('KI-Assistent aktiviert!', 'success');
+        }
+
+        // Load Groq Key on init
+        function initAI() {
+            const savedKey = localStorage.getItem('groq_api_key');
+            if (savedKey) {
+                aiState.groqKey = savedKey;
+            }
+            initVoiceRecognition();
+        }
+
+        // ============================================
+        // VOICE INPUT (Web Speech API)
+        // ============================================
+
+        function initVoiceRecognition() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                aiState.recognition = new SpeechRecognition();
+                aiState.recognition.continuous = true;
+                aiState.recognition.interimResults = true;
+                aiState.recognition.lang = 'de-DE';
+
+                aiState.recognition.onresult = (event) => {
+                    let interimTranscript = '';
+                    let finalTranscript = '';
+
+                    for (let i = event.resultIndex; i < event.results.length; i++) {
+                        const transcript = event.results[i][0].transcript;
+                        if (event.results[i].isFinal) {
+                            finalTranscript += transcript + ' ';
+                        } else {
+                            interimTranscript += transcript;
+                        }
+                    }
+
+                    aiState.currentTranscript += finalTranscript;
+
+                    const transcriptEl = document.getElementById('voiceTranscript');
+                    transcriptEl.innerHTML = aiState.currentTranscript +
+                        (interimTranscript ? `<span style="color: #999;">${interimTranscript}</span>` : '');
+                    transcriptEl.style.display = 'block';
+                    document.getElementById('insertVoiceBtn').style.display = 'block';
+                };
+
+                aiState.recognition.onerror = (event) => {
+                    console.error('Speech recognition error:', event.error);
+                    stopVoiceInput();
+                    toast('Spracherkennung fehlgeschlagen: ' + event.error, 'error');
+                };
+
+                aiState.recognition.onend = () => {
+                    if (aiState.isRecording) {
+                        // Restart if still recording (browser auto-stops after silence)
+                        aiState.recognition.start();
+                    }
+                };
+            }
+        }
+
+        function toggleVoiceInput() {
+            if (!aiState.recognition) {
+                toast('Spracherkennung wird von diesem Browser nicht unterstützt', 'error');
+                return;
+            }
+
+            if (aiState.isRecording) {
+                stopVoiceInput();
+            } else {
+                startVoiceInput();
+            }
+        }
+
+        function startVoiceInput() {
+            aiState.isRecording = true;
+            aiState.currentTranscript = '';
+            aiState.recognition.start();
+
+            document.getElementById('voiceBtn').classList.add('recording');
+            document.getElementById('voiceToolbarBtn')?.classList.add('active');
+            document.getElementById('voiceStatus').textContent = '🔴 Aufnahme läuft... Klicke zum Stoppen';
+            document.getElementById('voiceTranscript').innerHTML = '';
+            document.getElementById('voiceTranscript').style.display = 'block';
+        }
+
+        function stopVoiceInput() {
+            aiState.isRecording = false;
+            aiState.recognition?.stop();
+
+            document.getElementById('voiceBtn').classList.remove('recording');
+            document.getElementById('voiceToolbarBtn')?.classList.remove('active');
+            document.getElementById('voiceStatus').textContent = 'Klicke zum Sprechen';
+        }
+
+        function insertVoiceText() {
+            if (aiState.currentTranscript.trim()) {
+                const editor = document.getElementById('postContent');
+
+                // Insert at cursor position or append
+                const selection = window.getSelection();
+                if (selection.rangeCount > 0 && editor.contains(selection.anchorNode)) {
+                    document.execCommand('insertText', false, aiState.currentTranscript);
+                } else {
+                    editor.innerHTML += `<p>${escapeHtml(aiState.currentTranscript)}</p>`;
+                }
+
+                aiState.currentTranscript = '';
+                document.getElementById('voiceTranscript').innerHTML = '';
+                document.getElementById('voiceTranscript').style.display = 'none';
+                document.getElementById('insertVoiceBtn').style.display = 'none';
+
+                onContentChange();
+                toast('Text eingefügt!', 'success');
+            }
+        }
+
+        // ============================================
+        // AI WRITING ASSISTANCE
+        // ============================================
+
+        function getSelectedOrAllText() {
+            const selection = window.getSelection();
+            const editor = document.getElementById('postContent');
+
+            if (selection.toString().trim().length > 10) {
+                return { text: selection.toString(), isSelection: true };
+            }
+
+            return { text: editor.innerText, isSelection: false };
+        }
+
+        function setButtonLoading(btnId, loading) {
+            const btn = document.getElementById(btnId);
+            if (btn) {
+                btn.disabled = loading;
+                btn.classList.toggle('loading', loading);
+            }
+        }
+
+        async function aiImproveGrammar() {
+            const { text, isSelection } = getSelectedOrAllText();
+            if (text.length < 20) {
+                toast('Bitte mehr Text schreiben oder auswählen', 'warning');
+                return;
+            }
+
+            setButtonLoading('btnGrammar', true);
+
+            try {
+                const result = await groqAPI.call(
+                    `Du bist ein einfühlsamer deutscher Lektor für Coaching-Texte.
+                    Verbessere Grammatik, Rechtschreibung und Stil, aber behalte die warmherzige,
+                    persönliche Stimme der Autorin bei.
+                    Gib NUR den verbesserten Text zurück, keine Erklärungen.`,
+                    text
+                );
+
+                aiState.lastAISuggestion = result;
+                showAIResult('aiWritingResult', result, isSelection);
+            } catch (e) {
+                toast('Fehler: ' + e.message, 'error');
+            } finally {
+                setButtonLoading('btnGrammar', false);
+            }
+        }
+
+        async function aiChangeTone(tone) {
+            const { text, isSelection } = getSelectedOrAllText();
+            if (text.length < 20) {
+                toast('Bitte mehr Text schreiben oder auswählen', 'warning');
+                return;
+            }
+
+            setButtonLoading('btnTone', true);
+
+            try {
+                const result = await groqAPI.call(
+                    `Du bist eine erfahrene Coaching-Texterin.
+                    Schreibe den folgenden Text in einem ${tone}en, einladenden Ton um.
+                    Der Text soll sich anfühlen wie eine persönliche Nachricht von einer Freundin.
+                    Behalte die Kernaussage bei, aber mache den Ton wärmer und nahbarer.
+                    Gib NUR den umgeschriebenen Text zurück.`,
+                    text
+                );
+
+                aiState.lastAISuggestion = result;
+                showAIResult('aiWritingResult', result, isSelection);
+            } catch (e) {
+                toast('Fehler: ' + e.message, 'error');
+            } finally {
+                setButtonLoading('btnTone', false);
+            }
+        }
+
+        async function aiShortenText() {
+            const { text, isSelection } = getSelectedOrAllText();
+            if (text.length < 50) {
+                toast('Text ist bereits kurz genug', 'warning');
+                return;
+            }
+
+            setButtonLoading('btnShorten', true);
+
+            try {
+                const result = await groqAPI.call(
+                    `Du bist eine präzise Texterin. Kürze den folgenden Text auf etwa die Hälfte.
+                    Behalte die wichtigsten Aussagen und die emotionale Tiefe bei.
+                    Entferne nur Wiederholungen und unnötige Füllwörter.
+                    Gib NUR den gekürzten Text zurück.`,
+                    text
+                );
+
+                aiState.lastAISuggestion = result;
+                showAIResult('aiWritingResult', result, isSelection);
+            } catch (e) {
+                toast('Fehler: ' + e.message, 'error');
+            } finally {
+                setButtonLoading('btnShorten', false);
+            }
+        }
+
+        async function aiExpandText() {
+            const { text, isSelection } = getSelectedOrAllText();
+            if (text.length < 10) {
+                toast('Bitte etwas Text schreiben zum Erweitern', 'warning');
+                return;
+            }
+
+            setButtonLoading('btnExpand', true);
+
+            try {
+                const result = await groqAPI.call(
+                    `Du bist eine einfühlsame Coaching-Autorin wie Kathrin Stahl.
+                    Erweitere den folgenden Text mit mehr emotionaler Tiefe und konkreten Beispielen.
+                    Füge reflektierende Fragen hinzu, die den Leser zum Nachdenken anregen.
+                    Der Ton soll warmherzig und einladend sein.
+                    Gib NUR den erweiterten Text zurück.`,
+                    text
+                );
+
+                aiState.lastAISuggestion = result;
+                showAIResult('aiWritingResult', result, isSelection);
+            } catch (e) {
+                toast('Fehler: ' + e.message, 'error');
+            } finally {
+                setButtonLoading('btnExpand', false);
+            }
+        }
+
+        async function aiImproveText() {
+            // Quick improve from toolbar - improves selected text
+            const selection = window.getSelection();
+            if (selection.toString().trim().length < 10) {
+                toast('Bitte Text auswählen zum Verbessern', 'warning');
+                return;
+            }
+
+            toggleAIPanel();
+            await aiImproveGrammar();
+        }
+
+        function showAIResult(elementId, text, canApply = true) {
+            const el = document.getElementById(elementId);
+            el.innerHTML = escapeHtml(text).replace(/\n/g, '<br>');
+            el.style.display = 'block';
+
+            if (canApply && elementId === 'aiWritingResult') {
+                document.getElementById('applyAIBtn').style.display = 'block';
+            }
+        }
+
+        function applyAISuggestion() {
+            if (!aiState.lastAISuggestion) return;
+
+            const selection = window.getSelection();
+            const editor = document.getElementById('postContent');
+
+            if (selection.toString().trim().length > 10 && editor.contains(selection.anchorNode)) {
+                // Replace selection
+                document.execCommand('insertText', false, aiState.lastAISuggestion);
+            } else {
+                // Replace entire content
+                editor.innerHTML = aiState.lastAISuggestion.split('\n').map(p => `<p>${escapeHtml(p)}</p>`).join('');
+            }
+
+            // Hide result
+            document.getElementById('aiWritingResult').style.display = 'none';
+            document.getElementById('applyAIBtn').style.display = 'none';
+            aiState.lastAISuggestion = '';
+
+            onContentChange();
+            toast('Änderung übernommen!', 'success');
+        }
+
+        // ============================================
+        // AUTO-CATEGORIZATION
+        // ============================================
+
+        const BLOG_CATEGORIES = {
+            achtsamkeit: 'Achtsamkeit',
+            selbstliebe: 'Selbstliebe',
+            beziehung: 'Beziehung',
+            heldinnenreise: 'Heldinnenreise',
+            hochbegabung: 'Hochbegabung',
+            koerper: 'Körper & Nervensystem'
+        };
+
+        async function aiCategorize() {
+            const title = document.getElementById('postTitle').value;
+            const content = document.getElementById('postContent').innerText;
+
+            if (content.length < 50) {
+                toast('Bitte mehr Inhalt schreiben für Kategorisierung', 'warning');
+                return;
+            }
+
+            setButtonLoading('btnCategorize', true);
+
+            try {
+                const result = await groqAPI.call(
+                    `Du analysierst Blog-Artikel für eine Coaching-Website.
+
+                    Verfügbare Kategorien:
+                    - achtsamkeit: Präsenz, innere Ruhe, Momente, Meditation
+                    - selbstliebe: Selbstakzeptanz, Selbstwert, innerer Kritiker
+                    - beziehung: Partnerschaft, Nähe, Liebe, Kommunikation
+                    - heldinnenreise: Persönliche Transformation, Neuanfang
+                    - hochbegabung: Hochsensibilität, anders sein, Überreizung
+                    - koerper: Nervensystem, Körperarbeit, somatische Erfahrung
+
+                    Analysiere den Text und gib die 1-3 passendsten Kategorien als kommaseparierte Liste zurück.
+                    NUR die Kategorie-IDs, keine Erklärungen. Beispiel: achtsamkeit, selbstliebe`,
+                    `Titel: ${title}\n\nInhalt: ${content.substring(0, 2000)}`
+                );
+
+                const categories = result.toLowerCase().split(',').map(c => c.trim()).filter(c => BLOG_CATEGORIES[c]);
+
+                // Display suggestions
+                const container = document.getElementById('aiCategories');
+                container.innerHTML = categories.map(cat => `
+                    <span class="ai-category-tag suggested" onclick="selectAICategory('${cat}')">
+                        ${BLOG_CATEGORIES[cat]}
+                    </span>
+                `).join('');
+
+                toast(`${categories.length} Kategorien vorgeschlagen`, 'success');
+            } catch (e) {
+                toast('Fehler: ' + e.message, 'error');
+            } finally {
+                setButtonLoading('btnCategorize', false);
+            }
+        }
+
+        function selectAICategory(categoryId) {
+            // Add to selected categories
+            const tag = document.querySelector(`[data-cat="${categoryId}"]`);
+            if (tag && !tag.classList.contains('active')) {
+                tag.click();
+            }
+            toast(`Kategorie "${BLOG_CATEGORIES[categoryId]}" hinzugefügt`, 'success');
+        }
+
+        // ============================================
+        // CONTENT GENERATION
+        // ============================================
+
+        async function aiGenerateSummary() {
+            const content = document.getElementById('postContent').innerText;
+
+            if (content.length < 100) {
+                toast('Bitte mehr Inhalt schreiben für Zusammenfassung', 'warning');
+                return;
+            }
+
+            setButtonLoading('btnSummary', true);
+
+            try {
+                const result = await groqAPI.call(
+                    `Du erstellst kurze, einladende Zusammenfassungen für Blog-Artikel.
+                    Schreibe eine 2-3 Satz Zusammenfassung, die:
+                    - Die Kernbotschaft einfängt
+                    - Neugierig macht weiterzulesen
+                    - Den warmherzigen Ton beibehält
+                    Gib NUR die Zusammenfassung zurück.`,
+                    content.substring(0, 3000)
+                );
+
+                showAIResult('aiContentResult', result, false);
+
+                // Offer to use as excerpt
+                if (confirm('Zusammenfassung als Kurzbeschreibung verwenden?')) {
+                    document.getElementById('postExcerpt').value = result;
+                    onContentChange();
+                }
+            } catch (e) {
+                toast('Fehler: ' + e.message, 'error');
+            } finally {
+                setButtonLoading('btnSummary', false);
+            }
+        }
+
+        async function aiGenerateTitle() {
+            const content = document.getElementById('postContent').innerText;
+
+            if (content.length < 100) {
+                toast('Bitte mehr Inhalt schreiben für Titelvorschläge', 'warning');
+                return;
+            }
+
+            setButtonLoading('btnTitle', true);
+
+            try {
+                const result = await groqAPI.call(
+                    `Du erstellst einladende Blog-Titel für eine Coaching-Website.
+                    Erstelle 3 verschiedene Titelvorschläge, die:
+                    - Emotional ansprechen
+                    - Neugierig machen
+                    - Nicht länger als 60 Zeichen sind
+                    - Den Kern des Artikels einfangen
+
+                    Format: Nummerierte Liste (1. 2. 3.)`,
+                    content.substring(0, 2000)
+                );
+
+                showAIResult('aiContentResult', result, false);
+            } catch (e) {
+                toast('Fehler: ' + e.message, 'error');
+            } finally {
+                setButtonLoading('btnTitle', false);
+            }
+        }
+
+        async function aiGenerateMetaDescription() {
+            const title = document.getElementById('postTitle').value;
+            const content = document.getElementById('postContent').innerText;
+
+            if (content.length < 100) {
+                toast('Bitte mehr Inhalt schreiben', 'warning');
+                return;
+            }
+
+            setButtonLoading('btnMeta', true);
+
+            try {
+                const result = await groqAPI.call(
+                    `Du erstellst SEO-optimierte Meta-Beschreibungen.
+                    Erstelle eine Meta-Beschreibung (max 155 Zeichen), die:
+                    - Den Artikel zusammenfasst
+                    - Zum Klicken einlädt
+                    - Natürlich klingt (kein Keyword-Stuffing)
+                    Gib NUR die Meta-Beschreibung zurück.`,
+                    `Titel: ${title}\n\nInhalt: ${content.substring(0, 1500)}`
+                );
+
+                document.getElementById('metaDescription').value = result.substring(0, 160);
+                updateCharCount('metaDescription', 'metaDescCount', 160);
+                onContentChange();
+                toast('Meta-Beschreibung erstellt!', 'success');
+            } catch (e) {
+                toast('Fehler: ' + e.message, 'error');
+            } finally {
+                setButtonLoading('btnMeta', false);
+            }
+        }
+
+        async function aiGenerateOutline() {
+            const title = document.getElementById('postTitle').value || 'Neuer Artikel';
+
+            setButtonLoading('btnOutline', true);
+
+            try {
+                const result = await groqAPI.call(
+                    `Du erstellst Blog-Gliederungen für eine Coaching-Website.
+                    Erstelle eine Gliederung mit 4-6 Abschnitten für einen Artikel zum Thema.
+
+                    Format:
+                    ## [Überschrift 1]
+                    Kurze Beschreibung was in diesem Abschnitt stehen könnte.
+
+                    ## [Überschrift 2]
+                    ...
+
+                    Der Ton soll warmherzig und einladend sein.`,
+                    `Thema: ${title}`
+                );
+
+                // Offer to insert
+                showAIResult('aiContentResult', result, false);
+
+                if (confirm('Gliederung in den Editor einfügen?')) {
+                    const editor = document.getElementById('postContent');
+                    const html = result.split('\n').map(line => {
+                        if (line.startsWith('## ')) {
+                            return `<h2>${escapeHtml(line.substring(3))}</h2>`;
+                        }
+                        return `<p>${escapeHtml(line)}</p>`;
+                    }).join('');
+                    editor.innerHTML = html;
+                    onContentChange();
+                }
+            } catch (e) {
+                toast('Fehler: ' + e.message, 'error');
+            } finally {
+                setButtonLoading('btnOutline', false);
+            }
+        }
+
+        // ============================================
+        // YOUTUBE TOPIC IDEAS
+        // ============================================
+
+        async function loadYouTubeIdeas() {
+            setButtonLoading('btnYouTube', true);
+
+            try {
+                // Load video categories from JSON
+                const response = await fetch('data/video-categories.json');
+                const videos = await response.json();
+
+                // Get latest 10 videos
+                const videoList = Object.entries(videos)
+                    .sort((a, b) => new Date(b[1].categorized_at) - new Date(a[1].categorized_at))
+                    .slice(0, 10);
+
+                aiState.youtubeVideos = videoList;
+
+                // Generate blog ideas from video titles
+                const videoTitles = videoList.map(([id, v]) => v.title).join('\n');
+
+                const result = await groqAPI.call(
+                    `Du bist ein Content-Stratege für eine Coaching-Website.
+                    Basierend auf diesen YouTube-Video-Titeln, erstelle 3 Blog-Post-Ideen.
+
+                    Jede Idee sollte:
+                    - Einen ansprechenden Titel haben
+                    - Eine kurze Beschreibung (1 Satz)
+                    - Auf einem oder mehreren Videos basieren
+
+                    Format als JSON Array:
+                    [{"title": "...", "description": "...", "basedOn": "Video-Titel"}]`,
+                    videoTitles,
+                    'llama-3.1-70b-versatile'
+                );
+
+                // Parse and display
+                try {
+                    const ideas = JSON.parse(result);
+                    const container = document.getElementById('youtubeIdeas');
+                    container.innerHTML = ideas.map(idea => `
+                        <div class="youtube-idea" onclick="useYouTubeIdea('${escapeHtml(idea.title)}')">
+                            <div class="youtube-idea-title">
+                                📝 ${escapeHtml(idea.title)}
+                            </div>
+                            <div class="youtube-idea-desc">
+                                ${escapeHtml(idea.description)}<br>
+                                <small style="color: #ff0000;">🎬 Basiert auf: ${escapeHtml(idea.basedOn)}</small>
+                            </div>
+                        </div>
+                    `).join('');
+                } catch (e) {
+                    // Fallback if JSON parsing fails
+                    document.getElementById('youtubeIdeas').innerHTML = `
+                        <div class="ai-result">${escapeHtml(result)}</div>
+                    `;
+                }
+
+                toast('Themenvorschläge geladen!', 'success');
+            } catch (e) {
+                toast('Fehler beim Laden: ' + e.message, 'error');
+            } finally {
+                setButtonLoading('btnYouTube', false);
+            }
+        }
+
+        function useYouTubeIdea(title) {
+            document.getElementById('postTitle').value = title;
+            onContentChange();
+            toast('Titel übernommen!', 'success');
+        }
+
+        // ============================================
+        // SMART FORMATTING
+        // ============================================
+
+        function insertHighlightBox() {
+            const html = `
+                <div style="background: linear-gradient(135deg, #f5f0ff 0%, #fff5f5 100%);
+                            border-left: 4px solid #667eea;
+                            padding: 1.5rem;
+                            border-radius: 8px;
+                            margin: 1.5rem 0;">
+                    <p style="font-weight: 600; color: #667eea; margin-bottom: 0.5rem;">💡 Wichtiger Gedanke</p>
+                    <p>Hier deinen hervorgehobenen Gedanken einfügen...</p>
+                </div>
+            `;
+            execCmd('insertHTML', html);
+            toast('Highlight-Box eingefügt', 'success');
+        }
+
+        function insertCallout() {
+            const html = `
+                <div style="background: #fff8e1;
+                            border: 1px solid #ffe082;
+                            padding: 1.25rem;
+                            border-radius: 8px;
+                            margin: 1.5rem 0;
+                            display: flex;
+                            gap: 1rem;
+                            align-items: flex-start;">
+                    <span style="font-size: 1.5rem;">📌</span>
+                    <div>
+                        <p style="font-weight: 600; margin-bottom: 0.25rem;">Merke dir</p>
+                        <p style="margin: 0;">Hier eine wichtige Erkenntnis oder Übung einfügen...</p>
+                    </div>
+                </div>
+            `;
+            execCmd('insertHTML', html);
+            toast('Callout eingefügt', 'success');
+        }
+
+        function insertBlockquote() {
+            const html = `
+                <blockquote style="border-left: 4px solid #D4A574;
+                                   padding: 1.5rem 2rem;
+                                   margin: 2rem 0;
+                                   background: #faf8f5;
+                                   border-radius: 0 8px 8px 0;
+                                   font-style: italic;
+                                   font-size: 1.15rem;
+                                   line-height: 1.7;">
+                    <p>"Das Leben ist zu kurz für später."</p>
+                    <footer style="margin-top: 0.75rem; font-size: 0.9rem; font-style: normal; color: #666;">
+                        — Unbekannt
+                    </footer>
+                </blockquote>
+            `;
+            execCmd('insertHTML', html);
+            toast('Zitat eingefügt', 'success');
+        }
+
+        async function aiFormatForReadability() {
+            const content = document.getElementById('postContent').innerHTML;
+
+            if (content.length < 200) {
+                toast('Bitte mehr Inhalt schreiben', 'warning');
+                return;
+            }
+
+            setButtonLoading('btnReadability', true);
+
+            try {
+                const textContent = document.getElementById('postContent').innerText;
+
+                const result = await groqAPI.call(
+                    `Du bist ein Experte für Blog-Formatierung.
+                    Formatiere den folgenden Text für bessere Lesbarkeit:
+
+                    - Teile lange Absätze in kürzere (max 3-4 Sätze)
+                    - Füge Zwischenüberschriften (## ) ein wo sinnvoll
+                    - Hebe wichtige Sätze hervor mit **fett**
+                    - Füge Listen ein wo passend
+                    - Halte den Ton und Inhalt exakt bei
+
+                    Gib den formatierten Text als HTML zurück mit <h2>, <p>, <strong>, <ul>/<li> Tags.`,
+                    textContent.substring(0, 4000)
+                );
+
+                // Preview
+                if (confirm('Formatierung anwenden? (Vorschau im Konsolenfenster)')) {
+                    document.getElementById('postContent').innerHTML = sanitizeHTML(result);
+                    onContentChange();
+                    toast('Formatierung angewendet!', 'success');
+                }
+            } catch (e) {
+                toast('Fehler: ' + e.message, 'error');
+            } finally {
+                setButtonLoading('btnReadability', false);
+            }
+        }
+
+        // ============================================
         // INIT
         // ============================================
-        document.addEventListener('DOMContentLoaded', checkSetup);
+        document.addEventListener('DOMContentLoaded', () => {
+            checkSetup();
+            initAI();
+        });
     </script>
 </body>
 </html>
