@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-studio-2024' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; connect-src https://api.github.com https://raw.githubusercontent.com; img-src 'self' https: data: blob:; media-src 'self' https: blob:;">
-    <title>Glück über Zweifel - Content Studio</title>
-    <style>
+<meta charset="utf-8"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com" rel="preconnect"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="default-src 'self'; script-src 'self' 'nonce-studio-2024' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; connect-src https://api.github.com https://raw.githubusercontent.com; img-src 'self' https: data: blob:; media-src 'self' https: blob:;" http-equiv="Content-Security-Policy"/>
+<title>Glück über Zweifel - Content Studio</title>
+<style>
         :root {
             --primary: #2C4A47;
             --primary-light: #3d5f5b;
@@ -1080,359 +1081,322 @@
     </style>
 </head>
 <body>
-    <!-- Setup Screen -->
-    <div class="setup-screen" id="setupScreen">
-        <div class="setup-card">
-            <div class="setup-logo">✨</div>
-            <h1>Content Studio</h1>
-            <p>Dein Arbeitsplatz für Website-Bearbeitung, Blog-Schreiben und Veröffentlichung.</p>
-
-            <input type="password" class="setup-input" id="tokenInput" placeholder="GitHub Token eingeben...">
-            <button class="setup-btn" id="setupBtn" onclick="setupToken()">Studio starten</button>
-
-            <details class="setup-help">
-                <summary>Wie bekomme ich einen Token?</summary>
-                <div class="setup-help-content">
-                    <ol>
-                        <li>Gehe zu <a href="https://github.com/settings/tokens" target="_blank">github.com/settings/tokens</a></li>
-                        <li>Klicke auf "Generate new token" → "Classic"</li>
-                        <li>Gib einen Namen ein (z.B. "Content Studio")</li>
-                        <li>Wähle eine lange Laufzeit (z.B. 1 Jahr)</li>
-                        <li>Aktiviere <code>repo</code> (Repository-Zugriff)</li>
-                        <li>Klicke "Generate token" und kopiere ihn hierher</li>
-                    </ol>
-                    <p style="margin-top: 0.75rem;"><strong>Hinweis:</strong> Der Token wird nur in deinem Browser gespeichert.</p>
-                </div>
-            </details>
-        </div>
-    </div>
-
-    <!-- Main Header -->
-    <header class="studio-header">
-        <div class="studio-brand">
-            <div class="studio-logo">✨</div>
-            <div>
-                <div class="studio-title">Content Studio</div>
-                <div class="studio-subtitle">Glück über Zweifel</div>
-            </div>
-        </div>
-
-        <div class="mode-tabs">
-            <button class="mode-tab active" onclick="switchMode('website')" data-mode="website">
-                <span class="mode-tab-icon">🌐</span>
+<!-- Setup Screen -->
+<div class="setup-screen" id="setupScreen">
+<div class="setup-card">
+<div class="setup-logo">✨</div>
+<h1>Content Studio</h1>
+<p>Dein Arbeitsplatz für Website-Bearbeitung, Blog-Schreiben und Veröffentlichung.</p>
+<input class="setup-input" id="tokenInput" placeholder="GitHub Token eingeben..." type="password"/>
+<button class="setup-btn" id="setupBtn" onclick="setupToken()">Studio starten</button>
+<details class="setup-help">
+<summary>Wie bekomme ich einen Token?</summary>
+<div class="setup-help-content">
+<ol>
+<li>Gehe zu <a href="https://github.com/settings/tokens" target="_blank">github.com/settings/tokens</a></li>
+<li>Klicke auf "Generate new token" → "Classic"</li>
+<li>Gib einen Namen ein (z.B. "Content Studio")</li>
+<li>Wähle eine lange Laufzeit (z.B. 1 Jahr)</li>
+<li>Aktiviere <code>repo</code> (Repository-Zugriff)</li>
+<li>Klicke "Generate token" und kopiere ihn hierher</li>
+</ol>
+<p><strong>Hinweis:</strong> Der Token wird nur in deinem Browser gespeichert.</p>
+</div>
+</details>
+</div>
+</div>
+<!-- Main Header -->
+<header class="studio-header">
+<div class="studio-brand">
+<div class="studio-logo">✨</div>
+<div>
+<div class="studio-title">Content Studio</div>
+<div class="studio-subtitle">Glück über Zweifel</div>
+</div>
+</div>
+<div class="mode-tabs">
+<button class="mode-tab active" data-mode="website" onclick="switchMode('website')">
+<span class="mode-tab-icon">🌐</span>
                 Website bearbeiten
             </button>
-            <button class="mode-tab" onclick="switchMode('blog')" data-mode="blog">
-                <span class="mode-tab-icon">✏️</span>
+<button class="mode-tab" data-mode="blog" onclick="switchMode('blog')">
+<span class="mode-tab-icon">✏️</span>
                 Blog schreiben
             </button>
-            <button class="mode-tab" onclick="switchMode('queue')" data-mode="queue">
-                <span class="mode-tab-icon">📤</span>
+<button class="mode-tab" data-mode="queue" onclick="switchMode('queue')">
+<span class="mode-tab-icon">📤</span>
                 Veröffentlichung
             </button>
-        </div>
+</div>
+<div class="studio-actions">
+<div>
 
-        <div class="studio-actions">
-            <div class="status-pill">
-                <div class="status-dot" id="statusDot"></div>
-                <span id="statusText">Bereit</span>
-            </div>
-            <button class="btn btn-ghost" onclick="showHelp()">Hilfe</button>
-            <button class="btn btn-primary" id="mainActionBtn" onclick="mainAction()">Speichern</button>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="studio-main">
-        <!-- Mode 1: Website Editor -->
-        <div class="mode-content active" id="modeWebsite">
-            <div class="website-editor">
-                <aside class="website-sidebar">
-                    <div class="sidebar-header">
-                        <h3>Seite auswählen</h3>
-                        <select class="page-select" id="pageSelect" onchange="loadPage(this.value)">
-                            <option value="">Seite wählen...</option>
-                            <optgroup label="Hauptseiten">
-                                <option value="index.html">Startseite</option>
-                                <option value="kathrin.html">Über Kathrin</option>
-                                <option value="fuer-wen.html">Für Wen</option>
-                                <option value="ansaetze-ganzheitliche-begleitung-fuer-einzelne-paare.html">Meine Ansätze</option>
-                                <option value="contact.html">Kontakt</option>
-                            </optgroup>
-                            <optgroup label="Coaching">
-                                <option value="einzelbegleitung-sinnkrise-lebensumbruch.html">Einzelbegleitung</option>
-                                <option value="paarbegleitung-beziehungskrise-neuanfang-kathrin-stahl.html">Paarbegleitung</option>
-                                <option value="investition.html">Investition</option>
-                            </optgroup>
-                            <optgroup label="Retreats Portugal">
-                                <option value="retreats-in-portugal.html">Retreats Übersicht</option>
-                                <option value="paar-retreat-in-portugal-beziehung-krise-kathrin-stahl.html">Paar-Retreat</option>
-                                <option value="einzelretreat-portugal-alentejo-kathrin-stahl.html">Einzel-Retreat</option>
-                                <option value="retreat-aufstellung-mit-pferden.html">Aufstellung mit Pferden</option>
-                                <option value="herzenswunsch-folge-deiner-sehnsucht.html">Herzenswunsch Retreat</option>
-                                <option value="wunder-retreat.html">Wunder Retreat</option>
-                            </optgroup>
-                            <optgroup label="Medien">
-                                <option value="blog.html">Blog Übersicht</option>
-                                <option value="glueck-ueber-zweifel-videos-mit-kathrin-stahl.html">YouTube Videos</option>
-                                <option value="glueck-ueber-zweifel-dein-podcast.html">Podcast</option>
-                            </optgroup>
-                            <optgroup label="Rechtliches">
-                                <option value="impressum.html">Impressum</option>
-                                <option value="datenschutzerklaerung.html">Datenschutz</option>
-                            </optgroup>
-                        </select>
-                    </div>
-
-                    <div class="sidebar-content">
-                        <div class="sidebar-section">
-                            <h4>Änderungen</h4>
-                            <div class="change-list" id="changesList">
-                                <p style="color: var(--text-light); font-size: 0.8rem;">Noch keine Änderungen</p>
-                            </div>
-                        </div>
-
-                        <div class="sidebar-section">
-                            <h4>Tipps</h4>
-                            <p style="font-size: 0.8rem; color: var(--text-light);">
-                                • Klicke auf Texte um sie zu bearbeiten<br>
-                                • Klicke auf Bilder um sie zu ersetzen<br>
-                                • Cmd+S zum Speichern<br>
+<span id="statusText">Bereit</span>
+</div>
+<button class="btn btn-ghost" onclick="showHelp()">Hilfe</button>
+<button class="btn btn-primary" id="mainActionBtn" onclick="mainAction()">Speichern</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="studio-main">
+<!-- Mode 1: Website Editor -->
+<div class="mode-content active" id="modeWebsite">
+<div class="website-editor">
+<aside class="website-sidebar">
+<div>
+<h3>Seite auswählen</h3>
+<select id="pageSelect" onchange="loadPage(this.value)">
+<option>Seite wählen...</option>
+<optgroup label="Hauptseiten">
+<option value="index.html">Startseite</option>
+<option value="kathrin.html">Über Kathrin</option>
+<option value="fuer-wen.html">Für Wen</option>
+<option value="ansaetze-ganzheitliche-begleitung-fuer-einzelne-paare.html">Meine Ansätze</option>
+<option value="contact.html">Kontakt</option>
+</optgroup>
+<optgroup label="Coaching">
+<option value="einzelbegleitung-sinnkrise-lebensumbruch.html">Einzelbegleitung</option>
+<option value="paarbegleitung-beziehungskrise-neuanfang-kathrin-stahl.html">Paarbegleitung</option>
+<option value="investition.html">Investition</option>
+</optgroup>
+<optgroup label="Retreats Portugal">
+<option value="retreats-in-portugal.html">Retreats Übersicht</option>
+<option value="paar-retreat-in-portugal-beziehung-krise-kathrin-stahl.html">Paar-Retreat</option>
+<option value="einzelretreat-portugal-alentejo-kathrin-stahl.html">Einzel-Retreat</option>
+<option value="retreat-aufstellung-mit-pferden.html">Aufstellung mit Pferden</option>
+<option value="herzenswunsch-folge-deiner-sehnsucht.html">Herzenswunsch Retreat</option>
+<option value="wunder-retreat.html">Wunder Retreat</option>
+</optgroup>
+<optgroup label="Medien">
+<option value="blog.html">Blog Übersicht</option>
+<option value="glueck-ueber-zweifel-videos-mit-kathrin-stahl.html">YouTube Videos</option>
+<option value="glueck-ueber-zweifel-dein-podcast.html">Podcast</option>
+</optgroup>
+<optgroup label="Rechtliches">
+<option value="impressum.html">Impressum</option>
+<option value="datenschutzerklaerung.html">Datenschutz</option>
+</optgroup>
+</select>
+</div>
+<div>
+<div>
+<h4>Änderungen</h4>
+<div class="change-list" id="changesList">
+<p>Noch keine Änderungen</p>
+</div>
+</div>
+<div>
+<h4>Tipps</h4>
+<p>
+                                • Klicke auf Texte um sie zu bearbeiten<br/>
+                                • Klicke auf Bilder um sie zu ersetzen<br/>
+                                • Cmd+S zum Speichern<br/>
                                 • Cmd+Z zum Rückgängig
                             </p>
-                        </div>
-                    </div>
-                </aside>
-
-                <div class="website-frame-container">
-                    <div class="website-placeholder" id="websitePlaceholder">
-                        <div class="website-placeholder-icon">🌐</div>
-                        <h3>Wähle eine Seite aus</h3>
-                        <p>Klicke links im Dropdown um eine Seite zu bearbeiten</p>
-                    </div>
-                    <iframe class="website-frame" id="websiteFrame" style="display: none;"></iframe>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mode 2: Blog Editor -->
-        <div class="mode-content" id="modeBlog">
-            <div class="blog-editor">
-                <aside class="blog-sidebar">
-                    <div class="blog-tabs">
-                        <button class="blog-tab active" onclick="showBlogTab('drafts')">Entwürfe</button>
-                        <button class="blog-tab" onclick="showBlogTab('published')">Veröffentlicht</button>
-                    </div>
-
-                    <button class="new-post-btn" onclick="createNewPost()">
-                        <span>+</span> Neuer Beitrag
+</div>
+</div>
+</aside>
+<div class="website-frame-container">
+<div class="website-placeholder" id="websitePlaceholder">
+<div class="website-placeholder-icon">🌐</div>
+<h3>Wähle eine Seite aus</h3>
+<p>Klicke links im Dropdown um eine Seite zu bearbeiten</p>
+</div>
+<iframe class="website-frame" id="websiteFrame"></iframe>
+</div>
+</div>
+</div>
+<!-- Mode 2: Blog Editor -->
+<div class="mode-content" id="modeBlog">
+<div class="blog-editor">
+<aside class="blog-sidebar">
+<div class="blog-tabs">
+<button class="blog-tab active" onclick="showBlogTab('drafts')">Entwürfe</button>
+<button class="blog-tab" onclick="showBlogTab('published')">Veröffentlicht</button>
+</div>
+<button class="new-post-btn" onclick="createNewPost()">
+<span>+</span> Neuer Beitrag
                     </button>
 
-                    <div class="post-list" id="postList">
-                        <!-- Posts werden dynamisch geladen -->
-                    </div>
-                </aside>
-
-                <div class="blog-editor-main">
-                    <div class="blog-toolbar">
-                        <div class="toolbar-group">
-                            <select class="toolbar-select" id="blockType" onchange="formatBlock(this.value)">
-                                <option value="p">Absatz</option>
-                                <option value="h2">Überschrift 2</option>
-                                <option value="h3">Überschrift 3</option>
-                                <option value="blockquote">Zitat</option>
-                            </select>
-                        </div>
-                        <div class="toolbar-group">
-                            <button class="toolbar-btn" onclick="execCmd('bold')" title="Fett"><b>B</b></button>
-                            <button class="toolbar-btn" onclick="execCmd('italic')" title="Kursiv"><i>I</i></button>
-                            <button class="toolbar-btn" onclick="execCmd('underline')" title="Unterstrichen"><u>U</u></button>
-                        </div>
-                        <div class="toolbar-group">
-                            <button class="toolbar-btn" onclick="execCmd('insertUnorderedList')" title="Aufzählung">•</button>
-                            <button class="toolbar-btn" onclick="execCmd('insertOrderedList')" title="Nummerierung">1.</button>
-                        </div>
-                        <div class="toolbar-group">
-                            <button class="toolbar-btn" onclick="insertLink()" title="Link">🔗</button>
-                            <button class="toolbar-btn" onclick="openImageModal()" title="Bild">📷</button>
-                            <button class="toolbar-btn" onclick="insertVideo()" title="Video">🎬</button>
-                        </div>
-                        <div class="toolbar-group">
-                            <button class="toolbar-btn" onclick="execCmd('undo')" title="Rückgängig">↶</button>
-                            <button class="toolbar-btn" onclick="execCmd('redo')" title="Wiederholen">↷</button>
-                        </div>
-                        <div class="toolbar-group">
-                            <button class="toolbar-btn" onclick="openPreview()" title="Vorschau">👁</button>
-                        </div>
-                    </div>
-
-                    <div class="blog-content-area">
-                        <div class="blog-content-inner">
-                            <input type="text" class="blog-title-input" id="postTitle" placeholder="Titel eingeben..." oninput="onBlogChange()">
-                            <textarea class="blog-excerpt-input" id="postExcerpt" placeholder="Kurzbeschreibung für SEO..." rows="2" oninput="onBlogChange()"></textarea>
-                            <div class="blog-content-editor" id="postContent" contenteditable="true" oninput="onBlogChange()">
-                                <p>Beginne hier mit deinem Beitrag...</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <aside class="blog-settings">
-                    <div class="settings-section">
-                        <h4>📷 Beitragsbild</h4>
-                        <div class="featured-image-upload" id="featuredImageUpload" onclick="uploadFeaturedImage()">
-                            <div style="color: var(--text-light); font-size: 0.85rem;">
-                                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📷</div>
+</aside>
+<div class="blog-editor-main">
+<div class="blog-toolbar">
+<div class="toolbar-group">
+<select class="toolbar-select" id="blockType" onchange="formatBlock(this.value)">
+<option value="p">Absatz</option>
+<option value="h2">Überschrift 2</option>
+<option value="h3">Überschrift 3</option>
+<option value="blockquote">Zitat</option>
+</select>
+</div>
+<div class="toolbar-group">
+<button class="toolbar-btn" onclick="execCmd('bold')" title="Fett"><strong>B</strong></button>
+<button class="toolbar-btn" onclick="execCmd('italic')" title="Kursiv"><em>I</em></button>
+<button class="toolbar-btn" onclick="execCmd('underline')" title="Unterstrichen"><u>U</u></button>
+</div>
+<div class="toolbar-group">
+<button class="toolbar-btn" onclick="execCmd('insertUnorderedList')" title="Aufzählung">•</button>
+<button class="toolbar-btn" onclick="execCmd('insertOrderedList')" title="Nummerierung">1.</button>
+</div>
+<div class="toolbar-group">
+<button class="toolbar-btn" onclick="insertLink()" title="Link">🔗</button>
+<button class="toolbar-btn" onclick="openImageModal()" title="Bild">📷</button>
+<button class="toolbar-btn" onclick="insertVideo()" title="Video">🎬</button>
+</div>
+<div class="toolbar-group">
+<button class="toolbar-btn" onclick="execCmd('undo')" title="Rückgängig">↶</button>
+<button class="toolbar-btn" onclick="execCmd('redo')" title="Wiederholen">↷</button>
+</div>
+<div class="toolbar-group">
+<button class="toolbar-btn" onclick="openPreview()" title="Vorschau">👁</button>
+</div>
+</div>
+<div class="blog-content-area">
+<div class="blog-content-inner">
+<input class="blog-title-input" id="postTitle" oninput="onBlogChange()" placeholder="Titel eingeben..." type="text"/>
+<textarea class="blog-excerpt-input" id="postExcerpt" oninput="onBlogChange()" placeholder="Kurzbeschreibung für SEO..." rows="2"></textarea>
+<div class="blog-content-editor" contenteditable="true" id="postContent" oninput="onBlogChange()">
+<p>Beginne hier mit deinem Beitrag...</p>
+</div>
+</div>
+</div>
+</div>
+<aside class="blog-settings">
+<div class="settings-section">
+<h4>📷 Beitragsbild</h4>
+<div class="featured-image-upload" id="featuredImageUpload" onclick="uploadFeaturedImage()">
+<div>
+<div>📷</div>
                                 Bild hochladen
                             </div>
-                        </div>
-                        <div class="settings-row" style="margin-top: 0.5rem;">
-                            <label class="settings-label">Alt-Text (SEO)</label>
-                            <input type="text" class="settings-input" id="featuredImageAlt" placeholder="Bildbeschreibung...">
-                        </div>
-                    </div>
+</div>
+<div class="settings-row">
+<label class="settings-label">Alt-Text (SEO)</label>
+<input class="settings-input" id="featuredImageAlt" placeholder="Bildbeschreibung..." type="text"/>
+</div>
+</div>
+<div class="settings-section">
+<h4>📁 Kategorien</h4>
+<div id="categoryTags">
+<span data-cat="achtsamkeit">Achtsamkeit</span>
+<span data-cat="selbstliebe">Selbstliebe</span>
+<span data-cat="beziehung">Beziehung</span>
+<span data-cat="pferdecoaching">Pferdecoaching</span>
+<span data-cat="heldinnenreise">Heldinnenreise</span>
+</div>
+</div>
+<div class="settings-section">
+<h4>🔍 SEO</h4>
+<div class="settings-row">
+<label class="settings-label">Meta-Titel <span id="metaTitleCount">0</span>/60</label>
+<input class="settings-input" id="metaTitle" oninput="updateMetaCount()" placeholder="SEO Titel..." type="text"/>
+</div>
+<div class="settings-row">
+<label class="settings-label">Meta-Beschreibung <span id="metaDescCount">0</span>/160</label>
+<textarea class="settings-textarea" id="metaDescription" oninput="updateMetaCount()" placeholder="SEO Beschreibung..."></textarea>
+</div>
+<div class="settings-row">
+<label class="settings-label">URL-Slug</label>
+<input class="settings-input" id="urlSlug" placeholder="url-name" type="text"/>
+</div>
+</div>
+<div class="settings-section">
+<h4>📅 Veröffentlichung</h4>
+<div class="settings-row">
+<label class="settings-label">Datum &amp; Uhrzeit</label>
 
-                    <div class="settings-section">
-                        <h4>📁 Kategorien</h4>
-                        <div class="category-tags" id="categoryTags">
-                            <span class="category-tag" data-cat="achtsamkeit">Achtsamkeit</span>
-                            <span class="category-tag" data-cat="selbstliebe">Selbstliebe</span>
-                            <span class="category-tag" data-cat="beziehung">Beziehung</span>
-                            <span class="category-tag" data-cat="pferdecoaching">Pferdecoaching</span>
-                            <span class="category-tag" data-cat="heldinnenreise">Heldinnenreise</span>
-                        </div>
-                    </div>
-
-                    <div class="settings-section">
-                        <h4>🔍 SEO</h4>
-                        <div class="settings-row">
-                            <label class="settings-label">Meta-Titel <span id="metaTitleCount">0</span>/60</label>
-                            <input type="text" class="settings-input" id="metaTitle" placeholder="SEO Titel..." oninput="updateMetaCount()">
-                        </div>
-                        <div class="settings-row">
-                            <label class="settings-label">Meta-Beschreibung <span id="metaDescCount">0</span>/160</label>
-                            <textarea class="settings-textarea" id="metaDescription" placeholder="SEO Beschreibung..." oninput="updateMetaCount()"></textarea>
-                        </div>
-                        <div class="settings-row">
-                            <label class="settings-label">URL-Slug</label>
-                            <input type="text" class="settings-input" id="urlSlug" placeholder="url-name">
-                        </div>
-                    </div>
-
-                    <div class="settings-section">
-                        <h4>📅 Veröffentlichung</h4>
-                        <div class="settings-row">
-                            <label class="settings-label">Datum & Uhrzeit</label>
-                            <div style="display: flex; gap: 0.5rem;">
-                                <input type="date" class="settings-input" id="scheduleDate" style="flex: 1;">
-                                <input type="time" class="settings-input" id="scheduleTime" value="09:00" style="width: 100px;">
-                            </div>
-                        </div>
-                        <button class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;" onclick="schedulePost()">
+</div>
+<button class="btn btn-primary" onclick="schedulePost()">
                             Planen
                         </button>
-                    </div>
-                </aside>
-            </div>
-        </div>
+</div>
+</aside>
+</div>
+</div>
+<!-- Mode 3: Publishing Queue -->
+<div class="mode-content" id="modeQueue">
+<div class="publishing-queue">
+<div class="queue-main">
+<div class="queue-header">
+<h2>Veröffentlichungs-Warteschlange</h2>
+<p>Hier siehst du alle geplanten und kürzlich veröffentlichten Beiträge.</p>
+</div>
+<div class="queue-section">
+<h3>⏰ Geplant <span class="count" id="scheduledCount">0</span></h3>
+<div class="queue-items" id="scheduledQueue">
+<div class="queue-empty">
+<div class="queue-empty-icon">📅</div>
+<p>Keine geplanten Beiträge</p>
+</div>
+</div>
+</div>
+<div class="queue-section">
+<h3>✅ Kürzlich veröffentlicht <span class="count" id="publishedCount">0</span></h3>
+<div class="queue-items" id="publishedQueue">
+<div class="queue-empty">
+<div class="queue-empty-icon">📝</div>
+<p>Noch keine veröffentlichten Beiträge</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Editor Stats -->
+<div class="editor-stats" id="editorStats">
+<div class="stat-item">📝 <span id="wordCount">0</span> Wörter</div>
+<div class="stat-item">⏱ <span id="readingTime">0</span> Min. Lesezeit</div>
+<div class="stat-item">📄 <span id="charCount">0</span> Zeichen</div>
+</div>
+<!-- Image Modal -->
+<div class="modal-overlay" id="imageModal">
+<div class="modal-content">
+<div class="modal-header">
+<h3>Bild einfügen</h3>
+<button class="modal-close" onclick="closeImageModal()">×</button>
+</div>
+<div class="modal-body">
+<div class="image-drop-zone" id="imageDropZone">
+<div>📷</div>
+<div>Bild hierher ziehen oder klicken</div>
+<input accept="image/*" id="imageFileInput" type="file"/>
+</div>
+<h4>Oder aus Mediathek:</h4>
 
-        <!-- Mode 3: Publishing Queue -->
-        <div class="mode-content" id="modeQueue">
-            <div class="publishing-queue">
-                <div class="queue-main">
-                    <div class="queue-header">
-                        <h2>Veröffentlichungs-Warteschlange</h2>
-                        <p>Hier siehst du alle geplanten und kürzlich veröffentlichten Beiträge.</p>
-                    </div>
-
-                    <div class="queue-section">
-                        <h3>⏰ Geplant <span class="count" id="scheduledCount">0</span></h3>
-                        <div class="queue-items" id="scheduledQueue">
-                            <div class="queue-empty">
-                                <div class="queue-empty-icon">📅</div>
-                                <p>Keine geplanten Beiträge</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="queue-section">
-                        <h3>✅ Kürzlich veröffentlicht <span class="count" id="publishedCount">0</span></h3>
-                        <div class="queue-items" id="publishedQueue">
-                            <div class="queue-empty">
-                                <div class="queue-empty-icon">📝</div>
-                                <p>Noch keine veröffentlichten Beiträge</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Editor Stats -->
-    <div class="editor-stats" id="editorStats">
-        <div class="stat-item">📝 <span id="wordCount">0</span> Wörter</div>
-        <div class="stat-item">⏱ <span id="readingTime">0</span> Min. Lesezeit</div>
-        <div class="stat-item">📄 <span id="charCount">0</span> Zeichen</div>
-    </div>
-
-    <!-- Image Modal -->
-    <div class="modal-overlay" id="imageModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Bild einfügen</h3>
-                <button class="modal-close" onclick="closeImageModal()">×</button>
-            </div>
-            <div class="modal-body">
-                <div class="image-drop-zone" id="imageDropZone">
-                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📷</div>
-                    <div>Bild hierher ziehen oder klicken</div>
-                    <input type="file" id="imageFileInput" accept="image/*" style="display: none;">
-                </div>
-                <h4 style="margin: 1rem 0 0.5rem; font-size: 0.85rem; color: var(--text-light);">Oder aus Mediathek:</h4>
-                <div class="image-gallery" id="imageGallery"></div>
-                <div style="margin-top: 1rem;">
-                    <label class="settings-label">Alt-Text</label>
-                    <input type="text" class="settings-input" id="imageAltText" placeholder="Bildbeschreibung...">
-                </div>
-                <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="insertSelectedImage()">
+<div>
+<label class="settings-label">Alt-Text</label>
+<input class="settings-input" id="imageAltText" placeholder="Bildbeschreibung..." type="text"/>
+</div>
+<button class="btn btn-primary" onclick="insertSelectedImage()">
                     Bild einfügen
                 </button>
-            </div>
-        </div>
-    </div>
+</div>
+</div>
+</div>
+<!-- Preview Modal -->
+<div class="preview-modal" id="previewModal">
+<div class="preview-header">
+<h3>Vorschau</h3>
+<div class="preview-devices">
+<button class="preview-device-btn active" onclick="setPreviewDevice('desktop')">Desktop</button>
+<button class="preview-device-btn" onclick="setPreviewDevice('tablet')">Tablet</button>
+<button class="preview-device-btn" onclick="setPreviewDevice('mobile')">Mobil</button>
+</div>
+<button class="btn btn-ghost" onclick="closePreview()">Schließen</button>
+</div>
 
-    <!-- Preview Modal -->
-    <div class="preview-modal" id="previewModal">
-        <div class="preview-header">
-            <h3>Vorschau</h3>
-            <div class="preview-devices">
-                <button class="preview-device-btn active" onclick="setPreviewDevice('desktop')">Desktop</button>
-                <button class="preview-device-btn" onclick="setPreviewDevice('tablet')">Tablet</button>
-                <button class="preview-device-btn" onclick="setPreviewDevice('mobile')">Mobil</button>
-            </div>
-            <button class="btn btn-ghost" onclick="closePreview()">Schließen</button>
-        </div>
-        <div class="preview-body">
-            <div class="preview-frame desktop" id="previewFrame"></div>
-        </div>
-    </div>
+</div>
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
 
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner"></div>
-        <div class="loading-text" id="loadingText">Lädt...</div>
-    </div>
-
-    <!-- Toast Container -->
-    <div class="toast-container" id="toastContainer"></div>
-
-    <!-- DOMPurify für sichere HTML-Sanitization -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js"
-            integrity="sha384-3XJAN3rswrHdGqLHC3V5s0ERRmJrqtOvC/1qVz8gg4RZMlWBNB9VCRa9Z6H/TqRt"
-            crossorigin="anonymous"
-            nonce="studio-2024"></script>
-    <script nonce="studio-2024">
+<div class="loading-text" id="loadingText">Lädt...</div>
+</div>
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+<!-- DOMPurify für sichere HTML-Sanitization -->
+<script crossorigin="anonymous" integrity="sha384-3XJAN3rswrHdGqLHC3V5s0ERRmJrqtOvC/1qVz8gg4RZMlWBNB9VCRa9Z6H/TqRt" nonce="studio-2024" src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js"></script>
+<script nonce="studio-2024">
         // ============================================
         // SECURITY UTILITIES
         // ============================================

@@ -1,22 +1,23 @@
 <!DOCTYPE html>
+
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Editor">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#2C4A47">
-    <!-- CSP: unsafe-inline für Styles nötig wegen inline-styles, Script via nonce -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; connect-src https://api.github.com https://raw.githubusercontent.com https://cdn.jsdelivr.net; img-src 'self' https: data: blob:; media-src 'self' https: blob:; frame-src 'self' blob: data:;">
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="wp-content/uploads/2025/01/Kathrin_Stahl_Logo_RGB_gold.png">
-    <title>Website Editor - Glück über Zweifel</title>
-    <style>
+<meta charset="utf-8"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com" rel="preconnect"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="no-cache, no-store, must-revalidate" http-equiv="Cache-Control"/>
+<meta content="no-cache" http-equiv="Pragma"/>
+<meta content="0" http-equiv="Expires"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="Editor" name="apple-mobile-web-app-title"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+<meta content="#2C4A47" name="theme-color"/>
+<!-- CSP: unsafe-inline für Styles nötig wegen inline-styles, Script via nonce -->
+<meta content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; connect-src https://api.github.com https://raw.githubusercontent.com https://cdn.jsdelivr.net; img-src 'self' https: data: blob:; media-src 'self' https: blob:; frame-src 'self' blob: data:;" http-equiv="Content-Security-Policy"/>
+<link href="manifest.json" rel="manifest"/>
+<link href="wp-content/uploads/2025/01/Kathrin_Stahl_Logo_RGB_gold.png" rel="apple-touch-icon"/>
+<title>Website Editor - Glück über Zweifel</title>
+<style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: system-ui, -apple-system, sans-serif; background: #1a1a1a; }
 
@@ -933,255 +934,219 @@
     </style>
 </head>
 <body>
-    <!-- Setup Screen -->
-    <div class="setup-screen" id="setupScreen">
-        <div class="setup-card">
-            <h1>Website Editor einrichten</h1>
-            <p>Um Änderungen automatisch zu speichern, benötigst du einen GitHub-Zugang.</p>
+<!-- Setup Screen -->
+<div class="setup-screen" id="setupScreen">
+<div class="setup-card">
+<h1>Website Editor einrichten</h1>
+<p>Um Änderungen automatisch zu speichern, benötigst du einen GitHub-Zugang.</p>
+<input class="setup-input" id="tokenInput" placeholder="GitHub Token eingeben..." type="password"/>
+<button class="setup-btn" id="setupBtn" onclick="setupToken()">Editor starten</button>
+<details class="setup-help">
+<summary>Wie bekomme ich einen Token?</summary>
+<div class="setup-help-content">
+<ol>
+<li>Gehe zu <a href="https://github.com/settings/tokens/new" target="_blank">github.com/settings/tokens/new</a></li>
+<li>Melde dich mit deinem GitHub-Konto an</li>
+<li>Gib einen Namen ein, z.B. <code>Website Editor</code></li>
+<li>Wähle bei "Expiration" einen langen Zeitraum (z.B. 1 Jahr)</li>
+<li>Aktiviere die Checkbox <code>repo</code> (für Repository-Zugriff)</li>
+<li>Klicke unten auf "Generate token"</li>
+<li>Kopiere den Token und füge ihn hier ein</li>
+</ol>
+<p><strong>Hinweis:</strong> Der Token wird nur lokal in deinem Browser gespeichert.</p>
+</div>
+</details>
+</div>
+</div>
+<div class="toolbar">
+<div class="toolbar-left">
+<div class="toolbar-logo">Editor</div>
+<select id="pageSelect" onchange="loadPage(this.value)">
+<option>Seite wählen...</option>
+<optgroup label="Startseite">
+<option value="index.html">Startseite</option>
+</optgroup>
+<optgroup label="Über mich">
+<option value="kathrin.html">Über mich</option>
+</optgroup>
+<optgroup label="Portugal">
+<option value="paar-retreat.html">Paar-Retreat</option>
+<option value="pferdegestuetztes-coaching.html">Pferdegestütztes Coaching</option>
+<option value="casinha.html">Casinha (Unterkunft)</option>
+</optgroup>
+<optgroup label="Selbsttests">
+<option value="quiz-hochsensibel.html">Hochsensibilität</option>
+<option value="quiz-hochbegabt.html">Hochbegabung</option>
+<option value="quiz-beziehung.html">Beziehung</option>
+<option value="quiz-lebenskrise.html">Lebenskrise</option>
+<option value="quiz-midlife.html">Midlife</option>
+<option value="quiz-paar-kompass.html">Paar-Kompass</option>
+</optgroup>
+<optgroup label="Rechtliches">
+<option value="impressum.html">Impressum</option>
+<option value="datenschutzerklaerung.html">Datenschutz</option>
+</optgroup>
+</select>
+</div>
+<div class="toolbar-center">
+<div class="autosave-indicator">
 
-            <input type="password" class="setup-input" id="tokenInput" placeholder="GitHub Token eingeben...">
-            <button class="setup-btn" id="setupBtn" onclick="setupToken()">Editor starten</button>
-
-            <details class="setup-help">
-                <summary>Wie bekomme ich einen Token?</summary>
-                <div class="setup-help-content">
-                    <ol>
-                        <li>Gehe zu <a href="https://github.com/settings/tokens/new" target="_blank">github.com/settings/tokens/new</a></li>
-                        <li>Melde dich mit deinem GitHub-Konto an</li>
-                        <li>Gib einen Namen ein, z.B. <code>Website Editor</code></li>
-                        <li>Wähle bei "Expiration" einen langen Zeitraum (z.B. 1 Jahr)</li>
-                        <li>Aktiviere die Checkbox <code>repo</code> (für Repository-Zugriff)</li>
-                        <li>Klicke unten auf "Generate token"</li>
-                        <li>Kopiere den Token und füge ihn hier ein</li>
-                    </ol>
-                    <p style="margin-top: 1rem;"><strong>Hinweis:</strong> Der Token wird nur lokal in deinem Browser gespeichert.</p>
-                </div>
-            </details>
-        </div>
-    </div>
-
-    <div class="toolbar">
-        <div class="toolbar-left">
-            <div class="toolbar-logo">Editor</div>
-            <select id="pageSelect" onchange="loadPage(this.value)">
-                <option value="">Seite wählen...</option>
-                <optgroup label="Startseite">
-                    <option value="index.html">Startseite</option>
-                </optgroup>
-                <optgroup label="Über mich">
-                    <option value="kathrin.html">Über mich</option>
-                </optgroup>
-                <optgroup label="Portugal">
-                    <option value="paar-retreat.html">Paar-Retreat</option>
-                    <option value="pferdegestuetztes-coaching.html">Pferdegestütztes Coaching</option>
-                    <option value="casinha.html">Casinha (Unterkunft)</option>
-                </optgroup>
-                <optgroup label="Selbsttests">
-                    <option value="quiz-hochsensibel.html">Hochsensibilität</option>
-                    <option value="quiz-hochbegabt.html">Hochbegabung</option>
-                    <option value="quiz-beziehung.html">Beziehung</option>
-                    <option value="quiz-lebenskrise.html">Lebenskrise</option>
-                    <option value="quiz-midlife.html">Midlife</option>
-                    <option value="quiz-paar-kompass.html">Paar-Kompass</option>
-                </optgroup>
-                <optgroup label="Rechtliches">
-                    <option value="impressum.html">Impressum</option>
-                    <option value="datenschutzerklaerung.html">Datenschutz</option>
-                </optgroup>
-            </select>
-        </div>
-
-        <div class="toolbar-center">
-            <div class="autosave-indicator">
-                <div class="autosave-dot" id="autosaveDot"></div>
-                <span id="autosaveText">Autosave aktiv</span>
-            </div>
-            <span class="status-badge status-saved" id="statusBadge">Gespeichert</span>
-        </div>
-
-        <div class="toolbar-right">
-            <button class="btn btn-ghost" onclick="forceReload()" title="Seite neu laden ohne Cache">Neu laden</button>
-            <button class="btn btn-ghost" onclick="toggleNotesSidebar()">Notizen</button>
-            <button class="btn btn-ghost" onclick="showVersions()">Versionen</button>
-            <button class="btn btn-ghost" onclick="undo()">Rückgängig</button>
-            <button class="btn btn-primary" onclick="saveNow()">Jetzt speichern</button>
-            <button class="btn btn-ghost" onclick="showHelp()">?</button>
-        </div>
-    </div>
-
-    <!-- Sidebar -->
-    <!-- Versionen Sidebar -->
-    <div class="sidebar" id="versionsSidebar">
-        <button class="sidebar-close" onclick="toggleVersionsSidebar()">&times;</button>
-        <div class="sidebar-section">
-            <h3>📋 Aktuelle Änderungen</h3>
-            <div id="changesList">
-                <p style="color: #999; font-size: 0.85rem;">Noch keine Änderungen</p>
-            </div>
-        </div>
-
-        <div class="sidebar-section">
-            <h3>🕐 Letzte Versionen</h3>
-            <div class="version-list" id="versionList">
-                <p style="color: #999; font-size: 0.85rem;">Wird geladen...</p>
-            </div>
-        </div>
-
-        <div class="sidebar-section">
-            <h3>ℹ️ Info</h3>
-            <p style="font-size: 0.8rem; color: #666; line-height: 1.5;">
+<span id="autosaveText">Autosave aktiv</span>
+</div>
+<span id="statusBadge">Gespeichert</span>
+</div>
+<div class="toolbar-right">
+<button class="btn btn-ghost" onclick="forceReload()" title="Seite neu laden ohne Cache">Neu laden</button>
+<button class="btn btn-ghost" onclick="toggleNotesSidebar()">Notizen</button>
+<button class="btn btn-ghost" onclick="showVersions()">Versionen</button>
+<button class="btn btn-ghost" onclick="undo()">Rückgängig</button>
+<button class="btn btn-primary" onclick="saveNow()">Jetzt speichern</button>
+<button class="btn btn-ghost" onclick="showHelp()">?</button>
+</div>
+</div>
+<!-- Sidebar -->
+<!-- Versionen Sidebar -->
+<div class="sidebar" id="versionsSidebar">
+<button onclick="toggleVersionsSidebar()">×</button>
+<div>
+<h3>📋 Aktuelle Änderungen</h3>
+<div id="changesList">
+<p>Noch keine Änderungen</p>
+</div>
+</div>
+<div>
+<h3>🕐 Letzte Versionen</h3>
+<div class="version-list" id="versionList">
+<p>Wird geladen...</p>
+</div>
+</div>
+<div>
+<h3>ℹ️ Info</h3>
+<p>
                 Änderungen werden automatisch alle 30 Sekunden gespeichert.
-                Du arbeitest auf dem Branch <code style="background:#e0e0e0;padding:0.1rem 0.3rem;border-radius:3px;">kathrin-edits</code> -
+                Du arbeitest auf dem Branch <code>kathrin-edits</code> -
                 der Hauptbranch bleibt als Backup unverändert.
             </p>
-        </div>
-    </div>
+</div>
+</div>
+<!-- Notizen Sidebar -->
+<div class="sidebar" id="notesSidebar">
+<button onclick="toggleNotesSidebar()">×</button>
+<div>
+<h3>📝 Notizen</h3>
+<div>
+<button class="btn btn-ghost" id="notesFilterCurrent" onclick="filterNotes('current')">Diese Seite</button>
+<button class="btn btn-ghost" id="notesFilterAll" onclick="filterNotes('all')">Alle Seiten</button>
+</div>
+</div>
+<div id="notesListContainer">
+<p>Noch keine Notizen</p>
+</div>
+<div>
+<button class="btn btn-primary" onclick="addStickyNote()">+ Neue Notiz</button>
+</div>
+</div>
+<!-- Start Screen -->
+<div class="start-screen" id="startScreen">
+<h2>Willkommen!</h2>
+<p>Wähle oben eine Seite aus, um mit dem Bearbeiten zu beginnen.</p>
+</div>
+<!-- Loading Overlay -->
+<div class="loading-overlay hidden" id="loadingOverlay">
 
-    <!-- Notizen Sidebar -->
-    <div class="sidebar" id="notesSidebar">
-        <button class="sidebar-close" onclick="toggleNotesSidebar()">&times;</button>
-        <div class="sidebar-section" style="padding-bottom:0.5rem;">
-            <h3 style="margin-bottom:0.5rem;">📝 Notizen</h3>
-            <div style="display:flex; gap:0.5rem; margin-bottom:0.75rem;">
-                <button class="btn btn-ghost" style="flex:1; font-size:0.75rem; padding:0.3rem;" onclick="filterNotes('current')" id="notesFilterCurrent">Diese Seite</button>
-                <button class="btn btn-ghost" style="flex:1; font-size:0.75rem; padding:0.3rem;" onclick="filterNotes('all')" id="notesFilterAll">Alle Seiten</button>
-            </div>
-        </div>
-        <div id="notesListContainer" style="padding:0 1rem 1rem;">
-            <p style="color: #999; font-size: 0.85rem;">Noch keine Notizen</p>
-        </div>
-        <div style="padding:1rem; border-top:1px solid #ddd;">
-            <button class="btn btn-primary" style="width:100%;" onclick="addStickyNote()">+ Neue Notiz</button>
-        </div>
-    </div>
+<div class="loading-text">Seite wird geladen...</div>
+</div>
+<iframe class="website-frame" id="siteFrame"></iframe>
+<!-- Annotations Canvas Overlay -->
+<canvas id="annotateCanvas"></canvas>
+<!-- Schwebende Werkzeugleiste links -->
+<div class="floating-toolbar" id="floatingToolbar">
+<div class="ft-section">
+<button class="ft-btn ft-btn-draw" id="ftDrawBtn" onclick="toggleDrawMode()" title="Zeichnen">
+<svg fill="currentColor" height="20" viewbox="0 0 24 24" width="20"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path></svg>
+</button>
+<button class="ft-btn" onclick="toggleRecordingOptions()" title="Video aufnehmen">
+<svg fill="currentColor" height="20" viewbox="0 0 24 24" width="20"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"></path></svg>
+</button>
+<button class="ft-btn ft-btn-green" onclick="showSessionSummary()" title="Session beenden">
+<svg fill="currentColor" height="20" viewbox="0 0 24 24" width="20"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"></path></svg>
+</button>
+</div>
 
-    <!-- Start Screen -->
-    <div class="start-screen" id="startScreen">
-        <h2>Willkommen!</h2>
-        <p>Wähle oben eine Seite aus, um mit dem Bearbeiten zu beginnen.</p>
-    </div>
+</div>
+<!-- Zeichnen-Werkzeuge Panel (erscheint wenn Zeichnen aktiv) -->
+<div class="draw-tools-panel" id="drawToolsPanel">
+<div class="dtp-header">
+<span>Zeichenwerkzeuge</span>
+<button class="dtp-minimize" onclick="minimizeDrawTools()" title="Minimieren">−</button>
+<button class="dtp-close" onclick="closeDrawMode()" title="Schliessen">×</button>
+</div>
+<div class="dtp-content" id="dtpContent">
+<div class="dtp-tools">
+<button class="dtp-tool" id="toolHighlight" onclick="setAnnotateTool('highlight')" title="Textmarker">
 
-    <!-- Loading Overlay -->
-    <div class="loading-overlay hidden" id="loadingOverlay">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">Seite wird geladen...</div>
-    </div>
+<span>Marker</span>
+</button>
+<button class="dtp-tool dtp-tool-active" id="toolDraw" onclick="setAnnotateTool('draw')" title="Bleistift">
+<svg fill="currentColor" height="20" viewbox="0 0 24 24" width="20"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"></path></svg>
+<span>Stift</span>
+</button>
+<button class="dtp-tool" id="toolArrow" onclick="setAnnotateTool('arrow')" title="Pfeil">
+<svg fill="currentColor" height="20" viewbox="0 0 24 24" width="20"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path></svg>
+<span>Pfeil</span>
+</button>
+<button class="dtp-tool" id="toolCircle" onclick="setAnnotateTool('circle')" title="Kreis">
+<svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20"><circle cx="12" cy="12" r="9"></circle></svg>
+<span>Kreis</span>
+</button>
+<button class="dtp-tool" id="toolText" onclick="setAnnotateTool('text')" title="Text">
+<svg fill="currentColor" height="20" viewbox="0 0 24 24" width="20"><path d="M5 4v3h5.5v12h3V7H19V4z"></path></svg>
+<span>Text</span>
+</button>
+</div>
+<div class="dtp-section">
+<span class="dtp-label">Farbe</span>
 
-    <iframe id="siteFrame" class="website-frame"></iframe>
+</div>
+<div class="dtp-section">
+<span class="dtp-label">Stärke</span>
 
-    <!-- Annotations Canvas Overlay -->
-    <canvas id="annotateCanvas" style="display:none; position:fixed; top:50px; left:0; right:300px; bottom:0; z-index:99995; cursor:crosshair;"></canvas>
-
-    <!-- Schwebende Werkzeugleiste links -->
-    <div id="floatingToolbar" class="floating-toolbar">
-        <div class="ft-section">
-            <button class="ft-btn ft-btn-draw" id="ftDrawBtn" onclick="toggleDrawMode()" title="Zeichnen">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
-            </button>
-            <button class="ft-btn" onclick="toggleRecordingOptions()" title="Video aufnehmen">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
-            </button>
-            <button class="ft-btn ft-btn-green" onclick="showSessionSummary()" title="Session beenden">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
-            </button>
-        </div>
-        <div class="ft-colors" id="ftColors" style="display:none;">
-            <div class="ft-color" style="background:#f44336;" onclick="setAnnotateColor('#f44336')" data-color="#f44336"></div>
-            <div class="ft-color" style="background:#ff9800;" onclick="setAnnotateColor('#ff9800')" data-color="#ff9800"></div>
-            <div class="ft-color ft-color-active" style="background:#ffeb3b;" onclick="setAnnotateColor('#ffeb3b')" data-color="#ffeb3b"></div>
-            <div class="ft-color" style="background:#4CAF50;" onclick="setAnnotateColor('#4CAF50')" data-color="#4CAF50"></div>
-            <div class="ft-color" style="background:#2196F3;" onclick="setAnnotateColor('#2196F3')" data-color="#2196F3"></div>
-            <div class="ft-color" style="background:#9c27b0;" onclick="setAnnotateColor('#9c27b0')" data-color="#9c27b0"></div>
-        </div>
-    </div>
-
-    <!-- Zeichnen-Werkzeuge Panel (erscheint wenn Zeichnen aktiv) -->
-    <div id="drawToolsPanel" class="draw-tools-panel" style="display:none;">
-        <div class="dtp-header">
-            <span>Zeichenwerkzeuge</span>
-            <button onclick="minimizeDrawTools()" class="dtp-minimize" title="Minimieren">−</button>
-            <button onclick="closeDrawMode()" class="dtp-close" title="Schliessen">×</button>
-        </div>
-        <div class="dtp-content" id="dtpContent">
-            <div class="dtp-tools">
-                <button class="dtp-tool" onclick="setAnnotateTool('highlight')" id="toolHighlight" title="Textmarker">
-                    <div style="width:24px;height:8px;background:#ffeb3b;border-radius:2px;"></div>
-                    <span>Marker</span>
-                </button>
-                <button class="dtp-tool dtp-tool-active" onclick="setAnnotateTool('draw')" id="toolDraw" title="Bleistift">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/></svg>
-                    <span>Stift</span>
-                </button>
-                <button class="dtp-tool" onclick="setAnnotateTool('arrow')" id="toolArrow" title="Pfeil">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
-                    <span>Pfeil</span>
-                </button>
-                <button class="dtp-tool" onclick="setAnnotateTool('circle')" id="toolCircle" title="Kreis">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>
-                    <span>Kreis</span>
-                </button>
-                <button class="dtp-tool" onclick="setAnnotateTool('text')" id="toolText" title="Text">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M5 4v3h5.5v12h3V7H19V4z"/></svg>
-                    <span>Text</span>
-                </button>
-            </div>
-            <div class="dtp-section">
-                <span class="dtp-label">Farbe</span>
-                <div class="dtp-colors">
-                    <div class="dtp-color" style="background:#f44336;" onclick="setAnnotateColor('#f44336')" data-color="#f44336"></div>
-                    <div class="dtp-color" style="background:#ff9800;" onclick="setAnnotateColor('#ff9800')" data-color="#ff9800"></div>
-                    <div class="dtp-color dtp-color-active" style="background:#ffeb3b;" onclick="setAnnotateColor('#ffeb3b')" data-color="#ffeb3b"></div>
-                    <div class="dtp-color" style="background:#4CAF50;" onclick="setAnnotateColor('#4CAF50')" data-color="#4CAF50"></div>
-                    <div class="dtp-color" style="background:#2196F3;" onclick="setAnnotateColor('#2196F3')" data-color="#2196F3"></div>
-                    <div class="dtp-color" style="background:#9c27b0;" onclick="setAnnotateColor('#9c27b0')" data-color="#9c27b0"></div>
-                </div>
-            </div>
-            <div class="dtp-section">
-                <span class="dtp-label">Stärke</span>
-                <div class="dtp-widths">
-                    <button class="dtp-width" onclick="setLineWidth(2)" data-width="2"><div style="width:6px;height:6px;background:#333;border-radius:50%;"></div></button>
-                    <button class="dtp-width dtp-width-active" onclick="setLineWidth(5)" data-width="5"><div style="width:10px;height:10px;background:#333;border-radius:50%;"></div></button>
-                    <button class="dtp-width" onclick="setLineWidth(10)" data-width="10"><div style="width:16px;height:16px;background:#333;border-radius:50%;"></div></button>
-                </div>
-            </div>
-            <div class="dtp-actions">
-                <button class="dtp-action" onclick="undoAnnotation()">Rückgängig</button>
-                <button class="dtp-action" onclick="clearAnnotations()">Löschen</button>
-                <button class="dtp-action dtp-action-primary" onclick="saveAnnotations()">Speichern</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Recording Options Panel -->
-    <div id="recordOptionsPanel" class="record-options-panel" style="display:none;">
-        <div class="rop-header">
-            <span>Video-Feedback</span>
-            <button onclick="closeRecordOptions()" class="rop-close">×</button>
-        </div>
-        <div class="rop-content">
-            <label class="rop-option">
-                <input type="checkbox" id="recOptScreen" checked>
-                <span>Bildschirm</span>
-            </label>
-            <label class="rop-option">
-                <input type="checkbox" id="recOptAudio" checked>
-                <span>Mit Ton</span>
-            </label>
-            <button class="rop-start" onclick="startRecordingWithOptions()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="8"/></svg>
+</div>
+<div class="dtp-actions">
+<button class="dtp-action" onclick="undoAnnotation()">Rückgängig</button>
+<button class="dtp-action" onclick="clearAnnotations()">Löschen</button>
+<button class="dtp-action dtp-action-primary" onclick="saveAnnotations()">Speichern</button>
+</div>
+</div>
+</div>
+<!-- Recording Options Panel -->
+<div class="record-options-panel" id="recordOptionsPanel">
+<div class="rop-header">
+<span>Video-Feedback</span>
+<button class="rop-close" onclick="closeRecordOptions()">×</button>
+</div>
+<div class="rop-content">
+<label class="rop-option">
+<input id="recOptScreen" type="checkbox"/>
+<span>Bildschirm</span>
+</label>
+<label class="rop-option">
+<input id="recOptAudio" type="checkbox"/>
+<span>Mit Ton</span>
+</label>
+<button class="rop-start" onclick="startRecordingWithOptions()">
+<svg fill="white" height="16" viewbox="0 0 24 24" width="16"><circle cx="12" cy="12" r="8"></circle></svg>
                 Aufnahme starten
             </button>
-        </div>
-    </div>
+</div>
+</div>
+<!-- Recording Indicator (nur bei aktiver Aufnahme sichtbar) -->
+<div class="recording-indicator" id="recordingIndicator">
 
-    <!-- Recording Indicator (nur bei aktiver Aufnahme sichtbar) -->
-    <div id="recordingIndicator" class="recording-indicator" style="display:none;">
-        <div class="rec-dot"></div>
-        <span id="recordingTime">00:00</span>
-        <button onclick="stopRecording()" class="rec-stop">Stopp</button>
-    </div>
-
-    <style>
+<span id="recordingTime">00:00</span>
+<button class="rec-stop" onclick="stopRecording()">Stopp</button>
+</div>
+<style>
         /* Schwebende Toolbar */
         .floating-toolbar {
             position: fixed;
@@ -1420,296 +1385,244 @@
             50% { opacity: 0.3; }
         }
     </style>
-
-    <!-- Recording Setup Modal -->
-    <div class="modal-bg" id="recordModal">
-        <div class="modal" style="max-width: 500px;">
-            <h3>Video-Feedback aufnehmen</h3>
-            <p style="color:#666; margin-bottom:1rem; font-size:0.9rem;">
+<!-- Recording Setup Modal -->
+<div class="modal-bg" id="recordModal">
+<div class="modal">
+<h3>Video-Feedback aufnehmen</h3>
+<p>
                 Nimm ein Video auf, um Nick zu zeigen, welche Änderungen du möchtest.
                 Du kannst dabei auf der Website scrollen und Bereiche zeigen.
             </p>
-
-            <div style="margin-bottom:1rem;">
-                <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; padding:0.5rem; border-radius:6px; border:1px solid #ddd; margin-bottom:0.5rem;">
-                    <input type="checkbox" id="recordScreen" checked>
-                    <span>Bildschirm aufnehmen</span>
-                </label>
-                <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; padding:0.5rem; border-radius:6px; border:1px solid #ddd; margin-bottom:0.5rem;">
-                    <input type="checkbox" id="recordMic" checked>
-                    <span>Mikrofon (deine Stimme)</span>
-                </label>
-                <label style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; padding:0.5rem; border-radius:6px; border:1px solid #ddd;">
-                    <input type="checkbox" id="recordCam">
-                    <span>Webcam (optional, kleines Bild)</span>
-                </label>
+<div>
+<label>
+<input id="recordScreen" type="checkbox"/>
+<span>Bildschirm aufnehmen</span>
+</label>
+<label>
+<input id="recordMic" type="checkbox"/>
+<span>Mikrofon (deine Stimme)</span>
+</label>
+<label>
+<input id="recordCam" type="checkbox"/>
+<span>Webcam (optional, kleines Bild)</span>
+</label>
+</div>
+<div>
+<strong>Tipp:</strong> Scrolle durch die Seite und erkläre dabei, was du ändern möchtest. Das Video wird automatisch gespeichert und Nick kann es später mit Claude analysieren.
             </div>
+<div class="modal-btns">
+<button class="btn btn-cancel" onclick="closeRecordModal()">Abbrechen</button>
+<button class="btn btn-danger" onclick="startRecording()">
 
-            <div style="background:#e3f2fd; padding:0.75rem; border-radius:8px; margin-bottom:1rem; font-size:0.85rem;">
-                <strong>Tipp:</strong> Scrolle durch die Seite und erkläre dabei, was du ändern möchtest. Das Video wird automatisch gespeichert und Nick kann es später mit Claude analysieren.
-            </div>
-
-            <div class="modal-btns">
-                <button class="btn btn-cancel" onclick="closeRecordModal()">Abbrechen</button>
-                <button class="btn btn-danger" onclick="startRecording()" style="display:flex; align-items:center; gap:0.5rem;">
-                    <span style="width:10px; height:10px; background:white; border-radius:50%;"></span>
                     Aufnahme starten
                 </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Recording Preview Modal -->
-    <div class="modal-bg" id="recordPreviewModal">
-        <div class="modal" style="max-width: 600px;">
-            <h3>Aufnahme fertig!</h3>
-            <video id="recordedVideo" controls style="width:100%; border-radius:8px; margin:1rem 0; max-height:300px;"></video>
-            <p style="color:#666; font-size:0.9rem; margin-bottom:1rem;">
+</div>
+</div>
+</div>
+<!-- Recording Preview Modal -->
+<div class="modal-bg" id="recordPreviewModal">
+<div class="modal">
+<h3>Aufnahme fertig!</h3>
+<video id="recordedVideo"></video>
+<p>
                 Möchtest du diese Aufnahme speichern? Nick wird sie später analysieren können.
             </p>
-            <div class="modal-btns">
-                <button class="btn btn-cancel" onclick="discardRecording()">Verwerfen</button>
-                <button class="btn btn-primary" onclick="saveRecording()">Speichern & Senden</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="toast-container" id="toasts"></div>
-
-    <!-- Offline Banner -->
-    <div class="offline-banner" id="offlineBanner">
+<div class="modal-btns">
+<button class="btn btn-cancel" onclick="discardRecording()">Verwerfen</button>
+<button class="btn btn-primary" onclick="saveRecording()">Speichern &amp; Senden</button>
+</div>
+</div>
+</div>
+<div class="toast-container" id="toasts"></div>
+<!-- Offline Banner -->
+<div class="offline-banner" id="offlineBanner">
         Du bist offline. Änderungen werden lokal gespeichert und später synchronisiert.
     </div>
+<!-- Trash Panel -->
+<div class="trash-panel" id="trashPanel">
+<h4>Papierkorb</h4>
+<div id="trashList">
+<p>Papierkorb ist leer</p>
+</div>
+</div>
+<!-- Comparison Slider -->
+<div class="comparison-slider" id="comparisonSlider">
+<div class="comparison-before">
+<div class="comparison-label">VORHER</div>
+<iframe id="comparisonBefore"></iframe>
+</div>
+<div class="comparison-after">
+<div class="comparison-label">NACHHER</div>
+<iframe id="comparisonAfter"></iframe>
+</div>
+<button onclick="closeComparison()">Vergleich schließen</button>
+</div>
+<!-- Format Toolbar (shows on text selection) -->
+<div class="format-toolbar" id="formatToolbar">
+<button class="format-btn" onclick="formatText('bold')" title="Fett"><strong>B</strong></button>
+<button class="format-btn" onclick="formatText('italic')" title="Kursiv"><em>I</em></button>
+<button class="format-btn" onclick="formatText('underline')" title="Unterstrichen"><u>U</u></button>
+<button class="format-btn" onclick="showLinkDialog()" title="Link">🔗</button>
+<button class="format-btn" onclick="showColorPicker()" title="Farbe">🎨</button>
+<button class="format-btn" onclick="showEmojiPicker()" title="Emoji">😊</button>
+</div>
+<!-- Color Picker -->
 
-    <!-- Trash Panel -->
-    <div class="trash-panel" id="trashPanel">
-        <h4>Papierkorb</h4>
-        <div id="trashList">
-            <p style="color:#999; font-size:0.8rem;">Papierkorb ist leer</p>
-        </div>
-    </div>
+<!-- Emoji Picker -->
 
-    <!-- Comparison Slider -->
-    <div class="comparison-slider" id="comparisonSlider">
-        <div class="comparison-before">
-            <div class="comparison-label">VORHER</div>
-            <iframe id="comparisonBefore" style="width:100%;height:100%;border:none;"></iframe>
-        </div>
-        <div class="comparison-after">
-            <div class="comparison-label">NACHHER</div>
-            <iframe id="comparisonAfter" style="width:100%;height:100%;border:none;"></iframe>
-        </div>
-        <button onclick="closeComparison()" style="position:absolute;top:10px;left:50%;transform:translateX(-50%);background:#2C4A47;color:white;border:none;padding:0.5rem 1rem;border-radius:8px;cursor:pointer;z-index:10;">Vergleich schließen</button>
-    </div>
+<!-- Element History Panel -->
+<div class="element-history" id="elementHistory">
+<h5>Änderungsverlauf</h5>
 
-    <!-- Format Toolbar (shows on text selection) -->
-    <div class="format-toolbar" id="formatToolbar">
-        <button class="format-btn" onclick="formatText('bold')" title="Fett"><b>B</b></button>
-        <button class="format-btn" onclick="formatText('italic')" title="Kursiv"><i>I</i></button>
-        <button class="format-btn" onclick="formatText('underline')" title="Unterstrichen"><u>U</u></button>
-        <button class="format-btn" onclick="showLinkDialog()" title="Link">🔗</button>
-        <button class="format-btn" onclick="showColorPicker()" title="Farbe">🎨</button>
-        <button class="format-btn" onclick="showEmojiPicker()" title="Emoji">😊</button>
-    </div>
-
-    <!-- Color Picker -->
-    <div class="color-picker-popup" id="colorPicker">
-        <div class="color-swatch" style="background:#000000" onclick="applyColor('#000000')"></div>
-        <div class="color-swatch" style="background:#333333" onclick="applyColor('#333333')"></div>
-        <div class="color-swatch" style="background:#666666" onclick="applyColor('#666666')"></div>
-        <div class="color-swatch" style="background:#999999" onclick="applyColor('#999999')"></div>
-        <div class="color-swatch" style="background:#f44336" onclick="applyColor('#f44336')"></div>
-        <div class="color-swatch" style="background:#e91e63" onclick="applyColor('#e91e63')"></div>
-        <div class="color-swatch" style="background:#9c27b0" onclick="applyColor('#9c27b0')"></div>
-        <div class="color-swatch" style="background:#2196F3" onclick="applyColor('#2196F3')"></div>
-        <div class="color-swatch" style="background:#00bcd4" onclick="applyColor('#00bcd4')"></div>
-        <div class="color-swatch" style="background:#4CAF50" onclick="applyColor('#4CAF50')"></div>
-        <div class="color-swatch" style="background:#8bc34a" onclick="applyColor('#8bc34a')"></div>
-        <div class="color-swatch" style="background:#ff9800" onclick="applyColor('#ff9800')"></div>
-        <div class="color-swatch" style="background:#D4A574" onclick="applyColor('#D4A574')"></div>
-        <div class="color-swatch" style="background:#2C4A47" onclick="applyColor('#2C4A47')"></div>
-    </div>
-
-    <!-- Emoji Picker -->
-    <div class="emoji-picker" id="emojiPicker"></div>
-
-    <!-- Element History Panel -->
-    <div class="element-history" id="elementHistory">
-        <h5>Änderungsverlauf</h5>
-        <div id="historyList"></div>
-    </div>
-
-    <!-- Preview Exit Button (shown in preview mode) -->
-    <div class="preview-exit" id="previewExit" style="display:none;" onclick="togglePreviewMode()">
+</div>
+<!-- Preview Exit Button (shown in preview mode) -->
+<div class="preview-exit" id="previewExit" onclick="togglePreviewMode()">
         Vorschau beenden
     </div>
-
-    <!-- Bild Upload Modal -->
-    <div class="modal-bg" id="imgModal">
-        <div class="modal">
-            <h3>Bild ersetzen</h3>
-            <div class="upload-zone" id="uploadZone">
-                <div style="font-size: 2rem; margin-bottom: 0.5rem;">+</div>
-                <p><strong>Klicken oder Bild hierher ziehen</strong></p>
-                <input type="file" id="imgInput" accept="image/*">
-            </div>
-            <img id="imgPreview" class="preview-img" style="display:none;" loading="lazy">
-            <div class="modal-btns">
-                <button class="btn btn-cancel" onclick="closeImgModal()">Abbrechen</button>
-                <button class="btn btn-primary" id="imgConfirmBtn" onclick="confirmImg()" disabled>Einsetzen</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Video Modal -->
-    <div class="modal-bg" id="videoModal">
-        <div class="modal" style="max-width: 500px;">
-            <h3>Video ändern</h3>
-
-            <!-- Tab-Auswahl -->
-            <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
-                <button class="btn btn-primary" id="videoTabUrl" onclick="switchVideoTab('url')" style="flex:1;">YouTube/Vimeo URL</button>
-                <button class="btn btn-ghost" id="videoTabUpload" onclick="switchVideoTab('upload')" style="flex:1;">Video hochladen</button>
-            </div>
-
-            <!-- URL Eingabe -->
-            <div id="videoUrlSection">
-                <p style="color:#666; margin-bottom:0.75rem; font-size: 0.9rem;">YouTube oder Vimeo URL eingeben:</p>
-                <input type="text" class="modal-input" id="videoInput" placeholder="https://youtube.com/watch?v=...">
-            </div>
-
-            <!-- Video Upload -->
-            <div id="videoUploadSection" style="display: none;">
-                <div class="upload-zone" id="videoUploadZone">
-                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎬</div>
-                    <p><strong>Video hierher ziehen</strong></p>
-                    <p style="font-size: 0.8rem; color: #999;">oder klicken zum Auswählen</p>
-                    <p style="font-size: 0.75rem; color: #999; margin-top: 0.5rem;">MP4, WebM, MOV (max. 50 MB)</p>
-                    <input type="file" id="videoFileInput" accept="video/mp4,video/webm,video/quicktime">
-                </div>
-                <video id="videoPreview" style="display:none; max-width:100%; max-height:150px; border-radius:8px; margin-top:1rem;" controls></video>
-                <p id="videoFileName" style="display:none; font-size:0.85rem; color:#666; margin-top:0.5rem;"></p>
-            </div>
-
-            <div class="modal-btns">
-                <button class="btn btn-cancel" onclick="closeVideoModal()">Abbrechen</button>
-                <button class="btn btn-primary" id="videoConfirmBtn" onclick="confirmVideo()">Ändern</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Version Modal -->
-    <div class="modal-bg" id="versionModal">
-        <div class="modal" style="max-width: 600px;">
-            <h3>Version wiederherstellen</h3>
-            <p style="color:#666; margin-bottom:1rem;" id="versionInfo"></p>
-            <div class="modal-btns">
-                <button class="btn btn-cancel" onclick="closeVersionModal()">Abbrechen</button>
-                <button class="btn btn-danger" onclick="confirmRestore()">Diese Version wiederherstellen</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Session Zusammenfassung Modal -->
-    <div class="modal-bg" id="sessionModal">
-        <div class="modal" style="max-width: 600px; max-height: 90vh; overflow-y: auto; position:relative;">
-            <button onclick="closeSessionModal()" style="position:absolute; top:1rem; right:1rem; background:none; border:none; font-size:1.5rem; cursor:pointer; color:#999; line-height:1;" title="Schließen">&times;</button>
-            <h3 style="display:flex; align-items:center; gap:0.5rem;">
-                <span style="font-size:1.5rem;">📋</span> Session-Zusammenfassung
+<!-- Bild Upload Modal -->
+<div class="modal-bg" id="imgModal">
+<div class="modal">
+<h3>Bild ersetzen</h3>
+<div class="upload-zone" id="uploadZone">
+<div>+</div>
+<p><strong>Klicken oder Bild hierher ziehen</strong></p>
+<input accept="image/*" id="imgInput" type="file"/>
+</div>
+<img class="preview-img" fetchpriority="high" id="imgPreview" loading="lazy" style="display:none;"/>
+<div class="modal-btns">
+<button class="btn btn-cancel" onclick="closeImgModal()">Abbrechen</button>
+<button class="btn btn-primary" id="imgConfirmBtn" onclick="confirmImg()">Einsetzen</button>
+</div>
+</div>
+</div>
+<!-- Video Modal -->
+<div class="modal-bg" id="videoModal">
+<div class="modal">
+<h3>Video ändern</h3>
+<!-- Tab-Auswahl -->
+<div>
+<button class="btn btn-primary" id="videoTabUrl" onclick="switchVideoTab('url')">YouTube/Vimeo URL</button>
+<button class="btn btn-ghost" id="videoTabUpload" onclick="switchVideoTab('upload')">Video hochladen</button>
+</div>
+<!-- URL Eingabe -->
+<div id="videoUrlSection">
+<p>YouTube oder Vimeo URL eingeben:</p>
+<input class="modal-input" id="videoInput" placeholder="https://youtube.com/watch?v=..." type="text"/>
+</div>
+<!-- Video Upload -->
+<div id="videoUploadSection">
+<div class="upload-zone" id="videoUploadZone">
+<div>🎬</div>
+<p><strong>Video hierher ziehen</strong></p>
+<p>oder klicken zum Auswählen</p>
+<p>MP4, WebM, MOV (max. 50 MB)</p>
+<input accept="video/mp4,video/webm,video/quicktime" id="videoFileInput" type="file"/>
+</div>
+<video id="videoPreview"></video>
+<p id="videoFileName"></p>
+</div>
+<div class="modal-btns">
+<button class="btn btn-cancel" onclick="closeVideoModal()">Abbrechen</button>
+<button class="btn btn-primary" id="videoConfirmBtn" onclick="confirmVideo()">Ändern</button>
+</div>
+</div>
+</div>
+<!-- Version Modal -->
+<div class="modal-bg" id="versionModal">
+<div class="modal">
+<h3>Version wiederherstellen</h3>
+<p id="versionInfo"></p>
+<div class="modal-btns">
+<button class="btn btn-cancel" onclick="closeVersionModal()">Abbrechen</button>
+<button class="btn btn-danger" onclick="confirmRestore()">Diese Version wiederherstellen</button>
+</div>
+</div>
+</div>
+<!-- Session Zusammenfassung Modal -->
+<div class="modal-bg" id="sessionModal">
+<div class="modal">
+<button onclick="closeSessionModal()" title="Schließen">×</button>
+<h3>
+<span>📋</span> Session-Zusammenfassung
             </h3>
 
-            <div id="sessionContent" style="margin: 1rem 0;">
-                <!-- Wird dynamisch gefuellt -->
-            </div>
-
-            <div style="background: #f5f5f5; border-radius: 8px; padding: 1rem; margin: 1rem 0;">
-                <p style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;"><strong>Nachricht an Nick (optional):</strong></p>
-                <textarea id="sessionMessage" placeholder="Hier kannst du eine zusätzliche Nachricht für Nick schreiben..." style="width:100%; min-height:80px; border:1px solid #ddd; border-radius:6px; padding:0.75rem; font-family:inherit; resize:vertical;"></textarea>
-            </div>
-
-            <div style="display:flex; flex-direction:column; gap:0.75rem; margin-top:1.5rem;">
-                <p style="font-size:0.85rem; color:#666; text-align:center;">Zusammenfassung versenden:</p>
-                <div style="display:flex; gap:0.75rem; flex-wrap:wrap; justify-content:center;">
-                    <button class="btn" onclick="shareViaWhatsApp()" style="background:#25D366; color:white; flex:1; min-width:150px; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+<div>
+<p><strong>Nachricht an Nick (optional):</strong></p>
+<textarea id="sessionMessage" placeholder="Hier kannst du eine zusätzliche Nachricht für Nick schreiben..."></textarea>
+</div>
+<div>
+<p>Zusammenfassung versenden:</p>
+<div>
+<button class="btn" onclick="shareViaWhatsApp()">
+<svg fill="white" height="20" viewbox="0 0 24 24" width="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
                         WhatsApp
                     </button>
-                    <button class="btn" onclick="shareViaTelegram()" style="background:#0088cc; color:white; flex:1; min-width:150px; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+<button class="btn" onclick="shareViaTelegram()">
+<svg fill="white" height="20" viewbox="0 0 24 24" width="20"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"></path></svg>
                         Telegram
                     </button>
-                    <button class="btn" onclick="shareViaEmail()" style="background:#EA4335; color:white; flex:1; min-width:150px; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+<button class="btn" onclick="shareViaEmail()">
+<svg fill="white" height="20" viewbox="0 0 24 24" width="20"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg>
                         E-Mail
                     </button>
-                    <button class="btn btn-ghost" onclick="copySessionSummary()" style="flex:1; min-width:150px; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+<button class="btn btn-ghost" onclick="copySessionSummary()">
+<svg fill="currentColor" height="20" viewbox="0 0 24 24" width="20"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"></path></svg>
                         Kopieren
                     </button>
-                </div>
-            </div>
-
-            <div class="modal-btns" style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid #eee; justify-content:center;">
-                <button class="btn btn-primary" onclick="downloadSessionSummary()">Als PDF herunterladen</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Feedback Detail Modal -->
-    <div class="modal-bg" id="feedbackModal">
-        <div class="modal" style="max-width: 650px; max-height: 85vh; overflow-y: auto; position:relative;">
-            <button onclick="closeFeedbackModal()" style="position:absolute; top:1rem; right:1rem; background:none; border:none; font-size:1.5rem; cursor:pointer; color:#999; line-height:1;" title="Schließen">&times;</button>
-            <h3 style="display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem;">
-                <span style="font-size:1.5rem;">💬</span> Feedback-Übersicht
+</div>
+</div>
+<div class="modal-btns">
+<button class="btn btn-primary" onclick="downloadSessionSummary()">Als PDF herunterladen</button>
+</div>
+</div>
+</div>
+<!-- Feedback Detail Modal -->
+<div class="modal-bg" id="feedbackModal">
+<div class="modal">
+<button onclick="closeFeedbackModal()" title="Schließen">×</button>
+<h3>
+<span>💬</span> Feedback-Übersicht
             </h3>
-            <p style="font-size:0.85rem; color:#666; margin-bottom:1rem;">
+<p>
                 Hier siehst du alle Feedback-Einträge. Erledigte werden automatisch abgehakt wenn die entsprechenden Änderungen umgesetzt wurden.
             </p>
-            <div id="feedbackListContainer" style="max-height:400px; overflow-y:auto;">
-                <!-- Wird dynamisch gefüllt -->
-            </div>
-            <div class="modal-btns" style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid #eee; justify-content:center;">
-                <button class="btn btn-primary" onclick="addNewFeedback()">+ Neues Feedback</button>
-            </div>
-        </div>
-    </div>
 
-    <!-- Hilfe Modal -->
-    <div class="modal-bg" id="helpModal">
-        <div class="modal" style="max-width: 500px;">
-            <h3>So funktioniert der Editor</h3>
-            <div style="font-size: 0.9rem; color: #555; line-height: 1.6;">
-                <p><strong>Texte bearbeiten:</strong> Klicke auf einen Text (wird orange umrandet) und tippe los.</p>
-                <p style="margin-top: 0.75rem;"><strong>Bilder ersetzen:</strong> Klicke auf ein Bild (wird blau umrandet) und wähle ein neues aus.</p>
-                <p style="margin-top: 0.75rem;"><strong>Videos ändern:</strong> Klicke auf ein Video und gib eine neue URL ein.</p>
-                <p style="margin-top: 0.75rem;"><strong>Autosave:</strong> Änderungen werden automatisch alle 30 Sekunden zu GitHub gespeichert.</p>
-                <p style="margin-top: 0.75rem;"><strong>Versionen:</strong> Du kannst jederzeit zu einer früheren Version zurückkehren.</p>
-                <div style="background: #e8f5e9; padding: 0.75rem; border-radius: 8px; margin-top: 1rem;">
-                    <strong>Tipp:</strong> Der Hauptbranch (main) bleibt immer als Backup erhalten!
+<div class="modal-btns">
+<button class="btn btn-primary" onclick="addNewFeedback()">+ Neues Feedback</button>
+</div>
+</div>
+</div>
+<!-- Hilfe Modal -->
+<div class="modal-bg" id="helpModal">
+<div class="modal">
+<h3>So funktioniert der Editor</h3>
+<div>
+<p><strong>Texte bearbeiten:</strong> Klicke auf einen Text (wird orange umrandet) und tippe los.</p>
+<p><strong>Bilder ersetzen:</strong> Klicke auf ein Bild (wird blau umrandet) und wähle ein neues aus.</p>
+<p><strong>Videos ändern:</strong> Klicke auf ein Video und gib eine neue URL ein.</p>
+<p><strong>Autosave:</strong> Änderungen werden automatisch alle 30 Sekunden zu GitHub gespeichert.</p>
+<p><strong>Versionen:</strong> Du kannst jederzeit zu einer früheren Version zurückkehren.</p>
+<div>
+<strong>Tipp:</strong> Der Hauptbranch (main) bleibt immer als Backup erhalten!
                 </div>
-            </div>
-            <div class="modal-btns">
-                <button class="btn btn-primary" onclick="closeHelp()">Verstanden!</button>
-            </div>
+</div>
+<div class="modal-btns">
+<button class="btn btn-primary" onclick="closeHelp()">Verstanden!</button>
+</div>
+</div>
+</div>
+<!-- Rechtsklick Kontextmenü -->
+<div class="context-menu" id="contextMenu">
+<div class="context-menu-item" onclick="createNoteAtPosition()">
+<span>📝</span> Notiz erstellen
         </div>
-    </div>
-
-    <!-- Rechtsklick Kontextmenü -->
-    <div class="context-menu" id="contextMenu">
-        <div class="context-menu-item" onclick="createNoteAtPosition()">
-            <span>📝</span> Notiz erstellen
+<div class="context-menu-item" onclick="showElementHistoryFromContext()">
+<span>📜</span> Änderungsverlauf
         </div>
-        <div class="context-menu-item" onclick="showElementHistoryFromContext()">
-            <span>📜</span> Änderungsverlauf
-        </div>
-    </div>
-
-    <!-- DOMPurify für sichere HTML-Sanitization -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js"
-            integrity="sha384-3XJAN3rswrHdGqLHC3V5s0ERRmJrqtOvC/1qVz8gg4RZMlWBNB9VCRa9Z6H/TqRt"
-            crossorigin="anonymous"
-            nonce="cms-editor-2024"></script>
-    <script nonce="cms-editor-2024">
+</div>
+<!-- DOMPurify für sichere HTML-Sanitization -->
+<script crossorigin="anonymous" integrity="sha384-3XJAN3rswrHdGqLHC3V5s0ERRmJrqtOvC/1qVz8gg4RZMlWBNB9VCRa9Z6H/TqRt" nonce="cms-editor-2024" src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js"></script>
+<script nonce="cms-editor-2024">
         // ============================================
         // KONFIGURATION (dynamisch aus URL-Parametern oder Defaults)
         // ============================================

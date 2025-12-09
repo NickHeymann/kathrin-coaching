@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-blog-editor-2024' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; connect-src https://api.github.com https://raw.githubusercontent.com; img-src 'self' https: data: blob:; media-src 'self' https: blob:;">
-    <title>Blog Editor - Glück über Zweifel</title>
-    <style>
+<meta charset="utf-8"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com" rel="preconnect"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="default-src 'self'; script-src 'self' 'nonce-blog-editor-2024' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; connect-src https://api.github.com https://raw.githubusercontent.com; img-src 'self' https: data: blob:; media-src 'self' https: blob:;" http-equiv="Content-Security-Policy"/>
+<title>Blog Editor - Glück über Zweifel</title>
+<style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
@@ -884,294 +885,245 @@
     </style>
 </head>
 <body>
-    <!-- Setup Screen -->
-    <div class="setup-screen" id="setupScreen">
-        <div class="setup-card">
-            <div style="font-size: 3rem; margin-bottom: 1rem;">&#9998;</div>
-            <h1>Blog Editor</h1>
-            <p>Schreibe und veröffentliche Blog-Posts direkt auf deiner Website.</p>
-
-            <input type="password" class="setup-input" id="tokenInput" placeholder="GitHub Token eingeben...">
-            <button class="setup-btn" onclick="setupToken()">Editor starten</button>
-
-            <a href="cms-editor.html" class="setup-link">Zurück zum Website-Editor</a>
-        </div>
-    </div>
-
-    <!-- Header -->
-    <div class="header">
-        <div class="header-left">
-            <div class="logo">
-                <div class="logo-icon">&#9998;</div>
+<!-- Setup Screen -->
+<div class="setup-screen" id="setupScreen">
+<div class="setup-card">
+<div>✎</div>
+<h1>Blog Editor</h1>
+<p>Schreibe und veröffentliche Blog-Posts direkt auf deiner Website.</p>
+<input class="setup-input" id="tokenInput" placeholder="GitHub Token eingeben..." type="password"/>
+<button class="setup-btn" onclick="setupToken()">Editor starten</button>
+<a class="setup-link" href="cms-editor.html">Zurück zum Website-Editor</a>
+</div>
+</div>
+<!-- Header -->
+<div class="header">
+<div class="header-left">
+<div class="logo">
+<div class="logo-icon">✎</div>
                 Blog Editor
             </div>
-        </div>
+</div>
+<div class="header-center">
+<div class="autosave-indicator">
 
-        <div class="header-center">
-            <div class="autosave-indicator">
-                <div class="autosave-dot" id="autosaveDot"></div>
-                <span id="autosaveText">Autosave aktiv</span>
-            </div>
-            <div class="status-indicator">
-                <div class="status-dot" id="statusDot"></div>
-                <span id="statusText">Bereit</span>
-            </div>
-        </div>
+<span id="autosaveText">Autosave aktiv</span>
+</div>
+<div>
 
-        <div class="header-right">
-            <button class="btn btn-ghost" onclick="openPreview()">Vorschau</button>
-            <button class="btn btn-ghost" onclick="toggleQueue()">Warteschlange</button>
-            <button class="btn btn-ghost" onclick="saveDraft()">Entwurf speichern</button>
-            <button class="btn btn-success" onclick="publishPost()">Veröffentlichen</button>
-        </div>
-    </div>
-
-    <!-- Main Container -->
-    <div class="main-container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="sidebar-header">
-                <h2>Beiträge</h2>
-            </div>
-
-            <div class="sidebar-tabs">
-                <button class="sidebar-tab active" onclick="showTab('drafts')">Entwürfe</button>
-                <button class="sidebar-tab" onclick="showTab('published')">Veröffentlicht</button>
-                <button class="sidebar-tab" onclick="showTab('scheduled')">Geplant</button>
-            </div>
-
-            <button class="new-post-btn" onclick="createNewPost()">
-                <span>+</span> Neuer Beitrag
+<span id="statusText">Bereit</span>
+</div>
+</div>
+<div class="header-right">
+<button class="btn btn-ghost" onclick="openPreview()">Vorschau</button>
+<button class="btn btn-ghost" onclick="toggleQueue()">Warteschlange</button>
+<button class="btn btn-ghost" onclick="saveDraft()">Entwurf speichern</button>
+<button class="btn btn-success" onclick="publishPost()">Veröffentlichen</button>
+</div>
+</div>
+<!-- Main Container -->
+<div class="main-container">
+<!-- Sidebar -->
+<div class="sidebar">
+<div>
+<h2>Beiträge</h2>
+</div>
+<div>
+<button class="active" onclick="showTab('drafts')">Entwürfe</button>
+<button onclick="showTab('published')">Veröffentlicht</button>
+<button onclick="showTab('scheduled')">Geplant</button>
+</div>
+<button class="new-post-btn" onclick="createNewPost()">
+<span>+</span> Neuer Beitrag
             </button>
 
-            <div class="sidebar-content" id="postList">
-                <!-- Posts werden dynamisch eingefügt -->
-            </div>
-        </div>
+</div>
+<!-- Editor -->
+<div class="editor-container">
+<!-- Toolbar -->
+<div class="editor-toolbar">
+<div class="toolbar-group">
+<select class="toolbar-select" id="blockType" onchange="formatBlock(this.value)">
+<option value="p">Absatz</option>
+<option value="h2">Überschrift 2</option>
+<option value="h3">Überschrift 3</option>
+<option value="h4">Überschrift 4</option>
+<option value="blockquote">Zitat</option>
+</select>
+</div>
+<div class="toolbar-group">
+<button class="toolbar-btn" onclick="execCmd('bold')" title="Fett (Cmd+B)"><strong>B</strong></button>
+<button class="toolbar-btn" onclick="execCmd('italic')" title="Kursiv (Cmd+I)"><em>I</em></button>
+<button class="toolbar-btn" onclick="execCmd('underline')" title="Unterstrichen (Cmd+U)"><u>U</u></button>
+<button class="toolbar-btn" onclick="execCmd('strikeThrough')" title="Durchgestrichen"><s>S</s></button>
+</div>
+<div class="toolbar-group">
+<button class="toolbar-btn" onclick="execCmd('insertUnorderedList')" title="Aufzählung">•</button>
+<button class="toolbar-btn" onclick="execCmd('insertOrderedList')" title="Nummerierung">1.</button>
+</div>
+<div class="toolbar-group">
+<button class="toolbar-btn" onclick="insertLink()" title="Link einfügen">🔗</button>
+<button class="toolbar-btn" onclick="openImageModal()" title="Bild einfügen">📷</button>
+<button class="toolbar-btn" onclick="insertVideo()" title="Video einfügen">🎥</button>
+</div>
+<div class="toolbar-group">
+<button class="toolbar-btn" onclick="execCmd('justifyLeft')" title="Links">⇤</button>
+<button class="toolbar-btn" onclick="execCmd('justifyCenter')" title="Zentriert">↔</button>
+<button class="toolbar-btn" onclick="execCmd('justifyRight')" title="Rechts">⇥</button>
+</div>
+<div class="toolbar-group">
+<button class="toolbar-btn" onclick="execCmd('undo')" title="Rückgängig (Cmd+Z)">↶</button>
+<button class="toolbar-btn" onclick="execCmd('redo')" title="Wiederholen (Cmd+Shift+Z)">↷</button>
+</div>
+<div class="toolbar-group">
+<button class="toolbar-btn" onclick="toggleFullscreen()" title="Vollbild">⛶</button>
+</div>
+</div>
+<!-- Editor Content -->
+<div class="editor-main">
+<div class="editor-content">
+<input class="title-input" id="postTitle" oninput="onContentChange()" placeholder="Titel eingeben..." type="text"/>
+<textarea class="excerpt-input" id="postExcerpt" oninput="onContentChange()" placeholder="Kurzbeschreibung für SEO und Vorschau..." rows="2"></textarea>
+<div class="content-editor" contenteditable="true" id="postContent" oninput="onContentChange()">
+<p>Beginne hier mit deinem Beitrag...</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Settings Panel -->
+<div class="settings-panel">
+<div class="settings-section">
+<h3>📷 Beitragsbild</h3>
+<div class="featured-image-upload" id="featuredImageUpload" onclick="uploadFeaturedImage()">
+<div class="upload-text">
+<div class="upload-icon">📷</div>
+<div>Bild hochladen oder ziehen</div>
+</div>
+</div>
+<div class="settings-row">
+<label class="settings-label">Alt-Text (SEO)</label>
+<input class="settings-input" id="featuredImageAlt" placeholder="Bildbeschreibung für SEO..." type="text"/>
+</div>
+</div>
+<div class="settings-section">
+<h3>📁 Kategorien</h3>
+<div id="categoryTags">
+<span data-cat="achtsamkeit">Achtsamkeit</span>
+<span data-cat="selbstliebe">Selbstliebe</span>
+<span data-cat="beziehung">Beziehung</span>
+<span data-cat="pferdecoaching">Pferdecoaching</span>
+<span data-cat="heldinnenreise">Heldinnenreise</span>
+<span data-cat="podcast">Podcast</span>
+</div>
+</div>
+<div class="settings-section">
+<h3>🔖 SEO</h3>
+<div class="settings-row">
+<label class="settings-label">Meta-Titel</label>
+<input class="settings-input" id="metaTitle" placeholder="SEO Titel (max 60 Zeichen)" type="text"/>
 
-        <!-- Editor -->
-        <div class="editor-container">
-            <!-- Toolbar -->
-            <div class="editor-toolbar">
-                <div class="toolbar-group">
-                    <select class="toolbar-select" id="blockType" onchange="formatBlock(this.value)">
-                        <option value="p">Absatz</option>
-                        <option value="h2">Überschrift 2</option>
-                        <option value="h3">Überschrift 3</option>
-                        <option value="h4">Überschrift 4</option>
-                        <option value="blockquote">Zitat</option>
-                    </select>
-                </div>
+<span id="metaTitleCount">0</span>/60 Zeichen
+                    
+</div>
+<div class="settings-row">
+<label class="settings-label">Meta-Beschreibung</label>
+<textarea class="settings-textarea" id="metaDescription" placeholder="SEO Beschreibung (max 160 Zeichen)"></textarea>
 
-                <div class="toolbar-group">
-                    <button class="toolbar-btn" onclick="execCmd('bold')" title="Fett (Cmd+B)"><b>B</b></button>
-                    <button class="toolbar-btn" onclick="execCmd('italic')" title="Kursiv (Cmd+I)"><i>I</i></button>
-                    <button class="toolbar-btn" onclick="execCmd('underline')" title="Unterstrichen (Cmd+U)"><u>U</u></button>
-                    <button class="toolbar-btn" onclick="execCmd('strikeThrough')" title="Durchgestrichen"><s>S</s></button>
-                </div>
+<span id="metaDescCount">0</span>/160 Zeichen
+                    
+</div>
+<div class="settings-row">
+<label class="settings-label">URL-Slug</label>
+<input class="settings-input" id="urlSlug" placeholder="url-freundlicher-name" type="text"/>
+</div>
+</div>
+<div class="settings-section">
+<h3>📅 Veröffentlichung</h3>
+<div class="settings-row">
+<label class="settings-label">Zeitplan</label>
 
-                <div class="toolbar-group">
-                    <button class="toolbar-btn" onclick="execCmd('insertUnorderedList')" title="Aufzählung">&#8226;</button>
-                    <button class="toolbar-btn" onclick="execCmd('insertOrderedList')" title="Nummerierung">1.</button>
-                </div>
-
-                <div class="toolbar-group">
-                    <button class="toolbar-btn" onclick="insertLink()" title="Link einfügen">&#128279;</button>
-                    <button class="toolbar-btn" onclick="openImageModal()" title="Bild einfügen">&#128247;</button>
-                    <button class="toolbar-btn" onclick="insertVideo()" title="Video einfügen">&#127909;</button>
-                </div>
-
-                <div class="toolbar-group">
-                    <button class="toolbar-btn" onclick="execCmd('justifyLeft')" title="Links">&#8676;</button>
-                    <button class="toolbar-btn" onclick="execCmd('justifyCenter')" title="Zentriert">&#8596;</button>
-                    <button class="toolbar-btn" onclick="execCmd('justifyRight')" title="Rechts">&#8677;</button>
-                </div>
-
-                <div class="toolbar-group">
-                    <button class="toolbar-btn" onclick="execCmd('undo')" title="Rückgängig (Cmd+Z)">&#8630;</button>
-                    <button class="toolbar-btn" onclick="execCmd('redo')" title="Wiederholen (Cmd+Shift+Z)">&#8631;</button>
-                </div>
-
-                <div class="toolbar-group">
-                    <button class="toolbar-btn" onclick="toggleFullscreen()" title="Vollbild">&#9974;</button>
-                </div>
-            </div>
-
-            <!-- Editor Content -->
-            <div class="editor-main">
-                <div class="editor-content">
-                    <input type="text" class="title-input" id="postTitle" placeholder="Titel eingeben..." oninput="onContentChange()">
-
-                    <textarea class="excerpt-input" id="postExcerpt" placeholder="Kurzbeschreibung für SEO und Vorschau..." rows="2" oninput="onContentChange()"></textarea>
-
-                    <div class="content-editor" id="postContent" contenteditable="true" oninput="onContentChange()">
-                        <p>Beginne hier mit deinem Beitrag...</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Settings Panel -->
-        <div class="settings-panel">
-            <div class="settings-section">
-                <h3>&#128247; Beitragsbild</h3>
-                <div class="featured-image-upload" id="featuredImageUpload" onclick="uploadFeaturedImage()">
-                    <div class="upload-text">
-                        <div class="upload-icon">&#128247;</div>
-                        <div>Bild hochladen oder ziehen</div>
-                    </div>
-                </div>
-                <div class="settings-row" style="margin-top: 0.75rem;">
-                    <label class="settings-label">Alt-Text (SEO)</label>
-                    <input type="text" class="settings-input" id="featuredImageAlt" placeholder="Bildbeschreibung für SEO...">
-                </div>
-            </div>
-
-            <div class="settings-section">
-                <h3>&#128193; Kategorien</h3>
-                <div class="category-tags" id="categoryTags">
-                    <span class="category-tag" data-cat="achtsamkeit">Achtsamkeit</span>
-                    <span class="category-tag" data-cat="selbstliebe">Selbstliebe</span>
-                    <span class="category-tag" data-cat="beziehung">Beziehung</span>
-                    <span class="category-tag" data-cat="pferdecoaching">Pferdecoaching</span>
-                    <span class="category-tag" data-cat="heldinnenreise">Heldinnenreise</span>
-                    <span class="category-tag" data-cat="podcast">Podcast</span>
-                </div>
-            </div>
-
-            <div class="settings-section">
-                <h3>&#128278; SEO</h3>
-                <div class="settings-row">
-                    <label class="settings-label">Meta-Titel</label>
-                    <input type="text" class="settings-input" id="metaTitle" placeholder="SEO Titel (max 60 Zeichen)">
-                    <small style="color: var(--text-light); font-size: 0.75rem;">
-                        <span id="metaTitleCount">0</span>/60 Zeichen
-                    </small>
-                </div>
-                <div class="settings-row">
-                    <label class="settings-label">Meta-Beschreibung</label>
-                    <textarea class="settings-textarea" id="metaDescription" placeholder="SEO Beschreibung (max 160 Zeichen)"></textarea>
-                    <small style="color: var(--text-light); font-size: 0.75rem;">
-                        <span id="metaDescCount">0</span>/160 Zeichen
-                    </small>
-                </div>
-                <div class="settings-row">
-                    <label class="settings-label">URL-Slug</label>
-                    <input type="text" class="settings-input" id="urlSlug" placeholder="url-freundlicher-name">
-                </div>
-            </div>
-
-            <div class="settings-section">
-                <h3>&#128197; Veröffentlichung</h3>
-                <div class="settings-row">
-                    <label class="settings-label">Zeitplan</label>
-                    <div class="schedule-picker">
-                        <input type="date" id="scheduleDate">
-                        <input type="time" id="scheduleTime" value="09:00">
-                    </div>
-                </div>
-                <button class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;" onclick="schedulePost()">
+</div>
+<button class="btn btn-primary" onclick="schedulePost()">
                     Planen
                 </button>
-            </div>
+</div>
+<div class="settings-section">
+<h3>⚙ Autor</h3>
+<div class="settings-row">
+<label class="settings-label">Autor</label>
+<input class="settings-input" id="authorName" type="text" value="Kathrin Stahl"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Publishing Queue Panel -->
+<div class="queue-panel" id="queuePanel">
+<div class="queue-header">
+<h3>Veröffentlichungs-Warteschlange</h3>
+<button class="btn btn-ghost" onclick="toggleQueue()">×</button>
+</div>
 
-            <div class="settings-section">
-                <h3>&#9881; Autor</h3>
-                <div class="settings-row">
-                    <label class="settings-label">Autor</label>
-                    <input type="text" class="settings-input" id="authorName" value="Kathrin Stahl" readonly>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
+<!-- Preview Modal -->
+<div class="preview-modal" id="previewModal">
+<div class="preview-container">
+<div class="preview-header">
+<h3>Vorschau</h3>
+<div class="preview-device-toggle">
+<button class="preview-device-btn active" onclick="setPreviewDevice('desktop')">Desktop</button>
+<button class="preview-device-btn" onclick="setPreviewDevice('tablet')">Tablet</button>
+<button class="preview-device-btn" onclick="setPreviewDevice('mobile')">Mobil</button>
+</div>
+<button class="btn btn-ghost" onclick="closePreview()">× Schließen</button>
+</div>
 
-    <!-- Publishing Queue Panel -->
-    <div class="queue-panel" id="queuePanel">
-        <div class="queue-header">
-            <h3>Veröffentlichungs-Warteschlange</h3>
-            <button class="btn btn-ghost" onclick="toggleQueue()" style="padding: 0.25rem 0.5rem;">&times;</button>
-        </div>
-        <div class="queue-content" id="queueContent">
-            <!-- Queue items werden dynamisch eingefügt -->
-        </div>
-    </div>
+</div>
+</div>
+<!-- Image Upload Modal -->
+<div class="image-modal" id="imageModal">
+<div class="image-modal-content">
+<div class="image-modal-header">
+<h3>Bild einfügen</h3>
+<button class="btn btn-ghost" onclick="closeImageModal()">×</button>
+</div>
+<div class="image-modal-body">
+<div class="image-drop-zone" id="imageDropZone">
+<div>📷</div>
+<div>Bild hierher ziehen oder klicken zum Auswählen</div>
+<input accept="image/*" id="imageFileInput" type="file"/>
+</div>
+<h4>Oder aus Mediathek wählen:</h4>
 
-    <!-- Preview Modal -->
-    <div class="preview-modal" id="previewModal">
-        <div class="preview-container">
-            <div class="preview-header">
-                <h3>Vorschau</h3>
-                <div class="preview-device-toggle">
-                    <button class="preview-device-btn active" onclick="setPreviewDevice('desktop')">Desktop</button>
-                    <button class="preview-device-btn" onclick="setPreviewDevice('tablet')">Tablet</button>
-                    <button class="preview-device-btn" onclick="setPreviewDevice('mobile')">Mobil</button>
-                </div>
-                <button class="btn btn-ghost" onclick="closePreview()">&times; Schließen</button>
-            </div>
-            <div class="preview-content">
-                <div class="preview-frame desktop" id="previewFrame">
-                    <!-- Preview content wird dynamisch eingefügt -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Image Upload Modal -->
-    <div class="image-modal" id="imageModal">
-        <div class="image-modal-content">
-            <div class="image-modal-header">
-                <h3>Bild einfügen</h3>
-                <button class="btn btn-ghost" onclick="closeImageModal()">&times;</button>
-            </div>
-            <div class="image-modal-body">
-                <div class="image-drop-zone" id="imageDropZone">
-                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">&#128247;</div>
-                    <div>Bild hierher ziehen oder klicken zum Auswählen</div>
-                    <input type="file" id="imageFileInput" accept="image/*" style="display: none;">
-                </div>
-
-                <h4 style="margin: 1rem 0 0.5rem; font-size: 0.9rem; color: var(--text-light);">Oder aus Mediathek wählen:</h4>
-                <div class="image-gallery" id="imageGallery">
-                    <!-- Bilder werden dynamisch geladen -->
-                </div>
-
-                <div style="margin-top: 1rem;">
-                    <label class="settings-label">Alt-Text</label>
-                    <input type="text" class="settings-input" id="imageAltText" placeholder="Bildbeschreibung...">
-                </div>
-
-                <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="insertSelectedImage()">
+<div>
+<label class="settings-label">Alt-Text</label>
+<input class="settings-input" id="imageAltText" placeholder="Bildbeschreibung..." type="text"/>
+</div>
+<button class="btn btn-primary" onclick="insertSelectedImage()">
                     Bild einfügen
                 </button>
-            </div>
+</div>
+</div>
+</div>
+<!-- Editor Stats -->
+<div class="editor-stats">
+<div class="stat-item">
+<span>📝</span>
+<span id="wordCount">0</span> Wörter
         </div>
-    </div>
-
-    <!-- Editor Stats -->
-    <div class="editor-stats">
-        <div class="stat-item">
-            <span>&#128221;</span>
-            <span id="wordCount">0</span> Wörter
+<div class="stat-item">
+<span>🕑</span>
+<span id="readingTime">0</span> Min. Lesezeit
         </div>
-        <div class="stat-item">
-            <span>&#128337;</span>
-            <span id="readingTime">0</span> Min. Lesezeit
+<div class="stat-item">
+<span>📄</span>
+<span id="charCount">0</span> Zeichen
         </div>
-        <div class="stat-item">
-            <span>&#128196;</span>
-            <span id="charCount">0</span> Zeichen
-        </div>
-    </div>
-
-    <!-- Toast Container -->
-    <div class="toast-container" id="toastContainer"></div>
-
-    <!-- DOMPurify für sichere HTML-Sanitization -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js"
-            integrity="sha384-3XJAN3rswrHdGqLHC3V5s0ERRmJrqtOvC/1qVz8gg4RZMlWBNB9VCRa9Z6H/TqRt"
-            crossorigin="anonymous"
-            nonce="blog-editor-2024"></script>
-    <script nonce="blog-editor-2024">
+</div>
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+<!-- DOMPurify für sichere HTML-Sanitization -->
+<script crossorigin="anonymous" integrity="sha384-3XJAN3rswrHdGqLHC3V5s0ERRmJrqtOvC/1qVz8gg4RZMlWBNB9VCRa9Z6H/TqRt" nonce="blog-editor-2024" src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js"></script>
+<script nonce="blog-editor-2024">
         // ============================================
         // SECURITY UTILITIES
         // ============================================
