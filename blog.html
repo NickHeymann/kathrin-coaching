@@ -88,22 +88,22 @@
         .hero p { font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
 
         /* Blog Selection */
-        .blog-selection { background: var(--color-cream); padding: 30px 0; position: sticky; top: 80px; z-index: 100; }
-        .selection-inner { display: flex; flex-direction: column; gap: 20px; }
+        .blog-selection { background: var(--color-cream); padding: 25px 0; position: sticky; top: 80px; z-index: 100; }
+        .selection-inner { display: flex; flex-direction: column; gap: 20px; align-items: center; }
         .blog-categories { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
         .category-btn { padding: 10px 24px; border: 2px solid var(--color-primary); background: transparent; color: var(--color-primary); border-radius: 30px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: var(--font-body); }
         .category-btn:hover, .category-btn.active { background: var(--color-primary); color: white; }
-        .blog-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 15px; }
-        .library-toggle { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: white; border: 2px solid var(--color-accent); color: var(--color-accent); border-radius: 30px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: var(--font-body); white-space: nowrap; }
+        .blog-actions { display: flex; align-items: center; gap: 20px; padding-top: 10px; border-top: 1px solid rgba(0,0,0,0.08); width: 100%; justify-content: center; margin-top: 5px; }
+        .library-toggle { display: flex; align-items: center; gap: 10px; padding: 12px 24px; background: white; border: 2px solid var(--color-accent); color: var(--color-accent); border-radius: 30px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: var(--font-body); white-space: nowrap; }
         .library-toggle:hover, .library-toggle.active { background: var(--color-accent); color: white; }
-        .library-toggle svg { width: 18px; height: 18px; flex-shrink: 0; }
+        .library-toggle svg { width: 20px; height: 20px; flex-shrink: 0; }
         .library-text { white-space: nowrap; }
-        .library-count { background: var(--color-accent); color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; }
+        .library-count { background: var(--color-accent); color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 700; }
         .library-toggle.active .library-count { background: white; color: var(--color-accent); }
-        .search-box { display: flex; align-items: center; gap: 10px; background: white; padding: 8px 16px; border-radius: 30px; border: 2px solid transparent; transition: border-color 0.3s; }
+        .search-box { display: flex; align-items: center; gap: 10px; background: white; padding: 12px 20px; border-radius: 30px; border: 2px solid #e0e0e0; transition: border-color 0.3s; }
         .search-box:focus-within { border-color: var(--color-primary); }
         .search-box svg { width: 20px; height: 20px; color: var(--color-text-light); flex-shrink: 0; }
-        .search-box input { border: none; outline: none; font-size: 0.9rem; font-family: var(--font-body); width: 200px; background: transparent; }
+        .search-box input { border: none; outline: none; font-size: 0.95rem; font-family: var(--font-body); width: 220px; background: transparent; }
 
         /* Blog Grid */
         .blog-section { padding: 60px 0 100px; }
@@ -151,17 +151,16 @@
             .menu-toggle { display: flex; }
             .blog-grid { grid-template-columns: repeat(2, 1fr); }
             .blog-categories { justify-content: center; }
-            .blog-actions { width: 100%; justify-content: center; }
-            .search-box { flex: 1; min-width: 200px; max-width: 300px; }
-            .search-box input { width: 100%; }
+            .blog-actions { gap: 15px; }
         }
         @media (max-width: 768px) {
             .blog-grid { grid-template-columns: 1fr; }
             .footer-content { grid-template-columns: 1fr; gap: 40px; }
             .category-btn { padding: 8px 16px; font-size: 0.8rem; }
-            .blog-actions { flex-direction: column; gap: 12px; }
-            .library-toggle { width: 100%; justify-content: center; }
-            .search-box { width: 100%; max-width: none; }
+            .blog-actions { flex-direction: column; gap: 15px; padding: 15px 0; }
+            .library-toggle { width: auto; padding: 12px 30px; }
+            .search-box { width: 100%; max-width: 320px; }
+            .search-box input { width: 100%; }
         }
     
         /* Contact Dropdown in Header */
