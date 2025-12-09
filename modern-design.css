@@ -117,21 +117,314 @@ p {
 /* -----------------------------------------
    HEADER & NAVIGATION - Modern Fixed Header
    ----------------------------------------- */
+header,
 .site-header {
     position: fixed !important;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
-    background: rgba(255, 255, 255, 0.98) !important;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     transition: var(--transition-normal);
 }
 
+header.scrolled,
 .site-header.scrolled {
     box-shadow: var(--shadow-md);
+}
+
+/* Header Inner Container */
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+/* Logo */
+header .logo,
+.site-header .logo {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+}
+
+/* Main Navigation */
+header nav,
+.site-header nav {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+header nav a,
+.site-header nav a {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+header nav a:hover,
+.site-header nav a:hover {
+    color: var(--color-primary);
+}
+
+/* Navigation Dropdowns */
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown .nav-link {
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-secondary);
+    transition: color 0.2s ease;
+}
+
+.nav-dropdown .nav-link:hover {
+    color: var(--color-primary);
+}
+
+.nav-dropdown .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 280px;
+    background: var(--color-white);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    padding: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1001;
+    margin-top: 15px;
+}
+
+.nav-dropdown.active .dropdown-menu,
+.nav-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    margin-top: 10px;
+}
+
+.nav-dropdown .dropdown-menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+    text-decoration: none;
+}
+
+.nav-dropdown .dropdown-menu a:hover {
+    background: var(--color-off-white);
+}
+
+.dropdown-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-light-gray);
+    border-radius: 8px;
+    font-size: 1.1rem;
+}
+
+.dropdown-icon.hsp,
+.dropdown-icon.iq,
+.dropdown-icon.burnout,
+.dropdown-icon.midlife {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.dropdown-icon.beziehung {
+    color: #e74c3c;
+}
+
+.dropdown-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-text strong {
+    font-size: 0.9rem;
+    color: var(--color-secondary);
+}
+
+.dropdown-text span {
+    font-size: 0.75rem;
+    color: var(--color-text-light);
+}
+
+/* Contact Dropdown */
+.contact-dropdown {
+    position: relative;
+}
+
+.contact-dropdown-trigger {
+    cursor: pointer;
+}
+
+.contact-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 200px;
+    background: var(--color-white);
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    padding: 12px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1001;
+    margin-top: 15px;
+}
+
+.contact-dropdown.active .contact-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    margin-top: 10px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+    text-decoration: none;
+    color: var(--color-secondary);
+}
+
+.contact-item:hover {
+    background: var(--color-off-white);
+}
+
+.contact-icon {
+    font-size: 1.2rem;
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.mobile-menu-btn span {
+    width: 25px;
+    height: 2px;
+    background: var(--color-secondary);
+    transition: all 0.3s ease;
+}
+
+/* Mobile Navigation */
+@media (max-width: 991px) {
+    .mobile-menu-btn {
+        display: flex;
+    }
+
+    header nav,
+    .site-header nav,
+    #mainNav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 85%;
+        max-width: 400px;
+        height: 100vh;
+        background: var(--color-white);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 80px 30px 30px;
+        box-shadow: -5px 0 30px rgba(0,0,0,0.1);
+        transition: right 0.3s ease;
+        overflow-y: auto;
+        gap: 0;
+    }
+
+    header nav.active,
+    .site-header nav.active,
+    #mainNav.active {
+        right: 0;
+    }
+
+    header nav a,
+    .site-header nav a,
+    #mainNav > a {
+        width: 100%;
+        padding: 15px 0;
+        border-bottom: 1px solid var(--color-light-gray);
+    }
+
+    .nav-dropdown {
+        width: 100%;
+    }
+
+    .nav-dropdown .nav-link {
+        display: block;
+        width: 100%;
+        padding: 15px 0;
+        border-bottom: 1px solid var(--color-light-gray);
+    }
+
+    .nav-dropdown .dropdown-menu {
+        position: static;
+        transform: none;
+        box-shadow: none;
+        padding: 0 0 0 20px;
+        margin: 0;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nav-dropdown.active .dropdown-menu {
+        max-height: 1000px;
+        margin: 10px 0;
+    }
+
+    .contact-dropdown {
+        width: 100%;
+    }
+
+    .contact-dropdown-menu {
+        position: static;
+        box-shadow: none;
+        padding: 0 0 0 20px;
+        margin: 0;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .contact-dropdown.active .contact-dropdown-menu {
+        max-height: 500px;
+        margin: 10px 0;
+    }
 }
 
 /* Offset content for fixed header */
