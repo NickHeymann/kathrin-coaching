@@ -1,0 +1,223 @@
+/* ===== TESTIMONIALS =====
+ * Datei: css/pages/index/testimonials.css
+ * Testimonials Grid und Social Proof Elemente
+ */
+
+/* ===== TESTIMONIALS GRID ===== */
+.testimonials-section {
+    background: var(--color-white);
+}
+
+.testimonials-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.testimonials-header p {
+    margin: 0 auto;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.testimonial-card-small {
+    background: var(--color-cream);
+    border-radius: 12px;
+    padding: 30px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.testimonial-card-small::before {
+    content: '"';
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    font-size: 4rem;
+    font-family: var(--font-heading);
+    color: var(--color-accent);
+    opacity: 0.3;
+    line-height: 1;
+}
+
+.testimonial-card-small p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+    flex-grow: 1;
+}
+
+.testimonial-card-small .author {
+    font-weight: 600;
+    color: var(--color-primary);
+    font-size: 0.9rem;
+    margin-top: auto;
+}
+
+.testimonial-card-small .author span {
+    font-weight: 400;
+    color: var(--color-text-light);
+}
+
+/* ===== URGENCY BAR ===== */
+.urgency-bar {
+    background: var(--color-accent);
+    color: var(--color-white);
+    text-align: center;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.urgency-bar strong {
+    font-weight: 700;
+}
+
+/* ===== SOCIAL PROOF ===== */
+.social-proof-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.15);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    margin-top: 20px;
+}
+
+.social-proof-badge .dot {
+    width: 8px;
+    height: 8px;
+    background: #4ade80;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* ===== TESTIMONIAL (single) ===== */
+.testimonial-section {
+    background: var(--color-white);
+}
+
+.testimonial-card {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.testimonial-text {
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-style: italic;
+    color: var(--color-primary);
+    line-height: 1.5;
+    margin-bottom: 2rem;
+}
+
+.testimonial-author {
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+}
+
+/* ===== VIDEO TESTIMONIALS ===== */
+.video-testimonials-section {
+    background: var(--color-primary);
+    color: white;
+}
+
+.video-testimonials-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.video-testimonials-header h2 {
+    color: white;
+}
+
+.video-testimonials-header p {
+    color: rgba(255,255,255,0.8);
+    margin: 0 auto;
+}
+
+.video-testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.video-testimonial-card {
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.video-testimonial-card:hover {
+    transform: translateY(-5px);
+}
+
+.video-testimonial-thumb {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.video-testimonial-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-testimonial-thumb .video-play-btn {
+    width: 60px;
+    height: 60px;
+}
+
+.video-testimonial-thumb .video-play-btn::after {
+    border-left-width: 16px;
+    border-top-width: 10px;
+    border-bottom-width: 10px;
+    margin-left: 4px;
+}
+
+.video-testimonial-info {
+    padding: 20px;
+}
+
+.video-testimonial-info h4 {
+    color: white;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.video-testimonial-info p {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .video-testimonials-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}
