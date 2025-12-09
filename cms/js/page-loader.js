@@ -17,7 +17,8 @@ import { toast, updateStatus, updateChangesList, showLoading, showStartScreen } 
  */
 export function fixRelativeUrls(html) {
     const cacheBust = Date.now();
-    const cdnUrl = `https://cdn.jsdelivr.net/gh/${CONFIG.owner}/${CONFIG.repo}@${CONFIG.branch}/`;
+    // Lade Assets von sourceBranch (Live-Website)
+    const cdnUrl = `https://cdn.jsdelivr.net/gh/${CONFIG.owner}/${CONFIG.repo}@${CONFIG.sourceBranch}/`;
 
     // CSS & JS mit Cache-Busting
     html = html.replace(/href="([^"]+\.css)"/g, (m, url) => {
@@ -125,11 +126,12 @@ export async function loadPage(page, forceRefresh = true, setupCallback = null) 
     updateChangesList();
 
     try {
-        const rawUrl = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.branch}/${page}`;
+        // Lade HTML von sourceBranch (Live-Website)
+        const rawUrl = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.sourceBranch}/${page}`;
 
         const [htmlResponse] = await Promise.all([
             fetch(rawUrl + '?t=' + Date.now(), { cache: 'no-store' }),
-            github.getFile(page).catch(() => {})
+            github.getFile(page).catch(() => {})  // Holt SHA für Speichern
         ]);
 
         if (!htmlResponse.ok) {
@@ -185,7 +187,8 @@ export async function preloadPages() {
         if (pageCache.has(page)) continue;
 
         try {
-            const rawUrl = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.branch}/${page}`;
+            // Preload von sourceBranch (Live-Website)
+            const rawUrl = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.sourceBranch}/${page}`;
             const response = await fetch(rawUrl);
 
             if (response.ok) {

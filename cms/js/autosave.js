@@ -143,8 +143,8 @@ function getCleanHtml() {
     // HTML zusammenbauen
     let html = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
 
-    // CDN URLs zurück zu relativen Pfaden konvertieren
-    const cdnUrl = `https://cdn.jsdelivr.net/gh/${CONFIG.owner}/${CONFIG.repo}@${CONFIG.branch}/`;
+    // CDN URLs zurück zu relativen Pfaden konvertieren (sourceBranch wurde beim Laden verwendet)
+    const cdnUrl = `https://cdn.jsdelivr.net/gh/${CONFIG.owner}/${CONFIG.repo}@${CONFIG.sourceBranch}/`;
     html = html.replace(new RegExp(cdnUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'), '');
 
     // Cache-Busting Parameter entfernen
