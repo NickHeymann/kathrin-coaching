@@ -109,3 +109,4 @@ function getStatusLabel(status) {
     };
     return labels[status] || status;
 }
+console.log('✓ blog-editor-utils.js geladen');

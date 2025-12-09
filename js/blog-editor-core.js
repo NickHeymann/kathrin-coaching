@@ -654,3 +654,4 @@ function updateCharCount(inputId, countId, max) {
     const len = document.getElementById(inputId).value.length;
     document.getElementById(countId).textContent = len;
 }
+console.log('✓ blog-editor-core.js geladen');

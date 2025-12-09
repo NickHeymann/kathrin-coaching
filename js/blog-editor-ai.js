@@ -500,3 +500,4 @@ async function aiFormatForReadability() {
     } catch (e) { toast('Fehler: ' + e.message, 'error'); }
     finally { setButtonLoading('btnReadability', false); }
 }
+console.log('✓ blog-editor-ai.js geladen');

@@ -124,7 +124,13 @@ function checkSetup() {
 }
 
 async function setupToken() {
-    const token = document.getElementById('tokenInput').value.trim();
+    console.log('setupToken() aufgerufen');
+    const tokenInput = document.getElementById('tokenInput');
+    console.log('tokenInput Element:', tokenInput);
+
+    const token = tokenInput ? tokenInput.value.trim() : '';
+    console.log('Token Länge:', token.length);
+
     if (!token) {
         toast('Bitte Token eingeben', 'error');
         return;
@@ -132,7 +138,9 @@ async function setupToken() {
 
     try {
         state.token = token;
+        console.log('Prüfe Token bei GitHub...');
         await github.request(`/repos/${CONFIG.owner}/${CONFIG.repo}`);
+        console.log('Token gültig!');
 
         // Token in sessionStorage speichern
         sessionStorage.setItem('github_token', token);
@@ -141,7 +149,9 @@ async function setupToken() {
         toast('Erfolgreich eingerichtet!', 'success');
         initEditor();
     } catch (e) {
-        toast('Token ungültig', 'error');
+        console.error('Token Fehler:', e);
+        toast('Token ungültig: ' + e.message, 'error');
         state.token = null;
     }
 }
+console.log('✓ blog-editor-github.js geladen');

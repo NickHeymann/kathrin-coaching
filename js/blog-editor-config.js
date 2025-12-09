@@ -57,3 +57,5 @@ let aiState = {
     lastAISuggestion: '',
     youtubeVideos: []
 };
+
+console.log('✓ blog-editor-config.js geladen');

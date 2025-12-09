@@ -1,0 +1,285 @@
+/* ===== SERVICE MODALS =====
+ * Datei: css/pages/index/modals.css
+ * Modal-Overlays für Service-Details
+ */
+
+/* Modal Overlay */
+.service-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.service-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Modal Container */
+.service-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: linear-gradient(135deg, var(--color-primary) 0%, #1a3a4a 100%);
+    border-radius: 20px;
+    padding: 50px;
+    max-width: 700px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    z-index: 1001;
+    color: var(--color-white);
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-modal.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Close Button */
+.service-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.service-modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+}
+
+.service-modal-close::before,
+.service-modal-close::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 2px;
+    background: white;
+}
+
+.service-modal-close::before {
+    transform: rotate(45deg);
+}
+
+.service-modal-close::after {
+    transform: rotate(-45deg);
+}
+
+/* Modal Header */
+.service-modal-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.service-modal-header h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.service-modal-header .service-price {
+    color: var(--color-accent);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Modal Content Grid */
+.service-modal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.service-modal h4 {
+    font-size: 1.05rem;
+    margin-bottom: 18px;
+    color: var(--color-accent);
+    font-family: var(--font-heading);
+}
+
+.service-modal ul {
+    list-style: none;
+    margin-bottom: 0;
+}
+
+.service-modal ul li {
+    padding: 10px 0;
+    padding-left: 28px;
+    position: relative;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.95);
+    line-height: 1.5;
+}
+
+.service-modal ul li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
+    font-weight: bold;
+}
+
+/* Modal Actions */
+.service-modal-actions {
+    text-align: center;
+    padding-top: 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.service-modal .btn {
+    background: var(--color-accent);
+    padding: 16px 40px;
+    font-size: 1rem;
+}
+
+.service-modal .btn:hover {
+    background: var(--color-accent-dark);
+    transform: translateY(-2px);
+}
+
+/* Retreat Modal Layout */
+.retreat-modal-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.retreat-info-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+/* Casinha Showcase */
+.casinha-showcase {
+    background: rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.casinha-images {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    grid-template-rows: 100px 100px;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.casinha-img-main {
+    grid-row: 1 / 3;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.casinha-img-small {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.casinha-info h4 {
+    color: var(--color-accent);
+    font-size: 1rem;
+    margin-bottom: 10px;
+    font-family: var(--font-heading);
+}
+
+.casinha-info p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 12px;
+}
+
+.accommodation-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--color-accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.accommodation-link::after {
+    content: '→';
+    transition: transform 0.3s ease;
+}
+
+.accommodation-link:hover {
+    color: white;
+}
+
+.accommodation-link:hover::after {
+    transform: translateX(4px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .service-modal {
+        padding: 35px 25px;
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    .service-modal-header h3 {
+        font-size: 1.5rem;
+    }
+
+    .service-modal-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .retreat-modal-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .retreat-info-columns {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .casinha-images {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 80px;
+    }
+
+    .casinha-img-main {
+        grid-row: auto;
+    }
+}
