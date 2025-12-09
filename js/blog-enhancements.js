@@ -436,72 +436,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // -----------------------------------------
-    // SMART RELATED POSTS - State of the Art
-    // Netflix/Spotify inspired with smart reasons
+    // SMART RELATED POSTS - Dynamisch aus JSON
+    // Vorberechnete Verbindungen aus data/blog-intelligence.json
     // -----------------------------------------
-
-    // Blog-Artikel Datenbank mit echten Header-Bildern und Metadaten
-    const blogDatabase = [
-        // ACHTSAMKEIT
-        { url: 'angst-achtsamkeit-und-frieden.html', title: 'Angst, Achtsamkeit und Frieden', category: 'achtsamkeit', tags: ['angst', 'frieden', 'pferde', 'praesenz'], image: 'wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg', excerpt: 'Wie du mit Angst umgehen und durch Achtsamkeit inneren Frieden finden kannst.', themes: ['umgang-mit-angst', 'innerer-frieden'] },
-        { url: 'achtsamkeit-sinne.html', title: 'Mit allen Sinnen: Achtsamkeit', category: 'achtsamkeit', tags: ['sinne', 'praesenz', 'alltag', 'koerper'], image: 'wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg', excerpt: 'Entdecke, wie du durch deine Sinne mehr Präsenz im Alltag finden kannst.', themes: ['praesenz', 'koerperwahrnehmung'] },
-        { url: 'sonnenuntergang-grignan.html', title: 'Achtsamkeit mit dem Handy', category: 'achtsamkeit', tags: ['moment', 'fotografie', 'praesenz'], image: 'wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg', excerpt: 'Wie ein Sonnenuntergang mich lehrte, den Moment wirklich zu erleben.', themes: ['praesenz', 'alltag'] },
-        { url: 'stille-heilung.html', title: 'Stille ist Heilung', category: 'achtsamkeit', tags: ['stille', 'heilung', 'ruhe', 'inneres'], image: 'wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg', excerpt: 'Über die transformative Kraft der Stille und warum wir sie so dringend brauchen.', themes: ['innerer-frieden', 'heilung'] },
-        { url: 'qarrtsiluni.html', title: 'Qarrtsiluni - Neues entsteht in der Stille', category: 'achtsamkeit', tags: ['stille', 'neubeginn', 'dunkelheit', 'transformation'], image: 'wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg', excerpt: 'Ein Inuit-Wort, das beschreibt, wie Neues in der Dunkelheit und Stille entsteht.', themes: ['transformation', 'neubeginn'] },
-        { url: 'freude-wegweiser.html', title: 'Freude als Wegweiser', category: 'achtsamkeit', tags: ['freude', 'intuition', 'leben', 'gefuehle'], image: 'wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg', excerpt: 'Was passiert, wenn wir der Freude folgen statt der Pflicht?', themes: ['lebensfreude', 'intuition'] },
-        { url: 'mit-allen-sinnen-achtsamkeit.html', title: 'Mit allen Sinnen achtsam sein', category: 'achtsamkeit', tags: ['sinne', 'praesenz', 'koerper'], image: 'wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg', excerpt: 'Wie du durch deine Sinne im Moment ankommen kannst.', themes: ['praesenz', 'koerperwahrnehmung'] },
-
-        // SELBSTLIEBE
-        { url: 'dankbarkeit.html', title: 'Dankbarkeit in schweren Zeiten', category: 'selbstliebe', tags: ['dankbarkeit', 'schwierig', 'kraft', 'resilienz'], image: 'wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg', excerpt: 'Wie Dankbarkeit uns auch in schwierigen Momenten trägt.', themes: ['resilienz', 'perspektive'] },
-        { url: 'einzigartigkeit.html', title: 'Deine Einzigartigkeit', category: 'selbstliebe', tags: ['besonders', 'geschenk', 'identitaet', 'selbstwert'], image: 'wp-content/uploads/2024/05/hochbegabt-hochsensibel-550x550.jpg', excerpt: 'Warum deine Besonderheit dein größtes Geschenk ist.', themes: ['selbstwert', 'identitaet'] },
-        { url: 'fehler-selbstwert.html', title: 'Über Fehler und deinen Selbstwert', category: 'selbstliebe', tags: ['fehler', 'wachstum', 'selbstwert', 'perfektionismus'], image: 'wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg', excerpt: 'Wie du lernst, Fehler als Teil deines Wachstums zu sehen.', themes: ['selbstwert', 'wachstum'] },
-        { url: 'verlass-dich-nicht.html', title: 'Verlass dich nicht', category: 'selbstliebe', tags: ['treue', 'selbst', 'beziehung', 'selbstfuersorge'], image: 'wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg', excerpt: 'Über die wichtigste Beziehung in deinem Leben – die zu dir selbst.', themes: ['selbstbeziehung', 'treue'] },
-        { url: 'es-ist-okay.html', title: 'Es ist okay', category: 'selbstliebe', tags: ['akzeptanz', 'gefuehle', 'erlaubnis', 'mitgefuehl'], image: 'wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg', excerpt: 'Warum es okay ist, nicht okay zu sein.', themes: ['selbstakzeptanz', 'gefuehle'] },
-        { url: 'selbstvergessen.html', title: 'Selbstvergessen', category: 'selbstliebe', tags: ['vergessen', 'praesenz', 'flow', 'freiheit'], image: 'wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg', excerpt: 'Die Schönheit der Selbstvergessenheit im Flow.', themes: ['flow', 'praesenz'] },
-        { url: 'grenzen-setzen.html', title: 'Wie du gesunde Grenzen setzen kannst', category: 'selbstliebe', tags: ['grenzen', 'nein', 'selbstfuersorge', 'beziehungen'], image: 'wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg', excerpt: 'Gesunde Grenzen setzen ohne schlechtes Gewissen.', themes: ['grenzen', 'selbstfuersorge'] },
-        { url: 'wer-bist-du.html', title: 'Wer bist du, wenn du niemand sein musst?', category: 'selbstliebe', tags: ['identitaet', 'sein', 'freiheit', 'authentizitaet'], image: 'wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg', excerpt: 'Eine Frage, die alles verändert.', themes: ['identitaet', 'authentizitaet'] },
-
-        // BEZIEHUNG
-        { url: 'beziehungsprobleme.html', title: 'Beziehungsprobleme', category: 'beziehung', tags: ['probleme', 'partnerschaft', 'kommunikation', 'krise'], image: 'wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg', excerpt: 'Wenn die Liebe kriselt – was tun bei Beziehungsproblemen?', themes: ['beziehungskrise', 'kommunikation'] },
-        { url: 'ehe-retten.html', title: 'Ehe retten', category: 'beziehung', tags: ['ehe', 'krise', 'rettung', 'partnerschaft'], image: 'wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg', excerpt: 'Ist deine Ehe noch zu retten? Wege aus der Krise.', themes: ['beziehungskrise', 'neuanfang'] },
-        { url: 'gehen-oder-bleiben.html', title: 'Gehen oder Bleiben?', category: 'beziehung', tags: ['trennung', 'entscheidung', 'zweifel', 'klarheit'], image: 'wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg', excerpt: 'Die schwierigste Frage in einer Beziehung.', themes: ['entscheidung', 'klarheit'] },
-        { url: 'love-letters.html', title: 'Love Letters', category: 'beziehung', tags: ['liebe', 'schreiben', 'verbindung', 'kommunikation'], image: 'wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg', excerpt: 'Die Kraft von Liebesbriefen für deine Beziehung.', themes: ['verbindung', 'kommunikation'] },
-        { url: 'gemeinsam-jammern.html', title: 'Gemeinsam Jammern', category: 'beziehung', tags: ['kommunikation', 'unzufriedenheit', 'muster', 'gewohnheiten'], image: 'wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg', excerpt: 'Wenn Jammern zur Gewohnheit wird.', themes: ['muster', 'kommunikation'] },
-        { url: 'was-dein-freundeskreis-ueber-dich-verraet.html', title: 'Was dein Freundeskreis über dich verrät', category: 'beziehung', tags: ['freundschaft', 'spiegel', 'beziehungen'], image: 'wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg', excerpt: 'Deine Freunde als Spiegel deiner Selbst.', themes: ['selbsterkenntnis', 'beziehungen'] },
-
-        // HELDINNENREISE
-        { url: 'heldinnenreise.html', title: 'Gib deinem Leben deinen Sinn', category: 'heldinnenreise', tags: ['sinn', 'reise', 'transformation', 'berufung'], image: 'wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg', excerpt: 'Die Heldinnenreise – dein Weg zu einem sinnerfüllten Leben.', themes: ['lebenssinn', 'transformation'] },
-        { url: 'herzenswunsch.html', title: 'Folge deiner Sehnsucht', category: 'heldinnenreise', tags: ['sehnsucht', 'herz', 'mut', 'traeume'], image: 'wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg', excerpt: 'Was passiert, wenn du deinem Herzenswunsch folgst?', themes: ['herzenswunsch', 'mut'] },
-        { url: 'leben-planen.html', title: 'Leben planen', category: 'heldinnenreise', tags: ['planung', 'ziele', 'zukunft', 'kontrolle'], image: 'wp-content/uploads/2025/05/Neuanfang-Umbruchphase-1024x1024.jpg', excerpt: 'Kann man sein Leben planen – und sollte man es?', themes: ['lebensplanung', 'kontrolle'] },
-        { url: 'komfortzone.html', title: 'Über Gewohnheiten und das Verlassen der Komfortzone', category: 'heldinnenreise', tags: ['komfortzone', 'gewohnheiten', 'mut', 'wachstum'], image: 'wp-content/uploads/2025/05/Neuanfang-Umbruchphase-1024x1024.jpg', excerpt: 'Warum Wachstum außerhalb der Komfortzone beginnt.', themes: ['wachstum', 'mut'] },
-        { url: 'freiheit.html', title: 'Freiheit ist niemals größer als der Kopf, der sie denkt', category: 'heldinnenreise', tags: ['freiheit', 'denken', 'grenzen', 'glaubenssaetze'], image: 'wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg', excerpt: 'Über die Grenzen, die wir uns selbst setzen.', themes: ['innere-freiheit', 'glaubenssaetze'] },
-        { url: 'was-ist-wichtig.html', title: 'Was ist wirklich wichtig?', category: 'heldinnenreise', tags: ['prioritaeten', 'werte', 'leben', 'klarheit'], image: 'wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg', excerpt: 'Die Frage, die alles sortiert.', themes: ['werte', 'klarheit'] },
-        { url: 'erfuelltes-leben.html', title: 'Wie fühlt sich ein erfülltes Leben an?', category: 'heldinnenreise', tags: ['erfuellung', 'glueck', 'sinn', 'zufriedenheit'], image: 'wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg', excerpt: 'Auf der Suche nach dem erfüllten Leben.', themes: ['erfuellung', 'lebenssinn'] },
-        { url: 'ganz-sein.html', title: 'Wo ich bin, will ich ganz sein', category: 'heldinnenreise', tags: ['praesenz', 'ganz', 'sein', 'achtsamkeit'], image: 'wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg', excerpt: 'Über die Kunst, wirklich da zu sein.', themes: ['praesenz', 'authentizitaet'] },
-        { url: 'wunschlos-gluecklich-schade-eigentlich.html', title: 'Wunschlos glücklich? Schade eigentlich.', category: 'heldinnenreise', tags: ['wuensche', 'glueck', 'sehnsucht', 'traeume'], image: 'wp-content/uploads/2020/10/Achtsamkeit.jpg', excerpt: 'Warum Wünsche wichtig sind.', themes: ['wuensche', 'lebenssinn'] },
-        { url: 'innerer-frieden.html', title: 'Endlich innerer Frieden', category: 'heldinnenreise', tags: ['frieden', 'ruhe', 'inneres', 'heilung'], image: 'wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg', excerpt: 'Der Weg zum inneren Frieden.', themes: ['innerer-frieden', 'heilung'] },
-        { url: 'vision-board.html', title: 'Deine Vision noch schöner', category: 'heldinnenreise', tags: ['vision', 'kreativitaet', 'ziele', 'traeume'], image: 'wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg', excerpt: 'Wie ein Vision Board deine Träume sichtbar macht.', themes: ['vision', 'ziele'] },
-        { url: 'letzte-male.html', title: 'Letzte Male - Abschied', category: 'heldinnenreise', tags: ['abschied', 'loslassen', 'veraenderung', 'trauer'], image: 'wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg', excerpt: 'Über die Schönheit und den Schmerz der letzten Male.', themes: ['loslassen', 'veraenderung'] },
-        { url: 'nichtswollen.html', title: 'Nichts wollen', category: 'heldinnenreise', tags: ['loslassen', 'akzeptanz', 'sein'], image: 'wp-content/uploads/2020/08/2018_06_Anna_Delmenhorst-146-scaled.jpg', excerpt: 'Die Freiheit im Nichts-Wollen.', themes: ['loslassen', 'freiheit'] },
-
-        // HOCHBEGABUNG
-        { url: 'hochbegabung-hochsensibel.html', title: 'Hochbegabung & Hochsensibilität', category: 'hochbegabung', tags: ['hsp', 'hochbegabung', 'anders', 'sensibilitaet'], image: 'wp-content/uploads/2024/05/hochbegabt-hochsensibel-550x550.jpg', excerpt: 'Wenn du anders fühlst und denkst als andere.', themes: ['hochsensibilitaet', 'anderssein'] },
-        { url: 'geschenk-wut.html', title: 'Das Geschenk deiner Wut', category: 'hochbegabung', tags: ['wut', 'gefuehle', 'kraft', 'emotion'], image: 'wp-content/uploads/2024/05/hochbegabt-hochsensibel-550x550.jpg', excerpt: 'Warum Wut ein wichtiger Wegweiser sein kann.', themes: ['emotionen', 'kraft'] },
-        { url: 'die-angst-vor-deiner-power.html', title: 'Die Angst vor deiner Power', category: 'hochbegabung', tags: ['angst', 'kraft', 'potential', 'groesse'], image: 'wp-content/uploads/2021/12/PferdegestuetztePersoenlichkeitsentwicklung-Hamburg-scaled.jpg', excerpt: 'Wenn wir Angst vor unserer eigenen Größe haben.', themes: ['potential', 'selbstsabotage'] },
-        { url: 'gedankenkarussell.html', title: 'Gedankenkarussell', category: 'hochbegabung', tags: ['gedanken', 'kreisen', 'kopf', 'grübeln'], image: 'wp-content/uploads/2024/05/hochbegabt-hochsensibel-550x550.jpg', excerpt: 'Wenn die Gedanken nicht zur Ruhe kommen.', themes: ['gedanken', 'ruhe'] },
-        { url: 'glaubenssaetze-pferde.html', title: 'Glaubenssatzarbeit mit Pferden', category: 'hochbegabung', tags: ['glaubenssaetze', 'veraenderung', 'ueberzeugungen', 'pferde'], image: 'wp-content/uploads/2022/07/Coaching-Pferde-Hamburg-KathrinStahl-17-550x550.jpg', excerpt: 'Wie deine Überzeugungen dein Leben formen.', themes: ['glaubenssaetze', 'veraenderung'] },
-        { url: 'innere-fuehrung.html', title: 'Innere Führung', category: 'hochbegabung', tags: ['intuition', 'fuehrung', 'inneres', 'weisheit'], image: 'wp-content/uploads/2024/05/hochbegabt-hochsensibel-550x550.jpg', excerpt: 'Die Stimme in dir, die den Weg kennt.', themes: ['intuition', 'innere-weisheit'] },
-        { url: 'gefuehle-achtsam.html', title: 'Achtsam mit deinen Gefühlen umgehen', category: 'hochbegabung', tags: ['gefuehle', 'achtsamkeit', 'umgang', 'emotion'], image: 'wp-content/uploads/2024/05/hochbegabt-hochsensibel-550x550.jpg', excerpt: 'Wie du achtsam mit deinen Gefühlen umgehen kannst.', themes: ['emotionen', 'achtsamkeit'] },
-        { url: 'hochbegabt.html', title: 'Hochbegabt sein', category: 'hochbegabung', tags: ['hochbegabung', 'anderssein', 'potential'], image: 'wp-content/uploads/2022/02/PferdegestuetztesCoaching-Hochbegabung-Hamburg.jpg', excerpt: 'Was es bedeutet, hochbegabt zu sein.', themes: ['hochbegabung', 'identitaet'] },
-
-        // KÖRPER & HEILUNG
-        { url: 'klossgefuehl-im-hals-wie-eine-aufstellung-hilft.html', title: 'Kloßgefühl im Hals', category: 'koerper', tags: ['koerper', 'symptome', 'aufstellung', 'heilung'], image: 'wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg', excerpt: 'Wie eine Aufstellung bei körperlichen Symptomen hilft.', themes: ['koerpersymptome', 'aufstellung'] },
-        { url: 'nackenschmerzen.html', title: 'Nackenschmerzen als Wegweiser', category: 'koerper', tags: ['schmerzen', 'koerper', 'botschaft', 'symptome'], image: 'wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg', excerpt: 'Was dir dein Körper mit Schmerzen sagen will.', themes: ['koerpersymptome', 'botschaft'] },
-        { url: 'wen-ziehst-du.html', title: 'Wen ziehst du hinter dir her?', category: 'koerper', tags: ['last', 'vergangenheit', 'loslassen', 'familie'], image: 'wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg', excerpt: 'Über die unsichtbaren Lasten, die wir tragen.', themes: ['systemisch', 'loslassen'] },
-        { url: 'die-liebe-der-pferde.html', title: 'Die Liebe der Pferde', category: 'koerper', tags: ['pferde', 'liebe', 'heilung', 'verbindung'], image: 'wp-content/uploads/2023/06/Pferde-Coaching-Hamburg-1024x823.png', excerpt: 'Was Pferde uns über bedingungslose Liebe lehren.', themes: ['pferde', 'liebe'] },
-        { url: 'mit-pferden-sein-und-heilen.html', title: 'Mit Pferden sein und heilen', category: 'koerper', tags: ['pferde', 'heilung', 'coaching', 'praesenz'], image: 'wp-content/uploads/2021/01/Pferdegestütztes-Coaching-scaled.jpg', excerpt: 'Die heilende Kraft der Begegnung mit Pferden.', themes: ['pferde', 'heilung'] },
-        { url: 'hilfe-annehmen.html', title: 'Hilfe annehmen', category: 'koerper', tags: ['hilfe', 'annehmen', 'schwaeche', 'staerke'], image: 'wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg', excerpt: 'Warum Hilfe annehmen keine Schwäche ist.', themes: ['selbstfuersorge', 'verletzlichkeit'] }
-    ];
 
     // Kategorie-Anzeigenamen
     const categoryNames = {
@@ -510,196 +447,58 @@ document.addEventListener('DOMContentLoaded', function() {
         'beziehung': 'Beziehung',
         'heldinnenreise': 'Heldinnenreise',
         'hochbegabung': 'Hochbegabung',
-        'koerper': 'Körper & Heilung'
+        'koerper': 'Körper & Heilung',
+        'allgemein': 'Inspiration'
     };
 
-    // Smarte Begründungen warum ein Artikel relevant ist
-    const relevanceReasons = {
-        sameCategory: [
-            { icon: '📚', text: 'Mehr zu diesem Thema' },
-            { icon: '🔍', text: 'Vertieft dieses Thema' },
-            { icon: '💡', text: 'Ein weiterer Blick auf {category}' }
-        ],
-        commonTags: [
-            { icon: '🔗', text: 'Passt zu deinem Interesse an {tag}' },
-            { icon: '✨', text: 'Weil dich {tag} interessiert' },
-            { icon: '🌟', text: 'Auch über {tag}' }
-        ],
-        commonThemes: [
-            { icon: '🧭', text: 'Ein anderer Blickwinkel' },
-            { icon: '💫', text: 'Ergänzt deine Lektüre' },
-            { icon: '🌱', text: 'Der nächste Schritt auf deiner Reise' }
-        ],
-        relatedCategory: [
-            { icon: '🌈', text: 'Könnte dich auch interessieren' },
-            { icon: '🔮', text: 'Eine neue Perspektive' },
-            { icon: '🦋', text: 'Verwandtes Thema' }
-        ],
-        nextStep: [
-            { icon: '→', text: 'Dein nächster Schritt' },
-            { icon: '🚀', text: 'Geh noch tiefer' },
-            { icon: '🌿', text: 'Führt dich weiter' }
-        ]
+    // Typ-basierte Icons für Empfehlungen
+    const connectionTypeIcons = {
+        'vertiefung': '📚',
+        'neue-perspektive': '🔮',
+        'naechster-schritt': '🚀',
+        'heilungsreise': '💫',
+        'ergaenzung': '✨'
     };
 
-    // Thema-Verknüpfungen für "nächster Schritt" Logik
-    const themeJourneys = {
-        'umgang-mit-angst': ['innerer-frieden', 'mut', 'selbstvertrauen'],
-        'innerer-frieden': ['praesenz', 'heilung', 'achtsamkeit'],
-        'selbstwert': ['authentizitaet', 'grenzen', 'selbstbeziehung'],
-        'beziehungskrise': ['kommunikation', 'selbstbeziehung', 'klarheit'],
-        'hochsensibilitaet': ['selbstfuersorge', 'grenzen', 'emotionen'],
-        'transformation': ['neubeginn', 'loslassen', 'mut'],
-        'wachstum': ['komfortzone', 'mut', 'potential']
-    };
+    // Lade vorberechnete Verbindungen aus JSON
+    async function loadBlogIntelligence() {
+        try {
+            const response = await fetch('data/blog-intelligence.json');
+            if (!response.ok) throw new Error('JSON nicht gefunden');
+            return await response.json();
+        } catch (e) {
+            console.warn('Blog-Intelligence nicht verfügbar, verwende Fallback');
+            return null;
+        }
+    }
 
-    function getCurrentArticleInfo() {
+    // Finde aktuellen Artikel und seine vorberechneten Empfehlungen
+    async function getPrecomputedRelatedPosts() {
+        const data = await loadBlogIntelligence();
+        if (!data || !data.articles) return null;
+
         const path = window.location.pathname;
         const filename = path.split('/').pop();
-        return blogDatabase.find(article => article.url === filename);
-    }
 
-    function getRelevanceReason(article, currentArticle) {
-        // Priorisierte Logik für die Begründung
+        // Finde aktuellen Artikel
+        const currentArticle = data.articles.find(a => a.url === filename);
+        if (!currentArticle || !currentArticle.related) return null;
 
-        // 1. Gleiche Kategorie
-        if (article.category === currentArticle.category) {
-            const reasons = relevanceReasons.sameCategory;
-            const reason = reasons[Math.floor(Math.random() * reasons.length)];
-            return {
-                icon: reason.icon,
-                text: reason.text.replace('{category}', categoryNames[article.category])
-            };
-        }
-
-        // 2. Gemeinsame Tags
-        const commonTags = article.tags.filter(tag => currentArticle.tags.includes(tag));
-        if (commonTags.length > 0) {
-            const tagDisplayNames = {
-                'angst': 'Angst', 'frieden': 'Frieden', 'pferde': 'Pferde',
-                'praesenz': 'Präsenz', 'heilung': 'Heilung', 'stille': 'Stille',
-                'gefuehle': 'Gefühle', 'selbstwert': 'Selbstwert', 'mut': 'Mut',
-                'grenzen': 'Grenzen', 'intuition': 'Intuition', 'transformation': 'Transformation'
-            };
-            const tag = commonTags[0];
-            const displayTag = tagDisplayNames[tag] || tag;
-            const reasons = relevanceReasons.commonTags;
-            const reason = reasons[Math.floor(Math.random() * reasons.length)];
-            return {
-                icon: reason.icon,
-                text: reason.text.replace('{tag}', displayTag)
-            };
-        }
-
-        // 3. Thematischer "nächster Schritt"
-        if (currentArticle.themes && article.themes) {
-            for (const theme of currentArticle.themes) {
-                const nextThemes = themeJourneys[theme] || [];
-                if (article.themes.some(t => nextThemes.includes(t))) {
-                    const reasons = relevanceReasons.nextStep;
-                    return reasons[Math.floor(Math.random() * reasons.length)];
+        // Transformiere related-Daten für Anzeige
+        return {
+            currentArticle,
+            relatedPosts: currentArticle.related.slice(0, 8).map(r => ({
+                url: r.url,
+                title: r.title,
+                image: r.image || 'wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg',
+                excerpt: r.excerpt || '',
+                category: r.category,
+                relevance: {
+                    icon: connectionTypeIcons[r.type] || '✨',
+                    text: r.reason || 'Empfohlen für dich'
                 }
-            }
-        }
-
-        // 4. Verwandte Kategorie
-        const relatedCategories = {
-            'achtsamkeit': ['selbstliebe', 'koerper', 'hochbegabung'],
-            'selbstliebe': ['achtsamkeit', 'heldinnenreise', 'beziehung'],
-            'beziehung': ['selbstliebe', 'hochbegabung', 'achtsamkeit'],
-            'heldinnenreise': ['selbstliebe', 'hochbegabung', 'achtsamkeit'],
-            'hochbegabung': ['selbstliebe', 'achtsamkeit', 'koerper'],
-            'koerper': ['achtsamkeit', 'hochbegabung', 'heilung']
+            }))
         };
-
-        if (relatedCategories[currentArticle.category]?.includes(article.category)) {
-            const reasons = relevanceReasons.relatedCategory;
-            return reasons[Math.floor(Math.random() * reasons.length)];
-        }
-
-        // Fallback
-        return { icon: '✨', text: 'Könnte dich inspirieren' };
-    }
-
-    function findRelatedPosts(currentArticle, count = 8) {
-        if (!currentArticle) return [];
-
-        // Score-basiertes Matching mit erweiterter Logik
-        const scored = blogDatabase
-            .filter(article => article.url !== currentArticle.url)
-            .map(article => {
-                let score = 0;
-
-                // Gleiche Kategorie = hohe Relevanz
-                if (article.category === currentArticle.category) {
-                    score += 15;
-                }
-
-                // Gemeinsame Tags = mittlere Relevanz
-                const commonTags = article.tags.filter(tag => currentArticle.tags.includes(tag));
-                score += commonTags.length * 6;
-
-                // Gemeinsame Themes = hohe Relevanz
-                if (currentArticle.themes && article.themes) {
-                    const commonThemes = article.themes.filter(t => currentArticle.themes.includes(t));
-                    score += commonThemes.length * 8;
-                }
-
-                // Thematische Reise - "nächster Schritt"
-                if (currentArticle.themes && article.themes) {
-                    for (const theme of currentArticle.themes) {
-                        const nextThemes = themeJourneys[theme] || [];
-                        if (article.themes.some(t => nextThemes.includes(t))) {
-                            score += 10;
-                        }
-                    }
-                }
-
-                // Verwandte Kategorien
-                const relatedCategories = {
-                    'achtsamkeit': ['selbstliebe', 'koerper'],
-                    'selbstliebe': ['achtsamkeit', 'heldinnenreise'],
-                    'beziehung': ['selbstliebe', 'hochbegabung'],
-                    'heldinnenreise': ['selbstliebe', 'hochbegabung'],
-                    'hochbegabung': ['selbstliebe', 'achtsamkeit'],
-                    'koerper': ['achtsamkeit', 'hochbegabung']
-                };
-
-                if (relatedCategories[currentArticle.category]?.includes(article.category)) {
-                    score += 5;
-                }
-
-                // Relevanz-Grund berechnen
-                const relevance = getRelevanceReason(article, currentArticle);
-
-                return { ...article, score, relevance };
-            })
-            .sort((a, b) => b.score - a.score);
-
-        // Diversität sicherstellen - nicht nur eine Kategorie
-        const result = [];
-        const usedCategories = new Set();
-        const topCandidates = scored.slice(0, count * 3);
-
-        // Erst die Top 3 aus gleicher Kategorie
-        for (const article of topCandidates) {
-            if (result.length >= 3) break;
-            if (article.category === currentArticle.category) {
-                result.push(article);
-                usedCategories.add(article.category);
-            }
-        }
-
-        // Dann aus anderen Kategorien auffüllen
-        for (const article of topCandidates) {
-            if (result.length >= count) break;
-            if (!result.includes(article)) {
-                result.push(article);
-                usedCategories.add(article.category);
-            }
-        }
-
-        return result;
     }
 
     function renderRelatedPosts(relatedPosts, currentArticle) {
@@ -789,14 +588,19 @@ document.addEventListener('DOMContentLoaded', function() {
         updateButtons();
     }
 
-    // Related Posts initialisieren
-    if (articleContent) {
-        const currentArticle = getCurrentArticleInfo();
-        if (currentArticle) {
-            const relatedPosts = findRelatedPosts(currentArticle, 8);
-            renderRelatedPosts(relatedPosts, currentArticle);
+    // Related Posts initialisieren - nutzt vorberechnete Verbindungen aus JSON
+    async function initRelatedPosts() {
+        if (!articleContent) return;
+
+        // Versuche vorberechnete Daten zu laden
+        const precomputed = await getPrecomputedRelatedPosts();
+
+        if (precomputed && precomputed.relatedPosts.length > 0) {
+            // Nutze die intelligenten, vorberechneten Verbindungen
+            renderRelatedPosts(precomputed.relatedPosts, precomputed.currentArticle);
+            console.log('✓ Smart Related Posts aus JSON geladen');
         } else {
-            // Fallback: Versuche Kategorie aus der Seite zu extrahieren
+            // Fallback: Kategorie-basierte Empfehlungen
             const categorySpan = document.querySelector('.article-category');
             if (categorySpan) {
                 const categoryText = categorySpan.textContent.toLowerCase().trim();
@@ -811,27 +615,38 @@ document.addEventListener('DOMContentLoaded', function() {
                     'körper & heilung': 'koerper',
                     'allgemein': 'achtsamkeit'
                 };
-
                 const category = categoryMap[categoryText] || 'achtsamkeit';
-                const path = window.location.pathname;
-                const filename = path.split('/').pop();
 
-                // Erstelle ein Pseudo-Artikel-Objekt für die Logik
-                const pseudoArticle = {
-                    url: filename,
-                    category: category,
-                    tags: [],
-                    themes: []
-                };
+                // Lade JSON für Fallback-Suche
+                const data = await loadBlogIntelligence();
+                if (data && data.articles) {
+                    // Filtere Artikel nach Kategorie
+                    const sameCategoryPosts = data.articles
+                        .filter(a => a.category === category && a.url !== window.location.pathname.split('/').pop())
+                        .slice(0, 8)
+                        .map(a => ({
+                            url: a.url,
+                            title: a.title,
+                            image: a.image || 'wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg',
+                            excerpt: a.excerpt || '',
+                            category: a.category,
+                            relevance: {
+                                icon: '📚',
+                                text: 'Mehr zu diesem Thema'
+                            }
+                        }));
 
-                const fallbackPosts = findRelatedPosts(pseudoArticle, 8);
-
-                if (fallbackPosts.length > 0) {
-                    renderRelatedPosts(fallbackPosts, pseudoArticle);
+                    if (sameCategoryPosts.length > 0) {
+                        renderRelatedPosts(sameCategoryPosts, { category });
+                        console.log('✓ Kategorie-basierte Related Posts geladen');
+                    }
                 }
             }
         }
     }
+
+    // Starte async Initialisierung
+    initRelatedPosts();
 
     console.log('✓ Blog Enhancements geladen');
 });

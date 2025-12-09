@@ -90,7 +90,7 @@ def analyze_with_groq(article, api_key):
 
     try:
         response = client.chat.completions.create(
-            model="llama-3.1-70b-versatile",
+            model="llama-3.3-70b-versatile",
             messages=[
                 {
                     "role": "system",
