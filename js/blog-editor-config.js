@@ -36,11 +36,16 @@ const BLOG_CATEGORIES = {
 let state = {
     posts: [],
     drafts: [],
+    queue: [],
     currentPost: null,
     hasUnsavedChanges: false,
     publishingQueue: [],
-    githubToken: null,
-    selectedTab: 'posts'
+    token: null,
+    selectedTab: 'drafts',
+    currentTab: 'drafts',
+    selectedCategories: [],
+    selectedImage: null,
+    featuredImage: null
 };
 
 // AI State
