@@ -120,9 +120,9 @@
 </a>
 </div>
 </div>
-<a href="index.html#blog">Blog</a>
+<a href="blog.html">Blog</a>
 <a href="media.html">Videos</a>
-<a href="index.html#ueber">Über mich</a>
+<a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
 <a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
 <div class="contact-dropdown-menu">
@@ -253,7 +253,8 @@
 </div>
 </div>
 <!-- Scripts -->
-<script src="js/videos.js?v=2">
+<script src="js/videos.js?v=2"></script>
+<script>
 // ===== HEADER NAVIGATION FUNCTIONS =====
 // Contact dropdown toggle
 function toggleContactDropdown(btn, event) {
@@ -274,22 +275,18 @@ document.addEventListener('click', function(e) {
     });
 });
 
-// Mobile menu toggle (falls noch nicht vorhanden)
-if (typeof toggleMobileNav === 'undefined') {
-    function toggleMobileNav() {
-        const nav = document.getElementById('mainNav');
-        if (nav) nav.classList.toggle('mobile-open');
-    }
+// Mobile menu toggle
+function toggleMobileNav() {
+    const nav = document.getElementById('mainNav');
+    if (nav) nav.classList.toggle('mobile-open');
 }
 
-// Dropdown toggle for mobile (falls noch nicht vorhanden)
-if (typeof toggleDropdown === 'undefined') {
-    function toggleDropdown(element, event) {
-        if (window.innerWidth <= 992) {
-            event.preventDefault();
-            event.stopPropagation();
-            element.classList.toggle('open');
-        }
+// Dropdown toggle for mobile
+function toggleDropdown(element, event) {
+    if (window.innerWidth <= 992) {
+        event.preventDefault();
+        event.stopPropagation();
+        element.classList.toggle('open');
     }
 }
 
@@ -302,13 +299,10 @@ document.addEventListener('click', function(e) {
     }
 });
 
-// Book call function (falls noch nicht vorhanden)
-if (typeof bookCall === 'undefined') {
-    function bookCall() {
-        window.open('https://cal.com/kathrinstahl', '_blank');
-    }
+// Book call function
+function bookCall() {
+    window.open('https://cal.com/kathrinstahl', '_blank');
 }
-
 </script>
 </body>
 </html>

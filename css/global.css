@@ -1,0 +1,617 @@
+/* global.css - Globale Styles für alle Seiten */
+/* Version 1.0 - 2025-12-09 */
+
+/* ===== CSS RESET & VARIABLES ===== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* Farben */
+    --color-primary: #2C4A47;
+    --color-primary-light: #3D6B66;
+    --color-accent: #C4A962;
+    --color-accent-dark: #A68B3D;
+    --color-cream: #FAF8F5;
+    --color-white: #FFFFFF;
+    --color-text: #2D2D2D;
+    --color-text-light: #5A5A5A;
+
+    /* Typografie */
+    --font-heading: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Montserrat', -apple-system, sans-serif;
+
+    /* Layout */
+    --container-width: 1200px;
+    --section-padding: 100px;
+    --header-height: 80px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--color-text);
+    background: var(--color-white);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--color-primary);
+}
+
+h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+}
+
+h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 1.5rem;
+}
+
+h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: 1rem;
+}
+
+h4 {
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+    margin-bottom: 0.75rem;
+}
+
+p {
+    margin-bottom: 1rem;
+    max-width: 65ch;
+}
+
+/* ===== LAYOUT ===== */
+.container {
+    width: 100%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+section {
+    padding: var(--section-padding) 0;
+}
+
+/* ===== HEADER ===== */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--header-height);
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-primary);
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+nav a {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text);
+    transition: color 0.2s;
+}
+
+nav a:hover {
+    color: var(--color-primary);
+}
+
+.nav-cta {
+    background: var(--color-accent);
+    color: var(--color-white) !important;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.nav-cta:hover {
+    background: var(--color-accent-dark);
+}
+
+/* ===== DROPDOWN NAVIGATION ===== */
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown > .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text);
+    transition: color 0.2s;
+}
+
+.nav-dropdown:hover > .nav-link {
+    color: var(--color-primary);
+}
+
+.nav-dropdown > .nav-link::after {
+    content: '';
+    border: solid var(--color-text);
+    border-width: 0 1.5px 1.5px 0;
+    display: inline-block;
+    padding: 2.5px;
+    transform: rotate(45deg);
+    transition: transform 0.2s, border-color 0.2s;
+    margin-top: -2px;
+}
+
+.nav-dropdown:hover > .nav-link::after {
+    transform: rotate(-135deg);
+    border-color: var(--color-primary);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--color-white);
+    min-width: 300px;
+    max-width: 340px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    border-radius: 12px;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    z-index: 9999;
+    padding: 12px 0;
+    border: 1px solid rgba(0,0,0,0.08);
+}
+
+.nav-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.dropdown-menu a {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 20px;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.dropdown-menu a:hover {
+    background: var(--color-cream);
+}
+
+.dropdown-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--color-cream);
+    border-radius: 8px;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.dropdown-icon.hsp,
+.dropdown-icon.iq,
+.dropdown-icon.burnout,
+.dropdown-icon.midlife {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.dropdown-icon.beziehung {
+    color: #D68B68;
+}
+
+.dropdown-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.dropdown-text strong {
+    font-size: 0.95rem;
+    color: var(--color-primary);
+}
+
+.dropdown-text span {
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+}
+
+/* ===== CONTACT DROPDOWN ===== */
+.contact-dropdown {
+    position: relative;
+}
+
+.contact-dropdown-trigger {
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text);
+    transition: color 0.2s;
+}
+
+.contact-dropdown-trigger:hover {
+    color: var(--color-primary);
+}
+
+.contact-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: white;
+    border-radius: 16px;
+    padding: 10px 0;
+    min-width: 220px;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.contact-dropdown-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.contact-item:hover {
+    background: var(--color-cream);
+    color: var(--color-primary);
+}
+
+.contact-icon {
+    font-size: 1.2rem;
+}
+
+/* ===== MOBILE MENU ===== */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.menu-toggle span {
+    width: 24px;
+    height: 2px;
+    background: var(--color-primary);
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+/* ===== RESPONSIVE - TABLET ===== */
+@media (max-width: 992px) {
+    nav {
+        display: none;
+    }
+
+    nav.mobile-open {
+        display: flex;
+        position: absolute;
+        top: var(--header-height);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: white;
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        gap: 0;
+    }
+
+    nav.mobile-open > a,
+    nav.mobile-open .nav-dropdown,
+    nav.mobile-open .contact-dropdown {
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    nav.mobile-open .nav-dropdown > .nav-link {
+        padding: 0;
+    }
+
+    nav.mobile-open .dropdown-menu {
+        position: static;
+        transform: none;
+        box-shadow: none;
+        border: none;
+        min-width: 100%;
+        max-width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 1;
+        visibility: visible;
+        padding: 0;
+        background: var(--color-cream);
+        border-radius: 8px;
+        margin-top: 10px;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+
+    nav.mobile-open .nav-dropdown.open .dropdown-menu {
+        max-height: 1000px;
+        padding: 10px 0;
+    }
+
+    nav.mobile-open .nav-dropdown:hover .dropdown-menu {
+        max-height: 0;
+        padding: 0;
+    }
+
+    nav.mobile-open .nav-dropdown.open:hover .dropdown-menu {
+        max-height: 1000px;
+        padding: 10px 0;
+    }
+
+    nav.mobile-open .dropdown-menu a {
+        padding: 14px 15px;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    nav.mobile-open .dropdown-menu a:last-child {
+        border-bottom: none;
+    }
+
+    nav.mobile-open .dropdown-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 0.8rem;
+    }
+
+    nav.mobile-open .dropdown-text strong {
+        font-size: 0.95rem;
+    }
+
+    nav.mobile-open .dropdown-text span {
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
+
+    nav.mobile-open .nav-cta {
+        margin-top: 15px;
+        text-align: center;
+    }
+
+    /* Contact Dropdown Mobile */
+    nav.mobile-open .contact-dropdown-menu {
+        position: static;
+        transform: none;
+        box-shadow: none;
+        background: var(--color-cream);
+        border-radius: 8px;
+        margin-top: 10px;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 1;
+        visibility: visible;
+        padding: 0;
+        min-width: 100%;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+
+    nav.mobile-open .contact-dropdown-menu.active {
+        max-height: 500px;
+        padding: 10px 0;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+}
+
+/* ===== RESPONSIVE - MOBILE ===== */
+@media (max-width: 768px) {
+    :root {
+        --section-padding: 60px;
+    }
+}
+
+/* ===== FOOTER ===== */
+footer {
+    background: var(--color-primary);
+    color: var(--color-white);
+    padding: 60px 0 30px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 40px;
+}
+
+.footer-section h4 {
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.footer-section p {
+    opacity: 0.8;
+    line-height: 1.8;
+    color: var(--color-white);
+}
+
+.footer-section a {
+    display: block;
+    color: var(--color-white);
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+    transition: opacity 0.2s;
+}
+
+.footer-section a:hover {
+    opacity: 1;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 30px;
+    text-align: center;
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+.footer-bottom a {
+    color: var(--color-white);
+}
+
+.footer-bottom a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: var(--color-accent);
+    color: var(--color-white);
+}
+
+.btn-primary:hover {
+    background: var(--color-accent-dark);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+}
+
+.btn-secondary:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+}
+
+/* ===== CTA SECTION ===== */
+.cta-section {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    padding: 80px 0;
+    text-align: center;
+    color: var(--color-white);
+}
+
+.cta-section h2 {
+    color: var(--color-white);
+    margin-bottom: 1rem;
+}
+
+.cta-section p {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    opacity: 0.9;
+}
+
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--color-accent);
+    color: var(--color-white);
+    padding: 16px 32px;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: background 0.2s;
+    text-decoration: none;
+}
+
+.cta-btn:hover {
+    background: var(--color-accent-dark);
+}
+
+.cta-btn svg {
+    transition: transform 0.2s;
+}
+
+.cta-btn:hover svg {
+    transform: translateX(3px);
+}
