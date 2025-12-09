@@ -1,0 +1,733 @@
+/* ============================================
+   BLOG ENHANCEMENTS - Kathrin Coaching
+   Enhanced typography, pull quotes, and visual elements
+   ============================================ */
+
+/* -----------------------------------------
+   ENHANCED TYPOGRAPHY
+   ----------------------------------------- */
+
+/* Drop Cap - Elegant first letter */
+.article-content > p:first-of-type::first-letter {
+    font-family: var(--font-heading, 'Cormorant Garamond', Georgia, serif);
+    font-size: 4.5rem;
+    line-height: 0.85;
+    float: left;
+    margin: 0.1em 0.15em 0 0;
+    color: var(--color-accent, #C4A962);
+    font-weight: 500;
+}
+
+/* Lead Paragraph - Larger, standout intro */
+.article-content > p:first-of-type,
+.lead-paragraph {
+    font-size: 1.25rem;
+    line-height: 1.7;
+    color: var(--color-text-light, #5A5A5A);
+    margin-bottom: 2rem;
+    max-width: 680px;
+}
+
+/* Optimal reading width for body text */
+.article-content {
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.article-content p {
+    max-width: 680px;
+}
+
+/* -----------------------------------------
+   PULL QUOTES - Large, centered highlights
+   ----------------------------------------- */
+
+.pull-quote,
+blockquote.pull-quote {
+    position: relative;
+    margin: 3rem auto;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    border: none;
+    background: linear-gradient(135deg, #FAF8F5 0%, #FDFCFA 100%);
+    border-radius: 16px;
+    max-width: 600px;
+}
+
+.pull-quote::before {
+    content: '\201C';
+    font-family: Georgia, serif;
+    font-size: 8rem;
+    line-height: 1;
+    color: var(--color-accent, #C4A962);
+    opacity: 0.2;
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.pull-quote p {
+    font-family: var(--font-heading, 'Cormorant Garamond', Georgia, serif);
+    font-size: 1.75rem;
+    line-height: 1.5;
+    color: var(--color-primary, #2C4A47);
+    font-style: italic;
+    font-weight: 500;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.pull-quote cite {
+    display: block;
+    margin-top: 1rem;
+    font-family: var(--font-body, 'Montserrat', sans-serif);
+    font-size: 0.9rem;
+    font-style: normal;
+    color: var(--color-text-light, #5A5A5A);
+}
+
+/* -----------------------------------------
+   HIGHLIGHT BOXES - Key insights & tips
+   ----------------------------------------- */
+
+/* Kerngedanke Box - Primary gradient background */
+.key-insight,
+.kerngedanke {
+    position: relative;
+    margin: 2.5rem 0;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--color-primary, #2C4A47) 0%, var(--color-primary-light, #3D6B66) 100%);
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0 10px 30px rgba(44, 74, 71, 0.2);
+}
+
+.key-insight::before {
+    content: '✦';
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-accent, #C4A962);
+}
+
+.key-insight h3,
+.kerngedanke h3 {
+    color: white;
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+}
+
+.key-insight p,
+.kerngedanke p {
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 0;
+}
+
+/* Tipp Box - Accent border, light background */
+.tip-box,
+.tipp {
+    position: relative;
+    margin: 2.5rem 0;
+    padding: 1.75rem 1.75rem 1.75rem 2.75rem;
+    background: #FFFEF9;
+    border-left: 5px solid var(--color-accent, #C4A962);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.tip-box::before,
+.tipp::before {
+    content: '💡';
+    position: absolute;
+    left: 1rem;
+    top: 1.75rem;
+    font-size: 1.5rem;
+}
+
+.tip-box h4,
+.tipp h4 {
+    color: var(--color-accent, #C4A962);
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    margin-top: 0;
+}
+
+.tip-box p,
+.tipp p {
+    color: var(--color-text, #2D2D2D);
+}
+
+/* Warning/Achtung Box */
+.warning-box,
+.achtung {
+    position: relative;
+    margin: 2.5rem 0;
+    padding: 1.75rem 1.75rem 1.75rem 2.75rem;
+    background: #FFF9F5;
+    border-left: 5px solid #D68B68;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.warning-box::before,
+.achtung::before {
+    content: '⚠️';
+    position: absolute;
+    left: 1rem;
+    top: 1.75rem;
+    font-size: 1.5rem;
+}
+
+.warning-box h4,
+.achtung h4 {
+    color: #D68B68;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    margin-top: 0;
+}
+
+/* -----------------------------------------
+   ELEGANT LIST STYLES
+   ----------------------------------------- */
+
+/* Custom bullet points - Golden circles */
+.article-content ul:not(.no-style) {
+    list-style: none;
+    padding-left: 0;
+}
+
+.article-content ul:not(.no-style) li {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+}
+
+.article-content ul:not(.no-style) li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 8px;
+    height: 8px;
+    background: var(--color-accent, #C4A962);
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px rgba(196, 169, 98, 0.2);
+}
+
+/* Nested list - Smaller bullets */
+.article-content ul:not(.no-style) ul li::before {
+    width: 6px;
+    height: 6px;
+    background: var(--color-primary-light, #3D6B66);
+    box-shadow: 0 0 0 2px rgba(61, 107, 102, 0.2);
+}
+
+/* Numbered lists - Elegant circles with numbers */
+.article-content ol {
+    list-style: none;
+    counter-reset: elegant-counter;
+    padding-left: 0;
+}
+
+.article-content ol li {
+    position: relative;
+    padding-left: 3rem;
+    margin-bottom: 1.25rem;
+    counter-increment: elegant-counter;
+}
+
+.article-content ol li::before {
+    content: counter(elegant-counter);
+    position: absolute;
+    left: 0;
+    top: 0.2em;
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--color-accent, #C4A962), var(--color-primary-light, #3D6B66));
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading, 'Cormorant Garamond', Georgia, serif);
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: 0 3px 10px rgba(196, 169, 98, 0.3);
+}
+
+/* Checklist style */
+.checklist,
+ul.checklist {
+    list-style: none;
+    padding-left: 0;
+}
+
+.checklist li,
+ul.checklist li {
+    position: relative;
+    padding-left: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.checklist li::before,
+ul.checklist li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 28px;
+    height: 28px;
+    background: var(--color-accent, #C4A962);
+    color: white;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* -----------------------------------------
+   VISUAL SEPARATORS
+   ----------------------------------------- */
+
+/* Elegant dot separator */
+.separator-dots {
+    text-align: center;
+    margin: 3rem 0;
+    color: var(--color-accent, #C4A962);
+    font-size: 1.2rem;
+    letter-spacing: 1rem;
+}
+
+.separator-dots::before {
+    content: '• • •';
+}
+
+/* Gradient horizontal rule */
+.separator-gradient,
+hr.gradient {
+    border: none;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        var(--color-accent, #C4A962) 50%,
+        transparent 100%
+    );
+    margin: 3rem auto;
+    max-width: 400px;
+}
+
+/* Decorative wave separator */
+.separator-wave {
+    position: relative;
+    height: 30px;
+    margin: 3rem 0;
+    overflow: hidden;
+}
+
+.separator-wave::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(
+        circle,
+        var(--color-accent, #C4A962) 0%,
+        transparent 70%
+    );
+    opacity: 0.3;
+}
+
+/* -----------------------------------------
+   BACK TO TOP BUTTON
+   ----------------------------------------- */
+
+.back-to-top {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--color-primary, #2C4A47);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 998;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background: var(--color-primary-light, #3D6B66);
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.back-to-top svg {
+    width: 20px;
+    height: 20px;
+    fill: white;
+}
+
+/* -----------------------------------------
+   TABLE OF CONTENTS
+   ----------------------------------------- */
+
+.table-of-contents {
+    background: #FAF8F5;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2.5rem 0;
+    border: 2px solid #F0EBE5;
+}
+
+.table-of-contents h3 {
+    font-size: 1.3rem;
+    color: var(--color-primary, #2C4A47);
+    margin: 0 0 1.25rem 0;
+    font-weight: 600;
+}
+
+.table-of-contents ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.table-of-contents li {
+    margin-bottom: 0.75rem;
+    padding-left: 0;
+}
+
+.table-of-contents li::before {
+    display: none;
+}
+
+.table-of-contents a {
+    color: var(--color-text, #2D2D2D);
+    text-decoration: none;
+    font-size: 1rem;
+    line-height: 1.6;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.table-of-contents a::before {
+    content: '→';
+    color: var(--color-accent, #C4A962);
+    font-weight: bold;
+}
+
+.table-of-contents a:hover {
+    background: white;
+    color: var(--color-primary, #2C4A47);
+    transform: translateX(5px);
+}
+
+/* Nested TOC items */
+.table-of-contents li li {
+    margin-left: 1.5rem;
+    font-size: 0.95rem;
+}
+
+/* -----------------------------------------
+   AUTHOR BIO
+   ----------------------------------------- */
+
+.author-bio {
+    background: linear-gradient(135deg, #FAF8F5 0%, #FDFCFA 100%);
+    border-radius: 16px;
+    padding: 2.5rem;
+    margin: 4rem 0 3rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+}
+
+.author-bio img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 4px solid white;
+}
+
+.author-bio-content h4 {
+    font-family: var(--font-heading, 'Cormorant Garamond', Georgia, serif);
+    font-size: 1.5rem;
+    color: var(--color-primary, #2C4A47);
+    margin: 0 0 0.5rem 0;
+}
+
+.author-bio-content p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--color-text-light, #5A5A5A);
+    margin: 0 0 1rem 0;
+}
+
+.author-bio-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.author-bio-links a {
+    color: var(--color-primary, #2C4A47);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--color-accent, #C4A962);
+    border-radius: 20px;
+    transition: all 0.2s ease;
+}
+
+.author-bio-links a:hover {
+    background: var(--color-accent, #C4A962);
+    color: white;
+}
+
+/* Mobile Author Bio */
+@media (max-width: 768px) {
+    .author-bio {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem;
+    }
+
+    .author-bio img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .author-bio-links {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .author-bio-links a {
+        text-align: center;
+    }
+}
+
+/* -----------------------------------------
+   RELATED POSTS
+   ----------------------------------------- */
+
+.related-posts {
+    margin: 4rem 0 3rem;
+    padding: 3rem 0;
+    border-top: 2px solid #F0EBE5;
+}
+
+.related-posts h3 {
+    font-size: 2rem;
+    color: var(--color-primary, #2C4A47);
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.related-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.related-post-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.related-post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.related-post-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.related-post-card-content {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.related-post-category {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-accent, #C4A962);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.related-post-card h4 {
+    font-size: 1.2rem;
+    color: var(--color-primary, #2C4A47);
+    margin: 0 0 0.75rem 0;
+    line-height: 1.4;
+}
+
+.related-post-card p {
+    font-size: 0.9rem;
+    color: var(--color-text-light, #5A5A5A);
+    line-height: 1.6;
+    margin: 0;
+    flex: 1;
+}
+
+.related-post-read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-primary, #2C4A47);
+}
+
+.related-post-read-more::after {
+    content: '→';
+    transition: transform 0.2s ease;
+}
+
+.related-post-card:hover .related-post-read-more::after {
+    transform: translateX(5px);
+}
+
+/* -----------------------------------------
+   READING TIME & META INFO
+   ----------------------------------------- */
+
+.reading-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--color-text-light, #5A5A5A);
+    margin-bottom: 1rem;
+}
+
+.reading-time::before {
+    content: '📖';
+    font-size: 1.1rem;
+}
+
+/* -----------------------------------------
+   MOBILE RESPONSIVENESS
+   ----------------------------------------- */
+
+@media (max-width: 768px) {
+    /* Drop cap smaller on mobile */
+    .article-content > p:first-of-type::first-letter {
+        font-size: 3.5rem;
+    }
+
+    /* Lead paragraph smaller */
+    .article-content > p:first-of-type,
+    .lead-paragraph {
+        font-size: 1.1rem;
+    }
+
+    /* Pull quotes smaller */
+    .pull-quote p {
+        font-size: 1.4rem;
+    }
+
+    .pull-quote::before {
+        font-size: 5rem;
+    }
+
+    /* Highlight boxes more compact */
+    .key-insight,
+    .kerngedanke,
+    .tip-box,
+    .tipp,
+    .warning-box,
+    .achtung {
+        padding: 1.5rem;
+    }
+
+    /* Table of contents more compact */
+    .table-of-contents {
+        padding: 1.5rem;
+    }
+
+    /* Related posts single column */
+    .related-posts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Back to top smaller on mobile */
+    .back-to-top {
+        width: 45px;
+        height: 45px;
+        bottom: 80px;
+        right: 20px;
+    }
+
+    /* Numbered list circles smaller */
+    .article-content ol li::before {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+    }
+
+    .article-content ol li {
+        padding-left: 2.5rem;
+    }
+}
+
+/* -----------------------------------------
+   PRINT STYLES
+   ----------------------------------------- */
+
+@media print {
+    .back-to-top,
+    .floating-cta,
+    .table-of-contents,
+    .related-posts {
+        display: none;
+    }
+
+    .author-bio {
+        page-break-before: always;
+    }
+}
