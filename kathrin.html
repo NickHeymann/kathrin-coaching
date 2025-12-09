@@ -396,6 +396,143 @@
             line-height: 1.5;
         }
 
+        /* Timeline Section */
+        .timeline-section {
+            padding: 100px 0;
+            background: var(--color-white);
+        }
+
+        .timeline-section h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-intro {
+            text-align: center;
+            color: var(--color-text-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 60px;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--color-accent), var(--color-primary));
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 50px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            padding-right: 60px;
+            padding-left: 0;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            padding-left: 60px;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--color-accent);
+            border: 4px solid var(--color-white);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--color-accent);
+            z-index: 1;
+        }
+
+        .timeline-content {
+            width: calc(50% - 20px);
+            background: var(--color-cream);
+            padding: 25px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .timeline-year {
+            display: inline-block;
+            background: var(--color-primary);
+            color: var(--color-white);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .timeline-content h4 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .timeline-content p {
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(odd) {
+                flex-direction: row;
+                text-align: left;
+            }
+
+            .timeline-marker {
+                left: 20px;
+            }
+
+            .timeline-content,
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 60px;
+                padding: 20px;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+        }
+
         /* Story Section */
         .story-section {
             padding: 100px 0;
@@ -1009,6 +1146,79 @@
 <p>Heute weiß ich: Genau das ist meine Gabe. Und vielleicht auch deine.</p>
 <p>Mein Blick wurde geschärft durch die Fotografie – durch die Fähigkeit, den einen Moment zu sehen, in dem sich alles zeigt. Diesen Blick bringe ich in meine Arbeit mit Menschen.</p>
 <p>Ich möchte dir Mutmacherin sein. Nicht in dem Sinne, dass du einen Weg gehst, für den du nicht bereit bist. Sondern Mut, tiefer zu schauen. Dich zu erkennen mit allem, was dich bewegt.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Timeline Section -->
+<section class="timeline-section">
+<div class="container">
+<h2>Mein Lebensweg</h2>
+<p class="timeline-intro">Die wichtigsten Stationen meiner Reise – von der Fotografie zur Berufung als Coach.</p>
+<div class="timeline">
+<div class="timeline-item">
+<div class="timeline-marker"></div>
+<div class="timeline-content">
+<span class="timeline-year">1970er</span>
+<h4>Kindheit & Wurzeln</h4>
+<p>Aufgewachsen mit einer tiefen Sensibilität und dem Gefühl, "anders" zu sein. Früh geprägt durch intensive Wahrnehmung und den Wunsch, die Welt zu verstehen.</p>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-marker"></div>
+<div class="timeline-content">
+<span class="timeline-year">1990er</span>
+<h4>Fotografie als Berufung</h4>
+<p>Entdeckung der Fotografie als Sprache – der Blick für den einen Moment, in dem sich alles zeigt. Jahre der künstlerischen Arbeit und des Sehenlernens.</p>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-marker"></div>
+<div class="timeline-content">
+<span class="timeline-year">2000er</span>
+<h4>Familie & Mutterschaft</h4>
+<p>Mutter von drei Kindern. Jahre des Gebens, des Wachsens an Herausforderungen – und des langsamen Vergessens der eigenen Bedürfnisse.</p>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-marker"></div>
+<div class="timeline-content">
+<span class="timeline-year">2015</span>
+<h4>Die große Krise</h4>
+<p>Mit über 50 Jahren: Burnout, Erschöpfung, die Frage "Wer bin ich eigentlich?" Der Wendepunkt, der alles veränderte.</p>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-marker"></div>
+<div class="timeline-content">
+<span class="timeline-year">2017</span>
+<h4>Begegnung mit Hogaza</h4>
+<p>Mein Pferd Hogaza wird zur Lehrmeisterin. Die Erfahrung der Stille, der Präsenz, des Gehörtwerdens ohne Worte.</p>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-marker"></div>
+<div class="timeline-content">
+<span class="timeline-year">2018-2022</span>
+<h4>Ausbildung & Transformation</h4>
+<p>Intensive Ausbildungsjahre: Körperarbeit, systemische Aufstellungen, pferdegestütztes Coaching. Jeder Weg, den ich andere gehen lasse, bin ich selbst gegangen.</p>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-marker"></div>
+<div class="timeline-content">
+<span class="timeline-year">2023</span>
+<h4>Portugal & Neuanfang</h4>
+<p>Der Ruf nach Portugal, ins Alentejo. Ein Ort der Weite, der Stille, der Begegnung mit sich selbst – und mit Pferden, die spiegeln, was ist.</p>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-marker"></div>
+<div class="timeline-content">
+<span class="timeline-year">Heute</span>
+<h4>Glück über Zweifel</h4>
+<p>Coaching, Retreats, Begegnungen. Für Menschen, die tief fühlen und tief denken – und genau daran wachsen wollen.</p>
+</div>
 </div>
 </div>
 </div>
