@@ -23,23 +23,130 @@
 <body>
 <!-- Header -->
 <header>
-<div class="container">
-<div class="header-inner">
-<a class="logo" href="index.html">Kathrin Stahl</a>
+<div class="container header-inner">
+<a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<a href="index.html">Start</a>
-<a href="index.html#angebote">Angebote</a>
-<a href="kathrin.html">Über mich</a>
-<a href="blog.html">Blog</a>
-<a href="media.html">Videos</a>
-<a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Erstgespräch</a>
-</nav>
-<button class="menu-toggle" onclick="document.getElementById('mainNav').classList.toggle('mobile-open')">
-
-
-
-</button>
+<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<span class="nav-link">Angebote</span>
+<div aria-label="Angebote" class="dropdown-menu" role="menu">
+<a href="index.html#angebote" role="menuitem">
+<span class="dropdown-icon">👤</span>
+<span class="dropdown-text">
+<strong>1:1 Coaching</strong>
+<span>Einzelbegleitung online &amp; vor Ort</span>
+</span>
+</a>
+<a href="index.html#angebote" role="menuitem">
+<span class="dropdown-icon beziehung">♥</span>
+<span class="dropdown-text">
+<strong>Paar-Coaching</strong>
+<span>Beziehungskrisen gemeinsam meistern</span>
+</span>
+</a>
+<a href="paar-retreat.html" role="menuitem">
+<span class="dropdown-icon">♥♥</span>
+<span class="dropdown-text">
+<strong>Paar-Retreat Portugal</strong>
+<span>5 Tage für eure Beziehung</span>
+</span>
+</a>
+<a href="index.html#angebote" role="menuitem">
+<span class="dropdown-icon">🌿</span>
+<span class="dropdown-text">
+<strong>Retreats in Portugal</strong>
+<span>Auszeit im Alentejo</span>
+</span>
+</a>
+<a href="pferdegestuetztes-coaching.html" role="menuitem">
+<span class="dropdown-icon">🐴</span>
+<span class="dropdown-text">
+<strong>Pferdegestütztes Coaching</strong>
+<span>Meine Methode erklärt</span>
+</span>
+</a>
+<a href="casinha.html" role="menuitem">
+<span class="dropdown-icon">🏡</span>
+<span class="dropdown-text">
+<strong>Die Casinha</strong>
+<span>Deine Unterkunft im Alentejo</span>
+</span>
+</a>
 </div>
+</div>
+<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<span class="nav-link">Selbsttests</span>
+<div aria-label="Selbsttests" class="dropdown-menu" role="menu">
+<a href="quiz-hochsensibel.html" role="menuitem">
+<span class="dropdown-icon hsp">HSP</span>
+<span class="dropdown-text">
+<strong>Hochsensibel?</strong>
+<span>HSPS-Test nach Elaine Aron</span>
+</span>
+</a>
+<a href="quiz-hochbegabt.html" role="menuitem">
+<span class="dropdown-icon iq">OE</span>
+<span class="dropdown-text">
+<strong>Intensitäts-Profil</strong>
+<span>Overexcitabilities nach Dabrowski</span>
+</span>
+</a>
+<a href="quiz-beziehung.html" role="menuitem">
+<span class="dropdown-icon beziehung">♥</span>
+<span class="dropdown-text">
+<strong>Beziehungs-Check</strong>
+<span>Four Horsemen nach Gottman</span>
+</span>
+</a>
+<a href="quiz-lebenskrise.html" role="menuitem">
+<span class="dropdown-icon burnout">CBI</span>
+<span class="dropdown-text">
+<strong>Burnout-Test</strong>
+<span>Copenhagen Burnout Inventory</span>
+</span>
+</a>
+<a href="quiz-midlife.html" role="menuitem">
+<span class="dropdown-icon midlife">40+</span>
+<span class="dropdown-text">
+<strong>Midlife Crisis</strong>
+<span>CMCM-Fragebogen</span>
+</span>
+</a>
+<a href="quiz-paar-kompass.html" role="menuitem">
+<span class="dropdown-icon beziehung">♥♥</span>
+<span class="dropdown-text">
+<strong>Paar-Kompass</strong>
+<span>Wo steht eure Beziehung?</span>
+</span>
+</a>
+</div>
+</div>
+<a href="index.html#blog">Blog</a>
+<a href="media.html">Videos</a>
+<a href="index.html#ueber">Über mich</a>
+<div class="contact-dropdown">
+<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<div class="contact-dropdown-menu">
+<a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
+<span class="contact-icon">💬</span>
+<span>WhatsApp</span>
+</a>
+<a class="contact-item" href="mailto:kathrin@kathrinstahl.com">
+<span class="contact-icon">✉️</span>
+<span>E-Mail</span>
+</a>
+<a class="contact-item" href="https://cal.com/kathrinstahl" target="_blank">
+<span class="contact-icon">📅</span>
+<span>Erstgespräch buchen</span>
+</a>
+</div>
+</div>
+<a class="nav-cta" href="#" onclick="bookCall(); return false;">Gespräch buchen</a>
+</nav>
+<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<span></span>
+<span></span>
+<span></span>
+</button>
 </div>
 </header>
 <!-- Hero -->
@@ -146,6 +253,62 @@
 </div>
 </div>
 <!-- Scripts -->
-<script src="js/videos.js?v=2"></script>
+<script src="js/videos.js?v=2">
+// ===== HEADER NAVIGATION FUNCTIONS =====
+// Contact dropdown toggle
+function toggleContactDropdown(btn, event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const dropdown = btn.closest('.contact-dropdown');
+    const menu = dropdown.querySelector('.contact-dropdown-menu');
+    menu.classList.toggle('active');
+}
+
+// Close contact dropdown when clicking outside
+document.addEventListener('click', function(e) {
+    const dropdowns = document.querySelectorAll('.contact-dropdown-menu');
+    dropdowns.forEach(menu => {
+        if (menu && menu.closest('.contact-dropdown') && !menu.closest('.contact-dropdown').contains(e.target)) {
+            menu.classList.remove('active');
+        }
+    });
+});
+
+// Mobile menu toggle (falls noch nicht vorhanden)
+if (typeof toggleMobileNav === 'undefined') {
+    function toggleMobileNav() {
+        const nav = document.getElementById('mainNav');
+        if (nav) nav.classList.toggle('mobile-open');
+    }
+}
+
+// Dropdown toggle for mobile (falls noch nicht vorhanden)
+if (typeof toggleDropdown === 'undefined') {
+    function toggleDropdown(element, event) {
+        if (window.innerWidth <= 992) {
+            event.preventDefault();
+            event.stopPropagation();
+            element.classList.toggle('open');
+        }
+    }
+}
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', function(e) {
+    const nav = document.getElementById('mainNav');
+    const menuToggle = document.querySelector('.menu-toggle');
+    if (nav && menuToggle && !nav.contains(e.target) && !menuToggle.contains(e.target)) {
+        nav.classList.remove('mobile-open');
+    }
+});
+
+// Book call function (falls noch nicht vorhanden)
+if (typeof bookCall === 'undefined') {
+    function bookCall() {
+        window.open('https://cal.com/kathrinstahl', '_blank');
+    }
+}
+
+</script>
 </body>
 </html>
