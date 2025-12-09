@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="CMS Editor">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#2C4A47">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; connect-src https://api.github.com https://raw.githubusercontent.com https://cdn.jsdelivr.net; img-src 'self' https: data: blob:; media-src 'self' https: blob:; frame-src 'self' blob: data:;">
+    <link rel="manifest" href="../manifest.json">
+    <link rel="apple-touch-icon" href="../wp-content/uploads/2025/01/Kathrin_Stahl_Logo_RGB_gold.png">
+    <title>CMS Editor v2.0 - Kathrin Stahl</title>
+    <link rel="stylesheet" href="css/editor.css">
+</head>
+<body>
+    <!-- Setup Screen -->
+    <div class="setup-screen" id="setupScreen">
+        <div class="setup-card">
+            <h1>Website Editor einrichten</h1>
+            <p>Um Änderungen automatisch zu speichern, benötigst du einen GitHub-Zugang.</p>
+            <input type="password" class="setup-input" id="tokenInput" placeholder="GitHub Token eingeben...">
+            <button class="setup-btn" id="setupBtn">Editor starten</button>
+            <details class="setup-help">
+                <summary>Wie bekomme ich einen Token?</summary>
+                <div class="setup-help-content">
+                    <ol>
+                        <li>Gehe zu <a href="https://github.com/settings/tokens/new" target="_blank">github.com/settings/tokens/new</a></li>
+                        <li>Melde dich mit deinem GitHub-Konto an</li>
+                        <li>Gib einen Namen ein, z.B. <code>Website Editor</code></li>
+                        <li>Wähle bei "Expiration" einen langen Zeitraum</li>
+                        <li>Aktiviere die Checkbox <code>repo</code></li>
+                        <li>Klicke auf "Generate token"</li>
+                        <li>Kopiere den Token und füge ihn hier ein</li>
+                    </ol>
+                    <p style="margin-top:1rem;"><strong>Hinweis:</strong> Der Token wird nur in deinem Browser gespeichert.</p>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+        <div class="toolbar-left">
+            <div class="toolbar-logo">CMS v2</div>
+            <select id="pageSelect">
+                <option value="">Seite wählen...</option>
+                <optgroup label="Startseite">
+                    <option value="index.html">Startseite</option>
+                </optgroup>
+                <optgroup label="Über mich">
+                    <option value="kathrin.html">Über mich</option>
+                </optgroup>
+                <optgroup label="Portugal">
+                    <option value="paar-retreat.html">Paar-Retreat</option>
+                    <option value="pferdegestuetztes-coaching.html">Pferdegestütztes Coaching</option>
+                    <option value="casinha.html">Casinha (Unterkunft)</option>
+                </optgroup>
+                <optgroup label="Selbsttests">
+                    <option value="quiz-hochsensibel.html">Hochsensibilität</option>
+                    <option value="quiz-hochbegabt.html">Hochbegabung</option>
+                    <option value="quiz-beziehung.html">Beziehung</option>
+                    <option value="quiz-lebenskrise.html">Lebenskrise</option>
+                    <option value="quiz-midlife.html">Midlife</option>
+                    <option value="quiz-paar-kompass.html">Paar-Kompass</option>
+                </optgroup>
+                <optgroup label="Rechtliches">
+                    <option value="impressum.html">Impressum</option>
+                    <option value="datenschutzerklaerung.html">Datenschutz</option>
+                </optgroup>
+            </select>
+        </div>
+        <div class="toolbar-center">
+            <div class="autosave-indicator">
+                <div class="autosave-dot" id="autosaveDot"></div>
+                <span id="autosaveText">Autosave aktiv</span>
+            </div>
+            <span class="status-badge status-saved" id="statusBadge">Gespeichert</span>
+        </div>
+        <div class="toolbar-right">
+            <button class="btn btn-ghost" onclick="CMS.forceReload()" title="Seite neu laden">Neu laden</button>
+            <button class="btn btn-ghost" onclick="CMS.toggleNotesSidebar()">Notizen</button>
+            <button class="btn btn-ghost" onclick="CMS.showVersions()">Versionen</button>
+            <button class="btn btn-ghost" onclick="CMS.undo()">Rückgängig</button>
+            <button class="btn btn-primary" onclick="CMS.saveNow()">Jetzt speichern</button>
+        </div>
+    </div>
+
+    <!-- Sidebars -->
+    <div class="sidebar" id="versionsSidebar">
+        <button class="sidebar-close" onclick="CMS.closeSidebar('versionsSidebar')">&times;</button>
+        <div class="sidebar-section">
+            <h3>📋 Aktuelle Änderungen</h3>
+            <div id="changesList"><p style="color:#999;font-size:0.85rem;">Noch keine Änderungen</p></div>
+        </div>
+        <div class="sidebar-section">
+            <h3>🕐 Letzte Versionen</h3>
+            <div class="version-list" id="versionList"><p style="color:#999;font-size:0.85rem;">Wird geladen...</p></div>
+        </div>
+        <div class="sidebar-section">
+            <h3>ℹ️ Info</h3>
+            <p style="font-size:0.8rem;color:#666;line-height:1.5;">
+                Änderungen werden automatisch alle 30 Sekunden gespeichert.
+                Du arbeitest auf dem Branch <code style="background:#e0e0e0;padding:0.1rem 0.3rem;border-radius:3px;">kathrin-edits</code>.
+            </p>
+        </div>
+    </div>
+
+    <div class="sidebar" id="notesSidebar">
+        <button class="sidebar-close" onclick="CMS.closeSidebar('notesSidebar')">&times;</button>
+        <div class="sidebar-section" style="padding-bottom:0.5rem;">
+            <h3 style="margin-bottom:0.5rem;">📝 Notizen</h3>
+            <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;">
+                <button class="btn btn-primary" style="flex:1;font-size:0.75rem;padding:0.3rem;" onclick="CMS.filterNotes('current')" id="notesFilterCurrent">Diese Seite</button>
+                <button class="btn btn-ghost" style="flex:1;font-size:0.75rem;padding:0.3rem;" onclick="CMS.filterNotes('all')" id="notesFilterAll">Alle Seiten</button>
+            </div>
+        </div>
+        <div id="notesListContainer" style="padding:0 1rem 1rem;"><p style="color:#999;font-size:0.85rem;">Noch keine Notizen</p></div>
+        <div style="padding:1rem;border-top:1px solid #ddd;">
+            <button class="btn btn-primary" style="width:100%;" onclick="CMS.createStickyNote()">+ Neue Notiz</button>
+        </div>
+    </div>
+
+    <!-- Start Screen -->
+    <div class="start-screen" id="startScreen">
+        <h2>Willkommen!</h2>
+        <p>Wähle oben eine Seite aus, um mit dem Bearbeiten zu beginnen.</p>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay hidden" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Seite wird geladen...</div>
+    </div>
+
+    <!-- Main Frame -->
+    <iframe id="siteFrame" class="website-frame"></iframe>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Offline Banner -->
+    <div class="offline-banner" id="offlineBanner">
+        Du bist offline. Änderungen werden lokal gespeichert und später synchronisiert.
+    </div>
+
+    <!-- Modals -->
+    <div class="modal-bg" id="imgModal">
+        <div class="modal">
+            <h3>Bild ersetzen</h3>
+            <div class="upload-zone" id="imgUploadZone">
+                <div style="font-size:2rem;margin-bottom:0.5rem;">+</div>
+                <p><strong>Klicken oder Bild hierher ziehen</strong></p>
+                <input type="file" id="imgInput" accept="image/*">
+            </div>
+            <img id="imgPreview" class="preview-img" style="display:none;" loading="lazy">
+            <div class="modal-btns">
+                <button class="btn btn-cancel" onclick="CMS.closeImgModal()">Abbrechen</button>
+                <button class="btn btn-primary" id="imgConfirmBtn" onclick="CMS.confirmImg()" disabled>Einsetzen</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-bg" id="videoModal">
+        <div class="modal" style="max-width:500px;">
+            <h3>Video ändern</h3>
+            <div style="display:flex;gap:0.5rem;margin-bottom:1rem;">
+                <button class="btn btn-primary" id="videoTabUrl" onclick="CMS.switchVideoTab('url')" style="flex:1;">YouTube/Vimeo URL</button>
+                <button class="btn btn-ghost" id="videoTabUpload" onclick="CMS.switchVideoTab('upload')" style="flex:1;">Video hochladen</button>
+            </div>
+            <div id="videoUrlSection">
+                <p style="color:#666;margin-bottom:0.75rem;font-size:0.9rem;">YouTube oder Vimeo URL eingeben:</p>
+                <input type="text" class="modal-input" id="videoInput" placeholder="https://youtube.com/watch?v=...">
+            </div>
+            <div id="videoUploadSection" style="display:none;">
+                <div class="upload-zone" id="videoUploadZone">
+                    <div style="font-size:2rem;margin-bottom:0.5rem;">🎬</div>
+                    <p><strong>Video hierher ziehen</strong></p>
+                    <p style="font-size:0.8rem;color:#999;">oder klicken zum Auswählen</p>
+                    <p style="font-size:0.75rem;color:#999;margin-top:0.5rem;">MP4, WebM, MOV (max. 50 MB)</p>
+                    <input type="file" id="videoFileInput" accept="video/mp4,video/webm,video/quicktime">
+                </div>
+                <video id="videoPreview" style="display:none;max-width:100%;max-height:150px;border-radius:8px;margin-top:1rem;" controls></video>
+                <p id="videoFileName" style="display:none;font-size:0.85rem;color:#666;margin-top:0.5rem;"></p>
+            </div>
+            <div class="modal-btns">
+                <button class="btn btn-cancel" onclick="CMS.closeVideoModal()">Abbrechen</button>
+                <button class="btn btn-primary" onclick="CMS.confirmVideo()">Ändern</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popups -->
+    <div class="format-toolbar" id="formatToolbar">
+        <button class="format-btn" onclick="CMS.formatText('bold')" title="Fett"><b>B</b></button>
+        <button class="format-btn" onclick="CMS.formatText('italic')" title="Kursiv"><i>I</i></button>
+        <button class="format-btn" onclick="CMS.formatText('underline')" title="Unterstrichen"><u>U</u></button>
+        <button class="format-btn" onclick="CMS.showColorPicker()" title="Farbe">🎨</button>
+        <button class="format-btn" onclick="CMS.showEmojiPicker()" title="Emoji">😊</button>
+    </div>
+
+    <div class="color-picker-popup" id="colorPicker"></div>
+    <div class="emoji-picker" id="emojiPicker"></div>
+    <div class="element-history" id="elementHistory"></div>
+    <div class="trash-panel" id="trashPanel"><h4>Papierkorb</h4><div id="trashList"></div></div>
+
+    <div class="context-menu" id="contextMenu">
+        <div class="context-menu-item" onclick="CMS.createNoteFromContext()">
+            <span>📝</span> Notiz erstellen
+        </div>
+        <div class="context-menu-item" data-action="history" onclick="CMS.showElementHistoryFromContext()">
+            <span>📜</span> Änderungsverlauf
+        </div>
+    </div>
+
+    <!-- External Dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js"
+            integrity="sha384-3XJAN3rswrHdGqLHC3V5s0ERRmJrqtOvC/1qVz8gg4RZMlWBNB9VCRa9Z6H/TqRt"
+            crossorigin="anonymous"></script>
+
+    <!-- App Entry Point -->
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
