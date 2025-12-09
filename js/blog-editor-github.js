@@ -125,33 +125,50 @@ function checkSetup() {
 
 async function setupToken() {
     console.log('setupToken() aufgerufen');
-    const tokenInput = document.getElementById('tokenInput');
-    console.log('tokenInput Element:', tokenInput);
-
-    const token = tokenInput ? tokenInput.value.trim() : '';
-    console.log('Token Länge:', token.length);
+    const token = document.getElementById('tokenInput').value.trim();
 
     if (!token) {
         toast('Bitte Token eingeben', 'error');
         return;
     }
 
+    // Basis-Validierung des Token-Formats (wie im CMS-Editor)
+    if (!token.startsWith('ghp_') && !token.startsWith('github_pat_')) {
+        toast('Ungültiges Token-Format. GitHub Tokens beginnen mit ghp_ oder github_pat_', 'error');
+        return;
+    }
+
+    const btn = document.getElementById('setupBtn');
+    if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Prüfe Token...';
+    }
+
     try {
         state.token = token;
         console.log('Prüfe Token bei GitHub...');
+
+        // Test API-Zugriff
         await github.request(`/repos/${CONFIG.owner}/${CONFIG.repo}`);
         console.log('Token gültig!');
 
-        // Token in sessionStorage speichern
+        // Token in sessionStorage speichern (wird bei Tab-Schließung gelöscht)
         sessionStorage.setItem('github_token', token);
+        // Sicherstellen, dass kein Token in localStorage verbleibt
         localStorage.removeItem('github_token');
+
         document.getElementById('setupScreen').classList.add('hidden');
         toast('Erfolgreich eingerichtet!', 'success');
         initEditor();
     } catch (e) {
         console.error('Token Fehler:', e);
-        toast('Token ungültig: ' + e.message, 'error');
+        toast('Token ungültig oder keine Berechtigung', 'error');
         state.token = null;
+    }
+
+    if (btn) {
+        btn.disabled = false;
+        btn.textContent = 'Editor starten';
     }
 }
 console.log('✓ blog-editor-github.js geladen');

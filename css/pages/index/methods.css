@@ -1,0 +1,309 @@
+/* ===== METHODS SECTION =====
+ * Datei: css/pages/index/methods.css
+ * Methoden-Cards und Philosophie-Bereich
+ */
+
+/* ===== METHODS / METHODEN SECTION ===== */
+.methods-section {
+    background: var(--color-white);
+    position: relative;
+}
+
+.methods-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.methods-header .section-label {
+    display: inline-block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--color-accent);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.methods-header p {
+    max-width: 650px;
+    margin: 0 auto;
+    color: var(--color-text-light);
+}
+
+.methods-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.method-card {
+    background: var(--color-cream);
+    border-radius: 20px;
+    padding: 35px 30px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.4s ease;
+    border: 2px solid transparent;
+    overflow: hidden;
+}
+
+.method-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    border-color: var(--color-accent);
+}
+
+.method-card.expanded {
+    background: var(--color-white);
+    border-color: var(--color-primary);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+}
+
+.method-icon {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    transition: transform 0.3s;
+}
+
+.method-card:hover .method-icon {
+    transform: scale(1.08);
+}
+
+.method-icon svg {
+    width: 60px;
+    height: 60px;
+    stroke: var(--color-accent);
+    fill: none;
+    stroke-width: 1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.method-card h4 {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+.method-short {
+    font-size: 0.95rem;
+    color: var(--color-text-light);
+    margin-bottom: 0;
+    line-height: 1.6;
+}
+
+.method-detail {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, margin-top 0.4s ease;
+    margin-top: 0;
+}
+
+.method-card.expanded .method-detail {
+    max-height: 300px;
+    margin-top: 20px;
+}
+
+.method-detail p {
+    font-size: 0.9rem;
+    color: var(--color-text);
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+.method-tag {
+    display: inline-block;
+    background: var(--color-primary);
+    color: white;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.method-expand {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: var(--color-text-light);
+    transition: all 0.3s;
+}
+
+.method-card:hover .method-expand {
+    background: var(--color-accent);
+    color: white;
+}
+
+.method-card.expanded .method-expand {
+    transform: rotate(45deg);
+    background: var(--color-primary);
+    color: white;
+}
+
+/* Methods Philosophy */
+.methods-philosophy {
+    margin-top: 70px;
+    text-align: center;
+    padding: 50px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    border-radius: 24px;
+    position: relative;
+}
+
+.methods-philosophy::before {
+    content: '"';
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    font-size: 6rem;
+    font-family: var(--font-heading);
+    color: rgba(255,255,255,0.15);
+    line-height: 1;
+}
+
+.methods-philosophy blockquote {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-style: italic;
+    color: white;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.methods-philosophy cite {
+    display: block;
+    margin-top: 25px;
+    font-family: var(--font-body);
+    font-style: normal;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+}
+
+/* ===== GUARANTEE SECTION ===== */
+.guarantee-section {
+    background: linear-gradient(135deg, #f8f4f0 0%, #ebe4dc 100%);
+}
+
+.guarantee-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.guarantee-badge {
+    width: 100px;
+    height: 100px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 30px;
+    position: relative;
+}
+
+.guarantee-badge::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border: 2px dashed var(--color-accent);
+    border-radius: 50%;
+}
+
+.guarantee-badge svg {
+    width: 50px;
+    height: 50px;
+    fill: white;
+}
+
+.guarantee-content h2 {
+    margin-bottom: 1.5rem;
+}
+
+.guarantee-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+}
+
+.guarantee-points {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.guarantee-point {
+    background: white;
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    flex: 1;
+    min-width: 200px;
+    max-width: 280px;
+}
+
+.guarantee-point h4 {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+}
+
+.guarantee-point p {
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .methods-grid {
+        grid-template-columns: 1fr;
+        max-width: 450px;
+        margin: 0 auto;
+    }
+
+    .methods-philosophy {
+        padding: 35px 25px;
+    }
+
+    .methods-philosophy blockquote {
+        font-size: 1.2rem;
+    }
+
+    .methods-philosophy::before {
+        font-size: 4rem;
+        left: 20px;
+    }
+
+    .guarantee-points {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .guarantee-point {
+        max-width: 100%;
+    }
+}
