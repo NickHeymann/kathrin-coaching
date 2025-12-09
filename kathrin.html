@@ -415,38 +415,10 @@
             margin: 0 auto 40px;
         }
 
-        /* Featured Image - grows on active item */
-        .timeline-featured-image {
-            position: relative;
-            max-width: 500px;
-            margin: 0 auto 50px;
-            overflow: hidden;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-        }
-
-        .timeline-featured-image img {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
-        }
-
-        .timeline-featured-image.active img {
-            transform: scale(1.05);
-        }
-
-        .timeline-featured-image::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to bottom, transparent 60%, rgba(44, 74, 71, 0.3));
-            pointer-events: none;
-        }
-
+        /* Timeline mit Popup-Bildern */
         .timeline {
             position: relative;
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px 0;
         }
@@ -465,24 +437,43 @@
 
         .timeline-item {
             position: relative;
-            margin-bottom: 40px;
+            margin-bottom: 60px;
             display: flex;
-            align-items: flex-start;
+            align-items: center;
+            justify-content: space-between;
             cursor: pointer;
         }
 
+        /* Ungerade Items: Text links, Bild rechts */
         .timeline-item:nth-child(odd) {
-            flex-direction: row-reverse;
-            text-align: right;
+            flex-direction: row;
         }
 
         .timeline-item:nth-child(odd) .timeline-content {
+            text-align: right;
             padding-right: 60px;
-            padding-left: 0;
+            margin-right: auto;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-popup-image {
+            right: 0;
+            left: auto;
+        }
+
+        /* Gerade Items: Bild links, Text rechts */
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
         }
 
         .timeline-item:nth-child(even) .timeline-content {
+            text-align: left;
             padding-left: 60px;
+            margin-left: auto;
+        }
+
+        .timeline-item:nth-child(even) .timeline-popup-image {
+            left: 0;
+            right: auto;
         }
 
         .timeline-marker {
@@ -494,7 +485,7 @@
             background: var(--color-cream);
             border: 3px solid var(--color-accent);
             border-radius: 50%;
-            z-index: 1;
+            z-index: 10;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -506,13 +497,15 @@
         }
 
         .timeline-content {
-            width: calc(50% - 20px);
+            width: calc(50% - 30px);
             background: var(--color-cream);
             padding: 20px 25px;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border: 2px solid transparent;
+            position: relative;
+            z-index: 5;
         }
 
         .timeline-item.active .timeline-content,
@@ -521,6 +514,33 @@
             box-shadow: 0 12px 40px rgba(0,0,0,0.12);
             border-color: var(--color-accent);
             background: var(--color-white);
+        }
+
+        /* Popup Bild auf gegenüberliegender Seite */
+        .timeline-popup-image {
+            position: absolute;
+            width: calc(50% - 50px);
+            max-width: 350px;
+            opacity: 0;
+            transform: scale(0.8) translateY(20px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .timeline-popup-image img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .timeline-item.active .timeline-popup-image,
+        .timeline-item:hover .timeline-popup-image {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
         }
 
         .timeline-year {
@@ -554,23 +574,15 @@
         }
 
         @media (max-width: 768px) {
-            .timeline-featured-image {
-                max-width: 100%;
-                margin-bottom: 40px;
-            }
-
-            .timeline-featured-image img {
-                height: 280px;
-            }
-
             .timeline::before {
                 left: 20px;
             }
 
             .timeline-item,
-            .timeline-item:nth-child(odd) {
-                flex-direction: row;
-                text-align: left;
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                flex-direction: column;
+                align-items: flex-start;
             }
 
             .timeline-marker {
@@ -588,8 +600,31 @@
                 width: calc(100% - 60px);
                 margin-left: 60px;
                 padding: 18px;
+                text-align: left;
                 padding-left: 18px;
                 padding-right: 18px;
+            }
+
+            .timeline-popup-image,
+            .timeline-item:nth-child(odd) .timeline-popup-image,
+            .timeline-item:nth-child(even) .timeline-popup-image {
+                position: relative;
+                width: calc(100% - 60px);
+                max-width: none;
+                margin-left: 60px;
+                margin-top: 15px;
+                left: auto;
+                right: auto;
+            }
+
+            .timeline-popup-image img {
+                height: 200px;
+            }
+
+            /* Auf Mobile immer sichtbar */
+            .timeline-item .timeline-popup-image {
+                opacity: 1;
+                transform: scale(1) translateY(0);
             }
         }
 
@@ -1216,74 +1251,93 @@
 <h2>Mein Lebensweg</h2>
 <p class="timeline-intro">Die wichtigsten Stationen meiner Reise – von der Fotografie zur Berufung als Coach.</p>
 
-<!-- Aktives Bild - wächst beim Hover/Scroll -->
-<div class="timeline-featured-image">
-<img id="timelineImage" src="wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg" alt="Kathrin Stahl - Lebensweg">
-</div>
-
 <div class="timeline">
-<div class="timeline-item" data-image="wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg">
+<div class="timeline-item">
 <div class="timeline-marker"></div>
 <div class="timeline-content">
 <span class="timeline-year">1970er</span>
 <h4>Kindheit & Wurzeln</h4>
 <p>Aufgewachsen mit einer tiefen Sensibilität und dem Gefühl, "anders" zu sein. Früh geprägt durch intensive Wahrnehmung und den Wunsch, die Welt zu verstehen.</p>
 </div>
+<div class="timeline-popup-image">
+<img src="wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg" alt="Kindheit & Wurzeln">
 </div>
-<div class="timeline-item" data-image="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg">
+</div>
+<div class="timeline-item">
 <div class="timeline-marker"></div>
 <div class="timeline-content">
 <span class="timeline-year">1990er</span>
 <h4>Fotografie als Berufung</h4>
 <p>Entdeckung der Fotografie als Sprache – der Blick für den einen Moment, in dem sich alles zeigt. Jahre der künstlerischen Arbeit und des Sehenlernens.</p>
 </div>
+<div class="timeline-popup-image">
+<img src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg" alt="Fotografie als Berufung">
 </div>
-<div class="timeline-item" data-image="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg">
+</div>
+<div class="timeline-item">
 <div class="timeline-marker"></div>
 <div class="timeline-content">
 <span class="timeline-year">2000er</span>
 <h4>Familie & Mutterschaft</h4>
 <p>Mutter von drei Kindern. Jahre des Gebens, des Wachsens an Herausforderungen – und des langsamen Vergessens der eigenen Bedürfnisse.</p>
 </div>
+<div class="timeline-popup-image">
+<img src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg" alt="Familie & Mutterschaft">
 </div>
-<div class="timeline-item" data-image="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg">
+</div>
+<div class="timeline-item">
 <div class="timeline-marker"></div>
 <div class="timeline-content">
 <span class="timeline-year">2015</span>
 <h4>Die große Krise</h4>
 <p>Mit über 50 Jahren: Burnout, Erschöpfung, die Frage "Wer bin ich eigentlich?" Der Wendepunkt, der alles veränderte.</p>
 </div>
+<div class="timeline-popup-image">
+<img src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg" alt="Die große Krise">
 </div>
-<div class="timeline-item" data-image="wp-content/uploads/2022/07/Coaching-Pferde-Hamburg-KathrinStahl-17-550x550.jpg">
+</div>
+<div class="timeline-item">
 <div class="timeline-marker"></div>
 <div class="timeline-content">
 <span class="timeline-year">2017</span>
 <h4>Begegnung mit Hogaza</h4>
 <p>Mein Pferd Hogaza wird zur Lehrmeisterin. Die Erfahrung der Stille, der Präsenz, des Gehörtwerdens ohne Worte.</p>
 </div>
+<div class="timeline-popup-image">
+<img src="wp-content/uploads/2022/07/Coaching-Pferde-Hamburg-KathrinStahl-17-550x550.jpg" alt="Begegnung mit Hogaza">
 </div>
-<div class="timeline-item" data-image="wp-content/uploads/2025/02/Ausbildung-Pferdegestuetztes-Coaching-768x1024.jpg">
+</div>
+<div class="timeline-item">
 <div class="timeline-marker"></div>
 <div class="timeline-content">
 <span class="timeline-year">2018-2022</span>
 <h4>Ausbildung & Transformation</h4>
 <p>Intensive Ausbildungsjahre: Körperarbeit, systemische Aufstellungen, pferdegestütztes Coaching. Jeder Weg, den ich andere gehen lasse, bin ich selbst gegangen.</p>
 </div>
+<div class="timeline-popup-image">
+<img src="wp-content/uploads/2025/02/Ausbildung-Pferdegestuetztes-Coaching-768x1024.jpg" alt="Ausbildung & Transformation">
 </div>
-<div class="timeline-item" data-image="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-29-scaled.jpg">
+</div>
+<div class="timeline-item">
 <div class="timeline-marker"></div>
 <div class="timeline-content">
 <span class="timeline-year">2023</span>
 <h4>Portugal & Neuanfang</h4>
 <p>Der Ruf nach Portugal, ins Alentejo. Ein Ort der Weite, der Stille, der Begegnung mit sich selbst – und mit Pferden, die spiegeln, was ist.</p>
 </div>
+<div class="timeline-popup-image">
+<img src="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-29-scaled.jpg" alt="Portugal & Neuanfang">
 </div>
-<div class="timeline-item" data-image="wp-content/uploads/2025/11/Retreat-Portugal-Pferde-Kathrin-Stahl-86-1024x683.jpg">
+</div>
+<div class="timeline-item">
 <div class="timeline-marker"></div>
 <div class="timeline-content">
 <span class="timeline-year">Heute</span>
 <h4>Glück über Zweifel</h4>
 <p>Coaching, Retreats, Begegnungen. Für Menschen, die tief fühlen und tief denken – und genau daran wachsen wollen.</p>
+</div>
+<div class="timeline-popup-image">
+<img src="wp-content/uploads/2025/11/Retreat-Portugal-Pferde-Kathrin-Stahl-86-1024x683.jpg" alt="Glück über Zweifel">
 </div>
 </div>
 </div>
@@ -1423,89 +1477,40 @@ if (typeof bookCall === 'undefined') {
 }
 
 // ===== INTERAKTIVE TIMELINE =====
+// Bilder erscheinen per CSS bei Hover - JS nur für active-State beim Scrollen
 document.addEventListener('DOMContentLoaded', function() {
     const timelineItems = document.querySelectorAll('.timeline-item');
-    const featuredImage = document.getElementById('timelineImage');
-    const imageContainer = document.querySelector('.timeline-featured-image');
-
-    if (!timelineItems.length || !featuredImage) return;
+    if (!timelineItems.length) return;
 
     let currentActiveItem = null;
 
-    // Bild wechseln mit sanfter Animation
-    function changeImage(newSrc) {
-        if (featuredImage.src.includes(newSrc)) return;
-
-        // Fade out
-        imageContainer.classList.remove('active');
-        featuredImage.style.opacity = '0';
-
-        setTimeout(() => {
-            featuredImage.src = newSrc;
-            // Warten bis Bild geladen
-            featuredImage.onload = function() {
-                featuredImage.style.opacity = '1';
-                imageContainer.classList.add('active');
-            };
-        }, 300);
-    }
-
-    // Timeline-Item aktivieren
     function setActiveItem(item) {
         if (currentActiveItem === item) return;
-
-        // Vorheriges Item deaktivieren
         if (currentActiveItem) {
             currentActiveItem.classList.remove('active');
         }
-
-        // Neues Item aktivieren
         item.classList.add('active');
         currentActiveItem = item;
-
-        // Bild wechseln
-        const imageSrc = item.dataset.image;
-        if (imageSrc) {
-            changeImage(imageSrc);
-        }
     }
 
-    // Hover-Events für Desktop
-    timelineItems.forEach(item => {
-        item.addEventListener('mouseenter', function() {
-            setActiveItem(this);
-        });
-
-        // Touch-Events für Mobile
-        item.addEventListener('touchstart', function(e) {
-            setActiveItem(this);
-        }, { passive: true });
-    });
-
     // Scroll-basierte Aktivierung (IntersectionObserver)
-    const observerOptions = {
-        root: null,
-        rootMargin: '-30% 0px -30% 0px', // Aktiviert wenn Item im mittleren Bereich
-        threshold: 0.5
-    };
-
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 setActiveItem(entry.target);
             }
         });
-    }, observerOptions);
-
-    // Alle Timeline-Items beobachten
-    timelineItems.forEach(item => {
-        observer.observe(item);
+    }, {
+        root: null,
+        rootMargin: '-30% 0px -30% 0px',
+        threshold: 0.5
     });
+
+    timelineItems.forEach(item => observer.observe(item));
 
     // Erstes Item standardmäßig aktivieren
     if (timelineItems[0]) {
         setActiveItem(timelineItems[0]);
-        imageContainer.classList.add('active');
     }
 });
 
