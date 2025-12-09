@@ -451,13 +451,13 @@ document.addEventListener('DOMContentLoaded', function() {
         'allgemein': 'Inspiration'
     };
 
-    // Typ-basierte Icons für Empfehlungen
-    const connectionTypeIcons = {
-        'vertiefung': '📚',
-        'neue-perspektive': '🔮',
-        'naechster-schritt': '🚀',
-        'heilungsreise': '💫',
-        'ergaenzung': '✨'
+    // Typ-basierte Texte für Empfehlungen (keine Emojis)
+    const connectionTypeLabels = {
+        'vertiefung': '',
+        'neue-perspektive': '',
+        'naechster-schritt': '',
+        'heilungsreise': '',
+        'ergaenzung': ''
     };
 
     // Lade vorberechnete Verbindungen aus JSON
@@ -494,7 +494,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 excerpt: r.excerpt || '',
                 category: r.category,
                 relevance: {
-                    icon: connectionTypeIcons[r.type] || '✨',
+                    icon: connectionTypeLabels[r.type] || '',
                     text: r.reason || 'Empfohlen für dich'
                 }
             }))
@@ -527,7 +527,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="related-post-card-image">
                                 <img src="${post.image}" alt="${post.title}" loading="lazy">
                                 <div class="relevance-badge">
-                                    <span class="relevance-badge-icon">${post.relevance?.icon || '✨'}</span>
                                     <span class="relevance-badge-text">${post.relevance?.text || 'Empfohlen'}</span>
                                 </div>
                             </div>
@@ -631,7 +630,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             excerpt: a.excerpt || '',
                             category: a.category,
                             relevance: {
-                                icon: '📚',
                                 text: 'Mehr zu diesem Thema'
                             }
                         }));
