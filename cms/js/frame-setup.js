@@ -1,0 +1,244 @@
+/**
+ * Frame Setup Module
+ * Richtet Editing im iframe ein
+ * @module frame-setup
+ */
+
+import { state } from './state.js';
+import { editText } from './text-editor.js';
+import { editImage, setupImageResize } from './image-editor.js';
+import { editVideo, editNativeVideo } from './video-editor.js';
+import { showFormatToolbar, hideFormatToolbar } from './format-toolbar.js';
+import { showContextMenu } from './context-menu.js';
+
+/**
+ * Richtet alle Editing-Features im Frame ein
+ * @param {HTMLIFrameElement} frame - Der iframe mit der Seite
+ */
+export function setupFrameEditing(frame) {
+    const doc = frame.contentDocument;
+    if (!doc) return;
+
+    setupTextEditing(doc);
+    setupPlaceholderEditing(doc);
+    setupImageEditing(doc);
+    setupVideoEditing(doc);
+    setupLinkPrevention(doc);
+    setupSelectionToolbar(doc, frame);
+    setupContextMenu(doc, frame);
+}
+
+/**
+ * Richtet Text-Editing ein
+ * @param {Document} doc - iframe Document
+ */
+function setupTextEditing(doc) {
+    const textSelectors = [
+        'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+        'p', 'li', 'label', 'span', 'button', 'td', 'th', 'a',
+        '.btn', '.nav-cta', '.cta-question', '.quiz-question',
+        '.quiz-answer', '.question-text', '.answer-text', '.option-text',
+        '[data-question]', '[data-answer]'
+    ].join(',');
+
+    doc.querySelectorAll(textSelectors).forEach((el, i) => {
+        const txt = el.textContent.trim();
+        const isButton = el.tagName === 'BUTTON' || el.tagName === 'A' || el.classList.contains('btn');
+        const minLength = isButton ? 1 : 2;
+
+        // Text muss mindestens minLength Zeichen haben und keine verschachtelten Elemente
+        if (txt.length >= minLength &&
+            !el.querySelector('img') &&
+            !el.querySelector('input') &&
+            !el.querySelector('textarea')) {
+
+            el.dataset.editIdx = i;
+            el.dataset.editOrig = txt;
+            el.style.cursor = 'text';
+
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                editText(el, e);
+            });
+        }
+    });
+}
+
+/**
+ * Richtet Placeholder-Editing für Inputs ein
+ * @param {Document} doc - iframe Document
+ */
+function setupPlaceholderEditing(doc) {
+    doc.querySelectorAll('input[placeholder], textarea[placeholder]').forEach((input, i) => {
+        const placeholder = input.placeholder;
+        if (placeholder && placeholder.length > 1) {
+            input.dataset.editIdx = 'placeholder-' + i;
+            input.dataset.editOrig = placeholder;
+
+            input.addEventListener('dblclick', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const newPlaceholder = prompt('Neuer Platzhalter-Text:', placeholder);
+                if (newPlaceholder && newPlaceholder !== placeholder) {
+                    input.placeholder = newPlaceholder;
+                    input.style.outline = '2px solid #4CAF50';
+
+                    // Change registrieren
+                    import('./state.js').then(({ addPendingChange }) => {
+                        addPendingChange({
+                            type: 'placeholder',
+                            idx: input.dataset.editIdx,
+                            orig: placeholder,
+                            newVal: newPlaceholder,
+                            page: state.currentPage,
+                            timestamp: Date.now()
+                        });
+                    });
+
+                    import('./ui.js').then(({ toast, updateStatus, updateChangesList }) => {
+                        updateStatus('unsaved');
+                        updateChangesList();
+                        toast('Platzhalter geändert', 'success');
+                    });
+                }
+            });
+        }
+    });
+}
+
+/**
+ * Richtet Bild-Editing ein
+ * @param {Document} doc - iframe Document
+ */
+function setupImageEditing(doc) {
+    doc.querySelectorAll('img').forEach((img, i) => {
+        if (img.src && !img.src.startsWith('data:')) {
+            img.dataset.editIdx = i;
+            img.dataset.editOrig = img.src;
+
+            img.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                editImage(img);
+            });
+
+            // Resize-Handles
+            setupImageResize(img, doc);
+        }
+    });
+}
+
+/**
+ * Richtet Video-Editing ein
+ * @param {Document} doc - iframe Document
+ */
+function setupVideoEditing(doc) {
+    // YouTube/Vimeo iframes
+    doc.querySelectorAll('iframe').forEach((iframe, i) => {
+        const src = iframe.src || '';
+        if (src.includes('youtube') || src.includes('vimeo')) {
+            // Wrapper für Overlay
+            const wrapper = doc.createElement('div');
+            wrapper.style.cssText = 'position:relative;display:inline-block;width:100%;';
+            iframe.parentNode.insertBefore(wrapper, iframe);
+            wrapper.appendChild(iframe);
+
+            // Klick-Overlay
+            const overlay = doc.createElement('div');
+            overlay.className = 'video-overlay';
+            overlay.dataset.editIdx = i;
+            overlay.dataset.editOrig = src;
+            wrapper.appendChild(overlay);
+
+            overlay.addEventListener('click', (e) => {
+                e.preventDefault();
+                editVideo(iframe, overlay);
+            });
+        }
+    });
+
+    // Native Video-Elemente
+    doc.querySelectorAll('video').forEach((video, i) => {
+        video.style.cursor = 'pointer';
+        video.dataset.editIdx = 'native-' + i;
+        const src = video.src || video.querySelector('source')?.src || '';
+        video.dataset.editOrig = src;
+
+        video.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            editNativeVideo(video);
+        });
+    });
+}
+
+/**
+ * Verhindert Link-Navigation im Editor
+ * @param {Document} doc - iframe Document
+ */
+function setupLinkPrevention(doc) {
+    doc.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', (e) => {
+            const href = a.getAttribute('href');
+            if (href && !href.startsWith('#')) {
+                e.preventDefault();
+            }
+        });
+    });
+}
+
+/**
+ * Richtet Formatierungs-Toolbar bei Textauswahl ein
+ * @param {Document} doc - iframe Document
+ * @param {HTMLIFrameElement} frame - Der iframe
+ */
+function setupSelectionToolbar(doc, frame) {
+    doc.addEventListener('mouseup', (e) => {
+        const selection = doc.getSelection();
+        if (selection && selection.toString().trim().length > 0) {
+            const range = selection.getRangeAt(0);
+            const rect = range.getBoundingClientRect();
+            const frameRect = frame.getBoundingClientRect();
+
+            const x = frameRect.left + rect.left;
+            const y = frameRect.top + rect.top - 45;
+
+            showFormatToolbar(x, y);
+        } else {
+            setTimeout(() => {
+                const toolbar = document.getElementById('formatToolbar');
+                if (toolbar && !toolbar.matches(':hover')) {
+                    hideFormatToolbar();
+                }
+            }, 200);
+        }
+    });
+}
+
+/**
+ * Richtet Kontextmenü ein
+ * @param {Document} doc - iframe Document
+ * @param {HTMLIFrameElement} frame - Der iframe
+ */
+function setupContextMenu(doc, frame) {
+    doc.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+
+        const frameRect = frame.getBoundingClientRect();
+        const x = frameRect.left + e.clientX;
+        const y = frameRect.top + e.clientY;
+
+        // Speichere Kontext-Daten
+        window.contextMenuData = {
+            x,
+            y,
+            element: e.target,
+            hasEditIdx: !!e.target.dataset?.editIdx,
+            editIdx: e.target.dataset?.editIdx
+        };
+
+        showContextMenu(x, y, !!e.target.dataset?.editIdx);
+    });
+}
