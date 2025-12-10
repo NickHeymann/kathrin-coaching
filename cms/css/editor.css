@@ -903,6 +903,101 @@ select option { background: #2C4A47; }
 .history-item-time { color: #999; font-size: 0.65rem; }
 
 /* ============================== */
+/* VIDEO RECORDING                */
+/* ============================== */
+.recording-indicator {
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #f44336;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    display: none;
+    align-items: center;
+    gap: 0.75rem;
+    z-index: 100003;
+    box-shadow: 0 4px 15px rgba(244, 67, 54, 0.4);
+    animation: pulse-recording 1.5s infinite;
+}
+.recording-indicator.active { display: flex; }
+
+.rec-dot {
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+@keyframes pulse-recording {
+    0%, 100% { box-shadow: 0 4px 15px rgba(244, 67, 54, 0.4); }
+    50% { box-shadow: 0 4px 25px rgba(244, 67, 54, 0.6); }
+}
+
+.rec-stop {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    padding: 0.3rem 0.75rem;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background 0.15s;
+}
+.rec-stop:hover { background: rgba(255,255,255,0.3); }
+
+/* Recording Button Active State */
+#recordBtn.recording {
+    background: #f44336 !important;
+    color: white !important;
+    animation: pulse-btn 1s infinite;
+}
+
+@keyframes pulse-btn {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Recording Options in Modal */
+.record-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 1rem 0;
+}
+
+.record-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: #f8f8f8;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+.record-option:hover { background: #f0f0f0; }
+
+.record-option input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #2C4A47;
+}
+
+.record-option span {
+    font-size: 0.95rem;
+    color: #333;
+}
+
+/* ============================== */
 /* RESPONSIVE - TABLET            */
 /* ============================== */
 @media (max-width: 900px) {

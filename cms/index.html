@@ -86,6 +86,7 @@
             <span class="status-badge status-saved" id="statusBadge">Gespeichert</span>
         </div>
         <div class="toolbar-right">
+            <button class="btn btn-ghost" id="recordBtn" onclick="CMS.toggleRecording()" title="Video-Feedback aufnehmen">🎥 Video</button>
             <button class="btn btn-ghost" onclick="CMS.forceReload()" title="Seite neu laden">Neu laden</button>
             <button class="btn btn-ghost" onclick="CMS.toggleNotesSidebar()">Notizen</button>
             <button class="btn btn-ghost" onclick="CMS.showVersions()">Versionen</button>
@@ -219,6 +220,56 @@
         </div>
         <div class="context-menu-item" data-action="history" onclick="CMS.showElementHistoryFromContext()">
             <span>📜</span> Änderungsverlauf
+        </div>
+    </div>
+
+    <!-- Recording Indicator -->
+    <div class="recording-indicator" id="recordingIndicator">
+        <div class="rec-dot"></div>
+        <span id="recordingTime">00:00</span>
+        <button class="rec-stop" onclick="CMS.stopRecording()">⏹ Stopp</button>
+    </div>
+
+    <!-- Recording Setup Modal -->
+    <div class="modal-bg" id="recordModal">
+        <div class="modal" style="max-width:400px;">
+            <h3>🎥 Video-Feedback aufnehmen</h3>
+            <p style="color:#666;margin-bottom:1rem;font-size:0.9rem;">
+                Erkläre deine Änderungswünsche per Video - so ist alles klar verständlich!
+            </p>
+            <div class="record-options">
+                <label class="record-option">
+                    <input type="checkbox" id="recordScreen" checked>
+                    <span>🖥️ Bildschirm aufnehmen</span>
+                </label>
+                <label class="record-option">
+                    <input type="checkbox" id="recordMic" checked>
+                    <span>🎤 Mikrofon (deine Stimme)</span>
+                </label>
+                <label class="record-option">
+                    <input type="checkbox" id="recordCam">
+                    <span>📷 Webcam (optional)</span>
+                </label>
+            </div>
+            <div class="modal-btns">
+                <button class="btn btn-cancel" onclick="CMS.closeRecordModal()">Abbrechen</button>
+                <button class="btn btn-primary" onclick="CMS.startRecording()">🔴 Aufnahme starten</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recording Preview Modal -->
+    <div class="modal-bg" id="recordPreviewModal">
+        <div class="modal" style="max-width:600px;">
+            <h3>✅ Aufnahme fertig!</h3>
+            <video id="recordedVideo" controls style="width:100%;border-radius:8px;margin:1rem 0;background:#000;"></video>
+            <p style="color:#666;font-size:0.85rem;margin-bottom:1rem;">
+                Das Video wird zu GitHub hochgeladen und kann dort angesehen werden.
+            </p>
+            <div class="modal-btns">
+                <button class="btn btn-cancel" onclick="CMS.discardRecording()">Verwerfen</button>
+                <button class="btn btn-primary" onclick="CMS.saveRecording()">💾 Speichern & Senden</button>
+            </div>
         </div>
     </div>
 

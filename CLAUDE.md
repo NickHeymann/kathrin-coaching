@@ -19,7 +19,7 @@
 | **Blog-Editor Logic** | `js/blog-editor-core.js` | `publishPost`, `saveDraft` |
 | **Blog-Editor AI** | `js/blog-editor-ai.js` | `groqAPI`, `aiCategorize` |
 | **Blog-Editor Config** | `js/blog-editor-config.js` | `CONFIG`, `state`, `BLOG_CATEGORIES` |
-| **CMS-Editor UI** | `css/cms-editor-*.css` | `.toolbar`, `.sidebar`, `.modal` |
+| **CMS-Editor (MODULAR)** | `/cms/` Ordner | `cms/js/*.js`, `cms/css/editor.css` |
 
 ## Projektstruktur
 
@@ -28,9 +28,37 @@ kathrin-coaching/
 ├── index.html                    # Hauptseite (modularisiert, ~1960 Z.)
 ├── blog.html                     # Blog-Übersicht
 ├── blog-editor-modular.html      # Blog-Editor (LLM-optimiert, modular)
-├── blog-editor.html              # Blog-Editor (Legacy, ~3500 Zeilen)
-├── cms-editor.html               # CMS-Editor (modularisiert, ~4330 Z.)
 ├── *.html                        # Weitere Seiten
+│
+├── cms/                          # CMS-Editor v2.0 (MODULAR - AKTIV!)
+│   ├── index.html                # Editor UI (~280 Z.)
+│   ├── css/editor.css            # Alle CMS Styles (~1100 Z.)
+│   └── js/                       # Modulare JS-Dateien (~150-250 Z. pro Datei)
+│       ├── main.js               # Entry Point, CMS global object
+│       ├── config.js             # CONFIG Konstanten
+│       ├── state.js              # Reactive State Management
+│       ├── storage.js            # LocalStorage, Token
+│       ├── github-api.js         # GitHub API Client
+│       ├── page-loader.js        # Seiten laden
+│       ├── frame-setup.js        # iFrame Editing Setup
+│       ├── text-editor.js        # Text Editing, Undo/Redo
+│       ├── image-editor.js       # Bild Upload/Bearbeitung
+│       ├── video-editor.js       # Video Embed Bearbeitung
+│       ├── video-recording.js    # Screen/Webcam Recording (NEU)
+│       ├── autosave.js           # Autosave zu GitHub
+│       ├── versions.js           # Versionsverlauf
+│       ├── notes.js              # Sticky Notes
+│       ├── format-toolbar.js     # Text Formatting
+│       ├── context-menu.js       # Rechtsklick-Menü
+│       ├── keyboard.js           # Shortcuts
+│       ├── security.js           # Token Validation
+│       └── ui.js                 # Toast, Loading, Status
+│
+├── _archive/                     # VERALTET - NICHT VERWENDEN!
+│   └── legacy-editors/           # Alte monolithische Editoren
+│       ├── cms-editor.html       # Alt: ~4330 Zeilen
+│       ├── blog-editor.html      # Alt: ~3500 Zeilen
+│       └── css/cms-editor-*.css  # Alte CSS Dateien
 │
 ├── css/
 │   ├── core/                     # Basis-Styles (einmal laden)
@@ -70,12 +98,6 @@ kathrin-coaching/
 │   ├── blog-editor-base.css      # Blog-Editor: Layout, Buttons, Forms (~350 Z.)
 │   ├── blog-editor-panels.css    # Blog-Editor: Modals, Queue, Toast (~200 Z.)
 │   ├── blog-editor-ai.css        # Blog-Editor: AI Panel, Voice (~180 Z.)
-│   │
-│   ├── cms-editor-base.css       # CMS-Editor: Reset, Toolbar, Buttons (~185 Z.)
-│   ├── cms-editor-layout.css     # CMS-Editor: Frame, Sidebar, Screens (~230 Z.)
-│   ├── cms-editor-panels.css     # CMS-Editor: Modals, Toasts (~195 Z.)
-│   ├── cms-editor-tools.css      # CMS-Editor: Draw, Annotations (~290 Z.)
-│   ├── cms-editor-responsive.css # CMS-Editor: Media Queries (~100 Z.)
 │   │
 │   ├── utilities/                # Helper-Klassen
 │   │   ├── helpers.css           # .hidden, .text-center, etc.
