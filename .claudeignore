@@ -1,0 +1,19 @@
+# Backup files (not for LLM context)
+CLAUDE.old.*.md
+*.old.*.md
+
+# Archive folder
+_archive/
+
+# Large data files
+data/blog-intelligence.json
+
+# Build/cache
+node_modules/
+.cache/
+
+# Lock files
+package-lock.json
+
+# Logs
+*.log

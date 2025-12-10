@@ -12,3 +12,7 @@ _archive/
 # Lokale Entwicklung
 .env
 .env.local
+
+# CLAUDE.md backups (local only)
+CLAUDE.old.*.md
+*.old.*.md
