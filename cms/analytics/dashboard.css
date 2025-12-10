@@ -53,6 +53,17 @@ body {
     color: white;
 }
 
+/* Empty State Styling */
+.empty-state {
+    padding: 2rem;
+    text-align: center;
+    color: var(--dash-text-light);
+    font-size: 0.9rem;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 8px;
+    margin: 0.5rem 0;
+}
+
 .dashboard-header {
     display: flex;
     justify-content: space-between;

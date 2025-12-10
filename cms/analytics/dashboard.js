@@ -1,5 +1,6 @@
 /* analytics/dashboard.js
  * Analytics Dashboard Logic | ~250 Zeilen
+ * WICHTIG: Zeigt nur echte Daten - keine Demo/Fake-Daten!
  */
 
 const Dashboard = {
@@ -39,16 +40,23 @@ const Dashboard = {
             ]);
 
             this.data = { stats, pages, referrers, events };
-            this.updateKPIs();
-            this.updateTopArticles();
-            this.updateSources();
-            this.updateFunnel();
-            this.updateBlogTable();
 
         } catch (error) {
-            console.error('Fehler beim Laden:', error);
-            this.showDemoData();
+            console.warn('Analytics API nicht erreichbar:', error.message);
+            // Leere Daten statt Demo-Daten
+            this.data = {
+                stats: {},
+                pages: [],
+                referrers: [],
+                events: []
+            };
         }
+
+        this.updateKPIs();
+        this.updateTopArticles();
+        this.updateSources();
+        this.updateFunnel();
+        this.updateBlogTable();
     },
 
     /**
@@ -71,9 +79,12 @@ const Dashboard = {
         document.getElementById('kpiReadTime').textContent = this.formatTime(stats.avgReadTime || 0);
         document.getElementById('kpiScrollDepth').textContent = `${stats.scrollDepth75 || 0}%`;
 
-        // Changes (Mock für Demo)
-        document.getElementById('kpiVisitorsChange').textContent = '+12%';
-        document.getElementById('kpiPageviewsChange').textContent = '+8%';
+        // Changes nur anzeigen wenn echte Daten vorhanden
+        const visitorsChange = stats.visitorsChange;
+        const pageviewsChange = stats.pageviewsChange;
+
+        document.getElementById('kpiVisitorsChange').textContent = visitorsChange ? `${visitorsChange > 0 ? '+' : ''}${visitorsChange}%` : '-';
+        document.getElementById('kpiPageviewsChange').textContent = pageviewsChange ? `${pageviewsChange > 0 ? '+' : ''}${pageviewsChange}%` : '-';
     },
 
     /**
@@ -81,11 +92,11 @@ const Dashboard = {
      */
     updateTopArticles() {
         const pages = this.data?.pages || [];
-        const blogPages = pages.filter(p => p.url?.includes('/blog/'));
+        const blogPages = pages.filter(p => p.url?.includes('/blog/') || p.url?.includes('.html'));
 
         const container = document.getElementById('topArticles');
         if (blogPages.length === 0) {
-            container.innerHTML = '<div class="loading-placeholder">Keine Blog-Daten verfügbar</div>';
+            container.innerHTML = '<div class="empty-state">Noch keine Blog-Daten vorhanden</div>';
             return;
         }
 
@@ -94,7 +105,7 @@ const Dashboard = {
                 <span class="article-rank">${i + 1}</span>
                 <div class="article-info">
                     <div class="article-title">${this.extractTitle(page.url)}</div>
-                    <div class="article-stats">${page.visitors} Besucher, ${page.scrollDepth || '-'}% Scroll</div>
+                    <div class="article-stats">${page.visitors || 0} Besucher, ${page.scrollDepth || 0}% Scroll</div>
                 </div>
             </div>
         `).join('');
@@ -105,7 +116,15 @@ const Dashboard = {
      */
     updateSources() {
         const referrers = this.data?.referrers || [];
-        const total = referrers.reduce((sum, r) => sum + r.visitors, 0) || 1;
+
+        const container = document.getElementById('trafficSources');
+
+        if (referrers.length === 0) {
+            container.innerHTML = '<div class="empty-state">Noch keine Traffic-Daten</div>';
+            return;
+        }
+
+        const total = referrers.reduce((sum, r) => sum + (r.visitors || 0), 0) || 1;
 
         const sourceIcons = {
             'google': '🔍',
@@ -115,9 +134,8 @@ const Dashboard = {
             'newsletter': '📧'
         };
 
-        const container = document.getElementById('trafficSources');
         container.innerHTML = referrers.slice(0, 5).map(ref => {
-            const percent = Math.round((ref.visitors / total) * 100);
+            const percent = Math.round(((ref.visitors || 0) / total) * 100);
             const icon = Object.entries(sourceIcons).find(([k]) =>
                 ref.referrer?.toLowerCase().includes(k)
             )?.[1] || '🌐';
@@ -143,15 +161,15 @@ const Dashboard = {
 
         const getEventCount = (name) => events.find(e => e.event_name === name)?.count || 0;
 
-        const blogReads = getEventCount('article_read') || this.data?.stats?.pageviews || 0;
+        const blogReads = getEventCount('article_read');
         const ctaClicks = getEventCount('cta_click');
         const quizStarts = getEventCount('quiz_started');
         const contacts = getEventCount('booking_started');
 
         document.getElementById('funnelBlog').textContent = this.formatNumber(blogReads);
-        document.getElementById('funnelCta').textContent = `${ctaClicks} (${this.calcPercent(ctaClicks, blogReads)}%)`;
-        document.getElementById('funnelQuiz').textContent = `${quizStarts} (${this.calcPercent(quizStarts, ctaClicks)}%)`;
-        document.getElementById('funnelContact').textContent = `${contacts} (${this.calcPercent(contacts, quizStarts)}%)`;
+        document.getElementById('funnelCta').textContent = blogReads > 0 ? `${ctaClicks} (${this.calcPercent(ctaClicks, blogReads)}%)` : '0';
+        document.getElementById('funnelQuiz').textContent = ctaClicks > 0 ? `${quizStarts} (${this.calcPercent(quizStarts, ctaClicks)}%)` : '0';
+        document.getElementById('funnelContact').textContent = quizStarts > 0 ? `${contacts} (${this.calcPercent(contacts, quizStarts)}%)` : '0';
 
         const conversionRate = blogReads > 0 ? ((contacts / blogReads) * 100).toFixed(1) : '0';
         document.getElementById('conversionRate').textContent = `${conversionRate}%`;
@@ -162,25 +180,23 @@ const Dashboard = {
      */
     updateBlogTable() {
         const pages = this.data?.pages || [];
-        const events = this.data?.events || [];
-        const blogPages = pages.filter(p => p.url?.includes('/blog/'));
+        const blogPages = pages.filter(p => p.url?.includes('/blog/') || p.url?.includes('.html'));
 
         const tbody = document.getElementById('blogAnalyticsTable');
 
         if (blogPages.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5" class="loading-placeholder">Keine Daten</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="5" class="empty-state">Noch keine Blog-Analytics vorhanden</td></tr>';
             return;
         }
 
         tbody.innerHTML = blogPages.slice(0, 10).map(page => {
-            const slug = page.url?.split('/').pop()?.replace('.html', '');
             return `
                 <tr>
                     <td>${this.extractTitle(page.url)}</td>
                     <td>${page.visitors || 0}</td>
                     <td>${this.formatTime(page.avgReadTime || 0)}</td>
-                    <td>${page.scrollDepth75 || '-'}%</td>
-                    <td>${page.ctaClicks || '-'}</td>
+                    <td>${page.scrollDepth75 || 0}%</td>
+                    <td>${page.ctaClicks || 0}</td>
                 </tr>
             `;
         }).join('');
@@ -195,13 +211,12 @@ const Dashboard = {
     },
 
     /**
-     * Traffic Chart
+     * Traffic Chart - zeigt echte Daten oder leeres Chart
      */
     initTrafficChart() {
         const ctx = document.getElementById('trafficChart');
         if (!ctx) return;
 
-        // Demo-Daten
         const days = parseInt(document.getElementById('dateRange').value);
         const labels = Array.from({ length: days }, (_, i) => {
             const d = new Date();
@@ -209,9 +224,8 @@ const Dashboard = {
             return d.toLocaleDateString('de-DE', { day: 'numeric', month: 'short' });
         });
 
-        const data = Array.from({ length: days }, () =>
-            Math.floor(Math.random() * 100) + 50
-        );
+        // Echte Daten aus API oder leeres Array mit Nullen
+        const trafficData = this.data?.stats?.dailyVisitors || Array(days).fill(0);
 
         this.charts.traffic = new Chart(ctx, {
             type: 'line',
@@ -219,7 +233,7 @@ const Dashboard = {
                 labels,
                 datasets: [{
                     label: 'Besucher',
-                    data,
+                    data: trafficData,
                     borderColor: '#2C4A47',
                     backgroundColor: 'rgba(44, 74, 71, 0.1)',
                     fill: true,
@@ -240,18 +254,21 @@ const Dashboard = {
     },
 
     /**
-     * Devices Chart
+     * Devices Chart - zeigt echte Daten oder Platzhalter
      */
     initDevicesChart() {
         const ctx = document.getElementById('devicesChart');
         if (!ctx) return;
+
+        // Echte Daten aus API oder leere Werte
+        const devices = this.data?.stats?.devices || { desktop: 0, mobile: 0, tablet: 0 };
 
         this.charts.devices = new Chart(ctx, {
             type: 'doughnut',
             data: {
                 labels: ['Desktop', 'Mobile', 'Tablet'],
                 datasets: [{
-                    data: [52, 41, 7],
+                    data: [devices.desktop || 0, devices.mobile || 0, devices.tablet || 0],
                     backgroundColor: ['#2C4A47', '#D4A574', '#8B7355']
                 }]
             },
@@ -263,38 +280,6 @@ const Dashboard = {
                 }
             }
         });
-    },
-
-    /**
-     * Demo-Daten anzeigen (wenn API nicht erreichbar)
-     */
-    showDemoData() {
-        this.data = {
-            stats: { visitors: 2847, pageviews: 4523, avgReadTime: 263, scrollDepth75: 67 },
-            pages: [
-                { url: '/blog/warum-loslassen-so-schwer-ist.html', visitors: 432, scrollDepth: 78 },
-                { url: '/blog/die-angst-vor-power.html', visitors: 387, scrollDepth: 65 },
-                { url: '/blog/gehen-oder-bleiben.html', visitors: 298, scrollDepth: 82 }
-            ],
-            referrers: [
-                { referrer: 'google.com', visitors: 1281 },
-                { referrer: 'instagram.com', visitors: 655 },
-                { referrer: null, visitors: 512 },
-                { referrer: 'newsletter', visitors: 342 }
-            ],
-            events: [
-                { event_name: 'article_read', count: 2847 },
-                { event_name: 'cta_click', count: 423 },
-                { event_name: 'quiz_started', count: 156 },
-                { event_name: 'booking_started', count: 23 }
-            ]
-        };
-
-        this.updateKPIs();
-        this.updateTopArticles();
-        this.updateSources();
-        this.updateFunnel();
-        this.updateBlogTable();
     },
 
     /**
@@ -315,10 +300,11 @@ const Dashboard = {
     },
 
     formatNumber(num) {
-        return num.toLocaleString('de-DE');
+        return (num || 0).toLocaleString('de-DE');
     },
 
     formatTime(seconds) {
+        if (!seconds) return '0:00';
         const mins = Math.floor(seconds / 60);
         const secs = seconds % 60;
         return `${mins}:${secs.toString().padStart(2, '0')}`;
@@ -336,4 +322,4 @@ const Dashboard = {
     }
 };
 
-console.log('✓ Analytics Dashboard geladen');
+console.log('✓ Analytics Dashboard geladen (nur echte Daten)');
