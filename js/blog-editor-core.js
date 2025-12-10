@@ -10,6 +10,7 @@
 function initEditor() {
     loadDrafts();
     loadQueue();
+    loadVersions();
     setupCategoryTags();
     setupEventListeners();
     startAutosave();
@@ -32,11 +33,21 @@ function saveDraftsToStorage() {
 }
 
 function createNewPost() {
+    // Zeige Template-Auswahl-Modal
+    openTemplateModal();
+}
+
+/**
+ * Erstellt einen neuen Post mit dem gewählten Template
+ */
+function createPostFromTemplate(templateId) {
+    const template = POST_TEMPLATES.find(t => t.id === templateId) || POST_TEMPLATES[0];
+
     const post = {
         id: Date.now(),
         title: '',
         excerpt: '',
-        content: '<p>Beginne hier mit deinem Beitrag...</p>',
+        content: '', // Wird aus Blöcken generiert
         categories: [],
         featuredImage: null,
         featuredImageAlt: '',
@@ -45,7 +56,8 @@ function createNewPost() {
         slug: '',
         status: 'draft',
         createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
+        updatedAt: new Date().toISOString(),
+        templateUsed: templateId
     };
 
     state.drafts.unshift(post);
@@ -53,7 +65,47 @@ function createNewPost() {
     saveDraftsToStorage();
     renderPostList();
     loadPostToEditor(post);
-    toast('Neuer Entwurf erstellt', 'success');
+
+    // Template-Blöcke laden
+    if (typeof blocks !== 'undefined' && template.blocks) {
+        blocks = template.blocks.map(b => ({
+            id: 'block-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9),
+            type: b.type,
+            content: b.content,
+            settings: {}
+        }));
+        if (typeof renderBlocks === 'function') renderBlocks();
+        if (typeof clearHistory === 'function') clearHistory();
+    }
+
+    closeTemplateModal();
+    toast(`Neuer Beitrag mit "${template.name}" erstellt`, 'success');
+}
+
+/**
+ * Öffnet das Template-Auswahl-Modal
+ */
+function openTemplateModal() {
+    const modal = document.getElementById('templateModal');
+    const grid = document.getElementById('templateGrid');
+
+    if (modal && grid) {
+        // Render Templates
+        grid.innerHTML = POST_TEMPLATES.map(t => `
+            <div class="template-card" onclick="createPostFromTemplate('${t.id}')">
+                <div class="template-card-icon">${t.icon}</div>
+                <div class="template-card-name">${t.name}</div>
+                <div class="template-card-desc">${t.description}</div>
+            </div>
+        `).join('');
+
+        modal.classList.add('open');
+    }
+}
+
+function closeTemplateModal() {
+    const modal = document.getElementById('templateModal');
+    if (modal) modal.classList.remove('open');
 }
 
 function loadPostToEditor(post) {
@@ -64,6 +116,22 @@ function loadPostToEditor(post) {
     document.getElementById('metaDescription').value = post.metaDescription || '';
     document.getElementById('urlSlug').value = post.slug || '';
     document.getElementById('featuredImageAlt').value = post.featuredImageAlt || '';
+
+    // Block-Editor: Lade Blöcke wenn vorhanden
+    if (typeof blocks !== 'undefined' && typeof htmlToBlocks === 'function') {
+        if (post.blocks && post.blocks.length > 0) {
+            // Post hat bereits Block-Daten
+            blocks = JSON.parse(JSON.stringify(post.blocks));
+            if (typeof renderBlocks === 'function') renderBlocks();
+        } else if (post.content) {
+            // Konvertiere HTML zu Blöcken
+            htmlToBlocks(post.content);
+        } else {
+            // Neuer Post: Starte mit leerem Text-Block
+            blocks = [];
+            if (typeof createBlock === 'function') createBlock('text');
+        }
+    }
 
     // Kategorien
     state.selectedCategories = post.categories || [];
@@ -97,7 +165,15 @@ function saveCurrentPostToState() {
 
     state.currentPost.title = document.getElementById('postTitle').value;
     state.currentPost.excerpt = document.getElementById('postExcerpt').value;
-    state.currentPost.content = document.getElementById('postContent').innerHTML;
+
+    // Block-Editor: Konvertiere Blöcke zu HTML
+    if (typeof blocksToHtml === 'function' && typeof blocks !== 'undefined' && blocks.length > 0) {
+        state.currentPost.content = blocksToHtml();
+        state.currentPost.blocks = JSON.parse(JSON.stringify(blocks)); // Deep copy
+    } else {
+        state.currentPost.content = document.getElementById('postContent').innerHTML;
+    }
+
     state.currentPost.categories = state.selectedCategories;
     state.currentPost.featuredImage = state.featuredImage;
     state.currentPost.featuredImageAlt = document.getElementById('featuredImageAlt').value;
@@ -110,9 +186,192 @@ function saveCurrentPostToState() {
 function saveDraft() {
     saveCurrentPostToState();
     saveDraftsToStorage();
+
+    // Version speichern bei explizitem Speichern
+    if (state.currentPost) {
+        saveVersion(state.currentPost);
+    }
+
     state.hasUnsavedChanges = false;
     updateStatus('saved');
     toast('Entwurf gespeichert', 'success');
+}
+
+// ============================================
+// VERSIONSVERLAUF
+// ============================================
+
+/**
+ * Lädt Versionen aus localStorage
+ */
+function loadVersions() {
+    const saved = localStorage.getItem(VERSION_CONFIG.storageKey);
+    if (saved) {
+        state.versions = JSON.parse(saved);
+    }
+}
+
+/**
+ * Speichert Versionen in localStorage
+ */
+function saveVersionsToStorage() {
+    localStorage.setItem(VERSION_CONFIG.storageKey, JSON.stringify(state.versions));
+}
+
+/**
+ * Speichert eine neue Version eines Posts
+ */
+function saveVersion(post) {
+    if (!post || !post.id) return;
+
+    const postId = post.id.toString();
+
+    // Initialisiere Array wenn nötig
+    if (!state.versions[postId]) {
+        state.versions[postId] = [];
+    }
+
+    // Erstelle Version-Snapshot
+    const version = {
+        timestamp: new Date().toISOString(),
+        title: post.title || 'Ohne Titel',
+        content: post.content || '',
+        blocks: typeof blocks !== 'undefined' ? JSON.parse(JSON.stringify(blocks)) : null,
+        excerpt: post.excerpt || ''
+    };
+
+    // Prüfe ob sich etwas geändert hat
+    const lastVersion = state.versions[postId][0];
+    if (lastVersion && lastVersion.content === version.content && lastVersion.title === version.title) {
+        return; // Keine Änderungen
+    }
+
+    // Neue Version am Anfang einfügen
+    state.versions[postId].unshift(version);
+
+    // Max Versionen begrenzen
+    if (state.versions[postId].length > VERSION_CONFIG.maxVersionsPerPost) {
+        state.versions[postId] = state.versions[postId].slice(0, VERSION_CONFIG.maxVersionsPerPost);
+    }
+
+    saveVersionsToStorage();
+}
+
+/**
+ * Öffnet das Versionsverlauf-Modal
+ */
+function openVersionsModal() {
+    if (!state.currentPost) {
+        toast('Kein Beitrag ausgewählt', 'error');
+        return;
+    }
+
+    const modal = document.getElementById('versionsModal');
+    const list = document.getElementById('versionsList');
+
+    if (!modal || !list) return;
+
+    const postId = state.currentPost.id.toString();
+    const versions = state.versions[postId] || [];
+
+    if (versions.length === 0) {
+        list.innerHTML = `
+            <div class="versions-empty">
+                <p>Noch keine Versionen vorhanden.</p>
+                <small>Versionen werden beim Speichern erstellt.</small>
+            </div>
+        `;
+    } else {
+        list.innerHTML = versions.map((v, i) => `
+            <div class="version-item ${i === 0 ? 'current' : ''}" data-index="${i}">
+                <div class="version-info">
+                    <div class="version-title">${escapeHtml(v.title)}</div>
+                    <div class="version-time">${formatDateTime(v.timestamp)}</div>
+                    <div class="version-preview">${escapeHtml(stripHtml(v.content).substring(0, 100))}...</div>
+                </div>
+                <div class="version-actions">
+                    <button class="btn btn-ghost" onclick="previewVersion(${i})">Ansehen</button>
+                    ${i > 0 ? `<button class="btn btn-ghost" onclick="restoreVersion(${i})">Wiederherstellen</button>` : '<span class="version-badge">Aktuell</span>'}
+                </div>
+            </div>
+        `).join('');
+    }
+
+    modal.classList.add('open');
+}
+
+function closeVersionsModal() {
+    const modal = document.getElementById('versionsModal');
+    if (modal) modal.classList.remove('open');
+}
+
+/**
+ * Zeigt Vorschau einer Version
+ */
+function previewVersion(index) {
+    const postId = state.currentPost.id.toString();
+    const version = state.versions[postId]?.[index];
+
+    if (!version) return;
+
+    const previewHtml = `
+        <div style="padding: 2rem;">
+            <h2 style="color: var(--primary); margin-bottom: 0.5rem;">${escapeHtml(version.title)}</h2>
+            <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                Version vom ${formatDateTime(version.timestamp)}
+            </p>
+            <div style="line-height: 1.8;">${version.content}</div>
+        </div>
+    `;
+
+    const frame = document.getElementById('previewFrame');
+    if (frame) {
+        frame.innerHTML = previewHtml;
+        document.getElementById('previewModal').classList.add('open');
+    }
+}
+
+/**
+ * Stellt eine frühere Version wieder her
+ */
+function restoreVersion(index) {
+    const postId = state.currentPost.id.toString();
+    const version = state.versions[postId]?.[index];
+
+    if (!version) return;
+
+    if (!confirm(`Version vom ${formatDateTime(version.timestamp)} wiederherstellen? Der aktuelle Inhalt wird als neue Version gespeichert.`)) {
+        return;
+    }
+
+    // Aktuelle Version erst speichern
+    saveCurrentPostToState();
+    saveVersion(state.currentPost);
+
+    // Version wiederherstellen
+    state.currentPost.title = version.title;
+    state.currentPost.content = version.content;
+    state.currentPost.excerpt = version.excerpt;
+
+    if (version.blocks && typeof blocks !== 'undefined') {
+        blocks = JSON.parse(JSON.stringify(version.blocks));
+        if (typeof renderBlocks === 'function') renderBlocks();
+    }
+
+    loadPostToEditor(state.currentPost);
+    saveDraftsToStorage();
+
+    closeVersionsModal();
+    toast('Version wiederhergestellt', 'success');
+}
+
+/**
+ * Entfernt HTML-Tags aus Text
+ */
+function stripHtml(html) {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || '';
 }
 
 function renderPostList() {
@@ -127,10 +386,18 @@ function renderPostList() {
         posts = state.drafts.filter(p => p.status === 'published');
     }
 
+    // Suche anwenden
+    if (state.searchQuery) {
+        posts = posts.filter(p => matchesSearch(p, state.searchQuery));
+    }
+
     if (posts.length === 0) {
+        const message = state.searchQuery
+            ? `Keine Beiträge für "${state.searchQuery}" gefunden`
+            : 'Keine Beiträge vorhanden';
         container.innerHTML = `
             <div style="text-align: center; padding: 2rem; color: var(--text-light);">
-                <p>Keine Beiträge vorhanden</p>
+                <p>${message}</p>
             </div>
         `;
         return;
@@ -139,13 +406,72 @@ function renderPostList() {
     container.innerHTML = posts.map(post => `
         <div class="post-item ${post.status} ${state.currentPost?.id === post.id ? 'active' : ''}"
              onclick="selectPost(${post.id})">
-            <div class="post-title">${post.title || 'Ohne Titel'}</div>
-            <div class="post-meta">
-                <span class="post-status ${post.status}">${getStatusLabel(post.status)}</span>
-                <span>${formatDate(post.updatedAt)}</span>
+            <div class="post-item-content">
+                <div class="post-title">${highlightSearch(post.title || 'Ohne Titel', state.searchQuery)}</div>
+                <div class="post-meta">
+                    <span class="post-status ${post.status}">${getStatusLabel(post.status)}</span>
+                    <span>${formatDate(post.updatedAt)}</span>
+                    ${post.status === 'scheduled' && post.scheduledFor ? `<span class="scheduled-time">📅 ${formatDate(post.scheduledFor)}</span>` : ''}
+                </div>
             </div>
+            <button class="post-delete-btn" onclick="event.stopPropagation(); deletePost(${post.id})" title="Löschen">🗑</button>
         </div>
     `).join('');
+}
+
+/**
+ * Hebt Suchbegriffe im Text hervor
+ */
+function highlightSearch(text, query) {
+    if (!query) return escapeHtml(text);
+
+    const escaped = escapeHtml(text);
+    const terms = query.split(' ').filter(t => t.length > 0);
+
+    let result = escaped;
+    terms.forEach(term => {
+        const regex = new RegExp(`(${term})`, 'gi');
+        result = result.replace(regex, '<mark>$1</mark>');
+    });
+
+    return result;
+}
+
+/**
+ * Löscht einen Beitrag
+ */
+function deletePost(id) {
+    const post = state.drafts.find(p => p.id === id);
+    if (!post) return;
+
+    const title = post.title || 'Ohne Titel';
+    const confirmMsg = post.status === 'published'
+        ? `"${title}" wirklich löschen? Der Artikel bleibt online, wird aber aus deiner Liste entfernt.`
+        : `"${title}" wirklich löschen?`;
+
+    if (!confirm(confirmMsg)) return;
+
+    // Aus drafts entfernen
+    state.drafts = state.drafts.filter(p => p.id !== id);
+    saveDraftsToStorage();
+
+    // Aus queue entfernen falls vorhanden
+    state.queue = state.queue.filter(q => q.id !== id);
+    saveQueueToStorage();
+
+    // Falls aktueller Post gelöscht wurde, neuen erstellen oder ersten laden
+    if (state.currentPost?.id === id) {
+        if (state.drafts.length > 0) {
+            state.currentPost = state.drafts[0];
+            loadPostToEditor(state.currentPost);
+        } else {
+            createNewPost();
+        }
+    }
+
+    renderPostList();
+    renderQueue();
+    toast('Beitrag gelöscht', 'success');
 }
 
 function selectPost(id) {
@@ -159,15 +485,51 @@ function selectPost(id) {
         state.currentPost = post;
         loadPostToEditor(post);
         renderPostList();
+
+        // Sidebar auf Mobile automatisch schließen
+        if (window.innerWidth <= 768) {
+            closeMobileSidebar();
+        }
     }
 }
 
 function showTab(tab) {
     state.currentTab = tab;
+    state.searchQuery = ''; // Suche zurücksetzen beim Tab-Wechsel
+    const searchInput = document.getElementById('postSearch');
+    if (searchInput) searchInput.value = '';
+
     document.querySelectorAll('.sidebar-tab').forEach(t => {
-        t.classList.toggle('active', t.textContent.toLowerCase().includes(tab));
+        const isActive = t.textContent.toLowerCase().includes(tab);
+        t.classList.toggle('active', isActive);
+        // Accessibility: aria-selected aktualisieren
+        t.setAttribute('aria-selected', isActive);
     });
     renderPostList();
+}
+
+/**
+ * Filtert Posts nach Suchbegriff
+ */
+function filterPosts(query) {
+    state.searchQuery = query.toLowerCase().trim();
+    renderPostList();
+}
+
+/**
+ * Fuzzy-Matching für Suche
+ */
+function matchesSearch(post, query) {
+    if (!query) return true;
+
+    const searchTerms = query.split(' ').filter(t => t.length > 0);
+    const searchableText = [
+        post.title || '',
+        post.excerpt || '',
+        (post.categories || []).join(' ')
+    ].join(' ').toLowerCase();
+
+    return searchTerms.every(term => searchableText.includes(term));
 }
 
 // ============================================
@@ -220,7 +582,7 @@ function schedulePost() {
     }
 
     const date = document.getElementById('scheduleDate').value;
-    const time = document.getElementById('scheduleTime').value;
+    const time = document.getElementById('scheduleTime').value || '09:00';
 
     if (!date) {
         toast('Bitte ein Datum wählen', 'error');
@@ -229,14 +591,71 @@ function schedulePost() {
 
     saveCurrentPostToState();
 
+    if (!state.currentPost.title) {
+        toast('Bitte einen Titel eingeben', 'error');
+        return;
+    }
+
+    if (!state.currentPost.slug) {
+        state.currentPost.slug = generateSlug(state.currentPost.title);
+    }
+
+    const scheduledDateTime = new Date(`${date}T${time}:00`);
+    const now = new Date();
+
+    // Prüfe ob Datum in der Vergangenheit liegt
+    if (scheduledDateTime <= now) {
+        if (confirm('Das gewählte Datum liegt in der Vergangenheit. Möchtest du den Beitrag jetzt veröffentlichen?')) {
+            publishPost();
+            return;
+        }
+        return;
+    }
+
     state.currentPost.status = 'scheduled';
-    state.currentPost.scheduledFor = `${date}T${time}:00`;
+    state.currentPost.scheduledFor = scheduledDateTime.toISOString();
     saveDraftsToStorage();
 
+    // Aus Queue entfernen falls schon vorhanden, dann neu hinzufügen
+    state.queue = state.queue.filter(q => q.id !== state.currentPost.id);
     addToQueue({ ...state.currentPost, queueStatus: 'scheduled' });
 
     renderPostList();
-    toast(`Geplant für ${formatDate(state.currentPost.scheduledFor)}`, 'success');
+    showTab('scheduled');
+    toast(`Geplant für ${formatDateTime(scheduledDateTime)}`, 'success');
+}
+
+/**
+ * Entfernt Planung und setzt zurück auf Entwurf
+ */
+function unschedulePost(id) {
+    const post = state.drafts.find(p => p.id === id);
+    if (!post) return;
+
+    post.status = 'draft';
+    delete post.scheduledFor;
+    saveDraftsToStorage();
+
+    state.queue = state.queue.filter(q => q.id !== id);
+    saveQueueToStorage();
+
+    renderPostList();
+    renderQueue();
+    toast('Planung aufgehoben', 'success');
+}
+
+/**
+ * Formatiert Datum und Uhrzeit schön
+ */
+function formatDateTime(date) {
+    if (typeof date === 'string') date = new Date(date);
+    return date.toLocaleDateString('de-DE', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
 }
 
 function generateBlogPostHTML(post) {
@@ -371,16 +790,36 @@ async function publishNow(index) {
 }
 
 function checkScheduledPosts() {
-    setInterval(() => {
-        const now = new Date();
-        state.queue.forEach((item, index) => {
-            if (item.queueStatus === 'scheduled' && item.scheduledFor) {
-                if (now >= new Date(item.scheduledFor)) {
-                    publishNow(index);
-                }
+    // Sofort beim Laden prüfen
+    runScheduledCheck();
+
+    // Dann alle 30 Sekunden prüfen
+    setInterval(runScheduledCheck, 30000);
+}
+
+function runScheduledCheck() {
+    const now = new Date();
+    let hasPublished = false;
+
+    // Kopie der Queue durchgehen (da publishNow die Queue verändert)
+    const scheduledItems = state.queue.filter(item =>
+        item.queueStatus === 'scheduled' && item.scheduledFor
+    );
+
+    scheduledItems.forEach(item => {
+        if (now >= new Date(item.scheduledFor)) {
+            const index = state.queue.findIndex(q => q.id === item.id);
+            if (index !== -1) {
+                console.log(`Veröffentliche geplanten Beitrag: ${item.title}`);
+                publishNow(index);
+                hasPublished = true;
             }
-        });
-    }, 60000);
+        }
+    });
+
+    if (hasPublished) {
+        renderPostList();
+    }
 }
 
 // ============================================
@@ -462,12 +901,86 @@ function selectGalleryImage(el) {
 function insertSelectedImage() {
     const altText = document.getElementById('imageAltText').value;
     if (state.selectedImage) {
-        execCmd('insertHTML', `<img src="${state.selectedImage}" alt="${escapeHtml(altText)}" loading="lazy">`);
+        // Prüfe ob ein Block-Bild ausgewählt werden soll
+        if (window.currentImageBlockId) {
+            updateBlockContent(window.currentImageBlockId, state.selectedImage);
+            renderBlocks();
+            window.currentImageBlockId = null;
+        } else {
+            execCmd('insertHTML', `<img src="${state.selectedImage}" alt="${escapeHtml(altText)}" loading="lazy">`);
+        }
         closeImageModal();
         toast('Bild eingefügt', 'success');
     } else {
         toast('Bitte ein Bild auswählen', 'error');
     }
+}
+
+/**
+ * Lädt ein neues Bild hoch mit automatischer Komprimierung
+ */
+async function uploadNewImage() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+
+    input.onchange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        if (file.size > 10 * 1024 * 1024) {
+            toast('Bild zu groß (max 10MB)', 'error');
+            return;
+        }
+
+        toast('Komprimiere und lade hoch...', 'info');
+
+        try {
+            // Bild komprimieren
+            const result = await compressImageFile(file, {
+                maxWidth: 1600,
+                maxHeight: 1200,
+                quality: 0.82
+            });
+
+            const base64ToUpload = result.compressed;
+
+            // Dateinamen generieren
+            let filename = `blog-${Date.now()}-${file.name.replace(/[^a-zA-Z0-9]/g, '-')}`;
+            if (!result.skipped) {
+                filename = filename.replace(/\.[^.]+$/, '.jpg');
+            }
+
+            await github.uploadImage(filename, base64ToUpload);
+            const imageUrl = `wp-content/uploads/blog/${filename}`;
+
+            // Prüfe ob ein Block-Bild ausgewählt werden soll
+            if (window.currentImageBlockId) {
+                updateBlockContent(window.currentImageBlockId, imageUrl);
+                renderBlocks();
+                window.currentImageBlockId = null;
+                closeImageModal();
+            } else {
+                // Zur Galerie hinzufügen und auswählen
+                state.selectedImage = imageUrl;
+                loadImageGallery(); // Galerie neu laden
+            }
+
+            // Zeige Einsparung wenn komprimiert wurde
+            if (!result.skipped && result.savings > 0) {
+                const originalSize = formatFileSize(getBase64Size(result.original));
+                const newSize = formatFileSize(getBase64Size(result.compressed));
+                toast(`Hochgeladen (${originalSize} → ${newSize}, ${result.savings}% gespart)`, 'success');
+            } else {
+                toast('Bild hochgeladen', 'success');
+            }
+        } catch (err) {
+            console.error('Upload error:', err);
+            toast('Fehler beim Hochladen: ' + err.message, 'error');
+        }
+    };
+
+    input.click();
 }
 
 async function uploadFeaturedImage() {
@@ -483,27 +996,44 @@ async function uploadFeaturedImage() {
             return;
         }
 
-        toast('Lade Bild hoch...', 'info');
+        toast('Komprimiere und lade hoch...', 'info');
 
-        const reader = new FileReader();
-        reader.onload = async (e) => {
-            const base64 = e.target.result;
-            const filename = `featured-${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.]/g, '-')}`;
+        try {
+            // Bild komprimieren
+            const result = await compressImageFile(file, {
+                maxWidth: 1200,
+                maxHeight: 800,
+                quality: 0.85
+            });
 
-            try {
-                await github.uploadImage(filename, base64);
-                state.featuredImage = `wp-content/uploads/blog/${filename}`;
+            const base64ToUpload = result.compressed;
 
-                const upload = document.getElementById('featuredImageUpload');
-                upload.innerHTML = `<img src="${base64}" alt="" loading="lazy">`;
-                upload.classList.add('has-image');
-                state.hasUnsavedChanges = true;
-                toast('Bild hochgeladen', 'success');
-            } catch (e) {
-                toast('Fehler beim Hochladen', 'error');
+            // Dateinamen anpassen (immer .jpg für komprimierte Bilder)
+            let filename = `featured-${Date.now()}-${file.name.replace(/[^a-zA-Z0-9]/g, '-')}`;
+            if (!result.skipped) {
+                filename = filename.replace(/\.[^.]+$/, '.jpg');
             }
-        };
-        reader.readAsDataURL(file);
+
+            await github.uploadImage(filename, base64ToUpload);
+            state.featuredImage = `wp-content/uploads/blog/${filename}`;
+
+            const upload = document.getElementById('featuredImageUpload');
+            upload.innerHTML = `<img src="${base64ToUpload}" alt="" loading="lazy">`;
+            upload.classList.add('has-image');
+            state.hasUnsavedChanges = true;
+
+            // Zeige Einsparung wenn komprimiert wurde
+            if (!result.skipped && result.savings > 0) {
+                const originalSize = formatFileSize(getBase64Size(result.original));
+                const newSize = formatFileSize(getBase64Size(result.compressed));
+                toast(`Bild hochgeladen (${originalSize} → ${newSize}, ${result.savings}% gespart)`, 'success');
+            } else {
+                toast('Bild hochgeladen', 'success');
+            }
+        } catch (err) {
+            console.error('Upload error:', err);
+            toast('Fehler beim Hochladen: ' + err.message, 'error');
+        }
     };
 
     input.click();
@@ -582,17 +1112,57 @@ function setupEventListeners() {
         const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
         const cmdOrCtrl = isMac ? e.metaKey : e.ctrlKey;
 
+        // Speichern
         if (cmdOrCtrl && e.key === 's') {
             e.preventDefault();
             saveDraft();
         }
 
+        // Vorschau öffnen
+        if (cmdOrCtrl && e.key === 'p') {
+            e.preventDefault();
+            openPreview();
+        }
+
+        // KI-Panel toggle
+        if (cmdOrCtrl && e.key === '.') {
+            e.preventDefault();
+            if (typeof toggleAIPanel === 'function') toggleAIPanel();
+        }
+
+        // Link einfügen
+        if (cmdOrCtrl && e.key === 'k') {
+            e.preventDefault();
+            insertLink();
+        }
+
+        // Escape - alle Modals/Panels schließen
         if (e.key === 'Escape') {
             closePreview();
             closeImageModal();
-            document.getElementById('queuePanel').classList.remove('open');
+            closeShortcutsModal();
+            closeExportModal();
+            closeTemplateModal();
+            closeVersionsModal();
+            closeBlockSettings();
+            closeMobileSidebar();
+            hideBlockMenu();
+            document.getElementById('queuePanel')?.classList.remove('open');
+            document.getElementById('aiPanel')?.classList.remove('open');
+        }
+
+        // "?" oder "Shift+/" für Shortcuts-Hilfe (nur wenn nicht in Input)
+        if ((e.key === '?' || (e.shiftKey && e.key === '/')) && !isInTextField(e.target)) {
+            e.preventDefault();
+            openShortcutsModal();
         }
     });
+
+    // Hilfsfunktion: Prüft ob Element ein Textfeld ist
+    function isInTextField(element) {
+        const tagName = element.tagName.toLowerCase();
+        return tagName === 'input' || tagName === 'textarea' || element.isContentEditable;
+    }
 
     window.onbeforeunload = () => {
         if (state.hasUnsavedChanges) return 'Du hast ungespeicherte Änderungen.';
@@ -614,6 +1184,11 @@ function onContentChange() {
     state.hasUnsavedChanges = true;
     updateStatus('unsaved');
     updateStats();
+
+    // Auto-erstelle Entwurf wenn noch keiner existiert
+    if (!state.currentPost) {
+        createNewPost();
+    }
 }
 
 function updateStatus(status) {
@@ -654,4 +1229,494 @@ function updateCharCount(inputId, countId, max) {
     const len = document.getElementById(inputId).value.length;
     document.getElementById(countId).textContent = len;
 }
+
+// ============================================
+// KEYBOARD SHORTCUTS MODAL
+// ============================================
+function openShortcutsModal() {
+    const modal = document.getElementById('shortcutsModal');
+    if (modal) {
+        modal.classList.add('open');
+
+        // Zeige korrektes Modifier-Symbol basierend auf OS
+        const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+        const kbds = modal.querySelectorAll('.shortcut-keys kbd');
+        kbds.forEach(kbd => {
+            if (kbd.textContent === '⌘') {
+                kbd.textContent = isMac ? '⌘' : 'Ctrl';
+            }
+        });
+
+        const modifierHint = document.getElementById('shortcutModifier');
+        if (modifierHint) {
+            modifierHint.textContent = isMac
+                ? '⌘ = Cmd (Mac)'
+                : 'Ctrl = Strg (Windows/Linux)';
+        }
+    }
+}
+
+function closeShortcutsModal() {
+    const modal = document.getElementById('shortcutsModal');
+    if (modal) modal.classList.remove('open');
+}
+
+// ============================================
+// MOBILE SIDEBAR
+// ============================================
+function toggleMobileSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const backdrop = document.querySelector('.sidebar-backdrop');
+    const toggleBtn = document.querySelector('.mobile-menu-toggle');
+
+    if (sidebar) {
+        sidebar.classList.toggle('open');
+        const isOpen = sidebar.classList.contains('open');
+
+        // Backdrop anzeigen/verstecken
+        if (backdrop) {
+            backdrop.classList.toggle('visible', isOpen);
+        }
+
+        // Body-Scroll deaktivieren wenn Sidebar offen
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+
+        // Accessibility: aria-expanded aktualisieren
+        if (toggleBtn) {
+            toggleBtn.setAttribute('aria-expanded', isOpen);
+            toggleBtn.setAttribute('aria-label', isOpen ? 'Seitenleiste schließen' : 'Seitenleiste öffnen');
+        }
+    }
+}
+
+function closeMobileSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const backdrop = document.querySelector('.sidebar-backdrop');
+    const toggleBtn = document.querySelector('.mobile-menu-toggle');
+
+    if (sidebar) {
+        sidebar.classList.remove('open');
+        if (backdrop) backdrop.classList.remove('visible');
+        document.body.style.overflow = '';
+
+        // Accessibility: aria-expanded aktualisieren
+        if (toggleBtn) {
+            toggleBtn.setAttribute('aria-expanded', 'false');
+            toggleBtn.setAttribute('aria-label', 'Seitenleiste öffnen');
+        }
+    }
+}
+
+// Schließe Sidebar bei Post-Auswahl auf Mobile
+function selectPostMobile(id) {
+    selectPost(id);
+    // Nur auf Mobile schließen
+    if (window.innerWidth <= 768) {
+        closeMobileSidebar();
+    }
+}
+
+// ============================================
+// EXPORT FUNKTIONEN
+// ============================================
+
+/**
+ * Öffnet das Export-Modal
+ */
+function openExportModal() {
+    if (!state.currentPost) {
+        toast('Kein Beitrag ausgewählt', 'error');
+        return;
+    }
+
+    const modal = document.getElementById('exportModal');
+    if (modal) {
+        // Aktualisiere Vorschau-Info
+        const previewTitle = modal.querySelector('.export-preview-title');
+        if (previewTitle) {
+            previewTitle.textContent = state.currentPost.title || 'Ohne Titel';
+        }
+        modal.classList.add('open');
+    }
+}
+
+function closeExportModal() {
+    const modal = document.getElementById('exportModal');
+    if (modal) modal.classList.remove('open');
+}
+
+/**
+ * Exportiert den aktuellen Beitrag als Markdown
+ */
+function exportAsMarkdown() {
+    if (!state.currentPost) {
+        toast('Kein Beitrag ausgewählt', 'error');
+        return;
+    }
+
+    saveCurrentPostToState();
+
+    const post = state.currentPost;
+    const markdown = htmlToMarkdown(post.content);
+
+    // Frontmatter hinzufügen
+    const frontmatter = `---
+title: "${(post.title || 'Ohne Titel').replace(/"/g, '\\"')}"
+date: ${post.createdAt || new Date().toISOString()}
+categories: [${post.categories.map(c => `"${c}"`).join(', ')}]
+excerpt: "${(post.excerpt || '').replace(/"/g, '\\"')}"
+${post.featuredImage ? `featured_image: "${post.featuredImage}"` : ''}
+---
+
+`;
+
+    const fullMarkdown = frontmatter + markdown;
+
+    // Download auslösen
+    const blob = new Blob([fullMarkdown], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = (post.slug || generateSlug(post.title) || 'beitrag') + '.md';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    closeExportModal();
+    toast('Als Markdown exportiert', 'success');
+}
+
+/**
+ * Konvertiert HTML zu Markdown
+ */
+function htmlToMarkdown(html) {
+    if (!html) return '';
+
+    let md = html;
+
+    // Zeilenumbrüche normalisieren
+    md = md.replace(/\r\n/g, '\n');
+
+    // Überschriften
+    md = md.replace(/<h1[^>]*>(.*?)<\/h1>/gi, '# $1\n\n');
+    md = md.replace(/<h2[^>]*>(.*?)<\/h2>/gi, '## $1\n\n');
+    md = md.replace(/<h3[^>]*>(.*?)<\/h3>/gi, '### $1\n\n');
+    md = md.replace(/<h4[^>]*>(.*?)<\/h4>/gi, '#### $1\n\n');
+    md = md.replace(/<h5[^>]*>(.*?)<\/h5>/gi, '##### $1\n\n');
+    md = md.replace(/<h6[^>]*>(.*?)<\/h6>/gi, '###### $1\n\n');
+
+    // Formatierung
+    md = md.replace(/<strong[^>]*>(.*?)<\/strong>/gi, '**$1**');
+    md = md.replace(/<b[^>]*>(.*?)<\/b>/gi, '**$1**');
+    md = md.replace(/<em[^>]*>(.*?)<\/em>/gi, '*$1*');
+    md = md.replace(/<i[^>]*>(.*?)<\/i>/gi, '*$1*');
+    md = md.replace(/<u[^>]*>(.*?)<\/u>/gi, '_$1_');
+    md = md.replace(/<del[^>]*>(.*?)<\/del>/gi, '~~$1~~');
+    md = md.replace(/<s[^>]*>(.*?)<\/s>/gi, '~~$1~~');
+
+    // Links
+    md = md.replace(/<a[^>]*href="([^"]*)"[^>]*>(.*?)<\/a>/gi, '[$2]($1)');
+
+    // Bilder
+    md = md.replace(/<img[^>]*src="([^"]*)"[^>]*alt="([^"]*)"[^>]*\/?>/gi, '![$2]($1)');
+    md = md.replace(/<img[^>]*alt="([^"]*)"[^>]*src="([^"]*)"[^>]*\/?>/gi, '![$1]($2)');
+    md = md.replace(/<img[^>]*src="([^"]*)"[^>]*\/?>/gi, '![]($1)');
+
+    // Blockquotes
+    md = md.replace(/<blockquote[^>]*>([\s\S]*?)<\/blockquote>/gi, (match, content) => {
+        return content.split('\n').map(line => '> ' + line.trim()).join('\n') + '\n\n';
+    });
+
+    // Code
+    md = md.replace(/<pre[^>]*><code[^>]*>([\s\S]*?)<\/code><\/pre>/gi, '```\n$1\n```\n\n');
+    md = md.replace(/<code[^>]*>(.*?)<\/code>/gi, '`$1`');
+
+    // Listen
+    md = md.replace(/<ul[^>]*>([\s\S]*?)<\/ul>/gi, (match, content) => {
+        return content.replace(/<li[^>]*>(.*?)<\/li>/gi, '- $1\n') + '\n';
+    });
+    md = md.replace(/<ol[^>]*>([\s\S]*?)<\/ol>/gi, (match, content) => {
+        let counter = 0;
+        return content.replace(/<li[^>]*>(.*?)<\/li>/gi, () => {
+            counter++;
+            return `${counter}. ` + arguments[1] + '\n';
+        }) + '\n';
+    });
+
+    // Horizontale Linie
+    md = md.replace(/<hr[^>]*\/?>/gi, '\n---\n\n');
+
+    // Absätze
+    md = md.replace(/<p[^>]*>([\s\S]*?)<\/p>/gi, '$1\n\n');
+
+    // Zeilenumbrüche
+    md = md.replace(/<br[^>]*\/?>/gi, '  \n');
+
+    // Divs (für Callouts etc.)
+    md = md.replace(/<div[^>]*class="[^"]*callout[^"]*"[^>]*>([\s\S]*?)<\/div>/gi, '> **Hinweis:** $1\n\n');
+    md = md.replace(/<div[^>]*>([\s\S]*?)<\/div>/gi, '$1\n\n');
+
+    // Restliche Tags entfernen
+    md = md.replace(/<[^>]+>/g, '');
+
+    // HTML-Entities dekodieren
+    md = md.replace(/&nbsp;/g, ' ');
+    md = md.replace(/&amp;/g, '&');
+    md = md.replace(/&lt;/g, '<');
+    md = md.replace(/&gt;/g, '>');
+    md = md.replace(/&quot;/g, '"');
+    md = md.replace(/&#039;/g, "'");
+
+    // Mehrfache Leerzeilen bereinigen
+    md = md.replace(/\n{3,}/g, '\n\n');
+
+    return md.trim();
+}
+
+/**
+ * Exportiert den aktuellen Beitrag als PDF (via Browser Print)
+ */
+function exportAsPDF() {
+    if (!state.currentPost) {
+        toast('Kein Beitrag ausgewählt', 'error');
+        return;
+    }
+
+    saveCurrentPostToState();
+
+    const post = state.currentPost;
+
+    // Neues Fenster für PDF-Druck öffnen
+    const printWindow = window.open('', '_blank');
+
+    if (!printWindow) {
+        toast('Popup-Blocker aktiv. Bitte erlaube Popups für diese Seite.', 'error');
+        return;
+    }
+
+    const printContent = `
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>${escapeHtml(post.title || 'Beitrag')} - PDF Export</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        @page {
+            margin: 2.5cm;
+            size: A4;
+        }
+
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 12pt;
+            line-height: 1.6;
+            color: #333;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            font-family: 'Gilda Display', Georgia, serif;
+            color: #2C4A47;
+            font-size: 24pt;
+            margin-bottom: 0.5em;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-family: 'Gilda Display', Georgia, serif;
+            color: #2C4A47;
+            font-size: 18pt;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            page-break-after: avoid;
+        }
+
+        h3 {
+            font-family: 'Gilda Display', Georgia, serif;
+            color: #2C4A47;
+            font-size: 14pt;
+            margin-top: 1.2em;
+            margin-bottom: 0.4em;
+            page-break-after: avoid;
+        }
+
+        p {
+            margin: 0 0 1em 0;
+            text-align: justify;
+            orphans: 3;
+            widows: 3;
+        }
+
+        .meta {
+            color: #666;
+            font-size: 10pt;
+            margin-bottom: 2em;
+            padding-bottom: 1em;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .featured-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            margin-bottom: 1.5em;
+            page-break-inside: avoid;
+        }
+
+        blockquote {
+            margin: 1.5em 0;
+            padding: 1em 1.5em;
+            border-left: 4px solid #D2AB74;
+            background: #f9f7f4;
+            font-style: italic;
+            page-break-inside: avoid;
+        }
+
+        ul, ol {
+            margin: 1em 0;
+            padding-left: 2em;
+        }
+
+        li {
+            margin-bottom: 0.3em;
+        }
+
+        .callout {
+            background: #f9f7f4;
+            border-left: 4px solid #D2AB74;
+            padding: 1em 1.5em;
+            margin: 1.5em 0;
+            page-break-inside: avoid;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            page-break-inside: avoid;
+        }
+
+        a {
+            color: #2C4A47;
+            text-decoration: underline;
+        }
+
+        .footer {
+            margin-top: 3em;
+            padding-top: 1em;
+            border-top: 1px solid #ddd;
+            font-size: 10pt;
+            color: #666;
+            text-align: center;
+        }
+
+        @media print {
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+    <h1>${escapeHtml(post.title || 'Ohne Titel')}</h1>
+
+    <div class="meta">
+        Von Kathrin Stahl &bull;
+        ${formatDate(post.createdAt || new Date().toISOString())} &bull;
+        ${calculateReadingTime(countWords(stripHtml(post.content)))} Min. Lesezeit
+        ${post.categories.length > 0 ? `<br>Kategorien: ${post.categories.map(c => BLOG_CATEGORIES[c] || c).join(', ')}` : ''}
+    </div>
+
+    ${post.featuredImage ? `<img src="${post.featuredImage}" alt="${escapeHtml(post.featuredImageAlt || '')}" class="featured-image">` : ''}
+
+    <div class="content">
+        ${post.content}
+    </div>
+
+    <div class="footer">
+        Kathrin Stahl Coaching<br>
+        www.kathrinstahl.com
+    </div>
+
+    <script>
+        // Warte bis alle Bilder geladen sind, dann drucken
+        window.onload = function() {
+            setTimeout(function() {
+                window.print();
+            }, 500);
+        };
+    </script>
+</body>
+</html>`;
+
+    printWindow.document.write(printContent);
+    printWindow.document.close();
+
+    closeExportModal();
+    toast('PDF-Export wird vorbereitet...', 'info');
+}
+
+/**
+ * Exportiert den aktuellen Beitrag als HTML-Datei
+ */
+function exportAsHTML() {
+    if (!state.currentPost) {
+        toast('Kein Beitrag ausgewählt', 'error');
+        return;
+    }
+
+    saveCurrentPostToState();
+
+    const post = state.currentPost;
+    const html = generateBlogPostHTML(post);
+
+    // Download auslösen
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = (post.slug || generateSlug(post.title) || 'beitrag') + '.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    closeExportModal();
+    toast('Als HTML exportiert', 'success');
+}
+
+/**
+ * Kopiert den Markdown-Inhalt in die Zwischenablage
+ */
+async function copyAsMarkdown() {
+    if (!state.currentPost) {
+        toast('Kein Beitrag ausgewählt', 'error');
+        return;
+    }
+
+    saveCurrentPostToState();
+
+    const markdown = htmlToMarkdown(state.currentPost.content);
+
+    try {
+        await navigator.clipboard.writeText(markdown);
+        closeExportModal();
+        toast('Markdown in Zwischenablage kopiert', 'success');
+    } catch (err) {
+        // Fallback für ältere Browser
+        const textarea = document.createElement('textarea');
+        textarea.value = markdown;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        closeExportModal();
+        toast('Markdown in Zwischenablage kopiert', 'success');
+    }
+}
+
 console.log('✓ blog-editor-core.js geladen');

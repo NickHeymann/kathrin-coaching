@@ -1,0 +1,466 @@
+/* blog-editor-blocks.css
+ * Styling für das modulare Block-System
+ * Zeilen: ~280 | Verantwortung: Block-Layout, Drag & Drop, Block-Typen
+ */
+
+/* === BLOCKS CONTAINER === */
+#blocksContainer {
+    min-height: 400px;
+    padding: 1rem;
+}
+
+/* === CONTENT BLOCK === */
+.content-block {
+    position: relative;
+    margin-bottom: 1rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.content-block:hover {
+    border-color: #e0e0e0;
+}
+
+.content-block.selected {
+    border-color: var(--primary, #D2AB74);
+    box-shadow: 0 0 0 3px rgba(210, 171, 116, 0.15);
+}
+
+.content-block.dragging {
+    opacity: 0.5;
+    border-color: var(--primary, #D2AB74);
+}
+
+.content-block.drag-over {
+    border-color: var(--primary, #D2AB74);
+    border-style: dashed;
+}
+
+/* === BLOCK TOOLBAR === */
+.block-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: #f8f9fa;
+    border-radius: 6px 6px 0 0;
+    border-bottom: 1px solid #eee;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.content-block:hover .block-toolbar,
+.content-block.selected .block-toolbar {
+    opacity: 1;
+}
+
+.block-drag-handle {
+    cursor: grab;
+    color: #999;
+    font-size: 1rem;
+    padding: 0 0.25rem;
+    user-select: none;
+}
+
+.block-drag-handle:active {
+    cursor: grabbing;
+}
+
+.block-type-label {
+    font-size: 0.75rem;
+    color: #666;
+    font-weight: 500;
+    margin-right: auto;
+}
+
+.block-actions {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.block-actions button {
+    background: none;
+    border: none;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: #666;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.block-actions button:hover:not(:disabled) {
+    background: #e9ecef;
+    color: #333;
+}
+
+.block-actions button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.block-actions .delete-btn:hover {
+    background: #fee;
+    color: #c0392b;
+}
+
+/* === BLOCK CONTENT === */
+.block-content {
+    padding: 1rem;
+}
+
+.block-editable {
+    outline: none;
+    min-height: 2rem;
+    line-height: 1.7;
+}
+
+.block-editable:empty::before {
+    content: 'Text eingeben...';
+    color: #aaa;
+}
+
+.block-editable:focus {
+    background: #fafbfc;
+    border-radius: 4px;
+    padding: 0.5rem;
+    margin: -0.5rem;
+}
+
+/* === IMAGE BLOCK === */
+.image-upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    background: #f8f9fa;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.image-upload-placeholder:hover {
+    border-color: var(--primary, #D2AB74);
+    background: #fdf8f0;
+}
+
+.image-upload-placeholder span {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.image-upload-placeholder p {
+    color: #666;
+    margin: 0;
+}
+
+.image-block-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+}
+
+.image-alt-input {
+    width: 100%;
+    margin-top: 0.75rem;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+/* === VIDEO BLOCK === */
+.video-upload-placeholder {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    padding: 2rem;
+    background: #f8f9fa;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+}
+
+.video-upload-placeholder button {
+    padding: 0.75rem 1.5rem;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.video-upload-placeholder button:hover {
+    border-color: var(--primary, #D2AB74);
+    background: #fdf8f0;
+}
+
+.video-embed iframe {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 8px;
+    border: none;
+}
+
+/* === RECORDING BLOCK === */
+.recording-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    background: linear-gradient(135deg, #2c3e50 0%, #3d566e 100%);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.recording-placeholder:hover {
+    transform: scale(1.01);
+}
+
+.recording-placeholder span {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.recording-placeholder p {
+    color: #fff;
+    margin: 0;
+    opacity: 0.9;
+}
+
+.recording-block-content video {
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* === CODE BLOCK === */
+.code-block-wrapper {
+    position: relative;
+}
+
+.code-preview {
+    padding: 1rem;
+    background: #f5f5f5;
+    border-radius: 6px;
+    min-height: 60px;
+}
+
+.code-editor {
+    display: none;
+    width: 100%;
+    min-height: 150px;
+    padding: 1rem;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9rem;
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border: none;
+    border-radius: 6px;
+    resize: vertical;
+}
+
+.code-block-wrapper.show-editor .code-preview {
+    display: none;
+}
+
+.code-block-wrapper.show-editor .code-editor {
+    display: block;
+}
+
+.toggle-code-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    background: rgba(0,0,0,0.1);
+    border: none;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.toggle-code-btn:hover {
+    background: rgba(0,0,0,0.2);
+}
+
+/* === DIVIDER BLOCK === */
+.divider-block .block-content {
+    padding: 0.5rem 1rem;
+}
+
+.block-divider {
+    border: none;
+    border-top: 2px solid #eee;
+    margin: 0;
+}
+
+/* === ADD BLOCK MENU === */
+.add-block-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1rem;
+    background: transparent;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    color: #999;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.add-block-btn:hover {
+    border-color: var(--primary, #D2AB74);
+    color: var(--primary, #D2AB74);
+    background: #fdf8f0;
+}
+
+/* Block Menu */
+#blockMenu {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    padding: 1rem;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+}
+
+#blockMenu.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.block-menu-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.5rem;
+}
+
+.block-menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem;
+    background: #f8f9fa;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.block-menu-item:hover {
+    background: #e9ecef;
+    transform: scale(1.05);
+}
+
+.block-menu-item span:first-child {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.block-menu-item span:last-child {
+    font-size: 0.75rem;
+    color: #666;
+}
+
+/* Close menu on outside click */
+.block-menu-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+}
+
+#blockMenu.open ~ .block-menu-backdrop {
+    display: block;
+}
+
+/* === BLOCK SETTINGS === */
+.block-settings-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.setting-option {
+    flex: 1;
+    min-width: 80px;
+    padding: 0.6rem 0.75rem;
+    background: #f8f9fa;
+    border: 1px solid var(--border, #ddd);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+}
+
+.setting-option:hover {
+    background: #e9ecef;
+    border-color: #aaa;
+}
+
+.setting-option.active {
+    background: var(--primary, #2C4A47);
+    color: white;
+    border-color: var(--primary, #2C4A47);
+}
+
+.color-options {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.color-option {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.15s, border-color 0.15s;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+}
+
+.color-option.active {
+    border-color: var(--primary, #2C4A47);
+    box-shadow: 0 0 0 2px rgba(44, 74, 71, 0.2);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    .block-toolbar {
+        flex-wrap: wrap;
+    }
+
+    .block-menu-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .video-upload-placeholder {
+        flex-direction: column;
+    }
+
+    .setting-option {
+        min-width: 60px;
+        font-size: 0.75rem;
+        padding: 0.5rem;
+    }
+}

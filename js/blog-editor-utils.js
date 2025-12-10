@@ -109,4 +109,136 @@ function getStatusLabel(status) {
     };
     return labels[status] || status;
 }
-console.log('✓ blog-editor-utils.js geladen');
+
+// ============================================
+// BILD-KOMPRIMIERUNG
+// ============================================
+
+/**
+ * Komprimiert ein Bild auf eine maximale Größe
+ * @param {string} base64Data - Bild als Base64 (mit oder ohne Data-URL Prefix)
+ * @param {Object} options - Komprimierungsoptionen
+ * @returns {Promise<string>} Komprimiertes Bild als Base64
+ */
+async function compressImage(base64Data, options = {}) {
+    const {
+        maxWidth = 1920,
+        maxHeight = 1080,
+        quality = 0.8,
+        format = 'jpeg' // 'jpeg' oder 'webp'
+    } = options;
+
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+
+        img.onload = () => {
+            // Berechne neue Dimensionen (Seitenverhältnis beibehalten)
+            let { width, height } = img;
+
+            if (width > maxWidth) {
+                height = (height * maxWidth) / width;
+                width = maxWidth;
+            }
+            if (height > maxHeight) {
+                width = (width * maxHeight) / height;
+                height = maxHeight;
+            }
+
+            // Canvas erstellen und Bild zeichnen
+            const canvas = document.createElement('canvas');
+            canvas.width = Math.round(width);
+            canvas.height = Math.round(height);
+
+            const ctx = canvas.getContext('2d');
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            // In komprimiertes Format konvertieren
+            const mimeType = format === 'webp' ? 'image/webp' : 'image/jpeg';
+            const compressed = canvas.toDataURL(mimeType, quality);
+
+            resolve(compressed);
+        };
+
+        img.onerror = () => reject(new Error('Bild konnte nicht geladen werden'));
+
+        // Data URL Prefix hinzufügen falls nötig
+        if (!base64Data.startsWith('data:')) {
+            img.src = 'data:image/jpeg;base64,' + base64Data;
+        } else {
+            img.src = base64Data;
+        }
+    });
+}
+
+/**
+ * Komprimiert ein File-Objekt und gibt Base64 zurück
+ * @param {File} file - Das Bild-File-Objekt
+ * @param {Object} options - Komprimierungsoptionen
+ * @returns {Promise<Object>} { original: base64, compressed: base64, savings: percentage }
+ */
+async function compressImageFile(file, options = {}) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onload = async (e) => {
+            const original = e.target.result;
+            const originalSize = original.length;
+
+            try {
+                // Prüfe ob Komprimierung sinnvoll ist (nur für große Bilder)
+                if (file.size < 100 * 1024) { // < 100KB
+                    resolve({
+                        original,
+                        compressed: original,
+                        savings: 0,
+                        skipped: true
+                    });
+                    return;
+                }
+
+                const compressed = await compressImage(original, options);
+                const compressedSize = compressed.length;
+                const savings = Math.round((1 - compressedSize / originalSize) * 100);
+
+                resolve({
+                    original,
+                    compressed,
+                    savings,
+                    skipped: false
+                });
+            } catch (err) {
+                reject(err);
+            }
+        };
+
+        reader.onerror = () => reject(new Error('Datei konnte nicht gelesen werden'));
+        reader.readAsDataURL(file);
+    });
+}
+
+/**
+ * Formatiert Dateigrößen lesbar
+ */
+function formatFileSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+}
+
+/**
+ * Berechnet ungefähre Größe einer Base64-Zeichenkette
+ */
+function getBase64Size(base64) {
+    const base64Length = base64.length - (base64.indexOf(',') + 1);
+    return Math.round((base64Length * 3) / 4);
+}
+
+// Export für globale Nutzung
+window.compressImage = compressImage;
+window.compressImageFile = compressImageFile;
+window.formatFileSize = formatFileSize;
+window.getBase64Size = getBase64Size;
+
+console.log('✓ blog-editor-utils.js geladen (mit Bild-Komprimierung)');
