@@ -3,7 +3,8 @@ const CACHE_NAME = 'editor-v1';
 
 // Dateien die offline verfügbar sein sollen
 const STATIC_ASSETS = [
-  '/cms-editor.html',
+  '/cms/',
+  '/cms/index.html',
   '/manifest.json'
 ];
 

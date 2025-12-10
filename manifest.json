@@ -2,7 +2,7 @@
   "name": "Kathrin Coaching Editor",
   "short_name": "Editor",
   "description": "Website Editor für Glück über Zweifel",
-  "start_url": "/cms-editor.html",
+  "start_url": "/cms/",
   "display": "standalone",
   "background_color": "#1a1a1a",
   "theme_color": "#2C4A47",
