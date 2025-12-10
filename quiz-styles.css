@@ -43,6 +43,8 @@ body {
 }
 
 /* ===== HEADER ===== */
+/* Supports both <header> and .site-header for compatibility */
+header,
 .site-header {
     position: fixed;
     top: 0;
@@ -61,7 +63,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 70px;
+    height: 80px;  /* Match index.html header height */
 }
 
 .logo {
