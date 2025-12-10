@@ -101,20 +101,71 @@ const github = {
     }
 };
 
+// Shared Token Storage (kompatibel mit CMS-Editor)
+const tokenStorage = {
+    TOKEN_KEY: 'cms_encrypted_token',
+
+    getDeviceKey() {
+        const parts = [
+            navigator.userAgent.slice(0, 50),
+            navigator.language,
+            screen.width + 'x' + screen.height,
+            new Date().getTimezoneOffset().toString()
+        ];
+        return parts.join('|');
+    },
+
+    xorDecrypt(encoded, key) {
+        try {
+            const text = atob(encoded);
+            let result = '';
+            for (let i = 0; i < text.length; i++) {
+                result += String.fromCharCode(
+                    text.charCodeAt(i) ^ key.charCodeAt(i % key.length)
+                );
+            }
+            return result;
+        } catch {
+            return null;
+        }
+    },
+
+    xorEncrypt(text, key) {
+        let result = '';
+        for (let i = 0; i < text.length; i++) {
+            result += String.fromCharCode(
+                text.charCodeAt(i) ^ key.charCodeAt(i % key.length)
+            );
+        }
+        return btoa(result);
+    },
+
+    load() {
+        const key = this.getDeviceKey();
+        const encrypted = localStorage.getItem(this.TOKEN_KEY);
+        if (encrypted) {
+            const token = this.xorDecrypt(encrypted, key);
+            if (token && (token.startsWith('ghp_') || token.startsWith('github_pat_'))) {
+                return token;
+            }
+        }
+        // Fallback: alte Speicherorte
+        return sessionStorage.getItem('github_token') || localStorage.getItem('github_token');
+    },
+
+    save(token) {
+        const key = this.getDeviceKey();
+        const encrypted = this.xorEncrypt(token, key);
+        localStorage.setItem(this.TOKEN_KEY, encrypted);
+        // Alte Speicherorte aufräumen
+        sessionStorage.removeItem('github_token');
+        localStorage.removeItem('github_token');
+    }
+};
+
 // Token Setup & Check
 function checkSetup() {
-    // sessionStorage zuerst prüfen (sicherer)
-    let savedToken = sessionStorage.getItem('github_token');
-
-    // Migration von localStorage (einmalig)
-    if (!savedToken) {
-        const oldToken = localStorage.getItem('github_token');
-        if (oldToken) {
-            sessionStorage.setItem('github_token', oldToken);
-            localStorage.removeItem('github_token');
-            savedToken = oldToken;
-        }
-    }
+    const savedToken = tokenStorage.load();
 
     if (savedToken) {
         state.token = savedToken;
@@ -152,10 +203,8 @@ async function setupToken() {
         await github.request(`/repos/${CONFIG.owner}/${CONFIG.repo}`);
         console.log('Token gültig!');
 
-        // Token in sessionStorage speichern (wird bei Tab-Schließung gelöscht)
-        sessionStorage.setItem('github_token', token);
-        // Sicherstellen, dass kein Token in localStorage verbleibt
-        localStorage.removeItem('github_token');
+        // Token verschlüsselt speichern (kompatibel mit CMS-Editor)
+        tokenStorage.save(token);
 
         document.getElementById('setupScreen').classList.add('hidden');
         toast('Erfolgreich eingerichtet!', 'success');
