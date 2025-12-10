@@ -31,15 +31,15 @@
         p{margin-bottom:1.5rem}
         .container{max-width:800px;margin:0 auto;padding:0 24px}
         .container-wide{max-width:1200px;margin:0 auto;padding:0 24px}
-        header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,.05)}
-        .header-inner{display:flex;justify-content:space-between;align-items:center;height:80px;max-width:1200px;margin:0 auto;padding:0 24px}
-        .logo{font-family:var(--font-heading);font-size:1.5rem;font-weight:500;color:var(--color-primary);text-decoration:none}
-        nav{display:flex;align-items:center;gap:35px}
-        nav a{font-size:.9rem;font-weight:500;color:var(--color-text);text-decoration:none}
-        nav a:hover{color:var(--color-primary)}
-        .nav-cta{background:var(--color-accent);color:white!important;padding:12px 24px;border-radius:4px}
-        .menu-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer}
-        .menu-toggle span{width:24px;height:2px;background:var(--color-primary)}
+        
+        
+        
+        
+        
+        
+        
+        
+        
         .article-hero{padding:140px 0 60px;background:linear-gradient(135deg,var(--color-primary) 0%,var(--color-primary-light) 100%);text-align:center;color:white}
         .article-hero h1{color:white;max-width:800px;margin:0 auto 1rem}
         .article-meta{display:flex;justify-content:center;gap:20px;font-size:.9rem;opacity:.9;flex-wrap:wrap}
@@ -71,7 +71,7 @@
         .footer-links a{color:white;opacity:.8}
         .footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:30px;text-align:center;font-size:.85rem;opacity:.7}
         .footer-bottom a{color:white}
-        @media(max-width:992px){nav{display:none}nav.mobile-open{display:flex;position:absolute;top:80px;left:0;right:0;flex-direction:column;background:white;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.1)}nav.mobile-open a{padding:15px 0;border-bottom:1px solid rgba(0,0,0,.05)}.menu-toggle{display:flex}}
+        @media(max-width:992px){nav.mobile-open{display:flex;position:absolute;top:80px;left:0;right:0;flex-direction:column;background:white;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.1)}nav.mobile-open a{padding:15px 0;border-bottom:1px solid rgba(0,0,0,.05)}}
         @media(max-width:768px){.footer-content{grid-template-columns:1fr;gap:40px}}
     
         .bookmark-floating{position:fixed;bottom:100px;right:30px;z-index:999;display:flex;flex-direction:column;gap:10px}
@@ -86,22 +86,7 @@
     </style>
 </head>
 <body>
-<header>
-<div class="header-inner">
-<a class="logo" href="index.html">Kathrin Stahl</a>
-<nav id="mainNav">
-<a href="index.html">Start</a>
-<a href="index.html#angebote">Angebote</a>
-<a href="kathrin.html">Über mich</a>
-<a href="blog.html">Blog</a>
-<a href="media.html">Videos</a>
-<a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Erstgespräch</a>
-</nav>
-<button class="menu-toggle" onclick="document.getElementById('mainNav').classList.toggle('mobile-open')">
-
-</button>
-</div>
-</header>
+<div id="header-placeholder"></div>
 <section class="article-hero">
 <div class="container">
 <span class="article-category">Selbstliebe</span>
@@ -234,5 +219,6 @@
 
         updateUI();
     </script>
+<script src="js/header-loader.js"></script>
 </body>
 </html>

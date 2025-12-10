@@ -98,83 +98,6 @@
             padding: var(--section-padding) 0;
         }
 
-        /* ===== HEADER ===== */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .header-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 80px;
-        }
-
-        .logo {
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
-            font-weight: 500;
-            color: var(--color-primary);
-            letter-spacing: 0.05em;
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-        }
-
-        nav a {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--color-text);
-            transition: color 0.2s;
-        }
-
-        nav a:hover {
-            color: var(--color-primary);
-        }
-
-        .nav-cta {
-            background: var(--color-accent);
-            color: var(--color-white) !important;
-            padding: 12px 24px;
-            border-radius: 4px;
-            font-weight: 600;
-            transition: background 0.2s, transform 0.2s;
-        }
-
-        .nav-cta:hover {
-            background: var(--color-accent-dark);
-            transform: translateY(-1px);
-        }
-
-        /* Mobile Menu */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 10px;
-        }
-
-        .menu-toggle span {
-            width: 24px;
-            height: 2px;
-            background: var(--color-text);
-            transition: 0.3s;
-        }
-
         /* ===== HERO SECTION ===== */
         .hero {
             min-height: 100vh;
@@ -361,10 +284,7 @@
             background: var(--color-cream);
         }
 
-        .services-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
+        .services-
 
         .services-grid {
             display: grid;
@@ -613,13 +533,9 @@
                 grid-template-columns: 1fr 1fr;
             }
 
-            nav {
-                display: none;
-            }
+            
 
-            .menu-toggle {
-                display: flex;
-            }
+            
         }
 
         @media (max-width: 600px) {
@@ -665,22 +581,7 @@
 </head>
 <body>
 <!-- Header -->
-<header>
-<div class="container header-inner">
-<a class="logo" href="/">KATHRIN STAHL</a>
-<nav>
-<a href="#angebote">Angebote</a>
-<a href="#ueber">Über mich</a>
-<a href="#kontakt">Kontakt</a>
-<a class="nav-cta" href="#" onclick="bookCall(); return false;">Gespräch buchen</a>
-</nav>
-<button aria-label="Menu" class="menu-toggle">
-
-
-
-</button>
-</div>
-</header>
+<div id="header-placeholder"></div>
 <!-- Hero Section -->
 <section class="hero">
 <div class="container">
@@ -909,5 +810,6 @@
         nav.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
     });
 </script>
+<script src="js/header-loader.js"></script>
 </body>
 </html>

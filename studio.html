@@ -37,21 +37,7 @@
         /* ============================================
            HEADER MIT MODE-TABS
            ============================================ */
-        .studio-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 60px;
-            background: var(--primary);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 1.5rem;
-            z-index: 10000;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.2);
-        }
+        .studio-
 
         .studio-brand {
             display: flex;
@@ -213,11 +199,7 @@
             flex-shrink: 0;
         }
 
-        .sidebar-header {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
-            background: var(--bg);
-        }
+        .sidebar-
 
         .sidebar-header h3 {
             font-size: 0.9rem;
@@ -642,9 +624,7 @@
             overflow-y: auto;
         }
 
-        .queue-header {
-            margin-bottom: 2rem;
-        }
+        .queue-
 
         .queue-header h2 {
             font-size: 1.5rem;
@@ -923,14 +903,7 @@
             overflow: hidden;
         }
 
-        .modal-header {
-            padding: 1rem 1.5rem;
-            background: var(--bg);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .modal-
 
         .modal-header h3 {
             font-size: 1rem;
@@ -997,14 +970,7 @@
         }
         .preview-modal.open { display: flex; flex-direction: column; }
 
-        .preview-header {
-            padding: 1rem 1.5rem;
-            background: var(--primary);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+        .preview-
 
         .preview-devices {
             display: flex;
@@ -1106,37 +1072,7 @@
 </div>
 </div>
 <!-- Main Header -->
-<header class="studio-header">
-<div class="studio-brand">
-<div class="studio-logo">✨</div>
-<div>
-<div class="studio-title">Content Studio</div>
-<div class="studio-subtitle">Glück über Zweifel</div>
-</div>
-</div>
-<div class="mode-tabs">
-<button class="mode-tab active" data-mode="website" onclick="switchMode('website')">
-<span class="mode-tab-icon">🌐</span>
-                Website bearbeiten
-            </button>
-<button class="mode-tab" data-mode="blog" onclick="switchMode('blog')">
-<span class="mode-tab-icon">✏️</span>
-                Blog schreiben
-            </button>
-<button class="mode-tab" data-mode="queue" onclick="switchMode('queue')">
-<span class="mode-tab-icon">📤</span>
-                Veröffentlichung
-            </button>
-</div>
-<div class="studio-actions">
-<div>
-
-<span id="statusText">Bereit</span>
-</div>
-<button class="btn btn-ghost" onclick="showHelp()">Hilfe</button>
-<button class="btn btn-primary" id="mainActionBtn" onclick="mainAction()">Speichern</button>
-</div>
-</header>
+<div id="header-placeholder"></div>
 <!-- Main Content -->
 <main class="studio-main">
 <!-- Mode 1: Website Editor -->
@@ -2047,6 +1983,7 @@
         ${post.featuredImage ? `<img src="${post.featuredImage}" alt="${escapeHtml(post.featuredImageAlt || post.title)}" class="featured-image">` : ''}
         <div class="content">${post.content}</div>
     </article>
+<script src="js/header-loader.js"></script>
 </body>
 </html>`;
         }
@@ -2521,5 +2458,6 @@ Bei Fragen: Melde dich bei Nick!`);
         // ============================================
         document.addEventListener('DOMContentLoaded', checkSetup);
     </script>
+<script src="js/header-loader.js"></script>
 </body>
 </html>

@@ -35,16 +35,7 @@
         }
 
         /* Navigation */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: var(--color-white);
-            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
-            z-index: 1000;
-            padding: 1rem 2rem;
-        }
+        .
         .nav-inner {
             max-width: 1200px;
             margin: 0 auto;
@@ -175,14 +166,7 @@
             margin-bottom: 3rem;
             scroll-margin-top: 100px;
         }
-        .category-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid var(--color-accent);
-        }
+        .category-
         .category-icon {
             width: 48px;
             height: 48px;
@@ -349,10 +333,7 @@
 </ul>
 </div>
 </nav>
-<header class="hero">
-<h1>Blog &amp; Impulse</h1>
-<p>Gedanken, Erfahrungen und Inspirationen für deinen Weg zu mehr Klarheit und innerem Frieden</p>
-</header>
+<div id="header-placeholder"></div>
 <div class="content">
 <aside class="sidebar">
 <div class="toc">
@@ -798,5 +779,6 @@
         window.addEventListener('scroll', updateActiveLink);
         updateActiveLink();
     </script>
+<script src="js/header-loader.js"></script>
 </body>
 </html>
