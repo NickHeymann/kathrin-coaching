@@ -994,9 +994,12 @@
 function toggleContactDropdown(btn, event) {
     event.preventDefault();
     event.stopPropagation();
-    const dropdown = btn.closest('
-    });
-});
+    const dropdown = btn.closest('.contact-dropdown');
+    const menu = dropdown.querySelector('.contact-dropdown-menu');
+    if (menu) {
+        menu.classList.toggle('active');
+    }
+}
 
 // Mobile menu toggle (falls noch nicht vorhanden)
 if (typeof toggleMobileNav === 'undefined') {
