@@ -97,6 +97,9 @@ header nav a:hover,
     font-weight: 500;
     color: var(--color-secondary);
     transition: color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .nav-dropdown .nav-link:hover {
@@ -112,8 +115,8 @@ header nav a:hover,
     padding: 3px;
     transform: rotate(45deg);
     transition: transform 0.2s, border-color 0.2s;
-    margin-left: 5px;
-    margin-top: -2px;
+    margin-left: 0;
+    margin-top: 2px;
 }
 
 .nav-dropdown:hover > .nav-link::after {
@@ -178,7 +181,11 @@ header nav a:hover,
 .dropdown-icon.coaching,
 .dropdown-icon.retreat,
 .dropdown-icon.pferd,
-.dropdown-icon.casinha {
+.dropdown-icon.casinha,
+.dropdown-icon.paar,
+.dropdown-icon.paar-retreat,
+.dropdown-icon.beziehung,
+.dropdown-icon.paar-kompass {
     font-size: 0.75rem;
     font-weight: 700;
     color: #fff;
@@ -192,11 +199,10 @@ header nav a:hover,
 .dropdown-icon.retreat { background: linear-gradient(135deg, #3d6b4f, #2d5a3f); }
 .dropdown-icon.pferd { background: linear-gradient(135deg, #8B6914, #7a5c12); }
 .dropdown-icon.casinha { background: linear-gradient(135deg, #b87333, #a66328); }
-
-.dropdown-icon.beziehung {
-    color: #fff;
-    background: linear-gradient(135deg, #e74c3c, #c0392b);
-}
+.dropdown-icon.paar { background: linear-gradient(135deg, #c0392b, #a93226); }
+.dropdown-icon.paar-retreat { background: linear-gradient(135deg, #922b21, #7b241c); }
+.dropdown-icon.beziehung { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+.dropdown-icon.paar-kompass { background: linear-gradient(135deg, #d35400, #ba4a00); }
 
 .dropdown-text {
     display: flex;
