@@ -174,6 +174,14 @@ header nav a:hover,
     font-size: 1.1rem;
 }
 
+.dropdown-icon-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
 .dropdown-icon.hsp,
 .dropdown-icon.iq,
 .dropdown-icon.burnout,
