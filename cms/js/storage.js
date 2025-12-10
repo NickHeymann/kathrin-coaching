@@ -8,7 +8,58 @@ import { state } from './state.js';
 
 const BACKUP_KEY = 'cms_backup';
 const BACKUP_TIME_KEY = 'cms_backup_time';
-const TOKEN_KEY = 'github_token';
+const TOKEN_KEY = 'cms_encrypted_token';
+const TOKEN_KEY_OLD = 'github_token';
+
+/**
+ * Einfache XOR-Verschlüsselung für lokale Token-Speicherung
+ * (Kein Ersatz für echte Kryptografie, aber verhindert direktes Auslesen)
+ */
+const crypto = {
+    /**
+     * Generiert einen geräte-spezifischen Schlüssel
+     */
+    getDeviceKey() {
+        const parts = [
+            navigator.userAgent.slice(0, 50),
+            navigator.language,
+            screen.width + 'x' + screen.height,
+            new Date().getTimezoneOffset().toString()
+        ];
+        return parts.join('|');
+    },
+
+    /**
+     * XOR-Verschlüsselung
+     */
+    xorEncrypt(text, key) {
+        let result = '';
+        for (let i = 0; i < text.length; i++) {
+            result += String.fromCharCode(
+                text.charCodeAt(i) ^ key.charCodeAt(i % key.length)
+            );
+        }
+        return btoa(result);
+    },
+
+    /**
+     * XOR-Entschlüsselung
+     */
+    xorDecrypt(encoded, key) {
+        try {
+            const text = atob(encoded);
+            let result = '';
+            for (let i = 0; i < text.length; i++) {
+                result += String.fromCharCode(
+                    text.charCodeAt(i) ^ key.charCodeAt(i % key.length)
+                );
+            }
+            return result;
+        } catch {
+            return null;
+        }
+    }
+};
 
 /**
  * Speichert aktuellen State in LocalStorage
@@ -75,46 +126,66 @@ export function clearLocalBackup() {
 }
 
 /**
- * Token-Management (sessionStorage für Sicherheit)
+ * Token-Management mit verschlüsselter localStorage-Speicherung
+ * Der Token wird mit einem geräte-spezifischen Schlüssel verschlüsselt,
+ * sodass er auf einem anderen Gerät nicht verwendbar ist.
  */
 export const tokenStorage = {
     /**
-     * Speichert Token in sessionStorage
+     * Speichert Token verschlüsselt in localStorage
      * @param {string} token - GitHub Token
      */
     save(token) {
-        sessionStorage.setItem(TOKEN_KEY, token);
-        // Sicherstellen dass kein Token in localStorage verbleibt
-        localStorage.removeItem(TOKEN_KEY);
+        const key = crypto.getDeviceKey();
+        const encrypted = crypto.xorEncrypt(token, key);
+        localStorage.setItem(TOKEN_KEY, encrypted);
+
+        // Alte Schlüssel aufräumen
+        sessionStorage.removeItem(TOKEN_KEY_OLD);
+        localStorage.removeItem(TOKEN_KEY_OLD);
     },
 
     /**
-     * Lädt Token aus sessionStorage (mit Migration von localStorage)
+     * Lädt und entschlüsselt Token aus localStorage
      * @returns {string|null} Token oder null
      */
     load() {
-        let token = sessionStorage.getItem(TOKEN_KEY);
+        const key = crypto.getDeviceKey();
 
-        // Migration von localStorage (einmalig)
-        if (!token) {
-            const oldToken = localStorage.getItem(TOKEN_KEY);
-            if (oldToken) {
-                sessionStorage.setItem(TOKEN_KEY, oldToken);
-                localStorage.removeItem(TOKEN_KEY);
-                token = oldToken;
-                console.log('Token von localStorage zu sessionStorage migriert');
+        // Versuche verschlüsselten Token zu laden
+        const encrypted = localStorage.getItem(TOKEN_KEY);
+        if (encrypted) {
+            const token = crypto.xorDecrypt(encrypted, key);
+            // Validiere dass es ein gültiger Token ist
+            if (token && (token.startsWith('ghp_') || token.startsWith('github_pat_'))) {
+                return token;
             }
         }
 
-        return token;
+        // Migration von alten Speicherorten (einmalig)
+        const oldTokenSession = sessionStorage.getItem(TOKEN_KEY_OLD);
+        const oldTokenLocal = localStorage.getItem(TOKEN_KEY_OLD);
+        const oldToken = oldTokenSession || oldTokenLocal;
+
+        if (oldToken && (oldToken.startsWith('ghp_') || oldToken.startsWith('github_pat_'))) {
+            // Migriere zu neuer verschlüsselter Speicherung
+            this.save(oldToken);
+            sessionStorage.removeItem(TOKEN_KEY_OLD);
+            localStorage.removeItem(TOKEN_KEY_OLD);
+            console.log('Token zur verschlüsselten Speicherung migriert');
+            return oldToken;
+        }
+
+        return null;
     },
 
     /**
-     * Entfernt Token
+     * Entfernt Token aus allen Speicherorten
      */
     clear() {
-        sessionStorage.removeItem(TOKEN_KEY);
         localStorage.removeItem(TOKEN_KEY);
+        sessionStorage.removeItem(TOKEN_KEY_OLD);
+        localStorage.removeItem(TOKEN_KEY_OLD);
     }
 };
 
