@@ -18,40 +18,113 @@ let recordingTimer = null;
 let screenStream = null;
 let audioStream = null;
 let camStream = null;
+let previewStream = null;
 
 // PiP State
-let pipPosition = { x: 20, y: null }; // y wird beim Start berechnet (unten links)
+let pipPosition = { x: 20, y: null };
 let pipSize = 'medium';
 let isDragging = false;
 let isResizing = false;
 let dragOffset = { x: 0, y: 0 };
 
+// Settings State (ob Setup bereits gemacht wurde)
+const SETTINGS_KEY = 'cms_recording_setup_done';
+
 /**
- * Toggle Recording Modal oder Stop
+ * Prüft ob das Setup bereits durchgeführt wurde
+ */
+function isSetupDone() {
+    return localStorage.getItem(SETTINGS_KEY) === 'true';
+}
+
+/**
+ * Markiert Setup als erledigt
+ */
+function markSetupDone() {
+    localStorage.setItem(SETTINGS_KEY, 'true');
+}
+
+/**
+ * Toggle Recording - zeigt Modal nur beim ersten Mal
  */
 export function toggleRecording() {
     if (mediaRecorder && mediaRecorder.state === 'recording') {
         stopRecording();
+    } else if (isSetupDone()) {
+        // Direkt starten ohne Modal
+        startRecording();
     } else {
-        document.getElementById('recordModal')?.classList.add('active');
+        // Erstes Mal: Modal mit Webcam-Vorschau öffnen
+        openRecordModal();
     }
+}
+
+/**
+ * Öffnet das Recording-Modal mit Webcam-Vorschau
+ */
+async function openRecordModal() {
+    document.getElementById('recordModal')?.classList.add('active');
+
+    // Webcam-Vorschau starten
+    await startWebcamPreview();
+}
+
+/**
+ * Startet die Webcam-Vorschau im Modal
+ */
+async function startWebcamPreview() {
+    const video = document.getElementById('webcamPreviewVideo');
+    const placeholder = document.getElementById('webcamPreviewPlaceholder');
+
+    if (!video) return;
+
+    try {
+        previewStream = await navigator.mediaDevices.getUserMedia({
+            video: { width: 640, height: 480 },
+            audio: false
+        });
+
+        video.srcObject = previewStream;
+        if (placeholder) placeholder.classList.add('hidden');
+
+    } catch (e) {
+        console.warn('Webcam-Vorschau nicht verfügbar:', e);
+        if (placeholder) {
+            placeholder.querySelector('p').textContent = 'Webcam nicht verfügbar';
+        }
+    }
+}
+
+/**
+ * Stoppt die Webcam-Vorschau
+ */
+function stopWebcamPreview() {
+    const video = document.getElementById('webcamPreviewVideo');
+    const placeholder = document.getElementById('webcamPreviewPlaceholder');
+
+    if (previewStream) {
+        previewStream.getTracks().forEach(t => t.stop());
+        previewStream = null;
+    }
+
+    if (video) video.srcObject = null;
+    if (placeholder) placeholder.classList.remove('hidden');
 }
 
 /**
  * Schließt Record-Setup Modal
  */
 export function closeRecordModal() {
+    stopWebcamPreview();
     document.getElementById('recordModal')?.classList.remove('active');
 }
 
 /**
- * Zeigt/versteckt Webcam-Einstellungen
+ * Zeigt Settings während der Aufnahme (öffnet Modal ohne Vorschau)
  */
-export function toggleCamSettings(show) {
-    const settings = document.getElementById('camSettings');
-    if (settings) {
-        settings.style.display = show ? 'block' : 'none';
-    }
+export function showRecordSettings() {
+    document.getElementById('recordModal')?.classList.add('active');
+    // Keine Vorschau starten - Aufnahme läuft bereits
 }
 
 /**
@@ -147,11 +220,16 @@ function setupPipInteraction() {
  * Startet Bildschirm/Audio/Webcam Aufnahme
  */
 export async function startRecording() {
+    // Vorschau und Modal schließen
+    stopWebcamPreview();
     closeRecordModal();
 
-    const useScreen = document.getElementById('recordScreen')?.checked;
-    const useMic = document.getElementById('recordMic')?.checked;
-    const useCam = document.getElementById('recordCam')?.checked;
+    // Setup als erledigt markieren
+    markSetupDone();
+
+    const useScreen = document.getElementById('recordScreen')?.checked ?? true;
+    const useMic = document.getElementById('recordMic')?.checked ?? true;
+    const useCam = document.getElementById('recordCam')?.checked ?? true;
 
     try {
         const tracks = [];

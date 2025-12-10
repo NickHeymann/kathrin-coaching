@@ -238,16 +238,26 @@
     <div class="recording-indicator" id="recordingIndicator">
         <div class="rec-dot"></div>
         <span id="recordingTime">00:00</span>
+        <button class="rec-settings" onclick="CMS.showRecordSettings()" title="Einstellungen">⚙️</button>
         <button class="rec-stop" onclick="CMS.stopRecording()">⏹ Stopp</button>
     </div>
 
     <!-- Recording Setup Modal -->
     <div class="modal-bg" id="recordModal">
-        <div class="modal" style="max-width:450px;">
+        <div class="modal" style="max-width:500px;">
             <h3>🎥 Video-Feedback aufnehmen</h3>
             <p style="color:#666;margin-bottom:1rem;font-size:0.9rem;">
                 Erkläre deine Änderungswünsche per Video - so ist alles klar verständlich!
             </p>
+
+            <!-- Webcam Vorschau -->
+            <div class="webcam-preview" id="webcamPreview">
+                <video id="webcamPreviewVideo" autoplay muted playsinline></video>
+                <div class="webcam-preview-placeholder" id="webcamPreviewPlaceholder">
+                    <span>📷</span>
+                    <p>Webcam wird geladen...</p>
+                </div>
+            </div>
 
             <div class="record-options">
                 <label class="record-option">
@@ -259,40 +269,43 @@
                     <span>🎤 Mikrofon (deine Stimme)</span>
                 </label>
                 <label class="record-option">
-                    <input type="checkbox" id="recordCam" onchange="CMS.toggleCamSettings(this.checked)">
+                    <input type="checkbox" id="recordCam" checked>
                     <span>📷 Webcam (Bild-in-Bild)</span>
                 </label>
             </div>
 
-            <!-- Webcam Einstellungen (nur sichtbar wenn Webcam aktiviert) -->
-            <div class="cam-settings" id="camSettings" style="display:none;">
-                <div class="settings-row">
-                    <label>Auflösung:</label>
-                    <select id="camResolution">
-                        <option value="320x240">320x240 (klein)</option>
-                        <option value="640x480" selected>640x480 (mittel)</option>
-                        <option value="1280x720">1280x720 (HD)</option>
-                    </select>
+            <!-- Webcam Einstellungen -->
+            <details class="cam-settings-details" id="camSettingsDetails">
+                <summary>⚙️ Einstellungen</summary>
+                <div class="cam-settings" id="camSettings">
+                    <div class="settings-row">
+                        <label>Auflösung:</label>
+                        <select id="camResolution">
+                            <option value="320x240">320x240 (klein)</option>
+                            <option value="640x480" selected>640x480 (mittel)</option>
+                            <option value="1280x720">1280x720 (HD)</option>
+                        </select>
+                    </div>
+                    <div class="settings-row">
+                        <label>Helligkeit:</label>
+                        <input type="range" id="camBrightness" min="50" max="150" value="100">
+                        <span id="brightnessValue">100%</span>
+                    </div>
+                    <div class="settings-row">
+                        <label>Kontrast:</label>
+                        <input type="range" id="camContrast" min="50" max="150" value="100">
+                        <span id="contrastValue">100%</span>
+                    </div>
+                    <div class="settings-row">
+                        <label>Bildgröße:</label>
+                        <select id="pipSize">
+                            <option value="small">Klein (150px)</option>
+                            <option value="medium" selected>Mittel (200px)</option>
+                            <option value="large">Groß (280px)</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="settings-row">
-                    <label>Helligkeit:</label>
-                    <input type="range" id="camBrightness" min="50" max="150" value="100">
-                    <span id="brightnessValue">100%</span>
-                </div>
-                <div class="settings-row">
-                    <label>Kontrast:</label>
-                    <input type="range" id="camContrast" min="50" max="150" value="100">
-                    <span id="contrastValue">100%</span>
-                </div>
-                <div class="settings-row">
-                    <label>PiP-Größe:</label>
-                    <select id="pipSize">
-                        <option value="small">Klein (150px)</option>
-                        <option value="medium" selected>Mittel (200px)</option>
-                        <option value="large">Groß (280px)</option>
-                    </select>
-                </div>
-            </div>
+            </details>
 
             <div class="modal-btns">
                 <button class="btn btn-cancel" onclick="CMS.closeRecordModal()">Abbrechen</button>
