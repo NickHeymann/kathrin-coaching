@@ -1,0 +1,178 @@
+/* editor-modern/sidebar.css
+ * Modern Sidebar Styles | ~150 Zeilen
+ */
+
+/* ==========================================
+   Sidebar Container
+   ========================================== */
+
+.sidebar.modern {
+    width: 300px;
+    height: calc(100vh - 60px);
+    position: fixed;
+    top: 60px;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+
+    /* Dark Glassmorphism */
+    background: linear-gradient(
+        180deg,
+        rgba(26, 29, 33, 0.98) 0%,
+        rgba(26, 29, 33, 0.95) 100%
+    );
+    backdrop-filter: var(--glass-blur-strong);
+    border-right: 1px solid var(--dark-glass-border);
+}
+
+/* ==========================================
+   Sidebar Header
+   ========================================== */
+
+.sidebar.modern .sidebar-header {
+    padding: var(--space-5) var(--space-4);
+    border-bottom: 1px solid var(--dark-glass-border);
+}
+
+.sidebar.modern .sidebar-header h2 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0;
+}
+
+/* ==========================================
+   Sidebar Tabs
+   ========================================== */
+
+.sidebar.modern .sidebar-tabs {
+    display: flex;
+    gap: var(--space-1);
+    padding: var(--space-3);
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.sidebar.modern .sidebar-tab {
+    flex: 1;
+    padding: var(--space-2) var(--space-3);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.sidebar.modern .sidebar-tab:hover {
+    color: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar.modern .sidebar-tab.active {
+    color: var(--text-inverse);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-inner);
+}
+
+/* ==========================================
+   Sidebar Search
+   ========================================== */
+
+.sidebar.modern .sidebar-search {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--dark-glass-border);
+}
+
+.sidebar.modern .sidebar-search input {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    padding-left: var(--space-10);
+    font-size: 0.875rem;
+    color: var(--text-inverse);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.sidebar.modern .sidebar-search input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.sidebar.modern .sidebar-search input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.15);
+}
+
+/* ==========================================
+   New Post Button
+   ========================================== */
+
+.sidebar.modern .new-post-btn {
+    margin: var(--space-3) var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-inverse);
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.sidebar.modern .new-post-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+}
+
+/* ==========================================
+   Post Cards
+   ========================================== */
+
+.sidebar.modern .post-card,
+.sidebar.modern .page-item {
+    margin: var(--space-2) var(--space-3);
+    padding: var(--space-4);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.sidebar.modern .post-card:hover,
+.sidebar.modern .page-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(4px);
+}
+
+.sidebar.modern .post-card.active,
+.sidebar.modern .page-item.active {
+    background: rgba(var(--accent-rgb), 0.1);
+    border-color: rgba(var(--accent-rgb), 0.3);
+    box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.sidebar.modern .post-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-inverse);
+    margin-bottom: var(--space-1);
+}
+
+.sidebar.modern .post-meta {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+}

@@ -1,0 +1,135 @@
+/* editor-modern/variables.css
+ * Design System Variables für Glassmorphism UI | ~120 Zeilen
+ */
+
+:root {
+    /* ==========================================
+       Glassmorphism Basics
+       ========================================== */
+    --glass-bg: rgba(255, 255, 255, 0.12);
+    --glass-bg-light: rgba(255, 255, 255, 0.18);
+    --glass-bg-dark: rgba(0, 0, 0, 0.25);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --glass-border-light: rgba(255, 255, 255, 0.25);
+    --glass-blur: blur(16px);
+    --glass-blur-strong: blur(24px);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+
+    /* ==========================================
+       Color Palette
+       ========================================== */
+    --primary: #2C4A47;
+    --primary-light: #3d6360;
+    --primary-dark: #1e3533;
+    --primary-rgb: 44, 74, 71;
+
+    --accent: #D4A574;
+    --accent-light: #e6c09a;
+    --accent-dark: #b8895c;
+    --accent-rgb: 212, 165, 116;
+    --accent-glow: rgba(212, 165, 116, 0.35);
+
+    --success: #22c55e;
+    --success-light: #4ade80;
+    --success-glow: rgba(34, 197, 94, 0.3);
+
+    --warning: #eab308;
+    --warning-light: #facc15;
+
+    --danger: #ef4444;
+    --danger-light: #f87171;
+
+    --info: #3b82f6;
+    --info-light: #60a5fa;
+
+    /* ==========================================
+       Surface Colors (Light Mode)
+       ========================================== */
+    --surface-1: #ffffff;
+    --surface-2: #f8f9fa;
+    --surface-3: #f1f3f5;
+    --surface-elevated: rgba(255, 255, 255, 0.95);
+
+    /* ==========================================
+       Surface Colors (Dark Mode)
+       ========================================== */
+    --dark-bg: #0f1419;
+    --dark-surface-1: #1a1d21;
+    --dark-surface-2: #22262b;
+    --dark-surface-3: #2a2f35;
+    --dark-glass: rgba(26, 29, 33, 0.85);
+    --dark-glass-border: rgba(255, 255, 255, 0.08);
+
+    /* ==========================================
+       Text Colors
+       ========================================== */
+    --text: #1a1a1a;
+    --text-secondary: #4a5568;
+    --text-muted: #718096;
+    --text-inverse: #ffffff;
+
+    /* ==========================================
+       Shadows (Soft UI)
+       ========================================== */
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.12);
+    --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.04);
+    --shadow-glow: 0 0 24px var(--accent-glow);
+    --shadow-glow-success: 0 0 24px var(--success-glow);
+
+    /* ==========================================
+       Border Radius
+       ========================================== */
+    --radius-xs: 4px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-2xl: 32px;
+    --radius-full: 9999px;
+
+    /* ==========================================
+       Transitions
+       ========================================== */
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --duration-fast: 150ms;
+    --duration-normal: 250ms;
+    --duration-slow: 400ms;
+
+    /* ==========================================
+       Typography
+       ========================================== */
+    --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+
+    /* ==========================================
+       Spacing
+       ========================================== */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+}
+
+/* Dark Mode Override */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --surface-1: var(--dark-surface-1);
+        --surface-2: var(--dark-surface-2);
+        --surface-3: var(--dark-surface-3);
+        --text: #f1f5f9;
+        --text-secondary: #94a3b8;
+        --text-muted: #64748b;
+    }
+}

@@ -16,8 +16,13 @@
     <link rel="stylesheet" href="css/blog-editor-ai.css">
     <link rel="stylesheet" href="css/blog-editor-video.css">
     <link rel="stylesheet" href="css/blog-editor-blocks.css">
+    <link rel="stylesheet" href="css/scheduling/calendar.css">
+    <link rel="stylesheet" href="css/scheduling/sidebar-calendar.css">
+
+    <!-- Modern UI Styles (Glassmorphism) -->
+    <link rel="stylesheet" href="css/editor-modern/index.css">
 </head>
-<body>
+<body class="modern">
 
 <!-- Setup Screen -->
 <div class="setup-screen" id="setupScreen">
@@ -35,7 +40,7 @@
 <a href="#main-editor" class="skip-link">Zum Editor springen</a>
 
 <!-- Header -->
-<header class="header" role="banner">
+<header class="header modern" role="banner">
     <div class="header-left">
         <button class="mobile-menu-toggle" onclick="toggleMobileSidebar()" aria-label="Seitenleiste öffnen" aria-expanded="false" aria-controls="sidebar">☰</button>
         <div class="logo" aria-label="Blog Editor">
@@ -45,6 +50,7 @@
         <nav class="mode-switch" role="navigation" aria-label="Editor-Modus">
             <a href="cms/" class="mode-btn" title="Website-Seiten bearbeiten">Seiten</a>
             <a href="blog-editor-modular.html" class="mode-btn active" aria-current="page" title="Blog-Artikel schreiben">Blog</a>
+            <a href="cms/analytics/" class="mode-btn" title="Analytics Dashboard">📊</a>
         </nav>
     </div>
     <div class="header-center">
@@ -71,7 +77,7 @@
 <!-- Main Container -->
 <main class="main-container">
     <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar" role="complementary" aria-label="Beitragsliste">
+    <aside class="sidebar modern" id="sidebar" role="complementary" aria-label="Beitragsliste">
         <div class="sidebar-header">
             <h2>Beiträge</h2>
         </div>
@@ -89,6 +95,14 @@
             <span aria-hidden="true">+</span> Neuer Beitrag
         </button>
         <div class="sidebar-content" id="postList" role="tabpanel" aria-label="Beitragsliste"></div>
+
+        <!-- Kalender-Ansicht (für "Geplant" Tab) -->
+        <div class="sidebar-calendar" id="calendarPanel" style="display: none;">
+            <div id="contentCalendar"></div>
+            <button class="schedule-current-btn" onclick="openScheduleModal()" style="margin: 1rem; width: calc(100% - 2rem);">
+                📅 Aktuellen Beitrag planen
+            </button>
+        </div>
     </aside>
 
     <!-- Mobile Sidebar Backdrop -->
@@ -498,9 +512,9 @@
 <div class="block-menu-backdrop" onclick="hideBlockMenu()" style="display: none;"></div>
 
 <!-- Block Settings Modal -->
-<div class="modal" id="blockSettingsModal">
+<div class="modal modern" id="blockSettingsModal">
     <div class="modal-backdrop" onclick="closeBlockSettings()"></div>
-    <div class="modal-content" style="max-width: 400px;">
+    <div class="modal-content modern" style="max-width: 400px;">
         <div class="modal-header">
             <h3>⚙️ Block-Einstellungen</h3>
             <button onclick="closeBlockSettings()" class="modal-close">×</button>
@@ -556,9 +570,9 @@
 </div>
 
 <!-- Versions Modal -->
-<div class="modal" id="versionsModal">
+<div class="modal modern" id="versionsModal">
     <div class="modal-backdrop" onclick="closeVersionsModal()"></div>
-    <div class="modal-content versions-modal-content">
+    <div class="modal-content modern versions-modal-content">
         <div class="modal-header">
             <h3>📜 Versionsverlauf</h3>
             <button onclick="closeVersionsModal()" class="modal-close">×</button>
@@ -570,9 +584,9 @@
 </div>
 
 <!-- Template Selection Modal -->
-<div class="modal" id="templateModal">
+<div class="modal modern" id="templateModal">
     <div class="modal-backdrop" onclick="closeTemplateModal()"></div>
-    <div class="modal-content template-modal-content">
+    <div class="modal-content modern template-modal-content">
         <div class="modal-header">
             <h3>📝 Vorlage wählen</h3>
             <button onclick="closeTemplateModal()" class="modal-close">×</button>
@@ -590,9 +604,9 @@
 </div>
 
 <!-- Custom Font Modal -->
-<div class="modal" id="customFontModal">
+<div class="modal modern" id="customFontModal">
     <div class="modal-backdrop" onclick="closeCustomFontModal()"></div>
-    <div class="modal-content">
+    <div class="modal-content modern">
         <div class="modal-header">
             <h3>🔤 Eigene Schriftart hinzufügen</h3>
             <button onclick="closeCustomFontModal()" class="modal-close">×</button>
@@ -626,9 +640,9 @@
 </div>
 
 <!-- Export Modal -->
-<div class="modal" id="exportModal">
+<div class="modal modern" id="exportModal">
     <div class="modal-backdrop" onclick="closeExportModal()"></div>
-    <div class="modal-content export-modal-content">
+    <div class="modal-content modern export-modal-content">
         <div class="modal-header">
             <h3>📤 Beitrag exportieren</h3>
             <button onclick="closeExportModal()" class="modal-close">×</button>
@@ -672,9 +686,9 @@
 </div>
 
 <!-- Keyboard Shortcuts Modal -->
-<div class="modal" id="shortcutsModal">
+<div class="modal modern" id="shortcutsModal">
     <div class="modal-backdrop" onclick="closeShortcutsModal()"></div>
-    <div class="modal-content shortcuts-modal-content">
+    <div class="modal-content modern shortcuts-modal-content">
         <div class="modal-header">
             <h3>⌨️ Tastenkombinationen</h3>
             <button onclick="closeShortcutsModal()" class="modal-close">×</button>
@@ -917,12 +931,32 @@
 <script src="js/blog-editor-video.js"></script>
 <script src="js/blog-editor-blocks.js"></script>
 
+<!-- Scheduling & Kalender -->
+<script src="js/scheduling/config.js"></script>
+<script src="js/scheduling/scheduler-api.js"></script>
+<script src="js/scheduling/calendar.js"></script>
+<script src="js/scheduling/calendar-events.js"></script>
+<script src="js/blog-editor-scheduling.js"></script>
+
 <!-- Init -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         checkSetup();
         initAI();
         initBlockEditor();
+
+        // Kalender Event-Listener
+        document.addEventListener('calendar-date-selected', (e) => {
+            console.log('Datum gewählt:', e.detail.date);
+        });
+
+        document.addEventListener('calendar-event-selected', (e) => {
+            // Scheduled Post in Editor laden
+            const event = e.detail.event;
+            if (event && event.id) {
+                loadScheduledPost(event.id);
+            }
+        });
     });
 </script>
 

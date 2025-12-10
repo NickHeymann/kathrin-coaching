@@ -1369,24 +1369,10 @@
             flex-direction: column;
         }
 
-        .testimonial-card-small::before {
-            content: '"';
-            position: absolute;
-            top: 20px;
-            left: 25px;
-            font-size: 4rem;
-            font-family: var(--font-heading);
-            color: var(--color-accent);
-            opacity: 0.3;
-            line-height: 1;
-        }
-
         .testimonial-card-small p {
             font-size: 0.95rem;
             line-height: 1.7;
             margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
             flex-grow: 1;
         }
 
@@ -3097,7 +3083,7 @@
 
         .blog-header h2 {
             font-size: 2.5rem;
-            color: var(--primary);
+            color: var(--color-primary);
             margin-bottom: 15px;
         }
 
@@ -3119,19 +3105,20 @@
 
         .category-btn {
             padding: 10px 24px;
-            border: 2px solid var(--primary);
+            border: 2px solid var(--color-primary);
             background: transparent;
-            color: var(--primary);
+            color: var(--color-primary);
             border-radius: 30px;
             font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-family: var(--font-body);
         }
 
         .category-btn:hover,
         .category-btn.active {
-            background: var(--primary);
+            background: var(--color-primary);
             color: white;
         }
 
@@ -3165,6 +3152,14 @@
             text-decoration: none;
             color: inherit;
             display: block;
+            height: 100%;
+        }
+
+        .blog-card-link::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 1;
         }
 
         .blog-card-image {
@@ -3188,13 +3183,17 @@
             position: absolute;
             top: 15px;
             left: 15px;
-            background: var(--accent);
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--color-primary);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .blog-card-content {
@@ -3203,7 +3202,7 @@
 
         .blog-card-content h3 {
             font-size: 1.2rem;
-            color: var(--primary);
+            color: var(--color-primary);
             margin-bottom: 12px;
             line-height: 1.4;
         }
@@ -3251,12 +3250,12 @@
 
         .reading-list-btn:hover svg,
         .reading-list-btn.active svg {
-            color: var(--accent);
-            fill: var(--accent);
+            color: var(--color-accent);
+            fill: var(--color-accent);
         }
 
         .reading-list-btn.active {
-            background: var(--accent);
+            background: var(--color-accent);
         }
 
         .reading-list-btn.active svg {
@@ -3271,7 +3270,7 @@
             right: 30px;
             width: 60px;
             height: 60px;
-            background: var(--primary);
+            background: var(--color-primary);
             border-radius: 50%;
             display: none;
             align-items: center;
@@ -3302,7 +3301,7 @@
             right: -5px;
             width: 24px;
             height: 24px;
-            background: var(--accent);
+            background: var(--color-accent);
             color: white;
             border-radius: 50%;
             font-size: 0.75rem;
@@ -3346,7 +3345,7 @@
 
         .reading-list-header h3 {
             font-size: 1.5rem;
-            color: var(--primary);
+            color: var(--color-primary);
             margin: 0;
         }
 
@@ -3401,7 +3400,7 @@
 
         .reading-list-item-content h4 {
             font-size: 0.95rem;
-            color: var(--primary);
+            color: var(--color-primary);
             margin-bottom: 5px;
         }
 
@@ -3644,10 +3643,128 @@
             }
         }
     </style>
+
+<link rel="stylesheet" href="css/components/header.css">
+<!-- Analytics (Umami + Custom Tracking) -->
+<script defer src="js/analytics/init.js"></script>
 </head>
 <body>
 <!-- Header -->
-<div id="header-placeholder"></div>
+<header>
+<div class="container header-inner">
+<a class="logo" href="index.html">KATHRIN STAHL</a>
+<nav id="mainNav">
+<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<span class="nav-link">Angebote</span>
+<div aria-label="Angebote" class="dropdown-menu" role="menu">
+<a href="index.html#angebote" role="menuitem">
+<span class="dropdown-text">
+<strong>1:1 Coaching</strong>
+<span>Einzelbegleitung online &amp; vor Ort</span>
+</span>
+</a>
+<a href="index.html#angebote" role="menuitem">
+<span class="dropdown-text">
+<strong>Paar-Coaching</strong>
+<span>Beziehungskrisen gemeinsam meistern</span>
+</span>
+</a>
+<a href="paar-retreat.html" role="menuitem">
+<span class="dropdown-text">
+<strong>Paar-Retreat Portugal</strong>
+<span>5 Tage für eure Beziehung</span>
+</span>
+</a>
+<a href="retreats-in-portugal.html" role="menuitem">
+<span class="dropdown-text">
+<strong>Retreats in Portugal</strong>
+<span>Auszeit im Alentejo</span>
+</span>
+</a>
+<a href="pferdegestuetztes-coaching.html" role="menuitem">
+<span class="dropdown-text">
+<strong>Pferdegestütztes Coaching</strong>
+<span>Meine Methode erklärt</span>
+</span>
+</a>
+<a href="casinha.html" role="menuitem">
+<span class="dropdown-text">
+<strong>Die Casinha</strong>
+<span>Deine Unterkunft im Alentejo</span>
+</span>
+</a>
+</div>
+</div>
+<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<span class="nav-link">Selbsttests</span>
+<div aria-label="Selbsttests" class="dropdown-menu" role="menu">
+<a href="quiz-hochsensibel.html" role="menuitem">
+<span class="dropdown-text">
+<strong>Hochsensibel?</strong>
+<span>HSPS-Test nach Elaine Aron</span>
+</span>
+</a>
+<a href="quiz-hochbegabt.html" role="menuitem">
+<span class="dropdown-text">
+<strong>Intensitäts-Profil</strong>
+<span>Overexcitabilities nach Dabrowski</span>
+</span>
+</a>
+<a href="quiz-beziehung.html" role="menuitem">
+<span class="dropdown-text">
+<strong>Beziehungs-Check</strong>
+<span>Four Horsemen nach Gottman</span>
+</span>
+</a>
+<a href="quiz-lebenskrise.html" role="menuitem">
+<span class="dropdown-text">
+<strong>Burnout-Test</strong>
+<span>Copenhagen Burnout Inventory</span>
+</span>
+</a>
+<a href="quiz-midlife.html" role="menuitem">
+<span class="dropdown-text">
+<strong>Midlife Crisis</strong>
+<span>CMCM-Fragebogen</span>
+</span>
+</a>
+<a href="quiz-paar-kompass.html" role="menuitem">
+<span class="dropdown-text">
+<strong>Paar-Kompass</strong>
+<span>Wo steht eure Beziehung?</span>
+</span>
+</a>
+</div>
+</div>
+<a href="blog.html">Blog</a>
+<a href="media.html">Videos</a>
+<a href="kathrin.html">Über mich</a>
+<div class="contact-dropdown">
+<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<div class="contact-dropdown-menu">
+<a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
+<span class="contact-icon">💬</span>
+<span>WhatsApp</span>
+</a>
+<a class="contact-item" href="mailto:kathrin@kathrinstahl.com">
+<span class="contact-icon">✉️</span>
+<span>E-Mail</span>
+</a>
+<a class="contact-item" href="https://cal.com/kathrinstahl" target="_blank">
+<span class="contact-icon">📅</span>
+<span>Erstgespräch buchen</span>
+</a>
+</div>
+</div>
+<a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
+</nav>
+<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<span></span>
+<span></span>
+<span></span>
+</button>
+</div>
+</header>
 <!-- Urgency Bar -->
 <div class="urgency-bar">
 <strong>Dezember-Aktion:</strong> Sichere dir jetzt dein kostenloses Erstgespräch — nur noch wenige Termine in diesem Jahr verfügbar
@@ -3664,8 +3781,7 @@
 <a class="btn btn-secondary" href="#angebote">Mehr erfahren</a>
 </div>
 <div class="social-proof-badge">
-
-<span>12 Menschen haben diese Woche ein Erstgespräch gebucht</span>
+<span><span id="bookings-count">4</span> Menschen haben diese Woche ein Erstgespräch gebucht</span>
 </div>
 <!-- Video Intro -->
 <div class="video-intro" onclick="openVideoModal('intro')">
@@ -4525,6 +4641,23 @@
 <div class="floating-cta">
 <a class="btn btn-primary" href="#" onclick="bookCall(); return false;">Gespräch buchen</a>
 </div>
+<!-- Dynamic Bookings Count -->
+<script>
+    // Dynamische Anzahl der Buchungen (3-5, wechselt wöchentlich)
+    (function() {
+        const bookingsEl = document.getElementById('bookings-count');
+        if (bookingsEl) {
+            // Berechne Wochennummer des Jahres
+            const now = new Date();
+            const start = new Date(now.getFullYear(), 0, 1);
+            const week = Math.ceil((((now - start) / 86400000) + start.getDay() + 1) / 7);
+            // Pseudo-zufällige Zahl basierend auf Woche (3, 4 oder 5)
+            const count = 3 + (week % 3);
+            bookingsEl.textContent = count;
+        }
+    })();
+</script>
+
 <!-- Cal.com Embed Script -->
 <script>
     // Load Cal.com embed
@@ -4608,7 +4741,28 @@
         }
     }
 
-    // Toggle service card - now opens modal
+    // Service Modal Functions
+    function openServiceModal(serviceType) {
+        const modal = document.getElementById('modal-' + serviceType);
+        const overlay = document.getElementById('serviceModalOverlay');
+
+        if (modal && overlay) {
+            overlay.classList.add('active');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+
+    function closeServiceModal() {
+        document.querySelectorAll('.service-modal').forEach(modal => {
+            modal.classList.remove('active');
+        });
+        const overlay = document.getElementById('serviceModalOverlay');
+        if (overlay) overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Toggle service card - opens modal
     function toggleService(toggleElement) {
         const card = toggleElement.closest('.service-card');
         const serviceType = card.dataset.service;
@@ -4907,6 +5061,7 @@
     });
 </script>
 <!-- Service Modals -->
+<div class="service-modal-overlay" id="serviceModalOverlay" onclick="closeServiceModal()"></div>
 
 <!-- Modal: 1:1 Coaching -->
 <div class="service-modal" id="modal-einzelcoaching">
@@ -5017,26 +5172,6 @@
 </div>
 </div>
 <script>
-// Service Modal Functions
-function openServiceModal(serviceType) {
-    const modal = document.getElementById('modal-' + serviceType);
-    const overlay = document.getElementById('serviceModalOverlay');
-
-    if (modal && overlay) {
-        overlay.classList.add('active');
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function closeServiceModal() {
-    document.querySelectorAll('.service-modal').forEach(modal => {
-        modal.classList.remove('active');
-    });
-    document.getElementById('serviceModalOverlay').classList.remove('active');
-    document.body.style.overflow = '';
-}
-
 // Close on Escape key
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {

@@ -1,0 +1,146 @@
+/* editor-modern/forms.css
+ * Modern Form Styles | ~120 Zeilen
+ */
+
+/* ==========================================
+   Form Group
+   ========================================== */
+
+.form-group.modern,
+.modern .form-group {
+    margin-bottom: var(--space-5);
+}
+
+.form-group.modern label,
+.modern .form-group label {
+    display: block;
+    margin-bottom: var(--space-2);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+/* ==========================================
+   Input Fields
+   ========================================== */
+
+.input.modern,
+.modern input[type="text"],
+.modern input[type="email"],
+.modern input[type="password"],
+.modern input[type="search"],
+.modern input[type="date"],
+.modern input[type="time"],
+.modern textarea {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: var(--text);
+    background: var(--surface-1);
+    border: 1.5px solid rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-md);
+    transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.input.modern::placeholder,
+.modern input::placeholder,
+.modern textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.input.modern:hover,
+.modern input:hover,
+.modern textarea:hover {
+    border-color: rgba(0, 0, 0, 0.15);
+}
+
+.input.modern:focus,
+.modern input:focus,
+.modern textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+}
+
+/* ==========================================
+   Select
+   ========================================== */
+
+.select.modern,
+.modern select {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    color: var(--text);
+    background: var(--surface-1);
+    border: 1.5px solid rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-smooth);
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--space-4) center;
+    padding-right: var(--space-10);
+}
+
+.select.modern:focus,
+.modern select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+}
+
+/* ==========================================
+   Checkbox & Radio
+   ========================================== */
+
+.checkbox.modern,
+.modern input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+
+.radio.modern,
+.modern input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+
+/* ==========================================
+   Dark Form Variant
+   ========================================== */
+
+.form-dark.modern input,
+.form-dark.modern textarea,
+.form-dark.modern select,
+.modern.dark input,
+.modern.dark textarea,
+.modern.dark select {
+    color: var(--text-inverse);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.form-dark.modern input::placeholder,
+.form-dark.modern textarea::placeholder,
+.modern.dark input::placeholder,
+.modern.dark textarea::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.form-dark.modern input:focus,
+.form-dark.modern textarea:focus,
+.form-dark.modern select:focus,
+.modern.dark input:focus,
+.modern.dark textarea:focus,
+.modern.dark select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.2);
+}

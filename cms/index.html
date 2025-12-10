@@ -16,8 +16,11 @@
     <link rel="apple-touch-icon" href="../wp-content/uploads/2025/01/Kathrin_Stahl_Logo_RGB_gold.png">
     <title>CMS Editor v2.0 - Kathrin Stahl</title>
     <link rel="stylesheet" href="css/editor.css">
+
+    <!-- Modern UI Styles (Glassmorphism) -->
+    <link rel="stylesheet" href="../css/editor-modern/index.css">
 </head>
-<body>
+<body class="modern">
     <!-- Setup Screen -->
     <div class="setup-screen" id="setupScreen">
         <div class="setup-card">
@@ -44,12 +47,13 @@
     </div>
 
     <!-- Toolbar -->
-    <div class="toolbar">
+    <div class="toolbar modern">
         <div class="toolbar-left">
             <div class="toolbar-logo">Editor</div>
             <div class="toolbar-mode-switch">
                 <a href="../cms/" class="mode-btn active">Seiten</a>
                 <a href="../blog-editor-modular.html" class="mode-btn">Blog</a>
+                <a href="analytics/" class="mode-btn" title="Analytics Dashboard">📊</a>
             </div>
             <select id="pageSelect">
                 <option value="">Seite wählen...</option>
@@ -107,7 +111,7 @@
     </div>
 
     <!-- Sidebars -->
-    <div class="sidebar" id="versionsSidebar">
+    <div class="sidebar modern" id="versionsSidebar">
         <button class="sidebar-close" onclick="CMS.closeSidebar('versionsSidebar')">&times;</button>
         <div class="sidebar-section">
             <h3>📋 Aktuelle Änderungen</h3>
@@ -127,7 +131,7 @@
         </div>
     </div>
 
-    <div class="sidebar" id="notesSidebar">
+    <div class="sidebar modern" id="notesSidebar">
         <button class="sidebar-close" onclick="CMS.closeSidebar('notesSidebar')">&times;</button>
         <div class="sidebar-section" style="padding-bottom:0.5rem;">
             <h3 style="margin-bottom:0.5rem;">📝 Notizen</h3>
@@ -166,8 +170,8 @@
     </div>
 
     <!-- Modals -->
-    <div class="modal-bg" id="imgModal">
-        <div class="modal">
+    <div class="modal-bg modern" id="imgModal">
+        <div class="modal modern">
             <h3>Bild ersetzen</h3>
             <div class="upload-zone" id="imgUploadZone">
                 <div style="font-size:2rem;margin-bottom:0.5rem;">+</div>
@@ -182,7 +186,7 @@
         </div>
     </div>
 
-    <div class="modal-bg" id="videoModal">
+    <div class="modal-bg modern" id="videoModal">
         <div class="modal" style="max-width:500px;">
             <h3>Video ändern</h3>
             <div style="display:flex;gap:0.5rem;margin-bottom:1rem;">
@@ -243,11 +247,11 @@
     </div>
 
     <!-- Recording Setup Modal -->
-    <div class="modal-bg" id="recordModal">
+    <div class="modal-bg modern" id="recordModal">
         <div class="modal" style="max-width:450px;">
             <h3>🎥 Video-Feedback aufnehmen</h3>
             <p style="color:#666;margin-bottom:1rem;font-size:0.9rem;">
-                Erkläre deine Änderungswünsche per Video. Die Webcam-Vorschau siehst du unten links - verschiebe und skaliere sie nach Belieben!
+                Schau dir unten links deine Webcam-Vorschau an und prüfe, ob alles passt. Du kannst das Bild verschieben und skalieren!
             </p>
 
             <div class="record-options">
@@ -287,13 +291,22 @@
                         <input type="range" id="camContrast" min="50" max="150" value="100">
                         <span id="contrastValue">100%</span>
                     </div>
+                    <div class="settings-divider"></div>
+                    <p style="font-size:0.75rem;color:#888;margin-bottom:0.5rem;">
+                        💡 Ziehe an der Ecke unten rechts, um die Bildgröße stufenlos anzupassen
+                    </p>
                     <div class="settings-row">
-                        <label>Bildgröße:</label>
-                        <select id="pipSize" onchange="CMS.updatePipSizeFromSelect()">
-                            <option value="small">Klein (150px)</option>
-                            <option value="medium" selected>Mittel (200px)</option>
-                            <option value="large">Groß (280px)</option>
-                        </select>
+                        <label>Hintergrund:</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="bgBlur" onchange="CMS.toggleBackgroundBlur(this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span class="setting-label">Blur</span>
+                    </div>
+                    <div class="settings-row" id="blurStrengthRow" style="display:none;">
+                        <label>Blur-Stärke:</label>
+                        <input type="range" id="blurStrength" min="2" max="20" value="10">
+                        <span id="blurStrengthValue">10px</span>
                     </div>
                 </div>
             </details>
@@ -308,15 +321,11 @@
     <!-- Webcam Picture-in-Picture Overlay -->
     <div class="webcam-pip" id="webcamPip">
         <video id="webcamVideo" autoplay muted playsinline></video>
-        <div class="pip-controls">
-            <button class="pip-btn" onclick="CMS.togglePipSize()" title="Größe ändern">⊡</button>
-            <button class="pip-btn" onclick="CMS.closePip()" title="Schließen">×</button>
-        </div>
         <div class="pip-resize-handle"></div>
     </div>
 
     <!-- Recording Preview Modal -->
-    <div class="modal-bg" id="recordPreviewModal">
+    <div class="modal-bg modern" id="recordPreviewModal">
         <div class="modal" style="max-width:600px;">
             <h3>✅ Aufnahme fertig!</h3>
             <video id="recordedVideo" controls style="width:100%;border-radius:8px;margin:1rem 0;background:#000;"></video>

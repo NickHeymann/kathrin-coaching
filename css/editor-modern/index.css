@@ -1,0 +1,151 @@
+/* editor-modern/index.css
+ * Modern UI Bundle - Import All Modules
+ * Aktiviert mit class="modern" auf body oder Container
+ */
+
+@import url('variables.css');
+@import url('toolbar.css');
+@import url('buttons.css');
+@import url('sidebar.css');
+@import url('cards.css');
+@import url('modals.css');
+@import url('forms.css');
+
+/* ==========================================
+   Global Modern Overrides
+   ========================================== */
+
+body.modern {
+    font-family: var(--font-body);
+    background: var(--surface-2);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth Scrolling */
+body.modern,
+.modern {
+    scroll-behavior: smooth;
+}
+
+/* Selection */
+body.modern ::selection {
+    background: rgba(var(--accent-rgb), 0.3);
+    color: var(--text);
+}
+
+/* Focus Visible */
+body.modern :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* ==========================================
+   Typography Enhancements
+   ========================================== */
+
+body.modern h1,
+body.modern h2,
+body.modern h3,
+body.modern h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+}
+
+body.modern p {
+    line-height: 1.6;
+}
+
+/* ==========================================
+   Animation Classes
+   ========================================== */
+
+.modern .fade-in {
+    animation: fadeIn var(--duration-normal) var(--ease-smooth);
+}
+
+.modern .slide-up {
+    animation: slideUp var(--duration-normal) var(--ease-smooth);
+}
+
+.modern .scale-in {
+    animation: scaleIn var(--duration-fast) var(--ease-spring);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ==========================================
+   Scrollbar (WebKit)
+   ========================================== */
+
+body.modern ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+body.modern ::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+body.modern ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: var(--radius-full);
+}
+
+body.modern ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.25);
+}
+
+/* Dark scrollbar */
+body.modern.dark ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+body.modern.dark ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* ==========================================
+   Utility Classes
+   ========================================== */
+
+.modern .glass {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+}
+
+.modern .glow {
+    box-shadow: var(--shadow-glow);
+}
+
+.modern .elevated {
+    box-shadow: var(--shadow-lg);
+}

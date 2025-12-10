@@ -1,0 +1,142 @@
+/* editor-modern/cards.css
+ * Modern Card Components | ~120 Zeilen
+ */
+
+/* ==========================================
+   Base Card
+   ========================================== */
+
+.card.modern,
+.modern .card {
+    background: var(--surface-1);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--duration-normal) var(--ease-smooth);
+    overflow: hidden;
+}
+
+.card.modern:hover,
+.modern .card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================
+   Glass Card
+   ========================================== */
+
+.card-glass.modern,
+.modern .card-glass {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+}
+
+/* ==========================================
+   Editor Card (Floating Toolbar Style)
+   ========================================== */
+
+.editor-card.modern,
+.modern .editor-card {
+    background: var(--surface-elevated);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: var(--shadow-md);
+}
+
+/* ==========================================
+   Feature Card
+   ========================================== */
+
+.feature-card.modern,
+.modern .feature-card {
+    padding: var(--space-6);
+    background: linear-gradient(
+        135deg,
+        var(--surface-1) 0%,
+        var(--surface-2) 100%
+    );
+    border-radius: var(--radius-xl);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--duration-normal) var(--ease-smooth);
+}
+
+.feature-card.modern:hover,
+.modern .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.feature-card.modern .feature-icon {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: var(--text-inverse);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-4);
+}
+
+/* ==========================================
+   Stats Card
+   ========================================== */
+
+.stats-card.modern,
+.modern .stats-card {
+    padding: var(--space-5);
+    background: var(--surface-1);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.stats-card.modern .stats-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1.2;
+}
+
+.stats-card.modern .stats-label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-top: var(--space-1);
+}
+
+.stats-card.modern .stats-change {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-1) var(--space-2);
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    margin-top: var(--space-2);
+}
+
+.stats-card.modern .stats-change.positive {
+    background: rgba(34, 197, 94, 0.1);
+    color: var(--success);
+}
+
+.stats-card.modern .stats-change.negative {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+}
+
+/* ==========================================
+   Dark Card Variant
+   ========================================== */
+
+.card-dark.modern,
+.modern .card-dark {
+    background: var(--dark-glass);
+    border: 1px solid var(--dark-glass-border);
+    color: var(--text-inverse);
+}

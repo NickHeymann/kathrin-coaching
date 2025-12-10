@@ -1,0 +1,124 @@
+/* editor-modern/toolbar.css
+ * Glassmorphism Toolbar | ~100 Zeilen
+ */
+
+.header.modern,
+.toolbar.modern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--space-6);
+    z-index: 1000;
+
+    /* Glassmorphism */
+    background: linear-gradient(
+        135deg,
+        rgba(var(--primary-rgb), 0.95) 0%,
+        rgba(var(--primary-rgb), 0.88) 100%
+    );
+    backdrop-filter: var(--glass-blur-strong);
+    -webkit-backdrop-filter: var(--glass-blur-strong);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+        0 4px 30px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Logo */
+.header.modern .logo,
+.toolbar.modern .toolbar-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-inverse);
+    letter-spacing: -0.02em;
+}
+
+.header.modern .logo-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+    border-radius: var(--radius-sm);
+    font-size: 1.125rem;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Mode Switch */
+.header.modern .mode-switch,
+.toolbar.modern .toolbar-mode-switch {
+    display: flex;
+    gap: var(--space-1);
+    padding: var(--space-1);
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-md);
+}
+
+.header.modern .mode-btn,
+.toolbar.modern .mode-btn {
+    padding: var(--space-2) var(--space-4);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-smooth);
+    text-decoration: none;
+}
+
+.header.modern .mode-btn:hover,
+.toolbar.modern .mode-btn:hover {
+    color: var(--text-inverse);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.header.modern .mode-btn.active,
+.toolbar.modern .mode-btn.active {
+    color: var(--text-inverse);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: var(--shadow-inner);
+}
+
+/* Status Indicators */
+.header.modern .status-indicator,
+.header.modern .autosave-indicator {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.header.modern .status-dot,
+.header.modern .autosave-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--success);
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        opacity: 1;
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+    }
+    50% {
+        opacity: 0.8;
+        box-shadow: 0 0 8px 4px rgba(34, 197, 94, 0.2);
+    }
+}

@@ -1,0 +1,190 @@
+/* editor-modern/buttons.css
+ * Modern Button Styles | ~150 Zeilen
+ */
+
+/* ==========================================
+   Base Button
+   ========================================== */
+
+.btn.modern,
+.modern .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-smooth);
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.btn.modern:disabled,
+.modern .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ==========================================
+   Ghost Button (Glassmorphism)
+   ========================================== */
+
+.btn-ghost.modern,
+.modern .btn-ghost {
+    background: var(--glass-bg);
+    color: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: var(--glass-blur);
+}
+
+.btn-ghost.modern:hover,
+.modern .btn-ghost:hover {
+    background: var(--glass-bg-light);
+    border-color: var(--glass-border-light);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-ghost.modern:active,
+.modern .btn-ghost:active {
+    transform: translateY(0);
+}
+
+/* Dark Variant */
+.btn-ghost-dark.modern,
+.modern .btn-ghost-dark {
+    background: rgba(0, 0, 0, 0.4);
+    color: var(--text);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.btn-ghost-dark.modern:hover,
+.modern .btn-ghost-dark:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================
+   Primary Button (Accent Glow)
+   ========================================== */
+
+.btn-primary.modern,
+.modern .btn-primary {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+    color: var(--text-inverse);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow:
+        var(--shadow-sm),
+        0 0 0 1px rgba(var(--accent-rgb), 0.2);
+}
+
+.btn-primary.modern:hover,
+.modern .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        var(--shadow-md),
+        var(--shadow-glow);
+}
+
+.btn-primary.modern:active,
+.modern .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ==========================================
+   Success Button
+   ========================================== */
+
+.btn-success.modern,
+.modern .btn-success {
+    background: linear-gradient(135deg, var(--success) 0%, var(--success-light) 100%);
+    color: var(--text-inverse);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow:
+        var(--shadow-sm),
+        0 0 0 1px rgba(34, 197, 94, 0.2);
+}
+
+.btn-success.modern:hover,
+.modern .btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        var(--shadow-md),
+        var(--shadow-glow-success);
+}
+
+/* ==========================================
+   Danger Button
+   ========================================== */
+
+.btn-danger.modern,
+.modern .btn-danger {
+    background: linear-gradient(135deg, var(--danger) 0%, var(--danger-light) 100%);
+    color: var(--text-inverse);
+}
+
+.btn-danger.modern:hover,
+.modern .btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        var(--shadow-md),
+        0 0 20px rgba(239, 68, 68, 0.3);
+}
+
+/* ==========================================
+   Icon Button
+   ========================================== */
+
+.btn-icon.modern,
+.modern .btn-icon {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.125rem;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-md);
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+.btn-icon.modern:hover,
+.modern .btn-icon:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-inverse);
+}
+
+.btn-icon.modern.active,
+.modern .btn-icon.active {
+    background: var(--accent);
+    color: var(--text-inverse);
+}
+
+/* ==========================================
+   Button Group
+   ========================================== */
+
+.btn-group.modern,
+.modern .btn-group {
+    display: inline-flex;
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    padding: 2px;
+}
+
+.btn-group.modern .btn,
+.modern .btn-group .btn {
+    border-radius: var(--radius-sm);
+}
