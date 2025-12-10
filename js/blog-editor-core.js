@@ -11,6 +11,7 @@ function initEditor() {
     loadDrafts();
     loadQueue();
     loadVersions();
+    loadCustomFonts();
     setupCategoryTags();
     setupEventListeners();
     startAutosave();
@@ -833,6 +834,381 @@ function execCmd(command, value = null) {
 function formatBlock(tag) {
     document.execCommand('formatBlock', false, `<${tag}>`);
     document.getElementById('postContent').focus();
+}
+
+// ============================================
+// SMART TOOLBAR FUNCTIONS
+// ============================================
+
+/**
+ * Öffnet/schließt ein Toolbar-Dropdown
+ */
+function toggleToolbarDropdown(btn) {
+    const dropdown = btn.closest('.toolbar-dropdown');
+    const menu = dropdown.querySelector('.toolbar-dropdown-menu');
+    const isOpen = menu.classList.contains('open');
+
+    // Erst alle anderen schließen
+    closeAllDropdowns();
+
+    // Dann dieses öffnen/schließen
+    if (!isOpen) {
+        menu.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+
+        // Klick außerhalb schließt Dropdown
+        setTimeout(() => {
+            document.addEventListener('click', closeDropdownOnOutsideClick);
+        }, 10);
+    }
+}
+
+function closeDropdownOnOutsideClick(e) {
+    if (!e.target.closest('.toolbar-dropdown')) {
+        closeAllDropdowns();
+    }
+}
+
+function closeAllDropdowns() {
+    document.querySelectorAll('.toolbar-dropdown-menu.open').forEach(menu => {
+        menu.classList.remove('open');
+    });
+    document.querySelectorAll('.toolbar-dropdown-btn[aria-expanded="true"]').forEach(btn => {
+        btn.setAttribute('aria-expanded', 'false');
+    });
+    document.removeEventListener('click', closeDropdownOnOutsideClick);
+}
+
+/**
+ * Setzt den Block-Typ (Überschrift, Absatz, etc.)
+ */
+function setBlockType(tag, label) {
+    document.execCommand('formatBlock', false, `<${tag}>`);
+    document.querySelector('.toolbar-dropdown .dropdown-label').textContent = label;
+    closeAllDropdowns();
+    document.getElementById('postContent').focus();
+    onContentChange();
+}
+
+/**
+ * Setzt die Schriftart für die aktuelle Auswahl
+ */
+function setFont(fontFamily) {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+
+    if (range.collapsed) {
+        // Keine Auswahl - auf den gesamten Editor anwenden
+        document.getElementById('postContent').style.fontFamily = fontFamily;
+    } else {
+        // Auswahl vorhanden - Span um die Auswahl legen
+        const span = document.createElement('span');
+        span.style.fontFamily = fontFamily;
+
+        try {
+            range.surroundContents(span);
+        } catch (e) {
+            // Fallback bei komplexen Auswahlen
+            document.execCommand('fontName', false, fontFamily.split(',')[0].trim());
+        }
+    }
+
+    // Label aktualisieren
+    const fontName = fontFamily.split(',')[0].replace(/'/g, '').trim();
+    document.getElementById('currentFontLabel').textContent = fontName;
+
+    closeAllDropdowns();
+    onContentChange();
+}
+
+/**
+ * Setzt die Schriftgröße für die aktuelle Auswahl
+ */
+function setFontSize(size) {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+
+    if (range.collapsed) {
+        // Keine Auswahl - auf den gesamten Editor anwenden
+        document.getElementById('postContent').style.fontSize = size;
+    } else {
+        // Auswahl vorhanden
+        const span = document.createElement('span');
+        span.style.fontSize = size;
+
+        try {
+            range.surroundContents(span);
+        } catch (e) {
+            // Fallback
+            const sizeNum = parseInt(size);
+            const sizeMap = { 12: 1, 14: 2, 16: 3, 18: 4, 20: 5, 24: 6, 28: 7, 32: 7, 36: 7, 48: 7 };
+            document.execCommand('fontSize', false, sizeMap[sizeNum] || 3);
+        }
+    }
+
+    // Label aktualisieren
+    document.getElementById('currentSizeLabel').textContent = parseInt(size);
+
+    closeAllDropdowns();
+    onContentChange();
+}
+
+/**
+ * Setzt die Textfarbe
+ */
+function setTextColor(color) {
+    document.execCommand('foreColor', false, color);
+
+    // Indikator aktualisieren
+    const indicator = document.getElementById('textColorIndicator');
+    if (indicator) indicator.style.background = color;
+
+    onContentChange();
+}
+
+/**
+ * Setzt die Hintergrundfarbe (Highlight)
+ */
+function setBackgroundColor(color) {
+    document.execCommand('hiliteColor', false, color);
+
+    // Icon aktualisieren
+    const icon = document.querySelector('.bg-color-icon');
+    if (icon) icon.style.background = color;
+
+    onContentChange();
+}
+
+/**
+ * Setzt den Zeilenabstand
+ */
+function setLineHeight(value) {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+
+    // Finde das nächste Block-Element
+    let block = range.startContainer;
+    while (block && block.nodeType !== 1) block = block.parentNode;
+    while (block && !['P', 'DIV', 'H1', 'H2', 'H3', 'H4', 'BLOCKQUOTE', 'LI'].includes(block.tagName)) {
+        block = block.parentNode;
+    }
+
+    if (block && block !== document.getElementById('postContent')) {
+        block.style.lineHeight = value;
+    } else {
+        // Auf den gesamten Editor anwenden
+        document.getElementById('postContent').style.lineHeight = value;
+    }
+
+    onContentChange();
+}
+
+/**
+ * Setzt den Absatzabstand
+ */
+function setParagraphSpacing(value) {
+    const selection = window.getSelection();
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+
+    // Finde das nächste Block-Element
+    let block = range.startContainer;
+    while (block && block.nodeType !== 1) block = block.parentNode;
+    while (block && !['P', 'DIV', 'H1', 'H2', 'H3', 'H4', 'BLOCKQUOTE'].includes(block.tagName)) {
+        block = block.parentNode;
+    }
+
+    if (block && block !== document.getElementById('postContent')) {
+        block.style.marginBottom = value;
+    } else {
+        // Alle Absätze im Editor
+        document.querySelectorAll('#postContent p, #postContent h1, #postContent h2, #postContent h3').forEach(el => {
+            el.style.marginBottom = value;
+        });
+    }
+
+    onContentChange();
+}
+
+/**
+ * Fügt eine horizontale Linie ein
+ */
+function insertHorizontalRule() {
+    document.execCommand('insertHorizontalRule', false, null);
+    closeAllDropdowns();
+    onContentChange();
+}
+
+/**
+ * Fügt eine Tabelle ein
+ */
+function insertTable() {
+    const rows = prompt('Anzahl Zeilen:', '3');
+    const cols = prompt('Anzahl Spalten:', '3');
+
+    if (!rows || !cols) return;
+
+    let tableHtml = '<table style="width: 100%; border-collapse: collapse; margin: 1.5rem 0;">';
+    for (let r = 0; r < parseInt(rows); r++) {
+        tableHtml += '<tr>';
+        for (let c = 0; c < parseInt(cols); c++) {
+            const tag = r === 0 ? 'th' : 'td';
+            tableHtml += `<${tag} style="border: 1px solid #ddd; padding: 0.75rem;">${r === 0 ? 'Spalte ' + (c + 1) : ''}</${tag}>`;
+        }
+        tableHtml += '</tr>';
+    }
+    tableHtml += '</table><p></p>';
+
+    document.execCommand('insertHTML', false, tableHtml);
+    closeAllDropdowns();
+    onContentChange();
+}
+
+// ============================================
+// CUSTOM FONTS
+// ============================================
+
+// Gespeicherte Custom Fonts
+let customFonts = JSON.parse(localStorage.getItem('blog_custom_fonts') || '[]');
+
+/**
+ * Öffnet das Custom Font Modal
+ */
+function openCustomFontModal() {
+    closeAllDropdowns();
+    const modal = document.getElementById('customFontModal');
+    if (modal) {
+        modal.classList.add('open');
+        document.getElementById('customFontName').value = '';
+        document.getElementById('customFontUrl').value = '';
+        document.getElementById('customFontStack').value = 'sans-serif';
+        updateCustomFontPreview();
+    }
+}
+
+function closeCustomFontModal() {
+    const modal = document.getElementById('customFontModal');
+    if (modal) modal.classList.remove('open');
+}
+
+/**
+ * Aktualisiert die Vorschau im Custom Font Modal
+ */
+function updateCustomFontPreview() {
+    const name = document.getElementById('customFontName').value || 'Open Sans';
+    const url = document.getElementById('customFontUrl').value;
+    const fallback = document.getElementById('customFontStack').value;
+    const preview = document.getElementById('customFontPreview');
+
+    if (url && preview) {
+        // Lade die Schriftart temporär
+        const link = document.createElement('link');
+        link.href = url;
+        link.rel = 'stylesheet';
+        link.id = 'tempFontPreview';
+
+        // Entferne alte Vorschau
+        const oldLink = document.getElementById('tempFontPreview');
+        if (oldLink) oldLink.remove();
+
+        document.head.appendChild(link);
+
+        // Warte kurz, dann zeige Vorschau
+        setTimeout(() => {
+            preview.style.fontFamily = `'${name}', ${fallback}`;
+        }, 300);
+    }
+}
+
+/**
+ * Fügt eine Custom Font hinzu
+ */
+function addCustomFont() {
+    const name = document.getElementById('customFontName').value.trim();
+    const url = document.getElementById('customFontUrl').value.trim();
+    const fallback = document.getElementById('customFontStack').value || 'sans-serif';
+
+    if (!name) {
+        toast('Bitte einen Schriftart-Namen eingeben', 'error');
+        return;
+    }
+
+    // Font zur Liste hinzufügen
+    const fontData = { name, url, fallback };
+    customFonts.push(fontData);
+    localStorage.setItem('blog_custom_fonts', JSON.stringify(customFonts));
+
+    // Google Font laden falls URL vorhanden
+    if (url) {
+        const link = document.createElement('link');
+        link.href = url;
+        link.rel = 'stylesheet';
+        document.head.appendChild(link);
+    }
+
+    // Font-Menü aktualisieren
+    updateFontMenu();
+
+    // Font direkt anwenden
+    setFont(`'${name}', ${fallback}`);
+
+    closeCustomFontModal();
+    toast(`Schriftart "${name}" hinzugefügt`, 'success');
+}
+
+/**
+ * Aktualisiert das Font-Menü mit Custom Fonts
+ */
+function updateFontMenu() {
+    const menu = document.getElementById('fontMenu');
+    if (!menu) return;
+
+    // Entferne alte Custom Font Buttons
+    menu.querySelectorAll('.custom-font-item').forEach(el => el.remove());
+
+    // Custom Fonts hinzufügen
+    if (customFonts.length > 0) {
+        const divider = menu.querySelector('.dropdown-divider');
+        if (divider) {
+            // Section Title einfügen
+            const sectionTitle = document.createElement('div');
+            sectionTitle.className = 'dropdown-section-title custom-font-item';
+            sectionTitle.textContent = 'Eigene Schriftarten';
+            divider.before(sectionTitle);
+
+            // Buttons für Custom Fonts
+            customFonts.forEach((font, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'custom-font-item';
+                btn.textContent = font.name;
+                btn.style.fontFamily = `'${font.name}', ${font.fallback}`;
+                btn.onclick = () => setFont(`'${font.name}', ${font.fallback}`);
+                divider.before(btn);
+            });
+        }
+    }
+}
+
+/**
+ * Lädt Custom Fonts beim Start
+ */
+function loadCustomFonts() {
+    customFonts.forEach(font => {
+        if (font.url) {
+            const link = document.createElement('link');
+            link.href = font.url;
+            link.rel = 'stylesheet';
+            document.head.appendChild(link);
+        }
+    });
+    updateFontMenu();
 }
 
 function insertLink() {
