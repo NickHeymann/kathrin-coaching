@@ -174,14 +174,28 @@ header nav a:hover,
 .dropdown-icon.hsp,
 .dropdown-icon.iq,
 .dropdown-icon.burnout,
-.dropdown-icon.midlife {
+.dropdown-icon.midlife,
+.dropdown-icon.coaching,
+.dropdown-icon.retreat,
+.dropdown-icon.pferd,
+.dropdown-icon.casinha {
     font-size: 0.75rem;
     font-weight: 700;
-    color: var(--color-primary);
+    color: #fff;
 }
 
+.dropdown-icon.hsp { background: linear-gradient(135deg, #D2AB74, #c9a066); }
+.dropdown-icon.iq { background: linear-gradient(135deg, #1a5276, #2471a3); }
+.dropdown-icon.burnout { background: linear-gradient(135deg, #2c3e50, #34495e); }
+.dropdown-icon.midlife { background: linear-gradient(135deg, #6c3483, #8e44ad); }
+.dropdown-icon.coaching { background: linear-gradient(135deg, #5B7A5D, #4a6b4c); }
+.dropdown-icon.retreat { background: linear-gradient(135deg, #3d6b4f, #2d5a3f); }
+.dropdown-icon.pferd { background: linear-gradient(135deg, #8B6914, #7a5c12); }
+.dropdown-icon.casinha { background: linear-gradient(135deg, #b87333, #a66328); }
+
 .dropdown-icon.beziehung {
-    color: #e74c3c;
+    color: #fff;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
 }
 
 .dropdown-text {
