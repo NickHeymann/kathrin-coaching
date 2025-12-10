@@ -3,6 +3,21 @@
    Kathrin Coaching Website
    ============================================ */
 
+/* CSS Variables with Fallbacks for Standalone Use */
+:root {
+    --color-primary: #2C4A47;
+    --color-primary-light: #3D6B66;
+    --color-secondary: #2D2D2D;
+    --color-accent: #C4A962;
+    --color-accent-dark: #A68B3D;
+    --color-white: #FFFFFF;
+    --color-off-white: #FAF8F5;
+    --color-light-gray: #f5f5f5;
+    --color-text-light: #5A5A5A;
+    --font-heading: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Montserrat', -apple-system, sans-serif;
+}
+
 /* Fixed Header */
 header,
 .site-header {
@@ -21,6 +36,13 @@ header,
 header.scrolled,
 .site-header.scrolled {
     box-shadow: var(--shadow-md);
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
 }
 
 /* Header Inner Container */
@@ -79,6 +101,24 @@ header nav a:hover,
 
 .nav-dropdown .nav-link:hover {
     color: var(--color-primary);
+}
+
+/* Dropdown Arrow */
+.nav-dropdown > .nav-link::after {
+    content: '';
+    border: solid var(--color-secondary);
+    border-width: 0 1.5px 1.5px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    transition: transform 0.2s, border-color 0.2s;
+    margin-left: 5px;
+    margin-top: -2px;
+}
+
+.nav-dropdown:hover > .nav-link::after {
+    transform: rotate(-135deg);
+    border-color: var(--color-primary);
 }
 
 .nav-dropdown .dropdown-menu {
@@ -209,6 +249,44 @@ header nav a:hover,
     font-size: 1.2rem;
 }
 
+/* Nav CTA Button */
+.nav-cta {
+    background: var(--color-accent) !important;
+    color: var(--color-white) !important;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+}
+
+.nav-cta:hover {
+    background: var(--color-accent-dark) !important;
+    transform: translateY(-2px);
+}
+
+/* Menu Toggle Button */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001;
+}
+
+.menu-toggle span {
+    width: 25px;
+    height: 2px;
+    background: var(--color-secondary);
+    transition: all 0.3s ease;
+}
+
 /* Mobile Menu Button */
 .mobile-menu-btn {
     display: none;
@@ -315,7 +393,8 @@ main {
    Mobile Navigation (max-width: 991px)
    ----------------------------------------- */
 @media (max-width: 991px) {
-    .mobile-menu-btn {
+    .mobile-menu-btn,
+    .menu-toggle {
         display: flex;
     }
 
@@ -340,7 +419,8 @@ main {
 
     header nav.active,
     .site-header nav.active,
-    #mainNav.active {
+    #mainNav.active,
+    #mainNav.mobile-open {
         right: 0;
     }
 
@@ -375,7 +455,8 @@ main {
         visibility: visible;
     }
 
-    .nav-dropdown.active .dropdown-menu {
+    .nav-dropdown.active .dropdown-menu,
+    .nav-dropdown.open .dropdown-menu {
         max-height: 1000px;
         margin: 10px 0;
     }
@@ -395,8 +476,11 @@ main {
         visibility: visible;
     }
 
-    .contact-dropdown.active .contact-dropdown-menu {
+    .contact-dropdown.active .contact-dropdown-menu,
+    .contact-dropdown-menu.active {
         max-height: 500px;
         margin: 10px 0;
+        opacity: 1;
+        visibility: visible;
     }
 }

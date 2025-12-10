@@ -86,9 +86,20 @@
             <span class="status-badge status-saved" id="statusBadge">Gespeichert</span>
         </div>
         <div class="toolbar-right">
-            <button class="btn btn-ghost" id="recordBtn" onclick="CMS.toggleRecording()" title="Video-Feedback aufnehmen">🎥 Video</button>
+            <div class="feedback-dropdown">
+                <button class="btn btn-ghost dropdown-trigger" onclick="CMS.toggleFeedbackDropdown()">
+                    💬 Feedback <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="dropdown-menu" id="feedbackDropdown">
+                    <button class="dropdown-item" onclick="CMS.toggleRecording(); CMS.closeFeedbackDropdown();">
+                        🎥 Video aufnehmen
+                    </button>
+                    <button class="dropdown-item" onclick="CMS.toggleNotesSidebar(); CMS.closeFeedbackDropdown();">
+                        📝 Notizen
+                    </button>
+                </div>
+            </div>
             <button class="btn btn-ghost" onclick="CMS.forceReload()" title="Seite neu laden">Neu laden</button>
-            <button class="btn btn-ghost" onclick="CMS.toggleNotesSidebar()">Notizen</button>
             <button class="btn btn-ghost" onclick="CMS.showVersions()">Versionen</button>
             <button class="btn btn-ghost" onclick="CMS.undo()">Rückgängig</button>
             <button class="btn btn-primary" onclick="CMS.saveNow()">Jetzt speichern</button>
@@ -232,11 +243,12 @@
 
     <!-- Recording Setup Modal -->
     <div class="modal-bg" id="recordModal">
-        <div class="modal" style="max-width:400px;">
+        <div class="modal" style="max-width:450px;">
             <h3>🎥 Video-Feedback aufnehmen</h3>
             <p style="color:#666;margin-bottom:1rem;font-size:0.9rem;">
                 Erkläre deine Änderungswünsche per Video - so ist alles klar verständlich!
             </p>
+
             <div class="record-options">
                 <label class="record-option">
                     <input type="checkbox" id="recordScreen" checked>
@@ -247,15 +259,56 @@
                     <span>🎤 Mikrofon (deine Stimme)</span>
                 </label>
                 <label class="record-option">
-                    <input type="checkbox" id="recordCam">
-                    <span>📷 Webcam (optional)</span>
+                    <input type="checkbox" id="recordCam" onchange="CMS.toggleCamSettings(this.checked)">
+                    <span>📷 Webcam (Bild-in-Bild)</span>
                 </label>
             </div>
+
+            <!-- Webcam Einstellungen (nur sichtbar wenn Webcam aktiviert) -->
+            <div class="cam-settings" id="camSettings" style="display:none;">
+                <div class="settings-row">
+                    <label>Auflösung:</label>
+                    <select id="camResolution">
+                        <option value="320x240">320x240 (klein)</option>
+                        <option value="640x480" selected>640x480 (mittel)</option>
+                        <option value="1280x720">1280x720 (HD)</option>
+                    </select>
+                </div>
+                <div class="settings-row">
+                    <label>Helligkeit:</label>
+                    <input type="range" id="camBrightness" min="50" max="150" value="100">
+                    <span id="brightnessValue">100%</span>
+                </div>
+                <div class="settings-row">
+                    <label>Kontrast:</label>
+                    <input type="range" id="camContrast" min="50" max="150" value="100">
+                    <span id="contrastValue">100%</span>
+                </div>
+                <div class="settings-row">
+                    <label>PiP-Größe:</label>
+                    <select id="pipSize">
+                        <option value="small">Klein (150px)</option>
+                        <option value="medium" selected>Mittel (200px)</option>
+                        <option value="large">Groß (280px)</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="modal-btns">
                 <button class="btn btn-cancel" onclick="CMS.closeRecordModal()">Abbrechen</button>
                 <button class="btn btn-primary" onclick="CMS.startRecording()">🔴 Aufnahme starten</button>
             </div>
         </div>
+    </div>
+
+    <!-- Webcam Picture-in-Picture Overlay -->
+    <div class="webcam-pip" id="webcamPip">
+        <video id="webcamVideo" autoplay muted playsinline></video>
+        <div class="pip-controls">
+            <button class="pip-btn" onclick="CMS.togglePipSize()" title="Größe ändern">⊡</button>
+            <button class="pip-btn" onclick="CMS.closePip()" title="Schließen">×</button>
+        </div>
+        <div class="pip-resize-handle"></div>
     </div>
 
     <!-- Recording Preview Modal -->

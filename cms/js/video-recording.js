@@ -2,7 +2,6 @@
  * Video Recording Module
  * Screen/Webcam Recording für Video-Feedback
  * @module video-recording
- * ~150 Zeilen
  */
 
 import { state } from './state.js';
@@ -20,6 +19,13 @@ let screenStream = null;
 let audioStream = null;
 let camStream = null;
 
+// PiP State
+let pipPosition = { x: 20, y: null }; // y wird beim Start berechnet (unten links)
+let pipSize = 'medium';
+let isDragging = false;
+let isResizing = false;
+let dragOffset = { x: 0, y: 0 };
+
 /**
  * Toggle Recording Modal oder Stop
  */
@@ -36,6 +42,105 @@ export function toggleRecording() {
  */
 export function closeRecordModal() {
     document.getElementById('recordModal')?.classList.remove('active');
+}
+
+/**
+ * Zeigt/versteckt Webcam-Einstellungen
+ */
+export function toggleCamSettings(show) {
+    const settings = document.getElementById('camSettings');
+    if (settings) {
+        settings.style.display = show ? 'block' : 'none';
+    }
+}
+
+/**
+ * Initialisiert Slider Event-Listener
+ */
+export function initRecordingControls() {
+    // Brightness Slider
+    const brightness = document.getElementById('camBrightness');
+    const brightnessVal = document.getElementById('brightnessValue');
+    if (brightness && brightnessVal) {
+        brightness.addEventListener('input', () => {
+            brightnessVal.textContent = brightness.value + '%';
+            applyVideoFilters();
+        });
+    }
+
+    // Contrast Slider
+    const contrast = document.getElementById('camContrast');
+    const contrastVal = document.getElementById('contrastValue');
+    if (contrast && contrastVal) {
+        contrast.addEventListener('input', () => {
+            contrastVal.textContent = contrast.value + '%';
+            applyVideoFilters();
+        });
+    }
+
+    // PiP Drag & Resize
+    setupPipInteraction();
+}
+
+/**
+ * Wendet Helligkeit/Kontrast auf Webcam-Video an
+ */
+function applyVideoFilters() {
+    const video = document.getElementById('webcamVideo');
+    const brightness = document.getElementById('camBrightness')?.value || 100;
+    const contrast = document.getElementById('camContrast')?.value || 100;
+
+    if (video) {
+        video.style.filter = `brightness(${brightness}%) contrast(${contrast}%)`;
+    }
+}
+
+/**
+ * Setup PiP Dragging und Resizing
+ */
+function setupPipInteraction() {
+    const pip = document.getElementById('webcamPip');
+    const resizeHandle = pip?.querySelector('.pip-resize-handle');
+
+    if (!pip) return;
+
+    // Dragging
+    pip.addEventListener('mousedown', (e) => {
+        if (e.target.closest('.pip-controls') || e.target.closest('.pip-resize-handle')) return;
+        isDragging = true;
+        dragOffset.x = e.clientX - pip.offsetLeft;
+        dragOffset.y = e.clientY - pip.offsetTop;
+        pip.style.cursor = 'grabbing';
+    });
+
+    // Resizing
+    if (resizeHandle) {
+        resizeHandle.addEventListener('mousedown', (e) => {
+            e.stopPropagation();
+            isResizing = true;
+        });
+    }
+
+    document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+            pip.style.left = (e.clientX - dragOffset.x) + 'px';
+            pip.style.top = (e.clientY - dragOffset.y) + 'px';
+            pip.style.bottom = 'auto';
+        }
+        if (isResizing) {
+            const rect = pip.getBoundingClientRect();
+            const newWidth = e.clientX - rect.left;
+            const newHeight = e.clientY - rect.top;
+            pip.style.width = Math.max(100, Math.min(400, newWidth)) + 'px';
+            pip.style.height = Math.max(75, Math.min(300, newHeight)) + 'px';
+        }
+    });
+
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+        isResizing = false;
+        if (pip) pip.style.cursor = 'grab';
+    });
 }
 
 /**
@@ -69,13 +174,18 @@ export async function startRecording() {
             tracks.push(...audioStream.getAudioTracks());
         }
 
-        // Webcam (optional)
+        // Webcam mit PiP
         if (useCam) {
+            const resolution = document.getElementById('camResolution')?.value || '640x480';
+            const [width, height] = resolution.split('x').map(Number);
+
             camStream = await navigator.mediaDevices.getUserMedia({
-                video: { width: 320, height: 240 },
+                video: { width, height },
                 audio: false
             });
-            // Webcam-Track wird separat gehandhabt (Picture-in-Picture)
+
+            // PiP anzeigen
+            showWebcamPip(camStream);
         }
 
         if (tracks.length === 0) {
@@ -108,16 +218,11 @@ export async function startRecording() {
             screenStream.getVideoTracks()[0].onended = () => stopRecording();
         }
 
-        mediaRecorder.start(1000); // Alle 1 Sekunde Daten
+        mediaRecorder.start(1000);
 
         // UI aktualisieren
         const indicator = document.getElementById('recordingIndicator');
-        const btn = document.getElementById('recordBtn');
         if (indicator) indicator.style.display = 'flex';
-        if (btn) {
-            btn.classList.add('recording');
-            btn.textContent = '⏹ Stopp';
-        }
 
         // Timer starten
         recordingStartTime = Date.now();
@@ -130,6 +235,66 @@ export async function startRecording() {
         toast('Aufnahme konnte nicht gestartet werden: ' + e.message, 'error');
         cleanupStreams();
     }
+}
+
+/**
+ * Zeigt Webcam im PiP-Fenster
+ */
+function showWebcamPip(stream) {
+    const pip = document.getElementById('webcamPip');
+    const video = document.getElementById('webcamVideo');
+
+    if (!pip || !video) return;
+
+    video.srcObject = stream;
+
+    // Größe basierend auf Auswahl
+    const size = document.getElementById('pipSize')?.value || 'medium';
+    const sizes = { small: 150, medium: 200, large: 280 };
+    pip.style.width = sizes[size] + 'px';
+    pip.style.height = (sizes[size] * 0.75) + 'px';
+
+    // Position unten links
+    pip.style.left = '20px';
+    pip.style.bottom = '80px';
+    pip.style.top = 'auto';
+
+    // Filter anwenden
+    applyVideoFilters();
+
+    pip.classList.add('active');
+}
+
+/**
+ * Schließt PiP-Fenster
+ */
+export function closePip() {
+    const pip = document.getElementById('webcamPip');
+    const video = document.getElementById('webcamVideo');
+
+    if (pip) pip.classList.remove('active');
+    if (video) video.srcObject = null;
+
+    if (camStream) {
+        camStream.getTracks().forEach(t => t.stop());
+        camStream = null;
+    }
+}
+
+/**
+ * Wechselt PiP-Größe durch
+ */
+export function togglePipSize() {
+    const pip = document.getElementById('webcamPip');
+    if (!pip) return;
+
+    const sizes = [150, 200, 280];
+    const currentWidth = pip.offsetWidth;
+    const currentIndex = sizes.findIndex(s => Math.abs(s - currentWidth) < 20);
+    const nextIndex = (currentIndex + 1) % sizes.length;
+
+    pip.style.width = sizes[nextIndex] + 'px';
+    pip.style.height = (sizes[nextIndex] * 0.75) + 'px';
 }
 
 /**
@@ -154,12 +319,10 @@ export function stopRecording() {
     clearInterval(recordingTimer);
 
     const indicator = document.getElementById('recordingIndicator');
-    const btn = document.getElementById('recordBtn');
     if (indicator) indicator.style.display = 'none';
-    if (btn) {
-        btn.classList.remove('recording');
-        btn.textContent = '🎥 Video';
-    }
+
+    // PiP schließen
+    closePip();
 
     cleanupStreams();
 }
@@ -168,14 +331,14 @@ export function stopRecording() {
  * Räumt Media Streams auf
  */
 function cleanupStreams() {
-    [screenStream, audioStream, camStream].forEach(stream => {
+    [screenStream, audioStream].forEach(stream => {
         if (stream) {
             stream.getTracks().forEach(t => t.stop());
         }
     });
     screenStream = null;
     audioStream = null;
-    camStream = null;
+    // camStream wird in closePip() aufgeräumt
 }
 
 /**

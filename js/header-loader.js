@@ -11,8 +11,24 @@
 (function() {
     'use strict';
 
-    // Header-Datei Pfad (relativ zum Root)
+    // Pfade (relativ zum Root)
     const HEADER_PATH = 'components/header.html';
+    const HEADER_CSS_PATH = 'css/components/header.css';
+
+    // CSS laden falls noch nicht vorhanden
+    function loadHeaderCSS() {
+        // Prüfe ob CSS schon geladen
+        const existingLink = document.querySelector(`link[href*="header.css"]`);
+        if (existingLink) return;
+
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = HEADER_CSS_PATH;
+        document.head.appendChild(link);
+    }
+
+    // CSS sofort laden
+    loadHeaderCSS();
 
     // Navigation Functions
     window.toggleMobileNav = function() {
