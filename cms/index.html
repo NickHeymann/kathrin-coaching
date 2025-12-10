@@ -244,20 +244,11 @@
 
     <!-- Recording Setup Modal -->
     <div class="modal-bg" id="recordModal">
-        <div class="modal" style="max-width:500px;">
+        <div class="modal" style="max-width:450px;">
             <h3>🎥 Video-Feedback aufnehmen</h3>
             <p style="color:#666;margin-bottom:1rem;font-size:0.9rem;">
-                Erkläre deine Änderungswünsche per Video - so ist alles klar verständlich!
+                Erkläre deine Änderungswünsche per Video. Die Webcam-Vorschau siehst du unten links - verschiebe und skaliere sie nach Belieben!
             </p>
-
-            <!-- Webcam Vorschau -->
-            <div class="webcam-preview" id="webcamPreview">
-                <video id="webcamPreviewVideo" autoplay muted playsinline></video>
-                <div class="webcam-preview-placeholder" id="webcamPreviewPlaceholder">
-                    <span>📷</span>
-                    <p>Webcam wird geladen...</p>
-                </div>
-            </div>
 
             <div class="record-options">
                 <label class="record-option">
@@ -269,7 +260,7 @@
                     <span>🎤 Mikrofon (deine Stimme)</span>
                 </label>
                 <label class="record-option">
-                    <input type="checkbox" id="recordCam" checked>
+                    <input type="checkbox" id="recordCam" checked onchange="CMS.toggleWebcamPreview(this.checked)">
                     <span>📷 Webcam (Bild-in-Bild)</span>
                 </label>
             </div>
@@ -280,7 +271,7 @@
                 <div class="cam-settings" id="camSettings">
                     <div class="settings-row">
                         <label>Auflösung:</label>
-                        <select id="camResolution">
+                        <select id="camResolution" onchange="CMS.updatePreviewResolution()">
                             <option value="320x240">320x240 (klein)</option>
                             <option value="640x480" selected>640x480 (mittel)</option>
                             <option value="1280x720">1280x720 (HD)</option>
@@ -298,7 +289,7 @@
                     </div>
                     <div class="settings-row">
                         <label>Bildgröße:</label>
-                        <select id="pipSize">
+                        <select id="pipSize" onchange="CMS.updatePipSizeFromSelect()">
                             <option value="small">Klein (150px)</option>
                             <option value="medium" selected>Mittel (200px)</option>
                             <option value="large">Groß (280px)</option>

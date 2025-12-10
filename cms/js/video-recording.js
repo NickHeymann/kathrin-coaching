@@ -60,38 +60,58 @@ export function toggleRecording() {
 }
 
 /**
- * Öffnet das Recording-Modal mit Webcam-Vorschau
+ * Öffnet das Recording-Modal mit Webcam-Vorschau im PiP-Fenster
  */
 async function openRecordModal() {
     document.getElementById('recordModal')?.classList.add('active');
 
-    // Webcam-Vorschau starten
-    await startWebcamPreview();
+    // Webcam-Vorschau im echten PiP-Fenster starten (wenn Webcam aktiviert)
+    const useCam = document.getElementById('recordCam')?.checked;
+    if (useCam) {
+        await startWebcamPreview();
+    }
 }
 
 /**
- * Startet die Webcam-Vorschau im Modal
+ * Startet die Webcam-Vorschau im PiP-Fenster (unten links)
  */
 async function startWebcamPreview() {
-    const video = document.getElementById('webcamPreviewVideo');
-    const placeholder = document.getElementById('webcamPreviewPlaceholder');
+    const pip = document.getElementById('webcamPip');
+    const video = document.getElementById('webcamVideo');
 
-    if (!video) return;
+    if (!pip || !video) return;
 
     try {
+        const resolution = document.getElementById('camResolution')?.value || '640x480';
+        const [width, height] = resolution.split('x').map(Number);
+
         previewStream = await navigator.mediaDevices.getUserMedia({
-            video: { width: 640, height: 480 },
+            video: { width, height },
             audio: false
         });
 
         video.srcObject = previewStream;
-        if (placeholder) placeholder.classList.add('hidden');
+
+        // PiP-Größe setzen
+        const size = document.getElementById('pipSize')?.value || 'medium';
+        const sizes = { small: 150, medium: 200, large: 280 };
+        pip.style.width = sizes[size] + 'px';
+        pip.style.height = (sizes[size] * 0.75) + 'px';
+
+        // Position unten links
+        pip.style.left = '20px';
+        pip.style.bottom = '80px';
+        pip.style.top = 'auto';
+
+        // Filter anwenden
+        applyVideoFilters();
+
+        // PiP anzeigen mit "Vorschau"-Indikator
+        pip.classList.add('active', 'preview-mode');
 
     } catch (e) {
         console.warn('Webcam-Vorschau nicht verfügbar:', e);
-        if (placeholder) {
-            placeholder.querySelector('p').textContent = 'Webcam nicht verfügbar';
-        }
+        toast('Webcam nicht verfügbar', 'error');
     }
 }
 
@@ -99,8 +119,8 @@ async function startWebcamPreview() {
  * Stoppt die Webcam-Vorschau
  */
 function stopWebcamPreview() {
-    const video = document.getElementById('webcamPreviewVideo');
-    const placeholder = document.getElementById('webcamPreviewPlaceholder');
+    const pip = document.getElementById('webcamPip');
+    const video = document.getElementById('webcamVideo');
 
     if (previewStream) {
         previewStream.getTracks().forEach(t => t.stop());
@@ -108,7 +128,45 @@ function stopWebcamPreview() {
     }
 
     if (video) video.srcObject = null;
-    if (placeholder) placeholder.classList.remove('hidden');
+    if (pip) {
+        pip.classList.remove('active', 'preview-mode');
+    }
+}
+
+/**
+ * Toggle Webcam-Vorschau (für Checkbox)
+ */
+export function toggleWebcamPreview(show) {
+    if (show) {
+        startWebcamPreview();
+    } else {
+        stopWebcamPreview();
+    }
+}
+
+/**
+ * Aktualisiert Vorschau-Auflösung
+ */
+export async function updatePreviewResolution() {
+    if (previewStream) {
+        // Vorschau neu starten mit neuer Auflösung
+        stopWebcamPreview();
+        await startWebcamPreview();
+    }
+}
+
+/**
+ * Aktualisiert PiP-Größe aus Select
+ */
+export function updatePipSizeFromSelect() {
+    const pip = document.getElementById('webcamPip');
+    const size = document.getElementById('pipSize')?.value || 'medium';
+    const sizes = { small: 150, medium: 200, large: 280 };
+
+    if (pip && pip.classList.contains('active')) {
+        pip.style.width = sizes[size] + 'px';
+        pip.style.height = (sizes[size] * 0.75) + 'px';
+    }
 }
 
 /**
