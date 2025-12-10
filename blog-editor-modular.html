@@ -96,49 +96,185 @@
 
     <!-- Editor -->
     <div class="editor-container" id="main-editor" role="main">
-        <!-- Toolbar -->
+        <!-- Smart Toolbar -->
         <div class="editor-toolbar" role="toolbar" aria-label="Text-Formatierung">
-            <div class="toolbar-group" role="group" aria-label="Blocktyp">
-                <label for="blockType" class="sr-only">Blocktyp wählen</label>
-                <select class="toolbar-select" id="blockType" onchange="formatBlock(this.value)" aria-label="Blocktyp">
-                    <option value="p">Absatz</option>
-                    <option value="h2">Überschrift 2</option>
-                    <option value="h3">Überschrift 3</option>
-                    <option value="h4">Überschrift 4</option>
-                    <option value="blockquote">Zitat</option>
-                </select>
+            <!-- Blocktyp Dropdown -->
+            <div class="toolbar-dropdown">
+                <button class="toolbar-dropdown-btn" onclick="toggleToolbarDropdown(this)" aria-haspopup="true" aria-expanded="false">
+                    <span class="dropdown-label">Absatz</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="toolbar-dropdown-menu" id="blockTypeMenu">
+                    <button onclick="setBlockType('p', 'Absatz')">Absatz</button>
+                    <button onclick="setBlockType('h1', 'Überschrift 1')">Überschrift 1</button>
+                    <button onclick="setBlockType('h2', 'Überschrift 2')">Überschrift 2</button>
+                    <button onclick="setBlockType('h3', 'Überschrift 3')">Überschrift 3</button>
+                    <button onclick="setBlockType('h4', 'Überschrift 4')">Überschrift 4</button>
+                    <button onclick="setBlockType('blockquote', 'Zitat')">Zitat</button>
+                    <button onclick="setBlockType('pre', 'Code')">Code</button>
+                </div>
             </div>
+
+            <!-- Schriftart Dropdown -->
+            <div class="toolbar-dropdown">
+                <button class="toolbar-dropdown-btn" onclick="toggleToolbarDropdown(this)" aria-haspopup="true" aria-expanded="false">
+                    <span class="dropdown-label" id="currentFontLabel">Schriftart</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="toolbar-dropdown-menu font-menu" id="fontMenu">
+                    <div class="dropdown-section-title">Standard</div>
+                    <button onclick="setFont('inherit')" style="font-family: inherit">Standard</button>
+                    <button onclick="setFont('Georgia, serif')" style="font-family: Georgia, serif">Georgia</button>
+                    <button onclick="setFont('Arial, sans-serif')" style="font-family: Arial, sans-serif">Arial</button>
+                    <button onclick="setFont('Helvetica, sans-serif')" style="font-family: Helvetica, sans-serif">Helvetica</button>
+                    <button onclick="setFont('Times New Roman, serif')" style="font-family: 'Times New Roman', serif">Times New Roman</button>
+                    <button onclick="setFont('Verdana, sans-serif')" style="font-family: Verdana, sans-serif">Verdana</button>
+                    <div class="dropdown-section-title">Design</div>
+                    <button onclick="setFont('Gilda Display, serif')" style="font-family: 'Gilda Display', serif">Gilda Display</button>
+                    <button onclick="setFont('Montserrat, sans-serif')" style="font-family: Montserrat, sans-serif">Montserrat</button>
+                    <button onclick="setFont('Playfair Display, serif')" style="font-family: 'Playfair Display', serif">Playfair Display</button>
+                    <button onclick="setFont('Lora, serif')" style="font-family: Lora, serif">Lora</button>
+                    <div class="dropdown-divider"></div>
+                    <button onclick="openCustomFontModal()" class="dropdown-action">+ Eigene Schriftart...</button>
+                </div>
+            </div>
+
+            <!-- Schriftgröße Dropdown -->
+            <div class="toolbar-dropdown toolbar-dropdown-sm">
+                <button class="toolbar-dropdown-btn" onclick="toggleToolbarDropdown(this)" aria-haspopup="true" aria-expanded="false">
+                    <span class="dropdown-label" id="currentSizeLabel">16</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="toolbar-dropdown-menu size-menu">
+                    <button onclick="setFontSize('12px')">12</button>
+                    <button onclick="setFontSize('14px')">14</button>
+                    <button onclick="setFontSize('16px')" class="active">16</button>
+                    <button onclick="setFontSize('18px')">18</button>
+                    <button onclick="setFontSize('20px')">20</button>
+                    <button onclick="setFontSize('24px')">24</button>
+                    <button onclick="setFontSize('28px')">28</button>
+                    <button onclick="setFontSize('32px')">32</button>
+                    <button onclick="setFontSize('36px')">36</button>
+                    <button onclick="setFontSize('48px')">48</button>
+                </div>
+            </div>
+
+            <div class="toolbar-divider"></div>
+
+            <!-- Text-Formatierung -->
             <div class="toolbar-group" role="group" aria-label="Textformatierung">
                 <button class="toolbar-btn" onclick="execCmd('bold')" title="Fett (Cmd+B)" aria-label="Fett"><strong>B</strong></button>
                 <button class="toolbar-btn" onclick="execCmd('italic')" title="Kursiv (Cmd+I)" aria-label="Kursiv"><em>I</em></button>
                 <button class="toolbar-btn" onclick="execCmd('underline')" title="Unterstrichen" aria-label="Unterstrichen"><u>U</u></button>
                 <button class="toolbar-btn" onclick="execCmd('strikeThrough')" title="Durchgestrichen" aria-label="Durchgestrichen"><s>S</s></button>
             </div>
-            <div class="toolbar-group" role="group" aria-label="Listen">
-                <button class="toolbar-btn" onclick="execCmd('insertUnorderedList')" title="Aufzählung" aria-label="Aufzählung einfügen">•</button>
-                <button class="toolbar-btn" onclick="execCmd('insertOrderedList')" title="Nummerierung" aria-label="Nummerierte Liste">1.</button>
+
+            <div class="toolbar-divider"></div>
+
+            <!-- Farbe -->
+            <div class="toolbar-group" role="group" aria-label="Farben">
+                <div class="toolbar-color-wrapper">
+                    <button class="toolbar-btn" onclick="document.getElementById('textColorPicker').click()" title="Textfarbe" aria-label="Textfarbe">
+                        A<span class="color-indicator" id="textColorIndicator"></span>
+                    </button>
+                    <input type="color" id="textColorPicker" onchange="setTextColor(this.value)" style="display:none" value="#333333">
+                </div>
+                <div class="toolbar-color-wrapper">
+                    <button class="toolbar-btn" onclick="document.getElementById('bgColorPicker').click()" title="Hintergrundfarbe" aria-label="Hintergrundfarbe">
+                        <span class="bg-color-icon">A</span>
+                    </button>
+                    <input type="color" id="bgColorPicker" onchange="setBackgroundColor(this.value)" style="display:none" value="#ffff00">
+                </div>
             </div>
-            <div class="toolbar-group" role="group" aria-label="Medien einfügen">
-                <button class="toolbar-btn" onclick="insertLink()" title="Link einfügen" aria-label="Link einfügen">🔗</button>
-                <button class="toolbar-btn" onclick="openImageModal()" title="Bild einfügen" aria-label="Bild einfügen">📷</button>
-                <button class="toolbar-btn" onclick="insertVideo()" title="Video einfügen" aria-label="Video einfügen">🎥</button>
-                <button class="toolbar-btn" onclick="openVideoRecordModal()" title="Video aufnehmen" aria-label="Video aufnehmen">📹</button>
+
+            <div class="toolbar-divider"></div>
+
+            <!-- Listen & Einzug -->
+            <div class="toolbar-dropdown">
+                <button class="toolbar-dropdown-btn" onclick="toggleToolbarDropdown(this)" title="Listen & Einzug" aria-haspopup="true">
+                    <span class="dropdown-icon">☰</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="toolbar-dropdown-menu">
+                    <button onclick="execCmd('insertUnorderedList'); closeAllDropdowns()">• Aufzählung</button>
+                    <button onclick="execCmd('insertOrderedList'); closeAllDropdowns()">1. Nummerierung</button>
+                    <div class="dropdown-divider"></div>
+                    <button onclick="execCmd('indent'); closeAllDropdowns()">→ Einrücken</button>
+                    <button onclick="execCmd('outdent'); closeAllDropdowns()">← Ausrücken</button>
+                </div>
             </div>
-            <div class="toolbar-group" role="group" aria-label="Ausrichtung">
-                <button class="toolbar-btn" onclick="execCmd('justifyLeft')" title="Links" aria-label="Linksbündig">⇤</button>
-                <button class="toolbar-btn" onclick="execCmd('justifyCenter')" title="Zentriert" aria-label="Zentriert">↔</button>
-                <button class="toolbar-btn" onclick="execCmd('justifyRight')" title="Rechts" aria-label="Rechtsbündig">⇥</button>
+
+            <!-- Ausrichtung -->
+            <div class="toolbar-dropdown">
+                <button class="toolbar-dropdown-btn" onclick="toggleToolbarDropdown(this)" title="Ausrichtung" aria-haspopup="true">
+                    <span class="dropdown-icon">≡</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="toolbar-dropdown-menu">
+                    <button onclick="execCmd('justifyLeft'); closeAllDropdowns()">⇤ Linksbündig</button>
+                    <button onclick="execCmd('justifyCenter'); closeAllDropdowns()">↔ Zentriert</button>
+                    <button onclick="execCmd('justifyRight'); closeAllDropdowns()">⇥ Rechtsbündig</button>
+                    <button onclick="execCmd('justifyFull'); closeAllDropdowns()">⇔ Blocksatz</button>
+                </div>
             </div>
+
+            <!-- Zeilenabstand Dropdown -->
+            <div class="toolbar-dropdown">
+                <button class="toolbar-dropdown-btn" onclick="toggleToolbarDropdown(this)" title="Zeilenabstand" aria-haspopup="true">
+                    <span class="dropdown-icon">↕</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="toolbar-dropdown-menu">
+                    <div class="dropdown-section-title">Zeilenabstand</div>
+                    <button onclick="setLineHeight('1'); closeAllDropdowns()">1.0 - Eng</button>
+                    <button onclick="setLineHeight('1.4'); closeAllDropdowns()">1.4 - Kompakt</button>
+                    <button onclick="setLineHeight('1.6'); closeAllDropdowns()" class="active">1.6 - Normal</button>
+                    <button onclick="setLineHeight('1.8'); closeAllDropdowns()">1.8 - Locker</button>
+                    <button onclick="setLineHeight('2'); closeAllDropdowns()">2.0 - Weit</button>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-section-title">Absatzabstand</div>
+                    <button onclick="setParagraphSpacing('0.5em'); closeAllDropdowns()">Klein</button>
+                    <button onclick="setParagraphSpacing('1em'); closeAllDropdowns()">Normal</button>
+                    <button onclick="setParagraphSpacing('1.5em'); closeAllDropdowns()">Groß</button>
+                </div>
+            </div>
+
+            <div class="toolbar-divider"></div>
+
+            <!-- Medien einfügen -->
+            <div class="toolbar-dropdown">
+                <button class="toolbar-dropdown-btn" onclick="toggleToolbarDropdown(this)" title="Einfügen" aria-haspopup="true">
+                    <span class="dropdown-icon">+</span>
+                    <span class="dropdown-arrow">▾</span>
+                </button>
+                <div class="toolbar-dropdown-menu">
+                    <button onclick="insertLink(); closeAllDropdowns()">🔗 Link</button>
+                    <button onclick="openImageModal(); closeAllDropdowns()">📷 Bild</button>
+                    <button onclick="insertVideo(); closeAllDropdowns()">🎥 Video</button>
+                    <button onclick="openVideoRecordModal(); closeAllDropdowns()">📹 Video aufnehmen</button>
+                    <div class="dropdown-divider"></div>
+                    <button onclick="insertHorizontalRule(); closeAllDropdowns()">― Trennlinie</button>
+                    <button onclick="insertTable(); closeAllDropdowns()">⊞ Tabelle</button>
+                    <div class="dropdown-divider"></div>
+                    <button onclick="openTemplateChooser(); closeAllDropdowns()">📝 Vorlage anwenden...</button>
+                </div>
+            </div>
+
+            <div class="toolbar-divider"></div>
+
+            <!-- Undo/Redo -->
             <div class="toolbar-group" role="group" aria-label="Verlauf">
-                <button class="toolbar-btn" id="undoBlockBtn" onclick="undo()" title="Block-Änderung rückgängig (Cmd+Z)" aria-label="Rückgängig">↶</button>
-                <button class="toolbar-btn" id="redoBlockBtn" onclick="redo()" title="Block-Änderung wiederholen (Cmd+Y)" aria-label="Wiederholen">↷</button>
+                <button class="toolbar-btn" id="undoBlockBtn" onclick="undo()" title="Rückgängig (Cmd+Z)" aria-label="Rückgängig">↶</button>
+                <button class="toolbar-btn" id="redoBlockBtn" onclick="redo()" title="Wiederholen (Cmd+Y)" aria-label="Wiederholen">↷</button>
             </div>
-            <div class="toolbar-group" role="group" aria-label="Ansicht">
-                <button class="toolbar-btn" onclick="toggleFullscreen()" title="Vollbild" aria-label="Vollbildmodus umschalten">⛶</button>
-            </div>
-            <div class="toolbar-group" role="group" aria-label="KI-Funktionen">
-                <button class="toolbar-btn ai" onclick="aiImproveText()" title="Text mit KI verbessern" aria-label="Text mit KI verbessern">✨</button>
-                <button class="toolbar-btn" onclick="toggleVoiceInput()" title="Spracheingabe" id="voiceToolbarBtn" aria-label="Spracheingabe aktivieren">🎤</button>
+
+            <!-- Rechte Seite -->
+            <div class="toolbar-spacer"></div>
+
+            <div class="toolbar-group" role="group" aria-label="Extras">
+                <button class="toolbar-btn" onclick="toggleFullscreen()" title="Vollbild" aria-label="Vollbildmodus">⛶</button>
+                <button class="toolbar-btn ai" onclick="aiImproveText()" title="Text mit KI verbessern" aria-label="KI">✨</button>
+                <button class="toolbar-btn" onclick="toggleVoiceInput()" title="Spracheingabe" id="voiceToolbarBtn" aria-label="Sprache">🎤</button>
             </div>
         </div>
 
@@ -443,6 +579,48 @@
         </div>
         <div class="modal-body template-grid" id="templateGrid">
             <!-- Templates werden dynamisch geladen -->
+        </div>
+        <div class="modal-footer template-modal-footer">
+            <label class="template-dont-show">
+                <input type="checkbox" onchange="toggleTemplateModalPreference(this)">
+                <span>Beim nächsten Mal nicht mehr anzeigen</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Font Modal -->
+<div class="modal" id="customFontModal">
+    <div class="modal-backdrop" onclick="closeCustomFontModal()"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>🔤 Eigene Schriftart hinzufügen</h3>
+            <button onclick="closeCustomFontModal()" class="modal-close">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="customFontName">Schriftart-Name</label>
+                <input type="text" id="customFontName" placeholder="z.B. Open Sans" class="form-input">
+            </div>
+            <div class="form-group">
+                <label for="customFontUrl">Google Fonts URL <span class="form-hint">(optional)</span></label>
+                <input type="text" id="customFontUrl" placeholder="https://fonts.googleapis.com/css2?family=..." class="form-input">
+                <small class="form-help">Lass leer wenn die Schrift bereits auf deiner Website geladen wird</small>
+            </div>
+            <div class="form-group">
+                <label for="customFontStack">Font-Stack <span class="form-hint">(Fallbacks)</span></label>
+                <input type="text" id="customFontStack" placeholder="sans-serif" class="form-input" value="sans-serif">
+            </div>
+            <div class="form-group">
+                <label>Vorschau</label>
+                <div class="font-preview" id="customFontPreview">
+                    Der schnelle braune Fuchs springt über den faulen Hund. 1234567890
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-ghost" onclick="closeCustomFontModal()">Abbrechen</button>
+            <button class="btn btn-primary" onclick="addCustomFont()">Schriftart hinzufügen</button>
         </div>
     </div>
 </div>

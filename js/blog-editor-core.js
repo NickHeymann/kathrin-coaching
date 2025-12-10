@@ -33,9 +33,23 @@ function saveDraftsToStorage() {
     localStorage.setItem('blog_drafts', JSON.stringify(state.drafts));
 }
 
-function createNewPost() {
-    // Zeige Template-Auswahl-Modal
-    openTemplateModal();
+function createNewPost(showTemplateModal = true) {
+    // Prüfe ob Template-Modal angezeigt werden soll
+    const skipTemplateModal = localStorage.getItem('blog_skip_template_modal') === 'true';
+
+    if (showTemplateModal && !skipTemplateModal) {
+        openTemplateModal();
+    } else {
+        // Direkt leeren Beitrag erstellen
+        createPostFromTemplate('empty');
+    }
+}
+
+/**
+ * Erstellt einen neuen Post ohne Template-Modal (für Auto-Erstellung)
+ */
+function createNewPostSilent() {
+    createPostFromTemplate('empty');
 }
 
 /**
@@ -85,8 +99,9 @@ function createPostFromTemplate(templateId) {
 
 /**
  * Öffnet das Template-Auswahl-Modal
+ * @param {boolean} isInitial - Ob es der initiale Aufruf beim Editor-Start ist
  */
-function openTemplateModal() {
+function openTemplateModal(isInitial = false) {
     const modal = document.getElementById('templateModal');
     const grid = document.getElementById('templateGrid');
 
@@ -100,6 +115,12 @@ function openTemplateModal() {
             </div>
         `).join('');
 
+        // "Nicht mehr anzeigen" Checkbox nur beim initialen Aufruf zeigen
+        const dontShowContainer = modal.querySelector('.template-dont-show');
+        if (dontShowContainer) {
+            dontShowContainer.style.display = isInitial ? 'flex' : 'none';
+        }
+
         modal.classList.add('open');
     }
 }
@@ -107,6 +128,86 @@ function openTemplateModal() {
 function closeTemplateModal() {
     const modal = document.getElementById('templateModal');
     if (modal) modal.classList.remove('open');
+}
+
+/**
+ * Speichert die "Nicht mehr anzeigen" Einstellung
+ */
+function toggleTemplateModalPreference(checkbox) {
+    localStorage.setItem('blog_skip_template_modal', checkbox.checked ? 'true' : 'false');
+}
+
+/**
+ * Setzt die Template-Modal Einstellung zurück (zeigt es wieder)
+ */
+function resetTemplateModalPreference() {
+    localStorage.removeItem('blog_skip_template_modal');
+    toast('Template-Auswahl wird beim nächsten Start wieder angezeigt', 'success');
+}
+
+/**
+ * Öffnet Template-Auswahl für bestehenden Post (wendet Template auf aktuellen Post an)
+ */
+function openTemplateChooser() {
+    const modal = document.getElementById('templateModal');
+    const grid = document.getElementById('templateGrid');
+
+    if (modal && grid) {
+        // Render Templates mit Hinweis
+        grid.innerHTML = POST_TEMPLATES.map(t => `
+            <div class="template-card" onclick="applyTemplateToCurrentPost('${t.id}')">
+                <div class="template-card-icon">${t.icon}</div>
+                <div class="template-card-name">${t.name}</div>
+                <div class="template-card-desc">${t.description}</div>
+            </div>
+        `).join('');
+
+        // "Nicht mehr anzeigen" verstecken
+        const dontShowContainer = modal.querySelector('.template-dont-show');
+        if (dontShowContainer) {
+            dontShowContainer.style.display = 'none';
+        }
+
+        modal.classList.add('open');
+    }
+}
+
+/**
+ * Wendet ein Template auf den aktuellen Post an
+ */
+function applyTemplateToCurrentPost(templateId) {
+    const template = POST_TEMPLATES.find(t => t.id === templateId) || POST_TEMPLATES[0];
+
+    if (!state.currentPost) {
+        createPostFromTemplate(templateId);
+        return;
+    }
+
+    // Warnung wenn bereits Inhalt vorhanden
+    const hasContent = document.getElementById('postContent')?.innerText?.trim().length > 0;
+    if (hasContent) {
+        if (!confirm('Der aktuelle Inhalt wird durch das Template ersetzt. Fortfahren?')) {
+            return;
+        }
+    }
+
+    // Template-Blöcke anwenden
+    if (typeof blocks !== 'undefined' && template.blocks) {
+        blocks = template.blocks.map(b => ({
+            id: 'block-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9),
+            type: b.type,
+            content: b.content,
+            settings: {}
+        }));
+        if (typeof renderBlocks === 'function') renderBlocks();
+        if (typeof clearHistory === 'function') clearHistory();
+    }
+
+    state.currentPost.templateUsed = templateId;
+    state.hasUnsavedChanges = true;
+
+    closeTemplateModal();
+    toast(`Template "${template.name}" angewendet`, 'success');
 }
 
 function loadPostToEditor(post) {
@@ -1561,9 +1662,9 @@ function onContentChange() {
     updateStatus('unsaved');
     updateStats();
 
-    // Auto-erstelle Entwurf wenn noch keiner existiert
+    // Auto-erstelle Entwurf wenn noch keiner existiert (silent, ohne Modal)
     if (!state.currentPost) {
-        createNewPost();
+        createNewPostSilent();
     }
 }
 

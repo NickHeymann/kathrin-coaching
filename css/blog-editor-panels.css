@@ -461,6 +461,34 @@
     }
 }
 
+.template-modal-footer {
+    justify-content: flex-start !important;
+    background: transparent;
+    border-top: none;
+    padding-top: 0;
+}
+
+.template-dont-show {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    cursor: pointer;
+    user-select: none;
+}
+
+.template-dont-show input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--primary);
+}
+
+.template-dont-show:hover {
+    color: var(--text);
+}
+
 /* === VERSIONS MODAL === */
 .versions-modal-content {
     max-width: 550px;
