@@ -41,6 +41,35 @@ body { font-family: system-ui, -apple-system, sans-serif; background: #1a1a1a; }
     margin-right: 0.5rem;
 }
 
+/* Mode Switch (Seiten/Blog) */
+.toolbar-mode-switch {
+    display: flex;
+    background: rgba(255,255,255,0.1);
+    border-radius: 6px;
+    padding: 2px;
+    margin-right: 0.5rem;
+}
+
+.mode-btn {
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    transition: all 0.15s;
+}
+
+.mode-btn:hover {
+    color: white;
+    background: rgba(255,255,255,0.1);
+}
+
+.mode-btn.active {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    font-weight: 500;
+}
+
 select {
     padding: 0.35rem 0.6rem;
     border-radius: 6px;
