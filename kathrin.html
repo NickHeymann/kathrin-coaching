@@ -339,15 +339,21 @@
             padding: 20px 25px;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             border: 2px solid transparent;
             position: relative;
             z-index: 5;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .timeline-item.visible .timeline-content {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .timeline-item.active .timeline-content,
         .timeline-item:hover .timeline-content {
-            transform: translateY(-5px);
             box-shadow: 0 12px 40px rgba(0,0,0,0.12);
             border-color: var(--color-accent);
             background: var(--color-white);
@@ -359,10 +365,15 @@
             width: calc(50% - 50px);
             max-width: 350px;
             opacity: 0;
-            transform: scale(0.8) translateY(20px);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(0.85) translateX(30px);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            transition-delay: 0.15s;
             pointer-events: none;
             z-index: 1;
+        }
+
+        .timeline-item:nth-child(even) .timeline-popup-image {
+            transform: scale(0.85) translateX(-30px);
         }
 
         .timeline-popup-image img {
@@ -373,11 +384,15 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.2);
         }
 
-        .timeline-item.active .timeline-popup-image,
-        .timeline-item:hover .timeline-popup-image {
+        .timeline-item.visible .timeline-popup-image {
             opacity: 1;
-            transform: scale(1) translateY(0);
+            transform: scale(1) translateX(0);
             pointer-events: auto;
+        }
+
+        .timeline-item.active .timeline-popup-image {
+            transform: scale(1.02) translateX(0);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.25);
         }
 
         .timeline-year {
@@ -458,8 +473,23 @@
                 height: 200px;
             }
 
-            /* Auf Mobile immer sichtbar */
+            /* Auf Mobile: Animation angepasst */
+            .timeline-item .timeline-content {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            .timeline-item.visible .timeline-content {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
             .timeline-item .timeline-popup-image {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+
+            .timeline-item.visible .timeline-popup-image {
                 opacity: 1;
                 transform: scale(1) translateY(0);
             }
@@ -513,11 +543,20 @@
             background: var(--color-cream);
         }
 
-        .qualifications-
+        .qualifications-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .qualifications-header h2 {
+            margin-bottom: 1rem;
+        }
 
         .qualifications-header p {
             color: var(--color-text-light);
             font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
         }
 
         .qualifications-grid {
@@ -762,10 +801,138 @@
         }
 
     </style>
+
+<link rel="stylesheet" href="css/components/header.css">
 </head>
 <body>
 <!-- Header -->
-<div id="header-placeholder"></div>
+<header>
+<div class="container header-inner">
+<a class="logo" href="index.html">KATHRIN STAHL</a>
+<nav id="mainNav">
+<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<span class="nav-link">Angebote</span>
+<div aria-label="Angebote" class="dropdown-menu" role="menu">
+<a href="index.html#angebote" role="menuitem">
+
+<span class="dropdown-text">
+<strong>1:1 Coaching</strong>
+<span>Einzelbegleitung online &amp; vor Ort</span>
+</span>
+</a>
+<a href="index.html#angebote" role="menuitem">
+
+<span class="dropdown-text">
+<strong>Paar-Coaching</strong>
+<span>Beziehungskrisen gemeinsam meistern</span>
+</span>
+</a>
+<a href="paar-retreat.html" role="menuitem">
+
+<span class="dropdown-text">
+<strong>Paar-Retreat Portugal</strong>
+<span>5 Tage für eure Beziehung</span>
+</span>
+</a>
+<a href="retreats-in-portugal.html" role="menuitem">
+
+<span class="dropdown-text">
+<strong>Retreats in Portugal</strong>
+<span>Auszeit im Alentejo</span>
+</span>
+</a>
+<a href="pferdegestuetztes-coaching.html" role="menuitem">
+
+<span class="dropdown-text">
+<strong>Pferdegestütztes Coaching</strong>
+<span>Meine Methode erklärt</span>
+</span>
+</a>
+<a href="casinha.html" role="menuitem">
+
+<span class="dropdown-text">
+<strong>Die Casinha</strong>
+<span>Deine Unterkunft im Alentejo</span>
+</span>
+</a>
+</div>
+</div>
+<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<span class="nav-link">Selbsttests</span>
+<div aria-label="Selbsttests" class="dropdown-menu" role="menu">
+<a href="quiz-hochsensibel.html" role="menuitem">
+
+<span class="dropdown-text">
+<strong>Hochsensibel?</strong>
+<span>HSPS-Test nach Elaine Aron</span>
+</span>
+</a>
+<a href="quiz-hochbegabt.html" role="menuitem">
+
+<span class="dropdown-text">
+<strong>Intensitäts-Profil</strong>
+<span>Overexcitabilities nach Dabrowski</span>
+</span>
+</a>
+<a href="quiz-beziehung.html" role="menuitem">
+
+<span class="dropdown-text">
+<strong>Beziehungs-Check</strong>
+<span>Four Horsemen nach Gottman</span>
+</span>
+</a>
+<a href="quiz-lebenskrise.html" role="menuitem">
+
+<span class="dropdown-text">
+<strong>Burnout-Test</strong>
+<span>Copenhagen Burnout Inventory</span>
+</span>
+</a>
+<a href="quiz-midlife.html" role="menuitem">
+
+<span class="dropdown-text">
+<strong>Midlife Crisis</strong>
+<span>CMCM-Fragebogen</span>
+</span>
+</a>
+<a href="quiz-paar-kompass.html" role="menuitem">
+
+<span class="dropdown-text">
+<strong>Paar-Kompass</strong>
+<span>Wo steht eure Beziehung?</span>
+</span>
+</a>
+</div>
+</div>
+<a href="blog.html">Blog</a>
+<a href="media.html">Videos</a>
+<a href="kathrin.html">Über mich</a>
+<div class="contact-dropdown">
+<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<div class="contact-dropdown-menu">
+<a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
+<span class="contact-icon">💬</span>
+<span>WhatsApp</span>
+</a>
+<a class="contact-item" href="mailto:kathrin@kathrinstahl.com">
+<span class="contact-icon">✉️</span>
+<span>E-Mail</span>
+</a>
+<a class="contact-item" href="https://cal.com/kathrinstahl" target="_blank">
+<span class="contact-icon">📅</span>
+<span>Erstgespräch buchen</span>
+</a>
+</div>
+</div>
+<a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
+</nav>
+<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<span></span>
+<span></span>
+<span></span>
+</button>
+</div>
+</header>
 <!-- Hero -->
 <section class="hero">
 <div class="container">
@@ -934,6 +1101,7 @@
 <h2>Was mich geprägt hat</h2>
 <p>Die Wege, die du mit mir gehst, bin ich alle auch gegangen. Mit dieser tiefen Selbsterfahrung begleite ich dich an innere Orte, an denen du noch nie warst.</p>
 </div>
+
 <div class="qualifications-grid">
 <div class="qualification-card">
 <h4>Körper &amp; Wahrnehmung</h4>
@@ -1049,42 +1217,69 @@ if (typeof bookCall === 'undefined') {
     }
 }
 
-// ===== INTERAKTIVE TIMELINE =====
-// Bilder erscheinen per CSS bei Hover - JS nur für active-State beim Scrollen
+// ===== INTERAKTIVE TIMELINE MIT SCROLL-ANIMATION =====
 document.addEventListener('DOMContentLoaded', function() {
     const timelineItems = document.querySelectorAll('.timeline-item');
     if (!timelineItems.length) return;
 
     let currentActiveItem = null;
 
-    function setActiveItem(item) {
-        if (currentActiveItem === item) return;
-        if (currentActiveItem) {
-            currentActiveItem.classList.remove('active');
-        }
-        item.classList.add('active');
-        currentActiveItem = item;
-    }
-
-    // Scroll-basierte Aktivierung (IntersectionObserver)
-    const observer = new IntersectionObserver((entries) => {
+    // Observer für Sichtbarkeit (Einblend-Animation)
+    const visibilityObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                setActiveItem(entry.target);
+                // Verzögertes Einblenden basierend auf Index
+                const item = entry.target;
+                const index = Array.from(timelineItems).indexOf(item);
+
+                setTimeout(() => {
+                    item.classList.add('visible');
+                }, index * 100); // Gestaffelter Effekt
+
+                // Einmal sichtbar, Observer entfernen
+                visibilityObserver.unobserve(item);
             }
         });
     }, {
         root: null,
-        rootMargin: '-30% 0px -30% 0px',
-        threshold: 0.5
+        rootMargin: '0px 0px -15% 0px',
+        threshold: 0.1
     });
 
-    timelineItems.forEach(item => observer.observe(item));
+    // Observer für aktives Item (beim Scrollen durch die Mitte)
+    const activeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (currentActiveItem) {
+                    currentActiveItem.classList.remove('active');
+                }
+                entry.target.classList.add('active');
+                currentActiveItem = entry.target;
+            }
+        });
+    }, {
+        root: null,
+        rootMargin: '-40% 0px -40% 0px',
+        threshold: 0.3
+    });
 
-    // Erstes Item standardmäßig aktivieren
-    if (timelineItems[0]) {
-        setActiveItem(timelineItems[0]);
-    }
+    // Beide Observer an alle Items anhängen
+    timelineItems.forEach(item => {
+        visibilityObserver.observe(item);
+        activeObserver.observe(item);
+    });
+
+    // Bereits im Viewport? Sofort einblenden
+    setTimeout(() => {
+        timelineItems.forEach((item, index) => {
+            const rect = item.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                setTimeout(() => {
+                    item.classList.add('visible');
+                }, index * 150);
+            }
+        });
+    }, 100);
 });
 
 </script>

@@ -19,15 +19,23 @@ let screenStream = null;
 let audioStream = null;
 let camStream = null;
 let previewStream = null;
+let isRecording = false;
+
+// Background Blur State
+let blurCanvas = null;
+let blurCtx = null;
+let blurAnimationId = null;
+
+// Audio Processing State
+let audioContext = null;
+let audioProcessingNodes = [];
 
 // PiP State
-let pipPosition = { x: 20, y: null };
-let pipSize = 'medium';
 let isDragging = false;
 let isResizing = false;
 let dragOffset = { x: 0, y: 0 };
 
-// Settings State (ob Setup bereits gemacht wurde)
+// Settings State
 const SETTINGS_KEY = 'cms_recording_setup_done';
 
 /**
@@ -45,16 +53,13 @@ function markSetupDone() {
 }
 
 /**
- * Toggle Recording - zeigt Modal nur beim ersten Mal
+ * Toggle Recording - zeigt immer Vorschau vor Aufnahme
  */
 export function toggleRecording() {
     if (mediaRecorder && mediaRecorder.state === 'recording') {
         stopRecording();
-    } else if (isSetupDone()) {
-        // Direkt starten ohne Modal
-        startRecording();
     } else {
-        // Erstes Mal: Modal mit Webcam-Vorschau öffnen
+        // Immer Vorschau-Modal öffnen, damit Kunden sich sehen können
         openRecordModal();
     }
 }
@@ -65,10 +70,46 @@ export function toggleRecording() {
 async function openRecordModal() {
     document.getElementById('recordModal')?.classList.add('active');
 
+    // Settings aktivieren (nicht während Aufnahme)
+    setSettingsEnabled(true);
+
     // Webcam-Vorschau im echten PiP-Fenster starten (wenn Webcam aktiviert)
     const useCam = document.getElementById('recordCam')?.checked;
     if (useCam) {
         await startWebcamPreview();
+    }
+}
+
+/**
+ * Aktiviert/Deaktiviert Settings-Elemente
+ */
+function setSettingsEnabled(enabled) {
+    const settingsElements = [
+        'recordScreen', 'recordMic', 'recordCam',
+        'camResolution', 'camBrightness', 'camContrast',
+        'bgBlur', 'blurStrength'
+    ];
+
+    settingsElements.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.disabled = !enabled;
+            if (!enabled) {
+                el.closest('.record-option, .settings-row')?.classList.add('disabled');
+            } else {
+                el.closest('.record-option, .settings-row')?.classList.remove('disabled');
+            }
+        }
+    });
+
+    // Details-Element auch deaktivieren
+    const details = document.getElementById('camSettingsDetails');
+    if (details) {
+        if (!enabled) {
+            details.classList.add('disabled');
+        } else {
+            details.classList.remove('disabled');
+        }
     }
 }
 
@@ -92,11 +133,10 @@ async function startWebcamPreview() {
 
         video.srcObject = previewStream;
 
-        // PiP-Größe setzen
-        const size = document.getElementById('pipSize')?.value || 'medium';
-        const sizes = { small: 150, medium: 200, large: 280 };
-        pip.style.width = sizes[size] + 'px';
-        pip.style.height = (sizes[size] * 0.75) + 'px';
+        // Standard PiP-Größe (stufenloses Resizing per Drag)
+        const defaultWidth = 200;
+        pip.style.width = defaultWidth + 'px';
+        pip.style.height = (defaultWidth * 0.75) + 'px';
 
         // Position unten links
         pip.style.left = '20px';
@@ -105,6 +145,12 @@ async function startWebcamPreview() {
 
         // Filter anwenden
         applyVideoFilters();
+
+        // Background Blur starten wenn aktiviert
+        const blurEnabled = document.getElementById('bgBlur')?.checked;
+        if (blurEnabled) {
+            startBackgroundBlur(video, pip);
+        }
 
         // PiP anzeigen mit "Vorschau"-Indikator
         pip.classList.add('active', 'preview-mode');
@@ -122,6 +168,8 @@ function stopWebcamPreview() {
     const pip = document.getElementById('webcamPip');
     const video = document.getElementById('webcamVideo');
 
+    stopBackgroundBlur();
+
     if (previewStream) {
         previewStream.getTracks().forEach(t => t.stop());
         previewStream = null;
@@ -137,6 +185,9 @@ function stopWebcamPreview() {
  * Toggle Webcam-Vorschau (für Checkbox)
  */
 export function toggleWebcamPreview(show) {
+    // Nur wenn nicht während Aufnahme
+    if (isRecording) return;
+
     if (show) {
         startWebcamPreview();
     } else {
@@ -148,41 +199,114 @@ export function toggleWebcamPreview(show) {
  * Aktualisiert Vorschau-Auflösung
  */
 export async function updatePreviewResolution() {
+    if (isRecording) return;
+
     if (previewStream) {
-        // Vorschau neu starten mit neuer Auflösung
         stopWebcamPreview();
         await startWebcamPreview();
     }
 }
 
-/**
- * Aktualisiert PiP-Größe aus Select
- */
-export function updatePipSizeFromSelect() {
-    const pip = document.getElementById('webcamPip');
-    const size = document.getElementById('pipSize')?.value || 'medium';
-    const sizes = { small: 150, medium: 200, large: 280 };
 
-    if (pip && pip.classList.contains('active')) {
-        pip.style.width = sizes[size] + 'px';
-        pip.style.height = (sizes[size] * 0.75) + 'px';
+/**
+ * Toggle Background Blur
+ */
+export function toggleBackgroundBlur(enabled) {
+    if (isRecording) return;
+
+    const video = document.getElementById('webcamVideo');
+    const pip = document.getElementById('webcamPip');
+    const strengthRow = document.getElementById('blurStrengthRow');
+
+    // Blur-Stärke Zeile ein-/ausblenden
+    if (strengthRow) {
+        strengthRow.style.display = enabled ? 'flex' : 'none';
     }
+
+    if (enabled && previewStream && video && pip) {
+        startBackgroundBlur(video, pip);
+    } else {
+        stopBackgroundBlur();
+    }
+}
+
+/**
+ * Aktualisiert Blur-Stärke
+ */
+export function updateBlurStrength() {
+    // Blur wird in der Animation-Loop automatisch aktualisiert
+    const strength = document.getElementById('blurStrength')?.value || 10;
+    const label = document.getElementById('blurStrengthValue');
+    if (label) label.textContent = strength + 'px';
+}
+
+/**
+ * Startet Background Blur mit CSS backdrop-filter
+ * Hinweis: Echter Personen-Hintergrund-Blur benötigt ML-Bibliotheken
+ */
+function startBackgroundBlur(video, pip) {
+    const strength = document.getElementById('blurStrength')?.value || 10;
+
+    // CSS-basierter Blur auf Video
+    // Echter Portrait-Mode benötigt TensorFlow.js/MediaPipe (zu groß für dieses Projekt)
+    // Stattdessen nutzen wir einen einfachen Blur-Effekt
+    video.style.filter = getVideoFilter() + ` blur(${strength}px)`;
+
+    // Hinweis: Für echten Portrait-Mode müsste man:
+    // 1. MediaPipe Selfie Segmentation laden
+    // 2. Canvas mit Maske rendern
+    // Das würde ~2MB zusätzliche Bibliotheken erfordern
+
+    pip.classList.add('blur-active');
+}
+
+/**
+ * Stoppt Background Blur
+ */
+function stopBackgroundBlur() {
+    const video = document.getElementById('webcamVideo');
+    const pip = document.getElementById('webcamPip');
+
+    if (video) {
+        video.style.filter = getVideoFilter();
+    }
+    if (pip) {
+        pip.classList.remove('blur-active');
+    }
+
+    if (blurAnimationId) {
+        cancelAnimationFrame(blurAnimationId);
+        blurAnimationId = null;
+    }
+}
+
+/**
+ * Gibt aktuellen Video-Filter zurück (Helligkeit/Kontrast)
+ */
+function getVideoFilter() {
+    const brightness = document.getElementById('camBrightness')?.value || 100;
+    const contrast = document.getElementById('camContrast')?.value || 100;
+    return `brightness(${brightness}%) contrast(${contrast}%)`;
 }
 
 /**
  * Schließt Record-Setup Modal
  */
 export function closeRecordModal() {
-    stopWebcamPreview();
+    // Nur Vorschau stoppen wenn nicht während Aufnahme
+    if (!isRecording) {
+        stopWebcamPreview();
+    }
     document.getElementById('recordModal')?.classList.remove('active');
 }
 
 /**
- * Zeigt Settings während der Aufnahme (öffnet Modal ohne Vorschau)
+ * Zeigt Settings (nur lesend während Aufnahme)
  */
 export function showRecordSettings() {
     document.getElementById('recordModal')?.classList.add('active');
-    // Keine Vorschau starten - Aufnahme läuft bereits
+    // Settings deaktivieren während Aufnahme
+    setSettingsEnabled(!isRecording);
 }
 
 /**
@@ -209,6 +333,23 @@ export function initRecordingControls() {
         });
     }
 
+    // Blur Strength Slider
+    const blurStrength = document.getElementById('blurStrength');
+    const blurStrengthVal = document.getElementById('blurStrengthValue');
+    if (blurStrength && blurStrengthVal) {
+        blurStrength.addEventListener('input', () => {
+            blurStrengthVal.textContent = blurStrength.value + 'px';
+            // Blur aktualisieren wenn aktiv
+            const blurEnabled = document.getElementById('bgBlur')?.checked;
+            if (blurEnabled && previewStream) {
+                const video = document.getElementById('webcamVideo');
+                if (video) {
+                    video.style.filter = getVideoFilter() + ` blur(${blurStrength.value}px)`;
+                }
+            }
+        });
+    }
+
     // PiP Drag & Resize
     setupPipInteraction();
 }
@@ -218,59 +359,111 @@ export function initRecordingControls() {
  */
 function applyVideoFilters() {
     const video = document.getElementById('webcamVideo');
-    const brightness = document.getElementById('camBrightness')?.value || 100;
-    const contrast = document.getElementById('camContrast')?.value || 100;
+    const blurEnabled = document.getElementById('bgBlur')?.checked;
+    const blurStrength = document.getElementById('blurStrength')?.value || 10;
 
     if (video) {
-        video.style.filter = `brightness(${brightness}%) contrast(${contrast}%)`;
+        let filter = getVideoFilter();
+        if (blurEnabled) {
+            filter += ` blur(${blurStrength}px)`;
+        }
+        video.style.filter = filter;
     }
 }
 
 /**
  * Setup PiP Dragging und Resizing
+ * Einfach, performant, ohne Lag
  */
 function setupPipInteraction() {
     const pip = document.getElementById('webcamPip');
-    const resizeHandle = pip?.querySelector('.pip-resize-handle');
-
     if (!pip) return;
 
-    // Dragging
-    pip.addEventListener('mousedown', (e) => {
-        if (e.target.closest('.pip-controls') || e.target.closest('.pip-resize-handle')) return;
+    const ASPECT_RATIO = 4 / 3;
+    const MIN_SIZE = 80;
+    const MAX_SIZE = 480;
+
+    let startX, startY, startWidth, startHeight, startLeft, startTop;
+
+    // === DRAG ===
+    pip.addEventListener('pointerdown', (e) => {
+        if (e.target.classList.contains('pip-resize-handle')) return;
+
+        e.preventDefault();
+        pip.setPointerCapture(e.pointerId);
+
+        startX = e.clientX;
+        startY = e.clientY;
+        startLeft = pip.offsetLeft;
+        startTop = pip.offsetTop;
+
         isDragging = true;
-        dragOffset.x = e.clientX - pip.offsetLeft;
-        dragOffset.y = e.clientY - pip.offsetTop;
         pip.style.cursor = 'grabbing';
+        pip.style.transition = 'none';
     });
 
-    // Resizing
-    if (resizeHandle) {
-        resizeHandle.addEventListener('mousedown', (e) => {
-            e.stopPropagation();
-            isResizing = true;
-        });
-    }
+    pip.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
 
-    document.addEventListener('mousemove', (e) => {
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+
+        pip.style.left = (startLeft + dx) + 'px';
+        pip.style.top = (startTop + dy) + 'px';
+        pip.style.bottom = 'auto';
+    });
+
+    pip.addEventListener('pointerup', (e) => {
         if (isDragging) {
-            pip.style.left = (e.clientX - dragOffset.x) + 'px';
-            pip.style.top = (e.clientY - dragOffset.y) + 'px';
-            pip.style.bottom = 'auto';
-        }
-        if (isResizing) {
-            const rect = pip.getBoundingClientRect();
-            const newWidth = e.clientX - rect.left;
-            const newHeight = e.clientY - rect.top;
-            pip.style.width = Math.max(100, Math.min(400, newWidth)) + 'px';
-            pip.style.height = Math.max(75, Math.min(300, newHeight)) + 'px';
+            isDragging = false;
+            pip.releasePointerCapture(e.pointerId);
+            pip.style.cursor = 'grab';
+            pip.style.transition = '';
         }
     });
 
-    document.addEventListener('mouseup', () => {
-        isDragging = false;
-        isResizing = false;
-        if (pip) pip.style.cursor = 'grab';
+    // === RESIZE ===
+    const handle = pip.querySelector('.pip-resize-handle');
+    if (!handle) return;
+
+    handle.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handle.setPointerCapture(e.pointerId);
+
+        startX = e.clientX;
+        startY = e.clientY;
+        startWidth = pip.offsetWidth;
+        startHeight = pip.offsetHeight;
+
+        isResizing = true;
+        pip.style.transition = 'none';
+    });
+
+    handle.addEventListener('pointermove', (e) => {
+        if (!isResizing) return;
+
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+
+        // Diagonal resize - nimm den größeren Wert
+        const delta = Math.max(dx, dy);
+        let newWidth = startWidth + delta;
+
+        // Constraints
+        newWidth = Math.max(MIN_SIZE, Math.min(MAX_SIZE, newWidth));
+        const newHeight = newWidth / ASPECT_RATIO;
+
+        pip.style.width = newWidth + 'px';
+        pip.style.height = newHeight + 'px';
+    });
+
+    handle.addEventListener('pointerup', (e) => {
+        if (isResizing) {
+            isResizing = false;
+            handle.releasePointerCapture(e.pointerId);
+            pip.style.transition = '';
+        }
     });
 }
 
@@ -278,12 +471,13 @@ function setupPipInteraction() {
  * Startet Bildschirm/Audio/Webcam Aufnahme
  */
 export async function startRecording() {
-    // Vorschau und Modal schließen
+    // Vorschau stoppen und Modal schließen
     stopWebcamPreview();
     closeRecordModal();
 
     // Setup als erledigt markieren
     markSetupDone();
+    isRecording = true;
 
     const useScreen = document.getElementById('recordScreen')?.checked ?? true;
     const useMic = document.getElementById('recordMic')?.checked ?? true;
@@ -301,13 +495,27 @@ export async function startRecording() {
             tracks.push(...screenStream.getVideoTracks());
         }
 
-        // Mikrofon
+        // Mikrofon mit Audio-Optimierung
         if (useMic) {
+            // Audio-Constraints für beste Qualität mit Browser-eigener Rauschunterdrückung
             audioStream = await navigator.mediaDevices.getUserMedia({
-                audio: true,
+                audio: {
+                    echoCancellation: true,      // Echo-Unterdrückung
+                    noiseSuppression: true,      // Rauschunterdrückung
+                    autoGainControl: true,       // Automatische Verstärkung
+                    sampleRate: 48000,           // Hohe Sample-Rate
+                    channelCount: 1              // Mono für Sprache
+                },
                 video: false
             });
-            tracks.push(...audioStream.getAudioTracks());
+
+            // Zusätzliche Web Audio API Verarbeitung für Compression & Limiting
+            const processedAudioTrack = await createAudioProcessingChain(audioStream);
+            if (processedAudioTrack) {
+                tracks.push(processedAudioTrack);
+            } else {
+                tracks.push(...audioStream.getAudioTracks());
+            }
         }
 
         // Webcam mit PiP
@@ -320,12 +528,13 @@ export async function startRecording() {
                 audio: false
             });
 
-            // PiP anzeigen
+            // PiP anzeigen (ohne Vorschau-Modus)
             showWebcamPip(camStream);
         }
 
         if (tracks.length === 0) {
             toast('Bitte mindestens Bildschirm oder Mikrofon auswählen', 'error');
+            isRecording = false;
             return;
         }
 
@@ -369,6 +578,7 @@ export async function startRecording() {
     } catch (e) {
         console.error('Recording error:', e);
         toast('Aufnahme konnte nicht gestartet werden: ' + e.message, 'error');
+        isRecording = false;
         cleanupStreams();
     }
 }
@@ -384,11 +594,13 @@ function showWebcamPip(stream) {
 
     video.srcObject = stream;
 
-    // Größe basierend auf Auswahl
-    const size = document.getElementById('pipSize')?.value || 'medium';
-    const sizes = { small: 150, medium: 200, large: 280 };
-    pip.style.width = sizes[size] + 'px';
-    pip.style.height = (sizes[size] * 0.75) + 'px';
+    // Behalte aktuelle Größe bei (wurde ggf. in Vorschau angepasst)
+    // Falls keine Größe gesetzt, Standard verwenden
+    if (!pip.style.width || pip.style.width === '0px') {
+        const defaultWidth = 200;
+        pip.style.width = defaultWidth + 'px';
+        pip.style.height = (defaultWidth * 0.75) + 'px';
+    }
 
     // Position unten links
     pip.style.left = '20px';
@@ -399,38 +611,25 @@ function showWebcamPip(stream) {
     applyVideoFilters();
 
     pip.classList.add('active');
+    pip.classList.remove('preview-mode'); // Kein Vorschau-Badge während Aufnahme
 }
 
 /**
- * Schließt PiP-Fenster
+ * Schließt PiP-Fenster (intern)
  */
-export function closePip() {
+function closePip() {
     const pip = document.getElementById('webcamPip');
     const video = document.getElementById('webcamVideo');
 
-    if (pip) pip.classList.remove('active');
+    stopBackgroundBlur();
+
+    if (pip) pip.classList.remove('active', 'preview-mode', 'blur-active');
     if (video) video.srcObject = null;
 
     if (camStream) {
         camStream.getTracks().forEach(t => t.stop());
         camStream = null;
     }
-}
-
-/**
- * Wechselt PiP-Größe durch
- */
-export function togglePipSize() {
-    const pip = document.getElementById('webcamPip');
-    if (!pip) return;
-
-    const sizes = [150, 200, 280];
-    const currentWidth = pip.offsetWidth;
-    const currentIndex = sizes.findIndex(s => Math.abs(s - currentWidth) < 20);
-    const nextIndex = (currentIndex + 1) % sizes.length;
-
-    pip.style.width = sizes[nextIndex] + 'px';
-    pip.style.height = (sizes[nextIndex] * 0.75) + 'px';
 }
 
 /**
@@ -453,6 +652,7 @@ export function stopRecording() {
     }
 
     clearInterval(recordingTimer);
+    isRecording = false;
 
     const indicator = document.getElementById('recordingIndicator');
     if (indicator) indicator.style.display = 'none';
@@ -464,9 +664,95 @@ export function stopRecording() {
 }
 
 /**
+ * Erstellt Audio-Processing-Kette mit Compression und Limiting
+ * für Live-Verarbeitung während der Aufnahme
+ */
+async function createAudioProcessingChain(inputStream) {
+    try {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        audioProcessingNodes = [];
+
+        // Input von Mikrofon-Stream
+        const source = audioContext.createMediaStreamSource(inputStream);
+        audioProcessingNodes.push(source);
+
+        // 1. High-Pass Filter (entfernt tiefes Rauschen/Brummen)
+        const highPass = audioContext.createBiquadFilter();
+        highPass.type = 'highpass';
+        highPass.frequency.value = 80;
+        highPass.Q.value = 0.7;
+        audioProcessingNodes.push(highPass);
+
+        // 2. Low-Pass Filter (entfernt hochfrequentes Rauschen)
+        const lowPass = audioContext.createBiquadFilter();
+        lowPass.type = 'lowpass';
+        lowPass.frequency.value = 12000;
+        lowPass.Q.value = 0.7;
+        audioProcessingNodes.push(lowPass);
+
+        // 3. Dynamics Compressor (gleichmäßige Lautstärke)
+        const compressor = audioContext.createDynamicsCompressor();
+        compressor.threshold.value = -24;  // Ab -24dB komprimieren
+        compressor.knee.value = 12;        // Sanfter Übergang
+        compressor.ratio.value = 4;        // 4:1 Kompression
+        compressor.attack.value = 0.003;   // 3ms Attack
+        compressor.release.value = 0.25;   // 250ms Release
+        audioProcessingNodes.push(compressor);
+
+        // 4. Makeup Gain (Ausgleich nach Kompression)
+        const makeupGain = audioContext.createGain();
+        makeupGain.gain.value = 1.3;       // Leichte Verstärkung
+        audioProcessingNodes.push(makeupGain);
+
+        // 5. Limiter (verhindert Clipping)
+        const limiter = audioContext.createDynamicsCompressor();
+        limiter.threshold.value = -1;      // Limitiert bei -1dB
+        limiter.knee.value = 0;            // Harter Limiter
+        limiter.ratio.value = 20;          // 20:1 = quasi Limiter
+        limiter.attack.value = 0.001;      // 1ms Attack
+        limiter.release.value = 0.1;       // 100ms Release
+        audioProcessingNodes.push(limiter);
+
+        // Output - MediaStreamDestination für Recording
+        const destination = audioContext.createMediaStreamDestination();
+
+        // Kette verbinden
+        source.connect(highPass);
+        highPass.connect(lowPass);
+        lowPass.connect(compressor);
+        compressor.connect(makeupGain);
+        makeupGain.connect(limiter);
+        limiter.connect(destination);
+
+        console.log('Audio-Processing-Kette aktiv: HP Filter → LP Filter → Compressor → Gain → Limiter');
+
+        // Den verarbeiteten Audio-Track zurückgeben
+        return destination.stream.getAudioTracks()[0];
+
+    } catch (error) {
+        console.warn('Audio-Processing nicht verfügbar, verwende Original:', error);
+        return null;
+    }
+}
+
+/**
+ * Räumt Audio-Processing auf
+ */
+function cleanupAudioProcessing() {
+    if (audioContext && audioContext.state !== 'closed') {
+        audioContext.close().catch(() => {});
+    }
+    audioContext = null;
+    audioProcessingNodes = [];
+}
+
+/**
  * Räumt Media Streams auf
  */
 function cleanupStreams() {
+    // Audio-Processing aufräumen
+    cleanupAudioProcessing();
+
     [screenStream, audioStream].forEach(stream => {
         if (stream) {
             stream.getTracks().forEach(t => t.stop());
@@ -474,7 +760,6 @@ function cleanupStreams() {
     });
     screenStream = null;
     audioStream = null;
-    // camStream wird in closePip() aufgeräumt
 }
 
 /**
@@ -502,6 +787,7 @@ export function discardRecording() {
 
 /**
  * Speichert Aufnahme zu GitHub
+ * Audio wurde bereits während der Aufnahme optimiert (Noise Suppression, Compression, Limiting)
  */
 export async function saveRecording() {
     if (!recordedBlob) return;
@@ -535,7 +821,6 @@ export async function saveRecording() {
 
             } catch (uploadError) {
                 console.error('GitHub upload failed:', uploadError);
-                // Fallback: als Download anbieten
                 const link = document.createElement('a');
                 link.download = filename;
                 link.href = URL.createObjectURL(recordedBlob);
@@ -552,11 +837,4 @@ export async function saveRecording() {
         console.error('Save recording error:', e);
         toast('Fehler beim Speichern: ' + e.message, 'error');
     }
-}
-
-/**
- * Schließt Preview Modal
- */
-export function closePreviewModal() {
-    document.getElementById('recordPreviewModal')?.classList.remove('active');
 }

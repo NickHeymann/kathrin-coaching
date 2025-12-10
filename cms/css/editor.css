@@ -1179,6 +1179,8 @@ select option { background: #2C4A47; }
     cursor: grab;
     display: none;
     border: 3px solid rgba(255,255,255,0.2);
+    touch-action: none;
+    user-select: none;
 }
 
 .webcam-pip.active {
@@ -1206,43 +1208,10 @@ select option { background: #2C4A47; }
     height: 100%;
     object-fit: cover;
     transform: scaleX(-1); /* Spiegeln für natürlicheres Gefühl */
+    pointer-events: none;
 }
 
-.pip-controls {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: flex;
-    gap: 0.25rem;
-    padding: 0.5rem;
-    background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, transparent 100%);
-    opacity: 0;
-    transition: opacity 0.2s;
-}
-
-.webcam-pip:hover .pip-controls {
-    opacity: 1;
-}
-
-.pip-btn {
-    width: 28px;
-    height: 28px;
-    border: none;
-    background: rgba(255,255,255,0.2);
-    color: white;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.15s;
-}
-
-.pip-btn:hover {
-    background: rgba(255,255,255,0.4);
-}
-
+/* Resize Handle */
 .pip-resize-handle {
     position: absolute;
     right: 0;
@@ -1250,8 +1219,125 @@ select option { background: #2C4A47; }
     width: 20px;
     height: 20px;
     cursor: se-resize;
-    background: linear-gradient(135deg, transparent 50%, rgba(255,255,255,0.3) 50%);
-    border-radius: 0 0 12px 0;
+    touch-action: none;
+}
+
+.pip-resize-handle::before,
+.pip-resize-handle::after {
+    content: '';
+    position: absolute;
+    background: rgba(255,255,255,0.6);
+    border-radius: 1px;
+}
+
+.pip-resize-handle::before {
+    right: 4px;
+    bottom: 4px;
+    width: 8px;
+    height: 2px;
+    transform: rotate(-45deg);
+}
+
+.pip-resize-handle::after {
+    right: 4px;
+    bottom: 4px;
+    width: 2px;
+    height: 8px;
+    transform: rotate(-45deg);
+}
+
+/* ============================== */
+/* TOGGLE SWITCH                  */
+/* ============================== */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: #ccc;
+    transition: 0.3s;
+    border-radius: 24px;
+}
+
+.toggle-slider::before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.toggle-switch input:checked + .toggle-slider {
+    background-color: #2C4A47;
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+    transform: translateX(20px);
+}
+
+.toggle-switch input:disabled + .toggle-slider {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ============================== */
+/* SETTINGS DISABLED STATE        */
+/* ============================== */
+.settings-row.disabled,
+.record-option.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.settings-row.disabled select,
+.settings-row.disabled input,
+.record-option.disabled input {
+    cursor: not-allowed;
+}
+
+.cam-settings-details.disabled {
+    opacity: 0.7;
+}
+
+.cam-settings-details.disabled summary {
+    cursor: default;
+}
+
+.cam-settings-details.disabled .cam-settings {
+    pointer-events: none;
+}
+
+/* ============================== */
+/* SETTINGS DIVIDER               */
+/* ============================== */
+.settings-divider {
+    height: 1px;
+    background: #ddd;
+    margin: 0.75rem 0;
+}
+
+/* Setting Label neben Toggle */
+.setting-label {
+    font-size: 0.85rem;
+    color: #666;
+    margin-left: 0.25rem;
 }
 
 /* ============================== */

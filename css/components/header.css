@@ -74,8 +74,10 @@ header nav,
 
 header nav a,
 .site-header nav a {
+    font-family: var(--font-body);
     font-size: 0.95rem;
     font-weight: 500;
+    letter-spacing: 0.02em;
     color: var(--color-secondary);
     text-decoration: none;
     transition: color 0.2s ease;
@@ -93,8 +95,10 @@ header nav a:hover,
 
 .nav-dropdown .nav-link {
     cursor: pointer;
+    font-family: var(--font-body);
     font-size: 0.95rem;
     font-weight: 500;
+    letter-spacing: 0.02em;
     color: var(--color-secondary);
     transition: color 0.2s ease;
     display: inline-flex;
@@ -115,8 +119,9 @@ header nav a:hover,
     padding: 3px;
     transform: rotate(45deg);
     transition: transform 0.2s, border-color 0.2s;
-    margin-left: 0;
-    margin-top: 2px;
+    margin-left: 6px;
+    margin-top: -4px;
+    vertical-align: middle;
 }
 
 .nav-dropdown:hover > .nav-link::after {

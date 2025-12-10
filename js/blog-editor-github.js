@@ -1,10 +1,119 @@
 /* blog-editor-github.js
  * GitHub API Integration: Files, Images, Authentication
- * Zeilen: ~120 | Verantwortung: GitHub API Communication
+ * Zeilen: ~180 | Verantwortung: GitHub API Communication + Secure Token Storage
  * Abhängigkeiten: blog-editor-config.js, blog-editor-utils.js
  */
 
-// GitHub API Wrapper
+// ============================================
+// SECURE TOKEN STORAGE (XOR-Verschlüsselung)
+// ============================================
+const TOKEN_KEY = 'blog_encrypted_token';
+const TOKEN_KEY_OLD = 'github_token';
+
+const tokenCrypto = {
+    /**
+     * Generiert einen geräte-spezifischen Schlüssel
+     */
+    getDeviceKey() {
+        const parts = [
+            navigator.userAgent.slice(0, 50),
+            navigator.language,
+            screen.width + 'x' + screen.height,
+            new Date().getTimezoneOffset().toString()
+        ];
+        return parts.join('|');
+    },
+
+    /**
+     * XOR-Verschlüsselung
+     */
+    xorEncrypt(text, key) {
+        let result = '';
+        for (let i = 0; i < text.length; i++) {
+            result += String.fromCharCode(
+                text.charCodeAt(i) ^ key.charCodeAt(i % key.length)
+            );
+        }
+        return btoa(result);
+    },
+
+    /**
+     * XOR-Entschlüsselung
+     */
+    xorDecrypt(encoded, key) {
+        try {
+            const text = atob(encoded);
+            let result = '';
+            for (let i = 0; i < text.length; i++) {
+                result += String.fromCharCode(
+                    text.charCodeAt(i) ^ key.charCodeAt(i % key.length)
+                );
+            }
+            return result;
+        } catch {
+            return null;
+        }
+    }
+};
+
+const tokenStorage = {
+    /**
+     * Speichert Token verschlüsselt in localStorage
+     */
+    save(token) {
+        const key = tokenCrypto.getDeviceKey();
+        const encrypted = tokenCrypto.xorEncrypt(token, key);
+        localStorage.setItem(TOKEN_KEY, encrypted);
+
+        // Alte Schlüssel aufräumen
+        sessionStorage.removeItem(TOKEN_KEY_OLD);
+        localStorage.removeItem(TOKEN_KEY_OLD);
+    },
+
+    /**
+     * Lädt und entschlüsselt Token
+     */
+    load() {
+        const key = tokenCrypto.getDeviceKey();
+
+        // Versuche verschlüsselten Token zu laden
+        const encrypted = localStorage.getItem(TOKEN_KEY);
+        if (encrypted) {
+            const token = tokenCrypto.xorDecrypt(encrypted, key);
+            if (token && (token.startsWith('ghp_') || token.startsWith('github_pat_'))) {
+                return token;
+            }
+        }
+
+        // Migration von alten Speicherorten
+        const oldTokenSession = sessionStorage.getItem(TOKEN_KEY_OLD);
+        const oldTokenLocal = localStorage.getItem(TOKEN_KEY_OLD);
+        const oldToken = oldTokenSession || oldTokenLocal;
+
+        if (oldToken && (oldToken.startsWith('ghp_') || oldToken.startsWith('github_pat_'))) {
+            this.save(oldToken);
+            sessionStorage.removeItem(TOKEN_KEY_OLD);
+            localStorage.removeItem(TOKEN_KEY_OLD);
+            console.log('Token zur verschlüsselten Speicherung migriert');
+            return oldToken;
+        }
+
+        return null;
+    },
+
+    /**
+     * Entfernt Token
+     */
+    clear() {
+        localStorage.removeItem(TOKEN_KEY);
+        sessionStorage.removeItem(TOKEN_KEY_OLD);
+        localStorage.removeItem(TOKEN_KEY_OLD);
+    }
+};
+
+// ============================================
+// GITHUB API WRAPPER
+// ============================================
 const github = {
     async request(endpoint, options = {}) {
         const response = await fetch(`https://api.github.com${endpoint}`, {
@@ -165,6 +274,7 @@ const tokenStorage = {
 
 // Token Setup & Check
 function checkSetup() {
+    // Lade Token aus sicherer verschlüsselter Speicherung
     const savedToken = tokenStorage.load();
 
     if (savedToken) {
@@ -183,7 +293,7 @@ async function setupToken() {
         return;
     }
 
-    // Basis-Validierung des Token-Formats (wie im CMS-Editor)
+    // Basis-Validierung des Token-Formats
     if (!token.startsWith('ghp_') && !token.startsWith('github_pat_')) {
         toast('Ungültiges Token-Format. GitHub Tokens beginnen mit ghp_ oder github_pat_', 'error');
         return;
@@ -203,7 +313,7 @@ async function setupToken() {
         await github.request(`/repos/${CONFIG.owner}/${CONFIG.repo}`);
         console.log('Token gültig!');
 
-        // Token verschlüsselt speichern (kompatibel mit CMS-Editor)
+        // Token sicher verschlüsselt speichern (kompatibel mit CMS-Editor)
         tokenStorage.save(token);
 
         document.getElementById('setupScreen').classList.add('hidden');

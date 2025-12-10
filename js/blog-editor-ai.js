@@ -11,10 +11,13 @@ const groqAPI = {
     async call(systemPrompt, userContent, model = 'llama-3.1-8b-instant') {
         if (!aiState.groqKey) {
             openAISetup();
-            throw new Error('Groq API Key nicht konfiguriert');
+            throw new Error('Bitte zuerst den Groq API Key eingeben');
         }
 
         try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s Timeout
+
             const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
                 method: 'POST',
                 headers: {
@@ -29,20 +32,59 @@ const groqAPI = {
                     ],
                     temperature: 0.7,
                     max_tokens: 2048
-                })
+                }),
+                signal: controller.signal
             });
 
+            clearTimeout(timeoutId);
+
             if (!response.ok) {
-                const err = await response.json();
-                throw new Error(err.error?.message || 'API Fehler');
+                const err = await response.json().catch(() => ({}));
+                throw { status: response.status, message: err.error?.message };
             }
 
             const data = await response.json();
             return data.choices[0].message.content;
+
         } catch (e) {
             console.error('Groq API Error:', e);
-            throw e;
+            throw new Error(this.getErrorMessage(e));
         }
+    },
+
+    /**
+     * Gibt benutzerfreundliche Fehlermeldung zurück
+     */
+    getErrorMessage(error) {
+        // Abgebrochen/Timeout
+        if (error.name === 'AbortError') {
+            return 'Die Anfrage hat zu lange gedauert. Bitte versuche es erneut.';
+        }
+
+        // Netzwerkfehler
+        if (error.message === 'Failed to fetch' || error.name === 'TypeError') {
+            return 'Keine Internetverbindung. Bitte prüfe deine Verbindung.';
+        }
+
+        // HTTP Status Codes
+        if (error.status) {
+            switch (error.status) {
+                case 401:
+                    return 'Ungültiger API Key. Bitte prüfe deinen Groq API Key.';
+                case 403:
+                    return 'Zugriff verweigert. API Key hat keine Berechtigung.';
+                case 429:
+                    return 'Rate Limit erreicht. Bitte warte 30 Sekunden und versuche es erneut.';
+                case 500:
+                case 502:
+                case 503:
+                    return 'Groq-Server nicht erreichbar. Bitte später erneut versuchen.';
+                default:
+                    return error.message || `Server-Fehler (${error.status})`;
+            }
+        }
+
+        return error.message || 'Unbekannter Fehler aufgetreten';
     }
 };
 

@@ -17,21 +17,28 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="modern">
-    <!-- Header -->
-    <header class="dashboard-header modern">
-        <div class="header-left">
-            <a href="../" class="back-link">← Zurück zum Editor</a>
-            <h1>📊 Analytics Dashboard</h1>
+    <!-- Toolbar (gleiche Struktur wie CMS/Blog Editor) -->
+    <div class="toolbar modern">
+        <div class="toolbar-left">
+            <div class="toolbar-logo">Editor</div>
+            <div class="toolbar-mode-switch">
+                <a href="../" class="mode-btn">Seiten</a>
+                <a href="../../blog-editor-modular.html" class="mode-btn">Blog</a>
+                <a href="./" class="mode-btn active">Analytics</a>
+            </div>
         </div>
-        <div class="header-right">
-            <select id="dateRange" onchange="Dashboard.loadData()">
+        <div class="toolbar-center">
+            <h1 style="font-size: 1rem; margin: 0; color: rgba(255,255,255,0.9);">📊 Analytics Dashboard</h1>
+        </div>
+        <div class="toolbar-right">
+            <select id="dateRange" onchange="Dashboard.loadData()" class="toolbar-select">
                 <option value="7">Letzte 7 Tage</option>
                 <option value="30" selected>Letzte 30 Tage</option>
                 <option value="90">Letzte 90 Tage</option>
             </select>
-            <button class="btn-refresh" onclick="Dashboard.refresh()">↻ Aktualisieren</button>
+            <button class="btn btn-ghost" onclick="Dashboard.refresh()">↻ Aktualisieren</button>
         </div>
-    </header>
+    </div>
 
     <!-- Main Dashboard -->
     <main class="dashboard-main">

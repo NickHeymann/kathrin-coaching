@@ -73,9 +73,138 @@
         @media(max-width:992px){nav.mobile-open{display:flex;position:absolute;top:80px;left:0;right:0;flex-direction:column;background:white;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.1)}nav.mobile-open a{padding:15px 0;border-bottom:1px solid rgba(0,0,0,.05)}}
         @media(max-width:768px){.footer-content{grid-template-columns:1fr;gap:40px}}
     </style>
+
+<link rel="stylesheet" href="css/components/header.css">
 </head>
 <body>
-<div id="header-placeholder"></div>
+<!-- Header -->
+<header>
+<div class="container header-inner">
+<a class="logo" href="index.html">KATHRIN STAHL</a>
+<nav id="mainNav">
+<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<span class="nav-link">Angebote</span>
+<div aria-label="Angebote" class="dropdown-menu" role="menu">
+<a href="index.html#angebote" role="menuitem">
+
+<span class="dropdown-text">
+<strong>1:1 Coaching</strong>
+<span>Einzelbegleitung online &amp; vor Ort</span>
+</span>
+</a>
+<a href="index.html#angebote" role="menuitem">
+
+<span class="dropdown-text">
+<strong>Paar-Coaching</strong>
+<span>Beziehungskrisen gemeinsam meistern</span>
+</span>
+</a>
+<a href="paar-retreat.html" role="menuitem">
+
+<span class="dropdown-text">
+<strong>Paar-Retreat Portugal</strong>
+<span>5 Tage für eure Beziehung</span>
+</span>
+</a>
+<a href="retreats-in-portugal.html" role="menuitem">
+
+<span class="dropdown-text">
+<strong>Retreats in Portugal</strong>
+<span>Auszeit im Alentejo</span>
+</span>
+</a>
+<a href="pferdegestuetztes-coaching.html" role="menuitem">
+
+<span class="dropdown-text">
+<strong>Pferdegestütztes Coaching</strong>
+<span>Meine Methode erklärt</span>
+</span>
+</a>
+<a href="casinha.html" role="menuitem">
+
+<span class="dropdown-text">
+<strong>Die Casinha</strong>
+<span>Deine Unterkunft im Alentejo</span>
+</span>
+</a>
+</div>
+</div>
+<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<span class="nav-link">Selbsttests</span>
+<div aria-label="Selbsttests" class="dropdown-menu" role="menu">
+<a href="quiz-hochsensibel.html" role="menuitem">
+
+<span class="dropdown-text">
+<strong>Hochsensibel?</strong>
+<span>HSPS-Test nach Elaine Aron</span>
+</span>
+</a>
+<a href="quiz-hochbegabt.html" role="menuitem">
+
+<span class="dropdown-text">
+<strong>Intensitäts-Profil</strong>
+<span>Overexcitabilities nach Dabrowski</span>
+</span>
+</a>
+<a href="quiz-beziehung.html" role="menuitem">
+
+<span class="dropdown-text">
+<strong>Beziehungs-Check</strong>
+<span>Four Horsemen nach Gottman</span>
+</span>
+</a>
+<a href="quiz-lebenskrise.html" role="menuitem">
+
+<span class="dropdown-text">
+<strong>Burnout-Test</strong>
+<span>Copenhagen Burnout Inventory</span>
+</span>
+</a>
+<a href="quiz-midlife.html" role="menuitem">
+
+<span class="dropdown-text">
+<strong>Midlife Crisis</strong>
+<span>CMCM-Fragebogen</span>
+</span>
+</a>
+<a href="quiz-paar-kompass.html" role="menuitem">
+
+<span class="dropdown-text">
+<strong>Paar-Kompass</strong>
+<span>Wo steht eure Beziehung?</span>
+</span>
+</a>
+</div>
+</div>
+<a href="blog.html">Blog</a>
+<a href="media.html">Videos</a>
+<a href="kathrin.html">Über mich</a>
+<div class="contact-dropdown">
+<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<div class="contact-dropdown-menu">
+<a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
+<span class="contact-icon">💬</span>
+<span>WhatsApp</span>
+</a>
+<a class="contact-item" href="mailto:kathrin@kathrinstahl.com">
+<span class="contact-icon">✉️</span>
+<span>E-Mail</span>
+</a>
+<a class="contact-item" href="https://cal.com/kathrinstahl" target="_blank">
+<span class="contact-icon">📅</span>
+<span>Erstgespräch buchen</span>
+</a>
+</div>
+</div>
+<a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
+</nav>
+<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<span></span>
+<span></span>
+<span></span>
+</button>
+</div>
+</header>
 <section class="article-hero">
 <div class="container">
 <span class="article-category">Allgemein</span>

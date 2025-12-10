@@ -28,7 +28,7 @@ import { createStickyNote, removeStickyNote, toggleNotesSidebar, filterNotes, sc
 import { setupKeyboardShortcuts } from './keyboard.js';
 import { initEmojiPicker, initColorPicker, formatText, setTextColor, insertEmoji, showColorPicker, showEmojiPicker, hideFormatToolbar } from './format-toolbar.js';
 import { showContextMenu, hideContextMenu, createNoteFromContext, showElementHistoryFromContext, restoreElementValue } from './context-menu.js';
-import { toggleRecording, closeRecordModal, startRecording, stopRecording, discardRecording, saveRecording, showRecordSettings, toggleWebcamPreview, updatePreviewResolution, updatePipSizeFromSelect, closePip, togglePipSize, initRecordingControls } from './video-recording.js';
+import { toggleRecording, closeRecordModal, startRecording, stopRecording, discardRecording, saveRecording, showRecordSettings, toggleWebcamPreview, updatePreviewResolution, initRecordingControls, toggleBackgroundBlur, updateBlurStrength } from './video-recording.js';
 
 /**
  * Globales CMS-Objekt für HTML-onclick-Handler
@@ -90,9 +90,8 @@ window.CMS = {
     showRecordSettings,
     toggleWebcamPreview,
     updatePreviewResolution,
-    updatePipSizeFromSelect,
-    closePip,
-    togglePipSize,
+    toggleBackgroundBlur,
+    updateBlurStrength,
 
     // Feedback Dropdown
     toggleFeedbackDropdown: () => {

@@ -19,6 +19,8 @@
 | **Blog-Editor Logic** | `js/blog-editor-core.js` | `publishPost`, `saveDraft` |
 | **Blog-Editor AI** | `js/blog-editor-ai.js` | `groqAPI`, `aiCategorize` |
 | **Blog-Editor Config** | `js/blog-editor-config.js` | `CONFIG`, `state`, `BLOG_CATEGORIES` |
+| **Blog-Editor Video** | `js/blog-editor-video.js`, `css/blog-editor-video.css` | `openVideoRecordModal`, `silenceRegions` |
+| **Blog-Editor Blocks** | `js/blog-editor-blocks.js`, `css/blog-editor-blocks.css` | `createBlock`, `blocksToHtml`, `BLOCK_TYPES` |
 | **CMS-Editor (MODULAR)** | `/cms/` Ordner | `cms/js/*.js`, `cms/css/editor.css` |
 
 ## Projektstruktur
@@ -98,6 +100,8 @@ kathrin-coaching/
 │   ├── blog-editor-base.css      # Blog-Editor: Layout, Buttons, Forms (~350 Z.)
 │   ├── blog-editor-panels.css    # Blog-Editor: Modals, Queue, Toast (~200 Z.)
 │   ├── blog-editor-ai.css        # Blog-Editor: AI Panel, Voice (~180 Z.)
+│   ├── blog-editor-video.css     # Blog-Editor: Video Recording UI (~200 Z.)
+│   ├── blog-editor-blocks.css    # Blog-Editor: Block-System UI (~280 Z.)
 │   │
 │   ├── utilities/                # Helper-Klassen
 │   │   ├── helpers.css           # .hidden, .text-center, etc.
@@ -124,7 +128,9 @@ kathrin-coaching/
 │   ├── blog-editor-utils.js      # Blog-Editor: escapeHtml, sanitize, slug (~100 Z.)
 │   ├── blog-editor-github.js     # Blog-Editor: GitHub API (~120 Z.)
 │   ├── blog-editor-core.js       # Blog-Editor: Drafts, Publish, Toolbar (~450 Z.)
-│   └── blog-editor-ai.js         # Blog-Editor: Groq API, Voice, AI (~350 Z.)
+│   ├── blog-editor-ai.js         # Blog-Editor: Groq API, Voice, AI (~350 Z.)
+│   ├── blog-editor-video.js      # Blog-Editor: Video Recording, Silence Detection (~280 Z.)
+│   └── blog-editor-blocks.js     # Blog-Editor: Modulares Block-System (~350 Z.)
 │
 ├── data/
 │   ├── blog-intelligence.json    # LLM-Analysen der Blog-Artikel
