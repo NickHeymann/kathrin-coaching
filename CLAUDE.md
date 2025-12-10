@@ -282,3 +282,13 @@ js/global.js (113)               →   js/core/utils.js (OK)
 ## Branches
 - `main` - Produktion (GitHub Pages)
 - `kathrin-edits` - Für Kathrin's direkte Änderungen
+
+## Safety-Regeln für Git-Operationen durch LLM
+
+- Arbeite NIEMALS direkt auf dem Branch `main`, sondern immer auf Feature-/Fix-Branches (z.B. `feature/...`, `fix/...`, `refactor/...`).
+- Führe KEIN `git reset --hard`, KEIN `git push --force` und KEIN Löschen von Branches oder Tags aus, außer es wird explizit und eindeutig vom Nutzer angeordnet.
+- Vor größeren Refactorings oder riskanten Änderungen:
+  - Erstelle einen neuen Branch (z.B. `refactor/<kurze-beschreibung>`).
+  - Setze einen Snapshot-Tag (z.B. `snapshot-YYYYMMDD-HHMM`) auf den letzten stabilen Commit.
+  - Pushe den aktuellen Stand des Branches auf `origin`.
+- Beschreibe im Commit-Text klar, was geändert wurde (z.B. „refactor: split monolithic file into modules"), damit der Verlauf nachvollziehbar bleibt.
