@@ -14,6 +14,7 @@ const schedulingRoutes = require('./routes/scheduling');
 const healthRoutes = require('./routes/health');
 const analyticsRoutes = require('./routes/analytics');
 const aiProxyRoutes = require('./routes/ai-proxy');
+const metaCapiRoutes = require('./routes/meta-capi');
 
 // Middleware
 const { limiters } = require('./middleware/rate-limit');
@@ -54,6 +55,7 @@ app.use('/api', healthRoutes);
 app.use('/api', schedulingRoutes);
 app.use('/api', analyticsRoutes);
 app.use('/api/ai', aiProxyRoutes);
+app.use('/api', metaCapiRoutes);
 
 // 404 Handler
 app.use((req, res) => {

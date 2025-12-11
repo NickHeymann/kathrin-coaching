@@ -67,6 +67,8 @@ services:
       GITHUB_TOKEN: ${GITHUB_TOKEN}
       GROQ_API_KEY: ${GROQ_API_KEY}
       API_SECRET_TOKEN: ${API_SECRET_TOKEN}
+      META_PIXEL_ID: ${META_PIXEL_ID}
+      META_ACCESS_TOKEN: ${META_ACCESS_TOKEN}
       PORT: 3001
       NODE_ENV: production
     depends_on:

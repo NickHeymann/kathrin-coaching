@@ -51,6 +51,8 @@ jobs:
             echo "API_SECRET_TOKEN=${{ secrets.KATHRIN_API_SECRET }}" >> /opt/apps/kathrin-analytics/server/.env && \
             echo "GITHUB_TOKEN=${{ secrets.KATHRIN_GITHUB_TOKEN }}" >> /opt/apps/kathrin-analytics/server/.env && \
             echo "GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}" >> /opt/apps/kathrin-analytics/server/.env && \
+            echo "META_PIXEL_ID=${{ secrets.META_PIXEL_ID }}" >> /opt/apps/kathrin-analytics/server/.env && \
+            echo "META_ACCESS_TOKEN=${{ secrets.META_ACCESS_TOKEN }}" >> /opt/apps/kathrin-analytics/server/.env && \
             echo "NODE_ENV=production" >> /opt/apps/kathrin-analytics/server/.env && \
             echo "PORT=3001" >> /opt/apps/kathrin-analytics/server/.env && \
             chmod 600 /opt/apps/kathrin-analytics/server/.env'
