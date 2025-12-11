@@ -22,6 +22,7 @@
 | **Blog-Editor Video** | `js/blog-editor-video.js`, `css/blog-editor-video.css` | `openVideoRecordModal`, `silenceRegions` |
 | **Blog-Editor Blocks** | `js/blog-editor-blocks.js`, `css/blog-editor-blocks.css` | `createBlock`, `blocksToHtml`, `BLOCK_TYPES` |
 | **CMS-Editor (MODULAR)** | `/cms/` Ordner | `cms/js/*.js`, `cms/css/editor.css` |
+| **Admin Auth System** | `admin/js/*.js`, `admin/css/admin.css` | `signIn`, `loadGithubToken`, `apiKeys` |
 
 ## Projektstruktur
 
@@ -32,6 +33,17 @@ kathrin-coaching/
 ├── blog-editor-modular.html      # Blog-Editor (LLM-optimiert, modular)
 ├── *.html                        # Weitere Seiten
 │
+├── admin/                        # Admin Auth System (Supabase)
+│   ├── index.html                # Login-Seite
+│   ├── dashboard.html            # Admin-Dashboard
+│   ├── reset-password.html       # Passwort-Reset
+│   ├── css/admin.css             # Admin Styles (~420 Z.)
+│   └── js/
+│       ├── supabase-config.js    # Supabase Client
+│       ├── auth.js               # Auth-Funktionen
+│       ├── api-keys.js           # API Key Management
+│       └── auth-check.js         # Token-Loader für Editoren
+│
 ├── cms/                          # CMS-Editor v2.0 (MODULAR - AKTIV!)
 │   ├── index.html                # Editor UI (~280 Z.)
 │   ├── css/editor.css            # Alle CMS Styles (~1100 Z.)
@@ -39,7 +51,7 @@ kathrin-coaching/
 │       ├── main.js               # Entry Point, CMS global object
 │       ├── config.js             # CONFIG Konstanten
 │       ├── state.js              # Reactive State Management
-│       ├── storage.js            # LocalStorage, Token
+│       ├── storage.js            # LocalStorage, Token (+ loadAsync)
 │       ├── github-api.js         # GitHub API Client
 │       ├── page-loader.js        # Seiten laden
 │       ├── frame-setup.js        # iFrame Editing Setup
@@ -288,14 +300,95 @@ js/global.js (113)               →   js/core/utils.js (OK)
 - **Hosting**: GitHub Pages (automatisches Deploy bei Push auf `main`)
 - **Externe Dienste**:
   - n8n: Self-Hosted auf Hetzner CX32 (Automation/Workflows)
-  - Supabase: Self-Hosted Stack (falls Datenbank benötigt)
+  - Supabase: Self-Hosted Stack (Auth + API Key Storage)
   - Groq API: Für LLM-basierte Blog-Analyse
 - **Deployment**:
   - Statische Seite via GitHub Pages
   - GitHub Actions für automatisierte Tasks (Blog-Analyse, Video-Updates)
 - **Secrets-Management**:
   - GitHub Secrets für CI/CD (GROQ_API_KEY)
+  - Supabase: API Keys pro User (verschlüsselt)
   - Lokale `.env` für Entwicklung (in .gitignore)
+
+## Admin Auth System (Supabase)
+
+### Struktur
+```
+admin/
+├── index.html          # Login-Seite
+├── dashboard.html      # Admin-Dashboard mit Tool-Cards
+├── reset-password.html # Passwort-Reset-Formular
+├── css/admin.css       # Admin-spezifische Styles
+└── js/
+    ├── supabase-config.js  # Supabase Client Init
+    ├── auth.js             # Auth-Funktionen (signIn, signOut, etc.)
+    ├── api-keys.js         # API Key CRUD (verschlüsselt)
+    └── auth-check.js       # Token-Loader für Editoren
+```
+
+### Token-Speicherung
+- **Supabase (primär)**: API Keys pro User in `api_keys` Tabelle
+- **localStorage (Fallback)**: XOR-verschlüsselt mit Device-Key
+- **WICHTIG**: Alle Editoren nutzen dieselbe `getDeviceKey()`-Implementierung:
+  ```javascript
+  // userAgent.slice(0, 50) + language + screen + timezoneOffset
+  const parts = [
+      navigator.userAgent.slice(0, 50),
+      navigator.language,
+      screen.width + 'x' + screen.height,
+      new Date().getTimezoneOffset().toString()
+  ];
+  return parts.join('|');
+  ```
+
+### Supabase Tabelle
+```sql
+CREATE TABLE api_keys (
+    id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+    user_id uuid REFERENCES auth.users(id) ON DELETE CASCADE,
+    key_name text NOT NULL,
+    key_value text NOT NULL,  -- XOR-verschlüsselter Wert
+    created_at timestamptz DEFAULT now(),
+    updated_at timestamptz DEFAULT now(),
+    UNIQUE(user_id, key_name)
+);
+
+-- RLS aktivieren
+ALTER TABLE api_keys ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Users can manage own keys" ON api_keys
+    FOR ALL USING (auth.uid() = user_id);
+```
+
+### Integration in Editoren
+CMS und Blog-Editor laden den Token async:
+1. Prüfe ob `window.loadGithubToken()` existiert (aus auth-check.js)
+2. Falls ja: Lade von Supabase
+3. Falls nein/Fehler: Fallback zu localStorage
+
+## Deployment-Standards (Backend auf Hetzner)
+
+### Docker-Architektur
+```
+/opt/kathrin-analytics/
+├── docker-compose.yml        # Production Compose
+├── .env                      # Secrets (nicht im Repo!)
+├── server/
+│   ├── Dockerfile
+│   └── ...
+└── nginx/
+    └── kathrin.conf          # Reverse Proxy Config
+```
+
+### CI/CD via GitHub Actions
+- Bei Push auf `main` → Docker Image bauen → Registry → Hetzner
+- Workflow: `.github/workflows/deploy-api.yml`
+- **Kein manuelles SSH-Deployment im Regelfall**
+
+### Befehle (nur Notfall/Initial)
+```bash
+scp -r server/ root@91.99.177.238:/opt/kathrin-analytics/
+ssh root@91.99.177.238 "cd /opt/kathrin-analytics && docker-compose pull && docker-compose up -d"
+```
 
 ## Safety-Regeln für Git-Operationen durch LLM
 

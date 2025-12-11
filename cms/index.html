@@ -107,6 +107,7 @@
             <button class="btn btn-ghost" onclick="CMS.showVersions()">Versionen</button>
             <button class="btn btn-ghost" onclick="CMS.undo()">Rückgängig</button>
             <button class="btn btn-primary" onclick="CMS.saveNow()">Jetzt speichern</button>
+            <button class="btn btn-ghost btn-logout" onclick="CMS.logout()" title="Abmelden">Abmelden</button>
         </div>
     </div>
 
@@ -343,6 +344,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js"
             integrity="sha384-3XJAN3rswrHdGqLHC3V5s0ERRmJrqtOvC/1qVz8gg4RZMlWBNB9VCRa9Z6H/TqRt"
             crossorigin="anonymous"></script>
+
+    <!-- Supabase Auth (optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../admin/js/auth-check.js"></script>
 
     <!-- App Entry Point -->
     <script type="module" src="js/main.js"></script>

@@ -71,6 +71,7 @@
         <button class="btn btn-ghost" onclick="toggleQueue()" aria-label="Warteschlange anzeigen" aria-expanded="false" aria-controls="queuePanel">Warteschlange</button>
         <button class="btn btn-ghost" onclick="saveDraft()" aria-label="Entwurf speichern">Entwurf speichern</button>
         <button class="btn btn-success" onclick="publishPost()" aria-label="Beitrag veröffentlichen">Veröffentlichen</button>
+        <button class="btn btn-ghost btn-logout" onclick="logout()" aria-label="Abmelden">Abmelden</button>
     </div>
 </header>
 
@@ -921,6 +922,10 @@
 
 <!-- VAD (Voice Activity Detection) für Stille-Erkennung -->
 <script src="https://cdn.jsdelivr.net/npm/@ricky0123/vad-web@0.0.19/dist/bundle.min.js"></script>
+
+<!-- Supabase Auth (optional) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="admin/js/auth-check.js"></script>
 
 <!-- Modular JavaScript (Reihenfolge wichtig!) -->
 <script src="js/blog-editor-config.js"></script>

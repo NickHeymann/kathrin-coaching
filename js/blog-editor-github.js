@@ -210,78 +210,50 @@ const github = {
     }
 };
 
-// Shared Token Storage (kompatibel mit CMS-Editor)
-const tokenStorage = {
-    TOKEN_KEY: 'cms_encrypted_token',
-
-    getDeviceKey() {
-        const parts = [
-            navigator.userAgent.slice(0, 50),
-            navigator.language,
-            screen.width + 'x' + screen.height,
-            new Date().getTimezoneOffset().toString()
-        ];
-        return parts.join('|');
-    },
-
-    xorDecrypt(encoded, key) {
+// Erweitere tokenStorage um async Supabase-Support
+tokenStorage.loadAsync = async function() {
+    // Versuche zuerst von Supabase zu laden (falls auth-check.js geladen)
+    if (typeof window.loadGithubToken === 'function') {
         try {
-            const text = atob(encoded);
-            let result = '';
-            for (let i = 0; i < text.length; i++) {
-                result += String.fromCharCode(
-                    text.charCodeAt(i) ^ key.charCodeAt(i % key.length)
-                );
+            const supabaseToken = await window.loadGithubToken();
+            if (supabaseToken) {
+                console.log('Token von Supabase geladen');
+                return supabaseToken;
             }
-            return result;
-        } catch {
-            return null;
+        } catch (e) {
+            console.warn('Supabase Token-Loading fehlgeschlagen:', e);
         }
-    },
-
-    xorEncrypt(text, key) {
-        let result = '';
-        for (let i = 0; i < text.length; i++) {
-            result += String.fromCharCode(
-                text.charCodeAt(i) ^ key.charCodeAt(i % key.length)
-            );
-        }
-        return btoa(result);
-    },
-
-    load() {
-        const key = this.getDeviceKey();
-        const encrypted = localStorage.getItem(this.TOKEN_KEY);
-        if (encrypted) {
-            const token = this.xorDecrypt(encrypted, key);
-            if (token && (token.startsWith('ghp_') || token.startsWith('github_pat_'))) {
-                return token;
-            }
-        }
-        // Fallback: alte Speicherorte
-        return sessionStorage.getItem('github_token') || localStorage.getItem('github_token');
-    },
-
-    save(token) {
-        const key = this.getDeviceKey();
-        const encrypted = this.xorEncrypt(token, key);
-        localStorage.setItem(this.TOKEN_KEY, encrypted);
-        // Alte Speicherorte aufräumen
-        sessionStorage.removeItem('github_token');
-        localStorage.removeItem('github_token');
     }
+
+    // Fallback: localStorage
+    return this.load();
 };
 
-// Token Setup & Check
-function checkSetup() {
-    // Lade Token aus sicherer verschlüsselter Speicherung
-    const savedToken = tokenStorage.load();
+// Token Setup & Check (async für Supabase-Support)
+async function checkSetup() {
+    // Versuche Token von Supabase oder localStorage zu laden
+    const savedToken = await tokenStorage.loadAsync();
 
     if (savedToken) {
         state.token = savedToken;
         document.getElementById('setupScreen').classList.add('hidden');
         initEditor();
     }
+}
+
+// Logout-Funktion
+async function logout() {
+    tokenStorage.clear();
+    state.token = null;
+    // Falls Supabase Auth aktiv, auch dort ausloggen
+    if (typeof window.supabase !== 'undefined') {
+        try {
+            await window.supabase.auth.signOut();
+        } catch (e) {
+            console.warn('Supabase logout fehlgeschlagen:', e);
+        }
+    }
+    window.location.href = 'admin/';
 }
 
 async function setupToken() {

@@ -105,14 +105,30 @@ window.CMS = {
 
     // UI
     closeAllPopups,
-    toast
+    toast,
+
+    // Auth
+    logout: async () => {
+        tokenStorage.clear();
+        state.token = null;
+        // Falls Supabase Auth aktiv, auch dort ausloggen
+        if (typeof window.supabase !== 'undefined') {
+            try {
+                await window.supabase.auth.signOut();
+            } catch (e) {
+                console.warn('Supabase logout fehlgeschlagen:', e);
+            }
+        }
+        window.location.href = '../admin/';
+    }
 };
 
 /**
- * Prüft und lädt Token
+ * Prüft und lädt Token (async für Supabase-Unterstützung)
  */
-function checkSetup() {
-    const savedToken = tokenStorage.load();
+async function checkSetup() {
+    // Versuche Token von Supabase oder localStorage zu laden
+    const savedToken = await tokenStorage.loadAsync();
 
     if (savedToken) {
         state.token = savedToken;
@@ -293,7 +309,7 @@ async function init() {
     console.log('Modules loaded:', Object.keys(window.CMS).length, 'functions');
 
     setupEventHandlers();
-    checkSetup();
+    await checkSetup();
 }
 
 // App starten

@@ -146,7 +146,7 @@ export const tokenStorage = {
     },
 
     /**
-     * Lädt und entschlüsselt Token aus localStorage
+     * Lädt und entschlüsselt Token aus localStorage (synchron)
      * @returns {string|null} Token oder null
      */
     load() {
@@ -177,6 +177,28 @@ export const tokenStorage = {
         }
 
         return null;
+    },
+
+    /**
+     * Lädt Token aus Supabase (falls eingeloggt) oder localStorage
+     * @returns {Promise<string|null>} Token oder null
+     */
+    async loadAsync() {
+        // Versuche zuerst von Supabase zu laden (falls auth-check.js geladen)
+        if (typeof window.loadGithubToken === 'function') {
+            try {
+                const supabaseToken = await window.loadGithubToken();
+                if (supabaseToken) {
+                    console.log('Token von Supabase geladen');
+                    return supabaseToken;
+                }
+            } catch (e) {
+                console.warn('Supabase Token-Loading fehlgeschlagen:', e);
+            }
+        }
+
+        // Fallback: localStorage
+        return this.load();
     },
 
     /**
