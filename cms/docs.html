@@ -51,6 +51,44 @@
         .header p {
             opacity: 0.9;
             font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Tool Switcher */
+        .tool-switcher {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .tool-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tool-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .tool-btn.active {
+            background: var(--color-secondary);
+            border-color: var(--color-secondary);
+            font-weight: 600;
         }
 
         /* ==================== SEARCH ==================== */
@@ -367,6 +405,22 @@
     <div class="header">
         <h1>📚 Editor Dokumentation</h1>
         <p>Vollständige Anleitung für CMS Editor, Blog Editor & Analytics</p>
+
+        <!-- Tool Switcher -->
+        <div class="tool-switcher">
+            <a href="index.html" class="tool-btn">
+                <span>✏️</span> CMS Editor
+            </a>
+            <a href="../blog-editor-modular.html" class="tool-btn">
+                <span>📝</span> Blog Editor
+            </a>
+            <a href="../analytics.html" class="tool-btn">
+                <span>📊</span> Analytics
+            </a>
+            <a href="docs.html" class="tool-btn active">
+                <span>📚</span> Dokumentation
+            </a>
+        </div>
     </div>
 
     <!-- Search -->
