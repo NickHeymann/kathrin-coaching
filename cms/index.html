@@ -26,8 +26,9 @@
         <div class="setup-card">
             <h1>Website Editor einrichten</h1>
             <p>Um Änderungen automatisch zu speichern, benötigst du einen GitHub-Zugang.</p>
-            <input type="password" class="setup-input" id="tokenInput" placeholder="GitHub Token eingeben...">
-            <button class="setup-btn" id="setupBtn">Editor starten</button>
+            <label for="tokenInput" class="sr-only">GitHub Token</label>
+            <input type="password" class="setup-input" id="tokenInput" placeholder="GitHub Token eingeben..." aria-label="GitHub Token eingeben">
+            <button class="setup-btn" id="setupBtn" aria-label="Editor starten">Editor starten</button>
             <details class="setup-help">
                 <summary>Wie bekomme ich einen Token?</summary>
                 <div class="setup-help-content">
@@ -57,7 +58,8 @@
                 <a href="analytics/index.html" class="mode-btn" title="Analytics Dashboard">Analytics</a>
                 <a href="docs.html" class="mode-btn" title="Dokumentation">📚 Docs</a>
             </div>
-            <select id="pageSelect">
+            <label for="pageSelect" class="sr-only">Seite auswählen</label>
+            <select id="pageSelect" aria-label="Seite auswählen">
                 <option value="">Seite wählen...</option>
                 <optgroup label="Startseite">
                     <option value="index.html">Startseite</option>
