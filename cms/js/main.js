@@ -1,5 +1,5 @@
 /**
- * CMS Editor - Main Entry Point
+ * Website Editor - Main Entry Point
  * Initialisiert alle Module und stellt globale API bereit
  * @module main
  */
@@ -450,7 +450,7 @@ function setupEventHandlers() {
 async function init() {
     await domReady();
 
-    console.log('CMS Editor v2.0 - Modular Edition');
+    console.log('Website Editor v2.0 - Modular Edition');
     console.log('Modules loaded:', Object.keys(window.CMS).length, 'functions');
 
     setupEventHandlers();

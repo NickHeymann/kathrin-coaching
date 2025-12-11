@@ -21,7 +21,7 @@
 | **Blog-Editor Config** | `js/blog-editor-config.js` | `CONFIG`, `state`, `BLOG_CATEGORIES` |
 | **Blog-Editor Video** | `js/blog-editor-video.js`, `css/blog-editor-video.css` | `openVideoRecordModal`, `silenceRegions` |
 | **Blog-Editor Blocks** | `js/blog-editor-blocks.js`, `css/blog-editor-blocks.css` | `createBlock`, `blocksToHtml`, `BLOCK_TYPES` |
-| **CMS-Editor (MODULAR)** | `/cms/` Ordner | `cms/js/*.js`, `cms/css/editor.css` |
+| **Website-Editor (MODULAR)** | `/cms/` Ordner | `cms/js/*.js`, `cms/css/editor.css` |
 | **Admin Auth System** | `admin/js/*.js`, `admin/css/admin.css` | `signIn`, `loadGithubToken`, `apiKeys` |
 
 ## Projektstruktur
@@ -44,9 +44,9 @@ kathrin-coaching/
 │       ├── api-keys.js           # API Key Management
 │       └── auth-check.js         # Token-Loader für Editoren
 │
-├── cms/                          # CMS-Editor v2.0 (MODULAR - AKTIV!)
+├── cms/                          # Website-Editor v2.0 (MODULAR - AKTIV!)
 │   ├── index.html                # Editor UI (~280 Z.)
-│   ├── css/editor.css            # Alle CMS Styles (~1100 Z.)
+│   ├── css/editor.css            # Alle Website-Editor Styles (~1100 Z.)
 │   └── js/                       # Modulare JS-Dateien (~150-250 Z. pro Datei)
 │       ├── main.js               # Entry Point, CMS global object
 │       ├── config.js             # CONFIG Konstanten

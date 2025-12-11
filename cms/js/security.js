@@ -1,5 +1,5 @@
 /**
- * CMS Editor Security Utilities
+ * Website Editor Security Utilities
  * XSS-Prävention, HTML-Sanitization, sichere Encoding-Funktionen
  * @module security
  */

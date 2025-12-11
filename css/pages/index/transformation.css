@@ -66,11 +66,13 @@
 .transformation-header h2 {
     color: white;
     transition: color 0.5s ease;
+    text-align: center;
 }
 
 .transformation-header p {
     color: rgba(255,255,255,0.8);
     transition: color 0.5s ease;
+    text-align: center;
 }
 
 .transformation-slider-container {

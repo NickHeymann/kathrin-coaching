@@ -419,6 +419,22 @@
             max-width: 550px;
         }
 
+        .hero-btn-spacing {
+            margin-top: 30rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-btn-spacing {
+                margin-top: 10rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-btn-spacing {
+                margin-top: 6rem;
+            }
+        }
+
         /* ===== BUTTONS ===== */
         .btn {
             display: inline-flex;
@@ -428,7 +444,7 @@
             font-family: var(--font-body);
             font-size: 0.95rem;
             font-weight: 600;
-            border-radius: 4px;
+            border-radius: 25px;
             cursor: pointer;
             transition: all 0.2s;
             border: none;
@@ -2218,7 +2234,14 @@
             justify-content: center;
             box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
             z-index: 998;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s, visibility 0.3s;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .whatsapp-btn.visible {
+            opacity: 1;
+            visibility: visible;
         }
 
         .whatsapp-btn:hover {
@@ -3783,23 +3806,9 @@
 <!-- Hero Section -->
 <section id="main-content" class="hero">
 <div class="container">
-<div class="hero-content">
-<p class="hero-tagline">Für Menschen, die tief fühlen, tief denken und tief in Beziehung gehen</p>
-<h1>Der Moment, in dem etwas aufgeht</h1>
-<p>Ich arbeite nicht mit Konzepten, sondern mit Wahrnehmung. Mit Bildern, Augenblicken, Stille. Mit dem, was sich zwischen zwei Atemzügen zeigt. In Portugal, mit Pferden, in der Begegnung mit dir selbst.</p>
-<div class="hero-buttons">
-<a class="btn btn-primary" href="#">Kostenloses Erstgespräch</a>
-<a class="btn btn-secondary" href="#angebote">Mehr erfahren</a>
-</div>
-<div class="social-proof-badge">
-<span><span id="bookings-count">4</span> Menschen haben diese Woche ein Erstgespräch gebucht</span>
-</div>
-<!-- Video Intro -->
-<div class="video-intro">
-<img decoding="async" alt="Kathrin Stahl Coach - Videobotschaft pferdegestütztes Coaching Portugal" fetchpriority="high" src="wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg"/>
-
-<div class="video-intro-caption">Lerne mich in 60 Sekunden kennen</div>
-</div>
+<div class="hero-content" style="padding-top: 20px;">
+<h1 style="white-space: nowrap; text-transform: uppercase; transform: translateY(-100px);">Zeig deinem Leben wie kostbar es ist</h1>
+<a class="btn btn-primary hero-btn-spacing" href="https://cal.com/kathrinstahl" target="_blank">Kostenloses Erstgespräch</a>
 </div>
 </div>
 </section>
@@ -4684,6 +4693,36 @@
         styles: { branding: { brandColor: "#C4A962" } },
         hideEventTypeDetails: false,
         layout: "month_view"
+    });
+</script>
+
+<script>
+    // WhatsApp Button & Nav CTA: Show after scrolling past hero section
+    document.addEventListener('DOMContentLoaded', function() {
+        const whatsappBtn = document.querySelector('.whatsapp-btn');
+        const navCta = document.querySelector('.nav-cta');
+        const heroSection = document.querySelector('.hero');
+
+        if (heroSection) {
+            function updateButtonVisibility() {
+                const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+                const scrollPosition = window.scrollY;
+
+                if (scrollPosition > heroBottom - 200) {
+                    if (whatsappBtn) whatsappBtn.classList.add('visible');
+                    if (navCta) navCta.classList.add('visible');
+                } else {
+                    if (whatsappBtn) whatsappBtn.classList.remove('visible');
+                    if (navCta) navCta.classList.remove('visible');
+                }
+            }
+
+            // Initial check
+            updateButtonVisibility();
+
+            // Update on scroll
+            window.addEventListener('scroll', updateButtonVisibility);
+        }
     });
 </script>
 
