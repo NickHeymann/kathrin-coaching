@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor Dokumentation | Kathrin Stahl Coaching</title>
+    <style>
+        /* ==================== VARIABLES ==================== */
+        :root {
+            --color-primary: #2C4A47;
+            --color-secondary: #D4A574;
+            --color-accent: #4CAF50;
+            --color-text: #2d2d2d;
+            --color-text-light: #555555;
+            --color-bg: #ffffff;
+            --color-bg-alt: #f8f9fa;
+            --color-border: #e0e0e0;
+            --font-heading: 'Gilda Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --sidebar-width: 260px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text);
+            line-height: 1.7;
+            background: var(--color-bg);
+        }
+
+        /* ==================== HEADER ==================== */
+        .header {
+            background: var(--color-primary);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        /* ==================== SEARCH ==================== */
+        .search-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            font-size: 1rem;
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            transition: border 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--color-secondary);
+        }
+
+        /* ==================== LAYOUT ==================== */
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 2rem;
+            padding: 2rem 1.5rem;
+        }
+
+        /* ==================== SIDEBAR ==================== */
+        .sidebar {
+            width: var(--sidebar-width);
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+            flex-shrink: 0;
+        }
+
+        .nav-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-title {
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--color-text-light);
+            margin-bottom: 0.5rem;
+            padding: 0 0.5rem;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.6rem 0.8rem;
+            color: var(--color-text);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-link:hover {
+            background: var(--color-bg-alt);
+            color: var(--color-primary);
+        }
+
+        .nav-link.active {
+            background: var(--color-primary);
+            color: white;
+            font-weight: 500;
+        }
+
+        /* ==================== CONTENT ==================== */
+        .content {
+            flex: 1;
+            max-width: 900px;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            scroll-margin-top: 2rem;
+        }
+
+        .section h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--color-secondary);
+        }
+
+        .section h3 {
+            font-size: 1.5rem;
+            color: var(--color-text);
+            margin: 2rem 0 1rem;
+            font-weight: 600;
+        }
+
+        .section h4 {
+            font-size: 1.2rem;
+            color: var(--color-text);
+            margin: 1.5rem 0 0.8rem;
+            font-weight: 600;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            color: var(--color-text-light);
+        }
+
+        .section ul, .section ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section li {
+            margin-bottom: 0.5rem;
+            color: var(--color-text-light);
+        }
+
+        /* ==================== BOXES ==================== */
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 1rem 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 1rem 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .success-box {
+            background: #e8f5e9;
+            border-left: 4px solid var(--color-accent);
+            padding: 1rem 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        /* ==================== CODE ==================== */
+        code {
+            background: var(--color-bg-alt);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #c7254e;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1.2rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+
+        /* ==================== KEYBOARD SHORTCUTS ==================== */
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .shortcut-item {
+            background: var(--color-bg-alt);
+            padding: 1rem;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .kbd {
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            padding: 0.3rem 0.6rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+            box-shadow: 0 2px 0 rgba(0,0,0,0.1);
+        }
+
+        /* ==================== FEATURE CARDS ==================== */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-card {
+            background: var(--color-bg-alt);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .feature-card h4 {
+            margin: 0 0 0.5rem;
+            color: var(--color-primary);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ==================== BACK TO TOP ==================== */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--color-primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .back-to-top:hover {
+            background: var(--color-secondary);
+            transform: translateY(-3px);
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                position: static;
+                margin-bottom: 2rem;
+            }
+
+            .shortcuts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* ==================== TABLE ==================== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+
+        th, td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        th {
+            background: var(--color-bg-alt);
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        tr:hover {
+            background: var(--color-bg-alt);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>📚 Editor Dokumentation</h1>
+        <p>Vollständige Anleitung für CMS Editor, Blog Editor & Analytics</p>
+    </div>
+
+    <!-- Search -->
+    <div class="search-container">
+        <input type="text" class="search-input" id="searchInput" placeholder="🔍 Dokumentation durchsuchen...">
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <nav>
+                <div class="nav-section">
+                    <div class="nav-title">Start</div>
+                    <a href="#quick-start" class="nav-link">Quick Start</a>
+                    <a href="#overview" class="nav-link">Übersicht</a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-title">CMS Editor</div>
+                    <a href="#cms-basics" class="nav-link">Grundlagen</a>
+                    <a href="#cms-text" class="nav-link">Text bearbeiten</a>
+                    <a href="#cms-images" class="nav-link">Bilder</a>
+                    <a href="#cms-videos" class="nav-link">Videos</a>
+                    <a href="#cms-background" class="nav-link">Hintergrundbilder</a>
+                    <a href="#cms-colors" class="nav-link">Section-Farben</a>
+                    <a href="#cms-shortcuts" class="nav-link">Keyboard Shortcuts</a>
+                    <a href="#cms-versions" class="nav-link">Versionen & Autosave</a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-title">Blog Editor</div>
+                    <a href="#blog-basics" class="nav-link">Grundlagen</a>
+                    <a href="#blog-blocks" class="nav-link">Block-System</a>
+                    <a href="#blog-ai" class="nav-link">AI-Features</a>
+                    <a href="#blog-video" class="nav-link">Video Recording</a>
+                    <a href="#blog-publish" class="nav-link">Veröffentlichen</a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-title">Analytics</div>
+                    <a href="#analytics-dashboard" class="nav-link">Dashboard</a>
+                    <a href="#analytics-metrics" class="nav-link">Metriken</a>
+                    <a href="#analytics-optimization" class="nav-link">Optimierung</a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-title">Hilfe</div>
+                    <a href="#troubleshooting" class="nav-link">Troubleshooting</a>
+                    <a href="#faq" class="nav-link">FAQ</a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Quick Start -->
+            <section id="quick-start" class="section">
+                <h2>🚀 Quick Start</h2>
+                <p>Willkommen! Diese Dokumentation hilft dir, alle Editor-Tools optimal zu nutzen.</p>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">✏️</div>
+                        <h4>CMS Editor</h4>
+                        <p>Bearbeite Seiten direkt im Browser - Text, Bilder, Videos, Farben</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <h4>Blog Editor</h4>
+                        <p>Erstelle Blog-Artikel mit AI-Unterstützung und Video-Recording</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h4>Analytics</h4>
+                        <p>Verstehe deine Besucher und optimiere deine Website</p>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong>💡 Tipp:</strong> Nutze die Suchfunktion oben, um schnell spezifische Themen zu finden.
+                </div>
+            </section>
+
+            <!-- Overview -->
+            <section id="overview" class="section">
+                <h2>📋 Übersicht</h2>
+
+                <h3>Tool-Zugang</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tool</th>
+                            <th>URL</th>
+                            <th>Zweck</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>CMS Editor</strong></td>
+                            <td><code>/cms/index.html</code></td>
+                            <td>Seiten bearbeiten</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Blog Editor</strong></td>
+                            <td><code>/blog-editor-modular.html</code></td>
+                            <td>Blog-Artikel erstellen</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Analytics</strong></td>
+                            <td><code>/analytics.html</code></td>
+                            <td>Besucher-Statistiken</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Authentifizierung</h3>
+                <p>Alle Editoren nutzen GitHub Personal Access Token (PAT) für sichere API-Zugriffe:</p>
+                <ol>
+                    <li>Erstelle einen GitHub PAT mit <code>repo</code> Rechten</li>
+                    <li>Gib den Token beim ersten Start des Editors ein</li>
+                    <li>Token wird verschlüsselt im Browser gespeichert</li>
+                </ol>
+
+                <div class="warning-box">
+                    <strong>⚠️ Wichtig:</strong> Teile deinen GitHub Token niemals mit anderen! Er ermöglicht vollen Zugriff auf dein Repository.
+                </div>
+            </section>
+
+            <!-- ==================== CMS EDITOR ==================== -->
+            <section id="cms-basics" class="section">
+                <h2>✏️ CMS Editor - Grundlagen</h2>
+
+                <h3>Was ist der CMS Editor?</h3>
+                <p>Der CMS Editor ermöglicht es dir, alle Seiten deiner Website direkt im Browser zu bearbeiten - ohne Code-Kenntnisse. Änderungen werden live im Preview angezeigt und können mit einem Klick auf GitHub gespeichert werden.</p>
+
+                <h3>Erste Schritte</h3>
+                <ol>
+                    <li><strong>Editor öffnen:</strong> <code>/cms/index.html</code></li>
+                    <li><strong>Token eingeben:</strong> GitHub Personal Access Token (einmalig)</li>
+                    <li><strong>Seite wählen:</strong> Dropdown oben links</li>
+                    <li><strong>Bearbeiten:</strong> Klicke auf Elemente im Preview</li>
+                    <li><strong>Speichern:</strong> "💾 Jetzt speichern" Button</li>
+                </ol>
+
+                <div class="success-box">
+                    <strong>✅ Auto-Save:</strong> Deine Änderungen werden automatisch alle 5 Minuten gespeichert!
+                </div>
+
+                <h3>Benutzeroberfläche</h3>
+                <h4>Toolbar (oben)</h4>
+                <ul>
+                    <li><strong>Seiten-Auswahl:</strong> Wechsel zwischen verschiedenen Seiten</li>
+                    <li><strong>Speichern:</strong> Änderungen zu GitHub pushen</li>
+                    <li><strong>Undo/Redo:</strong> Änderungen rückgängig machen</li>
+                    <li><strong>Versionen:</strong> Frühere Versionen wiederherstellen</li>
+                    <li><strong>Notizen:</strong> Sticky Notes für Gedanken/TODOs</li>
+                </ul>
+
+                <h4>Preview-Bereich (Mitte)</h4>
+                <p>Live-Vorschau der aktuellen Seite. Alle Elemente können direkt angeklickt und bearbeitet werden.</p>
+
+                <h4>Rechte Sidebar</h4>
+                <ul>
+                    <li><strong>Änderungsliste:</strong> Übersicht aller ungespeicherten Änderungen</li>
+                    <li><strong>Status:</strong> Gespeichert / Ungespeichert / Offline</li>
+                </ul>
+            </section>
+
+            <!-- CMS Text -->
+            <section id="cms-text" class="section">
+                <h2>📝 Text bearbeiten</h2>
+
+                <h3>Einfache Text-Bearbeitung</h3>
+                <ol>
+                    <li><strong>Klicke auf einen Text</strong> (Überschrift, Absatz, Button, etc.)</li>
+                    <li>Ein <strong>Bearbeitungs-Modal</strong> öffnet sich</li>
+                    <li><strong>Ändere den Text</strong> im Eingabefeld</li>
+                    <li>Klicke <strong>"✓ Ändern"</strong></li>
+                </ol>
+
+                <div class="info-box">
+                    <strong>💡 Tipp:</strong> Elemente die editierbar sind, haben einen gestrichelten orangenen Rand beim Hover.
+                </div>
+
+                <h3>Text-Formatierung</h3>
+                <p>Wenn du Text im Preview markierst, erscheint eine Formatierungs-Toolbar:</p>
+                <ul>
+                    <li><strong>Fett:</strong> Macht Text fett</li>
+                    <li><strong>Kursiv:</strong> Macht Text kursiv</li>
+                    <li><strong>Link:</strong> Fügt Hyperlink ein</li>
+                    <li><strong>Farbe:</strong> Ändert Textfarbe</li>
+                    <li><strong>Emoji:</strong> Fügt Emoji ein 😊</li>
+                </ul>
+
+                <h3>Undo / Redo</h3>
+                <div class="shortcuts-grid">
+                    <div class="shortcut-item">
+                        <span>Rückgängig</span>
+                        <kbd class="kbd">Ctrl/Cmd + Z</kbd>
+                    </div>
+                    <div class="shortcut-item">
+                        <span>Wiederherstellen</span>
+                        <kbd class="kbd">Ctrl/Cmd + Y</kbd>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CMS Images -->
+            <section id="cms-images" class="section">
+                <h2>🖼️ Bilder bearbeiten</h2>
+
+                <h3>Bild ersetzen</h3>
+                <ol>
+                    <li><strong>Klicke auf ein Bild</strong></li>
+                    <li>Ein <strong>Modal</strong> öffnet sich</li>
+                    <li><strong>Wähle Quelle:</strong>
+                        <ul>
+                            <li><strong>Upload:</strong> Lade Bild von deinem Computer hoch</li>
+                            <li><strong>URL:</strong> Nutze ein Bild von einer URL</li>
+                        </ul>
+                    </li>
+                    <li>Klicke <strong>"✓ Bild übernehmen"</strong></li>
+                </ol>
+
+                <h3>Drag & Drop</h3>
+                <p>Du kannst Bilder auch direkt per <strong>Drag & Drop</strong> in die Upload-Zone ziehen.</p>
+
+                <h3>Bild-Anforderungen</h3>
+                <ul>
+                    <li><strong>Formate:</strong> JPG, PNG, WebP</li>
+                    <li><strong>Max. Größe:</strong> 10 MB</li>
+                    <li><strong>Empfohlen:</strong> Komprimiere Bilder vorher (z.B. mit TinyPNG)</li>
+                </ul>
+
+                <div class="warning-box">
+                    <strong>⚠️ Wichtig:</strong> Große Bilder verlangsamen die Website! Nutze WebP-Format für beste Performance.
+                </div>
+            </section>
+
+            <!-- CMS Videos -->
+            <section id="cms-videos" class="section">
+                <h2>🎬 Videos bearbeiten</h2>
+
+                <h3>Video-Embed ersetzen</h3>
+                <ol>
+                    <li><strong>Klicke auf ein Video</strong> (YouTube/Vimeo)</li>
+                    <li>Ein Modal mit Tabs öffnet sich</li>
+                    <li><strong>Wähle Quelle:</strong>
+                        <ul>
+                            <li><strong>YouTube:</strong> Gib YouTube-URL ein</li>
+                            <li><strong>Vimeo:</strong> Gib Vimeo-URL ein</li>
+                            <li><strong>Upload:</strong> Lade Video-Datei hoch (MP4)</li>
+                        </ul>
+                    </li>
+                    <li>Klicke <strong>"✓ Video übernehmen"</strong></li>
+                </ol>
+
+                <h3>Unterstützte Plattformen</h3>
+                <ul>
+                    <li><strong>YouTube:</strong> Vollständige URL oder Kurz-Link (youtu.be)</li>
+                    <li><strong>Vimeo:</strong> Standard- oder Player-URL</li>
+                    <li><strong>Native Video:</strong> MP4-Dateien (max. 50 MB)</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>💡 Tipp:</strong> Nutze YouTube/Vimeo statt Upload für bessere Performance!
+                </div>
+            </section>
+
+            <!-- CMS Background -->
+            <section id="cms-background" class="section">
+                <h2>🌄 Hintergrundbilder ändern</h2>
+
+                <h3>Hintergrundbild ersetzen</h3>
+                <ol>
+                    <li><strong>Rechtsklick</strong> auf eine Section mit Hintergrundbild (z.B. Hero-Section)</li>
+                    <li>Wähle <strong>"🖼️ Hintergrundbild ändern"</strong> aus dem Kontextmenü</li>
+                    <li>Ein Modal öffnet sich</li>
+                    <li><strong>Lade neues Bild hoch</strong> (Drag & Drop oder Datei wählen)</li>
+                    <li>Klicke <strong>"✓ Hintergrundbild übernehmen"</strong></li>
+                </ol>
+
+                <h3>Welche Elemente haben Hintergrundbilder?</h3>
+                <p>Die Option "Hintergrundbild ändern" erscheint nur bei Elementen mit einem Background-Image:</p>
+                <ul>
+                    <li>Hero-Sections</li>
+                    <li>Banner</li>
+                    <li>Section-Hintergründe</li>
+                    <li>Parallax-Effekte</li>
+                </ul>
+
+                <div class="success-box">
+                    <strong>✨ Feature:</strong> Das System erkennt automatisch, ob ein Background im Element selbst oder in einem ::before/::after Pseudo-Element liegt!
+                </div>
+            </section>
+
+            <!-- CMS Colors -->
+            <section id="cms-colors" class="section">
+                <h2>🎨 Section-Farben ändern</h2>
+
+                <h3>Hintergrundfarbe ändern</h3>
+                <ol>
+                    <li><strong>Doppelklick</strong> auf eine farbige Section</li>
+                    <li>Ein <strong>Farb-Modal</strong> öffnet sich</li>
+                    <li><strong>Wähle Modus:</strong>
+                        <ul>
+                            <li><strong>Vollton:</strong> Einfarbiger Hintergrund</li>
+                            <li><strong>Gradient:</strong> Farbverlauf (2 Farben + Richtung)</li>
+                        </ul>
+                    </li>
+                    <li>Klicke <strong>"✓ Farbe übernehmen"</strong></li>
+                </ol>
+
+                <h3>Gradient-Optionen</h3>
+                <ul>
+                    <li><strong>Von-Farbe:</strong> Startfarbe des Verlaufs</li>
+                    <li><strong>Bis-Farbe:</strong> Endfarbe des Verlaufs</li>
+                    <li><strong>Richtung:</strong> 0° = von unten nach oben, 90° = von links nach rechts, etc.</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>💡 Tipp:</strong> Nutze subtile Gradienten (ähnliche Farbtöne) für professionelles Design!
+                </div>
+            </section>
+
+            <!-- CMS Shortcuts -->
+            <section id="cms-shortcuts" class="section">
+                <h2>⌨️ Keyboard Shortcuts</h2>
+
+                <h3>Allgemein</h3>
+                <div class="shortcuts-grid">
+                    <div class="shortcut-item">
+                        <span>Speichern</span>
+                        <kbd class="kbd">Ctrl/Cmd + S</kbd>
+                    </div>
+                    <div class="shortcut-item">
+                        <span>Rückgängig</span>
+                        <kbd class="kbd">Ctrl/Cmd + Z</kbd>
+                    </div>
+                    <div class="shortcut-item">
+                        <span>Wiederherstellen</span>
+                        <kbd class="kbd">Ctrl/Cmd + Y</kbd>
+                    </div>
+                    <div class="shortcut-item">
+                        <span>Seite neu laden</span>
+                        <kbd class="kbd">Ctrl/Cmd + R</kbd>
+                    </div>
+                </div>
+
+                <h3>Navigation</h3>
+                <div class="shortcuts-grid">
+                    <div class="shortcut-item">
+                        <span>Versionen anzeigen</span>
+                        <kbd class="kbd">Ctrl/Cmd + H</kbd>
+                    </div>
+                    <div class="shortcut-item">
+                        <span>Notizen Panel</span>
+                        <kbd class="kbd">Ctrl/Cmd + N</kbd>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CMS Versions -->
+            <section id="cms-versions" class="section">
+                <h2>🕐 Versionen & Autosave</h2>
+
+                <h3>Autosave-System</h3>
+                <p>Der CMS Editor speichert deine Änderungen automatisch:</p>
+                <ul>
+                    <li><strong>Lokales Backup:</strong> Alle 30 Sekunden im Browser (gegen Datenverlust)</li>
+                    <li><strong>GitHub Autosave:</strong> Alle 5 Minuten (nur wenn Änderungen vorhanden)</li>
+                </ul>
+
+                <div class="success-box">
+                    <strong>✅ Auto-Recovery:</strong> Falls dein Browser abstürzt, werden ungespeicherte Änderungen beim nächsten Start wiederhergestellt!
+                </div>
+
+                <h3>Versionen wiederherstellen</h3>
+                <ol>
+                    <li>Klicke auf <strong>"📜 Versionen"</strong> Button</li>
+                    <li>Eine Sidebar öffnet sich mit allen Commits</li>
+                    <li><strong>Wähle eine Version</strong> aus der Liste</li>
+                    <li>Preview wird geladen</li>
+                    <li>Klicke <strong>"Diese Version wiederherstellen"</strong></li>
+                </ol>
+
+                <h3>Offline-Modus</h3>
+                <p>Der Editor erkennt automatisch, wenn keine Internet-Verbindung besteht:</p>
+                <ul>
+                    <li>🔴 <strong>Offline-Indikator</strong> wird angezeigt</li>
+                    <li>Änderungen werden <strong>lokal gespeichert</strong></li>
+                    <li>Beim Reconnect werden Änderungen <strong>automatisch synchronisiert</strong></li>
+                </ul>
+            </section>
+
+            <!-- ==================== BLOG EDITOR ==================== -->
+            <section id="blog-basics" class="section">
+                <h2>📝 Blog Editor - Grundlagen</h2>
+
+                <h3>Was ist der Blog Editor?</h3>
+                <p>Ein modernes Blog-System mit AI-Unterstützung, Video-Recording und Block-basiertem Editing.</p>
+
+                <h3>Features im Überblick</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🧱</div>
+                        <h4>Block-System</h4>
+                        <p>Flexibles Hinzufügen von Text, Code, Zitaten, Bildern</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🤖</div>
+                        <h4>AI-Assistent</h4>
+                        <p>Groq LLM für Titelgenerierung, SEO, Zusammenfassung</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎙️</div>
+                        <h4>Video Recording</h4>
+                        <p>Screen + Webcam aufnehmen, Silence Detection</p>
+                    </div>
+                </div>
+
+                <h3>Neuen Artikel erstellen</h3>
+                <ol>
+                    <li>Öffne <code>/blog-editor-modular.html</code></li>
+                    <li>Klicke <strong>"✏️ Neuer Artikel"</strong></li>
+                    <li>Gib einen Titel ein</li>
+                    <li>Füge Blöcke hinzu (siehe Block-System)</li>
+                    <li>Klicke <strong>"🚀 Veröffentlichen"</strong></li>
+                </ol>
+            </section>
+
+            <!-- Blog Blocks -->
+            <section id="blog-blocks" class="section">
+                <h2>🧱 Block-System</h2>
+
+                <h3>Verfügbare Block-Typen</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Block</th>
+                            <th>Icon</th>
+                            <th>Verwendung</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Absatz</strong></td>
+                            <td>📝</td>
+                            <td>Normaler Text, Fließtext</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Überschrift</strong></td>
+                            <td>📌</td>
+                            <td>H2, H3, H4 Überschriften</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Code</strong></td>
+                            <td>💻</td>
+                            <td>Code-Snippets mit Syntax Highlighting</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Zitat</strong></td>
+                            <td>💬</td>
+                            <td>Hervorgehobene Zitate</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bild</strong></td>
+                            <td>🖼️</td>
+                            <td>Bilder mit Caption</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Liste</strong></td>
+                            <td>📋</td>
+                            <td>Aufzählungen, Checklisten</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Block hinzufügen</h3>
+                <ol>
+                    <li>Klicke auf <strong>"+ Block hinzufügen"</strong></li>
+                    <li>Wähle den Block-Typ aus</li>
+                    <li>Fülle den Block mit Inhalt</li>
+                    <li>Nutze <strong>↑ ↓</strong> Pfeile zum Verschieben</li>
+                </ol>
+
+                <h3>Block löschen</h3>
+                <p>Klicke auf das <strong>🗑️ Icon</strong> rechts oben im Block.</p>
+            </section>
+
+            <!-- Blog AI -->
+            <section id="blog-ai" class="section">
+                <h2>🤖 AI-Features (Groq)</h2>
+
+                <h3>Was kann die AI?</h3>
+                <ul>
+                    <li><strong>Titel generieren:</strong> Erstellt SEO-optimierte Titel aus deinem Content</li>
+                    <li><strong>Meta-Description:</strong> Generiert Beschreibung für Suchmaschinen</li>
+                    <li><strong>Zusammenfassung:</strong> Erstellt kurze Zusammenfassung des Artikels</li>
+                    <li><strong>Kategorisierung:</strong> Schlägt passende Kategorien vor</li>
+                    <li><strong>Tags:</strong> Generiert relevante Tags</li>
+                </ul>
+
+                <h3>AI-Assistent nutzen</h3>
+                <ol>
+                    <li>Klicke auf <strong>"🤖 AI"</strong> Button rechts</li>
+                    <li>AI-Panel öffnet sich</li>
+                    <li>Wähle eine Funktion:
+                        <ul>
+                            <li><strong>Titel verbessern</strong></li>
+                            <li><strong>Meta-Description</strong></li>
+                            <li><strong>Zusammenfassung</strong></li>
+                        </ul>
+                    </li>
+                    <li>Klicke <strong>"✨ Generieren"</strong></li>
+                    <li>Warte auf Antwort (~3 Sekunden)</li>
+                    <li>Übernimm den Vorschlag oder bearbeite ihn</li>
+                </ol>
+
+                <h3>Voice Input (Experimentell)</h3>
+                <p>Diktiere deine Artikel mit dem <strong>🎤 Mikrofon</strong> Button:</p>
+                <ul>
+                    <li>Klicke auf 🎤 im AI-Panel</li>
+                    <li>Sprich deinen Text</li>
+                    <li>Text wird automatisch transkribiert (Browser Speech API)</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>💡 Hinweis:</strong> Voice Input funktioniert nur in Chrome/Edge mit Mikrofon-Berechtigung.
+                </div>
+            </section>
+
+            <!-- Blog Video -->
+            <section id="blog-video" class="section">
+                <h2>🎥 Video Recording</h2>
+
+                <h3>Screen + Webcam aufnehmen</h3>
+                <ol>
+                    <li>Klicke auf <strong>"🎬 Video aufnehmen"</strong></li>
+                    <li>Ein Modal öffnet sich</li>
+                    <li><strong>Wähle Quelle:</strong>
+                        <ul>
+                            <li><strong>Bildschirm:</strong> Ganzer Screen oder einzelnes Fenster</li>
+                            <li><strong>Webcam:</strong> Optional einblenden (Picture-in-Picture)</li>
+                        </ul>
+                    </li>
+                    <li>Klicke <strong>"🔴 Aufnahme starten"</strong></li>
+                    <li>Nimm dein Video auf</li>
+                    <li>Klicke <strong>"⏹ Stopp"</strong></li>
+                </ol>
+
+                <h3>Silence Detection (Auto-Schnitt)</h3>
+                <p>Das System erkennt automatisch Pausen und markiert sie:</p>
+                <ul>
+                    <li><strong>Gelb:</strong> Stille erkannt (> 1 Sekunde)</li>
+                    <li><strong>Schnitt-Tool:</strong> Entferne Pausen mit einem Klick</li>
+                    <li><strong>Timeline:</strong> Visuelles Feedback über Stille-Bereiche</li>
+                </ul>
+
+                <h3>Video exportieren</h3>
+                <ol>
+                    <li>Preview prüfen</li>
+                    <li>Klicke <strong>"💾 Video speichern"</strong></li>
+                    <li>Video wird als WebM heruntergeladen</li>
+                    <li>Optional: Upload zu YouTube/Vimeo</li>
+                </ol>
+
+                <div class="warning-box">
+                    <strong>⚠️ Browser-Support:</strong> Video Recording benötigt Chrome/Edge. Safari wird nicht unterstützt.
+                </div>
+            </section>
+
+            <!-- Blog Publish -->
+            <section id="blog-publish" class="section">
+                <h2>🚀 Veröffentlichen</h2>
+
+                <h3>Artikel veröffentlichen</h3>
+                <ol>
+                    <li>Stelle sicher, dass alle Felder ausgefüllt sind:
+                        <ul>
+                            <li>Titel</li>
+                            <li>Slug (URL)</li>
+                            <li>Meta-Description</li>
+                            <li>Kategorie</li>
+                            <li>Mindestens 1 Block Inhalt</li>
+                        </ul>
+                    </li>
+                    <li>Klicke <strong>"🚀 Veröffentlichen"</strong></li>
+                    <li>Bestätige im Dialog</li>
+                    <li>Artikel wird zu GitHub gepusht</li>
+                    <li>GitHub Actions buildet die Website</li>
+                    <li>Nach ~2 Minuten ist der Artikel live</li>
+                </ol>
+
+                <h3>Entwurf speichern</h3>
+                <p>Klicke auf <strong>"💾 Entwurf speichern"</strong> um einen Artikel als Draft zu speichern:</p>
+                <ul>
+                    <li>Wird in <code>localStorage</code> gespeichert</li>
+                    <li>Kann später weiterbearbeitet werden</li>
+                    <li>Erscheint in der Entwurfs-Liste</li>
+                </ul>
+
+                <h3>SEO-Optimierung</h3>
+                <p>Vor dem Veröffentlichen:</p>
+                <ul>
+                    <li><strong>Slug:</strong> Kurz, aussagekräftig, kebab-case (z.B. <code>coaching-tipps-2024</code>)</li>
+                    <li><strong>Meta-Description:</strong> 150-160 Zeichen, enthält Hauptkeyword</li>
+                    <li><strong>Überschriften:</strong> Nutze H2/H3 Struktur</li>
+                    <li><strong>Bilder:</strong> Alt-Text hinzufügen</li>
+                    <li><strong>Interne Links:</strong> Verlinke zu anderen Artikeln</li>
+                </ul>
+
+                <div class="success-box">
+                    <strong>✨ AI-Hilfe:</strong> Nutze den AI-Assistenten für SEO-optimierte Titel und Descriptions!
+                </div>
+            </section>
+
+            <!-- ==================== ANALYTICS ==================== -->
+            <section id="analytics-dashboard" class="section">
+                <h2>📊 Analytics Dashboard</h2>
+
+                <h3>Was ist Analytics?</h3>
+                <p>Ein datenschutzfreundliches Analytics-Tool, das dir zeigt, wie Besucher deine Website nutzen - ohne Cookies oder Tracking.</p>
+
+                <h3>Dashboard öffnen</h3>
+                <p>Öffne <code>/analytics.html</code> und logge dich mit deinem GitHub Token ein.</p>
+
+                <h3>Dashboard-Übersicht</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">👥</div>
+                        <h4>Besucher</h4>
+                        <p>Anzahl einzigartiger Besucher (heute, 7 Tage, 30 Tage)</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">👁️</div>
+                        <h4>Pageviews</h4>
+                        <p>Gesamte Seitenaufrufe inkl. Mehrfachbesuche</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⏱️</div>
+                        <h4>Avg. Session</h4>
+                        <p>Durchschnittliche Verweildauer pro Besuch</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📈</div>
+                        <h4>Bounce Rate</h4>
+                        <p>% der Besucher die sofort wieder gehen</p>
+                    </div>
+                </div>
+
+                <h3>Zeiträume</h3>
+                <p>Wähle den Zeitraum für die Analyse:</p>
+                <ul>
+                    <li><strong>Heute:</strong> Live-Daten des aktuellen Tages</li>
+                    <li><strong>7 Tage:</strong> Wochenvergleich</li>
+                    <li><strong>30 Tage:</strong> Monatsübersicht</li>
+                    <li><strong>Custom:</strong> Eigener Datumsbereich</li>
+                </ul>
+            </section>
+
+            <!-- Analytics Metrics -->
+            <section id="analytics-metrics" class="section">
+                <h2>📈 Metriken verstehen</h2>
+
+                <h3>Top-Seiten</h3>
+                <p>Zeigt die meistbesuchten Seiten deiner Website:</p>
+                <ul>
+                    <li><strong>Pageviews:</strong> Wie oft wurde die Seite aufgerufen?</li>
+                    <li><strong>Unique Visitors:</strong> Wie viele verschiedene Personen?</li>
+                    <li><strong>Avg. Time:</strong> Wie lange bleiben Besucher?</li>
+                    <li><strong>Bounce Rate:</strong> Wie viele verlassen die Seite sofort?</li>
+                </ul>
+
+                <h3>Traffic-Quellen</h3>
+                <p>Woher kommen deine Besucher?</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Quelle</th>
+                            <th>Bedeutung</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Direct</strong></td>
+                            <td>Direkte URL-Eingabe, Bookmarks</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Google/Bing</strong></td>
+                            <td>Organische Suchmaschinen-Ergebnisse</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Social Media</strong></td>
+                            <td>Instagram, Facebook, LinkedIn, etc.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Referral</strong></td>
+                            <td>Links von anderen Websites</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Geräte & Browser</h3>
+                <p>Technische Infos über deine Besucher:</p>
+                <ul>
+                    <li><strong>Desktop vs. Mobile:</strong> Optimiere für die Mehrheit</li>
+                    <li><strong>Browser:</strong> Teste deine Website in populären Browsern</li>
+                    <li><strong>Betriebssystem:</strong> Windows, macOS, iOS, Android</li>
+                </ul>
+
+                <h3>Conversion-Tracking</h3>
+                <p>Wichtige Aktionen auf deiner Website:</p>
+                <ul>
+                    <li><strong>CTA-Klicks:</strong> "Termin buchen", "Kontakt"</li>
+                    <li><strong>Quiz-Starts:</strong> Wie viele starten ein Quiz?</li>
+                    <li><strong>Quiz-Completions:</strong> Wie viele schließen es ab?</li>
+                    <li><strong>Form-Submits:</strong> Kontaktformular-Einsendungen</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>💡 Tipp:</strong> Eine niedrige Completion-Rate bei Quizzes deutet auf zu lange/komplexe Fragen hin!
+                </div>
+            </section>
+
+            <!-- Analytics Optimization -->
+            <section id="analytics-optimization" class="section">
+                <h2>🎯 Optimierung ableiten</h2>
+
+                <h3>Hohe Bounce Rate (>70%)</h3>
+                <p><strong>Problem:</strong> Besucher verlassen die Seite sofort.</p>
+                <p><strong>Lösungen:</strong></p>
+                <ul>
+                    <li>Verbessere die <strong>Ladezeit</strong> (Bilder komprimieren)</li>
+                    <li>Mache den <strong>CTA klarer</strong> (Was soll der Besucher tun?)</li>
+                    <li>Prüfe <strong>Mobile-Optimierung</strong></li>
+                    <li>Passe <strong>Meta-Description</strong> an (falsche Erwartungen?)</li>
+                </ul>
+
+                <h3>Niedrige Session-Dauer (<1 Min)</h3>
+                <p><strong>Problem:</strong> Besucher bleiben nicht lange.</p>
+                <p><strong>Lösungen:</strong></p>
+                <ul>
+                    <li><strong>Content verbessern:</strong> Ist er relevant und wertvoll?</li>
+                    <li><strong>Visuals:</strong> Nutze mehr Bilder/Videos</li>
+                    <li><strong>Struktur:</strong> Übersichtlichere Formatierung</li>
+                    <li><strong>Interne Links:</strong> Führe zu verwandten Seiten</li>
+                </ul>
+
+                <h3>Wenig Traffic auf wichtigen Seiten</h3>
+                <p><strong>Problem:</strong> Wichtige Seiten werden kaum besucht.</p>
+                <p><strong>Lösungen:</strong></p>
+                <ul>
+                    <li><strong>Navigation:</strong> Ist die Seite leicht zu finden?</li>
+                    <li><strong>Interne Verlinkung:</strong> Verlinke von populären Seiten</li>
+                    <li><strong>CTAs:</strong> Platziere Buttons/Links im Header</li>
+                    <li><strong>SEO:</strong> Optimiere Titel & Description</li>
+                </ul>
+
+                <h3>A/B Testing</h3>
+                <p>Teste verschiedene Versionen:</p>
+                <ol>
+                    <li><strong>Ändere EIN Element</strong> (z.B. CTA-Text)</li>
+                    <li><strong>Beobachte 7-14 Tage</strong></li>
+                    <li><strong>Vergleiche Metriken:</strong> Klickrate, Conversions</li>
+                    <li><strong>Behalte die bessere Version</strong></li>
+                </ol>
+
+                <div class="success-box">
+                    <strong>✅ Best Practice:</strong> Optimiere basierend auf Daten, nicht Bauchgefühl!
+                </div>
+            </section>
+
+            <!-- ==================== TROUBLESHOOTING ==================== -->
+            <section id="troubleshooting" class="section">
+                <h2>🔧 Troubleshooting</h2>
+
+                <h3>CMS Editor</h3>
+
+                <h4>Problem: "Token ungültig"</h4>
+                <p><strong>Lösung:</strong></p>
+                <ul>
+                    <li>Erstelle einen neuen GitHub Token</li>
+                    <li>Stelle sicher, dass <code>repo</code> Berechtigung aktiviert ist</li>
+                    <li>Token muss mit <code>ghp_</code> oder <code>github_pat_</code> beginnen</li>
+                </ul>
+
+                <h4>Problem: Änderungen werden nicht gespeichert</h4>
+                <p><strong>Lösung:</strong></p>
+                <ul>
+                    <li>Prüfe Internet-Verbindung (Offline-Indikator?)</li>
+                    <li>Prüfe GitHub API Rate Limit (max. 5000 Requests/Stunde)</li>
+                    <li>Schaue in Browser Console (F12) nach Fehlern</li>
+                </ul>
+
+                <h4>Problem: Seite lädt nicht im Preview</h4>
+                <p><strong>Lösung:</strong></p>
+                <ul>
+                    <li>Hard Refresh: Cmd+Shift+R (Mac) / Ctrl+Shift+R (Windows)</li>
+                    <li>Prüfe ob Seite auf GitHub existiert</li>
+                    <li>Cache leeren und Editor neu laden</li>
+                </ul>
+
+                <h3>Blog Editor</h3>
+
+                <h4>Problem: AI funktioniert nicht</h4>
+                <p><strong>Lösung:</strong></p>
+                <ul>
+                    <li>Prüfe ob Groq API Key konfiguriert ist</li>
+                    <li>Prüfe API Rate Limit (Groq Free Tier: 30 Requests/Minute)</li>
+                    <li>Schaue in Console nach Fehler-Details</li>
+                </ul>
+
+                <h4>Problem: Video Recording startet nicht</h4>
+                <p><strong>Lösung:</strong></p>
+                <ul>
+                    <li>Nutze Chrome oder Edge (Safari nicht unterstützt)</li>
+                    <li>Erlaube Mikrofon/Screen-Zugriff im Browser</li>
+                    <li>Prüfe ob andere Apps auf Mikrofon/Camera zugreifen</li>
+                </ul>
+
+                <h3>Analytics</h3>
+
+                <h4>Problem: Keine Daten im Dashboard</h4>
+                <p><strong>Lösung:</strong></p>
+                <ul>
+                    <li>Warte 24h - erste Daten brauchen Zeit</li>
+                    <li>Prüfe ob Tracking-Script auf Website eingebunden ist</li>
+                    <li>Prüfe Browser Console auf Fehler</li>
+                </ul>
+
+                <div class="warning-box">
+                    <strong>⚠️ Noch Probleme?</strong> Öffne ein Issue auf GitHub oder kontaktiere den Support.
+                </div>
+            </section>
+
+            <!-- FAQ -->
+            <section id="faq" class="section">
+                <h2>❓ FAQ</h2>
+
+                <h3>Allgemein</h3>
+
+                <h4>Kann ich die Editoren auf dem Smartphone nutzen?</h4>
+                <p>Die Editoren sind primär für Desktop optimiert. Mobile Nutzung ist möglich, aber eingeschränkt (z.B. kein Video Recording).</p>
+
+                <h4>Werden meine Änderungen automatisch live geschaltet?</h4>
+                <p>Ja! Nach dem Speichern werden Änderungen zu GitHub gepusht. GitHub Actions buildet die Website und nach ~2 Minuten sind Änderungen live.</p>
+
+                <h4>Kann ich Änderungen rückgängig machen?</h4>
+                <p>Ja! Nutze Undo (Cmd/Ctrl+Z) oder stelle frühere Versionen über das Versions-Panel wieder her.</p>
+
+                <h3>CMS Editor</h3>
+
+                <h4>Kann ich mehrere Seiten gleichzeitig bearbeiten?</h4>
+                <p>Nein, pro Tab nur eine Seite. Du kannst aber mehrere Browser-Tabs öffnen.</p>
+
+                <h4>Was passiert bei gleichzeitiger Bearbeitung (2 Personen)?</h4>
+                <p>GitHub verhindert Konflikte. Die zweite Person bekommt einen Merge-Konflikt und muss ihre Änderungen manuell zusammenführen.</p>
+
+                <h3>Blog Editor</h3>
+
+                <h4>Kann ich bestehende Artikel bearbeiten?</h4>
+                <p>Ja! Lade den Artikel aus der Liste und bearbeite ihn. Beim Veröffentlichen wird die alte Version überschrieben.</p>
+
+                <h4>Wie viele Blöcke kann ein Artikel haben?</h4>
+                <p>Unbegrenzt! Allerdings wird die Performance bei >100 Blöcken schlechter.</p>
+
+                <h3>Analytics</h3>
+
+                <h4>Sind die Daten GDPR-konform?</h4>
+                <p>Ja! Es werden keine Cookies gesetzt und keine persönlichen Daten gespeichert. IP-Adressen werden anonymisiert.</p>
+
+                <h4>Wie oft werden Daten aktualisiert?</h4>
+                <p>Live-Daten werden alle 5 Minuten aktualisiert. Historische Daten werden täglich aggregiert.</p>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">↑</div>
+
+    <script>
+        // Smooth Scroll for Navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const target = document.getElementById(targetId);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                    // Update active link
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Search Functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const sections = document.querySelectorAll('.section');
+
+            sections.forEach(section => {
+                const text = section.textContent.toLowerCase();
+                if (text.includes(query) || query === '') {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        });
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Active Section Detection (Scroll Spy)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
