@@ -21,7 +21,9 @@
 | **Blog-Editor Config** | `js/blog-editor-config.js` | `CONFIG`, `state`, `BLOG_CATEGORIES` |
 | **Blog-Editor Video** | `js/blog-editor-video.js`, `css/blog-editor-video.css` | `openVideoRecordModal`, `silenceRegions` |
 | **Blog-Editor Blocks** | `js/blog-editor-blocks.js`, `css/blog-editor-blocks.css` | `createBlock`, `blocksToHtml`, `BLOCK_TYPES` |
-| **Website-Editor (MODULAR)** | `/cms/` Ordner | `cms/js/*.js`, `cms/css/editor.css` |
+| **Website-Editor (MODULAR)** | `/cms/` Ordner | `cms/js/main.js`, `cms/js/recording/*.js`, `cms/css/editor/*.css` |
+| **Website-Editor Recording** | `cms/js/recording/` | `core.js` (state, upload), `effects.js` (audio, filters), `pip.js` (drag, resize) |
+| **Website-Editor Events** | `cms/js/event-handlers.js`, `cms/js/shared-ui-init.js` | `setupEventHandlers`, `initSharedUI`, `renderRecentItems` |
 | **Admin Auth System** | `admin/js/*.js`, `admin/css/admin.css` | `signIn`, `loadGithubToken`, `apiKeys` |
 
 ## Projektstruktur
@@ -46,9 +48,19 @@ kathrin-coaching/
 │
 ├── cms/                          # Website-Editor v2.0 (MODULAR - AKTIV!)
 │   ├── index.html                # Editor UI (~280 Z.)
-│   ├── css/editor.css            # Alle Website-Editor Styles (~1100 Z.)
-│   └── js/                       # Modulare JS-Dateien (~150-250 Z. pro Datei)
-│       ├── main.js               # Entry Point, CMS global object
+│   ├── css/
+│   │   ├── editor.css            # Import-Datei (35 Z.) ✅
+│   │   └── editor/               # Modulare CSS (alle <300 Z.) ✅
+│   │       ├── editor-base.css           # (284 Z.) Reset, Variables, Layout
+│   │       ├── editor-toolbar.css        # (278 Z.) Toolbar, Buttons, Badges
+│   │       ├── editor-frame.css          # (219 Z.) Sidebars, Panels
+│   │       ├── editor-modals.css         # (646 Z.) Modals, Setup, Previews
+│   │       ├── editor-context-menu.css   # (131 Z.) Context Menu, Format
+│   │       └── editor-responsive.css     # (130 Z.) Media Queries
+│   └── js/                       # Modulare JS-Dateien (alle <300 Z.) ✅
+│       ├── main.js               # (256 Z.) Entry Point, CMS global ✅
+│       ├── event-handlers.js     # (131 Z.) DOM Event Setup ✅
+│       ├── shared-ui-init.js     # (132 Z.) Recent Items, SharedUI ✅
 │       ├── config.js             # CONFIG Konstanten
 │       ├── state.js              # Reactive State Management
 │       ├── storage.js            # LocalStorage, Token (+ loadAsync)
@@ -58,7 +70,11 @@ kathrin-coaching/
 │       ├── text-editor.js        # Text Editing, Undo/Redo
 │       ├── image-editor.js       # Bild Upload/Bearbeitung
 │       ├── video-editor.js       # Video Embed Bearbeitung
-│       ├── video-recording.js    # Screen/Webcam Recording (NEU)
+│       ├── video-recording.js    # (28 Z.) Barrel Export ✅
+│       ├── recording/            # Video Recording Module ✅
+│       │   ├── core.js           # (281 Z.) Recording Logic, State, Upload
+│       │   ├── effects.js        # (205 Z.) Audio Processing, Filters
+│       │   └── pip.js            # (240 Z.) Picture-in-Picture, Drag/Resize
 │       ├── autosave.js           # Autosave zu GitHub
 │       ├── versions.js           # Versionsverlauf
 │       ├── notes.js              # Sticky Notes
