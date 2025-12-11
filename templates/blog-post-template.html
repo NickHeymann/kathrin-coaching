@@ -12,6 +12,78 @@
     <meta property="og:description" content="{{DESCRIPTION}}">
     <meta property="og:type" content="article">
     <meta property="og:image" content="https://nickheymann.github.io/kathrin-coaching/{{IMAGE}}">
+    <meta property="og:url" content="https://nickheymann.github.io/kathrin-coaching/{{FILENAME}}">
+    <meta property="og:site_name" content="Kathrin Stahl Coaching">
+    <meta property="article:published_time" content="{{DATE_ISO}}">
+    <meta property="article:author" content="Kathrin Stahl">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{TITLE}} | Kathrin Stahl">
+    <meta name="twitter:description" content="{{DESCRIPTION}}">
+    <meta name="twitter:image" content="https://nickheymann.github.io/kathrin-coaching/{{IMAGE}}">
+
+    <!-- Article Schema (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "{{TITLE}}",
+        "description": "{{DESCRIPTION}}",
+        "image": "https://nickheymann.github.io/kathrin-coaching/{{IMAGE}}",
+        "datePublished": "{{DATE_ISO}}",
+        "dateModified": "{{DATE_MODIFIED_ISO}}",
+        "author": {
+            "@type": "Person",
+            "name": "Kathrin Stahl",
+            "url": "https://nickheymann.github.io/kathrin-coaching/kathrin.html",
+            "image": "https://nickheymann.github.io/kathrin-coaching/images/kathrin-portrait.webp"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Kathrin Stahl Coaching",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://nickheymann.github.io/kathrin-coaching/images/logo.png"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://nickheymann.github.io/kathrin-coaching/{{FILENAME}}"
+        },
+        "articleSection": "{{CATEGORY}}",
+        "wordCount": "{{WORD_COUNT}}",
+        "inLanguage": "de-DE"
+    }
+    </script>
+
+    <!-- BreadcrumbList Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Start",
+                "item": "https://nickheymann.github.io/kathrin-coaching/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://nickheymann.github.io/kathrin-coaching/blog.html"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "{{TITLE}}",
+                "item": "https://nickheymann.github.io/kathrin-coaching/{{FILENAME}}"
+            }
+        ]
+    }
+    </script>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

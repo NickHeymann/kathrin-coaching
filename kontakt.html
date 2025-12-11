@@ -2,7 +2,12 @@
 
 <html lang="de">
 <head>
-<meta charset="utf-8"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com" rel="preconnect"/>
+<meta charset="utf-8"/>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/core/variables.css" as="style"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com" rel="preconnect"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Kontakt - Kathrin Stahl</title>
 <meta content="Kontaktiere Kathrin Stahl für Coaching, Retreats und persönliche Begleitung." name="description"/>
@@ -11,13 +16,15 @@
 <link rel="stylesheet" href="css/components/header.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
 <div class="container">
 <!-- Header -->
 <header>
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -64,7 +71,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -115,7 +122,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -133,14 +140,15 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
 </button>
 </div>
 </header>
-<main>
+<main id="main-content">
+<h1 class="visually-hidden">Kontakt zu Kathrin Stahl</h1>
 <div class="contact-grid">
 <!-- Kontaktinformationen -->
 <div class="contact-info">
@@ -177,43 +185,44 @@
 <form class="contact-form" id="contactForm">
 <div class="form-group">
 <label for="name">Name <span class="required">*</span></label>
-<input aria-required="true" autocomplete="name" id="name" name="name" type="text"/>
-
+<input aria-required="true" aria-describedby="nameError" autocomplete="name" id="name" name="name" type="text"/>
+<div id="nameError" class="error-message" role="alert" aria-live="polite"></div>
 </div>
 <div class="form-group">
 <label for="email">E-Mail <span class="required">*</span></label>
-<input aria-required="true" autocomplete="email" id="email" name="email" type="email"/>
-
+<input aria-required="true" aria-describedby="emailError" autocomplete="email" id="email" name="email" type="email"/>
+<div id="emailError" class="error-message" role="alert" aria-live="polite"></div>
 </div>
 <div class="form-group">
 <label for="phone">Telefon (optional)</label>
-<input autocomplete="tel" id="phone" name="phone" type="tel"/>
-
+<input aria-describedby="phoneError" autocomplete="tel" id="phone" name="phone" type="tel"/>
+<div id="phoneError" class="error-message" role="alert" aria-live="polite"></div>
 </div>
 <div class="form-group">
 <label for="subject">Betreff <span class="required">*</span></label>
-<select aria-required="true" id="subject" name="subject">
-<option>Bitte wählen...</option>
+<select aria-required="true" aria-describedby="subjectError" id="subject" name="subject">
+<option value="">Bitte wählen...</option>
 <option value="coaching">Coaching-Anfrage</option>
 <option value="retreat">Retreat-Anfrage</option>
 <option value="paarbegleitung">Paarbegleitung</option>
 <option value="ausbildung">Ausbildung</option>
 <option value="sonstiges">Sonstiges</option>
 </select>
-
+<div id="subjectError" class="error-message" role="alert" aria-live="polite"></div>
 </div>
 <div class="form-group">
 <label for="message">Nachricht <span class="required">*</span></label>
-<textarea aria-required="true" id="message" name="message" rows="6"></textarea>
-
+<textarea aria-required="true" aria-describedby="messageError" id="message" name="message" rows="6"></textarea>
+<div id="messageError" class="error-message" role="alert" aria-live="polite"></div>
 </div>
 <div class="form-group checkbox-group">
 <label class="checkbox-label">
-<input aria-required="true" id="privacy" name="privacy" type="checkbox"/>
+<input aria-required="true" aria-describedby="privacyError" id="privacy" name="privacy" type="checkbox"/>
 <span>Ich habe die <a href="datenschutzerklaerung.html" target="_blank">Datenschutzerklärung</a> gelesen und akzeptiert. <span class="required">*</span></span>
 </label>
-
+<div id="privacyError" class="error-message" role="alert" aria-live="polite"></div>
 </div>
+<div id="formMessage" class="form-message" role="status" aria-live="polite"></div>
 <button class="submit-btn" type="submit">
 <span class="btn-text">Nachricht senden</span>
 <span class="btn-loader">Wird gesendet...</span>
@@ -224,7 +233,8 @@
 </div>
 </main>
 </div>
-<script src="js/kontakt.js"></script>
-<script src="js/header-loader.js"></script>
+<script defer src="js/kontakt.js"></script>
+<script defer src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
 </body>
 </html>

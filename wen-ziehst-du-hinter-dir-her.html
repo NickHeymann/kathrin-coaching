@@ -3,14 +3,19 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/core/variables.css" as="style"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Wen ziehst du hinter dir her? | Kathrin Stahl</title>
 <meta content="Hast du einen Traum und kommst nicht voran? Wie Pferdegestütztes Coaching deinen Weg unterstützt." name="description"/>
-<link href="https://nickheymann.github.io/kathrin-coaching/wen-ziehst-du-hinter-dir-her.html" rel="canonical"/>
+<link href="https://coaching.kathrinstahl.com/wen-ziehst-du-hinter-dir-her.html" rel="canonical"/>
 <meta content="Wen ziehst du hinter dir her? | Kathrin Stahl" property="og:title"/>
 <meta content="Hast du einen Traum und kommst nicht voran? Wie Pferdegestütztes Coaching deinen Weg unterstützt." property="og:description"/>
 <meta content="article" property="og:type"/>
-<meta content="https://nickheymann.github.io/kathrin-coaching/wp-content/uploads/2021/08/Pferdegestützt-Coaching-Selbsterfahrung-Sinnsuche-12.jpg" property="og:image"/>
+<meta content="https://coaching.kathrinstahl.com/wp-content/uploads/2021/08/Pferdegestützt-Coaching-Selbsterfahrung-Sinnsuche-12.jpg" property="og:image"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Montserrat:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
@@ -75,14 +80,39 @@
     </style>
 
 <link rel="stylesheet" href="css/components/header.css">
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Wen ziehst du hinter dir her?",
+    "description": "Wen ziehst du hinter dir her?",
+    "author": {
+        "@type": "Person",
+        "name": "Kathrin Stahl",
+        "url": "https://coaching.kathrinstahl.com/kathrin.html"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Kathrin Stahl Coaching",
+        "url": "https://coaching.kathrinstahl.com"
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://coaching.kathrinstahl.com/wen-ziehst-du-hinter-dir-her.html"
+    }
+}
+</script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
 <!-- Header -->
 <header>
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -129,7 +159,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -180,7 +210,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -198,14 +228,14 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
 </button>
 </div>
 </header>
-<section class="article-hero">
+<section id="main-content" class="article-hero">
 <div class="container">
 <span class="article-category">Allgemein</span>
 <h1>Wen ziehst du hinter dir her?</h1>
@@ -215,7 +245,7 @@
 </div>
 </section>
 <div class="featured-image">
-<img alt="Wen ziehst du hinter dir her?" fetchpriority="high" loading="lazy" src="wp-content/uploads/2021/08/Pferdegestützt-Coaching-Selbsterfahrung-Sinnsuche-12.jpg"/>
+<img decoding="async" alt="Wen ziehst du hinter dir her?" fetchpriority="high" loading="lazy" src="wp-content/uploads/2021/08/Pferdegestützt-Coaching-Selbsterfahrung-Sinnsuche-12.jpg"/>
 </div>
 <article class="article-content">
 <div class="container">
@@ -224,7 +254,7 @@
 </div>
 <p>Über das Wunder pferdegestützten Coachings. Oder wie eine Frau ihren Lebensweg fand. </p><blockquote><p><span>Führst du dein Leben? Oder führt dein Leben dich? </span></p></blockquote><p>So oft werde ich gefragt, was pferdegestütztes Coaching eigentlich bewirken soll. “Pferde stehen doch nur auf der Weide rum und fressen. Wie sollen die mir helfen, mich selbst zu erkennen?” </p><p>Nun könnte ich dir mit Theorie kommen, wie fein Pferde auf Energie reagieren und wie sie uns spiegeln. Ich kann dir aber auch aus dem Erleben der Frauen berichten, die in ihrem pferdegestützten Coaching Wertvolles für sich erkannt haben. </p><p>Zum Beispiel kann ich dir erzählen, wie Maren (Name geändert) mit der Unterstützung eines Pferdes erfuhr, was ihr im Leben die Leichtigkeit nimmt.</p><p>Sie kam zu uns mit einem großen Traum. Seit Jahren begleitet er sie, aber sie kommt nicht voran. Immer wieder landet sie im Alten. Ihr Anliegen: Herauszufinden, was sie zurückhält. </p><p>Pferde hatte sie bisher nur aus der Entfernung gesehen und sie war skeptisch, was diese Begegnung ihr bringen sollte. Aber ihr Traum war ihr so wichtig, dass sie sich darauf einließ.</p><p>Zunächst saßen wir einfach nur zusammen bei Max und Lanz, die als kleinstmögliche Herde noch jedes Mal Wunder vollbracht hatten. Hintergründe hatten wir schon bei unserem ersten Treffen auf Zoom erarbeitet.  Heute wollte Maren noch tiefer gehen.Bei einer schönen Meditation ließ ich sie ganz in ihre Vision eintauchen. Mit allen Sinnen erlebte sie ihr Traumleben, als lebte sie es schon. Ich sah, wie sie leuchtete. Maren strahlte Glück aus. </p><p>Als Maren wieder auftauchte, lud ich sie ein, sich eines der Pferde als <span>Wegbegleiter </span><span>auszusuchen. Mit wem wollte sie ihrer Zukunft (die wir vorher als Fähnchen in den Boden gesteckt hatten) entgegen gehen? </span></p><blockquote><p><span>Plötzlich wurde Lanz immer langsamer. Und Maren verlor ihre Zuversicht. Oder war es umgekehrt?</span></p></blockquote><p>Maren stellte sich sofort zu Lanz. Er ist der größere der beiden. Sie begründete ihre Wahl damit, dass ihr Traum so groß sei; da brauche sie einen starken Begleiter. Ich bat sie, Lanz das Halfter aufzuziehen und den Führstrick zu befestigen. Beides klappte ohne Probleme.</p><p>Ohne sich noch einmal zu Lanz umzudrehen, ging Maren los. Voller Elan und ganz in dem Glück, das sie während der Meditation empfunden hatte. Ihr Schritt war zügig, ihre Haltung aufrecht, zuversichtlich. Lanz folgte ihr. Ein paar Meter. Dann wurde er immer langsamer. Es war klar zu sehen, wie schwer Maren der Weg nun fiel. Ihre Zuversicht schwand. Ihre Körpersprache war ein einziger Zweifel. </p><p>Plötzlich sanken auch ihre Schultern, das Leuchten erlosch, sie wurde immer kleiner. Ihr Gang sah jetzt nicht mehr leicht aus.Lanz spiegelte ihre Zweifel, indem er noch langsamer wurde. Maren zog ihn hinter sich her. </p><p>Der innere Kampf war ihr anzusehen. Sie wollte nicht aufgeben. Dann blieb sie doch stehen. Lanz am anderen Ende des Strickes ebenfalls. Er hielt Abstand. </p><p>Ich wartete ab, ließ Maren einen Moment mit dem, was in ihr vor sich ging. Dann brach es aus ihr heraus: “Genau so ist es in meinem Leben! Ich muss immer alle hinter mir herziehen! Das fühlt sich so beschwerlich an und meine ganze Leichtigkeit geht verloren. Ich kann das nicht mehr!” </p><p>Ein tiefes trauriges Durchatmen bei Maren. Da kommt Lanz und legt ihr seinen Kopf an den Rücken und stupst sie vorsichtig an: “Komm, wir gehen weiter.” Er stellte sich an ihre Seite. Vorsichtig nebeneinander hergehend erreichten sie das Ziel. <span>Das Erlebnis mit Lanz eröffnete Maren eine ganz neue Sichtweise auf die Frage, mit der sie zu uns gekommen war. </span></p><p><span>Maren schilderte, welche Gedanken sie hatte, bevor Lanz langsamer wurde. Wir erabeiteten die Glaubenssätze, die darunter lagen: in der Kindheit Erlerntes und bis dahin unbewusst Gelebtes zeigte sich. </span></p><p>Es waren Überzeugungen, die nichts mehr mit ihrem jetzigen Leben zu tun haben. Nun, da wir sie an die Oberfläche geholt haben, werden wir damit weiterarbeiten können. Was für eine Befreiung für Maren! </p><blockquote><p>Glaubenssätze bestimmen unser Leben. Es ist wichtig, dass wir sie an die Oberfläche holen.</p></blockquote><p>Aber das war noch lange nicht alles. Maren nahm für sich einige wertvolle Fragen aus ihrer pferdegestützten Selbsterfahrung mit:– Wissen meine (potentiellen) Weggefährten, warum mir mein Ziel so wichtig ist? Bin ich in Kontakt? – Gehe ich alleine voran? Vielleicht sind die anderen eher bereit, mich zu begleiten, wenn ich sie an meine Seite einlade?– Wie kann ich mein Leuchten immer wieder in mein Leben einladen?– Wie viel Raum gebe ich Zweifeln und Ängsten? – Was passiert, wenn ich meine Gefühle zulasse? </p><p>Uns selber liebevoll zu erkennen mit all unseren Schwächen und Stärken: Das ist echte Freiheit.</p><h4>Was wäre das Schönste, das für dich passieren dürfte? ⁠⁠Darum geht es in der Heldinnenreise mit Pferden ⁠“Herzenswunsch” für max. 6 Teilnehmerinnen.⁠⁠<span>Ort: Tangstedt bei Hamburg⁠Datum: ⁠11. und 12. September ⁠Uhrzeit: jeweils von 11 – 14 Uhr⁠Teilnahmegebühr: 390 € zzgl. MWST⁠TeilnehmerInnen max. 6, min. 3</span>⁠Du darfst Wunder erwarten. ⁠⁠</h4><p><span>Deine Kathrin#glücküberzweifel#momentesucherin</span></p>
 <div class="author-bio">
-<img alt="Kathrin Stahl" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
+<img width="1060" height="1042" decoding="async" alt="Kathrin Stahl" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
 <div class="author-bio-content">
 <h4>Kathrin Stahl</h4>
 <p>Ich begleite Menschen auf ihrem Weg zu mehr Selbstliebe, innerer Klarheit und einem Leben, das sich richtig anfühlt. Mit Herz, Erfahrung und der besonderen Kraft der Pferde.</p>
@@ -273,6 +303,7 @@
 </div>
 </footer>
 <script defer="" src="js/blog-enhancements.js"></script>
-<script src="js/header-loader.js"></script>
+<script defer src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
 </body>
 </html>

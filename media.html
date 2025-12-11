@@ -3,16 +3,21 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/core/variables.css" as="style"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Videos | Glück über Zweifel - Kathrin Stahl</title>
 <meta content="Entdecke inspirierende Videos von Kathrin Stahl. Themen: Selbstfindung, Achtsamkeit, Beziehungen, Hochsensibilität und pferdegestütztes Coaching." name="description"/>
 <meta content="YouTube, Glück über Zweifel, Kathrin Stahl, Coaching Videos, Selbstfindung, Achtsamkeit" name="keywords"/>
-<link href="https://nickheymann.github.io/kathrin-coaching/media.html" rel="canonical"/>
+<link href="https://coaching.kathrinstahl.com/media.html" rel="canonical"/>
 <!-- Open Graph -->
 <meta content="Videos | Glück über Zweifel" property="og:title"/>
 <meta content="Inspirierende Videos zu Selbstfindung, Achtsamkeit und persönlicher Transformation." property="og:description"/>
 <meta content="website" property="og:type"/>
-<meta content="https://nickheymann.github.io/kathrin-coaching/media.html" property="og:url"/>
+<meta content="https://coaching.kathrinstahl.com/media.html" property="og:url"/>
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -23,12 +28,14 @@
 <link rel="stylesheet" href="css/components/header.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
 <!-- Header -->
 <header>
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -75,7 +82,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -126,7 +133,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -144,7 +151,7 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
@@ -152,7 +159,7 @@
 </div>
 </header>
 <!-- Hero -->
-<section class="hero">
+<section id="main-content" class="hero">
 <div class="container">
 <h1>Videos</h1>
 <p>Inspiration für deinen Weg zu mehr Selbstliebe, Achtsamkeit und innerer Klarheit</p>
@@ -195,7 +202,7 @@
 </div>
 </div>
 <div class="load-more" id="loadMore">
-<button class="load-more-btn" onclick="loadMoreVideos()">Mehr Videos laden</button>
+<button class="load-more-btn">Mehr Videos laden</button>
 </div>
 <div class="platform-links">
 <a class="platform-link" href="https://www.youtube.com/channel/UCxjysqaDv62bNh5bwaHLIbQ" target="_blank">
@@ -250,62 +257,12 @@
 <!-- Video Modal -->
 <div class="video-modal" id="videoModal">
 <div class="modal-content">
-<button class="modal-close" onclick="closeVideoModal()">×</button>
+<button class="modal-close">×</button>
 <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" frameborder="0" id="modalVideo"></iframe>
 </div>
 </div>
 <!-- Scripts -->
 <script src="js/videos.js?v=2"></script>
-<script>
-// ===== HEADER NAVIGATION FUNCTIONS =====
-// Contact dropdown toggle
-function toggleContactDropdown(btn, event) {
-    event.preventDefault();
-    event.stopPropagation();
-    const dropdown = btn.closest('.contact-dropdown');
-    const menu = dropdown.querySelector('.contact-dropdown-menu');
-    menu.classList.toggle('active');
-}
-
-// Close contact dropdown when clicking outside
-document.addEventListener('click', function(e) {
-    const dropdowns = document.querySelectorAll('.contact-dropdown-menu');
-    dropdowns.forEach(menu => {
-        if (menu && menu.closest('.contact-dropdown') && !menu.closest('.contact-dropdown').contains(e.target)) {
-            menu.classList.remove('active');
-        }
-    });
-});
-
-// Mobile menu toggle
-function toggleMobileNav() {
-    const nav = document.getElementById('mainNav');
-    if (nav) nav.classList.toggle('mobile-open');
-}
-
-// Dropdown toggle for mobile
-function toggleDropdown(element, event) {
-    if (window.innerWidth <= 992) {
-        event.preventDefault();
-        event.stopPropagation();
-        element.classList.toggle('open');
-    }
-}
-
-// Close mobile menu when clicking outside
-document.addEventListener('click', function(e) {
-    const nav = document.getElementById('mainNav');
-    const menuToggle = document.querySelector('.menu-toggle');
-    if (nav && menuToggle && !nav.contains(e.target) && !menuToggle.contains(e.target)) {
-        nav.classList.remove('mobile-open');
-    }
-});
-
-// Book call function
-function bookCall() {
-    window.open('https://cal.com/kathrinstahl', '_blank');
-}
-</script>
-<script src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
 </body>
 </html>

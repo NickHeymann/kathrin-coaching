@@ -503,6 +503,125 @@ select option { background: #2C4A47; }
 }
 
 /* ============================== */
+/* BACKGROUND IMAGE EDITOR        */
+/* ============================== */
+.current-bg-container {
+    margin-bottom: 1rem;
+}
+
+.current-bg-preview {
+    width: 100%;
+    height: 120px;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.current-bg-container small {
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.bg-preview {
+    width: 100%;
+    height: 150px;
+    border-radius: 8px;
+    margin-top: 1rem;
+    border: 1px solid #ddd;
+}
+
+/* Background Edit Overlay (im iframe) */
+.bg-edit-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(44, 74, 71, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    z-index: 10;
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+*:hover > .bg-edit-overlay {
+    opacity: 1;
+}
+
+/* ============================== */
+/* SECTION COLOR EDITOR           */
+/* ============================== */
+.color-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.color-row:last-child {
+    border-bottom: none;
+}
+
+.color-row label {
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.color-row input[type="color"] {
+    width: 50px;
+    height: 35px;
+    padding: 0;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.color-row input[type="color"]:hover {
+    border-color: #2C4A47;
+}
+
+.gradient-preview {
+    width: 100%;
+    height: 60px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+}
+
+.gradient-pickers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.gradient-color-picker {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.gradient-color-picker label {
+    font-size: 0.75rem;
+    color: #666;
+}
+
+.gradient-color-picker input[type="color"] {
+    width: 45px;
+    height: 35px;
+    padding: 0;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* ============================== */
 /* AUTOSAVE INDICATOR             */
 /* ============================== */
 .autosave-indicator {
@@ -1341,10 +1460,102 @@ select option { background: #2C4A47; }
 }
 
 /* ============================== */
+/* RECENT ITEMS DROPDOWN          */
+/* ============================== */
+.recent-items-dropdown {
+    position: relative;
+}
+
+.recent-trigger {
+    padding: 0.35rem 0.6rem;
+}
+
+.recent-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    min-width: 220px;
+    max-width: 280px;
+    z-index: 100000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.2s;
+}
+
+.recent-dropdown-menu.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(4px);
+}
+
+.recent-dropdown-content {
+    padding: 0.5rem;
+}
+
+.recent-dropdown-content .recent-item {
+    background: #f5f5f5;
+    color: #333;
+    border-radius: 6px;
+    font-size: 0.85rem;
+}
+
+.recent-dropdown-content .recent-item:hover {
+    background: #e0e0e0;
+}
+
+.recent-dropdown-content .recent-time {
+    color: #999;
+}
+
+.recent-dropdown-content .recent-empty {
+    color: #999;
+    padding: 1rem;
+}
+
+/* ============================== */
+/* MOBILE MENU BUTTON             */
+/* ============================== */
+.mobile-menu-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.3rem;
+    padding: 0.4rem;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.15s;
+}
+.mobile-menu-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+/* ============================== */
 /* RESPONSIVE - TABLET            */
 /* ============================== */
 @media (max-width: 900px) {
-    .sidebar { display: none; }
+    .mobile-menu-btn { display: flex; }
+
+    /* Sidebar als Overlay */
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 50px;
+        bottom: 0;
+        width: 300px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 99998;
+    }
+    .sidebar.mobile-open {
+        transform: translateX(0);
+        box-shadow: 4px 0 20px rgba(0,0,0,0.3);
+    }
+
     .website-frame { right: 0; width: 100%; }
     .loading-overlay { right: 0; }
     .start-screen { right: 0; }

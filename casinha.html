@@ -3,10 +3,15 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/core/variables.css" as="style"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Die Casinha | Ruhiges Ferienhaus im Alentejo | Kathrin Stahl</title>
 <meta content="Die Casinha - Ein liebevoll eingerichtetes Ferienhaus für 1-2 Personen im südlichen Alentejo. Perfekter Rückzugsort für Stille, Natur und Erholung." name="description"/>
-<link href="https://nickheymann.github.io/kathrin-coaching/casinha.html" rel="canonical"/>
+<link href="https://coaching.kathrinstahl.com/casinha.html" rel="canonical"/>
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -444,12 +449,14 @@
 <link rel="stylesheet" href="css/components/header.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
 <!-- Header -->
 <header>
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -496,7 +503,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -547,7 +554,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -565,7 +572,7 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
@@ -573,8 +580,8 @@
 </div>
 </header>
 <!-- Hero -->
-<section class="hero">
-<img alt="Die Casinha - Ferienhaus im Alentejo mit Blick auf Korkeichen" fetchpriority="high" loading="lazy" src="wp-content/uploads/2025/05/ruhiges-Ferienhaus-Alentejo-Natur-1024x768.jpg"/>
+<section id="main-content" class="hero">
+<img width="1024" height="768" decoding="async" alt="Die Casinha - Ferienhaus im Alentejo mit Blick auf Korkeichen" fetchpriority="high" loading="lazy" src="wp-content/uploads/2025/05/ruhiges-Ferienhaus-Alentejo-Natur-1024x768.jpg"/>
 <div class="hero-overlay">
 <div class="hero-content">
 <h1>Die Casinha</h1>
@@ -591,11 +598,11 @@
     </p>
 <!-- Gallery -->
 <div class="gallery">
-<img alt="Casinha Wohnbereich" loading="lazy" src="wp-content/uploads/2025/05/Ferienhaus-Portugal-Alentejo.jpg"/>
-<img alt="Casinha Schlafzimmer" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/ruhiges-Ferienhaus-Portugal-768x1024.jpg"/>
-<img alt="Casinha Terrasse" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/Ferienhaus-alleine-Stille-Alentejo-768x1024.jpg"/>
-<img alt="Blick in die Natur" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/ruhiges-Ferienhaus-Natur-Alentejo-768x1024.jpg"/>
-<img alt="Casinha von außen" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/ruhiges-Ferienhaus-Ourique-1024x768.jpg"/>
+<img decoding="async" alt="Casinha Wohnbereich" loading="lazy" src="wp-content/uploads/2025/05/Ferienhaus-Portugal-Alentejo.jpg"/>
+<img width="768" height="1024" decoding="async" alt="Casinha Schlafzimmer" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/ruhiges-Ferienhaus-Portugal-768x1024.jpg"/>
+<img width="768" height="1024" decoding="async" alt="Casinha Terrasse" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/Ferienhaus-alleine-Stille-Alentejo-768x1024.jpg"/>
+<img width="768" height="1024" decoding="async" alt="Blick in die Natur" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/ruhiges-Ferienhaus-Natur-Alentejo-768x1024.jpg"/>
+<img width="1024" height="768" decoding="async" alt="Casinha von außen" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/ruhiges-Ferienhaus-Ourique-1024x768.jpg"/>
 </div>
 <!-- Features -->
 <div class="features-grid">
@@ -720,6 +727,7 @@ if (typeof bookCall === 'undefined') {
 }
 
 </script>
-<script src="js/header-loader.js"></script>
+<script defer src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
 </body>
 </html>

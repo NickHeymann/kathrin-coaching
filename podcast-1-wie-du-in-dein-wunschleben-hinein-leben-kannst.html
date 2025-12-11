@@ -3,14 +3,19 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/core/variables.css" as="style"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Podcast #1 - Wie du in dein Wunschleben hinein leben kannst. | Kathrin Stahl</title>
 <meta content="Herzlich Willkommen bei Glück über Zweifel, deinem Podcast. Erinnerst du dich an einen Moment in deinem Leben, in dem dir die Geschichte eines anderen Menschen Mut gemacht und Zuversicht für deinen eigenen Traum gegeben hat? Die Gespräche in diesem Podcast wollen genau das sein: liebevolle Mutmacher. Lass dich mitnehmen. Du bist eine Heldin, ein Held. Jeden Tag aufs Neue." name="description"/>
-<link href="https://nickheymann.github.io/kathrin-coaching/podcast-1-wie-du-in-dein-wunschleben-hinein-leben-kannst.html" rel="canonical"/>
+<link href="https://coaching.kathrinstahl.com/podcast-1-wie-du-in-dein-wunschleben-hinein-leben-kannst.html" rel="canonical"/>
 <meta content="Podcast #1 - Wie du in dein Wunschleben hinein leben kannst. | Kathrin Stahl" property="og:title"/>
 <meta content="Herzlich Willkommen bei Glück über Zweifel, deinem Podcast. Erinnerst du dich an einen Moment in deinem Leben, in dem dir die Geschichte eines anderen Menschen Mut gemacht und Zuversicht für deinen eigenen Traum gegeben hat? Die Gespräche in diesem Podcast wollen genau das sein: liebevolle Mutmacher. Lass dich mitnehmen. Du bist eine Heldin, ein Held. Jeden Tag aufs Neue." property="og:description"/>
 <meta content="article" property="og:type"/>
-<meta content="https://nickheymann.github.io/kathrin-coaching/wp-content/uploads/2022/02/Podcast-Visionscoaching-scaled.jpg" property="og:image"/>
+<meta content="https://coaching.kathrinstahl.com/wp-content/uploads/2022/02/Podcast-Visionscoaching-scaled.jpg" property="og:image"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Montserrat:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
@@ -77,12 +82,14 @@
 <link rel="stylesheet" href="css/components/header.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
 <!-- Header -->
 <header>
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -129,7 +136,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -180,7 +187,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -198,14 +205,14 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
 </button>
 </div>
 </header>
-<section class="article-hero">
+<section id="main-content" class="article-hero">
 <div class="container">
 <span class="article-category">Allgemein</span>
 <h1>Podcast #1 - Wie du in dein Wunschleben hinein leben kannst.</h1>
@@ -215,7 +222,7 @@
 </div>
 </section>
 <div class="featured-image">
-<img alt="Podcast #1 - Wie du in dein Wunschleben hinein leben kannst." fetchpriority="high" loading="lazy" src="wp-content/uploads/2022/02/Podcast-Visionscoaching-scaled.jpg"/>
+<img decoding="async" alt="Podcast #1 - Wie du in dein Wunschleben hinein leben kannst." fetchpriority="high" loading="lazy" src="wp-content/uploads/2022/02/Podcast-Visionscoaching-scaled.jpg"/>
 </div>
 <article class="article-content">
 <div class="container">
@@ -224,7 +231,7 @@
 </div>
 <p>Es ist soweit! Die erste Folge im Podcast ist da Du findest sie auf Spotify und allen anderen großen Streaming Diensten.</p><blockquote><p><strong>GLÜCK ÜBER ZWEIFELGespräche am Lagerfeuer über die HeldInnenreisen inspirierender Menschen.</strong></p></blockquote><h3>Welchen Lebenstraum schiebst du noch vor dir her?</h3><p>Heute spreche ich mit Miriam Kleyer.Miriam ist selber Coach und sie hat einen Traum, der auch auf meinem Vision Board zu finden ist. Welcher das ist und was unsere Vision Boards damit zu tun haben, verraten wir dir am Lagerfeuer.</p><p>In diesem Gespräch dreht sich alles darum, wie wir etwas, was uns wirklich wichtig ist, ins Leben bringen können.Schlüpfe in die Gedankenwelt von zwei Frauen, die sich mit den Themen Vision und Berufung auskennen und lass dich für dein eigenes Leben inspirieren.Schön, dass du da bist.</p><p><strong>In dieser Folge erfährst du</strong>:</p><ul><li>Wie wir uns unser Traumleben erschaffen können</li><li>Wie unsere innerer Kritiker versucht, uns Steine in den Weg zu legen</li><li>Warum es wichtig ist, einfach mal in Stille bei sich zu sein und was das mit unserer inneren weisheit zu tun hat</li><li>Wieso Miriam und ich den Begriff “Mood Board” lieber mögen als Vision Board</li><li>und vieles mehr</li></ul><p>Wie das in einem Gespräch unter zwei Coaches gar nicht anders sein kann,  bekommst du natürlich auch Coaching Tipps, die du umsetzen kannst.</p><p>Ich wünsche dir viele wertvolle Inspirationen. Und sei nächsten Freitag wieder dabei, wenn wir das nächste Lagerfeuer entzünden.<em>Deine Kathrin</em>#glücküberzweifel</p><p><span aria-describedby="jsc_c_q1"><strong>Du möchtest mehr über Miriam erfahren? </strong>Dann schau auf ihrer Website vorbei unter <span role="gridcell"><a href="http://www.miriamkleyer.de/?fbclid=IwAR0LrmJ3qqbA-1XICMbvOV0dx6FxC-5qbMbBN1DnqMUCvKsiXECI5_ZFIdM" rel="nofollow noopener" role="link" tabindex="-1" target="_blank">www.miriamkleyer.de</a></span></span></p><p>Du findest Miriam auf Instagram: @miriam_kleyer</p><p>Ihren “Modern Spirit Podcast” findest Du <a href="https://podcasts.apple.com/de/podcast/modern-spirit-podcast-f%C3%BCr-beziehungen-moderne-spiritualit%C3%A4t/id1592529997" rel="noopener" target="_blank">hier</a></p>
 <div class="author-bio">
-<img alt="Kathrin Stahl" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
+<img width="1060" height="1042" decoding="async" alt="Kathrin Stahl" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
 <div class="author-bio-content">
 <h4>Kathrin Stahl</h4>
 <p>Ich begleite Menschen auf ihrem Weg zu mehr Selbstliebe, innerer Klarheit und einem Leben, das sich richtig anfühlt. Mit Herz, Erfahrung und der besonderen Kraft der Pferde.</p>
@@ -273,6 +280,7 @@
 </div>
 </footer>
 <script defer="" src="js/blog-enhancements.js"></script>
-<script src="js/header-loader.js"></script>
+<script defer src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
 </body>
 </html>

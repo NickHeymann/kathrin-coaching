@@ -3,16 +3,21 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/core/variables.css" as="style"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Blog | Glück über Zweifel - Kathrin Stahl</title>
 <meta content="Inspirierende Blog-Artikel zu Achtsamkeit, Selbstliebe, Hochbegabung und persönlicher Transformation. Gedanken und Impulse von Kathrin Stahl." name="description"/>
 <meta content="Blog, Achtsamkeit, Selbstliebe, Hochbegabung, Hochsensibilität, Coaching, Persönlichkeitsentwicklung" name="keywords"/>
-<link href="https://nickheymann.github.io/kathrin-coaching/blog.html" rel="canonical"/>
+<link href="https://coaching.kathrinstahl.com/blog.html" rel="canonical"/>
 <!-- Open Graph -->
 <meta content="Blog | Glück über Zweifel" property="og:title"/>
 <meta content="Inspirierende Artikel zu Achtsamkeit, Selbstliebe und persönlicher Transformation." property="og:description"/>
 <meta content="website" property="og:type"/>
-<meta content="https://nickheymann.github.io/kathrin-coaching/blog.html" property="og:url"/>
+<meta content="https://coaching.kathrinstahl.com/blog.html" property="og:url"/>
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -230,12 +235,14 @@
 <script defer src="js/analytics/init.js"></script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
 <!-- Header -->
 <header>
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -282,7 +289,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -333,7 +340,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -351,7 +358,7 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
@@ -359,7 +366,7 @@
 </div>
 </header>
 <!-- Hero -->
-<section class="hero">
+<section id="main-content" class="hero">
 <div class="container">
 <h1>Blog</h1>
 <p>Gedanken, Impulse und Geschichten für deinen Weg zu mehr Selbstliebe und innerer Klarheit</p>
@@ -406,7 +413,7 @@
 <article class="blog-card" data-category="achtsamkeit">
 <a class="blog-card-link" href="angst-und-achtsamkeit.html">
 <div class="blog-card-image">
-<img alt="Angst, Achtsamkeit und Frieden" fetchpriority="high" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
+<img width="300" height="300" decoding="async" alt="Angst, Achtsamkeit und Frieden" fetchpriority="high" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
 <span class="blog-card-category">Achtsamkeit</span>
 </div>
 <div class="blog-card-content">
@@ -418,7 +425,7 @@
 <article class="blog-card" data-category="achtsamkeit">
 <a class="blog-card-link" href="achtsamkeit-sinne.html">
 <div class="blog-card-image">
-<img alt="Mit allen Sinnen Achtsamkeit" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
+<img width="300" height="300" decoding="async" alt="Mit allen Sinnen Achtsamkeit" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
 <span class="blog-card-category">Achtsamkeit</span>
 </div>
 <div class="blog-card-content">
@@ -430,7 +437,7 @@
 <article class="blog-card" data-category="achtsamkeit">
 <a class="blog-card-link" href="sonnenuntergang-grignan.html">
 <div class="blog-card-image">
-<img alt="Sonnenuntergang in Grignan" decoding="async" loading="lazy" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg"/>
+<img decoding="async" alt="Sonnenuntergang in Grignan" decoding="async" loading="lazy" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg"/>
 <span class="blog-card-category">Achtsamkeit</span>
 </div>
 <div class="blog-card-content">
@@ -442,7 +449,7 @@
 <article class="blog-card" data-category="achtsamkeit">
 <a class="blog-card-link" href="stille-heilung.html">
 <div class="blog-card-image">
-<img alt="Stille ist Heilung" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
+<img width="300" height="300" decoding="async" alt="Stille ist Heilung" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
 <span class="blog-card-category">Achtsamkeit</span>
 </div>
 <div class="blog-card-content">
@@ -454,7 +461,7 @@
 <article class="blog-card" data-category="achtsamkeit">
 <a class="blog-card-link" href="qarrtsiluni.html">
 <div class="blog-card-image">
-<img alt="Qarrtsiluni" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
+<img width="300" height="300" decoding="async" alt="Qarrtsiluni" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
 <span class="blog-card-category">Achtsamkeit</span>
 </div>
 <div class="blog-card-content">
@@ -466,7 +473,7 @@
 <article class="blog-card" data-category="achtsamkeit">
 <a class="blog-card-link" href="freude-wegweiser.html">
 <div class="blog-card-image">
-<img alt="Freude als Wegweiser" decoding="async" loading="lazy" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg"/>
+<img decoding="async" alt="Freude als Wegweiser" decoding="async" loading="lazy" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg"/>
 <span class="blog-card-category">Achtsamkeit</span>
 </div>
 <div class="blog-card-content">
@@ -479,7 +486,7 @@
 <article class="blog-card" data-category="selbstliebe">
 <a class="blog-card-link" href="dankbarkeit.html">
 <div class="blog-card-image">
-<img alt="Dankbarkeit" decoding="async" loading="lazy" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
+<img width="1060" height="1042" decoding="async" alt="Dankbarkeit" decoding="async" loading="lazy" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
 <span class="blog-card-category">Selbstliebe</span>
 </div>
 <div class="blog-card-content">
@@ -491,7 +498,7 @@
 <article class="blog-card" data-category="selbstliebe">
 <a class="blog-card-link" href="einzigartigkeit.html">
 <div class="blog-card-image">
-<img alt="Deine Einzigartigkeit" decoding="async" loading="lazy" src="wp-content/uploads/2024/05/hochbegabt-hochsensibel-550x550.jpg"/>
+<img width="550" height="550" decoding="async" alt="Deine Einzigartigkeit" decoding="async" loading="lazy" src="wp-content/uploads/2024/05/hochbegabt-hochsensibel-550x550.jpg"/>
 <span class="blog-card-category">Selbstliebe</span>
 </div>
 <div class="blog-card-content">
@@ -503,7 +510,7 @@
 <article class="blog-card" data-category="selbstliebe">
 <a class="blog-card-link" href="fehler-selbstwert.html">
 <div class="blog-card-image">
-<img alt="Über Fehler und Selbstwert" decoding="async" loading="lazy" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
+<img width="1060" height="1042" decoding="async" alt="Über Fehler und Selbstwert" decoding="async" loading="lazy" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
 <span class="blog-card-category">Selbstliebe</span>
 </div>
 <div class="blog-card-content">
@@ -515,7 +522,7 @@
 <article class="blog-card" data-category="selbstliebe">
 <a class="blog-card-link" href="verlass-dich-nicht.html">
 <div class="blog-card-image">
-<img alt="Verlass dich nicht" decoding="async" loading="lazy" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
+<img width="1060" height="1042" decoding="async" alt="Verlass dich nicht" decoding="async" loading="lazy" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
 <span class="blog-card-category">Selbstliebe</span>
 </div>
 <div class="blog-card-content">
@@ -527,7 +534,7 @@
 <article class="blog-card" data-category="selbstliebe">
 <a class="blog-card-link" href="wer-bist-du.html">
 <div class="blog-card-image">
-<img alt="Wer bist du wenn du niemand sein musst" decoding="async" loading="lazy" src="wp-content/uploads/2024/05/hochbegabt-hochsensibel-550x550.jpg"/>
+<img width="550" height="550" decoding="async" alt="Wer bist du wenn du niemand sein musst" decoding="async" loading="lazy" src="wp-content/uploads/2024/05/hochbegabt-hochsensibel-550x550.jpg"/>
 <span class="blog-card-category">Selbstliebe</span>
 </div>
 <div class="blog-card-content">
@@ -539,7 +546,7 @@
 <article class="blog-card" data-category="selbstliebe">
 <a class="blog-card-link" href="grenzen-setzen.html">
 <div class="blog-card-image">
-<img alt="Grenzen setzen" decoding="async" loading="lazy" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
+<img width="1060" height="1042" decoding="async" alt="Grenzen setzen" decoding="async" loading="lazy" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
 <span class="blog-card-category">Selbstliebe</span>
 </div>
 <div class="blog-card-content">
@@ -551,7 +558,7 @@
 <article class="blog-card" data-category="selbstliebe">
 <a class="blog-card-link" href="es-ist-okay.html">
 <div class="blog-card-image">
-<img alt="Es ist okay" decoding="async" loading="lazy" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
+<img width="1060" height="1042" decoding="async" alt="Es ist okay" decoding="async" loading="lazy" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
 <span class="blog-card-category">Selbstliebe</span>
 </div>
 <div class="blog-card-content">
@@ -563,7 +570,7 @@
 <article class="blog-card" data-category="selbstliebe">
 <a class="blog-card-link" href="selbstvergessen.html">
 <div class="blog-card-image">
-<img alt="Selbstvergessen" decoding="async" loading="lazy" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
+<img width="1060" height="1042" decoding="async" alt="Selbstvergessen" decoding="async" loading="lazy" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
 <span class="blog-card-category">Selbstliebe</span>
 </div>
 <div class="blog-card-content">
@@ -576,7 +583,7 @@
 <article class="blog-card" data-category="beziehung">
 <a class="blog-card-link" href="beziehungsprobleme.html">
 <div class="blog-card-image">
-<img alt="Beziehungsprobleme" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/Paartherapie-Beziehungskrise-Neubeginn-550x550.jpg"/>
+<img width="550" height="550" decoding="async" alt="Beziehungsprobleme" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/Paartherapie-Beziehungskrise-Neubeginn-550x550.jpg"/>
 <span class="blog-card-category">Beziehung</span>
 </div>
 <div class="blog-card-content">
@@ -588,7 +595,7 @@
 <article class="blog-card" data-category="beziehung">
 <a class="blog-card-link" href="ehe-retten.html">
 <div class="blog-card-image">
-<img alt="Ehe retten" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/Paartherapie-Beziehungskrise-Neubeginn-550x550.jpg"/>
+<img width="550" height="550" decoding="async" alt="Ehe retten" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/Paartherapie-Beziehungskrise-Neubeginn-550x550.jpg"/>
 <span class="blog-card-category">Beziehung</span>
 </div>
 <div class="blog-card-content">
@@ -600,7 +607,7 @@
 <article class="blog-card" data-category="beziehung">
 <a class="blog-card-link" href="gehen-oder-bleiben.html">
 <div class="blog-card-image">
-<img alt="Gehen oder bleiben" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/Paartherapie-Beziehungskrise-Neubeginn-550x550.jpg"/>
+<img width="550" height="550" decoding="async" alt="Gehen oder bleiben" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/Paartherapie-Beziehungskrise-Neubeginn-550x550.jpg"/>
 <span class="blog-card-category">Beziehung</span>
 </div>
 <div class="blog-card-content">
@@ -612,7 +619,7 @@
 <article class="blog-card" data-category="beziehung">
 <a class="blog-card-link" href="love-letters.html">
 <div class="blog-card-image">
-<img alt="Love Letters" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/Paartherapie-Beziehungskrise-Neubeginn-550x550.jpg"/>
+<img width="550" height="550" decoding="async" alt="Love Letters" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/Paartherapie-Beziehungskrise-Neubeginn-550x550.jpg"/>
 <span class="blog-card-category">Beziehung</span>
 </div>
 <div class="blog-card-content">
@@ -624,7 +631,7 @@
 <article class="blog-card" data-category="beziehung">
 <a class="blog-card-link" href="gemeinsam-jammern.html">
 <div class="blog-card-image">
-<img alt="Gemeinsam Jammern" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/Paartherapie-Beziehungskrise-Neubeginn-550x550.jpg"/>
+<img width="550" height="550" decoding="async" alt="Gemeinsam Jammern" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/Paartherapie-Beziehungskrise-Neubeginn-550x550.jpg"/>
 <span class="blog-card-category">Beziehung</span>
 </div>
 <div class="blog-card-content">
@@ -637,7 +644,7 @@
 <article class="blog-card" data-category="heldinnenreise">
 <a class="blog-card-link" href="heldinnenreise.html">
 <div class="blog-card-image">
-<img alt="Heldinnenreise" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/Neuanfang-Umbruchphase-1024x1024.jpg"/>
+<img width="1024" height="1024" decoding="async" alt="Heldinnenreise" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/Neuanfang-Umbruchphase-1024x1024.jpg"/>
 <span class="blog-card-category">Heldinnenreise</span>
 </div>
 <div class="blog-card-content">
@@ -649,7 +656,7 @@
 <article class="blog-card" data-category="heldinnenreise">
 <a class="blog-card-link" href="herzenswunsch.html">
 <div class="blog-card-image">
-<img alt="Herzenswunsch" decoding="async" loading="lazy" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg"/>
+<img decoding="async" alt="Herzenswunsch" decoding="async" loading="lazy" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg"/>
 <span class="blog-card-category">Heldinnenreise</span>
 </div>
 <div class="blog-card-content">
@@ -661,7 +668,7 @@
 <article class="blog-card" data-category="heldinnenreise">
 <a class="blog-card-link" href="leben-planen.html">
 <div class="blog-card-image">
-<img alt="Leben planen" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/Neuanfang-Umbruchphase-1024x1024.jpg"/>
+<img width="1024" height="1024" decoding="async" alt="Leben planen" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/Neuanfang-Umbruchphase-1024x1024.jpg"/>
 <span class="blog-card-category">Heldinnenreise</span>
 </div>
 <div class="blog-card-content">
@@ -673,7 +680,7 @@
 <article class="blog-card" data-category="heldinnenreise">
 <a class="blog-card-link" href="komfortzone.html">
 <div class="blog-card-image">
-<img alt="Komfortzone verlassen" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/Neuanfang-Umbruchphase-1024x1024.jpg"/>
+<img width="1024" height="1024" decoding="async" alt="Komfortzone verlassen" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/Neuanfang-Umbruchphase-1024x1024.jpg"/>
 <span class="blog-card-category">Heldinnenreise</span>
 </div>
 <div class="blog-card-content">
@@ -685,7 +692,7 @@
 <article class="blog-card" data-category="heldinnenreise">
 <a class="blog-card-link" href="freiheit.html">
 <div class="blog-card-image">
-<img alt="Freiheit" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/Neuanfang-Umbruchphase-1024x1024.jpg"/>
+<img width="1024" height="1024" decoding="async" alt="Freiheit" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/Neuanfang-Umbruchphase-1024x1024.jpg"/>
 <span class="blog-card-category">Heldinnenreise</span>
 </div>
 <div class="blog-card-content">
@@ -697,7 +704,7 @@
 <article class="blog-card" data-category="heldinnenreise">
 <a class="blog-card-link" href="was-ist-wichtig.html">
 <div class="blog-card-image">
-<img alt="Was ist wirklich wichtig" decoding="async" loading="lazy" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg"/>
+<img decoding="async" alt="Was ist wirklich wichtig" decoding="async" loading="lazy" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg"/>
 <span class="blog-card-category">Heldinnenreise</span>
 </div>
 <div class="blog-card-content">
@@ -709,7 +716,7 @@
 <article class="blog-card" data-category="heldinnenreise">
 <a class="blog-card-link" href="erfuelltes-leben.html">
 <div class="blog-card-image">
-<img alt="Erfülltes Leben" decoding="async" loading="lazy" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg"/>
+<img decoding="async" alt="Erfülltes Leben" decoding="async" loading="lazy" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg"/>
 <span class="blog-card-category">Heldinnenreise</span>
 </div>
 <div class="blog-card-content">
@@ -721,7 +728,7 @@
 <article class="blog-card" data-category="heldinnenreise">
 <a class="blog-card-link" href="ganz-sein.html">
 <div class="blog-card-image">
-<img alt="Ganz sein" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
+<img width="300" height="300" decoding="async" alt="Ganz sein" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
 <span class="blog-card-category">Heldinnenreise</span>
 </div>
 <div class="blog-card-content">
@@ -733,7 +740,7 @@
 <article class="blog-card" data-category="heldinnenreise">
 <a class="blog-card-link" href="wunschlos-gluecklich.html">
 <div class="blog-card-image">
-<img alt="Wunschlos glücklich" decoding="async" loading="lazy" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg"/>
+<img decoding="async" alt="Wunschlos glücklich" decoding="async" loading="lazy" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg"/>
 <span class="blog-card-category">Heldinnenreise</span>
 </div>
 <div class="blog-card-content">
@@ -745,7 +752,7 @@
 <article class="blog-card" data-category="heldinnenreise">
 <a class="blog-card-link" href="innerer-frieden.html">
 <div class="blog-card-image">
-<img alt="Innerer Frieden" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
+<img width="300" height="300" decoding="async" alt="Innerer Frieden" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
 <span class="blog-card-category">Heldinnenreise</span>
 </div>
 <div class="blog-card-content">
@@ -757,7 +764,7 @@
 <article class="blog-card" data-category="heldinnenreise">
 <a class="blog-card-link" href="vision-board.html">
 <div class="blog-card-image">
-<img alt="Vision Board" decoding="async" loading="lazy" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg"/>
+<img decoding="async" alt="Vision Board" decoding="async" loading="lazy" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg"/>
 <span class="blog-card-category">Heldinnenreise</span>
 </div>
 <div class="blog-card-content">
@@ -769,7 +776,7 @@
 <article class="blog-card" data-category="heldinnenreise">
 <a class="blog-card-link" href="suedfrankreich.html">
 <div class="blog-card-image">
-<img alt="Südfrankreich" decoding="async" loading="lazy" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg"/>
+<img decoding="async" alt="Südfrankreich" decoding="async" loading="lazy" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg"/>
 <span class="blog-card-category">Heldinnenreise</span>
 </div>
 <div class="blog-card-content">
@@ -781,7 +788,7 @@
 <article class="blog-card" data-category="heldinnenreise">
 <a class="blog-card-link" href="letzte-male.html">
 <div class="blog-card-image">
-<img alt="Letzte Male" decoding="async" loading="lazy" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg"/>
+<img decoding="async" alt="Letzte Male" decoding="async" loading="lazy" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg"/>
 <span class="blog-card-category">Heldinnenreise</span>
 </div>
 <div class="blog-card-content">
@@ -794,7 +801,7 @@
 <article class="blog-card" data-category="hochbegabung">
 <a class="blog-card-link" href="hochbegabt.html">
 <div class="blog-card-image">
-<img alt="Hochbegabt" decoding="async" loading="lazy" src="wp-content/uploads/2022/02/PferdegestuetztesCoaching-Hochbegabung-Hamburg.jpg"/>
+<img decoding="async" alt="Hochbegabt" decoding="async" loading="lazy" src="wp-content/uploads/2022/02/PferdegestuetztesCoaching-Hochbegabung-Hamburg.jpg"/>
 <span class="blog-card-category">Hochbegabung</span>
 </div>
 <div class="blog-card-content">
@@ -806,7 +813,7 @@
 <article class="blog-card" data-category="hochbegabung">
 <a class="blog-card-link" href="hochbegabung-hochsensibel.html">
 <div class="blog-card-image">
-<img alt="Hochbegabung Hochsensibilität" decoding="async" loading="lazy" src="wp-content/uploads/2024/05/hochbegabt-hochsensibel-550x550.jpg"/>
+<img width="550" height="550" decoding="async" alt="Hochbegabung Hochsensibilität" decoding="async" loading="lazy" src="wp-content/uploads/2024/05/hochbegabt-hochsensibel-550x550.jpg"/>
 <span class="blog-card-category">Hochbegabung</span>
 </div>
 <div class="blog-card-content">
@@ -819,7 +826,7 @@
 <article class="blog-card" data-category="koerper">
 <a class="blog-card-link" href="geschenk-wut.html">
 <div class="blog-card-image">
-<img alt="Geschenk der Wut" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
+<img width="300" height="300" decoding="async" alt="Geschenk der Wut" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
 <span class="blog-card-category">Körper &amp; Heilung</span>
 </div>
 <div class="blog-card-content">
@@ -831,7 +838,7 @@
 <article class="blog-card" data-category="koerper">
 <a class="blog-card-link" href="angst-vor-power.html">
 <div class="blog-card-image">
-<img alt="Angst vor Power" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
+<img width="300" height="300" decoding="async" alt="Angst vor Power" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
 <span class="blog-card-category">Körper &amp; Heilung</span>
 </div>
 <div class="blog-card-content">
@@ -843,7 +850,7 @@
 <article class="blog-card" data-category="koerper">
 <a class="blog-card-link" href="gedankenkarussell.html">
 <div class="blog-card-image">
-<img alt="Gedankenkarussell" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
+<img width="300" height="300" decoding="async" alt="Gedankenkarussell" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
 <span class="blog-card-category">Körper &amp; Heilung</span>
 </div>
 <div class="blog-card-content">
@@ -855,7 +862,7 @@
 <article class="blog-card" data-category="koerper">
 <a class="blog-card-link" href="hilfe-annehmen.html">
 <div class="blog-card-image">
-<img alt="Glaubenssatzarbeit" decoding="async" loading="lazy" src="wp-content/uploads/2022/07/Coaching-Pferde-Hamburg-KathrinStahl-17-550x550.jpg"/>
+<img width="550" height="550" decoding="async" alt="Glaubenssatzarbeit" decoding="async" loading="lazy" src="wp-content/uploads/2022/07/Coaching-Pferde-Hamburg-KathrinStahl-17-550x550.jpg"/>
 <span class="blog-card-category">Körper &amp; Heilung</span>
 </div>
 <div class="blog-card-content">
@@ -867,7 +874,7 @@
 <article class="blog-card" data-category="koerper">
 <a class="blog-card-link" href="glaubenssaetze-pferde.html">
 <div class="blog-card-image">
-<img alt="Glaubenssatzarbeit Pferde" decoding="async" loading="lazy" src="wp-content/uploads/2022/07/Coaching-Pferde-Hamburg-KathrinStahl-17-550x550.jpg"/>
+<img width="550" height="550" decoding="async" alt="Glaubenssatzarbeit Pferde" decoding="async" loading="lazy" src="wp-content/uploads/2022/07/Coaching-Pferde-Hamburg-KathrinStahl-17-550x550.jpg"/>
 <span class="blog-card-category">Körper &amp; Heilung</span>
 </div>
 <div class="blog-card-content">
@@ -879,7 +886,7 @@
 <article class="blog-card" data-category="koerper">
 <a class="blog-card-link" href="innere-fuehrung.html">
 <div class="blog-card-image">
-<img alt="Innere Führung" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
+<img width="300" height="300" decoding="async" alt="Innere Führung" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
 <span class="blog-card-category">Körper &amp; Heilung</span>
 </div>
 <div class="blog-card-content">
@@ -891,7 +898,7 @@
 <article class="blog-card" data-category="koerper">
 <a class="blog-card-link" href="kloss-im-hals.html">
 <div class="blog-card-image">
-<img alt="Kloßgefühl im Hals" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
+<img width="300" height="300" decoding="async" alt="Kloßgefühl im Hals" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
 <span class="blog-card-category">Körper &amp; Heilung</span>
 </div>
 <div class="blog-card-content">
@@ -903,7 +910,7 @@
 <article class="blog-card" data-category="koerper">
 <a class="blog-card-link" href="nackenschmerzen.html">
 <div class="blog-card-image">
-<img alt="Nackenschmerzen" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
+<img width="300" height="300" decoding="async" alt="Nackenschmerzen" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
 <span class="blog-card-category">Körper &amp; Heilung</span>
 </div>
 <div class="blog-card-content">
@@ -915,7 +922,7 @@
 <article class="blog-card" data-category="koerper">
 <a class="blog-card-link" href="wen-ziehst-du.html">
 <div class="blog-card-image">
-<img alt="Wen ziehst du hinter dir her" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
+<img width="300" height="300" decoding="async" alt="Wen ziehst du hinter dir her" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
 <span class="blog-card-category">Körper &amp; Heilung</span>
 </div>
 <div class="blog-card-content">
@@ -927,7 +934,7 @@
 <article class="blog-card" data-category="koerper">
 <a class="blog-card-link" href="gefuehle-achtsam.html">
 <div class="blog-card-image">
-<img alt="Achtsam mit Gefühlen" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
+<img width="300" height="300" decoding="async" alt="Achtsam mit Gefühlen" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg"/>
 <span class="blog-card-category">Körper &amp; Heilung</span>
 </div>
 <div class="blog-card-content">
@@ -939,7 +946,7 @@
 <article class="blog-card" data-category="koerper">
 <a class="blog-card-link" href="liebe-der-pferde.html">
 <div class="blog-card-image">
-<img alt="Liebe der Pferde" decoding="async" loading="lazy" src="wp-content/uploads/2022/07/Coaching-Pferde-Hamburg-KathrinStahl-17-550x550.jpg"/>
+<img width="550" height="550" decoding="async" alt="Liebe der Pferde" decoding="async" loading="lazy" src="wp-content/uploads/2022/07/Coaching-Pferde-Hamburg-KathrinStahl-17-550x550.jpg"/>
 <span class="blog-card-category">Körper &amp; Heilung</span>
 </div>
 <div class="blog-card-content">
@@ -951,7 +958,7 @@
 <article class="blog-card" data-category="koerper">
 <a class="blog-card-link" href="pferde-heilen.html">
 <div class="blog-card-image">
-<img alt="Mit Pferden heilen" decoding="async" loading="lazy" src="wp-content/uploads/2022/07/Coaching-Pferde-Hamburg-KathrinStahl-17-550x550.jpg"/>
+<img width="550" height="550" decoding="async" alt="Mit Pferden heilen" decoding="async" loading="lazy" src="wp-content/uploads/2022/07/Coaching-Pferde-Hamburg-KathrinStahl-17-550x550.jpg"/>
 <span class="blog-card-category">Körper &amp; Heilung</span>
 </div>
 <div class="blog-card-content">
@@ -1167,6 +1174,7 @@ if (typeof bookCall === 'undefined') {
 }
 
 </script>
-<script src="js/header-loader.js"></script>
+<script defer src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
 </body>
 </html>

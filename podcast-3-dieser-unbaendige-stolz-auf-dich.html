@@ -3,14 +3,19 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/core/variables.css" as="style"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Podcast #3 - Dieser unbändige Stolz auf dich. | Kathrin Stahl</title>
 <meta content="Herzlich Willkommen bei Glück über Zweifel, deinem Podcast. Erinnerst du dich an einen Moment in deinem Leben, in dem dir die Geschichte eines anderen Menschen Mut gemacht und Zuversicht für deinen eigenen Traum gegeben hat? Die Gespräche in diesem Podcast wollen genau das sein: liebevolle Mutmacher. Lass dich mitnehmen. Du bist eine Heldin, ein Held. Jeden Tag aufs Neue." name="description"/>
-<link href="https://nickheymann.github.io/kathrin-coaching/podcast-3-dieser-unbaendige-stolz-auf-dich.html" rel="canonical"/>
+<link href="https://coaching.kathrinstahl.com/podcast-3-dieser-unbaendige-stolz-auf-dich.html" rel="canonical"/>
 <meta content="Podcast #3 - Dieser unbändige Stolz auf dich. | Kathrin Stahl" property="og:title"/>
 <meta content="Herzlich Willkommen bei Glück über Zweifel, deinem Podcast. Erinnerst du dich an einen Moment in deinem Leben, in dem dir die Geschichte eines anderen Menschen Mut gemacht und Zuversicht für deinen eigenen Traum gegeben hat? Die Gespräche in diesem Podcast wollen genau das sein: liebevolle Mutmacher. Lass dich mitnehmen. Du bist eine Heldin, ein Held. Jeden Tag aufs Neue." property="og:description"/>
 <meta content="article" property="og:type"/>
-<meta content="https://nickheymann.github.io/kathrin-coaching/wp-content/uploads/2022/02/Coaching-Frauen-Selbstverwirklichung.jpg" property="og:image"/>
+<meta content="https://coaching.kathrinstahl.com/wp-content/uploads/2022/02/Coaching-Frauen-Selbstverwirklichung.jpg" property="og:image"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Montserrat:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
@@ -77,12 +82,14 @@
 <link rel="stylesheet" href="css/components/header.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
 <!-- Header -->
 <header>
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -129,7 +136,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -180,7 +187,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -198,14 +205,14 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
 </button>
 </div>
 </header>
-<section class="article-hero">
+<section id="main-content" class="article-hero">
 <div class="container">
 <span class="article-category">Allgemein</span>
 <h1>Podcast #3 - Dieser unbändige Stolz auf dich.</h1>
@@ -215,7 +222,7 @@
 </div>
 </section>
 <div class="featured-image">
-<img alt="Podcast #3 - Dieser unbändige Stolz auf dich." fetchpriority="high" loading="lazy" src="wp-content/uploads/2022/02/Coaching-Frauen-Selbstverwirklichung.jpg"/>
+<img decoding="async" alt="Podcast #3 - Dieser unbändige Stolz auf dich." fetchpriority="high" loading="lazy" src="wp-content/uploads/2022/02/Coaching-Frauen-Selbstverwirklichung.jpg"/>
 </div>
 <article class="article-content">
 <div class="container">
@@ -264,7 +271,7 @@ Danke dafür, dass du deinen HeldInnenweg gehst und andere damit inspirierst.
 
             
             <div class="author-bio">
-<img alt="Kathrin Stahl" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
+<img width="1060" height="1042" decoding="async" alt="Kathrin Stahl" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
 <div class="author-bio-content">
 <h4>Kathrin Stahl</h4>
 <p>Ich begleite Menschen auf ihrem Weg zu mehr Selbstliebe, innerer Klarheit und einem Leben, das sich richtig anfühlt. Mit Herz, Erfahrung und der besonderen Kraft der Pferde.</p>
@@ -313,6 +320,7 @@ Danke dafür, dass du deinen HeldInnenweg gehst und andere damit inspirierst.
 </div>
 </footer>
 <script defer="" src="js/blog-enhancements.js"></script>
-<script src="js/header-loader.js"></script>
+<script defer src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
 </body>
 </html>

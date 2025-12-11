@@ -1,0 +1,147 @@
+/* ============================================
+   QUIZ FOOTER & SCORE CIRCLE - Kathrin Coaching
+   Zeilen: ~140 | Verantwortung: Footer, Score Circle Visual
+   ============================================ */
+
+/* -----------------------------------------
+   FOOTER
+   ----------------------------------------- */
+
+.site-footer {
+    background: var(--color-text);
+    color: var(--color-white);
+    padding: 60px 24px 30px;
+    margin-top: 80px;
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 50px;
+    margin-bottom: 40px;
+}
+
+.footer-brand .logo {
+    color: var(--color-white);
+    margin-bottom: 15px;
+    display: block;
+}
+
+.footer-brand p {
+    opacity: 0.7;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-links a {
+    color: var(--color-white);
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.social-links a:hover {
+    opacity: 1;
+}
+
+.footer-links h4 {
+    color: var(--color-accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    color: var(--color-white);
+    opacity: 0.7;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.footer-links a:hover {
+    opacity: 1;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 25px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    opacity: 0.6;
+}
+
+.footer-bottom a {
+    color: var(--color-white);
+    text-decoration: none;
+}
+
+.footer-bottom a:hover {
+    text-decoration: underline;
+}
+
+/* -----------------------------------------
+   SCORE CIRCLE (for visual results)
+   ----------------------------------------- */
+
+.score-circle {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    margin: 0 auto 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: conic-gradient(
+        var(--score-color, var(--color-primary)) calc(var(--score-percent, 0) * 1%),
+        #e8e8e8 calc(var(--score-percent, 0) * 1%)
+    );
+}
+
+.score-circle::before {
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background: var(--color-white);
+    border-radius: 50%;
+}
+
+.score-circle .score-value {
+    position: relative;
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.score-circle .score-label {
+    position: relative;
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}

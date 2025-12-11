@@ -3,16 +3,21 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/core/variables.css" as="style"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Burnout-Selbsttest (CBI) | Copenhagen Burnout Inventory | KATHRIN STAHL</title>
 <meta content="Wissenschaftlich fundierter Burnout-Test basierend auf dem Copenhagen Burnout Inventory (CBI). 15 Fragen zu persönlicher, arbeitsbedingter und zwischenmenschlicher Erschöpfung." name="description"/>
 <meta content="Burnout Test, Copenhagen Burnout Inventory, CBI, Erschöpfung, Burnout Symptome, wissenschaftlicher Test" name="keywords"/>
-<link href="https://nickheymann.github.io/kathrin-coaching/quiz-lebenskrise.html" rel="canonical"/>
+<link href="https://coaching.kathrinstahl.com/quiz-lebenskrise.html" rel="canonical"/>
 <!-- Open Graph -->
 <meta content="Burnout-Selbsttest nach Copenhagen Burnout Inventory" property="og:title"/>
 <meta content="Wissenschaftlich validierter Burnout-Test mit 15 Fragen. Erfasse persönliche, arbeitsbedingte und zwischenmenschliche Erschöpfung." property="og:description"/>
 <meta content="website" property="og:type"/>
-<meta content="https://nickheymann.github.io/kathrin-coaching/quiz-lebenskrise.html" property="og:url"/>
+<meta content="https://coaching.kathrinstahl.com/quiz-lebenskrise.html" property="og:url"/>
 <!-- Schema.org Quiz Markup -->
 <script type="application/ld+json">
     {
@@ -25,7 +30,7 @@
         "provider": {
             "@type": "Person",
             "name": "Kathrin Stahl",
-            "url": "https://nickheymann.github.io/kathrin-coaching/"
+            "url": "https://coaching.kathrinstahl.com/"
         },
         "citation": {
             "@type": "ScholarlyArticle",
@@ -250,12 +255,14 @@
 <link rel="stylesheet" href="css/components/header.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
 <!-- Header -->
 <header>
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -302,7 +309,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -353,7 +360,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -371,7 +378,7 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
@@ -383,9 +390,9 @@
 <h1>Burnout-Selbsttest</h1>
 <p>Wissenschaftlich fundierter Test basierend auf dem Copenhagen Burnout Inventory (CBI) zur Erfassung von Erschöpfung in drei Dimensionen</p>
 </section>
-<main class="quiz-container">
+<main id="main-content" class="quiz-container">
 <div class="science-box" id="scienceBox">
-<div class="science-box-header" onclick="toggleScienceBox()">
+<div class="science-box-header">
 <h3>Über diesen Test</h3>
 <span class="collapse-icon">−</span>
 </div>
@@ -404,11 +411,11 @@
 <span class="question-category">Persönliche Erschöpfung</span>
 <div class="question-text">Wie oft fühlst du dich müde?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">0</span><span class="freq-label">Nie/Fast nie</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 25)"><span class="freq-value">25</span><span class="freq-label">Selten</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 50)"><span class="freq-value">50</span><span class="freq-label">Manchmal</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 75)"><span class="freq-value">75</span><span class="freq-label">Oft</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 100)"><span class="freq-value">100</span><span class="freq-label">Immer</span></div>
+<div class="frequency-option"><span class="freq-value">0</span><span class="freq-label">Nie/Fast nie</span></div>
+<div class="frequency-option"><span class="freq-value">25</span><span class="freq-label">Selten</span></div>
+<div class="frequency-option"><span class="freq-value">50</span><span class="freq-label">Manchmal</span></div>
+<div class="frequency-option"><span class="freq-value">75</span><span class="freq-label">Oft</span></div>
+<div class="frequency-option"><span class="freq-value">100</span><span class="freq-label">Immer</span></div>
 </div>
 </div>
 <div class="question-card" data-dimension="personal" data-question="2">
@@ -416,11 +423,11 @@
 <span class="question-category">Persönliche Erschöpfung</span>
 <div class="question-text">Wie oft bist du körperlich erschöpft?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">0</span><span class="freq-label">Nie/Fast nie</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 25)"><span class="freq-value">25</span><span class="freq-label">Selten</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 50)"><span class="freq-value">50</span><span class="freq-label">Manchmal</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 75)"><span class="freq-value">75</span><span class="freq-label">Oft</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 100)"><span class="freq-value">100</span><span class="freq-label">Immer</span></div>
+<div class="frequency-option"><span class="freq-value">0</span><span class="freq-label">Nie/Fast nie</span></div>
+<div class="frequency-option"><span class="freq-value">25</span><span class="freq-label">Selten</span></div>
+<div class="frequency-option"><span class="freq-value">50</span><span class="freq-label">Manchmal</span></div>
+<div class="frequency-option"><span class="freq-value">75</span><span class="freq-label">Oft</span></div>
+<div class="frequency-option"><span class="freq-value">100</span><span class="freq-label">Immer</span></div>
 </div>
 </div>
 <div class="question-card" data-dimension="personal" data-question="3">
@@ -428,11 +435,11 @@
 <span class="question-category">Persönliche Erschöpfung</span>
 <div class="question-text">Wie oft bist du emotional erschöpft?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">0</span><span class="freq-label">Nie/Fast nie</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 25)"><span class="freq-value">25</span><span class="freq-label">Selten</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 50)"><span class="freq-value">50</span><span class="freq-label">Manchmal</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 75)"><span class="freq-value">75</span><span class="freq-label">Oft</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 100)"><span class="freq-value">100</span><span class="freq-label">Immer</span></div>
+<div class="frequency-option"><span class="freq-value">0</span><span class="freq-label">Nie/Fast nie</span></div>
+<div class="frequency-option"><span class="freq-value">25</span><span class="freq-label">Selten</span></div>
+<div class="frequency-option"><span class="freq-value">50</span><span class="freq-label">Manchmal</span></div>
+<div class="frequency-option"><span class="freq-value">75</span><span class="freq-label">Oft</span></div>
+<div class="frequency-option"><span class="freq-value">100</span><span class="freq-label">Immer</span></div>
 </div>
 </div>
 <div class="question-card" data-dimension="personal" data-question="4">
@@ -440,11 +447,11 @@
 <span class="question-category">Persönliche Erschöpfung</span>
 <div class="question-text">Wie oft denkst du "Ich kann nicht mehr"?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">0</span><span class="freq-label">Nie/Fast nie</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 25)"><span class="freq-value">25</span><span class="freq-label">Selten</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 50)"><span class="freq-value">50</span><span class="freq-label">Manchmal</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 75)"><span class="freq-value">75</span><span class="freq-label">Oft</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 100)"><span class="freq-value">100</span><span class="freq-label">Immer</span></div>
+<div class="frequency-option"><span class="freq-value">0</span><span class="freq-label">Nie/Fast nie</span></div>
+<div class="frequency-option"><span class="freq-value">25</span><span class="freq-label">Selten</span></div>
+<div class="frequency-option"><span class="freq-value">50</span><span class="freq-label">Manchmal</span></div>
+<div class="frequency-option"><span class="freq-value">75</span><span class="freq-label">Oft</span></div>
+<div class="frequency-option"><span class="freq-value">100</span><span class="freq-label">Immer</span></div>
 </div>
 </div>
 <div class="question-card" data-dimension="personal" data-question="5">
@@ -452,11 +459,11 @@
 <span class="question-category">Persönliche Erschöpfung</span>
 <div class="question-text">Wie oft fühlst du dich ausgelaugt?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">0</span><span class="freq-label">Nie/Fast nie</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 25)"><span class="freq-value">25</span><span class="freq-label">Selten</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 50)"><span class="freq-value">50</span><span class="freq-label">Manchmal</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 75)"><span class="freq-value">75</span><span class="freq-label">Oft</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 100)"><span class="freq-value">100</span><span class="freq-label">Immer</span></div>
+<div class="frequency-option"><span class="freq-value">0</span><span class="freq-label">Nie/Fast nie</span></div>
+<div class="frequency-option"><span class="freq-value">25</span><span class="freq-label">Selten</span></div>
+<div class="frequency-option"><span class="freq-value">50</span><span class="freq-label">Manchmal</span></div>
+<div class="frequency-option"><span class="freq-value">75</span><span class="freq-label">Oft</span></div>
+<div class="frequency-option"><span class="freq-value">100</span><span class="freq-label">Immer</span></div>
 </div>
 </div>
 <!-- WORK-RELATED BURNOUT: Questions 6-10 -->
@@ -465,11 +472,11 @@
 <span class="question-category">Arbeitsbedingte Erschöpfung</span>
 <div class="question-text">Wie sehr erschöpft dich deine Arbeit?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">0</span><span class="freq-label">Gar nicht</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 25)"><span class="freq-value">25</span><span class="freq-label">Ein wenig</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 50)"><span class="freq-value">50</span><span class="freq-label">Teilweise</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 75)"><span class="freq-value">75</span><span class="freq-label">Ziemlich</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 100)"><span class="freq-value">100</span><span class="freq-label">Sehr stark</span></div>
+<div class="frequency-option"><span class="freq-value">0</span><span class="freq-label">Gar nicht</span></div>
+<div class="frequency-option"><span class="freq-value">25</span><span class="freq-label">Ein wenig</span></div>
+<div class="frequency-option"><span class="freq-value">50</span><span class="freq-label">Teilweise</span></div>
+<div class="frequency-option"><span class="freq-value">75</span><span class="freq-label">Ziemlich</span></div>
+<div class="frequency-option"><span class="freq-value">100</span><span class="freq-label">Sehr stark</span></div>
 </div>
 </div>
 <div class="question-card" data-dimension="work" data-question="7">
@@ -477,11 +484,11 @@
 <span class="question-category">Arbeitsbedingte Erschöpfung</span>
 <div class="question-text">Fühlst du dich durch deine Arbeit ausgebrannt?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">0</span><span class="freq-label">Gar nicht</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 25)"><span class="freq-value">25</span><span class="freq-label">Ein wenig</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 50)"><span class="freq-value">50</span><span class="freq-label">Teilweise</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 75)"><span class="freq-value">75</span><span class="freq-label">Ziemlich</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 100)"><span class="freq-value">100</span><span class="freq-label">Sehr stark</span></div>
+<div class="frequency-option"><span class="freq-value">0</span><span class="freq-label">Gar nicht</span></div>
+<div class="frequency-option"><span class="freq-value">25</span><span class="freq-label">Ein wenig</span></div>
+<div class="frequency-option"><span class="freq-value">50</span><span class="freq-label">Teilweise</span></div>
+<div class="frequency-option"><span class="freq-value">75</span><span class="freq-label">Ziemlich</span></div>
+<div class="frequency-option"><span class="freq-value">100</span><span class="freq-label">Sehr stark</span></div>
 </div>
 </div>
 <div class="question-card" data-dimension="work" data-question="8">
@@ -489,11 +496,11 @@
 <span class="question-category">Arbeitsbedingte Erschöpfung</span>
 <div class="question-text">Frustriert dich deine Arbeit?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">0</span><span class="freq-label">Gar nicht</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 25)"><span class="freq-value">25</span><span class="freq-label">Ein wenig</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 50)"><span class="freq-value">50</span><span class="freq-label">Teilweise</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 75)"><span class="freq-value">75</span><span class="freq-label">Ziemlich</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 100)"><span class="freq-value">100</span><span class="freq-label">Sehr stark</span></div>
+<div class="frequency-option"><span class="freq-value">0</span><span class="freq-label">Gar nicht</span></div>
+<div class="frequency-option"><span class="freq-value">25</span><span class="freq-label">Ein wenig</span></div>
+<div class="frequency-option"><span class="freq-value">50</span><span class="freq-label">Teilweise</span></div>
+<div class="frequency-option"><span class="freq-value">75</span><span class="freq-label">Ziemlich</span></div>
+<div class="frequency-option"><span class="freq-value">100</span><span class="freq-label">Sehr stark</span></div>
 </div>
 </div>
 <div class="question-card" data-dimension="work" data-question="9">
@@ -501,11 +508,11 @@
 <span class="question-category">Arbeitsbedingte Erschöpfung</span>
 <div class="question-text">Fühlst du dich am Ende eines Arbeitstages erschöpft?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">0</span><span class="freq-label">Nie/Fast nie</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 25)"><span class="freq-value">25</span><span class="freq-label">Selten</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 50)"><span class="freq-value">50</span><span class="freq-label">Manchmal</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 75)"><span class="freq-value">75</span><span class="freq-label">Oft</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 100)"><span class="freq-value">100</span><span class="freq-label">Immer</span></div>
+<div class="frequency-option"><span class="freq-value">0</span><span class="freq-label">Nie/Fast nie</span></div>
+<div class="frequency-option"><span class="freq-value">25</span><span class="freq-label">Selten</span></div>
+<div class="frequency-option"><span class="freq-value">50</span><span class="freq-label">Manchmal</span></div>
+<div class="frequency-option"><span class="freq-value">75</span><span class="freq-label">Oft</span></div>
+<div class="frequency-option"><span class="freq-value">100</span><span class="freq-label">Immer</span></div>
 </div>
 </div>
 <div class="question-card" data-dimension="work" data-question="10">
@@ -513,11 +520,11 @@
 <span class="question-category">Arbeitsbedingte Erschöpfung</span>
 <div class="question-text">Fühlst du dich morgens erschöpft bei dem Gedanken an einen weiteren Arbeitstag?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">0</span><span class="freq-label">Nie/Fast nie</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 25)"><span class="freq-value">25</span><span class="freq-label">Selten</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 50)"><span class="freq-value">50</span><span class="freq-label">Manchmal</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 75)"><span class="freq-value">75</span><span class="freq-label">Oft</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 100)"><span class="freq-value">100</span><span class="freq-label">Immer</span></div>
+<div class="frequency-option"><span class="freq-value">0</span><span class="freq-label">Nie/Fast nie</span></div>
+<div class="frequency-option"><span class="freq-value">25</span><span class="freq-label">Selten</span></div>
+<div class="frequency-option"><span class="freq-value">50</span><span class="freq-label">Manchmal</span></div>
+<div class="frequency-option"><span class="freq-value">75</span><span class="freq-label">Oft</span></div>
+<div class="frequency-option"><span class="freq-value">100</span><span class="freq-label">Immer</span></div>
 </div>
 </div>
 <!-- SOCIAL/INTERPERSONAL BURNOUT: Questions 11-15 -->
@@ -526,11 +533,11 @@
 <span class="question-category">Zwischenmenschliche Erschöpfung</span>
 <div class="question-text">Findest du es schwierig, mit anderen Menschen zu arbeiten oder Zeit zu verbringen?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">0</span><span class="freq-label">Gar nicht</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 25)"><span class="freq-value">25</span><span class="freq-label">Ein wenig</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 50)"><span class="freq-value">50</span><span class="freq-label">Teilweise</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 75)"><span class="freq-value">75</span><span class="freq-label">Ziemlich</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 100)"><span class="freq-value">100</span><span class="freq-label">Sehr stark</span></div>
+<div class="frequency-option"><span class="freq-value">0</span><span class="freq-label">Gar nicht</span></div>
+<div class="frequency-option"><span class="freq-value">25</span><span class="freq-label">Ein wenig</span></div>
+<div class="frequency-option"><span class="freq-value">50</span><span class="freq-label">Teilweise</span></div>
+<div class="frequency-option"><span class="freq-value">75</span><span class="freq-label">Ziemlich</span></div>
+<div class="frequency-option"><span class="freq-value">100</span><span class="freq-label">Sehr stark</span></div>
 </div>
 </div>
 <div class="question-card" data-dimension="social" data-question="12">
@@ -538,11 +545,11 @@
 <span class="question-category">Zwischenmenschliche Erschöpfung</span>
 <div class="question-text">Erschöpft es dich, für andere da zu sein?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">0</span><span class="freq-label">Gar nicht</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 25)"><span class="freq-value">25</span><span class="freq-label">Ein wenig</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 50)"><span class="freq-value">50</span><span class="freq-label">Teilweise</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 75)"><span class="freq-value">75</span><span class="freq-label">Ziemlich</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 100)"><span class="freq-value">100</span><span class="freq-label">Sehr stark</span></div>
+<div class="frequency-option"><span class="freq-value">0</span><span class="freq-label">Gar nicht</span></div>
+<div class="frequency-option"><span class="freq-value">25</span><span class="freq-label">Ein wenig</span></div>
+<div class="frequency-option"><span class="freq-value">50</span><span class="freq-label">Teilweise</span></div>
+<div class="frequency-option"><span class="freq-value">75</span><span class="freq-label">Ziemlich</span></div>
+<div class="frequency-option"><span class="freq-value">100</span><span class="freq-label">Sehr stark</span></div>
 </div>
 </div>
 <div class="question-card" data-dimension="social" data-question="13">
@@ -550,11 +557,11 @@
 <span class="question-category">Zwischenmenschliche Erschöpfung</span>
 <div class="question-text">Hast du das Gefühl, dass du mehr gibst als du zurückbekommst?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">0</span><span class="freq-label">Gar nicht</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 25)"><span class="freq-value">25</span><span class="freq-label">Ein wenig</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 50)"><span class="freq-value">50</span><span class="freq-label">Teilweise</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 75)"><span class="freq-value">75</span><span class="freq-label">Ziemlich</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 100)"><span class="freq-value">100</span><span class="freq-label">Sehr stark</span></div>
+<div class="frequency-option"><span class="freq-value">0</span><span class="freq-label">Gar nicht</span></div>
+<div class="frequency-option"><span class="freq-value">25</span><span class="freq-label">Ein wenig</span></div>
+<div class="frequency-option"><span class="freq-value">50</span><span class="freq-label">Teilweise</span></div>
+<div class="frequency-option"><span class="freq-value">75</span><span class="freq-label">Ziemlich</span></div>
+<div class="frequency-option"><span class="freq-value">100</span><span class="freq-label">Sehr stark</span></div>
 </div>
 </div>
 <div class="question-card" data-dimension="social" data-question="14">
@@ -562,11 +569,11 @@
 <span class="question-category">Zwischenmenschliche Erschöpfung</span>
 <div class="question-text">Bist du es leid, die Probleme anderer anzuhören?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">0</span><span class="freq-label">Nie/Fast nie</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 25)"><span class="freq-value">25</span><span class="freq-label">Selten</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 50)"><span class="freq-value">50</span><span class="freq-label">Manchmal</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 75)"><span class="freq-value">75</span><span class="freq-label">Oft</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 100)"><span class="freq-value">100</span><span class="freq-label">Immer</span></div>
+<div class="frequency-option"><span class="freq-value">0</span><span class="freq-label">Nie/Fast nie</span></div>
+<div class="frequency-option"><span class="freq-value">25</span><span class="freq-label">Selten</span></div>
+<div class="frequency-option"><span class="freq-value">50</span><span class="freq-label">Manchmal</span></div>
+<div class="frequency-option"><span class="freq-value">75</span><span class="freq-label">Oft</span></div>
+<div class="frequency-option"><span class="freq-value">100</span><span class="freq-label">Immer</span></div>
 </div>
 </div>
 <div class="question-card" data-dimension="social" data-question="15">
@@ -574,11 +581,11 @@
 <span class="question-category">Zwischenmenschliche Erschöpfung</span>
 <div class="question-text">Ziehst du dich von sozialen Kontakten zurück, um Energie zu sparen?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">0</span><span class="freq-label">Nie/Fast nie</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 25)"><span class="freq-value">25</span><span class="freq-label">Selten</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 50)"><span class="freq-value">50</span><span class="freq-label">Manchmal</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 75)"><span class="freq-value">75</span><span class="freq-label">Oft</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 100)"><span class="freq-value">100</span><span class="freq-label">Immer</span></div>
+<div class="frequency-option"><span class="freq-value">0</span><span class="freq-label">Nie/Fast nie</span></div>
+<div class="frequency-option"><span class="freq-value">25</span><span class="freq-label">Selten</span></div>
+<div class="frequency-option"><span class="freq-value">50</span><span class="freq-label">Manchmal</span></div>
+<div class="frequency-option"><span class="freq-value">75</span><span class="freq-label">Oft</span></div>
+<div class="frequency-option"><span class="freq-value">100</span><span class="freq-label">Immer</span></div>
 </div>
 </div>
 <!-- Results -->
@@ -598,7 +605,7 @@
 <div class="cta-section">
 <h3>Du bist nicht allein</h3>
 <p id="ctaText">Burnout ist kein Zeichen von Schwäche – es ist ein Signal, dass etwas nicht stimmt. In einem kostenlosen Erstgespräch können wir gemeinsam schauen, was du jetzt brauchst.</p>
-<button class="cta-button" onclick="bookCall()">Kostenloses Erstgespräch</button>
+<button class="cta-button">Kostenloses Erstgespräch</button>
 </div>
 <div class="source-box">
 <h4>Wissenschaftliche Grundlage</h4>
@@ -640,7 +647,7 @@
 <ul>
 <li><a href="index.html#angebote">Meine Angebote</a></li>
 <li><a href="kathrin.html">Über mich</a></li>
-<li><a href="#" onclick="bookCall(); return false;">Erstgespräch buchen</a></li>
+<li><a href="https://cal.com/kathrinstahl" target="_blank">Erstgespräch buchen</a></li>
 </ul>
 </div>
 <div class="footer-links">
@@ -946,6 +953,7 @@ if (typeof bookCall === 'undefined') {
 }
 
 </script>
-<script src="js/header-loader.js"></script>
+<script defer src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
 </body>
 </html>

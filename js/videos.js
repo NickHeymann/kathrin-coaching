@@ -367,6 +367,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // CSP-safe event delegation for buttons
+    document.addEventListener('click', function(e) {
+        // Load more button
+        if (e.target.closest('.load-more-btn')) {
+            loadMoreVideos();
+            return;
+        }
+        // Modal close button
+        if (e.target.closest('.modal-close')) {
+            closeVideoModal();
+            return;
+        }
+    });
+
     // ESC-Taste zum Schließen
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {

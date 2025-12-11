@@ -1,0 +1,20 @@
+/* ============================================
+   SHARED UI STYLES - Kathrin Coaching
+   WRAPPER FILE
+
+   Diese Datei importiert die modularen CSS-Dateien.
+
+   MODULARE ARCHITEKTUR (Stand: Dezember 2024)
+   ============================================
+   Siehe css/components/shared-ui/ für einzelne Module:
+   - base.css    (~185 Z.) Sync Status, Error Recovery, Animations
+   - modals.css  (~180 Z.) Tooltips, Confirm Modal, Upload Progress
+   - panels.css  (~175 Z.) Recent Items, Sidebar, History Panel
+
+   GESAMT: ~540 Zeilen (modular)
+   VORTEIL: Jedes Modul <200 Zeilen = LLM-freundlich
+   ============================================ */
+
+@import url('shared-ui/base.css');
+@import url('shared-ui/modals.css');
+@import url('shared-ui/panels.css');

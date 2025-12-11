@@ -1,0 +1,23 @@
+/* ============================================
+   BLOG MODULE INDEX - Kathrin Coaching
+   Zeilen: ~25 | Verantwortung: Import aller Blog-Module
+
+   MODULARE ARCHITEKTUR (Stand: Dezember 2024)
+   ============================================
+
+   Dieses Modul importiert:
+   - typography.css    (~280 Z.) Typografie, Listen, Text
+   - callouts.css      (~290 Z.) Boxen, Zitate, Separatoren
+   - ui-components.css (~290 Z.) TOC, Author, Steps, Accordion
+   - related-posts.css (~290 Z.) Carousel & Cards
+   - sidebar.css       (~180 Z.) Floating UI, Sticky TOC
+
+   GESAMT: ~1,330 Zeilen (modular) vs. 1,738 Zeilen (monolithisch)
+   VORTEIL: Jedes Modul <300 Zeilen = LLM-freundlich
+   ============================================ */
+
+@import url('typography.css');
+@import url('callouts.css');
+@import url('ui-components.css');
+@import url('related-posts.css');
+@import url('sidebar.css');

@@ -1,0 +1,139 @@
+/* ============================================
+   QUIZ RESPONSIVE - Kathrin Coaching
+   Zeilen: ~130 | Verantwortung: Mobile/Tablet Anpassungen
+   ============================================ */
+
+/* -----------------------------------------
+   TABLET (max-width: 900px)
+   ----------------------------------------- */
+
+@media (max-width: 900px) {
+    nav {
+        display: none;
+    }
+
+    nav.mobile-open {
+        display: flex;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: white;
+        padding: 20px 24px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        gap: 0;
+    }
+
+    nav.mobile-open > a,
+    nav.mobile-open .nav-dropdown {
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    nav.mobile-open .nav-dropdown > .nav-link {
+        padding: 0;
+    }
+
+    nav.mobile-open .dropdown-menu {
+        position: static;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        box-shadow: none;
+        border: none;
+        padding: 10px 0 0 0;
+        min-width: 100%;
+        display: none;
+        background: transparent;
+    }
+
+    nav.mobile-open .nav-dropdown.open .dropdown-menu {
+        display: block;
+    }
+
+    nav.mobile-open .dropdown-menu a {
+        padding: 12px 15px;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .quiz-hero {
+        padding: 100px 24px 50px;
+    }
+
+    .result-breakdown {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .frequency-scale {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .frequency-option {
+        flex-direction: row;
+        justify-content: flex-start;
+        padding: 14px 18px;
+        gap: 15px;
+    }
+
+    .freq-value {
+        font-size: 1.2rem;
+        margin-bottom: 0;
+        min-width: 30px;
+    }
+
+    .freq-label {
+        font-size: 0.85rem;
+        text-transform: none;
+    }
+}
+
+/* -----------------------------------------
+   MOBILE (max-width: 600px)
+   ----------------------------------------- */
+
+@media (max-width: 600px) {
+    .quiz-container {
+        padding: 25px 16px 50px;
+    }
+
+    .question-card {
+        padding: 25px 20px;
+        border-radius: 16px;
+    }
+
+    .question-text {
+        font-size: 1.25rem;
+    }
+
+    .result-card {
+        padding: 35px 25px;
+    }
+
+    .cta-section {
+        padding: 30px 25px;
+    }
+
+    .likert-option {
+        padding: 14px 16px;
+    }
+
+    .result-breakdown {
+        grid-template-columns: 1fr;
+    }
+}

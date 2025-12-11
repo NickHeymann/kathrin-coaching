@@ -3,14 +3,19 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/core/variables.css" as="style"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Können wir Leben planen? | Kathrin Stahl</title>
 <meta content="Können wir unser Leben planen? Ein Feldweg als Sinnbild für die Entscheidungen, die wir treffen. Ist der Weg, den du gehst, wirklich deiner?" name="description"/>
-<link href="https://nickheymann.github.io/kathrin-coaching/leben-planen.html" rel="canonical"/>
+<link href="https://coaching.kathrinstahl.com/leben-planen.html" rel="canonical"/>
 <meta content="Können wir Leben planen? | Kathrin Stahl" property="og:title"/>
 <meta content="Können wir unser Leben planen? Ein Feldweg als Sinnbild für die Entscheidungen, die wir treffen. Ist der Weg, den du gehst, wirklich deiner?" property="og:description"/>
 <meta content="article" property="og:type"/>
-<meta content="https://nickheymann.github.io/kathrin-coaching/wp-content/uploads/2025/05/Neuanfang-Umbruchphase-1024x1024.jpg" property="og:image"/>
+<meta content="https://coaching.kathrinstahl.com/wp-content/uploads/2025/05/Neuanfang-Umbruchphase-1024x1024.jpg" property="og:image"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Montserrat:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
@@ -86,14 +91,39 @@
     </style>
 
 <link rel="stylesheet" href="css/components/header.css">
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Können wir Leben planen?",
+    "description": "Können wir Leben planen?",
+    "author": {
+        "@type": "Person",
+        "name": "Kathrin Stahl",
+        "url": "https://coaching.kathrinstahl.com/kathrin.html"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Kathrin Stahl Coaching",
+        "url": "https://coaching.kathrinstahl.com"
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://coaching.kathrinstahl.com/leben-planen.html"
+    }
+}
+</script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
 <!-- Header -->
 <header>
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -140,7 +170,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -191,7 +221,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -209,14 +239,14 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
 </button>
 </div>
 </header>
-<section class="article-hero">
+<section id="main-content" class="article-hero">
 <div class="container">
 <span class="article-category">Heldinnenreise</span>
 <h1>Können wir Leben planen?</h1>
@@ -226,7 +256,7 @@
 </div>
 </section>
 <div class="featured-image">
-<img alt="Können wir Leben planen?" fetchpriority="high" src="wp-content/uploads/2025/05/Neuanfang-Umbruchphase-1024x1024.jpg"/>
+<img width="1024" height="1024" decoding="async" alt="Können wir Leben planen?" fetchpriority="high" src="wp-content/uploads/2025/05/Neuanfang-Umbruchphase-1024x1024.jpg"/>
 </div>
 <article class="article-content">
 <div class="container">
@@ -245,7 +275,7 @@
 </blockquote>
 <p>Damals lief neben mir unser treuer Cockerspaniel-Setter-Mischling Charlie. <br/>Er ist noch da: Während meine Finger beim Schreiben dieses Textes die Tasten berühren, spüren meine Handflächen gerade jetzt sein Fell. Braun, seidig. Ich spüre die Form seines Kopfes. <br/>Wir wollen das Leben planen. Und doch konnte ich nicht verhindern, dass er irgendwann nicht mehr da war. </p>
 <p>Jetzt ist es unser geliebtes Golden Doodle Mädchen Lotte #lottethedoodle , die mich begleitet entlang vieler Wege und auch über diesen in Südfrankreich. <br/>Durch das Leben. In seiner nicht zu planenden Geplantheit. </p>
-<p><img alt="Der Weg-2" decoding="async" height="799" sizes="(max-width: 1200px) 100vw, 1200px" src="https://kinder.kathrinstahl.com/wp-content/uploads/2018/10/Der-Weg-2.jpg" srcset="https://kinder.kathrinstahl.com/wp-content/uploads/2018/10/Der-Weg-2.jpg 1200w, https://kinder.kathrinstahl.com/wp-content/uploads/2018/10/Der-Weg-2-300x200.jpg 300w, https://kinder.kathrinstahl.com/wp-content/uploads/2018/10/Der-Weg-2-768x511.jpg 768w, https://kinder.kathrinstahl.com/wp-content/uploads/2018/10/Der-Weg-2-1024x682.jpg 1024w" width="1200"/></p>
+<p><img decoding="async" alt="Der Weg-2" decoding="async" height="799" sizes="(max-width: 1200px) 100vw, 1200px" src="https://kinder.kathrinstahl.com/wp-content/uploads/2018/10/Der-Weg-2.jpg" srcset="https://kinder.kathrinstahl.com/wp-content/uploads/2018/10/Der-Weg-2.jpg 1200w, https://kinder.kathrinstahl.com/wp-content/uploads/2018/10/Der-Weg-2-300x200.jpg 300w, https://kinder.kathrinstahl.com/wp-content/uploads/2018/10/Der-Weg-2-768x511.jpg 768w, https://kinder.kathrinstahl.com/wp-content/uploads/2018/10/Der-Weg-2-1024x682.jpg 1024w" width="1200"/></p>
 <h2>Ein Weg als Sinnbild für die Planbarkeit des Lebens</h2>
 <p>Wie wir Wege beschreiten, wenn wir unterwegs sind, kann uns viel darüber verraten, wie wir auf unser Leben schauen. <br/>Ein Weg. <br/>Wir folgen seinen Kurven, mal in die eine, mal in die andere Richtung.<br/>Mal können wir unterwegs etwas Schönes bewundern; mal stolpern wir über einen Stein, mit dem wir nicht gerechnet hatten.<br/>Dann kommt eine Kreuzung und wir können spontan entscheiden, in welche Richtung wir abbiegen wollen.<br/>Oder wir gehen in die, die wir uns schon vorher ausgesucht hatten.<br/>Oder wir bleiben stehen. Ratlos. </p>
 <p>Manchmal gibt es keine Kreuzung, wo wir dringend eine bräuchten.</p>
@@ -305,43 +335,10 @@
 </a>
 </div>
 <!-- Blog Enhancements JS -->
-<script src="js/blog-enhancements.js"></script>
-<script>
-        const STORAGE_KEY = 'kathrin-blog-library';
-        const CURRENT_SLUG = 'leben-planen.html';
+<script defer src="js/blog-enhancements.js"></script>
 
-        function getLibrary() {
-            try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
-            catch (e) { return []; }
-        }
-
-        function saveLibrary(library) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(library));
-        }
-
-        function updateUI() {
-            const library = getLibrary();
-            const btn = document.getElementById('bookmarkBtn');
-            const count = document.getElementById('libraryCount');
-
-            btn.classList.toggle('saved', library.includes(CURRENT_SLUG));
-            count.textContent = library.length;
-        }
-
-        document.getElementById('bookmarkBtn').addEventListener('click', function() {
-            const library = getLibrary();
-            const index = library.indexOf(CURRENT_SLUG);
-            if (index > -1) {
-                library.splice(index, 1);
-            } else {
-                library.push(CURRENT_SLUG);
-            }
-            saveLibrary(library);
-            updateUI();
-        });
-
-        updateUI();
-    </script>
-<script src="js/header-loader.js"></script>
+<script defer src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
+<script defer src="js/components/bookmark.js"></script>
 </body>
 </html>

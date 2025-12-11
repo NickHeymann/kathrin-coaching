@@ -49,6 +49,7 @@
     <!-- Toolbar -->
     <div class="toolbar modern">
         <div class="toolbar-left">
+            <button class="mobile-menu-btn" data-action="openSidebar" data-sidebar="versionsSidebar" aria-label="Menü öffnen">☰</button>
             <div class="toolbar-logo">Editor</div>
             <div class="toolbar-mode-switch">
                 <a href="../cms/" class="mode-btn active">Seiten</a>
@@ -91,29 +92,29 @@
         </div>
         <div class="toolbar-right">
             <div class="feedback-dropdown">
-                <button class="btn btn-ghost dropdown-trigger" onclick="CMS.toggleFeedbackDropdown()">
+                <button class="btn btn-ghost dropdown-trigger" data-action="CMS.toggleFeedbackDropdown">
                     💬 Feedback <span class="dropdown-arrow">▾</span>
                 </button>
                 <div class="dropdown-menu" id="feedbackDropdown">
-                    <button class="dropdown-item" onclick="CMS.toggleRecording(); CMS.closeFeedbackDropdown();">
+                    <button class="dropdown-item" >
                         🎥 Video aufnehmen
                     </button>
-                    <button class="dropdown-item" onclick="CMS.toggleNotesSidebar(); CMS.closeFeedbackDropdown();">
+                    <button class="dropdown-item" >
                         📝 Notizen
                     </button>
                 </div>
             </div>
-            <button class="btn btn-ghost" onclick="CMS.forceReload()" title="Seite neu laden">Neu laden</button>
-            <button class="btn btn-ghost" onclick="CMS.showVersions()">Versionen</button>
-            <button class="btn btn-ghost" onclick="CMS.undo()">Rückgängig</button>
-            <button class="btn btn-primary" onclick="CMS.saveNow()">Jetzt speichern</button>
-            <button class="btn btn-ghost btn-logout" onclick="CMS.logout()" title="Abmelden">Abmelden</button>
+            <button class="btn btn-ghost" data-action="CMS.forceReload" data-tooltip="Seite neu laden" data-shortcut="⌘R">Neu laden</button>
+            <button class="btn btn-ghost" data-action="CMS.showVersions" data-tooltip="Versionsverlauf anzeigen">Versionen</button>
+            <button class="btn btn-ghost" data-action="CMS.undo" data-tooltip="Letzte Änderung rückgängig" data-shortcut="⌘Z">Rückgängig</button>
+            <button class="btn btn-primary" data-action="CMS.saveNow" data-tooltip="Änderungen jetzt speichern" data-shortcut="⌘S">Jetzt speichern</button>
+            <button class="btn btn-ghost btn-logout" data-action="CMS.logout" data-tooltip="Vom Editor abmelden">Abmelden</button>
         </div>
     </div>
 
     <!-- Sidebars -->
     <div class="sidebar" id="versionsSidebar">
-        <button class="sidebar-close" onclick="CMS.closeSidebar('versionsSidebar')">&times;</button>
+        <button class="sidebar-close" data-action="closeSidebar" data-sidebar="versionsSidebar">&times;</button>
         <div class="sidebar-section">
             <h3>📋 Aktuelle Änderungen</h3>
             <div id="changesList"><p style="color:#999;font-size:0.85rem;">Noch keine Änderungen</p></div>
@@ -133,17 +134,17 @@
     </div>
 
     <div class="sidebar" id="notesSidebar">
-        <button class="sidebar-close" onclick="CMS.closeSidebar('notesSidebar')">&times;</button>
+        <button class="sidebar-close" data-action="closeSidebar" data-sidebar="notesSidebar">&times;</button>
         <div class="sidebar-section" style="padding-bottom:0.5rem;">
             <h3 style="margin-bottom:0.5rem;">📝 Notizen</h3>
             <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;">
-                <button class="btn btn-primary" style="flex:1;font-size:0.75rem;padding:0.3rem;" onclick="CMS.filterNotes('current')" id="notesFilterCurrent">Diese Seite</button>
-                <button class="btn btn-ghost" style="flex:1;font-size:0.75rem;padding:0.3rem;" onclick="CMS.filterNotes('all')" id="notesFilterAll">Alle Seiten</button>
+                <button class="btn btn-primary" style="flex:1;font-size:0.75rem;padding:0.3rem;" data-action="filterNotes" data-filter="current" id="notesFilterCurrent">Diese Seite</button>
+                <button class="btn btn-ghost" style="flex:1;font-size:0.75rem;padding:0.3rem;" data-action="filterNotes" data-filter="all" id="notesFilterAll">Alle Seiten</button>
             </div>
         </div>
         <div id="notesListContainer" style="padding:0 1rem 1rem;"><p style="color:#999;font-size:0.85rem;">Noch keine Notizen</p></div>
         <div style="padding:1rem;border-top:1px solid #ddd;">
-            <button class="btn btn-primary" style="width:100%;" onclick="CMS.createStickyNote()">+ Neue Notiz</button>
+            <button class="btn btn-primary" style="width:100%;" data-action="CMS.createStickyNote">+ Neue Notiz</button>
         </div>
     </div>
 
@@ -181,8 +182,8 @@
             </div>
             <img id="imgPreview" class="preview-img" style="display:none;" loading="lazy">
             <div class="modal-btns">
-                <button class="btn btn-cancel" onclick="CMS.closeImgModal()">Abbrechen</button>
-                <button class="btn btn-primary" id="imgConfirmBtn" onclick="CMS.confirmImg()" disabled>Einsetzen</button>
+                <button class="btn btn-cancel" data-action="CMS.closeImgModal">Abbrechen</button>
+                <button class="btn btn-primary" id="imgConfirmBtn" data-action="CMS.confirmImg" disabled>Einsetzen</button>
             </div>
         </div>
     </div>
@@ -191,8 +192,8 @@
         <div class="modal" style="max-width:500px;">
             <h3>Video ändern</h3>
             <div style="display:flex;gap:0.5rem;margin-bottom:1rem;">
-                <button class="btn btn-primary" id="videoTabUrl" onclick="CMS.switchVideoTab('url')" style="flex:1;">YouTube/Vimeo URL</button>
-                <button class="btn btn-ghost" id="videoTabUpload" onclick="CMS.switchVideoTab('upload')" style="flex:1;">Video hochladen</button>
+                <button class="btn btn-primary" id="videoTabUrl" data-action="switchVideoTab" data-tab="url" style="flex:1;">YouTube/Vimeo URL</button>
+                <button class="btn btn-ghost" id="videoTabUpload" data-action="switchVideoTab" data-tab="upload" style="flex:1;">Video hochladen</button>
             </div>
             <div id="videoUrlSection">
                 <p style="color:#666;margin-bottom:0.75rem;font-size:0.9rem;">YouTube oder Vimeo URL eingeben:</p>
@@ -210,19 +211,71 @@
                 <p id="videoFileName" style="display:none;font-size:0.85rem;color:#666;margin-top:0.5rem;"></p>
             </div>
             <div class="modal-btns">
-                <button class="btn btn-cancel" onclick="CMS.closeVideoModal()">Abbrechen</button>
-                <button class="btn btn-primary" onclick="CMS.confirmVideo()">Ändern</button>
+                <button class="btn btn-cancel" data-action="CMS.closeVideoModal">Abbrechen</button>
+                <button class="btn btn-primary" data-action="CMS.confirmVideo">Ändern</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Image Modal -->
+    <div class="modal-bg modern" id="bgModal">
+        <div class="modal modern">
+            <h3>🖼️ Hintergrundbild ändern</h3>
+            <div id="currentBgDisplay" class="current-bg-container"></div>
+            <div class="upload-zone" id="bgUploadZone">
+                <div style="font-size:2rem;margin-bottom:0.5rem;">+</div>
+                <p><strong>Neues Hintergrundbild hochladen</strong></p>
+                <p style="font-size:0.8rem;color:#999;">JPG, PNG oder WebP (max. 10 MB)</p>
+                <input type="file" id="bgInput" accept="image/jpeg,image/png,image/webp">
+            </div>
+            <div id="bgPreview" class="bg-preview" style="display:none;"></div>
+            <div class="modal-btns">
+                <button class="btn btn-cancel" data-action="CMS.closeBgModal">Abbrechen</button>
+                <button class="btn btn-primary" id="bgConfirmBtn" data-action="CMS.confirmBg" disabled>Einsetzen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Color Modal -->
+    <div class="modal-bg modern" id="colorModal">
+        <div class="modal modern" style="max-width:450px;">
+            <h3>🎨 Farben bearbeiten</h3>
+
+            <!-- Gradient Editor (wird bei Gradienten angezeigt) -->
+            <div id="gradientEditor" style="display:none;">
+                <p style="color:#666;font-size:0.9rem;margin-bottom:0.75rem;">Gradient-Farben anpassen:</p>
+                <div id="gradientPreview" class="gradient-preview"></div>
+                <div id="gradientColorPickers" class="gradient-pickers"></div>
+            </div>
+
+            <!-- Einfacher Color Picker (für Nicht-Gradienten) -->
+            <div id="simpleColorEditor">
+                <div class="color-row">
+                    <label>Hintergrundfarbe:</label>
+                    <input type="color" id="sectionBgColor" value="#ffffff">
+                </div>
+            </div>
+
+            <!-- Text Color -->
+            <div class="color-row" style="margin-top:1rem;">
+                <label>Textfarbe:</label>
+                <input type="color" id="sectionTextColor" value="#000000">
+            </div>
+
+            <div class="modal-btns">
+                <button class="btn btn-cancel" data-action="CMS.closeColorModal">Abbrechen</button>
+                <button class="btn btn-primary" data-action="CMS.confirmSectionColor">Übernehmen</button>
             </div>
         </div>
     </div>
 
     <!-- Popups -->
     <div class="format-toolbar" id="formatToolbar">
-        <button class="format-btn" onclick="CMS.formatText('bold')" title="Fett"><b>B</b></button>
-        <button class="format-btn" onclick="CMS.formatText('italic')" title="Kursiv"><i>I</i></button>
-        <button class="format-btn" onclick="CMS.formatText('underline')" title="Unterstrichen"><u>U</u></button>
-        <button class="format-btn" onclick="CMS.showColorPicker()" title="Farbe">🎨</button>
-        <button class="format-btn" onclick="CMS.showEmojiPicker()" title="Emoji">😊</button>
+        <button class="format-btn" data-action="formatText" data-format="bold" title="Fett"><b>B</b></button>
+        <button class="format-btn" data-action="formatText" data-format="italic" title="Kursiv"><i>I</i></button>
+        <button class="format-btn" data-action="formatText" data-format="underline" title="Unterstrichen"><u>U</u></button>
+        <button class="format-btn" data-action="CMS.showColorPicker" title="Farbe">🎨</button>
+        <button class="format-btn" data-action="CMS.showEmojiPicker" title="Emoji">😊</button>
     </div>
 
     <div class="color-picker-popup" id="colorPicker"></div>
@@ -231,10 +284,10 @@
     <div class="trash-panel" id="trashPanel"><h4>Papierkorb</h4><div id="trashList"></div></div>
 
     <div class="context-menu" id="contextMenu">
-        <div class="context-menu-item" onclick="CMS.createNoteFromContext()">
+        <div class="context-menu-item" data-action="CMS.createNoteFromContext">
             <span>📝</span> Notiz erstellen
         </div>
-        <div class="context-menu-item" data-action="history" onclick="CMS.showElementHistoryFromContext()">
+        <div class="context-menu-item" data-action="history" data-action="CMS.showElementHistoryFromContext">
             <span>📜</span> Änderungsverlauf
         </div>
     </div>
@@ -243,8 +296,8 @@
     <div class="recording-indicator" id="recordingIndicator">
         <div class="rec-dot"></div>
         <span id="recordingTime">00:00</span>
-        <button class="rec-settings" onclick="CMS.showRecordSettings()" title="Einstellungen">⚙️</button>
-        <button class="rec-stop" onclick="CMS.stopRecording()">⏹ Stopp</button>
+        <button class="rec-settings" data-action="CMS.showRecordSettings" title="Einstellungen">⚙️</button>
+        <button class="rec-stop" data-action="CMS.stopRecording">⏹ Stopp</button>
     </div>
 
     <!-- Recording Setup Modal -->
@@ -313,8 +366,8 @@
             </details>
 
             <div class="modal-btns">
-                <button class="btn btn-cancel" onclick="CMS.closeRecordModal()">Abbrechen</button>
-                <button class="btn btn-primary" onclick="CMS.startRecording()">🔴 Aufnahme starten</button>
+                <button class="btn btn-cancel" data-action="CMS.closeRecordModal">Abbrechen</button>
+                <button class="btn btn-primary" data-action="CMS.startRecording">🔴 Aufnahme starten</button>
             </div>
         </div>
     </div>
@@ -334,20 +387,28 @@
                 Das Video wird zu GitHub hochgeladen und kann dort angesehen werden.
             </p>
             <div class="modal-btns">
-                <button class="btn btn-cancel" onclick="CMS.discardRecording()">Verwerfen</button>
-                <button class="btn btn-primary" onclick="CMS.saveRecording()">💾 Speichern & Senden</button>
+                <button class="btn btn-cancel" data-action="CMS.discardRecording">Verwerfen</button>
+                <button class="btn btn-primary" data-action="CMS.saveRecording">💾 Speichern & Senden</button>
             </div>
         </div>
     </div>
 
     <!-- External Dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js"
-            integrity="sha384-3XJAN3rswrHdGqLHC3V5s0ERRmJrqtOvC/1qVz8gg4RZMlWBNB9VCRa9Z6H/TqRt"
+            integrity="sha384-vdScihEZCfbPnBQf+lc7LgXUdJVYyhC3yWHUW5C5P5GpHRqVnaM6HJELJxT6IqwM"
             crossorigin="anonymous"></script>
 
     <!-- Supabase Auth (optional) -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+            integrity="sha384-7pt7GFewRI7n6u5mojwHteymuhXHfh/cMTLG26Orj0a+jlzjtyrPegZmQXK3Jd5S"
+            crossorigin="anonymous"></script>
     <script src="../admin/js/auth-check.js"></script>
+
+    <!-- Shared UI Components -->
+    <script src="../js/shared-ui.js"></script>
+
+    <!-- Event Delegation (CSP-safe) -->
+    <script src="js/events.js"></script>
 
     <!-- App Entry Point -->
     <script type="module" src="js/main.js"></script>

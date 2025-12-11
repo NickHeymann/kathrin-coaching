@@ -3,14 +3,19 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/core/variables.css" as="style"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Mamaauszeit - Zwei Monate nur für mich | Kathrin Stahl</title>
 <meta content="Wir haben zwei Leben. Das zweite beginnt in dem Moment, in dem wir erkennen, dass wir nur eines haben." name="description"/>
-<link href="https://nickheymann.github.io/kathrin-coaching/suedfrankreich.html" rel="canonical"/>
+<link href="https://coaching.kathrinstahl.com/suedfrankreich.html" rel="canonical"/>
 <meta content="Mamaauszeit - Zwei Monate nur für mich | Kathrin Stahl" property="og:title"/>
 <meta content="Wir haben zwei Leben. Das zweite beginnt in dem Moment, in dem wir erkennen, dass wir nur eines haben." property="og:description"/>
 <meta content="article" property="og:type"/>
-<meta content="https://nickheymann.github.io/kathrin-coaching/wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg" property="og:image"/>
+<meta content="https://coaching.kathrinstahl.com/wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg" property="og:image"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Montserrat:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
@@ -85,14 +90,39 @@
     </style>
 
 <link rel="stylesheet" href="css/components/header.css">
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Mamaauszeit - Zwei Monate nur für mich",
+    "description": "Mamaauszeit - Zwei Monate nur für mich",
+    "author": {
+        "@type": "Person",
+        "name": "Kathrin Stahl",
+        "url": "https://coaching.kathrinstahl.com/kathrin.html"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Kathrin Stahl Coaching",
+        "url": "https://coaching.kathrinstahl.com"
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://coaching.kathrinstahl.com/suedfrankreich.html"
+    }
+}
+</script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
 <!-- Header -->
 <header>
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -139,7 +169,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -190,7 +220,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -208,14 +238,14 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
 </button>
 </div>
 </header>
-<section class="article-hero">
+<section id="main-content" class="article-hero">
 <div class="container">
 <span class="article-category">Heldinnenreise</span>
 <h1>Mamaauszeit - Zwei Monate nur für mich</h1>
@@ -225,7 +255,7 @@
 </div>
 </section>
 <div class="featured-image">
-<img alt="Mamaauszeit - Zwei Monate nur für mich" fetchpriority="high" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg"/>
+<img decoding="async" alt="Mamaauszeit - Zwei Monate nur für mich" fetchpriority="high" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg"/>
 </div>
 <article class="article-content">
 <div class="container">
@@ -238,7 +268,7 @@ Mein Südfrankreich. ICH BIN HIER. ICH HABE ES GETAN.
 
 Das ist mein erster Eintrag in meinem schönen Buch, das ich mir kurz vor der Abreise zum Aufschreiben meiner <strong>Glücksmomente</strong> kaufte.
 
-<img alt="Grignan, Drome Provencal, Reisetipp-3" decoding="async" height="799" src="https://kinder.kathrinstahl.com/wp-content/uploads/2018/09/Grignan-Drome-Provencal-Reisetipp-3.jpg" width="1200">
+<img decoding="async" alt="Grignan, Drome Provencal, Reisetipp-3" decoding="async" height="799" src="https://kinder.kathrinstahl.com/wp-content/uploads/2018/09/Grignan-Drome-Provencal-Reisetipp-3.jpg" width="1200">
 
 Das Fenster ganz weit geöffnet. Mein Gesicht in der Sonne. Kirchenglocken schlagen, Tauben gurren. Durch die Gasse unter mir laufen Menschen, lachen, unterhalten sich.
 Zu mir dringen ihre Stimmen. Ihre Worte auf französisch.
@@ -248,7 +278,7 @@ Für zwei Monate werde ich in <strong>Südfrankreich</strong> leben. Und auch, w
 
  
 
-<img alt="Grignan, Drome Provencal, Reisetipp" decoding="async" height="799" loading="lazy" src="https://kinder.kathrinstahl.com/wp-content/uploads/2018/09/Grignan-Drome-Provencal-Reisetipp.jpg" width="1200"/>
+<img decoding="async" alt="Grignan, Drome Provencal, Reisetipp" decoding="async" height="799" loading="lazy" src="https://kinder.kathrinstahl.com/wp-content/uploads/2018/09/Grignan-Drome-Provencal-Reisetipp.jpg" width="1200"/>
 <h2>Mein Südfrankreichtraum</h2>
 Mein Traum von einem Leben in „meinem” Südfrankreich…. Seit meiner Jugend träumte ich ihn. Manchmal nimmt das Leben ein paar Umwege. Ich erinnere mich an unser 10-jähriges Abitreffen. “Und, wo in Frankreich lebst Du?”
 Selten gelang es mir, Zuhörer mit meiner Antwort derart in Erstaunen zu versetzen: “Ich bin noch hier.” Aus meinem Plan, Französisch zu studieren, war aus Numerus Clausus-Gründen Spanisch und Portugiesisch geworden. In und direkt nach dem Studium wurde ich glückliche Mama. Aus dem Weggehenwollen wurde ein Hierbleibenwollen. Ich liebte es, meine Kinder in dem Heidelberg aufwachsen zu sehen, das mir so vertraut war.
@@ -260,8 +290,8 @@ Ich höre noch die Worte meiner Mutter, als ich von unseren Umzugsplänen erzäh
 Damals lächelte ich darüber; kann ja alles nicht so schlimm sein. Nach zehn Sommern in Hamburg, dem ersten Gummistiefel- und Regenmantelkauf meines Lebens, verregneten Maimonaten und Hochsommern, die nicht stattfanden, hatte sich mein Lächeln davon gestohlen.
 Vielleicht hatte ich erst weiter in den Norden gehen müssen, um noch weiter in den Süden zu kommen.
 
-<img alt="Higher Self, Selbstverwirklichung, Momblogger, Kathrin Stahl002" decoding="async" height="1200" loading="lazy" src="https://kinder.kathrinstahl.com/wp-content/uploads/2018/09/Higher-Self-Selbstverwirklichung-Momblogger-Kathrin-Stahl002.jpg" width="799"/>
-<img alt="Drome Provencal, Aussteiger, Momblogger" decoding="async" height="1024" loading="lazy" src="https://kinder.kathrinstahl.com/wp-content/uploads/2018/09/Grignan-Drome-Provencal-Reisetipp-11-682x1024.jpg" width="682"/>
+<img decoding="async" alt="Higher Self, Selbstverwirklichung, Momblogger, Kathrin Stahl002" decoding="async" height="1200" loading="lazy" src="https://kinder.kathrinstahl.com/wp-content/uploads/2018/09/Higher-Self-Selbstverwirklichung-Momblogger-Kathrin-Stahl002.jpg" width="799"/>
+<img decoding="async" alt="Drome Provencal, Aussteiger, Momblogger" decoding="async" height="1024" loading="lazy" src="https://kinder.kathrinstahl.com/wp-content/uploads/2018/09/Grignan-Drome-Provencal-Reisetipp-11-682x1024.jpg" width="682"/>
 
  
 
@@ -270,8 +300,8 @@ Wieso jetzt? Was hat mich den Mut fassen lassen, meine Familie für einige Woche
 Ganz alleine bin ich übrigens nicht. Zwei meiner großen Lieben begleiten mich:
 <a href="https://kinder.kathrinstahl.com/happymefree/kraftspender/">Hogaza</a>, meine Seelenwärmerin, und unsere Golden Doodle-Lotte #lottethedoodle, die mich jeden Tag aufs Neue mit in ihre Lebensfreude nimmt.
 
-<img alt="Golden Doodle, lottethedoodle" decoding="async" height="751" loading="lazy" src="https://kinder.kathrinstahl.com/wp-content/uploads/2018/09/Grignan-Drome-Provencal-Reisetipp-9-682x1024.jpg" width="500"/>
-<img alt="Reiten, Drome Provencal, Photographer" decoding="async" height="751" loading="lazy" src="https://kinder.kathrinstahl.com/wp-content/uploads/2018/09/Grignan-Drome-Provencal-Reisetipp-139-682x1024.jpg" width="500"/>
+<img decoding="async" alt="Golden Doodle, lottethedoodle" decoding="async" height="751" loading="lazy" src="https://kinder.kathrinstahl.com/wp-content/uploads/2018/09/Grignan-Drome-Provencal-Reisetipp-9-682x1024.jpg" width="500"/>
+<img decoding="async" alt="Reiten, Drome Provencal, Photographer" decoding="async" height="751" loading="lazy" src="https://kinder.kathrinstahl.com/wp-content/uploads/2018/09/Grignan-Drome-Provencal-Reisetipp-139-682x1024.jpg" width="500"/>
 
 Für diese Reise, und hoffentlich für mein ganzes Leben, das da noch so vor mir liegt, habe ich für mich ein <strong>happy.me.free</strong>, das ich durch die Tage trage. Oder trägt das happy.me.free mich?
 Was hinter happy.me.free steckt, verrate ich dir an anderer Stelle.
@@ -335,43 +365,10 @@ In mir singt es. <em>“J’ai attrapé un coup de soleil, un coup d’amour, un
 <span class="library-count-float" id="libraryCount">0</span>
 </a>
 </div>
-<script>
-        const STORAGE_KEY = 'kathrin-blog-library';
-        const CURRENT_SLUG = 'suedfrankreich.html';
 
-        function getLibrary() {
-            try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
-            catch (e) { return []; }
-        }
-
-        function saveLibrary(library) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(library));
-        }
-
-        function updateUI() {
-            const library = getLibrary();
-            const btn = document.getElementById('bookmarkBtn');
-            const count = document.getElementById('libraryCount');
-
-            btn.classList.toggle('saved', library.includes(CURRENT_SLUG));
-            count.textContent = library.length;
-        }
-
-        document.getElementById('bookmarkBtn').addEventListener('click', function() {
-            const library = getLibrary();
-            const index = library.indexOf(CURRENT_SLUG);
-            if (index > -1) {
-                library.splice(index, 1);
-            } else {
-                library.push(CURRENT_SLUG);
-            }
-            saveLibrary(library);
-            updateUI();
-        });
-
-        updateUI();
-    </script>
-    <script src="js/blog-enhancements.js"></script>
-<script src="js/header-loader.js"></script>
+    <script defer src="js/blog-enhancements.js"></script>
+<script defer src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
+<script defer src="js/components/bookmark.js"></script>
 </body>
 </html>

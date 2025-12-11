@@ -3,16 +3,21 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/core/variables.css" as="style"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Beziehungs-Check nach Gottman | Die 4 Warnsignale | KATHRIN STAHL</title>
 <meta content="Wissenschaftlich fundierter Beziehungstest basierend auf Dr. John Gottmans Forschung. Erkenne die 'Four Horsemen' - die stärksten Scheidungsprädiktoren." name="description"/>
 <meta content="Beziehungstest, Gottman, Four Horsemen, Paartherapie, Beziehungskrise, Scheidung" name="keywords"/>
-<link href="https://nickheymann.github.io/kathrin-coaching/quiz-beziehung.html" rel="canonical"/>
+<link href="https://coaching.kathrinstahl.com/quiz-beziehung.html" rel="canonical"/>
 <!-- Open Graph -->
 <meta content="Beziehungs-Check: Die vier Warnsignale nach Gottman" property="og:title"/>
 <meta content="Basierend auf 40 Jahren Forschung von Dr. John Gottman - er kann Scheidungen mit 94% Genauigkeit vorhersagen." property="og:description"/>
 <meta content="website" property="og:type"/>
-<meta content="https://nickheymann.github.io/kathrin-coaching/quiz-beziehung.html" property="og:url"/>
+<meta content="https://coaching.kathrinstahl.com/quiz-beziehung.html" property="og:url"/>
 <!-- Schema.org -->
 <script type="application/ld+json">
     {
@@ -24,7 +29,7 @@
         "provider": {
             "@type": "Person",
             "name": "Kathrin Stahl",
-            "url": "https://nickheymann.github.io/kathrin-coaching/"
+            "url": "https://coaching.kathrinstahl.com/"
         }
     }
     </script>
@@ -206,12 +211,14 @@
 <link rel="stylesheet" href="css/components/header.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
 <!-- Header -->
 <header>
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -258,7 +265,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -309,7 +316,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -327,7 +334,7 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
@@ -339,9 +346,9 @@
 <h1>Beziehungs-Check</h1>
 <p>Wissenschaftlich fundierter Test basierend auf Dr. John Gottmans Forschung zu den vier Warnsignalen in Beziehungen</p>
 </section>
-<main class="quiz-container">
+<main id="main-content" class="quiz-container">
 <div class="science-box" id="scienceBox">
-<div class="science-box-header" onclick="toggleScienceBox()">
+<div class="science-box-header">
 <h3>Über diesen Test</h3>
 <span class="collapse-icon">−</span>
 </div>
@@ -360,11 +367,11 @@
 <span class="question-category">Kritik</span>
 <div class="question-text">Wie oft kritisiert dein Partner/deine Partnerin dich als Person, anstatt ein konkretes Verhalten anzusprechen?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
+<div class="frequency-option"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+<div class="frequency-option"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+<div class="frequency-option"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+<div class="frequency-option"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+<div class="frequency-option"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
 </div>
 </div>
 <div class="question-card" data-category="criticism" data-question="2">
@@ -372,11 +379,11 @@
 <span class="question-category">Kritik</span>
 <div class="question-text">Wie oft beginnst DU Gespräche mit Vorwürfen wie "Du machst immer..." oder "Du bist so..."?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
+<div class="frequency-option"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+<div class="frequency-option"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+<div class="frequency-option"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+<div class="frequency-option"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+<div class="frequency-option"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
 </div>
 </div>
 <div class="question-card" data-category="criticism" data-question="3">
@@ -384,11 +391,11 @@
 <span class="question-category">Kritik</span>
 <div class="question-text">Wie oft endet eine Beschwerde in einer Grundsatzdiskussion über den Charakter des anderen?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
+<div class="frequency-option"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+<div class="frequency-option"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+<div class="frequency-option"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+<div class="frequency-option"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+<div class="frequency-option"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
 </div>
 </div>
 <!-- VERACHTUNG: Fragen 4-6 -->
@@ -397,11 +404,11 @@
 <span class="question-category">Verachtung</span>
 <div class="question-text">Wie oft erlebst du in eurer Beziehung Sarkasmus, Augenrollen oder abwertende Kommentare?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
+<div class="frequency-option"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+<div class="frequency-option"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+<div class="frequency-option"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+<div class="frequency-option"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+<div class="frequency-option"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
 </div>
 </div>
 <div class="question-card" data-category="contempt" data-question="5">
@@ -409,11 +416,11 @@
 <span class="question-category">Verachtung</span>
 <div class="question-text">Wie oft fühlt sich einer von euch dem anderen gegenüber moralisch überlegen?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
+<div class="frequency-option"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+<div class="frequency-option"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+<div class="frequency-option"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+<div class="frequency-option"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+<div class="frequency-option"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
 </div>
 </div>
 <div class="question-card" data-category="contempt" data-question="6">
@@ -421,11 +428,11 @@
 <span class="question-category">Verachtung</span>
 <div class="question-text">Wie oft wird der Partner/die Partnerin vor anderen herabgesetzt oder lächerlich gemacht?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
+<div class="frequency-option"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+<div class="frequency-option"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+<div class="frequency-option"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+<div class="frequency-option"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+<div class="frequency-option"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
 </div>
 </div>
 <!-- RECHTFERTIGUNG: Fragen 7-9 -->
@@ -434,11 +441,11 @@
 <span class="question-category">Rechtfertigung</span>
 <div class="question-text">Wie oft reagiert einer von euch auf Kritik mit Gegenangriffen oder Ausreden?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
+<div class="frequency-option"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+<div class="frequency-option"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+<div class="frequency-option"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+<div class="frequency-option"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+<div class="frequency-option"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
 </div>
 </div>
 <div class="question-card" data-category="defensiveness" data-question="8">
@@ -446,11 +453,11 @@
 <span class="question-category">Rechtfertigung</span>
 <div class="question-text">Wie oft spielst du oder dein Partner das "Opfer" in Konflikten?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
+<div class="frequency-option"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+<div class="frequency-option"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+<div class="frequency-option"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+<div class="frequency-option"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+<div class="frequency-option"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
 </div>
 </div>
 <div class="question-card" data-category="defensiveness" data-question="9">
@@ -458,11 +465,11 @@
 <span class="question-category">Rechtfertigung</span>
 <div class="question-text">Wie oft übernimmt keiner von euch Verantwortung für eigene Fehler?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
+<div class="frequency-option"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+<div class="frequency-option"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+<div class="frequency-option"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+<div class="frequency-option"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+<div class="frequency-option"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
 </div>
 </div>
 <!-- MAUERN: Fragen 10-12 -->
@@ -471,11 +478,11 @@
 <span class="question-category">Mauern</span>
 <div class="question-text">Wie oft zieht sich einer von euch bei Konflikten komplett zurück und redet nicht mehr?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
+<div class="frequency-option"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+<div class="frequency-option"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+<div class="frequency-option"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+<div class="frequency-option"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+<div class="frequency-option"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
 </div>
 </div>
 <div class="question-card" data-category="stonewalling" data-question="11">
@@ -483,11 +490,11 @@
 <span class="question-category">Mauern</span>
 <div class="question-text">Wie oft fühlt es sich so an, als würdest du gegen eine Wand reden?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
+<div class="frequency-option"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+<div class="frequency-option"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+<div class="frequency-option"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+<div class="frequency-option"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+<div class="frequency-option"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
 </div>
 </div>
 <div class="question-card" data-category="stonewalling" data-question="12">
@@ -495,11 +502,11 @@
 <span class="question-category">Mauern</span>
 <div class="question-text">Wie oft werden wichtige Themen tagelang oder wochenlang vermieden?</div>
 <div class="frequency-scale">
-<div class="frequency-option" onclick="selectAnswer(this, 0)"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 1)"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 2)"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 3)"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
-<div class="frequency-option" onclick="selectAnswer(this, 4)"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
+<div class="frequency-option"><span class="freq-value">1</span><span class="freq-label">Nie</span></div>
+<div class="frequency-option"><span class="freq-value">2</span><span class="freq-label">Selten</span></div>
+<div class="frequency-option"><span class="freq-value">3</span><span class="freq-label">Manchmal</span></div>
+<div class="frequency-option"><span class="freq-value">4</span><span class="freq-label">Oft</span></div>
+<div class="frequency-option"><span class="freq-value">5</span><span class="freq-label">Immer</span></div>
 </div>
 </div>
 <!-- Results -->
@@ -540,7 +547,7 @@
 <div class="cta-section">
 <h3>Gemeinsam einen Weg finden</h3>
 <p id="ctaText">In der Paarbegleitung schaffen wir einen sicheren Raum für ehrliche Gespräche - ob für einen Neuanfang oder einen würdevollen Abschied.</p>
-<button class="cta-button" onclick="bookCall()">Kostenloses Erstgespräch</button>
+<button class="cta-button">Kostenloses Erstgespräch</button>
 </div>
 <div class="source-box">
 <h4>Wissenschaftliche Grundlage</h4>
@@ -583,7 +590,7 @@
 <ul>
 <li><a href="index.html#angebote">Meine Angebote</a></li>
 <li><a href="kathrin.html">Über mich</a></li>
-<li><a href="#" onclick="bookCall(); return false;">Erstgespräch buchen</a></li>
+<li><a href="https://cal.com/kathrinstahl" target="_blank">Erstgespräch buchen</a></li>
 </ul>
 </div>
 <div class="footer-links">
@@ -794,6 +801,7 @@ if (typeof bookCall === 'undefined') {
 }
 
 </script>
-<script src="js/header-loader.js"></script>
+<script defer src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
 </body>
 </html>

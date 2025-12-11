@@ -3,16 +3,21 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/core/variables.css" as="style"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Über Kathrin | Glück über Zweifel - Kathrin Stahl</title>
 <meta content="Ich arbeite nicht mit Konzepten, sondern mit Wahrnehmung. Mit Bildern, Augenblicken, Stille. Für Menschen, die tief fühlen, tief denken und tief in Beziehung gehen." name="description"/>
-<link href="https://nickheymann.github.io/kathrin-coaching/kathrin.html" rel="canonical"/>
+<link href="https://coaching.kathrinstahl.com/kathrin.html" rel="canonical"/>
 <!-- Open Graph -->
 <meta content="Über Kathrin | Glück über Zweifel" property="og:title"/>
 <meta content="Ich arbeite nicht mit Konzepten, sondern mit Wahrnehmung. Mit Bildern, Augenblicken, Stille." property="og:description"/>
 <meta content="website" property="og:type"/>
-<meta content="https://nickheymann.github.io/kathrin-coaching/kathrin.html" property="og:url"/>
-<meta content="wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg" property="og:image"/>
+<meta content="https://coaching.kathrinstahl.com/kathrin.html" property="og:url"/>
+<meta content="https://coaching.kathrinstahl.com/wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg" property="og:image"/>
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -805,12 +810,14 @@
 <link rel="stylesheet" href="css/components/header.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
 <!-- Header -->
 <header>
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -857,7 +864,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -908,7 +915,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -926,7 +933,7 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
@@ -934,7 +941,7 @@
 </div>
 </header>
 <!-- Hero -->
-<section class="hero">
+<section id="main-content" class="hero">
 <div class="container">
 <div class="hero-content">
 <div class="hero-text">
@@ -944,7 +951,7 @@
 <p>In Portugal, mit Pferden, in der Begegnung mit dir selbst.</p>
 </div>
 <div class="hero-image">
-<img alt="Kathrin Stahl - Coach und Begleiterin" fetchpriority="high" src="wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg"/>
+<img decoding="async" alt="Kathrin Stahl - Coach und Begleiterin" fetchpriority="high" src="wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg"/>
 </div>
 </div>
 </div>
@@ -981,7 +988,7 @@
 <div class="container">
 <div class="story-grid">
 <div class="story-image">
-<img alt="Kathrin mit Pferden in Portugal" loading="lazy" src="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-29-scaled.jpg"/>
+<img decoding="async" alt="Kathrin mit Pferden in Portugal" loading="lazy" src="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-29-scaled.jpg"/>
 </div>
 <div class="story-text">
 <h2>Mein Weg hierher</h2>
@@ -1011,7 +1018,7 @@
 <p>Aufgewachsen mit einer tiefen Sensibilität und dem Gefühl, "anders" zu sein. Früh geprägt durch intensive Wahrnehmung und den Wunsch, die Welt zu verstehen.</p>
 </div>
 <div class="timeline-popup-image">
-<img src="wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg" alt="Kindheit & Wurzeln">
+<img decoding="async" loading="lazy" src="wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg" alt="Kindheit & Wurzeln">
 </div>
 </div>
 <div class="timeline-item">
@@ -1022,7 +1029,7 @@
 <p>Entdeckung der Fotografie als Sprache – der Blick für den einen Moment, in dem sich alles zeigt. Jahre der künstlerischen Arbeit und des Sehenlernens.</p>
 </div>
 <div class="timeline-popup-image">
-<img src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg" alt="Fotografie als Berufung">
+<img decoding="async" loading="lazy" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg" alt="Fotografie als Berufung">
 </div>
 </div>
 <div class="timeline-item">
@@ -1033,7 +1040,7 @@
 <p>Mutter von drei Kindern. Jahre des Gebens, des Wachsens an Herausforderungen – und des langsamen Vergessens der eigenen Bedürfnisse.</p>
 </div>
 <div class="timeline-popup-image">
-<img src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg" alt="Familie & Mutterschaft">
+<img width="1060" height="1042" decoding="async" loading="lazy" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg" alt="Familie & Mutterschaft">
 </div>
 </div>
 <div class="timeline-item">
@@ -1044,7 +1051,7 @@
 <p>Mit über 50 Jahren: Burnout, Erschöpfung, die Frage "Wer bin ich eigentlich?" Der Wendepunkt, der alles veränderte.</p>
 </div>
 <div class="timeline-popup-image">
-<img src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg" alt="Die große Krise">
+<img width="300" height="300" decoding="async" loading="lazy" src="wp-content/uploads/2023/10/Reisefotografie-Portugal-Alentejo_KathrinStahlPhotographer-13-300x300.jpg" alt="Die große Krise">
 </div>
 </div>
 <div class="timeline-item">
@@ -1055,7 +1062,7 @@
 <p>Mein Pferd Hogaza wird zur Lehrmeisterin. Die Erfahrung der Stille, der Präsenz, des Gehörtwerdens ohne Worte.</p>
 </div>
 <div class="timeline-popup-image">
-<img src="wp-content/uploads/2022/07/Coaching-Pferde-Hamburg-KathrinStahl-17-550x550.jpg" alt="Begegnung mit Hogaza">
+<img width="550" height="550" decoding="async" loading="lazy" src="wp-content/uploads/2022/07/Coaching-Pferde-Hamburg-KathrinStahl-17-550x550.jpg" alt="Begegnung mit Hogaza">
 </div>
 </div>
 <div class="timeline-item">
@@ -1066,7 +1073,7 @@
 <p>Intensive Ausbildungsjahre: Körperarbeit, systemische Aufstellungen, pferdegestütztes Coaching. Jeder Weg, den ich andere gehen lasse, bin ich selbst gegangen.</p>
 </div>
 <div class="timeline-popup-image">
-<img src="wp-content/uploads/2025/02/Ausbildung-Pferdegestuetztes-Coaching-768x1024.jpg" alt="Ausbildung & Transformation">
+<img width="768" height="1024" decoding="async" loading="lazy" src="wp-content/uploads/2025/02/Ausbildung-Pferdegestuetztes-Coaching-768x1024.jpg" alt="Ausbildung & Transformation">
 </div>
 </div>
 <div class="timeline-item">
@@ -1077,7 +1084,7 @@
 <p>Der Ruf nach Portugal, ins Alentejo. Ein Ort der Weite, der Stille, der Begegnung mit sich selbst – und mit Pferden, die spiegeln, was ist.</p>
 </div>
 <div class="timeline-popup-image">
-<img src="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-29-scaled.jpg" alt="Portugal & Neuanfang">
+<img decoding="async" loading="lazy" src="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-29-scaled.jpg" alt="Portugal & Neuanfang">
 </div>
 </div>
 <div class="timeline-item">
@@ -1088,7 +1095,7 @@
 <p>Coaching, Retreats, Begegnungen. Für Menschen, die tief fühlen und tief denken – und genau daran wachsen wollen.</p>
 </div>
 <div class="timeline-popup-image">
-<img src="wp-content/uploads/2025/11/Retreat-Portugal-Pferde-Kathrin-Stahl-86-1024x683.jpg" alt="Glück über Zweifel">
+<img width="1024" height="683" decoding="async" loading="lazy" src="wp-content/uploads/2025/11/Retreat-Portugal-Pferde-Kathrin-Stahl-86-1024x683.jpg" alt="Glück über Zweifel">
 </div>
 </div>
 </div>
@@ -1283,6 +1290,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 </script>
-<script src="js/header-loader.js"></script>
+<script defer src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
 </body>
 </html>

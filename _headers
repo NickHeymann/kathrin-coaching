@@ -1,0 +1,81 @@
+# Security Headers for coaching.kathrinstahl.com
+# Compatible with Netlify, Cloudflare Pages, GitHub Pages
+# Security Score Target: A+ on securityheaders.com
+
+/*
+  # === TRANSPORT SECURITY ===
+  # Force HTTPS for 2 years, include subdomains, allow HSTS preload list
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+
+  # === FRAMING PROTECTION ===
+  # Prevent clickjacking - allow same origin only
+  X-Frame-Options: SAMEORIGIN
+
+  # === CONTENT TYPE SECURITY ===
+  # Prevent MIME type sniffing attacks
+  X-Content-Type-Options: nosniff
+
+  # === XSS PROTECTION ===
+  # Legacy XSS filter (modern browsers use CSP instead)
+  X-XSS-Protection: 1; mode=block
+
+  # === REFERRER POLICY ===
+  # Send origin on cross-origin, full URL on same-origin
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # === PERMISSIONS POLICY ===
+  # Restrict browser features - comprehensive lockdown
+  Permissions-Policy: accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(self), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(self), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(self), xr-spatial-tracking=()
+
+  # === CONTENT SECURITY POLICY ===
+  # Comprehensive XSS/injection protection
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://assets.calendly.com https://umami.kathrinstahl.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; frame-src https://calendly.com https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com; connect-src 'self' https://umami.kathrinstahl.com https://api.calendly.com https://*.supabase.co; media-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self' https://calendly.com; frame-ancestors 'self'; upgrade-insecure-requests;
+
+  # === CROSS-ORIGIN POLICIES ===
+  # Prevent cross-origin information leaks
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
+  Cross-Origin-Resource-Policy: same-site
+  X-Permitted-Cross-Domain-Policies: none
+
+  # === DNS PREFETCH CONTROL ===
+  X-DNS-Prefetch-Control: on
+
+# Cache static assets
+/css/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/wp-content/uploads/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.woff
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML pages - short cache for updates
+/*.html
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# Prevent caching of sensitive files
+/.env
+  X-Robots-Tag: noindex
+  Cache-Control: no-store
+
+/studio.html
+  X-Robots-Tag: noindex
+
+/blog-editor-modular.html
+  X-Robots-Tag: noindex
+
+/ANLEITUNG-EDITOR.html
+  X-Robots-Tag: noindex

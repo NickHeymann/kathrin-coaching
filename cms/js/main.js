@@ -20,6 +20,8 @@ import { setupFrameEditing } from './frame-setup.js';
 import { editText, undo, redo } from './text-editor.js';
 import { editImage, closeImageModal, handleImageFile, confirmImage } from './image-editor.js';
 import { editVideo, closeVideoModal, handleVideoFile, confirmVideo, switchVideoTab } from './video-editor.js';
+import { editBackground, closeBackgroundModal, handleBackgroundFile, confirmBackground } from './background-editor.js';
+import { editSectionColor, closeColorModal, confirmSectionColor, updateGradientColor } from './section-color-editor.js';
 
 // Feature Imports
 import { startAutosave, saveNow, setupOfflineDetection } from './autosave.js';
@@ -35,7 +37,10 @@ import { toggleRecording, closeRecordModal, startRecording, stopRecording, disca
  */
 window.CMS = {
     // Page Loading
-    loadPage: (page) => loadPage(page, true, setupFrameEditing),
+    loadPage: (page) => {
+        loadPage(page, true, setupFrameEditing);
+        addToRecentItems(page);
+    },
     forceReload: () => loadPage(state.currentPage, true, setupFrameEditing),
 
     // Saving
@@ -53,6 +58,15 @@ window.CMS = {
     closeVideoModal,
     confirmVideo,
     switchVideoTab,
+
+    // Background Image Modal
+    closeBgModal: closeBackgroundModal,
+    confirmBg: confirmBackground,
+
+    // Section Color Modal
+    closeColorModal,
+    confirmSectionColor,
+    updateGradientColor,
 
     // Versions
     showVersions: toggleVersionsSidebar,
@@ -120,8 +134,73 @@ window.CMS = {
             }
         }
         window.location.href = '../admin/';
+    },
+
+    // Recent Items Dropdown
+    toggleRecentDropdown: () => {
+        const dropdown = document.getElementById('recentDropdown');
+        if (dropdown) {
+            dropdown.classList.toggle('open');
+            if (dropdown.classList.contains('open')) {
+                renderRecentItems();
+            }
+        }
+    },
+
+    // History Panel Toggle
+    toggleHistoryPanel: () => {
+        if (typeof window.SharedUI !== 'undefined') {
+            window.SharedUI.historyPanel.toggle();
+        }
     }
 };
+
+/**
+ * Rendert die "Zuletzt bearbeitet" Liste
+ */
+function renderRecentItems() {
+    if (typeof window.SharedUI === 'undefined') return;
+
+    const container = document.getElementById('recentItemsContent');
+    if (!container) return;
+
+    window.SharedUI.recentItems.render(container, (pageId) => {
+        window.CMS.loadPage(pageId);
+        document.getElementById('recentDropdown')?.classList.remove('open');
+        // Update select
+        const select = document.getElementById('pageSelect');
+        if (select) select.value = pageId;
+    });
+}
+
+/**
+ * Fügt Seite zu "Zuletzt bearbeitet" hinzu
+ */
+function addToRecentItems(page) {
+    if (typeof window.SharedUI === 'undefined' || !page) return;
+
+    const pageNames = {
+        'index.html': 'Startseite',
+        'kathrin.html': 'Über mich',
+        'paar-retreat.html': 'Paar-Retreat',
+        'pferdegestuetztes-coaching.html': 'Pferdegestütztes Coaching',
+        'casinha.html': 'Casinha',
+        'quiz-hochsensibel.html': 'Quiz: Hochsensibel',
+        'quiz-hochbegabt.html': 'Quiz: Hochbegabt',
+        'quiz-beziehung.html': 'Quiz: Beziehung',
+        'quiz-lebenskrise.html': 'Quiz: Lebenskrise',
+        'quiz-midlife.html': 'Quiz: Midlife',
+        'quiz-paar-kompass.html': 'Quiz: Paar-Kompass',
+        'impressum.html': 'Impressum',
+        'datenschutzerklaerung.html': 'Datenschutz'
+    };
+
+    window.SharedUI.recentItems.add({
+        id: page,
+        name: pageNames[page] || page,
+        icon: page.startsWith('quiz-') ? '📝' : '📄'
+    });
+}
 
 /**
  * Prüft und lädt Token (async für Supabase-Unterstützung)
@@ -198,6 +277,7 @@ function startEditor() {
     initEmojiPicker();
     initColorPicker();
     initRecordingControls();
+    initSharedUI();
 
     // Regelmäßiges lokales Backup
     setInterval(saveToLocalBackup, CONFIG.localBackupInterval);
@@ -208,6 +288,41 @@ function startEditor() {
             window.CMS.closeFeedbackDropdown();
         }
     });
+}
+
+/**
+ * Initialisiert SharedUI Komponenten
+ */
+function initSharedUI() {
+    if (typeof window.SharedUI === 'undefined') {
+        console.warn('SharedUI not loaded');
+        return;
+    }
+
+    // Recent Items Storage-Key für CMS
+    window.SharedUI.recentItems.storageKey = 'cms_recent_pages';
+
+    // Füge "Zuletzt bearbeitet" Bereich zur Toolbar hinzu
+    const pageSelect = document.getElementById('pageSelect');
+    if (pageSelect) {
+        const recentContainer = document.createElement('div');
+        recentContainer.className = 'recent-items-dropdown';
+        recentContainer.innerHTML = `
+            <button class="btn btn-ghost recent-trigger" onclick="CMS.toggleRecentDropdown()">
+                🕐 Zuletzt
+            </button>
+            <div class="recent-dropdown-menu" id="recentDropdown">
+                <div class="recent-dropdown-content" id="recentItemsContent"></div>
+            </div>
+        `;
+        pageSelect.parentNode.insertBefore(recentContainer, pageSelect.nextSibling);
+
+        // Render recent items
+        renderRecentItems();
+    }
+
+    // History Panel initialisieren
+    window.SharedUI.historyPanel.init();
 }
 
 /**
@@ -287,6 +402,33 @@ function setupEventHandlers() {
             e.preventDefault();
             videoUploadZone.classList.remove('dragover');
             handleVideoFile(e.dataTransfer.files[0]);
+        });
+    }
+
+    // Background Image Upload
+    const bgInput = document.getElementById('bgInput');
+    if (bgInput) {
+        bgInput.addEventListener('change', (e) => {
+            handleBackgroundFile(e.target.files[0]);
+        });
+    }
+
+    // Background Drag & Drop
+    const bgUploadZone = document.getElementById('bgUploadZone');
+    if (bgUploadZone) {
+        bgUploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            bgUploadZone.classList.add('dragover');
+        });
+
+        bgUploadZone.addEventListener('dragleave', () => {
+            bgUploadZone.classList.remove('dragover');
+        });
+
+        bgUploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            bgUploadZone.classList.remove('dragover');
+            handleBackgroundFile(e.dataTransfer.files[0]);
         });
     }
 

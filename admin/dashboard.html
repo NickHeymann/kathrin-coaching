@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Kathrin Stahl Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <!-- Loading State -->
+    <div id="loadingState" class="loading" style="min-height: 100vh;">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div id="dashboardContent" class="dashboard-container" style="display: none;">
+        <header class="dashboard-header">
+            <h1>Admin Dashboard</h1>
+            <div class="user-info">
+                <span class="user-email" id="userEmail"></span>
+                <button class="btn btn-secondary btn-logout" id="logoutBtn">Abmelden</button>
+            </div>
+        </header>
+
+        <!-- Tools Section -->
+        <section class="tools-grid">
+            <a href="../cms/" class="tool-card">
+                <div class="tool-icon cms">CMS</div>
+                <h3>CMS Editor</h3>
+                <p>Seiteninhalte bearbeiten, Texte und Bilder ändern</p>
+            </a>
+            <a href="../blog-editor-modular.html" class="tool-card">
+                <div class="tool-icon blog">Blog</div>
+                <h3>Blog Editor</h3>
+                <p>Blog-Artikel erstellen und verwalten</p>
+            </a>
+            <a href="../cms/analytics/" class="tool-card">
+                <div class="tool-icon analytics">Stats</div>
+                <h3>Analytics</h3>
+                <p>Besucherstatistiken ansehen</p>
+            </a>
+        </section>
+
+        <!-- API Keys Section -->
+        <section class="section" id="apiKeysSection">
+            <h2>API Keys</h2>
+            <div id="keysList" class="key-list">
+                <div class="loading">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+
+            <div class="add-key-form">
+                <input type="text" id="newKeyName" placeholder="Name (z.B. github_token)">
+                <input type="password" id="newKeyValue" placeholder="API Key / Token">
+                <button class="btn btn-primary btn-small" id="addKeyBtn">Hinzufügen</button>
+            </div>
+        </section>
+
+        <!-- Quick Setup -->
+        <section class="section" id="quickSetupSection" style="display: none;">
+            <h2>Schnelleinrichtung</h2>
+            <p style="margin-bottom: 20px; color: var(--color-text-light);">
+                Für die Editoren wird ein GitHub Token benötigt.
+                <a href="https://github.com/settings/tokens" target="_blank" style="color: var(--color-primary);">Token erstellen</a>
+            </p>
+            <div class="form-group">
+                <label for="githubTokenInput">GitHub Personal Access Token</label>
+                <input type="password" id="githubTokenInput" placeholder="ghp_... oder github_pat_...">
+            </div>
+            <button class="btn btn-primary" id="saveGithubToken">GitHub Token speichern</button>
+        </section>
+
+        <div id="message" class="message hidden" style="margin-top: 20px;"></div>
+    </div>
+
+    <!-- Edit Key Modal -->
+    <div id="editKeyModal" class="modal" style="display: none;">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <h3 id="editKeyTitle">API Key bearbeiten</h3>
+            <div class="form-group">
+                <label for="editKeyValue">Neuer Wert</label>
+                <input type="password" id="editKeyValue" placeholder="Neuer API Key / Token">
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="cancelEditKey">Abbrechen</button>
+                <button class="btn btn-primary" id="confirmEditKey">Speichern</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+            integrity="sha384-7pt7GFewRI7n6u5mojwHteymuhXHfh/cMTLG26Orj0a+jlzjtyrPegZmQXK3Jd5S"
+            crossorigin="anonymous"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/crypto-utils.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/api-keys.js"></script>
+    <script>
+        const loadingState = document.getElementById('loadingState');
+        const dashboardContent = document.getElementById('dashboardContent');
+        const userEmail = document.getElementById('userEmail');
+        const keysList = document.getElementById('keysList');
+        const quickSetupSection = document.getElementById('quickSetupSection');
+        const message = document.getElementById('message');
+
+        function showMessage(text, type = 'error') {
+            message.textContent = text;
+            message.className = `message ${type}`;
+            setTimeout(() => message.classList.add('hidden'), 5000);
+        }
+
+        // Supabase Fehlermeldungen übersetzen
+        function translateError(errorMsg) {
+            const translations = {
+                'Invalid login credentials': 'E-Mail oder Passwort falsch',
+                'Email not confirmed': 'E-Mail noch nicht bestätigt',
+                'User already registered': 'Benutzer existiert bereits',
+                'Password should be at least 6 characters': 'Passwort muss mindestens 6 Zeichen haben',
+                'Unable to validate email address': 'Ungültige E-Mail-Adresse',
+                'Network request failed': 'Netzwerkfehler - bitte Internetverbindung prüfen',
+                'JWT expired': 'Sitzung abgelaufen - bitte neu anmelden',
+                'Token expired': 'Sitzung abgelaufen - bitte neu anmelden',
+                'Not authorized': 'Keine Berechtigung',
+                'Rate limit exceeded': 'Zu viele Anfragen - bitte kurz warten'
+            };
+
+            for (const [eng, deu] of Object.entries(translations)) {
+                if (errorMsg.includes(eng)) {
+                    return deu;
+                }
+            }
+            return errorMsg;
+        }
+
+        // XSS-Schutz: HTML-Entities escapen
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function formatDate(dateStr) {
+            return new Date(dateStr).toLocaleDateString('de-DE', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+        }
+
+        async function renderKeys() {
+            const keys = await apiKeys.listKeys();
+
+            if (keys.length === 0) {
+                keysList.innerHTML = '<p style="color: var(--color-text-light); text-align: center; padding: 20px;">Noch keine API Keys gespeichert</p>';
+                quickSetupSection.style.display = 'block';
+                return;
+            }
+
+            const hasGithubToken = keys.some(k => k.key_name === 'github_token');
+            quickSetupSection.style.display = hasGithubToken ? 'none' : 'block';
+
+            keysList.innerHTML = keys.map(key => {
+                const safeName = escapeHtml(key.key_name);
+                return `
+                <div class="key-item">
+                    <div class="key-info">
+                        <span class="key-name">${safeName}</span>
+                        <span class="key-date">Aktualisiert: ${formatDate(key.updated_at)}</span>
+                    </div>
+                    <div class="key-actions">
+                        <button class="btn btn-secondary btn-small" data-key="${safeName}" onclick="editKey(this.dataset.key)">Bearbeiten</button>
+                        <button class="btn btn-danger btn-small" data-key="${safeName}" onclick="deleteKey(this.dataset.key)">Löschen</button>
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        async function addKey() {
+            const name = document.getElementById('newKeyName').value.trim();
+            const value = document.getElementById('newKeyValue').value.trim();
+
+            if (!name || !value) {
+                showMessage('Bitte Name und Wert eingeben');
+                return;
+            }
+
+            try {
+                await apiKeys.saveKey(name, value);
+                showMessage('API Key gespeichert!', 'success');
+                document.getElementById('newKeyName').value = '';
+                document.getElementById('newKeyValue').value = '';
+                renderKeys();
+            } catch (error) {
+                showMessage(translateError(error.message));
+            }
+        }
+
+        // Modal State
+        let editingKeyName = null;
+        const editKeyModal = document.getElementById('editKeyModal');
+        const editKeyTitle = document.getElementById('editKeyTitle');
+        const editKeyValue = document.getElementById('editKeyValue');
+
+        function openEditModal(name) {
+            editingKeyName = name;
+            editKeyTitle.textContent = `"${escapeHtml(name)}" bearbeiten`;
+            editKeyValue.value = '';
+            editKeyModal.style.display = 'flex';
+            editKeyValue.focus();
+        }
+
+        function closeEditModal() {
+            editKeyModal.style.display = 'none';
+            editingKeyName = null;
+            editKeyValue.value = '';
+        }
+
+        async function confirmEditKey() {
+            if (!editingKeyName) return;
+
+            const newValue = editKeyValue.value.trim();
+            if (!newValue) {
+                showMessage('Wert darf nicht leer sein');
+                return;
+            }
+
+            try {
+                await apiKeys.saveKey(editingKeyName, newValue);
+                showMessage('API Key aktualisiert!', 'success');
+                closeEditModal();
+                renderKeys();
+            } catch (error) {
+                showMessage(translateError(error.message));
+            }
+        }
+
+        function editKey(name) {
+            openEditModal(name);
+        }
+
+        async function deleteKey(name) {
+            if (!confirm(`"${name}" wirklich löschen?`)) return;
+
+            try {
+                await apiKeys.deleteKey(name);
+                showMessage('API Key gelöscht!', 'success');
+                renderKeys();
+            } catch (error) {
+                showMessage(translateError(error.message));
+            }
+        }
+
+        async function saveGithubToken() {
+            const token = document.getElementById('githubTokenInput').value.trim();
+
+            if (!token) {
+                showMessage('Bitte Token eingeben');
+                return;
+            }
+
+            if (!token.startsWith('ghp_') && !token.startsWith('github_pat_')) {
+                showMessage('Ungültiges Token-Format. GitHub Tokens beginnen mit ghp_ oder github_pat_');
+                return;
+            }
+
+            try {
+                await apiKeys.saveKey('github_token', token);
+                showMessage('GitHub Token gespeichert!', 'success');
+                document.getElementById('githubTokenInput').value = '';
+                renderKeys();
+            } catch (error) {
+                showMessage(translateError(error.message));
+            }
+        }
+
+        async function logout() {
+            try {
+                await auth.signOut();
+                window.location.href = './';
+            } catch (error) {
+                showMessage('Fehler beim Abmelden');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            initSupabase();
+
+            const session = await auth.getSession();
+            if (!session) {
+                window.location.href = './';
+                return;
+            }
+
+            const user = await auth.getUser();
+            if (!user) {
+                window.location.href = './';
+                return;
+            }
+            userEmail.textContent = user.email;
+
+            loadingState.style.display = 'none';
+            dashboardContent.style.display = 'block';
+
+            await apiKeys.migrateOldKeys();
+            renderKeys();
+
+            document.getElementById('logoutBtn').addEventListener('click', logout);
+            document.getElementById('addKeyBtn').addEventListener('click', addKey);
+            document.getElementById('saveGithubToken').addEventListener('click', saveGithubToken);
+
+            // Modal Event Listeners
+            document.getElementById('cancelEditKey').addEventListener('click', closeEditModal);
+            document.getElementById('confirmEditKey').addEventListener('click', confirmEditKey);
+            document.querySelector('#editKeyModal .modal-overlay').addEventListener('click', closeEditModal);
+
+            // Enter-Taste im Modal
+            editKeyValue.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') confirmEditKey();
+                if (e.key === 'Escape') closeEditModal();
+            });
+        });
+    </script>
+</body>
+</html>

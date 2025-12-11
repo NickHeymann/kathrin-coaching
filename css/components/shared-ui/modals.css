@@ -1,0 +1,188 @@
+/* ============================================
+   SHARED UI MODALS - Kathrin Coaching
+   Zeilen: ~180 | Verantwortung: Tooltips, Confirm Modal, Upload Progress
+   ============================================ */
+
+/* -----------------------------------------
+   TOOLTIPS
+   ----------------------------------------- */
+
+.ui-tooltip {
+    position: fixed;
+    background: #333;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    z-index: 100020;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.15s, transform 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 250px;
+}
+
+.ui-tooltip.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tooltip-shortcut {
+    background: rgba(255,255,255,0.2);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-family: monospace;
+}
+
+/* -----------------------------------------
+   CONFIRM MODAL
+   ----------------------------------------- */
+
+.confirm-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100010;
+    animation: fadeIn 0.2s;
+}
+
+.confirm-modal {
+    background: white;
+    border-radius: 16px;
+    padding: 28px;
+    max-width: 420px;
+    width: 90%;
+    animation: modalSlideIn 0.2s;
+}
+
+.confirm-modal h3 {
+    color: #2C4A47;
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+}
+
+.confirm-modal p {
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.confirm-details {
+    background: #f8f8f8;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.confirm-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.confirm-modal.publish .confirm-ok {
+    background: #4CAF50;
+}
+
+/* Publish Preview Details */
+.publish-preview {
+    text-align: left;
+}
+
+.publish-preview .preview-row {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9rem;
+}
+
+.publish-preview .preview-row:last-child {
+    border-bottom: none;
+}
+
+.publish-preview .preview-row strong {
+    color: #2C4A47;
+    display: inline-block;
+    min-width: 100px;
+}
+
+/* -----------------------------------------
+   UPLOAD PROGRESS
+   ----------------------------------------- */
+
+.upload-progress-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100015;
+}
+
+.upload-progress-card {
+    background: white;
+    border-radius: 16px;
+    padding: 28px;
+    min-width: 320px;
+    max-width: 400px;
+}
+
+.upload-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.upload-progress-message {
+    font-weight: 500;
+    color: #333;
+}
+
+.upload-progress-percent {
+    font-weight: 600;
+    color: #2C4A47;
+}
+
+.upload-progress-bar {
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.upload-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #2C4A47, #4CAF50);
+    border-radius: 4px;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.upload-progress-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: #999;
+}
+
+/* -----------------------------------------
+   MOBILE RESPONSIVE
+   ----------------------------------------- */
+
+@media (max-width: 768px) {
+    .confirm-modal,
+    .upload-progress-card {
+        margin: 16px;
+        width: calc(100% - 32px);
+    }
+}

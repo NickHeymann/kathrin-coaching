@@ -236,7 +236,7 @@ function handleVideoUrl() {
 }
 
 /**
- * Verarbeitet Video-Upload
+ * Verarbeitet Video-Upload mit Progress-Indikator
  */
 async function handleVideoUpload() {
     if (!newVideoData) {
@@ -244,30 +244,86 @@ async function handleVideoUpload() {
         return;
     }
 
-    try {
-        toast('Video wird hochgeladen...', 'info');
-        await github.uploadVideo(newVideoData.name, newVideoData.data);
+    // Progress-Anzeige starten
+    if (typeof window.SharedUI !== 'undefined') {
+        window.SharedUI.progress.show({
+            message: `Lade "${newVideoData.name}" hoch...`,
+            showPercent: true
+        });
 
-        const videoUrl = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.branch}/videos/${newVideoData.name}`;
+        // Simuliere Progress (da GitHub API keinen echten Progress liefert)
+        let progress = 0;
+        const progressInterval = setInterval(() => {
+            progress = Math.min(progress + Math.random() * 15, 90);
+            window.SharedUI.progress.update(progress);
+        }, 500);
 
-        const change = {
-            type: 'video-upload',
-            idx: currentVideo?.overlay?.dataset?.editIdx || 'native',
-            orig: currentVideo?.overlay?.dataset?.editOrig || '',
-            newFile: newVideoData.name,
-            newUrl: videoUrl,
-            page: state.currentPage,
-            timestamp: Date.now()
-        };
+        try {
+            await github.uploadVideo(newVideoData.name, newVideoData.data);
 
-        addPendingChange(change);
-        updateStatus('unsaved');
-        updateChangesList();
-        closeVideoModal();
-        toast('Video hochgeladen!', 'success');
+            clearInterval(progressInterval);
+            window.SharedUI.progress.update(100);
 
-    } catch (e) {
-        toast('Upload fehlgeschlagen: ' + e.message, 'error');
+            setTimeout(() => {
+                window.SharedUI.progress.hide();
+            }, 500);
+
+            const videoUrl = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.branch}/videos/${newVideoData.name}`;
+
+            const change = {
+                type: 'video-upload',
+                idx: currentVideo?.overlay?.dataset?.editIdx || 'native',
+                orig: currentVideo?.overlay?.dataset?.editOrig || '',
+                newFile: newVideoData.name,
+                newUrl: videoUrl,
+                page: state.currentPage,
+                timestamp: Date.now()
+            };
+
+            addPendingChange(change);
+            updateStatus('unsaved');
+            updateChangesList();
+            closeVideoModal();
+            toast('Video hochgeladen!', 'success');
+
+        } catch (e) {
+            clearInterval(progressInterval);
+            window.SharedUI.progress.hide();
+
+            // Error Recovery mit Retry
+            window.SharedUI.errorRecovery.show({
+                message: 'Video-Upload fehlgeschlagen',
+                details: e.message,
+                onRetry: () => handleVideoUpload()
+            });
+        }
+    } else {
+        // Fallback ohne SharedUI
+        try {
+            toast('Video wird hochgeladen...', 'info');
+            await github.uploadVideo(newVideoData.name, newVideoData.data);
+
+            const videoUrl = `https://raw.githubusercontent.com/${CONFIG.owner}/${CONFIG.repo}/${CONFIG.branch}/videos/${newVideoData.name}`;
+
+            const change = {
+                type: 'video-upload',
+                idx: currentVideo?.overlay?.dataset?.editIdx || 'native',
+                orig: currentVideo?.overlay?.dataset?.editOrig || '',
+                newFile: newVideoData.name,
+                newUrl: videoUrl,
+                page: state.currentPage,
+                timestamp: Date.now()
+            };
+
+            addPendingChange(change);
+            updateStatus('unsaved');
+            updateChangesList();
+            closeVideoModal();
+            toast('Video hochgeladen!', 'success');
+
+        } catch (e) {
+            toast('Upload fehlgeschlagen: ' + e.message, 'error');
+        }
     }
 }
 

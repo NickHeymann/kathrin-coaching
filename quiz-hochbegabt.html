@@ -3,16 +3,21 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/core/variables.css" as="style"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Überempfindlichkeit &amp; Intensität Selbsttest (OE) | KATHRIN STAHL</title>
 <meta content="Wissenschaftlich fundierter Selbsttest zu Overexcitabilities (Dabrowskis Überempfindlichkeiten) - oft mit Hochbegabung assoziiert. 15 Fragen zu fünf Intensitätsbereichen." name="description"/>
 <meta content="Overexcitability Test, Dabrowski, Hochbegabung, Intensität, OEQ-II, Überempfindlichkeit" name="keywords"/>
-<link href="https://nickheymann.github.io/kathrin-coaching/quiz-hochbegabt.html" rel="canonical"/>
+<link href="https://coaching.kathrinstahl.com/quiz-hochbegabt.html" rel="canonical"/>
 <!-- Open Graph -->
 <meta content="Überempfindlichkeit &amp; Intensität Test (Overexcitabilities)" property="og:title"/>
 <meta content="Erforsche deine Intensitätsbereiche - basierend auf Dabrowskis OE-Konzept. Wissenschaftlich fundiert, kein IQ-Test." property="og:description"/>
 <meta content="website" property="og:type"/>
-<meta content="https://nickheymann.github.io/kathrin-coaching/quiz-hochbegabt.html" property="og:url"/>
+<meta content="https://coaching.kathrinstahl.com/quiz-hochbegabt.html" property="og:url"/>
 <!-- Schema.org Quiz Markup -->
 <script type="application/ld+json">
     {
@@ -25,7 +30,7 @@
         "provider": {
             "@type": "Person",
             "name": "Kathrin Stahl",
-            "url": "https://nickheymann.github.io/kathrin-coaching/"
+            "url": "https://coaching.kathrinstahl.com/"
         },
         "citation": {
             "@type": "ScholarlyArticle",
@@ -304,12 +309,14 @@
 <link rel="stylesheet" href="css/components/header.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
 <!-- Header -->
 <header>
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -356,7 +363,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -407,7 +414,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -425,7 +432,7 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
@@ -437,10 +444,10 @@
 <h1>Intensität &amp; Überempfindlichkeit</h1>
 <p>Overexcitabilities (OE) Selbsttest nach Dabrowskis Theorie - oft assoziiert mit Hochbegabung</p>
 </section>
-<main class="quiz-container">
+<main id="main-content" class="quiz-container">
 <!-- INFO BOX (Collapsible) -->
 <div class="info-box" id="infoBox">
-<div class="info-box-header" onclick="toggleInfoBox()">
+<div class="info-box-header">
 <h4>💡 Gut zu wissen: Dieser Test misst Overexcitabilities</h4>
 <span class="collapse-icon">−</span>
 </div>
@@ -455,7 +462,7 @@
 </div>
 </div>
 <div class="science-box" id="scienceBox">
-<div class="science-box-header" onclick="toggleScienceBox()">
+<div class="science-box-header">
 <h3>Über diesen Test</h3>
 <span class="collapse-icon">−</span>
 </div>
@@ -484,23 +491,23 @@
 <span class="question-category psychomotor">Psychomotorisch</span>
 <div class="question-text">Ich habe einen starken physischen Bewegungsdrang und fühle mich unruhig, wenn ich lange stillsitzen muss.</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectOption(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft kaum zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -511,23 +518,23 @@
 <span class="question-category psychomotor">Psychomotorisch</span>
 <div class="question-text">Ich spreche schnell und habe oft einen Überschuss an Energie, den ich durch Aktivität abbauen muss.</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectOption(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft kaum zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -538,23 +545,23 @@
 <span class="question-category psychomotor">Psychomotorisch</span>
 <div class="question-text">Bei Aufregung zeigt sich das bei mir körperlich (z.B. schnellerer Herzschlag, Zappeln, Bewegungsdrang).</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectOption(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft kaum zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -566,23 +573,23 @@
 <span class="question-category sensual">Sensorisch</span>
 <div class="question-text">Ich genieße sinnliche Erfahrungen intensiv - Musik, Geschmack, Gerüche oder Berührungen können mich tief berühren.</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectOption(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft kaum zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -593,23 +600,23 @@
 <span class="question-category sensual">Sensorisch</span>
 <div class="question-text">Ästhetik ist mir sehr wichtig - ich achte auf Schönheit in meiner Umgebung und fühle mich von Hässlichkeit gestört.</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectOption(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft kaum zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -620,23 +627,23 @@
 <span class="question-category sensual">Sensorisch</span>
 <div class="question-text">Ich bin empfindlich gegenüber sensorischen Reizen wie hellem Licht, lauten Geräuschen oder kratzigen Stoffen.</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectOption(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft kaum zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -648,23 +655,23 @@
 <span class="question-category intellectual">Intellektuell</span>
 <div class="question-text">Ich habe einen unstillbaren Wissensdurst und vertiefe mich leidenschaftlich in Themen, die mich interessieren.</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectOption(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft kaum zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -675,23 +682,23 @@
 <span class="question-category intellectual">Intellektuell</span>
 <div class="question-text">Ich liebe es, komplexe Probleme zu lösen und Zusammenhänge zu verstehen - mein Kopf arbeitet ständig.</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectOption(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft kaum zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -702,23 +709,23 @@
 <span class="question-category intellectual">Intellektuell</span>
 <div class="question-text">Ich stelle viele Fragen und akzeptiere selten Erklärungen ohne sie gründlich zu hinterfragen.</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectOption(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft kaum zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -730,23 +737,23 @@
 <span class="question-category imaginational">Imaginativ</span>
 <div class="question-text">Ich habe eine lebhafte Fantasie und erschaffe oft innere Welten, Geschichten oder Szenarien in meinem Kopf.</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectOption(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft kaum zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -757,23 +764,23 @@
 <span class="question-category imaginational">Imaginativ</span>
 <div class="question-text">Ich träume häufig sehr lebhaft und kann mich an meine Träume oft detailliert erinnern.</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectOption(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft kaum zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -784,23 +791,23 @@
 <span class="question-category imaginational">Imaginativ</span>
 <div class="question-text">Ich denke oft in Bildern, Metaphern oder unkonventionellen Assoziationen.</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectOption(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft kaum zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -812,23 +819,23 @@
 <span class="question-category emotional">Emotional</span>
 <div class="question-text">Ich erlebe Emotionen sehr intensiv - sowohl positive als auch negative Gefühle sind bei mir stark ausgeprägt.</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectOption(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft kaum zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -839,23 +846,23 @@
 <span class="question-category emotional">Emotional</span>
 <div class="question-text">Ich bin sehr empathisch und spüre oft die Gefühle anderer Menschen, als wären sie meine eigenen.</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectOption(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft kaum zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -866,23 +873,23 @@
 <span class="question-category emotional">Emotional</span>
 <div class="question-text">Ungerechtigkeit, Leid anderer oder ethische Probleme berühren mich tief und ich kann sie schwer ignorieren.</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectOption(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft kaum zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectOption(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -913,7 +920,7 @@
 <div class="cta-section">
 <h3>Du bist nicht allein</h3>
 <p id="ctaText">Intensität kann eine Gabe sein - aber auch herausfordernd. Wenn du dich oft "anders" oder "zu viel" fühlst, kann ein Gespräch helfen, deine Besonderheiten als Stärke zu leben.</p>
-<button class="cta-button" onclick="bookCall()">Kostenloses Erstgespräch</button>
+<button class="cta-button">Kostenloses Erstgespräch</button>
 </div>
 <div class="other-quizzes">
 <h4>Weitere Selbsttests</h4>
@@ -950,7 +957,7 @@
 <ul>
 <li><a href="index.html#angebote">Meine Angebote</a></li>
 <li><a href="kathrin.html">Über mich</a></li>
-<li><a href="#" onclick="bookCall(); return false;">Erstgespräch buchen</a></li>
+<li><a href="https://cal.com/kathrinstahl" target="_blank">Erstgespräch buchen</a></li>
 </ul>
 </div>
 <div class="footer-links">
@@ -1282,6 +1289,7 @@ if (typeof bookCall === 'undefined') {
 }
 
 </script>
-<script src="js/header-loader.js"></script>
+<script defer src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
 </body>
 </html>

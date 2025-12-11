@@ -20,6 +20,20 @@
 .inline-flex { display: inline-flex; }
 .grid { display: grid; }
 
+/* Visually Hidden - Accessible to screen readers only */
+.visually-hidden,
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 /* Flexbox Utilities */
 .flex-center {
     display: flex;
@@ -118,4 +132,191 @@
     border-top-color: var(--color-primary);
     border-radius: 50%;
     animation: spin 1s linear infinite;
+}
+
+/* Skip Link for Accessibility (WCAG 2.1) */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-secondary, #2c3e50);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 0 0 8px 8px;
+    z-index: 100000;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: 0;
+    outline: 3px solid var(--color-primary, #D2AB74);
+    outline-offset: 2px;
+}
+
+/* ============================================
+   Focus States (WCAG 2.1 AA Compliance)
+   Visible focus indicators for all interactive elements
+   ============================================ */
+
+/* Global Focus Reset - Ensure consistent focus styling */
+:focus {
+    outline: none;
+}
+
+:focus-visible {
+    outline: 3px solid var(--color-primary, #D2AB74);
+    outline-offset: 2px;
+}
+
+/* Buttons */
+button:focus-visible,
+.btn:focus-visible,
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+.submit-btn:focus-visible,
+.nav-cta:focus-visible,
+.cta-button:focus-visible,
+[role="button"]:focus-visible {
+    outline: 3px solid var(--color-primary, #D2AB74);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(210, 171, 116, 0.3);
+}
+
+/* Links */
+a:focus-visible {
+    outline: 3px solid var(--color-primary, #D2AB74);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+/* Navigation */
+.nav-link:focus-visible,
+.dropdown-menu a:focus-visible,
+.contact-dropdown-menu a:focus-visible,
+.nav-dropdown span:focus-visible {
+    outline: 3px solid var(--color-primary, #D2AB74);
+    outline-offset: 2px;
+    background: rgba(210, 171, 116, 0.1);
+}
+
+/* Form Inputs */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 3px solid var(--color-primary, #D2AB74);
+    outline-offset: 0;
+    border-color: var(--color-primary, #D2AB74);
+    box-shadow: 0 0 0 3px rgba(210, 171, 116, 0.2);
+}
+
+/* Checkboxes & Radio */
+input[type="checkbox"]:focus-visible,
+input[type="radio"]:focus-visible {
+    outline: 3px solid var(--color-primary, #D2AB74);
+    outline-offset: 3px;
+}
+
+/* Quiz Options */
+.likert-option:focus-visible,
+.quiz-option:focus-visible,
+.option-card:focus-visible,
+.answer-option:focus-visible {
+    outline: 3px solid var(--color-primary, #D2AB74);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(210, 171, 116, 0.3);
+    transform: translateY(-1px);
+}
+
+/* Cards (clickable) */
+.service-card:focus-visible,
+.blog-card:focus-visible,
+.video-card:focus-visible,
+.category-card:focus-visible,
+[role="article"]:focus-visible {
+    outline: 3px solid var(--color-primary, #D2AB74);
+    outline-offset: 2px;
+    box-shadow: 0 4px 20px rgba(210, 171, 116, 0.3);
+}
+
+/* Dropdown Items */
+.dropdown-item:focus-visible,
+[role="menuitem"]:focus-visible,
+[role="option"]:focus-visible {
+    outline: 2px solid var(--color-primary, #D2AB74);
+    outline-offset: -2px;
+    background: rgba(210, 171, 116, 0.15);
+}
+
+/* Modal Close Buttons */
+.modal-close:focus-visible,
+.close-btn:focus-visible,
+[aria-label*="schließen"]:focus-visible,
+[aria-label*="close"]:focus-visible {
+    outline: 3px solid var(--color-primary, #D2AB74);
+    outline-offset: 2px;
+    background: rgba(210, 171, 116, 0.2);
+}
+
+/* Carousel/Slider Controls */
+.slider-nav:focus-visible,
+.carousel-btn:focus-visible,
+.prev-btn:focus-visible,
+.next-btn:focus-visible,
+.testimonial-nav button:focus-visible {
+    outline: 3px solid var(--color-primary, #D2AB74);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(210, 171, 116, 0.3);
+}
+
+/* Tab Navigation */
+[role="tab"]:focus-visible,
+.tab-btn:focus-visible,
+.category-btn:focus-visible,
+.filter-btn:focus-visible {
+    outline: 3px solid var(--color-primary, #D2AB74);
+    outline-offset: 2px;
+    box-shadow: inset 0 -3px 0 var(--color-primary, #D2AB74);
+}
+
+/* FAQ Accordions */
+.faq-question:focus-visible,
+.accordion-header:focus-visible,
+details summary:focus-visible {
+    outline: 3px solid var(--color-primary, #D2AB74);
+    outline-offset: 2px;
+    background: rgba(210, 171, 116, 0.1);
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle:focus-visible,
+.hamburger:focus-visible {
+    outline: 3px solid var(--color-primary, #D2AB74);
+    outline-offset: 4px;
+}
+
+/* Social Media Links */
+.social-link:focus-visible,
+.social-icon:focus-visible {
+    outline: 3px solid var(--color-primary, #D2AB74);
+    outline-offset: 4px;
+    transform: scale(1.1);
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    :focus-visible {
+        outline: 3px solid currentColor;
+        outline-offset: 3px;
+    }
+}
+
+/* Reduced Motion - Ensure focus still visible without animations */
+@media (prefers-reduced-motion: reduce) {
+    *:focus-visible {
+        transition: none;
+    }
 }

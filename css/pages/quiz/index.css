@@ -1,0 +1,27 @@
+/* ============================================
+   QUIZ MODULE INDEX - Kathrin Coaching
+   Zeilen: ~25 | Verantwortung: Import aller Quiz-Module
+
+   MODULARE ARCHITEKTUR (Stand: Dezember 2024)
+   ============================================
+
+   Dieses Modul importiert:
+   - base.css        (~75 Z.)  Reset, Variables, Hero, Container
+   - components.css  (~200 Z.) Science Box, Info Box, Progress
+   - questions.css   (~160 Z.) Question Card, Likert Scale, Frequency Scale
+   - results.css     (~165 Z.) Result Card, Meter, Breakdown, Disclaimer
+   - cta.css         (~115 Z.) CTA Section, Source Box, Other Quizzes
+   - footer.css      (~140 Z.) Footer, Score Circle
+   - responsive.css  (~130 Z.) Mobile/Tablet Anpassungen
+
+   GESAMT: ~985 Zeilen (modular) vs. 1,002 Zeilen (monolithisch)
+   VORTEIL: Jedes Modul <300 Zeilen = LLM-freundlich
+   ============================================ */
+
+@import url('base.css');
+@import url('components.css');
+@import url('questions.css');
+@import url('results.css');
+@import url('cta.css');
+@import url('footer.css');
+@import url('responsive.css');

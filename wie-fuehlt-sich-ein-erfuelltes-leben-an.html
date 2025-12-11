@@ -3,14 +3,19 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/core/variables.css" as="style"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Wie fühlt sich ein sinnerfülltes Leben an? | Kathrin Stahl</title>
 <meta content="Wie können wir herausfinden, was uns wirklich mit Sinn erfüllt: Was bedeutet es, ein erfülltes Leben zu führen?" name="description"/>
-<link href="https://nickheymann.github.io/kathrin-coaching/wie-fuehlt-sich-ein-erfuelltes-leben-an.html" rel="canonical"/>
+<link href="https://coaching.kathrinstahl.com/wie-fuehlt-sich-ein-erfuelltes-leben-an.html" rel="canonical"/>
 <meta content="Wie fühlt sich ein sinnerfülltes Leben an? | Kathrin Stahl" property="og:title"/>
 <meta content="Wie können wir herausfinden, was uns wirklich mit Sinn erfüllt: Was bedeutet es, ein erfülltes Leben zu führen?" property="og:description"/>
 <meta content="article" property="og:type"/>
-<meta content="https://nickheymann.github.io/kathrin-coaching/wp-content/uploads/2023/01/Mirmande-Photographe-Kathrin-Stahl-Photographer-2.jpg" property="og:image"/>
+<meta content="https://coaching.kathrinstahl.com/wp-content/uploads/2023/01/Mirmande-Photographe-Kathrin-Stahl-Photographer-2.jpg" property="og:image"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Montserrat:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
@@ -75,14 +80,39 @@
     </style>
 
 <link rel="stylesheet" href="css/components/header.css">
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Wie fühlt sich ein sinnerfülltes Leben an?",
+    "description": "Wie fühlt sich ein sinnerfülltes Leben an?",
+    "author": {
+        "@type": "Person",
+        "name": "Kathrin Stahl",
+        "url": "https://coaching.kathrinstahl.com/kathrin.html"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Kathrin Stahl Coaching",
+        "url": "https://coaching.kathrinstahl.com"
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://coaching.kathrinstahl.com/wie-fuehlt-sich-ein-erfuelltes-leben-an.html"
+    }
+}
+</script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
 <!-- Header -->
 <header>
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -129,7 +159,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -180,7 +210,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -198,14 +228,14 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
 </button>
 </div>
 </header>
-<section class="article-hero">
+<section id="main-content" class="article-hero">
 <div class="container">
 <span class="article-category">Allgemein</span>
 <h1>Wie fühlt sich ein sinnerfülltes Leben an?</h1>
@@ -215,7 +245,7 @@
 </div>
 </section>
 <div class="featured-image">
-<img alt="Wie fühlt sich ein sinnerfülltes Leben an?" fetchpriority="high" loading="lazy" src="wp-content/uploads/2023/01/Mirmande-Photographe-Kathrin-Stahl-Photographer-2.jpg"/>
+<img decoding="async" alt="Wie fühlt sich ein sinnerfülltes Leben an?" fetchpriority="high" loading="lazy" src="wp-content/uploads/2023/01/Mirmande-Photographe-Kathrin-Stahl-Photographer-2.jpg"/>
 </div>
 <article class="article-content">
 <div class="container">
@@ -224,7 +254,7 @@
 </div>
 <p><em>Was unsere Kindheit mit einem (un)erfüllten Leben zu tun hat und wie  ein erfülltes Leben gelingt.</em></p><h2>Was ist es für dich: dein erfülltes Leben? </h2><p>Diese Frage stelle ich mir seit Jahren. Genau genommen, tue ich das schon seit meiner Kindheit. Um mich herum waren damals viele Erwachsene, die sich über das Leben beschwerten. “Wie geht es dir?” “Muss ja.” Diese Antwort von Menschen zu hören, die mir wichtig waren, schmerzte meine Kinderseele.</p><p>In mir rief es: “So ist es nicht! <strong>Das Leben will geliebt werden</strong>!”</p><p>Davon wollte ich auch meine Mutter überzeugen und bastelte ihr ein Buch mit Weisheiten der Sioux, Hopis und Navajos. Es sollte ihr zeigen, wie <strong>kostbar</strong> das Leben ist und <strong>dass wir immer etwas ändern können</strong>. </p><p>Das war wohl der Beginn meiner Coachinglaufbahn. </p><p>Warum ich dir das hier erzähle? </p><p>Weil wir alle uns <strong>nach einem erfüllten Leben sehnen</strong>. Und weil ich dir sagen möchte, dass du alles dafür in dir trägst und es finden wirst, wenn du <a href="https://coaching.kathrinstahl.com/gib-deinem-leben-deinen-sinn-eine-heldinnenreise" rel="noopener" target="_blank">dich dir zuwendest</a>.Auch und besonders deinen in dir schlummernden Blockaden. </p><blockquote><p>Wir alle sehnen uns nach einem SINNerfüllten Leben.</p></blockquote><h2>Unsere Programmierung ändern</h2><p>Unsere Blockaden sind eine Programmierung tief in unserem Inneren, die <strong>Erfüllung</strong> zuverlässig verhindern kann. Diese Programmierung will von uns erkannt und freigegeben werden. Dafür reicht es nicht, dass wir erkennen und verstehen. </p><p>Die Heilung beginnt, wenn du dir erlaubst,</p><ul><li><span>deine unterdrückten Emotionen zu fühlen, </span></li><li><span>deine nicht gelebten Impulse zu spüren.</span></li></ul><p><strong>Dann</strong> geht es los. <strong>Dann</strong> können wir leben, wofür wir gedacht sind.</p><p><a href="https://www.youtube.com/watch?v=iYW764rrqeE&amp;list=UULFxjysqaDv62bNh5bwaHLIbQ&amp;index=39" rel="noopener" target="_blank">Hier</a> findest du eine spannende Folge in meinem Podcast dazu. (13 Minuten Hörzeit)</p><h2>Was ich als Kind gelernt habe</h2><p>Unsere Psyche trägt in sich mehrere <strong>Anteile</strong>. In mir lernten zwei Anteile völlig unterschiedliche Dinge: </p><ul><li>Mein rebellischer Anteil hat gelernt, <strong>wie kostbar das Leben ist</strong>. Ich rannte häufig los auf der Suche nach diesem kostbaren Leben und vergass dabei, mich mitzunehmen. </li><li>Mein solidarischer Anteil, der meine liebsten Menschen schützen wollte, übernahm ein paar <strong>Glaubenssätze</strong>, die wenig mit Kostbarkeit zu tun haben.</li></ul><p><em>Dieser Teil in mir war überzeugt davon</em></p><ul><li><p>dass das Leben anstrengend ist</p></li><li><p>dass Wünsche und Träume unter einem gut schließenden Deckelgehalten werden müssen</p></li><li><p>dass man sich über das Leben beschwert, ohne etwas zu ändern</p></li></ul><p><strong>Ohne, dass ich von ihnen wusste, waren diese Glaubenssätzen jahrelang meine Wegweiser.</strong></p><blockquote><p>Was hast du in deinem Umfeld als Kind gelernt? Und gehört das wirklich zu dir?</p></blockquote><p>In mir spürte ich eine unbeschreibliche <strong>Zerrissenheit und Sehnsucht</strong>, weil ich doch wusste, dass es anders ist. Gleichzeitig verhinderte etwas in mir, dass ich mir Erlaubnis zu einem leichten, von mir erfüllten Leben geben konnte.</p><h3>Kommt dir das bekannt vor?</h3><p>Als mein Schmerz groß genug war, begab ich mich auf meine Heldinnenreise.</p><h2>Aus unseren Wunden wird unser Geschenk für die Welt</h2><p>Heute kann ich aus ganzem Herzen sagen: <strong>Ich fühle mich erfüllt in mir und in meinem Leben. </strong></p><p>Ich weiß jetzt: Unser Leben fühlt sich dann erfüllt an, wenn wir UNSEREN Sinn leben. Wenn wir unserem Seelenweg folgen. Oder, wenn das Bild für dich besser passt: unserem Herzen. </p><p>Unseren <a href="https://coaching.kathrinstahl.com/gib-deinem-leben-deinen-sinn-eine-heldinnenreise" rel="noopener" target="_blank">Lebenssinn</a> finden wir in dem, was uns als Kind die Zeit vergessen ließ. Und in unseren größten Wunden.</p><p><strong>Meine Geschichte brachte mich hierher. Zu dir. </strong>Ich bin hier, um dich mit allem, was ich erfuhr und lernte als Frau, Mensch, Coach zu unterstützen bei deinem SINNerfüllten Leben. Ich begleite dich, damit du dir so tief begegnen kannst, dass du bald sagen kannst: <strong>“Meine Sinnsuche hat ein Ende.</strong> Ich weiß, wie ein sinnerfülltes Leben für mich geht und ich bleibe jetzt bei mir.” </p><blockquote><p>Erfüllt sind wir dann, wenn wir unseren Sinn leben.</p></blockquote><p>Liebe, wenn in dir eine Sehnsucht ist, wenn du weißt, dass das, was du lebst, noch nicht das ist, was dich in der Tiefe mit Sinn erfüllt, dann kannst du das für dich achtsam begleitet herausfinden.</p><h2>Dein erfülltes Leben</h2><p>Zwei- bis dreimal im Jahr startet meine Online-Begleitung <a href="http://Du wirst dein Geschenk für die Welt entdeckt haben und es in den Leben tragen deiner Intuition wieder vertrauen dich in deiner Kraft spüren – und in deiner Stille deine Gedanken auf das ausrichten, was wirklich wichtig ist wieder an dich glauben">SINNerfüllt</a>. Was ist DEIN SINN DES LEBENS? </p><p><strong>Stell dir vor, du </strong></p><ul><li><strong>hast dein Geschenk für die Welt entdeckt und lebst es völlig selbstverständlich</strong></li><li><strong>vertraust deiner Intuition </strong></li><li><strong>spürst dich in deiner Kraft – und in deiner Stille</strong></li><li><strong>richtest deine Gedanken auf das aus, was wirklich wichtig ist</strong></li></ul><p>Damit wir in einer vertrauten Atmosphäre zusammensein können, sind die Plätze begrenzt. Alles weitere erfährst du <a href="http://Du wirst dein Geschenk für die Welt entdeckt haben und es in den Leben tragen deiner Intuition wieder vertrauen dich in deiner Kraft spüren – und in deiner Stille deine Gedanken auf das ausrichten, was wirklich wichtig ist wieder an dich glauben">hier</a>.</p><p>Ich freue mich auf dich. </p><p><span>Zeig deinem Leben, wie kostbar es ist.<em>Deine Kathrin</em>#glücküberzweifel</span><span>#selbstwirksamkeit</span></p>
 <div class="author-bio">
-<img alt="Kathrin Stahl" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
+<img width="1060" height="1042" decoding="async" alt="Kathrin Stahl" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
 <div class="author-bio-content">
 <h4>Kathrin Stahl</h4>
 <p>Ich begleite Menschen auf ihrem Weg zu mehr Selbstliebe, innerer Klarheit und einem Leben, das sich richtig anfühlt. Mit Herz, Erfahrung und der besonderen Kraft der Pferde.</p>
@@ -273,6 +303,7 @@
 </div>
 </footer>
 <script defer="" src="js/blog-enhancements.js"></script>
-<script src="js/header-loader.js"></script>
+<script defer src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
 </body>
 </html>

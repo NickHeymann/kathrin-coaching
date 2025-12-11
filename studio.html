@@ -1056,7 +1056,7 @@
 <h1>Content Studio</h1>
 <p>Dein Arbeitsplatz für Website-Bearbeitung, Blog-Schreiben und Veröffentlichung.</p>
 <input class="setup-input" id="tokenInput" placeholder="GitHub Token eingeben..." type="password"/>
-<button class="setup-btn" id="setupBtn" onclick="setupToken()">Studio starten</button>
+<button class="setup-btn" id="setupBtn" data-action="setupToken">Studio starten</button>
 <details class="setup-help">
 <summary>Wie bekomme ich einen Token?</summary>
 <div class="setup-help-content">
@@ -1079,7 +1079,7 @@
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -1126,7 +1126,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -1177,7 +1177,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -1195,7 +1195,7 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
@@ -1276,10 +1276,10 @@
 <div class="blog-editor">
 <aside class="blog-sidebar">
 <div class="blog-tabs">
-<button class="blog-tab active" onclick="showBlogTab('drafts')">Entwürfe</button>
-<button class="blog-tab" onclick="showBlogTab('published')">Veröffentlicht</button>
+<button class="blog-tab active" data-action="showBlogTab" data-tab="drafts">Entwürfe</button>
+<button class="blog-tab" data-action="showBlogTab" data-tab="published">Veröffentlicht</button>
 </div>
-<button class="new-post-btn" onclick="createNewPost()">
+<button class="new-post-btn" data-action="createNewPost">
 <span>+</span> Neuer Beitrag
                     </button>
 
@@ -1295,25 +1295,25 @@
 </select>
 </div>
 <div class="toolbar-group">
-<button class="toolbar-btn" onclick="execCmd('bold')" title="Fett"><strong>B</strong></button>
-<button class="toolbar-btn" onclick="execCmd('italic')" title="Kursiv"><em>I</em></button>
-<button class="toolbar-btn" onclick="execCmd('underline')" title="Unterstrichen"><u>U</u></button>
+<button class="toolbar-btn" data-action="execCmd" data-cmd="bold" title="Fett"><strong>B</strong></button>
+<button class="toolbar-btn" data-action="execCmd" data-cmd="italic" title="Kursiv"><em>I</em></button>
+<button class="toolbar-btn" data-action="execCmd" data-cmd="underline" title="Unterstrichen"><u>U</u></button>
 </div>
 <div class="toolbar-group">
-<button class="toolbar-btn" onclick="execCmd('insertUnorderedList')" title="Aufzählung">•</button>
-<button class="toolbar-btn" onclick="execCmd('insertOrderedList')" title="Nummerierung">1.</button>
+<button class="toolbar-btn" data-action="execCmd" data-cmd="insertUnorderedList" title="Aufzählung">•</button>
+<button class="toolbar-btn" data-action="execCmd" data-cmd="insertOrderedList" title="Nummerierung">1.</button>
 </div>
 <div class="toolbar-group">
-<button class="toolbar-btn" onclick="insertLink()" title="Link">🔗</button>
-<button class="toolbar-btn" onclick="openImageModal()" title="Bild">📷</button>
-<button class="toolbar-btn" onclick="insertVideo()" title="Video">🎬</button>
+<button class="toolbar-btn" data-action="insertLink" title="Link">🔗</button>
+<button class="toolbar-btn" data-action="openImageModal" title="Bild">📷</button>
+<button class="toolbar-btn" data-action="insertVideo" title="Video">🎬</button>
 </div>
 <div class="toolbar-group">
-<button class="toolbar-btn" onclick="execCmd('undo')" title="Rückgängig">↶</button>
-<button class="toolbar-btn" onclick="execCmd('redo')" title="Wiederholen">↷</button>
+<button class="toolbar-btn" data-action="execCmd" data-cmd="undo" title="Rückgängig">↶</button>
+<button class="toolbar-btn" data-action="execCmd" data-cmd="redo" title="Wiederholen">↷</button>
 </div>
 <div class="toolbar-group">
-<button class="toolbar-btn" onclick="openPreview()" title="Vorschau">👁</button>
+<button class="toolbar-btn" data-action="openPreview" title="Vorschau">👁</button>
 </div>
 </div>
 <div class="blog-content-area">
@@ -1329,7 +1329,7 @@
 <aside class="blog-settings">
 <div class="settings-section">
 <h4>📷 Beitragsbild</h4>
-<div class="featured-image-upload" id="featuredImageUpload" onclick="uploadFeaturedImage()">
+<div class="featured-image-upload" id="featuredImageUpload" data-action="uploadFeaturedImage">
 <div>
 <div>📷</div>
                                 Bild hochladen
@@ -1371,7 +1371,7 @@
 <label class="settings-label">Datum &amp; Uhrzeit</label>
 
 </div>
-<button class="btn btn-primary" onclick="schedulePost()">
+<button class="btn btn-primary" data-action="schedulePost">
                             Planen
                         </button>
 </div>
@@ -1419,7 +1419,7 @@
 <div class="modal-content">
 <div class="modal-header">
 <h3>Bild einfügen</h3>
-<button class="modal-close" onclick="closeImageModal()">×</button>
+<button class="modal-close" data-action="closeImageModal">×</button>
 </div>
 <div class="modal-body">
 <div class="image-drop-zone" id="imageDropZone">
@@ -1433,7 +1433,7 @@
 <label class="settings-label">Alt-Text</label>
 <input class="settings-input" id="imageAltText" placeholder="Bildbeschreibung..." type="text"/>
 </div>
-<button class="btn btn-primary" onclick="insertSelectedImage()">
+<button class="btn btn-primary" data-action="insertSelectedImage">
                     Bild einfügen
                 </button>
 </div>
@@ -1444,11 +1444,11 @@
 <div class="preview-header">
 <h3>Vorschau</h3>
 <div class="preview-devices">
-<button class="preview-device-btn active" onclick="setPreviewDevice('desktop')">Desktop</button>
-<button class="preview-device-btn" onclick="setPreviewDevice('tablet')">Tablet</button>
-<button class="preview-device-btn" onclick="setPreviewDevice('mobile')">Mobil</button>
+<button class="preview-device-btn active" data-action="setPreviewDevice" data-device="desktop">Desktop</button>
+<button class="preview-device-btn" data-action="setPreviewDevice" data-device="tablet">Tablet</button>
+<button class="preview-device-btn" data-action="setPreviewDevice" data-device="mobile">Mobil</button>
 </div>
-<button class="btn btn-ghost" onclick="closePreview()">Schließen</button>
+<button class="btn btn-ghost" data-action="closePreview">Schließen</button>
 </div>
 
 </div>
@@ -2113,6 +2113,7 @@
         <div class="content">${post.content}</div>
     </article>
 <script src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
 </body>
 </html>`;
         }
@@ -2265,7 +2266,7 @@
             }
 
             gallery.innerHTML = images.map(img => `
-                <div class="gallery-item" style="background-image: url('${img.download_url}')" data-url="${img.download_url}" onclick="selectGalleryImage(this)"></div>
+                <div class="gallery-item" style="background-image: url('${img.download_url}')" data-url="${img.download_url}" data-action="selectGalleryImage"></div>
             `).join('');
         }
 
@@ -2588,5 +2589,6 @@ Bei Fragen: Melde dich bei Nick!`);
         document.addEventListener('DOMContentLoaded', checkSetup);
     </script>
 <script src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
 </body>
 </html>

@@ -3,16 +3,21 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/core/variables.css" as="style"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Paar-Kompass | Wo steht eure Beziehung? | KATHRIN STAHL</title>
 <meta content="Der Paar-Kompass zeigt euch, wo ihr als Paar steht. 15 Fragen zu Kommunikation, Nähe, Konflikten und Zukunft – für einen ehrlichen Blick auf eure Beziehung." name="description"/>
 <meta content="Beziehungstest Paare, Paar Quiz, Beziehung reflektieren, Paar-Retreat Test" name="keywords"/>
-<link href="https://nickheymann.github.io/kathrin-coaching/quiz-paar-kompass.html" rel="canonical"/>
+<link href="https://coaching.kathrinstahl.com/quiz-paar-kompass.html" rel="canonical"/>
 <!-- Open Graph -->
 <meta content="Paar-Kompass: Wo steht eure Beziehung?" property="og:title"/>
 <meta content="15 Fragen für einen ehrlichen Blick auf eure Beziehung – Kommunikation, Nähe, Konflikte und gemeinsame Zukunft." property="og:description"/>
 <meta content="website" property="og:type"/>
-<meta content="https://nickheymann.github.io/kathrin-coaching/quiz-paar-kompass.html" property="og:url"/>
+<meta content="https://coaching.kathrinstahl.com/quiz-paar-kompass.html" property="og:url"/>
 <!-- Schema.org -->
 <script type="application/ld+json">
     {
@@ -23,7 +28,7 @@
         "provider": {
             "@type": "Person",
             "name": "Kathrin Stahl",
-            "url": "https://nickheymann.github.io/kathrin-coaching/"
+            "url": "https://coaching.kathrinstahl.com/"
         }
     }
     </script>
@@ -251,12 +256,14 @@
 <link rel="stylesheet" href="css/components/header.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
 <!-- Header -->
 <header>
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -303,7 +310,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -354,7 +361,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -372,7 +379,7 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
@@ -384,9 +391,9 @@
 <h1>Paar-Kompass</h1>
 <p>15 Fragen für einen ehrlichen Blick auf eure Beziehung – beantwortet sie am besten gemeinsam</p>
 </section>
-<main class="quiz-container">
+<main id="main-content" class="quiz-container">
 <div class="science-box" id="scienceBox">
-<div class="science-box-header" onclick="toggleScienceBox()">
+<div class="science-box-header">
 <h3>Über diesen Test</h3>
 <span class="collapse-icon">−</span>
 </div>
@@ -405,10 +412,10 @@
 <span class="question-category">Kommunikation</span>
 <div class="question-text">Wie oft führt ihr tiefe Gespräche über Gefühle, Träume oder Ängste?</div>
 <div class="answer-options">
-<div class="answer-option" onclick="selectAnswer(this, 4)">Täglich oder fast täglich</div>
-<div class="answer-option" onclick="selectAnswer(this, 3)">Wöchentlich</div>
-<div class="answer-option" onclick="selectAnswer(this, 2)">Selten</div>
-<div class="answer-option" onclick="selectAnswer(this, 1)">Fast nie</div>
+<div class="answer-option">Täglich oder fast täglich</div>
+<div class="answer-option">Wöchentlich</div>
+<div class="answer-option">Selten</div>
+<div class="answer-option">Fast nie</div>
 </div>
 </div>
 <div class="question-card" data-category="communication" data-question="2">
@@ -416,10 +423,10 @@
 <span class="question-category">Kommunikation</span>
 <div class="question-text">Wenn ihr unterschiedlicher Meinung seid, wie endet das meist?</div>
 <div class="answer-options">
-<div class="answer-option" onclick="selectAnswer(this, 4)">Wir finden einen guten Kompromiss</div>
-<div class="answer-option" onclick="selectAnswer(this, 3)">Einer gibt nach, aber es ist okay</div>
-<div class="answer-option" onclick="selectAnswer(this, 2)">Es gibt oft Streit</div>
-<div class="answer-option" onclick="selectAnswer(this, 1)">Wir meiden das Thema lieber</div>
+<div class="answer-option">Wir finden einen guten Kompromiss</div>
+<div class="answer-option">Einer gibt nach, aber es ist okay</div>
+<div class="answer-option">Es gibt oft Streit</div>
+<div class="answer-option">Wir meiden das Thema lieber</div>
 </div>
 </div>
 <div class="question-card" data-category="communication" data-question="3">
@@ -427,10 +434,10 @@
 <span class="question-category">Kommunikation</span>
 <div class="question-text">Fühlt ihr euch vom Partner wirklich gehört und verstanden?</div>
 <div class="answer-options">
-<div class="answer-option" onclick="selectAnswer(this, 4)">Ja, meistens</div>
-<div class="answer-option" onclick="selectAnswer(this, 3)">Manchmal</div>
-<div class="answer-option" onclick="selectAnswer(this, 2)">Selten</div>
-<div class="answer-option" onclick="selectAnswer(this, 1)">Nein, kaum noch</div>
+<div class="answer-option">Ja, meistens</div>
+<div class="answer-option">Manchmal</div>
+<div class="answer-option">Selten</div>
+<div class="answer-option">Nein, kaum noch</div>
 </div>
 </div>
 <div class="question-card" data-category="communication" data-question="4">
@@ -438,10 +445,10 @@
 <span class="question-category">Kommunikation</span>
 <div class="question-text">Wie reagiert ihr, wenn der andere von einem Problem erzählt?</div>
 <div class="answer-options">
-<div class="answer-option" onclick="selectAnswer(this, 4)">Ich höre zu und frage nach</div>
-<div class="answer-option" onclick="selectAnswer(this, 3)">Ich gebe meist Ratschläge</div>
-<div class="answer-option" onclick="selectAnswer(this, 2)">Ich wechsle oft das Thema</div>
-<div class="answer-option" onclick="selectAnswer(this, 1)">Kommt drauf an / unterschiedlich</div>
+<div class="answer-option">Ich höre zu und frage nach</div>
+<div class="answer-option">Ich gebe meist Ratschläge</div>
+<div class="answer-option">Ich wechsle oft das Thema</div>
+<div class="answer-option">Kommt drauf an / unterschiedlich</div>
 </div>
 </div>
 <!-- EMOTIONALE NÄHE: Fragen 5-8 -->
@@ -450,10 +457,10 @@
 <span class="question-category">Emotionale Nähe</span>
 <div class="question-text">Wann habt ihr zuletzt etwas nur zu zweit unternommen (ohne Kinder/Verpflichtungen)?</div>
 <div class="answer-options">
-<div class="answer-option" onclick="selectAnswer(this, 4)">Letzte Woche</div>
-<div class="answer-option" onclick="selectAnswer(this, 3)">Letzten Monat</div>
-<div class="answer-option" onclick="selectAnswer(this, 2)">Vor mehreren Monaten</div>
-<div class="answer-option" onclick="selectAnswer(this, 1)">Ich erinnere mich nicht</div>
+<div class="answer-option">Letzte Woche</div>
+<div class="answer-option">Letzten Monat</div>
+<div class="answer-option">Vor mehreren Monaten</div>
+<div class="answer-option">Ich erinnere mich nicht</div>
 </div>
 </div>
 <div class="question-card" data-category="closeness" data-question="6">
@@ -461,10 +468,10 @@
 <span class="question-category">Emotionale Nähe</span>
 <div class="question-text">Wie oft sagt ihr einander, was ihr am anderen schätzt?</div>
 <div class="answer-options">
-<div class="answer-option" onclick="selectAnswer(this, 4)">Täglich</div>
-<div class="answer-option" onclick="selectAnswer(this, 3)">Wöchentlich</div>
-<div class="answer-option" onclick="selectAnswer(this, 2)">Selten</div>
-<div class="answer-option" onclick="selectAnswer(this, 1)">Nie</div>
+<div class="answer-option">Täglich</div>
+<div class="answer-option">Wöchentlich</div>
+<div class="answer-option">Selten</div>
+<div class="answer-option">Nie</div>
 </div>
 </div>
 <div class="question-card" data-category="closeness" data-question="7">
@@ -472,10 +479,10 @@
 <span class="question-category">Emotionale Nähe</span>
 <div class="question-text">Wie nah fühlt ihr euch emotional gerade?</div>
 <div class="answer-options">
-<div class="answer-option" onclick="selectAnswer(this, 4)">Sehr verbunden</div>
-<div class="answer-option" onclick="selectAnswer(this, 3)">Einigermaßen verbunden</div>
-<div class="answer-option" onclick="selectAnswer(this, 2)">Eher distanziert</div>
-<div class="answer-option" onclick="selectAnswer(this, 1)">Wie Fremde</div>
+<div class="answer-option">Sehr verbunden</div>
+<div class="answer-option">Einigermaßen verbunden</div>
+<div class="answer-option">Eher distanziert</div>
+<div class="answer-option">Wie Fremde</div>
 </div>
 </div>
 <div class="question-card" data-category="closeness" data-question="8">
@@ -483,10 +490,10 @@
 <span class="question-category">Emotionale Nähe</span>
 <div class="question-text">Könnt ihr miteinander schweigen, ohne dass es unangenehm ist?</div>
 <div class="answer-options">
-<div class="answer-option" onclick="selectAnswer(this, 4)">Ja, das ist schön</div>
-<div class="answer-option" onclick="selectAnswer(this, 3)">Manchmal</div>
-<div class="answer-option" onclick="selectAnswer(this, 2)">Eher nicht</div>
-<div class="answer-option" onclick="selectAnswer(this, 1)">Wir vermeiden Stille</div>
+<div class="answer-option">Ja, das ist schön</div>
+<div class="answer-option">Manchmal</div>
+<div class="answer-option">Eher nicht</div>
+<div class="answer-option">Wir vermeiden Stille</div>
 </div>
 </div>
 <!-- KONFLIKTE: Fragen 9-12 -->
@@ -495,10 +502,10 @@
 <span class="question-category">Konflikte</span>
 <div class="question-text">Wenn ihr streitet, geht es meist um...</div>
 <div class="answer-options">
-<div class="answer-option" onclick="selectAnswer(this, 4)">Konkrete, lösbare Themen</div>
-<div class="answer-option" onclick="selectAnswer(this, 3)">Immer wieder das Gleiche</div>
-<div class="answer-option" onclick="selectAnswer(this, 2)">Eigentlich um etwas Tieferes</div>
-<div class="answer-option" onclick="selectAnswer(this, 1)">Wir streiten nicht (mehr)</div>
+<div class="answer-option">Konkrete, lösbare Themen</div>
+<div class="answer-option">Immer wieder das Gleiche</div>
+<div class="answer-option">Eigentlich um etwas Tieferes</div>
+<div class="answer-option">Wir streiten nicht (mehr)</div>
 </div>
 </div>
 <div class="question-card" data-category="conflict" data-question="10">
@@ -506,10 +513,10 @@
 <span class="question-category">Konflikte</span>
 <div class="question-text">Wie oft eskalieren kleine Meinungsverschiedenheiten?</div>
 <div class="answer-options">
-<div class="answer-option" onclick="selectAnswer(this, 4)">Selten</div>
-<div class="answer-option" onclick="selectAnswer(this, 3)">Manchmal</div>
-<div class="answer-option" onclick="selectAnswer(this, 2)">Oft</div>
-<div class="answer-option" onclick="selectAnswer(this, 1)">Fast immer</div>
+<div class="answer-option">Selten</div>
+<div class="answer-option">Manchmal</div>
+<div class="answer-option">Oft</div>
+<div class="answer-option">Fast immer</div>
 </div>
 </div>
 <div class="question-card" data-category="conflict" data-question="11">
@@ -517,10 +524,10 @@
 <span class="question-category">Konflikte</span>
 <div class="question-text">Könnt ihr euch nach einem Streit versöhnen?</div>
 <div class="answer-options">
-<div class="answer-option" onclick="selectAnswer(this, 4)">Ja, relativ schnell</div>
-<div class="answer-option" onclick="selectAnswer(this, 3)">Es dauert, aber es geht</div>
-<div class="answer-option" onclick="selectAnswer(this, 2)">Schwierig</div>
-<div class="answer-option" onclick="selectAnswer(this, 1)">Wir reden tagelang nicht</div>
+<div class="answer-option">Ja, relativ schnell</div>
+<div class="answer-option">Es dauert, aber es geht</div>
+<div class="answer-option">Schwierig</div>
+<div class="answer-option">Wir reden tagelang nicht</div>
 </div>
 </div>
 <div class="question-card" data-category="conflict" data-question="12">
@@ -528,10 +535,10 @@
 <span class="question-category">Konflikte</span>
 <div class="question-text">Gibt es Themen, die ihr komplett meidet?</div>
 <div class="answer-options">
-<div class="answer-option" onclick="selectAnswer(this, 4)">Nein, wir können über alles reden</div>
-<div class="answer-option" onclick="selectAnswer(this, 3)">Ein oder zwei Themen</div>
-<div class="answer-option" onclick="selectAnswer(this, 2)">Mehrere wichtige Themen</div>
-<div class="answer-option" onclick="selectAnswer(this, 1)">Vieles ist tabu</div>
+<div class="answer-option">Nein, wir können über alles reden</div>
+<div class="answer-option">Ein oder zwei Themen</div>
+<div class="answer-option">Mehrere wichtige Themen</div>
+<div class="answer-option">Vieles ist tabu</div>
 </div>
 </div>
 <!-- GEMEINSAME ZUKUNFT: Fragen 13-15 -->
@@ -540,10 +547,10 @@
 <span class="question-category">Gemeinsame Zukunft</span>
 <div class="question-text">Habt ihr gemeinsame Ziele oder Träume für die Zukunft?</div>
 <div class="answer-options">
-<div class="answer-option" onclick="selectAnswer(this, 4)">Ja, eine klare gemeinsame Vision</div>
-<div class="answer-option" onclick="selectAnswer(this, 3)">Ungefähr</div>
-<div class="answer-option" onclick="selectAnswer(this, 2)">Nicht wirklich</div>
-<div class="answer-option" onclick="selectAnswer(this, 1)">Jeder hat eigene Pläne</div>
+<div class="answer-option">Ja, eine klare gemeinsame Vision</div>
+<div class="answer-option">Ungefähr</div>
+<div class="answer-option">Nicht wirklich</div>
+<div class="answer-option">Jeder hat eigene Pläne</div>
 </div>
 </div>
 <div class="question-card" data-category="future" data-question="14">
@@ -551,10 +558,10 @@
 <span class="question-category">Gemeinsame Zukunft</span>
 <div class="question-text">Wie optimistisch seid ihr für eure Beziehung in 5 Jahren?</div>
 <div class="answer-options">
-<div class="answer-option" onclick="selectAnswer(this, 4)">Sehr optimistisch</div>
-<div class="answer-option" onclick="selectAnswer(this, 3)">Vorsichtig optimistisch</div>
-<div class="answer-option" onclick="selectAnswer(this, 2)">Unsicher</div>
-<div class="answer-option" onclick="selectAnswer(this, 1)">Eher pessimistisch</div>
+<div class="answer-option">Sehr optimistisch</div>
+<div class="answer-option">Vorsichtig optimistisch</div>
+<div class="answer-option">Unsicher</div>
+<div class="answer-option">Eher pessimistisch</div>
 </div>
 </div>
 <div class="question-card" data-category="future" data-question="15">
@@ -562,10 +569,10 @@
 <span class="question-category">Gemeinsame Zukunft</span>
 <div class="question-text">Was erhofft ihr euch am meisten von einem Retreat?</div>
 <div class="answer-options">
-<div class="answer-option" onclick="selectAnswer(this, 4)">Wieder echte Nähe spüren</div>
-<div class="answer-option" onclick="selectAnswer(this, 3)">Besser kommunizieren lernen</div>
-<div class="answer-option" onclick="selectAnswer(this, 2)">Klarheit über unsere Zukunft</div>
-<div class="answer-option" onclick="selectAnswer(this, 1)">Weiß nicht genau</div>
+<div class="answer-option">Wieder echte Nähe spüren</div>
+<div class="answer-option">Besser kommunizieren lernen</div>
+<div class="answer-option">Klarheit über unsere Zukunft</div>
+<div class="answer-option">Weiß nicht genau</div>
 </div>
 </div>
 <!-- Results -->
@@ -609,7 +616,7 @@
 <div class="cta-section">
 <h3 id="ctaTitle">Bereit für den nächsten Schritt?</h3>
 <p id="ctaText">Im kostenlosen Erstgespräch besprechen wir gemeinsam, ob ein Paar-Retreat der richtige Weg für euch ist.</p>
-<button class="cta-button" onclick="bookCall()">Kostenloses Paar-Erstgespräch</button>
+<button class="cta-button">Kostenloses Paar-Erstgespräch</button>
 <a href="paar-retreat.html">Mehr über das Paar-Retreat erfahren</a>
 </div>
 <div class="other-quizzes">
@@ -636,7 +643,7 @@
 <ul>
 <li><a href="index.html#angebote">Meine Angebote</a></li>
 <li><a href="paar-retreat.html">Paar-Retreat</a></li>
-<li><a href="#" onclick="bookCall(); return false;">Erstgespräch buchen</a></li>
+<li><a href="https://cal.com/kathrinstahl" target="_blank">Erstgespräch buchen</a></li>
 </ul>
 </div>
 <div class="footer-links">
@@ -850,7 +857,7 @@
     };
 </script>
 <!-- Mailchimp Integration -->
-<script src="mailchimp-integration.js">
+<script defer src="mailchimp-integration.js">
 // ===== HEADER NAVIGATION FUNCTIONS =====
 // Contact dropdown toggle
 function toggleContactDropdown(btn, event) {
@@ -896,6 +903,7 @@ if (typeof bookCall === 'undefined') {
 }
 
 </script>
-<script src="js/header-loader.js"></script>
+<script defer src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
 </body>
 </html>

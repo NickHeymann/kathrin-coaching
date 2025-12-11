@@ -3,14 +3,19 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/core/variables.css" as="style"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Herzenswunsch - Folge deiner Sehnsucht | Kathrin Stahl</title>
 <meta content="Hast du einen Herzenswunsch, der sich schon ganz klein gemacht hat? Hol ihn dir zurück und gehe den ersten Schritt. Ein Retreat mit Pferden." name="description"/>
-<link href="https://nickheymann.github.io/kathrin-coaching/herzenswunsch.html" rel="canonical"/>
+<link href="https://coaching.kathrinstahl.com/herzenswunsch.html" rel="canonical"/>
 <meta content="Herzenswunsch - Folge deiner Sehnsucht | Kathrin Stahl" property="og:title"/>
 <meta content="Hast du einen Herzenswunsch, der sich schon ganz klein gemacht hat? Hol ihn dir zurück und gehe den ersten Schritt. Ein Retreat mit Pferden." property="og:description"/>
 <meta content="article" property="og:type"/>
-<meta content="https://nickheymann.github.io/kathrin-coaching/wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg" property="og:image"/>
+<meta content="https://coaching.kathrinstahl.com/wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg" property="og:image"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Montserrat:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
@@ -86,14 +91,39 @@
     </style>
 
 <link rel="stylesheet" href="css/components/header.css">
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Herzenswunsch - Folge deiner Sehnsucht",
+    "description": "Herzenswunsch - Folge deiner Sehnsucht",
+    "author": {
+        "@type": "Person",
+        "name": "Kathrin Stahl",
+        "url": "https://coaching.kathrinstahl.com/kathrin.html"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Kathrin Stahl Coaching",
+        "url": "https://coaching.kathrinstahl.com"
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://coaching.kathrinstahl.com/herzenswunsch.html"
+    }
+}
+</script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
 <!-- Header -->
 <header>
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -140,7 +170,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -191,7 +221,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -209,14 +239,14 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
 </button>
 </div>
 </header>
-<section class="article-hero">
+<section id="main-content" class="article-hero">
 <div class="container">
 <span class="article-category">Heldinnenreise</span>
 <h1>Herzenswunsch - Folge deiner Sehnsucht</h1>
@@ -226,7 +256,7 @@
 </div>
 </section>
 <div class="featured-image">
-<img alt="Herzenswunsch - Folge deiner Sehnsucht" fetchpriority="high" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg"/>
+<img decoding="async" alt="Herzenswunsch - Folge deiner Sehnsucht" fetchpriority="high" src="wp-content/uploads/2020/10/Mirmande-Photographe-Kathrin-Stahl-Photographer-3.jpg"/>
 </div>
 <article class="article-content">
 <div class="container">
@@ -248,7 +278,7 @@
 </span>
 </a>
 <ul><li><p><span>du findest einen tiefen Zugang zu deinem Herzenswunsch, deinen Sehnsüchten und Träumen</span></p></li><li><p><span>du gewinnst echte Klarheit darüber, wie du ein Leben leben kannst, das wirklich dir entspricht</span></p></li><li><p><span>du erkennst Glaubenssätze, die dich klein halten und transformierst sie   (“Ich will zu viel.” “Ich bekomme nie genug.” “Anderen geht es schlechter als mir” “Das ist Jammern auf hohem Niveau”….)</span></p></li><li><p><span>du befreist dich von transgenerationalen Altlasten und unbewussten Verträgen mit deinen AhnInnen</span></p></li><li><p><span>du erfährst die Gaben deiner VorfahrInnen als stärkende Stütze </span></p></li><li><p><span>du lernst, deine Gedanken und Gewohnheiten auf dein Traumleben auszurichten</span></p></li><li><p><span>Zweifel erkennst du als wertvolle Hinweise und weißt, wie du ihnen begegnen kannst</span></p></li><li><p><span>in dir entsteht Platz für Neues</span></p></li><li><p><span>dein ganzes inneres System erinnerst sich an deine Selbstwirksamkeit</span></p></li><li><p><span>du erfährst die heilsame Kraft einer Gruppe von Frauen, die alle auf dem Weg zu mehr Erfüllung sind</span></p></li></ul>
-<img alt="Pferde mit Frau im Abendlicht in einem Retreat mit systemischen Aufstellungen in Portugal" decoding="async" fetchpriority="high" height="474" sizes="(max-width: 710px) 100vw, 710px" src="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-1024x683.jpg" srcset="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-1024x683.jpg 1024w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-300x200.jpg 300w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-768x512.jpg 768w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-825x550.jpg 825w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-1060x707.jpg 1060w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-1920x1280.jpg 1920w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-1536x1024.jpg 1536w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-2048x1365.jpg 2048w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-550x367.jpg 550w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-750x500.jpg 750w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-1620x1080.jpg 1620w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-600x400.jpg 600w" width="710">
+<img decoding="async" alt="Pferde mit Frau im Abendlicht in einem Retreat mit systemischen Aufstellungen in Portugal" decoding="async" fetchpriority="high" height="474" sizes="(max-width: 710px) 100vw, 710px" src="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-1024x683.jpg" srcset="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-1024x683.jpg 1024w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-300x200.jpg 300w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-768x512.jpg 768w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-825x550.jpg 825w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-1060x707.jpg 1060w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-1920x1280.jpg 1920w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-1536x1024.jpg 1536w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-2048x1365.jpg 2048w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-550x367.jpg 550w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-750x500.jpg 750w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-1620x1080.jpg 1620w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-13-600x400.jpg 600w" width="710">
 <h3><span>1. Wer bin ich? – Ankommen im Jetzt</span></h3><p><span>Du trittst in den Kreis. Die Stimmen draußen werden leiser. Du spürst die Erde unter deinen Füßen, den Atem in deinem Körper. Wer bist du in diesem Moment?</span><br/><span>Nicht die Rollen, die du trägst, nicht die Erwartungen, die andere an dich stellen. Sondern du – genau hier, genau jetzt.</span></p><p><span>In diesem ersten Schritt öffnet sich der Raum, dich selbst zu sehen. So wie du bist.</span></p><hr/><h3><span>2. Der innere Ruf – Die Mission deiner Seele</span></h3><p><span>Vielleicht war er schon immer da. Vielleicht hörst du ihn zum ersten Mal: den Ruf deiner Seele. Leise (oder laut) erinnert sie dich daran, dass dein Leben anders sein möchte. Weicher. Wahrer. Erfüllter.</span></p><p><span>Hier entsteht die Vision. Sie ist kein fertiger Plan, sondern eine <br/>leise Ahnung davon, was deinem wahren Wesen entspricht.</span></p><hr/><h3><span>3. Die Blockade – Was dich zurückhält</span></h3><p><span>Kaum hörst du den Ruf, melden sich auch die alten Stimmen: „Das geht nicht.“ „Du bist nicht genug.“ „Andere brauchen dich.“</span><br/><span>Blockaden zeigen sich als Zweifel, als Enge, als Schwere im Körper. In der Gruppe erkennst du: Du bist nicht allein. Jede trägt ihre eigenen Muster und Verstrickungen. </span></p><hr/><h3><span>4. Das Ziel – Dein nächster Schritt</span></h3><p><span>Hier wird deine Sehnsucht greifbar. Du spürst im ganzen Körper, welches Ziel dich ruft und findest erste konkrete Schritte, die dich dorthin führen können.</span><br/><span>Dabei geht es nicht darum, in riesigen Meilenstiefeln loszupreschen. Dein Herz, deine Seele brauchen Zeit.  Sondern klar, machbar, stimmig.</span></p>
 <img decoding="async" height="474" loading="lazy" sizes="(max-width: 710px) 100vw, 710px" src="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-37-1024x683.jpg" srcset="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-37-1024x683.jpg 1024w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-37-300x200.jpg 300w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-37-768x512.jpg 768w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-37-825x550.jpg 825w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-37-1060x707.jpg 1060w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-37-1920x1280.jpg 1920w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-37-1536x1024.jpg 1536w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-37-2048x1365.jpg 2048w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-37-550x367.jpg 550w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-37-750x500.jpg 750w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-37-1620x1080.jpg 1620w, wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-37-600x400.jpg 600w" width="710"/>
 <p><em>“Für mich hat so eine selbst entschiedene Heldenreise eine ganz andere Qualität, als wenn ich vom Leben reingeschoben werde. Weil ich ganz bewusst und mit offenem Herzen mich auf diese Reise begebe und weil mich Menschen begleiten, die mich auffangen, die mich verstehen und einen geschützten, geborgenen Raum schenken. Die Schritte darf ich natürlich selber gehen. Werde auf jeden Fall noch öfters eine Hero’s Journey mitmachen. </em><em>Ich habe schon einige Kurse zu Persönlichkeitsentwicklung besucht. Danach brauchte ich immer Zeit, um wieder anzukommen: Nach diesem Wochenende war es dank des Mitwirkens der Pferde ganz anders, ich fühlte mich sehr sehr geerdet und, ja, PRÄSENT bei mir.” </em><em>Sonja </em><span><em>(</em></span><a href="love-letters.html" rel="noopener" target="_blank">… mehr</a><span><em>)</em></span></p>
@@ -334,43 +364,10 @@
 </a>
 </div>
 <!-- Blog Enhancements JS -->
-<script src="js/blog-enhancements.js"></script>
-<script>
-        const STORAGE_KEY = 'kathrin-blog-library';
-        const CURRENT_SLUG = 'herzenswunsch.html';
+<script defer src="js/blog-enhancements.js"></script>
 
-        function getLibrary() {
-            try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
-            catch (e) { return []; }
-        }
-
-        function saveLibrary(library) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(library));
-        }
-
-        function updateUI() {
-            const library = getLibrary();
-            const btn = document.getElementById('bookmarkBtn');
-            const count = document.getElementById('libraryCount');
-
-            btn.classList.toggle('saved', library.includes(CURRENT_SLUG));
-            count.textContent = library.length;
-        }
-
-        document.getElementById('bookmarkBtn').addEventListener('click', function() {
-            const library = getLibrary();
-            const index = library.indexOf(CURRENT_SLUG);
-            if (index > -1) {
-                library.splice(index, 1);
-            } else {
-                library.push(CURRENT_SLUG);
-            }
-            saveLibrary(library);
-            updateUI();
-        });
-
-        updateUI();
-    </script>
-<script src="js/header-loader.js"></script>
+<script defer src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
+<script defer src="js/components/bookmark.js"></script>
 </body>
 </html>

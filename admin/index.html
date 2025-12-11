@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Kathrin Stahl</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <!-- Loading während Session-Check -->
+    <div id="loadingState" class="loading" style="min-height: 100vh;">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="auth-container" id="authContainer" style="display: none;">
+        <div class="auth-card">
+            <div class="auth-logo">
+                <h1>KATHRIN STAHL</h1>
+                <p>Admin-Bereich</p>
+            </div>
+
+            <div id="message" class="message hidden"></div>
+
+            <!-- Login Form -->
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">E-Mail</label>
+                    <input type="email" id="email" placeholder="deine@email.de" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Passwort</label>
+                    <input type="password" id="password" placeholder="Dein Passwort" required>
+                </div>
+                <button type="submit" class="btn btn-primary" id="loginBtn">
+                    Anmelden
+                </button>
+            </form>
+
+            <div class="auth-links">
+                <a href="#" id="forgotPasswordLink">Passwort vergessen?</a>
+            </div>
+
+            <!-- Password Reset Form (hidden by default) -->
+            <form id="resetForm" style="display: none;">
+                <div class="form-group">
+                    <label for="resetEmail">E-Mail</label>
+                    <input type="email" id="resetEmail" placeholder="deine@email.de" required>
+                </div>
+                <button type="submit" class="btn btn-primary" id="resetBtn">
+                    Reset-Link senden
+                </button>
+                <div class="auth-links" style="margin-top: 15px;">
+                    <a href="#" id="backToLoginLink">Zurück zum Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+            integrity="sha384-7pt7GFewRI7n6u5mojwHteymuhXHfh/cMTLG26Orj0a+jlzjtyrPegZmQXK3Jd5S"
+            crossorigin="anonymous"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // DOM Elements
+        const loginForm = document.getElementById('loginForm');
+        const resetForm = document.getElementById('resetForm');
+        const message = document.getElementById('message');
+        const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+        const backToLoginLink = document.getElementById('backToLoginLink');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async () => {
+            initSupabase();
+
+            // Check if already logged in
+            const session = await auth.getSession();
+            if (session) {
+                redirectToDashboard();
+                return;
+            }
+
+            // Session-Check fertig, zeige Login
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('authContainer').style.display = 'flex';
+        });
+
+        // Supabase Fehlermeldungen übersetzen
+        function translateError(errorMsg) {
+            const translations = {
+                'Invalid login credentials': 'E-Mail oder Passwort falsch',
+                'Email not confirmed': 'E-Mail noch nicht bestätigt',
+                'User already registered': 'Benutzer existiert bereits',
+                'Password should be at least 6 characters': 'Passwort muss mindestens 6 Zeichen haben',
+                'Unable to validate email address': 'Ungültige E-Mail-Adresse',
+                'Network request failed': 'Netzwerkfehler - bitte Internetverbindung prüfen',
+                'JWT expired': 'Sitzung abgelaufen - bitte neu anmelden',
+                'Token expired': 'Sitzung abgelaufen - bitte neu anmelden',
+                'Not authorized': 'Keine Berechtigung',
+                'Rate limit exceeded': 'Zu viele Anfragen - bitte kurz warten',
+                'For security purposes': 'Aus Sicherheitsgründen - bitte warten'
+            };
+
+            for (const [eng, deu] of Object.entries(translations)) {
+                if (errorMsg.includes(eng)) {
+                    return deu;
+                }
+            }
+            return errorMsg;
+        }
+
+        // Show message
+        function showMessage(text, type = 'error') {
+            message.textContent = text;
+            message.className = `message ${type}`;
+        }
+
+        // Redirect to dashboard or saved URL
+        function redirectToDashboard() {
+            const redirect = auth.getRedirectUrl();
+            if (redirect && !redirect.includes('/admin/')) {
+                window.location.href = redirect;
+            } else {
+                window.location.href = 'dashboard.html';
+            }
+        }
+
+        // Login Form Submit
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('loginBtn');
+
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Anmelden...';
+            message.classList.add('hidden');
+
+            try {
+                await auth.signIn(email, password);
+                showMessage('Erfolgreich angemeldet!', 'success');
+                setTimeout(redirectToDashboard, 500);
+            } catch (error) {
+                console.error('Login error:', error);
+                showMessage(translateError(error.message || 'Anmeldung fehlgeschlagen'));
+            }
+
+            loginBtn.disabled = false;
+            loginBtn.textContent = 'Anmelden';
+        });
+
+        // Password Reset Form Submit
+        resetForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('resetEmail').value;
+            const resetBtn = document.getElementById('resetBtn');
+
+            resetBtn.disabled = true;
+            resetBtn.textContent = 'Senden...';
+            message.classList.add('hidden');
+
+            try {
+                await auth.resetPassword(email);
+                showMessage('Reset-Link wurde gesendet. Bitte prüfe deine E-Mails.', 'success');
+            } catch (error) {
+                console.error('Reset error:', error);
+                showMessage(translateError(error.message || 'Fehler beim Senden'));
+            }
+
+            resetBtn.disabled = false;
+            resetBtn.textContent = 'Reset-Link senden';
+        });
+
+        // Toggle Forms
+        forgotPasswordLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginForm.style.display = 'none';
+            resetForm.style.display = 'block';
+            message.classList.add('hidden');
+        });
+
+        backToLoginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            resetForm.style.display = 'none';
+            loginForm.style.display = 'block';
+            message.classList.add('hidden');
+        });
+    </script>
+</body>
+</html>

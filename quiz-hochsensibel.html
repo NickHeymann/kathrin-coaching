@@ -3,16 +3,21 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/core/variables.css" as="style"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Bin ich hochsensibel? HSP-Selbsttest nach Elaine Aron | KATHRIN STAHL</title>
 <meta content="Wissenschaftlich fundierter HSP-Selbsttest basierend auf der Highly Sensitive Person Scale von Dr. Elaine Aron. 12 Fragen zur Einschätzung deiner Sensibilität." name="description"/>
 <meta content="HSP Test, Hochsensibilität Test, Elaine Aron, Highly Sensitive Person, Sensibilität, Selbsttest, HSPS" name="keywords"/>
-<link href="https://nickheymann.github.io/kathrin-coaching/quiz-hochsensibel.html" rel="canonical"/>
+<link href="https://coaching.kathrinstahl.com/quiz-hochsensibel.html" rel="canonical"/>
 <!-- Open Graph -->
 <meta content="Bin ich hochsensibel? Wissenschaftlicher HSP-Selbsttest" property="og:title"/>
 <meta content="Basierend auf der validierten Highly Sensitive Person Scale (HSPS) von Dr. Elaine Aron. Finde heraus, ob Hochsensibilität ein Thema für dich ist." property="og:description"/>
 <meta content="website" property="og:type"/>
-<meta content="https://nickheymann.github.io/kathrin-coaching/quiz-hochsensibel.html" property="og:url"/>
+<meta content="https://coaching.kathrinstahl.com/quiz-hochsensibel.html" property="og:url"/>
 <!-- Schema.org Quiz Markup -->
 <script type="application/ld+json">
     {
@@ -26,7 +31,7 @@
         "provider": {
             "@type": "Person",
             "name": "Kathrin Stahl",
-            "url": "https://nickheymann.github.io/kathrin-coaching/"
+            "url": "https://coaching.kathrinstahl.com/"
         }
     }
     </script>
@@ -747,12 +752,14 @@
 <link rel="stylesheet" href="css/components/header.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
 <!-- Header -->
 <header>
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -799,7 +806,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -850,7 +857,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -868,7 +875,7 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
@@ -880,9 +887,9 @@
 <h1>Bin ich hochsensibel?</h1>
 <p>Wissenschaftlich fundierter Selbsttest basierend auf der Highly Sensitive Person Scale (HSPS) von Dr. Elaine Aron</p>
 </section>
-<main class="quiz-container">
+<main id="main-content" class="quiz-container">
 <div class="science-box" id="scienceBox">
-<div class="science-box-header" onclick="toggleScienceBox()">
+<div class="science-box-header">
 <h3>Über diesen Test</h3>
 <span class="collapse-icon">−</span>
 </div>
@@ -901,23 +908,23 @@
 <span class="question-category">Reizverarbeitung</span>
 <div class="question-text">Wirst du leicht von starken Sinneseindrücken überwältigt?</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectLikert(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft gar nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft eher nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -929,23 +936,23 @@
 <span class="question-category">Ästhetische Sensibilität</span>
 <div class="question-text">Wirst du von Kunst oder Musik tief berührt?</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectLikert(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft gar nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft eher nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -957,23 +964,23 @@
 <span class="question-category">Reizverarbeitung</span>
 <div class="question-text">Wirst du leicht von Dingen wie hellem Licht, starken Gerüchen, groben Stoffen oder Sirenen in der Nähe überwältigt?</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectLikert(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft gar nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft eher nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -985,23 +992,23 @@
 <span class="question-category">Sinnesempfindlichkeit</span>
 <div class="question-text">Stören dich laute Geräusche?</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectLikert(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft gar nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft eher nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -1013,23 +1020,23 @@
 <span class="question-category">Reizverarbeitung</span>
 <div class="question-text">Fühlst du dich manchmal so überreizt, dass du dich zurückziehen musst - ins Bett, in einen abgedunkelten Raum oder an einen Ort, wo du Ruhe findest?</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectLikert(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft gar nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft eher nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -1041,23 +1048,23 @@
 <span class="question-category">Ästhetische Sensibilität</span>
 <div class="question-text">Hast du ein reiches, komplexes Innenleben?</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectLikert(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft gar nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft eher nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -1069,23 +1076,23 @@
 <span class="question-category">Reizverarbeitung</span>
 <div class="question-text">Wirst du nervös, wenn du in kurzer Zeit viel erledigen musst?</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectLikert(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft gar nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft eher nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -1097,23 +1104,23 @@
 <span class="question-category">Ästhetische Sensibilität</span>
 <div class="question-text">Bemerkst und genießt du feine Gerüche, Geschmäcker, Klänge oder Kunstwerke?</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectLikert(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft gar nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft eher nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -1125,23 +1132,23 @@
 <span class="question-category">Sinnesempfindlichkeit</span>
 <div class="question-text">Beeinflussen dich die Stimmungen anderer Menschen?</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectLikert(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft gar nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft eher nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -1153,23 +1160,23 @@
 <span class="question-category">Reizverarbeitung</span>
 <div class="question-text">Erschreckst du leicht?</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectLikert(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft gar nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft eher nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -1181,23 +1188,23 @@
 <span class="question-category">Reizverarbeitung</span>
 <div class="question-text">Bringen dich Veränderungen in deinem Leben durcheinander?</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectLikert(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft gar nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft eher nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -1209,23 +1216,23 @@
 <span class="question-category">Reizverarbeitung</span>
 <div class="question-text">Wenn du konkurrieren oder beobachtet werden musst, wirst du dann so nervös, dass du viel schlechter abschneidest als du könntest?</div>
 <div class="likert-scale">
-<div class="likert-option" onclick="selectLikert(this, 1)">
+<div class="likert-option" data-value="1">
 <span class="likert-value">1</span>
 <span class="likert-label">Trifft gar nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 2)">
+<div class="likert-option" data-value="2">
 <span class="likert-value">2</span>
 <span class="likert-label">Trifft eher nicht zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 3)">
+<div class="likert-option" data-value="3">
 <span class="likert-value">3</span>
 <span class="likert-label">Teils/teils</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 4)">
+<div class="likert-option" data-value="4">
 <span class="likert-value">4</span>
 <span class="likert-label">Trifft eher zu</span>
 </div>
-<div class="likert-option" onclick="selectLikert(this, 5)">
+<div class="likert-option" data-value="5">
 <span class="likert-value">5</span>
 <span class="likert-label">Trifft voll zu</span>
 </div>
@@ -1270,7 +1277,7 @@
 <div class="cta-section">
 <h3>Du bist nicht allein</h3>
 <p id="ctaText">Als selbst hochsensible Frau verstehe ich, wie es sich anfühlt, die Welt intensiver wahrzunehmen. Lass uns gemeinsam schauen, wie du deine Sensibilität als Stärke leben kannst.</p>
-<button class="cta-button" onclick="bookCall()">Kostenloses Erstgespräch</button>
+<button class="cta-button">Kostenloses Erstgespräch</button>
 </div>
 <div class="source-box">
 <h4>Wissenschaftliche Quellen</h4>
@@ -1313,7 +1320,7 @@
 <ul>
 <li><a href="index.html#angebote">Meine Angebote</a></li>
 <li><a href="kathrin.html">Über mich</a></li>
-<li><a href="#" onclick="bookCall(); return false;">Erstgespräch buchen</a></li>
+<li><a href="https://cal.com/kathrinstahl" target="_blank">Erstgespräch buchen</a></li>
 </ul>
 </div>
 <div class="footer-links">
@@ -1560,6 +1567,7 @@ if (typeof bookCall === 'undefined') {
 }
 
 </script>
-<script src="js/header-loader.js"></script>
+<script defer src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
 </body>
 </html>

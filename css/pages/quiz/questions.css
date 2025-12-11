@@ -1,0 +1,168 @@
+/* ============================================
+   QUIZ QUESTIONS - Kathrin Coaching
+   Zeilen: ~160 | Verantwortung: Question Card, Likert Scale, Frequency Scale
+   ============================================ */
+
+/* -----------------------------------------
+   QUESTION CARD
+   ----------------------------------------- */
+
+.question-card {
+    background: var(--color-white);
+    border-radius: 20px;
+    padding: 35px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+    display: none;
+}
+
+.question-card.active {
+    display: block;
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.question-number {
+    font-size: 0.8rem;
+    color: var(--color-accent);
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.question-category {
+    display: inline-block;
+    background: var(--color-cream);
+    color: var(--color-text-light);
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.question-text {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin-bottom: 30px;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+/* -----------------------------------------
+   LIKERT SCALE
+   ----------------------------------------- */
+
+.likert-scale {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.likert-option {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    background: var(--color-cream);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.likert-option:hover {
+    background: var(--color-white);
+    border-color: var(--color-accent);
+    transform: translateX(5px);
+}
+
+.likert-option.selected {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border-color: var(--color-primary);
+}
+
+.likert-value {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    margin-right: 16px;
+    flex-shrink: 0;
+    font-size: 0.95rem;
+}
+
+.likert-option.selected .likert-value {
+    background: var(--color-accent);
+    color: var(--color-white);
+}
+
+.likert-label {
+    font-size: 1rem;
+}
+
+/* -----------------------------------------
+   FREQUENCY SCALE (for Gottman quiz)
+   ----------------------------------------- */
+
+.frequency-scale {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+.frequency-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 8px;
+    background: var(--color-cream);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-align: center;
+}
+
+.frequency-option:hover {
+    background: var(--color-white);
+    border-color: var(--color-accent);
+    transform: translateY(-3px);
+}
+
+.frequency-option.selected {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    transform: translateY(-3px);
+}
+
+.frequency-option.selected .freq-value,
+.frequency-option.selected .freq-label {
+    color: var(--color-white);
+}
+
+.freq-value {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 4px;
+    transition: color 0.25s ease;
+}
+
+.freq-label {
+    font-size: 0.7rem;
+    color: var(--color-text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    transition: color 0.25s ease;
+}

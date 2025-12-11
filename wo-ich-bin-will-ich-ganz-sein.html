@@ -3,14 +3,19 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/core/variables.css" as="style"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Jetzt hier sein. | Kathrin Stahl</title>
 <meta content="Dieser Moment: JETZT - ist alles, was du hast. Alle reden von Achtsamkeit. Warum eigentlich?" name="description"/>
-<link href="https://nickheymann.github.io/kathrin-coaching/wo-ich-bin-will-ich-ganz-sein.html" rel="canonical"/>
+<link href="https://coaching.kathrinstahl.com/wo-ich-bin-will-ich-ganz-sein.html" rel="canonical"/>
 <meta content="Jetzt hier sein. | Kathrin Stahl" property="og:title"/>
 <meta content="Dieser Moment: JETZT - ist alles, was du hast. Alle reden von Achtsamkeit. Warum eigentlich?" property="og:description"/>
 <meta content="article" property="og:type"/>
-<meta content="https://nickheymann.github.io/kathrin-coaching/wp-content/uploads/2020/09/Bildschirmfoto-2020-09-09-um-10.02.31.png" property="og:image"/>
+<meta content="https://coaching.kathrinstahl.com/wp-content/uploads/2020/09/Bildschirmfoto-2020-09-09-um-10.02.31.png" property="og:image"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Montserrat:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
@@ -75,14 +80,39 @@
     </style>
 
 <link rel="stylesheet" href="css/components/header.css">
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Jetzt hier sein.",
+    "description": "Jetzt hier sein.",
+    "author": {
+        "@type": "Person",
+        "name": "Kathrin Stahl",
+        "url": "https://coaching.kathrinstahl.com/kathrin.html"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Kathrin Stahl Coaching",
+        "url": "https://coaching.kathrinstahl.com"
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://coaching.kathrinstahl.com/wo-ich-bin-will-ich-ganz-sein.html"
+    }
+}
+</script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
 <!-- Header -->
 <header>
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -129,7 +159,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -180,7 +210,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -198,14 +228,14 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
 </button>
 </div>
 </header>
-<section class="article-hero">
+<section id="main-content" class="article-hero">
 <div class="container">
 <span class="article-category">Allgemein</span>
 <h1>Jetzt hier sein.</h1>
@@ -215,7 +245,7 @@
 </div>
 </section>
 <div class="featured-image">
-<img alt="Jetzt hier sein." fetchpriority="high" loading="lazy" src="wp-content/uploads/2020/09/Bildschirmfoto-2020-09-09-um-10.02.31.png"/>
+<img decoding="async" alt="Jetzt hier sein." fetchpriority="high" loading="lazy" src="wp-content/uploads/2020/09/Bildschirmfoto-2020-09-09-um-10.02.31.png"/>
 </div>
 <article class="article-content">
 <div class="container">
@@ -224,7 +254,7 @@
 </div>
 <blockquote><p>Realize deeply that the present moment is all you ever have. – Eckhart Tolle </p></blockquote><h6>Grignan im Oktober 2018</h6><p>Alle reden von Achtsamkeit. Aber was ist das eigentlich genau?</p><p>Kennst du das? Du bist irgendwo, wo du hinwolltest. Und dann ist es ist es gar nicht so schön, wie du es dir vorgestellt hast. Und du überlegst, wo du stattdessen jetzt sein könntest. Vielleicht ist jemand dabei, dem du eine gute Zeit bescheren wolltest mit dir zusammen und du machst dir sogar Vorwürfe, dass du die falsche Wahl getroffen hast. </p><p>So geht es mir manchmal. Und manchmal auch andersrum: Bei einer meiner Entdeckungstouren fand ich zufällig einen magischen Ort. Das Licht, der Ausblick, die Stille: alles war unbeschreiblich schön. </p><h3>Alles war unbeschreiblich schön.  Aber ich wollte dieses Unbeschreibliche beschreiben. </h3><p>Statt es nun auch einfach nicht beschreiben zu wollen, fing ich an, genau das zu tun. Ich suchte einen Namen für die Farbe des Himmels. Ich kramte in mir nach einem Vergleich für den Ausblick, damit ich später meinen Liebsten davon erzählen könnte. Und ich wollte die Stille festhalten, weil solch eine Stille so selten ist. </p><h3>Achtsamkeit umfasst vieles.  Das, was ich da tat, gehört nicht dazu. </h3><p>Daran ist ja nichts Falsches. Manchmal wollen wir, dass es genauso ist.</p><p>Ich wollte eigentlich einfach nur sein. Deshalb war ich unterwegs. Stattdessen hatte ich zugelassen, dass ein unkontrollierter Gedankenstrudel diesen einen Moment meines Lebens übernimmt. Damit gehörte dieser Moment nicht mehr mir. </p><blockquote><h2>Was möchtest du für diesen einen Augenblick?</h2></blockquote><p>Kathrin! Atmen! Still werden. In mir. In der Stille, die mich umgibt. Das Geschenk des Augenblicks annehmen, ohne ihn festhalten zu wollen und ohne zu bewerten.</p><p>Vielleicht sitzt du heute noch mit Menschen zusammen, die dir wichtig sind und in dir beginnt ein Prozess, der verhindert, dass du ganz da sein kannst: <strong>Atme</strong>. </p><h2>Atmen kannst du immer nur im Jetzt. </h2><p>Konzentriere dich für einen Moment auf dein Einatmen. Auf dein Ausatmen. Spüre, wie dein Bauch oder dein Brustkorb sich hebt und senkt. Lass deine Gedanken, deine Bewertungen still werden. Komme hier an. </p><p>Hilft dir dieser Gedanke?Erzähl mal in den Kommentaren. </p><p>Denke immer an dein Licht. Deine Kathrin </p>
 <div class="author-bio">
-<img alt="Kathrin Stahl" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
+<img width="1060" height="1042" decoding="async" alt="Kathrin Stahl" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
 <div class="author-bio-content">
 <h4>Kathrin Stahl</h4>
 <p>Ich begleite Menschen auf ihrem Weg zu mehr Selbstliebe, innerer Klarheit und einem Leben, das sich richtig anfühlt. Mit Herz, Erfahrung und der besonderen Kraft der Pferde.</p>
@@ -273,6 +303,7 @@
 </div>
 </footer>
 <script defer="" src="js/blog-enhancements.js"></script>
-<script src="js/header-loader.js"></script>
+<script defer src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
 </body>
 </html>

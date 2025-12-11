@@ -89,10 +89,12 @@
         if (error) {
             formGroup.classList.add('has-error');
             errorElement.textContent = error;
+            field.setAttribute('aria-invalid', 'true');
             return false;
         } else {
             formGroup.classList.remove('has-error');
             errorElement.textContent = '';
+            field.setAttribute('aria-invalid', 'false');
             return true;
         }
     }

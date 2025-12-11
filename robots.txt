@@ -1,0 +1,25 @@
+# Robots.txt for coaching.kathrinstahl.com
+# Optimized for SEO while protecting admin areas
+
+User-agent: *
+Allow: /
+
+# Block admin/editor areas
+Disallow: /studio.html
+Disallow: /blog-editor-modular.html
+Disallow: /ANLEITUNG-EDITOR.html
+Disallow: /new-navigation.html
+Disallow: /new-index.html
+Disallow: /templates/
+Disallow: /components/
+Disallow: /_archive/
+Disallow: /wp-json/
+Disallow: /js/
+Disallow: /css/
+
+# Block development/config files
+Disallow: /*.json$
+Disallow: /.env
+
+# Sitemap location
+Sitemap: https://coaching.kathrinstahl.com/sitemap.xml

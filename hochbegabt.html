@@ -3,15 +3,20 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/core/variables.css" as="style"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Hochbegabt - Dein bunter Weg | Kathrin Stahl</title>
 <meta content="Über das Anderssein, die Suche nach dem eigenen Platz und wie du deine Hochbegabung als Geschenk annehmen kannst." name="description"/>
-<link href="https://nickheymann.github.io/kathrin-coaching/hochbegabt.html" rel="canonical"/>
+<link href="https://coaching.kathrinstahl.com/hochbegabt.html" rel="canonical"/>
 <!-- Open Graph -->
 <meta content="Hochbegabt - Dein bunter Weg | Kathrin Stahl" property="og:title"/>
 <meta content="Über das Anderssein, die Suche nach dem eigenen Platz und wie du deine Hochbegabung als Geschenk annehmen kannst." property="og:description"/>
 <meta content="article" property="og:type"/>
-<meta content="https://nickheymann.github.io/kathrin-coaching/wp-content/uploads/2022/02/PferdegestuetztesCoaching-Hochbegabung-Hamburg.jpg" property="og:image"/>
+<meta content="https://coaching.kathrinstahl.com/wp-content/uploads/2022/02/PferdegestuetztesCoaching-Hochbegabung-Hamburg.jpg" property="og:image"/>
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -120,14 +125,39 @@
     </style>
 
 <link rel="stylesheet" href="css/components/header.css">
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Hochbegabt - Dein bunter Weg",
+    "description": "Hochbegabt - Dein bunter Weg",
+    "author": {
+        "@type": "Person",
+        "name": "Kathrin Stahl",
+        "url": "https://coaching.kathrinstahl.com/kathrin.html"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Kathrin Stahl Coaching",
+        "url": "https://coaching.kathrinstahl.com"
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://coaching.kathrinstahl.com/hochbegabt.html"
+    }
+}
+</script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
 <!-- Header -->
 <header>
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -174,7 +204,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -225,7 +255,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -243,14 +273,14 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
 </button>
 </div>
 </header>
-<section class="article-hero">
+<section id="main-content" class="article-hero">
 <div class="container">
 <span class="article-category">Hochbegabung</span>
 <h1>Hochbegabt - Dein bunter Weg</h1>
@@ -260,7 +290,7 @@
 </div>
 </section>
 <div class="featured-image">
-<img alt="Pferdegestütztes Coaching für Hochbegabte" fetchpriority="high" src="wp-content/uploads/2022/02/PferdegestuetztesCoaching-Hochbegabung-Hamburg.jpg"/>
+<img decoding="async" alt="Pferdegestütztes Coaching für Hochbegabte" fetchpriority="high" src="wp-content/uploads/2022/02/PferdegestuetztesCoaching-Hochbegabung-Hamburg.jpg"/>
 </div>
 <article class="article-content">
 <div class="container">
@@ -344,43 +374,10 @@
 <span class="library-count-float" id="libraryCount">0</span>
 </a>
 </div>
-<script>
-        const STORAGE_KEY = 'kathrin-blog-library';
-        const CURRENT_SLUG = 'hochbegabt.html';
 
-        function getLibrary() {
-            try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
-            catch (e) { return []; }
-        }
-
-        function saveLibrary(library) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(library));
-        }
-
-        function updateUI() {
-            const library = getLibrary();
-            const btn = document.getElementById('bookmarkBtn');
-            const count = document.getElementById('libraryCount');
-
-            btn.classList.toggle('saved', library.includes(CURRENT_SLUG));
-            count.textContent = library.length;
-        }
-
-        document.getElementById('bookmarkBtn').addEventListener('click', function() {
-            const library = getLibrary();
-            const index = library.indexOf(CURRENT_SLUG);
-            if (index > -1) {
-                library.splice(index, 1);
-            } else {
-                library.push(CURRENT_SLUG);
-            }
-            saveLibrary(library);
-            updateUI();
-        });
-
-        updateUI();
-    </script>
-    <script src="js/blog-enhancements.js"></script>
-<script src="js/header-loader.js"></script>
+    <script defer src="js/blog-enhancements.js"></script>
+<script defer src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
+<script defer src="js/components/bookmark.js"></script>
 </body>
 </html>

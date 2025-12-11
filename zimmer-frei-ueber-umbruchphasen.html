@@ -3,14 +3,19 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/core/variables.css" as="style"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Zimmer frei - Wenn Kinder ausziehen | Kathrin Stahl</title>
 <meta content="Wenn unser Kind auszieht, zieht ein Teil von uns mit ihm. Das kann ein echter Trauerprozess sein. Wie kannst du gut für dich sorgen?" name="description"/>
-<link href="https://nickheymann.github.io/kathrin-coaching/zimmer-frei-ueber-umbruchphasen.html" rel="canonical"/>
+<link href="https://coaching.kathrinstahl.com/zimmer-frei-ueber-umbruchphasen.html" rel="canonical"/>
 <meta content="Zimmer frei - Wenn Kinder ausziehen | Kathrin Stahl" property="og:title"/>
 <meta content="Wenn unser Kind auszieht, zieht ein Teil von uns mit ihm. Das kann ein echter Trauerprozess sein. Wie kannst du gut für dich sorgen?" property="og:description"/>
 <meta content="article" property="og:type"/>
-<meta content="https://nickheymann.github.io/kathrin-coaching/wp-content/uploads/2020/06/WennKinderAusziehen_Hilfe_Coach.jpg" property="og:image"/>
+<meta content="https://coaching.kathrinstahl.com/wp-content/uploads/2020/06/WennKinderAusziehen_Hilfe_Coach.jpg" property="og:image"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&amp;family=Montserrat:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
@@ -75,14 +80,39 @@
     </style>
 
 <link rel="stylesheet" href="css/components/header.css">
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Zimmer frei - Wenn Kinder ausziehen",
+    "description": "Zimmer frei - Wenn Kinder ausziehen",
+    "author": {
+        "@type": "Person",
+        "name": "Kathrin Stahl",
+        "url": "https://coaching.kathrinstahl.com/kathrin.html"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Kathrin Stahl Coaching",
+        "url": "https://coaching.kathrinstahl.com"
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://coaching.kathrinstahl.com/zimmer-frei-ueber-umbruchphasen.html"
+    }
+}
+</script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
 <!-- Header -->
 <header>
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -129,7 +159,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -180,7 +210,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -198,14 +228,14 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
 </button>
 </div>
 </header>
-<section class="article-hero">
+<section id="main-content" class="article-hero">
 <div class="container">
 <span class="article-category">Allgemein</span>
 <h1>Zimmer frei - Wenn Kinder ausziehen</h1>
@@ -215,7 +245,7 @@
 </div>
 </section>
 <div class="featured-image">
-<img alt="Zimmer frei - Wenn Kinder ausziehen" fetchpriority="high" loading="lazy" src="wp-content/uploads/2020/06/WennKinderAusziehen_Hilfe_Coach.jpg"/>
+<img decoding="async" alt="Zimmer frei - Wenn Kinder ausziehen" fetchpriority="high" loading="lazy" src="wp-content/uploads/2020/06/WennKinderAusziehen_Hilfe_Coach.jpg"/>
 </div>
 <article class="article-content">
 <div class="container">
@@ -225,7 +255,7 @@
 <p>Es ist einige Jahre her und ich sehe dieses Bild noch genau vor mir:</p><p>Ein Zimmer, das eine ganze Kindheit und Jugend begleitet hat, wird leer geräumt. Überall Kartons, schon aufeinander gestapelt. Was nicht mit soll, aussortiert. Kinderzeichnungen, zum Beispiel. Kuscheltiere. Bücher mit den Helden langer Sommerwochen. Das Bett bleibt da, ein neues, erwachseneres steht schon in der Wohnung, die nun ein Zuhause sein wird für mein Kind: Mein Kind zieht aus. Und mit ihm ein Teil von mir. </p><blockquote><p><span>Wenn unser Kind auszieht, zieht ein Teil von uns mit ihm. </span></p></blockquote><p>In Zukunft würde ich nicht mehr sagen: “Wann kommst du nachhause?”, sondern: “Wann kommst du uns mal wieder besuchen?”</p><p>Wenige Jahre später folgte mein mittleres Kind dem ersten.</p><p>Der Auszug unserer Kinder war definitiv einer der größten Umbrüche in meinem Leben.</p><h4>Zum Glück dürfen wir in das Loslassen hineinwachsen.</h4><p>Ich hatte mich in den Jahren zuvor darin geübt. Habe gut für mich selber gesorgt, für mich herausgefunden, was mich außer den Kindern noch glücklich macht und bin dafür losgegangen. Und dennoch: als es dann soweit war, war ich erstmal noch nicht soweit.</p><p>Anfangs war da viel Melancholie. All die verpassten Gelegenheiten! Wie oft habe ich Momente mit ihnen nicht erlebt, weil etwas anderes wichtiger zu sein schien? Wie oft war ich, wenn ich mit ihnen zusammen war, in Gedanken woanders, weil “noch so viel zu erledigen” war? Das alles werde ich nie nachholen können.</p><blockquote><p>P<span>lötzlich war in mir ein Zimmer frei, das ich nun neu einrichten durfte. </span></p></blockquote><p>Irgendwann kam mir ein Bild: Nicht nur in unserem Haus war ein Zimmer frei.  Auch in mir. Das durfte ich nun neu einrichten.</p><p>Ich entdeckte das Geschenk der Zeit für mich. Erfüllte mir einen Traum. Fand eine neue Leidenschaft. </p><p>Bald konnte ich erkennen, was für ein Geschenk diese Trennung auch war. (Ganz abgesehen davon, dass sie natürlich ist, unabwendbar – und das beste, was unseren Kindern passieren kann.)</p><p>Wenn unsere großen Kinder jetzt bei uns sind, dann ganz ohne Alltag. Wir können uns einfach nur genießen. Und wenn sie uns zu sich nachhause einladen, fühlt sich das jedes mal wie ein kleines Geschenk an.Zwei erwachsene Kinder zu haben, erfüllt mich mit riesengroßem Mama-Stolz. Sie folgen ihrem ganz eigenen, einzigartigen Weg voller Selbstvertrauen. Das lässt mich uns als Eltern auf die Schulter klopfen: Alles (na ja, zumindest sehr vieles) richtig gemacht. Aus der Ferne bin ich immer bei ihnen, begleite sie in Gedanken, ohne irgendetwas kontrollieren zu müssen: Es ist IHR erwachsenes Leben. Ich darf loslassen.  Kurz nach dem Auszug unseres Mittleren ist unser “Kleiner” in das frei gewordene Zimmer umgezogen. Er ist jetzt 15. Nur noch ein paar Jahre, dann wird auch er sich ein eigenes Zuhause suchen. Dann kommt keiner mehr nach. Was werden wir dann wohl mit dem Zimmer machen? </p>
 <p>Mein Kinder: Ihr seid das beste, was mir je passiert ist.</p><p>Silbermond hat diesen Song wohl eher an eine Liebesgeschichte denkend geschrieben. Aber… was ist das Verhältnis zu unseren Kindern anderes als eine Liebesgeschichte? </p><p>Ich wünsche dir, dass du heute all die Liebe in dir spüren kannst, zu der du fähig bist. </p><p><em>Deine Kathrin</em>#glücküberzweifel</p>
 <div class="author-bio">
-<img alt="Kathrin Stahl" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
+<img width="1060" height="1042" decoding="async" alt="Kathrin Stahl" src="wp-content/uploads/2021/04/Me-ich-Kathrin-Hogaza-1060x1042.jpg"/>
 <div class="author-bio-content">
 <h4>Kathrin Stahl</h4>
 <p>Ich begleite Menschen auf ihrem Weg zu mehr Selbstliebe, innerer Klarheit und einem Leben, das sich richtig anfühlt. Mit Herz, Erfahrung und der besonderen Kraft der Pferde.</p>
@@ -274,6 +304,7 @@
 </div>
 </footer>
 <script defer="" src="js/blog-enhancements.js"></script>
-<script src="js/header-loader.js"></script>
+<script defer src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
 </body>
 </html>

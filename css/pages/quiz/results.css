@@ -1,0 +1,178 @@
+/* ============================================
+   QUIZ RESULTS - Kathrin Coaching
+   Zeilen: ~165 | Verantwortung: Result Card, Meter, Breakdown, Disclaimer
+   ============================================ */
+
+/* -----------------------------------------
+   RESULT CARD
+   ----------------------------------------- */
+
+.result-card {
+    background: var(--color-white);
+    border-radius: 24px;
+    padding: 50px 40px;
+    text-align: center;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+    display: none;
+}
+
+.result-card.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+.result-title {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.result-score-display {
+    font-size: 1rem;
+    color: var(--color-text-light);
+    margin-bottom: 30px;
+}
+
+/* -----------------------------------------
+   RESULT METER
+   ----------------------------------------- */
+
+.result-meter {
+    margin: 35px 0;
+}
+
+.meter-container {
+    position: relative;
+    height: 30px;
+    background: linear-gradient(90deg, #e8f5e9 0%, #fff9c4 50%, #ffccbc 100%);
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+.meter-marker {
+    position: absolute;
+    top: -5px;
+    width: 40px;
+    height: 40px;
+    background: var(--color-primary);
+    border: 3px solid var(--color-white);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    font-weight: bold;
+    font-size: 0.8rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: left 0.8s ease;
+}
+
+.meter-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+}
+
+/* -----------------------------------------
+   RESULT BREAKDOWN
+   ----------------------------------------- */
+
+.result-breakdown {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin: 30px 0;
+    text-align: left;
+}
+
+.breakdown-item {
+    background: var(--color-cream);
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.breakdown-item h4 {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--color-primary);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.breakdown-item .score {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.breakdown-item .label {
+    font-size: 0.75rem;
+    color: var(--color-text-light);
+}
+
+/* Status colors for breakdown items */
+.breakdown-item.low { border-left: 4px solid var(--color-success); }
+.breakdown-item.medium { border-left: 4px solid var(--color-warning); }
+.breakdown-item.high { border-left: 4px solid var(--color-danger); }
+
+.result-description {
+    color: var(--color-text-light);
+    line-height: 1.8;
+    margin-bottom: 30px;
+    text-align: left;
+    font-size: 1rem;
+}
+
+.result-description ul {
+    margin: 15px 0;
+    padding-left: 20px;
+}
+
+.result-description li {
+    margin-bottom: 8px;
+}
+
+/* -----------------------------------------
+   DISCLAIMER BOX
+   ----------------------------------------- */
+
+.disclaimer-box {
+    background: #fffbeb;
+    border-left: 4px solid var(--color-accent);
+    padding: 20px 25px;
+    margin: 30px 0;
+    border-radius: 0 12px 12px 0;
+    text-align: left;
+}
+
+.disclaimer-box h4 {
+    color: var(--color-accent-dark);
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.disclaimer-box p {
+    color: #7a6a35;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* Strong disclaimer for sensitive topics */
+.disclaimer-box.strong {
+    background: #fee2e2;
+    border-left-color: var(--color-danger);
+}
+
+.disclaimer-box.strong h4 {
+    color: #991b1b;
+}
+
+.disclaimer-box.strong p {
+    color: #7f1d1d;
+}

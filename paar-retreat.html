@@ -3,10 +3,15 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/core/variables.css" as="style"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Paar-Retreat Portugal | Beziehungs-Coaching mit Pferden im Alentejo</title>
 <meta content="Findet zurück zueinander – im 1:1 Paar-Retreat im Alentejo. Pferdegestütztes Coaching, eigene Casinha, absolute Stille. Jetzt Erstgespräch buchen." name="description"/>
-<link href="https://nickheymann.github.io/kathrin-coaching/paar-retreat.html" rel="canonical"/>
+<link href="https://coaching.kathrinstahl.com/paar-retreat.html" rel="canonical"/>
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -787,12 +792,14 @@
 <link rel="stylesheet" href="css/components/header.css">
 </head>
 <body>
+<a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+
 <!-- Header -->
 <header>
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -839,7 +846,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -890,7 +897,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -908,7 +915,7 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
@@ -916,13 +923,13 @@
 </div>
 </header>
 <!-- Hero -->
-<section class="hero">
-<img alt="Paar-Retreat im Alentejo mit pferdegestütztem Coaching" fetchpriority="high" src="wp-content/uploads/2025/05/2025_04_Paartherapie_Ehekrise-86.jpg"/>
+<section id="main-content" class="hero">
+<img decoding="async" alt="Paar-Retreat im Alentejo mit pferdegestütztem Coaching" fetchpriority="high" src="wp-content/uploads/2025/05/2025_04_Paartherapie_Ehekrise-86.jpg"/>
 
 <div class="hero-content">
 <h1>Wann habt ihr euch zuletzt wirklich gesehen?</h1>
 <p class="hero-subtitle">Paar-Retreat mit pferdegestütztem Coaching im Alentejo, Portugal</p>
-<a class="btn" href="#" onclick="bookCall(); return false;">Erstgespräch als Paar buchen</a>
+<a class="btn" href="https://cal.com/kathrinstahl" target="_blank">Erstgespräch als Paar buchen</a>
 </div>
 </section>
 <!-- Problem Section -->
@@ -974,7 +981,7 @@
 <div class="container">
 <div class="method-content">
 <div class="method-image">
-<img alt="Pferdegestütztes Coaching für Paare" src="wp-content/uploads/2025/05/2025_04_Paartherapie_Ehekrise-52-768x512.jpg"/>
+<img width="768" height="512" decoding="async" alt="Pferdegestütztes Coaching für Paare" src="wp-content/uploads/2025/05/2025_04_Paartherapie_Ehekrise-52-768x512.jpg"/>
 </div>
 <div class="method-text">
 <span class="section-label">Die Methode</span>
@@ -1050,9 +1057,9 @@
 <a class="btn" href="casinha.html">Mehr über die Casinha</a>
 </div>
 <div class="location-gallery">
-<img alt="Casinha Wohnbereich" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/Ferienhaus-Portugal-Alentejo.jpg"/>
-<img alt="Casinha Schlafzimmer" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/ruhiges-Ferienhaus-Portugal-768x1024.jpg"/>
-<img alt="Blick von der Casinha" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/ruhiges-Ferienhaus-Alentejo-Natur-1024x768.jpg"/>
+<img decoding="async" alt="Casinha Wohnbereich" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/Ferienhaus-Portugal-Alentejo.jpg"/>
+<img width="768" height="1024" decoding="async" alt="Casinha Schlafzimmer" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/ruhiges-Ferienhaus-Portugal-768x1024.jpg"/>
+<img width="1024" height="768" decoding="async" alt="Blick von der Casinha" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/ruhiges-Ferienhaus-Alentejo-Natur-1024x768.jpg"/>
 </div>
 </div>
 </div>
@@ -1119,7 +1126,7 @@
 <li>Nachgespräch 2 Wochen nach dem Retreat</li>
 </ul>
 <p>Verpflegung nicht inklusive. Die Casinha hat eine voll ausgestattete Küche. Restaurants in 10 Min. Entfernung.</p>
-<a class="btn" href="#" onclick="bookCall(); return false;">Kostenloses Erstgespräch buchen</a>
+<a class="btn" href="https://cal.com/kathrinstahl" target="_blank">Kostenloses Erstgespräch buchen</a>
 </div>
 </div>
 </section>
@@ -1176,7 +1183,7 @@
 <h2>Bereit für den ersten Schritt?</h2>
 <p>Im kostenlosen Erstgespräch lernt ihr Kathrin kennen und besprecht, ob das Paar-Retreat der richtige Weg für euch ist.</p>
 <div class="cta-buttons">
-<a class="btn" href="#" onclick="bookCall(); return false;">Kostenloses Paar-Erstgespräch buchen</a>
+<a class="btn" href="https://cal.com/kathrinstahl" target="_blank">Kostenloses Paar-Erstgespräch buchen</a>
 <a class="btn btn-secondary" href="quiz-paar-kompass.html">Erst den Paar-Kompass machen</a>
 </div>
 </div>
@@ -1252,6 +1259,7 @@ if (typeof bookCall === 'undefined') {
 }
 
 </script>
-<script src="js/header-loader.js"></script>
+<script defer src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
 </body>
 </html>

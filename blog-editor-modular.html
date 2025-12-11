@@ -31,7 +31,7 @@
         <h1>Blog Editor</h1>
         <p>Schreibe und veröffentliche Blog-Posts direkt auf deiner Website.</p>
         <input class="setup-input" id="tokenInput" placeholder="GitHub Token eingeben..." type="password">
-        <button class="setup-btn" id="setupBtn" onclick="setupToken()">Editor starten</button>
+        <button class="setup-btn" id="setupBtn" data-action="setupToken">Editor starten</button>
         <a class="setup-link" href="cms/">Zurück zum Website-Editor</a>
     </div>
 </div>
@@ -42,7 +42,7 @@
 <!-- Header -->
 <header class="header modern" role="banner">
     <div class="header-left">
-        <button class="mobile-menu-toggle" onclick="toggleMobileSidebar()" aria-label="Seitenleiste öffnen" aria-expanded="false" aria-controls="sidebar">☰</button>
+        <button class="mobile-menu-toggle" data-action="toggleMobileSidebar" aria-label="Seitenleiste öffnen" aria-expanded="false" aria-controls="sidebar">☰</button>
         <div class="logo" aria-label="Blog Editor">
             <div class="logo-icon" aria-hidden="true">✎</div>
             Editor
@@ -64,14 +64,14 @@
         </div>
     </div>
     <div class="header-right">
-        <button class="btn btn-ghost shortcuts-help-btn" onclick="openShortcutsModal()" title="Tastenkombinationen (?)" aria-label="Tastenkombinationen anzeigen">⌨️</button>
-        <button class="ai-header-btn" onclick="toggleAIPanel()" aria-label="KI-Assistent öffnen" aria-expanded="false" aria-controls="aiPanel">✨ KI-Assistent</button>
-        <button class="btn btn-ghost" onclick="openPreview()" aria-label="Vorschau anzeigen">Vorschau</button>
-        <button class="btn btn-ghost" onclick="openExportModal()" title="Exportieren" aria-label="Beitrag exportieren">📤 Export</button>
-        <button class="btn btn-ghost" onclick="toggleQueue()" aria-label="Warteschlange anzeigen" aria-expanded="false" aria-controls="queuePanel">Warteschlange</button>
-        <button class="btn btn-ghost" onclick="saveDraft()" aria-label="Entwurf speichern">Entwurf speichern</button>
-        <button class="btn btn-success" onclick="publishPost()" aria-label="Beitrag veröffentlichen">Veröffentlichen</button>
-        <button class="btn btn-ghost btn-logout" onclick="logout()" aria-label="Abmelden">Abmelden</button>
+        <button class="btn btn-ghost shortcuts-help-btn" data-action="openShortcutsModal" title="Tastenkombinationen (?)" aria-label="Tastenkombinationen anzeigen">⌨️</button>
+        <button class="ai-header-btn" data-action="toggleAIPanel" aria-label="KI-Assistent öffnen" aria-expanded="false" aria-controls="aiPanel">✨ KI-Assistent</button>
+        <button class="btn btn-ghost" data-action="openPreview" aria-label="Vorschau anzeigen">Vorschau</button>
+        <button class="btn btn-ghost" data-action="openExportModal" title="Exportieren" aria-label="Beitrag exportieren">📤 Export</button>
+        <button class="btn btn-ghost" data-action="toggleQueue" aria-label="Warteschlange anzeigen" aria-expanded="false" aria-controls="queuePanel">Warteschlange</button>
+        <button class="btn btn-ghost" data-action="saveDraft" aria-label="Entwurf speichern">Entwurf speichern</button>
+        <button class="btn btn-success" data-action="publishPost" aria-label="Beitrag veröffentlichen">Veröffentlichen</button>
+        <button class="btn btn-ghost btn-logout" data-action="logout" aria-label="Abmelden">Abmelden</button>
     </div>
 </header>
 
@@ -83,16 +83,16 @@
             <h2>Beiträge</h2>
         </div>
         <div class="sidebar-tabs" role="tablist" aria-label="Beiträge filtern">
-            <button class="sidebar-tab active" onclick="showTab('drafts')" role="tab" aria-selected="true" aria-controls="postList">Entwürfe</button>
-            <button class="sidebar-tab" onclick="showTab('published')" role="tab" aria-selected="false" aria-controls="postList">Veröffentlicht</button>
-            <button class="sidebar-tab" onclick="showTab('scheduled')" role="tab" aria-selected="false" aria-controls="postList">Geplant</button>
+            <button class="sidebar-tab active" data-action="showTab" data-tab="drafts" role="tab" aria-selected="true" aria-controls="postList">Entwürfe</button>
+            <button class="sidebar-tab" data-action="showTab" data-tab="published" role="tab" aria-selected="false" aria-controls="postList">Veröffentlicht</button>
+            <button class="sidebar-tab" data-action="showTab" data-tab="scheduled" role="tab" aria-selected="false" aria-controls="postList">Geplant</button>
         </div>
         <div class="sidebar-search">
             <label for="postSearch" class="sr-only">Beiträge suchen</label>
             <input type="search" id="postSearch" placeholder="Beiträge suchen..." oninput="filterPosts(this.value)" aria-label="Beiträge durchsuchen">
             <span class="search-icon" aria-hidden="true">🔍</span>
         </div>
-        <button class="new-post-btn" onclick="createNewPost()" aria-label="Neuen Beitrag erstellen">
+        <button class="new-post-btn" data-action="createNewPost" aria-label="Neuen Beitrag erstellen">
             <span aria-hidden="true">+</span> Neuer Beitrag
         </button>
         <div class="sidebar-content" id="postList" role="tabpanel" aria-label="Beitragsliste"></div>
@@ -100,14 +100,14 @@
         <!-- Kalender-Ansicht (für "Geplant" Tab) -->
         <div class="sidebar-calendar" id="calendarPanel" style="display: none;">
             <div id="contentCalendar"></div>
-            <button class="schedule-current-btn" onclick="openScheduleModal()" style="margin: 1rem; width: calc(100% - 2rem);">
+            <button class="schedule-current-btn" data-action="openScheduleModal" style="margin: 1rem; width: calc(100% - 2rem);">
                 📅 Aktuellen Beitrag planen
             </button>
         </div>
     </aside>
 
     <!-- Mobile Sidebar Backdrop -->
-    <div class="sidebar-backdrop" onclick="closeMobileSidebar()" aria-hidden="true"></div>
+    <div class="sidebar-backdrop" data-action="closeMobileSidebar" aria-hidden="true"></div>
 
     <!-- Editor -->
     <div class="editor-container" id="main-editor" role="main">
@@ -115,62 +115,62 @@
         <div class="editor-toolbar" role="toolbar" aria-label="Text-Formatierung">
             <!-- Blocktyp Dropdown -->
             <div class="toolbar-dropdown">
-                <button class="toolbar-dropdown-btn" onclick="toggleToolbarDropdown(this)" aria-haspopup="true" aria-expanded="false">
+                <button class="toolbar-dropdown-btn" data-action="toggleToolbarDropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="dropdown-label">Absatz</span>
                     <span class="dropdown-arrow">▾</span>
                 </button>
                 <div class="toolbar-dropdown-menu" id="blockTypeMenu">
-                    <button onclick="setBlockType('p', 'Absatz')">Absatz</button>
-                    <button onclick="setBlockType('h1', 'Überschrift 1')">Überschrift 1</button>
-                    <button onclick="setBlockType('h2', 'Überschrift 2')">Überschrift 2</button>
-                    <button onclick="setBlockType('h3', 'Überschrift 3')">Überschrift 3</button>
-                    <button onclick="setBlockType('h4', 'Überschrift 4')">Überschrift 4</button>
-                    <button onclick="setBlockType('blockquote', 'Zitat')">Zitat</button>
-                    <button onclick="setBlockType('pre', 'Code')">Code</button>
+                    <button data-action="setBlockType" data-type="p" data-label="Absatz">Absatz</button>
+                    <button data-action="setBlockType" data-type="h1" data-label="Überschrift 1">Überschrift 1</button>
+                    <button data-action="setBlockType" data-type="h2" data-label="Überschrift 2">Überschrift 2</button>
+                    <button data-action="setBlockType" data-type="h3" data-label="Überschrift 3">Überschrift 3</button>
+                    <button data-action="setBlockType" data-type="h4" data-label="Überschrift 4">Überschrift 4</button>
+                    <button data-action="setBlockType" data-type="blockquote" data-label="Zitat">Zitat</button>
+                    <button data-action="setBlockType" data-type="pre" data-label="Code">Code</button>
                 </div>
             </div>
 
             <!-- Schriftart Dropdown -->
             <div class="toolbar-dropdown">
-                <button class="toolbar-dropdown-btn" onclick="toggleToolbarDropdown(this)" aria-haspopup="true" aria-expanded="false">
+                <button class="toolbar-dropdown-btn" data-action="toggleToolbarDropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="dropdown-label" id="currentFontLabel">Schriftart</span>
                     <span class="dropdown-arrow">▾</span>
                 </button>
                 <div class="toolbar-dropdown-menu font-menu" id="fontMenu">
                     <div class="dropdown-section-title">Standard</div>
-                    <button onclick="setFont('inherit')" style="font-family: inherit">Standard</button>
-                    <button onclick="setFont('Georgia, serif')" style="font-family: Georgia, serif">Georgia</button>
-                    <button onclick="setFont('Arial, sans-serif')" style="font-family: Arial, sans-serif">Arial</button>
-                    <button onclick="setFont('Helvetica, sans-serif')" style="font-family: Helvetica, sans-serif">Helvetica</button>
-                    <button onclick="setFont('Times New Roman, serif')" style="font-family: 'Times New Roman', serif">Times New Roman</button>
-                    <button onclick="setFont('Verdana, sans-serif')" style="font-family: Verdana, sans-serif">Verdana</button>
+                    <button data-action="setFont" data-font="inherit" style="font-family: inherit">Standard</button>
+                    <button data-action="setFont" data-font="Georgia, serif" style="font-family: Georgia, serif">Georgia</button>
+                    <button data-action="setFont" data-font="Arial, sans-serif" style="font-family: Arial, sans-serif">Arial</button>
+                    <button data-action="setFont" data-font="Helvetica, sans-serif" style="font-family: Helvetica, sans-serif">Helvetica</button>
+                    <button data-action="setFont" data-font="Times New Roman, serif" style="font-family: 'Times New Roman', serif">Times New Roman</button>
+                    <button data-action="setFont" data-font="Verdana, sans-serif" style="font-family: Verdana, sans-serif">Verdana</button>
                     <div class="dropdown-section-title">Design</div>
-                    <button onclick="setFont('Gilda Display, serif')" style="font-family: 'Gilda Display', serif">Gilda Display</button>
-                    <button onclick="setFont('Montserrat, sans-serif')" style="font-family: Montserrat, sans-serif">Montserrat</button>
-                    <button onclick="setFont('Playfair Display, serif')" style="font-family: 'Playfair Display', serif">Playfair Display</button>
-                    <button onclick="setFont('Lora, serif')" style="font-family: Lora, serif">Lora</button>
+                    <button data-action="setFont" data-font="Gilda Display, serif" style="font-family: 'Gilda Display', serif">Gilda Display</button>
+                    <button data-action="setFont" data-font="Montserrat, sans-serif" style="font-family: Montserrat, sans-serif">Montserrat</button>
+                    <button data-action="setFont" data-font="Playfair Display, serif" style="font-family: 'Playfair Display', serif">Playfair Display</button>
+                    <button data-action="setFont" data-font="Lora, serif" style="font-family: Lora, serif">Lora</button>
                     <div class="dropdown-divider"></div>
-                    <button onclick="openCustomFontModal()" class="dropdown-action">+ Eigene Schriftart...</button>
+                    <button data-action="openCustomFontModal" class="dropdown-action">+ Eigene Schriftart...</button>
                 </div>
             </div>
 
             <!-- Schriftgröße Dropdown -->
             <div class="toolbar-dropdown toolbar-dropdown-sm">
-                <button class="toolbar-dropdown-btn" onclick="toggleToolbarDropdown(this)" aria-haspopup="true" aria-expanded="false">
+                <button class="toolbar-dropdown-btn" data-action="toggleToolbarDropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="dropdown-label" id="currentSizeLabel">16</span>
                     <span class="dropdown-arrow">▾</span>
                 </button>
                 <div class="toolbar-dropdown-menu size-menu">
-                    <button onclick="setFontSize('12px')">12</button>
-                    <button onclick="setFontSize('14px')">14</button>
-                    <button onclick="setFontSize('16px')" class="active">16</button>
-                    <button onclick="setFontSize('18px')">18</button>
-                    <button onclick="setFontSize('20px')">20</button>
-                    <button onclick="setFontSize('24px')">24</button>
-                    <button onclick="setFontSize('28px')">28</button>
-                    <button onclick="setFontSize('32px')">32</button>
-                    <button onclick="setFontSize('36px')">36</button>
-                    <button onclick="setFontSize('48px')">48</button>
+                    <button data-action="setFontSize" data-size="12px">12</button>
+                    <button data-action="setFontSize" data-size="14px">14</button>
+                    <button data-action="setFontSize" data-size="16px" class="active">16</button>
+                    <button data-action="setFontSize" data-size="18px">18</button>
+                    <button data-action="setFontSize" data-size="20px">20</button>
+                    <button data-action="setFontSize" data-size="24px">24</button>
+                    <button data-action="setFontSize" data-size="28px">28</button>
+                    <button data-action="setFontSize" data-size="32px">32</button>
+                    <button data-action="setFontSize" data-size="36px">36</button>
+                    <button data-action="setFontSize" data-size="48px">48</button>
                 </div>
             </div>
 
@@ -178,27 +178,77 @@
 
             <!-- Text-Formatierung -->
             <div class="toolbar-group" role="group" aria-label="Textformatierung">
-                <button class="toolbar-btn" onclick="execCmd('bold')" title="Fett (Cmd+B)" aria-label="Fett"><strong>B</strong></button>
-                <button class="toolbar-btn" onclick="execCmd('italic')" title="Kursiv (Cmd+I)" aria-label="Kursiv"><em>I</em></button>
-                <button class="toolbar-btn" onclick="execCmd('underline')" title="Unterstrichen" aria-label="Unterstrichen"><u>U</u></button>
-                <button class="toolbar-btn" onclick="execCmd('strikeThrough')" title="Durchgestrichen" aria-label="Durchgestrichen"><s>S</s></button>
+                <button class="toolbar-btn" data-action="execCmd" data-cmd="bold" title="Fett (Cmd+B)" aria-label="Fett"><strong>B</strong></button>
+                <button class="toolbar-btn" data-action="execCmd" data-cmd="italic" title="Kursiv (Cmd+I)" aria-label="Kursiv"><em>I</em></button>
+                <button class="toolbar-btn" data-action="execCmd" data-cmd="underline" title="Unterstrichen" aria-label="Unterstrichen"><u>U</u></button>
+                <button class="toolbar-btn" data-action="execCmd" data-cmd="strikeThrough" title="Durchgestrichen" aria-label="Durchgestrichen"><s>S</s></button>
             </div>
 
             <div class="toolbar-divider"></div>
 
             <!-- Farbe -->
             <div class="toolbar-group" role="group" aria-label="Farben">
-                <div class="toolbar-color-wrapper">
-                    <button class="toolbar-btn" onclick="document.getElementById('textColorPicker').click()" title="Textfarbe" aria-label="Textfarbe">
+                <!-- Textfarbe Dropdown -->
+                <div class="toolbar-dropdown toolbar-color-dropdown">
+                    <button class="toolbar-btn" data-action="openColorPicker" data-type="text" title="Textfarbe" aria-label="Textfarbe">
                         A<span class="color-indicator" id="textColorIndicator"></span>
                     </button>
-                    <input type="color" id="textColorPicker" onchange="setTextColor(this.value)" style="display:none" value="#333333">
+                    <div class="color-picker-dropdown" id="textColorDropdown">
+                        <div class="color-picker-label">Textfarbe</div>
+                        <div class="color-picker-grid">
+                            <button class="color-swatch active" data-color="#000000" style="background:#000000" title="Schwarz"></button>
+                            <button class="color-swatch" data-color="#333333" style="background:#333333" title="Dunkelgrau"></button>
+                            <button class="color-swatch" data-color="#666666" style="background:#666666" title="Grau"></button>
+                            <button class="color-swatch" data-color="#999999" style="background:#999999" title="Hellgrau"></button>
+                            <button class="color-swatch" data-color="#2C4A47" style="background:#2C4A47" title="Kathrin Grün"></button>
+                            <button class="color-swatch" data-color="#D4A574" style="background:#D4A574" title="Kathrin Gold"></button>
+                            <button class="color-swatch" data-color="#1a73e8" style="background:#1a73e8" title="Blau"></button>
+                            <button class="color-swatch" data-color="#0d47a1" style="background:#0d47a1" title="Dunkelblau"></button>
+                            <button class="color-swatch" data-color="#d32f2f" style="background:#d32f2f" title="Rot"></button>
+                            <button class="color-swatch" data-color="#c62828" style="background:#c62828" title="Dunkelrot"></button>
+                            <button class="color-swatch" data-color="#2e7d32" style="background:#2e7d32" title="Grün"></button>
+                            <button class="color-swatch" data-color="#1b5e20" style="background:#1b5e20" title="Dunkelgrün"></button>
+                            <button class="color-swatch" data-color="#f57c00" style="background:#f57c00" title="Orange"></button>
+                            <button class="color-swatch" data-color="#7b1fa2" style="background:#7b1fa2" title="Lila"></button>
+                            <button class="color-swatch" data-color="#00838f" style="background:#00838f" title="Türkis"></button>
+                            <button class="color-swatch" data-color="#5d4037" style="background:#5d4037" title="Braun"></button>
+                        </div>
+                        <div class="color-picker-custom">
+                            <input type="color" id="textColorCustom" value="#000000">
+                            <button class="color-custom-btn" data-action="applyCustomColor" data-type="text">Anwenden</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="toolbar-color-wrapper">
-                    <button class="toolbar-btn" onclick="document.getElementById('bgColorPicker').click()" title="Hintergrundfarbe" aria-label="Hintergrundfarbe">
+                <!-- Hintergrundfarbe Dropdown -->
+                <div class="toolbar-dropdown toolbar-color-dropdown">
+                    <button class="toolbar-btn" data-action="openColorPicker" data-type="bg" title="Hintergrundfarbe" aria-label="Hintergrundfarbe">
                         <span class="bg-color-icon">A</span>
                     </button>
-                    <input type="color" id="bgColorPicker" onchange="setBackgroundColor(this.value)" style="display:none" value="#ffff00">
+                    <div class="color-picker-dropdown" id="bgColorDropdown">
+                        <div class="color-picker-label">Hintergrundfarbe</div>
+                        <div class="color-picker-grid">
+                            <button class="color-swatch color-swatch-none" data-color="transparent" title="Keine">✕</button>
+                            <button class="color-swatch" data-color="#ffeb3b" style="background:#ffeb3b" title="Gelb"></button>
+                            <button class="color-swatch" data-color="#fff59d" style="background:#fff59d" title="Hellgelb"></button>
+                            <button class="color-swatch" data-color="#a5d6a7" style="background:#a5d6a7" title="Hellgrün"></button>
+                            <button class="color-swatch" data-color="#81d4fa" style="background:#81d4fa" title="Hellblau"></button>
+                            <button class="color-swatch" data-color="#ce93d8" style="background:#ce93d8" title="Helllila"></button>
+                            <button class="color-swatch" data-color="#ffcc80" style="background:#ffcc80" title="Hellorange"></button>
+                            <button class="color-swatch" data-color="#ef9a9a" style="background:#ef9a9a" title="Hellrot"></button>
+                            <button class="color-swatch" data-color="#e0e0e0" style="background:#e0e0e0" title="Hellgrau"></button>
+                            <button class="color-swatch" data-color="#f5f5dc" style="background:#f5f5dc" title="Beige"></button>
+                            <button class="color-swatch" data-color="#ffe4c4" style="background:#ffe4c4" title="Bisque"></button>
+                            <button class="color-swatch" data-color="#e8f5e9" style="background:#e8f5e9" title="Mintgrün"></button>
+                            <button class="color-swatch" data-color="#e3f2fd" style="background:#e3f2fd" title="Eisblau"></button>
+                            <button class="color-swatch" data-color="#fce4ec" style="background:#fce4ec" title="Rosa"></button>
+                            <button class="color-swatch" data-color="#fff3e0" style="background:#fff3e0" title="Creme"></button>
+                            <button class="color-swatch" data-color="#f3e5f5" style="background:#f3e5f5" title="Lavendel"></button>
+                        </div>
+                        <div class="color-picker-custom">
+                            <input type="color" id="bgColorCustom" value="#ffeb3b">
+                            <button class="color-custom-btn" data-action="applyCustomColor" data-type="bg">Anwenden</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -206,51 +256,51 @@
 
             <!-- Listen & Einzug -->
             <div class="toolbar-dropdown">
-                <button class="toolbar-dropdown-btn" onclick="toggleToolbarDropdown(this)" title="Listen & Einzug" aria-haspopup="true">
+                <button class="toolbar-dropdown-btn" data-action="toggleToolbarDropdown" title="Listen & Einzug" aria-haspopup="true">
                     <span class="dropdown-icon">☰</span>
                     <span class="dropdown-arrow">▾</span>
                 </button>
                 <div class="toolbar-dropdown-menu">
-                    <button onclick="execCmd('insertUnorderedList'); closeAllDropdowns()">• Aufzählung</button>
-                    <button onclick="execCmd('insertOrderedList'); closeAllDropdowns()">1. Nummerierung</button>
+                    <button >• Aufzählung</button>
+                    <button >1. Nummerierung</button>
                     <div class="dropdown-divider"></div>
-                    <button onclick="execCmd('indent'); closeAllDropdowns()">→ Einrücken</button>
-                    <button onclick="execCmd('outdent'); closeAllDropdowns()">← Ausrücken</button>
+                    <button >→ Einrücken</button>
+                    <button >← Ausrücken</button>
                 </div>
             </div>
 
             <!-- Ausrichtung -->
             <div class="toolbar-dropdown">
-                <button class="toolbar-dropdown-btn" onclick="toggleToolbarDropdown(this)" title="Ausrichtung" aria-haspopup="true">
+                <button class="toolbar-dropdown-btn" data-action="toggleToolbarDropdown" title="Ausrichtung" aria-haspopup="true">
                     <span class="dropdown-icon">≡</span>
                     <span class="dropdown-arrow">▾</span>
                 </button>
                 <div class="toolbar-dropdown-menu">
-                    <button onclick="execCmd('justifyLeft'); closeAllDropdowns()">⇤ Linksbündig</button>
-                    <button onclick="execCmd('justifyCenter'); closeAllDropdowns()">↔ Zentriert</button>
-                    <button onclick="execCmd('justifyRight'); closeAllDropdowns()">⇥ Rechtsbündig</button>
-                    <button onclick="execCmd('justifyFull'); closeAllDropdowns()">⇔ Blocksatz</button>
+                    <button >⇤ Linksbündig</button>
+                    <button >↔ Zentriert</button>
+                    <button >⇥ Rechtsbündig</button>
+                    <button >⇔ Blocksatz</button>
                 </div>
             </div>
 
             <!-- Zeilenabstand Dropdown -->
             <div class="toolbar-dropdown">
-                <button class="toolbar-dropdown-btn" onclick="toggleToolbarDropdown(this)" title="Zeilenabstand" aria-haspopup="true">
+                <button class="toolbar-dropdown-btn" data-action="toggleToolbarDropdown" title="Zeilenabstand" aria-haspopup="true">
                     <span class="dropdown-icon">↕</span>
                     <span class="dropdown-arrow">▾</span>
                 </button>
                 <div class="toolbar-dropdown-menu">
                     <div class="dropdown-section-title">Zeilenabstand</div>
-                    <button onclick="setLineHeight('1'); closeAllDropdowns()">1.0 - Eng</button>
-                    <button onclick="setLineHeight('1.4'); closeAllDropdowns()">1.4 - Kompakt</button>
-                    <button onclick="setLineHeight('1.6'); closeAllDropdowns()" class="active">1.6 - Normal</button>
-                    <button onclick="setLineHeight('1.8'); closeAllDropdowns()">1.8 - Locker</button>
-                    <button onclick="setLineHeight('2'); closeAllDropdowns()">2.0 - Weit</button>
+                    <button >1.0 - Eng</button>
+                    <button >1.4 - Kompakt</button>
+                    <button  class="active">1.6 - Normal</button>
+                    <button >1.8 - Locker</button>
+                    <button >2.0 - Weit</button>
                     <div class="dropdown-divider"></div>
                     <div class="dropdown-section-title">Absatzabstand</div>
-                    <button onclick="setParagraphSpacing('0.5em'); closeAllDropdowns()">Klein</button>
-                    <button onclick="setParagraphSpacing('1em'); closeAllDropdowns()">Normal</button>
-                    <button onclick="setParagraphSpacing('1.5em'); closeAllDropdowns()">Groß</button>
+                    <button >Klein</button>
+                    <button >Normal</button>
+                    <button >Groß</button>
                 </div>
             </div>
 
@@ -258,20 +308,20 @@
 
             <!-- Medien einfügen -->
             <div class="toolbar-dropdown">
-                <button class="toolbar-dropdown-btn" onclick="toggleToolbarDropdown(this)" title="Einfügen" aria-haspopup="true">
+                <button class="toolbar-dropdown-btn" data-action="toggleToolbarDropdown" title="Einfügen" aria-haspopup="true">
                     <span class="dropdown-icon">+</span>
                     <span class="dropdown-arrow">▾</span>
                 </button>
                 <div class="toolbar-dropdown-menu">
-                    <button onclick="insertLink(); closeAllDropdowns()">🔗 Link</button>
-                    <button onclick="openImageModal(); closeAllDropdowns()">📷 Bild</button>
-                    <button onclick="insertVideo(); closeAllDropdowns()">🎥 Video</button>
-                    <button onclick="openVideoRecordModal(); closeAllDropdowns()">📹 Video aufnehmen</button>
+                    <button >🔗 Link</button>
+                    <button >📷 Bild</button>
+                    <button >🎥 Video</button>
+                    <button >📹 Video aufnehmen</button>
                     <div class="dropdown-divider"></div>
-                    <button onclick="insertHorizontalRule(); closeAllDropdowns()">― Trennlinie</button>
-                    <button onclick="insertTable(); closeAllDropdowns()">⊞ Tabelle</button>
+                    <button >― Trennlinie</button>
+                    <button >⊞ Tabelle</button>
                     <div class="dropdown-divider"></div>
-                    <button onclick="openTemplateChooser(); closeAllDropdowns()">📝 Vorlage anwenden...</button>
+                    <button >📝 Vorlage anwenden...</button>
                 </div>
             </div>
 
@@ -279,17 +329,17 @@
 
             <!-- Undo/Redo -->
             <div class="toolbar-group" role="group" aria-label="Verlauf">
-                <button class="toolbar-btn" id="undoBlockBtn" onclick="undo()" title="Rückgängig (Cmd+Z)" aria-label="Rückgängig">↶</button>
-                <button class="toolbar-btn" id="redoBlockBtn" onclick="redo()" title="Wiederholen (Cmd+Y)" aria-label="Wiederholen">↷</button>
+                <button class="toolbar-btn" id="undoBlockBtn" data-action="undo" title="Rückgängig (Cmd+Z)" aria-label="Rückgängig">↶</button>
+                <button class="toolbar-btn" id="redoBlockBtn" data-action="redo" title="Wiederholen (Cmd+Y)" aria-label="Wiederholen">↷</button>
             </div>
 
             <!-- Rechte Seite -->
             <div class="toolbar-spacer"></div>
 
             <div class="toolbar-group" role="group" aria-label="Extras">
-                <button class="toolbar-btn" onclick="toggleFullscreen()" title="Vollbild" aria-label="Vollbildmodus">⛶</button>
-                <button class="toolbar-btn ai" onclick="aiImproveText()" title="Text mit KI verbessern" aria-label="KI">✨</button>
-                <button class="toolbar-btn" onclick="toggleVoiceInput()" title="Spracheingabe" id="voiceToolbarBtn" aria-label="Sprache">🎤</button>
+                <button class="toolbar-btn" data-action="toggleFullscreen" title="Vollbild" aria-label="Vollbildmodus">⛶</button>
+                <button class="toolbar-btn ai" data-action="aiImproveText" title="Text mit KI verbessern" aria-label="KI">✨</button>
+                <button class="toolbar-btn" data-action="toggleVoiceInput" title="Spracheingabe" id="voiceToolbarBtn" aria-label="Sprache">🎤</button>
             </div>
         </div>
 
@@ -308,7 +358,7 @@
                 </div>
 
                 <!-- Add Block Button -->
-                <button class="add-block-btn" onclick="showBlockMenu()" aria-label="Neuen Block hinzufügen" aria-haspopup="menu">
+                <button class="add-block-btn" data-action="showBlockMenu" aria-label="Neuen Block hinzufügen" aria-haspopup="menu">
                     + Block hinzufügen
                 </button>
 
@@ -324,7 +374,7 @@
     <aside class="settings-panel">
         <div class="settings-section">
             <h3>📷 Beitragsbild</h3>
-            <div class="featured-image-upload" id="featuredImageUpload" onclick="uploadFeaturedImage()">
+            <div class="featured-image-upload" id="featuredImageUpload" data-action="uploadFeaturedImage">
                 <div class="upload-text">
                     <div class="upload-icon">📷</div>
                     <div>Bild hochladen oder ziehen</div>
@@ -375,7 +425,7 @@
                     <input id="scheduleTime" type="time" value="09:00">
                 </div>
             </div>
-            <button class="btn btn-primary" onclick="schedulePost()">Planen</button>
+            <button class="btn btn-primary" data-action="schedulePost">Planen</button>
         </div>
 
         <div class="settings-section">
@@ -388,7 +438,7 @@
 
         <div class="settings-section">
             <h3>📜 Verlauf</h3>
-            <button class="btn btn-ghost" onclick="openVersionsModal()" style="width: 100%;">
+            <button class="btn btn-ghost" data-action="openVersionsModal" style="width: 100%;">
                 Versionsverlauf anzeigen
             </button>
             <small style="display: block; margin-top: 0.5rem; color: var(--text-light);">
@@ -402,7 +452,7 @@
 <div class="queue-panel" id="queuePanel">
     <div class="queue-header">
         <h3>Veröffentlichungs-Warteschlange</h3>
-        <button class="btn btn-ghost" onclick="toggleQueue()">×</button>
+        <button class="btn btn-ghost" data-action="toggleQueue">×</button>
     </div>
     <div class="queue-content" id="queueContent"></div>
 </div>
@@ -413,11 +463,11 @@
         <div class="preview-header">
             <h3>Vorschau</h3>
             <div class="preview-device-toggle">
-                <button class="preview-device-btn active" onclick="setPreviewDevice('desktop')">Desktop</button>
-                <button class="preview-device-btn" onclick="setPreviewDevice('tablet')">Tablet</button>
-                <button class="preview-device-btn" onclick="setPreviewDevice('mobile')">Mobil</button>
+                <button class="preview-device-btn active" data-action="setPreviewDevice" data-device="desktop">Desktop</button>
+                <button class="preview-device-btn" data-action="setPreviewDevice" data-device="tablet">Tablet</button>
+                <button class="preview-device-btn" data-action="setPreviewDevice" data-device="mobile">Mobil</button>
             </div>
-            <button class="btn btn-ghost" onclick="closePreview()">× Schließen</button>
+            <button class="btn btn-ghost" data-action="closePreview">× Schließen</button>
         </div>
         <div class="preview-content">
             <div class="preview-frame desktop" id="previewFrame"></div>
@@ -430,10 +480,10 @@
     <div class="image-modal-content">
         <div class="image-modal-header">
             <h3>Bild einfügen</h3>
-            <button class="btn btn-ghost" onclick="closeImageModal()">×</button>
+            <button class="btn btn-ghost" data-action="closeImageModal">×</button>
         </div>
         <div class="image-modal-body">
-            <div class="image-drop-zone" id="imageDropZone" onclick="uploadNewImage()">
+            <div class="image-drop-zone" id="imageDropZone" data-action="uploadNewImage">
                 <div style="font-size: 2rem;">📷</div>
                 <div>Neues Bild hochladen</div>
                 <small style="color: var(--text-light);">Automatische Komprimierung für schnellere Ladezeiten</small>
@@ -444,7 +494,7 @@
                 <label class="settings-label">Alt-Text</label>
                 <input class="settings-input" id="imageAltText" placeholder="Bildbeschreibung..." type="text">
             </div>
-            <button class="btn btn-primary" onclick="insertSelectedImage()">Bild einfügen</button>
+            <button class="btn btn-primary" data-action="insertSelectedImage">Bild einfügen</button>
         </div>
     </div>
 </div>
@@ -468,66 +518,66 @@
 <!-- Block Menu -->
 <div id="blockMenu">
     <div class="block-menu-grid">
-        <button class="block-menu-item" onclick="addBlockFromMenu('text')">
+        <button class="block-menu-item" data-action="addBlockFromMenu" data-type="text">
             <span>📝</span>
             <span>Text</span>
         </button>
-        <button class="block-menu-item" onclick="addBlockFromMenu('heading')">
+        <button class="block-menu-item" data-action="addBlockFromMenu" data-type="heading">
             <span>🔤</span>
             <span>Überschrift</span>
         </button>
-        <button class="block-menu-item" onclick="addBlockFromMenu('image')">
+        <button class="block-menu-item" data-action="addBlockFromMenu" data-type="image">
             <span>📷</span>
             <span>Bild</span>
         </button>
-        <button class="block-menu-item" onclick="addBlockFromMenu('video')">
+        <button class="block-menu-item" data-action="addBlockFromMenu" data-type="video">
             <span>🎬</span>
             <span>Video</span>
         </button>
-        <button class="block-menu-item" onclick="addBlockFromMenu('recording')">
+        <button class="block-menu-item" data-action="addBlockFromMenu" data-type="recording">
             <span>📹</span>
             <span>Aufnahme</span>
         </button>
-        <button class="block-menu-item" onclick="addBlockFromMenu('code')">
+        <button class="block-menu-item" data-action="addBlockFromMenu" data-type="code">
             <span>&lt;/&gt;</span>
             <span>Code</span>
         </button>
-        <button class="block-menu-item" onclick="addBlockFromMenu('quote')">
+        <button class="block-menu-item" data-action="addBlockFromMenu" data-type="quote">
             <span>❝</span>
             <span>Zitat</span>
         </button>
-        <button class="block-menu-item" onclick="addBlockFromMenu('callout')">
+        <button class="block-menu-item" data-action="addBlockFromMenu" data-type="callout">
             <span>💡</span>
             <span>Highlight</span>
         </button>
-        <button class="block-menu-item" onclick="addBlockFromMenu('divider')">
+        <button class="block-menu-item" data-action="addBlockFromMenu" data-type="divider">
             <span>―</span>
             <span>Trennlinie</span>
         </button>
-        <button class="block-menu-item" onclick="hideBlockMenu()" style="background: #fee;">
+        <button class="block-menu-item" data-action="hideBlockMenu" style="background: #fee;">
             <span>✕</span>
             <span>Schließen</span>
         </button>
     </div>
 </div>
-<div class="block-menu-backdrop" onclick="hideBlockMenu()" style="display: none;"></div>
+<div class="block-menu-backdrop" data-action="hideBlockMenu" style="display: none;"></div>
 
 <!-- Block Settings Modal -->
 <div class="modal modern" id="blockSettingsModal">
-    <div class="modal-backdrop" onclick="closeBlockSettings()"></div>
+    <div class="modal-backdrop" data-action="closeBlockSettings"></div>
     <div class="modal-content modern" style="max-width: 400px;">
         <div class="modal-header">
             <h3>⚙️ Block-Einstellungen</h3>
-            <button onclick="closeBlockSettings()" class="modal-close">×</button>
+            <button data-action="closeBlockSettings" class="modal-close">×</button>
         </div>
         <div class="modal-body">
             <!-- Ausrichtung -->
             <div class="settings-row">
                 <label class="settings-label">Ausrichtung</label>
                 <div class="block-settings-row">
-                    <button class="setting-option" data-setting="align" data-value="left" onclick="setBlockSetting('align', 'left')">⇤ Links</button>
-                    <button class="setting-option" data-setting="align" data-value="center" onclick="setBlockSetting('align', 'center')">↔ Mitte</button>
-                    <button class="setting-option" data-setting="align" data-value="right" onclick="setBlockSetting('align', 'right')">⇥ Rechts</button>
+                    <button class="setting-option" data-setting="align" data-value="left" data-action="setBlockSetting" data-setting="align" data-value="left">⇤ Links</button>
+                    <button class="setting-option" data-setting="align" data-value="center" data-action="setBlockSetting" data-setting="align" data-value="center">↔ Mitte</button>
+                    <button class="setting-option" data-setting="align" data-value="right" data-action="setBlockSetting" data-setting="align" data-value="right">⇥ Rechts</button>
                 </div>
             </div>
 
@@ -535,9 +585,9 @@
             <div class="settings-row">
                 <label class="settings-label">Breite</label>
                 <div class="block-settings-row">
-                    <button class="setting-option" data-setting="width" data-value="full" onclick="setBlockSetting('width', 'full')">100%</button>
-                    <button class="setting-option" data-setting="width" data-value="wide" onclick="setBlockSetting('width', 'wide')">75%</button>
-                    <button class="setting-option" data-setting="width" data-value="medium" onclick="setBlockSetting('width', 'medium')">50%</button>
+                    <button class="setting-option" data-setting="width" data-value="full" data-action="setBlockSetting" data-setting="width" data-value="full">100%</button>
+                    <button class="setting-option" data-setting="width" data-value="wide" data-action="setBlockSetting" data-setting="width" data-value="wide">75%</button>
+                    <button class="setting-option" data-setting="width" data-value="medium" data-action="setBlockSetting" data-setting="width" data-value="medium">50%</button>
                 </div>
             </div>
 
@@ -545,9 +595,9 @@
             <div class="settings-row">
                 <label class="settings-label">Abstand oben/unten</label>
                 <div class="block-settings-row">
-                    <button class="setting-option" data-setting="spacing" data-value="none" onclick="setBlockSetting('spacing', 'none')">Keiner</button>
-                    <button class="setting-option" data-setting="spacing" data-value="small" onclick="setBlockSetting('spacing', 'small')">Klein</button>
-                    <button class="setting-option" data-setting="spacing" data-value="large" onclick="setBlockSetting('spacing', 'large')">Groß</button>
+                    <button class="setting-option" data-setting="spacing" data-value="none" data-action="setBlockSetting" data-setting="spacing" data-value="none">Keiner</button>
+                    <button class="setting-option" data-setting="spacing" data-value="small" data-action="setBlockSetting" data-setting="spacing" data-value="small">Klein</button>
+                    <button class="setting-option" data-setting="spacing" data-value="large" data-action="setBlockSetting" data-setting="spacing" data-value="large">Groß</button>
                 </div>
             </div>
 
@@ -555,28 +605,28 @@
             <div class="settings-row" id="bgColorRow" style="display: none;">
                 <label class="settings-label">Hintergrundfarbe</label>
                 <div class="block-settings-row color-options">
-                    <button class="color-option" style="background: transparent; border: 2px dashed #ccc;" onclick="setBlockSetting('bgColor', 'none')" title="Keine"></button>
-                    <button class="color-option" style="background: #f8f9fa;" onclick="setBlockSetting('bgColor', '#f8f9fa')" title="Grau"></button>
-                    <button class="color-option" style="background: #fff3e0;" onclick="setBlockSetting('bgColor', '#fff3e0')" title="Warm"></button>
-                    <button class="color-option" style="background: #e8f5e9;" onclick="setBlockSetting('bgColor', '#e8f5e9')" title="Grün"></button>
-                    <button class="color-option" style="background: #e3f2fd;" onclick="setBlockSetting('bgColor', '#e3f2fd')" title="Blau"></button>
-                    <button class="color-option" style="background: #fce4ec;" onclick="setBlockSetting('bgColor', '#fce4ec')" title="Rosa"></button>
+                    <button class="color-option" style="background: transparent; border: 2px dashed #ccc;" data-action="setBlockSetting" data-setting="bgColor" data-value="none" title="Keine"></button>
+                    <button class="color-option" style="background: #f8f9fa;" data-action="setBlockSetting" data-setting="bgColor" data-value="#f8f9fa" title="Grau"></button>
+                    <button class="color-option" style="background: #fff3e0;" data-action="setBlockSetting" data-setting="bgColor" data-value="#fff3e0" title="Warm"></button>
+                    <button class="color-option" style="background: #e8f5e9;" data-action="setBlockSetting" data-setting="bgColor" data-value="#e8f5e9" title="Grün"></button>
+                    <button class="color-option" style="background: #e3f2fd;" data-action="setBlockSetting" data-setting="bgColor" data-value="#e3f2fd" title="Blau"></button>
+                    <button class="color-option" style="background: #fce4ec;" data-action="setBlockSetting" data-setting="bgColor" data-value="#fce4ec" title="Rosa"></button>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-ghost" onclick="closeBlockSettings()">Schließen</button>
+            <button class="btn btn-ghost" data-action="closeBlockSettings">Schließen</button>
         </div>
     </div>
 </div>
 
 <!-- Versions Modal -->
 <div class="modal modern" id="versionsModal">
-    <div class="modal-backdrop" onclick="closeVersionsModal()"></div>
+    <div class="modal-backdrop" data-action="closeVersionsModal"></div>
     <div class="modal-content modern versions-modal-content">
         <div class="modal-header">
             <h3>📜 Versionsverlauf</h3>
-            <button onclick="closeVersionsModal()" class="modal-close">×</button>
+            <button data-action="closeVersionsModal" class="modal-close">×</button>
         </div>
         <div class="modal-body" id="versionsList">
             <!-- Versionen werden dynamisch geladen -->
@@ -586,11 +636,11 @@
 
 <!-- Template Selection Modal -->
 <div class="modal modern" id="templateModal">
-    <div class="modal-backdrop" onclick="closeTemplateModal()"></div>
+    <div class="modal-backdrop" data-action="closeTemplateModal"></div>
     <div class="modal-content modern template-modal-content">
         <div class="modal-header">
             <h3>📝 Vorlage wählen</h3>
-            <button onclick="closeTemplateModal()" class="modal-close">×</button>
+            <button data-action="closeTemplateModal" class="modal-close">×</button>
         </div>
         <div class="modal-body template-grid" id="templateGrid">
             <!-- Templates werden dynamisch geladen -->
@@ -606,11 +656,11 @@
 
 <!-- Custom Font Modal -->
 <div class="modal modern" id="customFontModal">
-    <div class="modal-backdrop" onclick="closeCustomFontModal()"></div>
+    <div class="modal-backdrop" data-action="closeCustomFontModal"></div>
     <div class="modal-content modern">
         <div class="modal-header">
             <h3>🔤 Eigene Schriftart hinzufügen</h3>
-            <button onclick="closeCustomFontModal()" class="modal-close">×</button>
+            <button data-action="closeCustomFontModal" class="modal-close">×</button>
         </div>
         <div class="modal-body">
             <div class="form-group">
@@ -634,47 +684,47 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-ghost" onclick="closeCustomFontModal()">Abbrechen</button>
-            <button class="btn btn-primary" onclick="addCustomFont()">Schriftart hinzufügen</button>
+            <button class="btn btn-ghost" data-action="closeCustomFontModal">Abbrechen</button>
+            <button class="btn btn-primary" data-action="addCustomFont">Schriftart hinzufügen</button>
         </div>
     </div>
 </div>
 
 <!-- Export Modal -->
 <div class="modal modern" id="exportModal">
-    <div class="modal-backdrop" onclick="closeExportModal()"></div>
+    <div class="modal-backdrop" data-action="closeExportModal"></div>
     <div class="modal-content modern export-modal-content">
         <div class="modal-header">
             <h3>📤 Beitrag exportieren</h3>
-            <button onclick="closeExportModal()" class="modal-close">×</button>
+            <button data-action="closeExportModal" class="modal-close">×</button>
         </div>
         <div class="modal-body">
             <p class="export-info">
                 Exportiere <strong class="export-preview-title">Deinen Beitrag</strong> in verschiedene Formate:
             </p>
             <div class="export-options">
-                <div class="export-option" onclick="exportAsMarkdown()">
+                <div class="export-option" data-action="exportAsMarkdown">
                     <div class="export-option-icon">📝</div>
                     <div class="export-option-content">
                         <div class="export-option-title">Markdown (.md)</div>
                         <div class="export-option-desc">Ideal für statische Site-Generatoren, GitHub, Notion</div>
                     </div>
                 </div>
-                <div class="export-option" onclick="exportAsPDF()">
+                <div class="export-option" data-action="exportAsPDF">
                     <div class="export-option-icon">📄</div>
                     <div class="export-option-content">
                         <div class="export-option-title">PDF (Druckansicht)</div>
                         <div class="export-option-desc">Professionell formatiert, druckbereit</div>
                     </div>
                 </div>
-                <div class="export-option" onclick="exportAsHTML()">
+                <div class="export-option" data-action="exportAsHTML">
                     <div class="export-option-icon">🌐</div>
                     <div class="export-option-content">
                         <div class="export-option-title">HTML (.html)</div>
                         <div class="export-option-desc">Vollständige Blog-Seite als Backup</div>
                     </div>
                 </div>
-                <div class="export-option" onclick="copyAsMarkdown()">
+                <div class="export-option" data-action="copyAsMarkdown">
                     <div class="export-option-icon">📋</div>
                     <div class="export-option-content">
                         <div class="export-option-title">In Zwischenablage kopieren</div>
@@ -688,11 +738,11 @@
 
 <!-- Keyboard Shortcuts Modal -->
 <div class="modal modern" id="shortcutsModal">
-    <div class="modal-backdrop" onclick="closeShortcutsModal()"></div>
+    <div class="modal-backdrop" data-action="closeShortcutsModal"></div>
     <div class="modal-content modern shortcuts-modal-content">
         <div class="modal-header">
             <h3>⌨️ Tastenkombinationen</h3>
-            <button onclick="closeShortcutsModal()" class="modal-close">×</button>
+            <button data-action="closeShortcutsModal" class="modal-close">×</button>
         </div>
         <div class="modal-body shortcuts-grid">
             <!-- Allgemein -->
@@ -784,43 +834,43 @@
 <div class="ai-panel" id="aiPanel">
     <div class="ai-panel-header">
         <h3>✨ KI-Assistent</h3>
-        <button class="btn btn-ghost" onclick="toggleAIPanel()" style="padding: 0.25rem 0.5rem;">×</button>
+        <button class="btn btn-ghost" data-action="toggleAIPanel" style="padding: 0.25rem 0.5rem;">×</button>
     </div>
     <div class="ai-panel-content">
         <!-- Voice Input -->
         <div class="ai-section">
             <h4>🎤 Spracheingabe</h4>
-            <button class="voice-btn" id="voiceBtn" onclick="toggleVoiceInput()">🎤</button>
+            <button class="voice-btn" id="voiceBtn" data-action="toggleVoiceInput">🎤</button>
             <div class="voice-status" id="voiceStatus">Klicke zum Sprechen</div>
             <div class="voice-transcript" id="voiceTranscript" style="display: none;"></div>
-            <button class="ai-btn" id="insertVoiceBtn" onclick="insertVoiceText()" style="display: none; margin-top: 0.5rem;">↓ Text einfügen</button>
+            <button class="ai-btn" id="insertVoiceBtn" data-action="insertVoiceText" style="display: none; margin-top: 0.5rem;">↓ Text einfügen</button>
         </div>
 
         <!-- Writing Assistance -->
         <div class="ai-section">
             <h4>✍️ Schreibhilfe</h4>
-            <button class="ai-btn" onclick="aiImproveGrammar()" id="btnGrammar">📝 Grammatik & Stil verbessern</button>
-            <button class="ai-btn" onclick="aiChangeTone('warmherzig')" id="btnTone">💝 Warmherziger Ton</button>
-            <button class="ai-btn" onclick="aiShortenText()" id="btnShorten">✂️ Text kürzen</button>
-            <button class="ai-btn" onclick="aiExpandText()" id="btnExpand">📖 Text erweitern</button>
+            <button class="ai-btn" data-action="aiImproveGrammar" id="btnGrammar">📝 Grammatik & Stil verbessern</button>
+            <button class="ai-btn" data-action="aiChangeTone" data-tone="warmherzig" id="btnTone">💝 Warmherziger Ton</button>
+            <button class="ai-btn" data-action="aiShortenText" id="btnShorten">✂️ Text kürzen</button>
+            <button class="ai-btn" data-action="aiExpandText" id="btnExpand">📖 Text erweitern</button>
             <div class="ai-result" id="aiWritingResult" style="display: none;"></div>
-            <button class="ai-btn ai-btn-primary" id="applyAIBtn" onclick="applyAISuggestion()" style="display: none;">✓ Änderung übernehmen</button>
+            <button class="ai-btn ai-btn-primary" id="applyAIBtn" data-action="applyAISuggestion" style="display: none;">✓ Änderung übernehmen</button>
         </div>
 
         <!-- Auto-Categorization -->
         <div class="ai-section">
             <h4>🏷️ Automatische Kategorisierung</h4>
-            <button class="ai-btn ai-btn-primary" onclick="aiCategorize()" id="btnCategorize">🔮 Kategorien vorschlagen</button>
+            <button class="ai-btn ai-btn-primary" data-action="aiCategorize" id="btnCategorize">🔮 Kategorien vorschlagen</button>
             <div class="ai-categories" id="aiCategories"></div>
         </div>
 
         <!-- Content Generation -->
         <div class="ai-section">
             <h4>📝 Inhalt generieren</h4>
-            <button class="ai-btn" onclick="aiGenerateSummary()" id="btnSummary">📋 Zusammenfassung erstellen</button>
-            <button class="ai-btn" onclick="aiGenerateTitle()" id="btnTitle">💡 Titel vorschlagen</button>
-            <button class="ai-btn" onclick="aiGenerateMetaDescription()" id="btnMeta">🔍 Meta-Beschreibung (SEO)</button>
-            <button class="ai-btn" onclick="aiGenerateOutline()" id="btnOutline">📑 Gliederung erstellen</button>
+            <button class="ai-btn" data-action="aiGenerateSummary" id="btnSummary">📋 Zusammenfassung erstellen</button>
+            <button class="ai-btn" data-action="aiGenerateTitle" id="btnTitle">💡 Titel vorschlagen</button>
+            <button class="ai-btn" data-action="aiGenerateMetaDescription" id="btnMeta">🔍 Meta-Beschreibung (SEO)</button>
+            <button class="ai-btn" data-action="aiGenerateOutline" id="btnOutline">📑 Gliederung erstellen</button>
             <div class="ai-result" id="aiContentResult" style="display: none;"></div>
         </div>
 
@@ -828,17 +878,17 @@
         <div class="ai-section">
             <h4>🎬 Themenvorschläge aus Videos</h4>
             <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.75rem;">Basierend auf Kathrins neuesten YouTube-Videos</p>
-            <button class="ai-btn" onclick="loadYouTubeIdeas()" id="btnYouTube">🔄 Ideen laden</button>
+            <button class="ai-btn" data-action="loadYouTubeIdeas" id="btnYouTube">🔄 Ideen laden</button>
             <div id="youtubeIdeas"></div>
         </div>
 
         <!-- Smart Formatting -->
         <div class="ai-section">
             <h4>🎨 Smart-Formatierung</h4>
-            <button class="ai-btn" onclick="insertHighlightBox()" id="btnHighlight">💡 Highlight-Box einfügen</button>
-            <button class="ai-btn" onclick="insertCallout()" id="btnCallout">📌 Callout einfügen</button>
-            <button class="ai-btn" onclick="insertBlockquote()" id="btnQuote">❝ Inspirierendes Zitat</button>
-            <button class="ai-btn" onclick="aiFormatForReadability()" id="btnReadability">📖 Lesbarkeit verbessern</button>
+            <button class="ai-btn" data-action="insertHighlightBox" id="btnHighlight">💡 Highlight-Box einfügen</button>
+            <button class="ai-btn" data-action="insertCallout" id="btnCallout">📌 Callout einfügen</button>
+            <button class="ai-btn" data-action="insertBlockquote" id="btnQuote">❝ Inspirierendes Zitat</button>
+            <button class="ai-btn" data-action="aiFormatForReadability" id="btnReadability">📖 Lesbarkeit verbessern</button>
         </div>
     </div>
 </div>
@@ -852,8 +902,8 @@
             <a href="https://console.groq.com/keys" target="_blank">→ Groq API Key erstellen (kostenlos)</a>
         </p>
         <input class="setup-input" id="groqKeyInput" placeholder="gsk_xxxxxxxxxxxxx" type="password">
-        <button class="setup-btn" onclick="saveGroqKey()" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">KI aktivieren</button>
-        <button class="btn btn-ghost" onclick="closeAISetup()" style="width: 100%; margin-top: 0.5rem; color: var(--text-light);">Später einrichten</button>
+        <button class="setup-btn" data-action="saveGroqKey" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">KI aktivieren</button>
+        <button class="btn btn-ghost" data-action="closeAISetup" style="width: 100%; margin-top: 0.5rem; color: var(--text-light);">Später einrichten</button>
     </div>
 </div>
 
@@ -863,7 +913,7 @@
         <div class="video-record-header">
             <h3>🎬 Video aufnehmen</h3>
             <span id="videoRecordStatus">Bereit</span>
-            <button class="btn btn-ghost" onclick="closeVideoRecordModal()">×</button>
+            <button class="btn btn-ghost" data-action="closeVideoRecordModal">×</button>
         </div>
 
         <!-- Recording View -->
@@ -875,7 +925,7 @@
 
             <div class="video-record-controls">
                 <div class="record-timer" id="recordTimer">0:00</div>
-                <button class="record-btn" id="recordVideoBtn" onclick="videoState.isRecording ? stopVideoRecording() : startVideoRecording()">
+                <button class="record-btn" id="recordVideoBtn" data-action="toggleVideoRecording">
                     ⏺ Aufnahme starten
                 </button>
             </div>
@@ -905,33 +955,54 @@
             </div>
 
             <div class="video-edit-controls">
-                <button class="btn btn-ghost" onclick="previewWithoutSilence()">▶ Vorschau ohne Stille</button>
-                <button class="btn btn-ghost" onclick="resetVideoState()">↺ Neu aufnehmen</button>
-                <button class="btn btn-primary" onclick="exportVideo(true)">✓ Video einfügen (ohne Stille)</button>
-                <button class="btn btn-ghost" onclick="exportVideo(false)">Video einfügen (Original)</button>
+                <button class="btn btn-ghost" data-action="previewWithoutSilence">▶ Vorschau ohne Stille</button>
+                <button class="btn btn-ghost" data-action="resetVideoState">↺ Neu aufnehmen</button>
+                <button class="btn btn-primary" data-action="exportVideo" data-remove-silence="true">✓ Video einfügen (ohne Stille)</button>
+                <button class="btn btn-ghost" data-action="exportVideo" data-remove-silence="false">Video einfügen (Original)</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- DOMPurify für sichere HTML-Sanitization -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js"
+        integrity="sha384-vdScihEZCfbPnBQf+lc7LgXUdJVYyhC3yWHUW5C5P5GpHRqVnaM6HJELJxT6IqwM"
+        crossorigin="anonymous"></script>
 
 <!-- Wavesurfer.js für Audio-Waveform -->
-<script src="https://cdn.jsdelivr.net/npm/wavesurfer.js@7/dist/wavesurfer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/wavesurfer.js@7/dist/wavesurfer.min.js"
+        integrity="sha384-kARVKFrjTrjXnTMsC0qhqgeHQ4Chgt+91aK2A3qnCheMOdqPmt1iV8StjFuAbjxM"
+        crossorigin="anonymous"></script>
 
 <!-- VAD (Voice Activity Detection) für Stille-Erkennung -->
-<script src="https://cdn.jsdelivr.net/npm/@ricky0123/vad-web@0.0.19/dist/bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@ricky0123/vad-web@0.0.19/dist/bundle.min.js"
+        integrity="sha384-9Zw5tdvtkW8cPdE6lgUlG9Q54a70dKM8fNQ+u/bxbgMJKUPQw4dwVXH3pg+feL6l"
+        crossorigin="anonymous"></script>
 
 <!-- Supabase Auth (optional) -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+        integrity="sha384-7pt7GFewRI7n6u5mojwHteymuhXHfh/cMTLG26Orj0a+jlzjtyrPegZmQXK3Jd5S"
+        crossorigin="anonymous"></script>
 <script src="admin/js/auth-check.js"></script>
+
+<!-- Shared UI Components -->
+<script src="js/shared-ui.js"></script>
 
 <!-- Modular JavaScript (Reihenfolge wichtig!) -->
 <script src="js/blog-editor-config.js"></script>
 <script src="js/blog-editor-utils.js"></script>
 <script src="js/blog-editor-github.js"></script>
+<!-- Modularisierte Core-Module (Stand: Dezember 2024) -->
+<script src="js/blog-editor-drafts.js"></script>
+<script src="js/blog-editor-versions.js"></script>
+<script src="js/blog-editor-publish.js"></script>
+<script src="js/blog-editor-toolbar.js"></script>
+<script src="js/blog-editor-media.js"></script>
+<script src="js/blog-editor-ui.js"></script>
+<script src="js/blog-editor-export.js"></script>
+<script src="js/blog-editor-events.js"></script>
 <script src="js/blog-editor-core.js"></script>
+<!-- Feature-Module -->
 <script src="js/blog-editor-ai.js"></script>
 <script src="js/blog-editor-video.js"></script>
 <script src="js/blog-editor-blocks.js"></script>
@@ -965,5 +1036,6 @@
     });
 </script>
 
+<script defer src="js/global.js"></script>
 </body>
 </html>

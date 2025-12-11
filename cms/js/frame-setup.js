@@ -10,6 +10,8 @@ import { editImage, setupImageResize } from './image-editor.js';
 import { editVideo, editNativeVideo } from './video-editor.js';
 import { showFormatToolbar, hideFormatToolbar } from './format-toolbar.js';
 import { showContextMenu } from './context-menu.js';
+import { hasBackgroundImage, setupBackgroundEditing } from './background-editor.js';
+import { isColorEditable, setupSectionColorEditing } from './section-color-editor.js';
 
 /**
  * Richtet alle Editing-Features im Frame ein
@@ -23,6 +25,8 @@ export function setupFrameEditing(frame) {
     setupPlaceholderEditing(doc);
     setupImageEditing(doc);
     setupVideoEditing(doc);
+    setupBackgroundImageEditing(doc);
+    setupSectionEditing(doc);
     setupLinkPrevention(doc);
     setupSelectionToolbar(doc, frame);
     setupContextMenu(doc, frame);
@@ -240,5 +244,57 @@ function setupContextMenu(doc, frame) {
         };
 
         showContextMenu(x, y, !!e.target.dataset?.editIdx);
+    });
+}
+
+/**
+ * Richtet Background-Image Editing ein
+ * Findet alle Elemente mit CSS background-image
+ * @param {Document} doc - iframe Document
+ */
+function setupBackgroundImageEditing(doc) {
+    // Selektoren für typische Hero/Section-Elemente mit Hintergrundbildern
+    const bgSelectors = [
+        '.hero', '.hero-section', '.hero-background',
+        'section[style*="background"]',
+        '[class*="hero"]', '[class*="banner"]',
+        '.background-image', '.bg-image',
+        '.parallax', '.cover-image'
+    ].join(',');
+
+    let bgIndex = 0;
+
+    // Prüfe alle Section/Div-Elemente auf Background-Images
+    doc.querySelectorAll('section, div, header').forEach((el) => {
+        if (hasBackgroundImage(el)) {
+            setupBackgroundEditing(el, bgIndex++);
+        }
+    });
+
+    // Zusätzlich: Elemente mit expliziten Selektoren
+    try {
+        doc.querySelectorAll(bgSelectors).forEach((el) => {
+            if (hasBackgroundImage(el) && !el.dataset.bgEditIdx) {
+                setupBackgroundEditing(el, bgIndex++);
+            }
+        });
+    } catch (e) {
+        console.warn('Background selector error:', e);
+    }
+}
+
+/**
+ * Richtet Section-Color Editing ein
+ * Erlaubt Doppelklick auf Sektionen zum Farben ändern
+ * @param {Document} doc - iframe Document
+ */
+function setupSectionEditing(doc) {
+    let colorIndex = 0;
+
+    // Hauptsektionen und Container
+    doc.querySelectorAll('section, .section, header, footer, [class*="section"]').forEach((el) => {
+        if (isColorEditable(el)) {
+            setupSectionColorEditing(el, colorIndex++);
+        }
     });
 }

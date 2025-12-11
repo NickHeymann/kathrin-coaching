@@ -1,509 +1,566 @@
 /* editor-modern/blog-editor-fix.css
- * Fix für Blog-Editor Modern Theme | ~400 Zeilen
- * Behebt Konflikte zwischen base CSS und modern theme
+ * Clean Light Theme für Blog-Editor | ~300 Zeilen
+ * Minimalistisch, aufgeräumt, übersichtlich
  */
 
 /* ==========================================
-   Settings Panel (Right Sidebar) - Dark Theme
+   Settings Panel (Right Sidebar) - Light & Clean
    ========================================== */
 
 body.modern .settings-panel {
-    background: linear-gradient(
-        180deg,
-        rgba(26, 29, 33, 0.98) 0%,
-        rgba(22, 25, 29, 0.98) 100%
-    );
-    border-left: 1px solid rgba(255, 255, 255, 0.08);
-    color: var(--text-inverse);
+    background: #fafbfc;
+    border-left: 1px solid #e8eaed;
 }
 
 body.modern .settings-section {
-    padding: var(--space-5);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 1.25rem 1rem;
+    border-bottom: 1px solid #e8eaed;
 }
 
 body.modern .settings-section h3 {
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: var(--space-4);
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
+    color: #5f6368;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.875rem;
 }
 
 body.modern .settings-label {
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.5);
-    margin-bottom: var(--space-2);
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
+    color: #5f6368;
+    margin-bottom: 0.375rem;
 }
 
 body.modern .settings-input,
 body.modern .settings-textarea {
     width: 100%;
-    padding: var(--space-3);
+    padding: 0.625rem 0.75rem;
     font-size: 0.875rem;
-    color: var(--text-inverse);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-sm);
-    transition: all var(--duration-fast) var(--ease-smooth);
-}
-
-body.modern .settings-input::placeholder,
-body.modern .settings-textarea::placeholder {
-    color: rgba(255, 255, 255, 0.3);
+    color: #202124;
+    background: #fff;
+    border: 1px solid #dadce0;
+    border-radius: 6px;
+    transition: border-color 0.15s, box-shadow 0.15s;
 }
 
 body.modern .settings-input:focus,
 body.modern .settings-textarea:focus {
     outline: none;
-    background: rgba(255, 255, 255, 0.08);
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.15);
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.15);
+}
+
+body.modern .settings-input::placeholder,
+body.modern .settings-textarea::placeholder {
+    color: #9aa0a6;
 }
 
 body.modern .settings-row {
-    margin-bottom: var(--space-4);
+    margin-bottom: 1rem;
 }
 
 body.modern .settings-row small {
     font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.4);
-    margin-top: var(--space-1);
-    display: block;
+    color: #9aa0a6;
+    margin-top: 0.25rem;
 }
 
 /* ==========================================
-   Category Tags - Modern Style
+   Category Tags - Compact Pills
    ========================================== */
 
 body.modern .category-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-2);
+    gap: 0.375rem;
 }
 
 body.modern .category-tag {
-    padding: var(--space-2) var(--space-3);
+    padding: 0.375rem 0.75rem;
     font-size: 0.8125rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.6);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-full);
+    color: #5f6368;
+    background: #fff;
+    border: 1px solid #dadce0;
+    border-radius: 16px;
     cursor: pointer;
-    transition: all var(--duration-fast) var(--ease-smooth);
+    transition: all 0.15s;
 }
 
 body.modern .category-tag:hover {
-    color: rgba(255, 255, 255, 0.9);
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: #f1f3f4;
+    border-color: #c6c9cc;
 }
 
 body.modern .category-tag.active {
-    color: var(--text-inverse);
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-    border-color: var(--accent);
-    box-shadow: 0 2px 8px rgba(var(--accent-rgb), 0.3);
+    color: #fff;
+    background: var(--primary);
+    border-color: var(--primary);
 }
 
 /* ==========================================
-   Featured Image Upload
+   Featured Image Upload - Minimal
    ========================================== */
 
 body.modern .featured-image-upload {
-    background: rgba(255, 255, 255, 0.03);
-    border: 2px dashed rgba(255, 255, 255, 0.15);
-    border-radius: var(--radius-md);
-    transition: all var(--duration-fast) var(--ease-smooth);
+    background: #fff;
+    border: 1px dashed #dadce0;
+    border-radius: 8px;
 }
 
 body.modern .featured-image-upload:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.25);
+    background: #f8f9fa;
+    border-color: #1a73e8;
 }
 
 body.modern .featured-image-upload .upload-text {
-    color: rgba(255, 255, 255, 0.5);
+    color: #5f6368;
+    font-size: 0.8125rem;
 }
 
 body.modern .featured-image-upload .upload-icon {
-    font-size: 2.5rem;
-    margin-bottom: var(--space-2);
-    opacity: 0.6;
+    font-size: 1.5rem;
+    margin-bottom: 0.375rem;
+    opacity: 0.5;
 }
 
 /* ==========================================
    Schedule Picker
    ========================================== */
 
-body.modern .schedule-picker {
-    display: flex;
-    gap: var(--space-2);
-}
-
 body.modern .schedule-picker input {
-    flex: 1;
-    padding: var(--space-3);
+    padding: 0.5rem 0.625rem;
     font-size: 0.875rem;
-    color: var(--text-inverse);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-sm);
-    color-scheme: dark;
+    color: #202124;
+    background: #fff;
+    border: 1px solid #dadce0;
+    border-radius: 6px;
 }
 
 body.modern .schedule-picker input:focus {
     outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.15);
+    border-color: #1a73e8;
 }
 
 /* ==========================================
-   Post Items in Sidebar (Fix for .post-item)
+   Sidebar - Light Theme
    ========================================== */
 
-body.modern .sidebar .post-item {
-    margin: var(--space-2) var(--space-3);
-    padding: var(--space-4);
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: var(--radius-md);
-    border-left: none;
+body.modern .sidebar {
+    background: #fff;
+    border-right: 1px solid #e8eaed;
+}
+
+body.modern .sidebar .sidebar-header {
+    padding: 1rem;
+    border-bottom: 1px solid #e8eaed;
+}
+
+body.modern .sidebar .sidebar-header h2 {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #202124;
+}
+
+/* Sidebar Search */
+body.modern .sidebar .sidebar-search input,
+body.modern .sidebar-search input,
+body.modern .search-input,
+body.modern input[type="search"],
+body.modern input[type="text"].search {
+    color: #202124;
+    background: #fff;
+    border: 1px solid #dadce0;
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+}
+
+body.modern .sidebar .sidebar-search input::placeholder,
+body.modern .sidebar-search input::placeholder,
+body.modern .search-input::placeholder {
+    color: #9aa0a6;
+}
+
+body.modern .sidebar .sidebar-tabs {
+    display: flex;
+    padding: 0.5rem;
+    gap: 0.25rem;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e8eaed;
+}
+
+body.modern .sidebar .sidebar-tab {
+    flex: 1;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #5f6368;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-    transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+body.modern .sidebar .sidebar-tab:hover {
+    background: #e8eaed;
+}
+
+body.modern .sidebar .sidebar-tab.active {
+    color: #1a73e8;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* Post Items */
+body.modern .sidebar .post-item {
+    margin: 0.375rem 0.5rem;
+    padding: 0.75rem;
+    background: #fff;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    border-left: none;
 }
 
 body.modern .sidebar .post-item:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.1);
-    transform: translateX(4px);
+    background: #f8f9fa;
 }
 
 body.modern .sidebar .post-item.active {
-    background: rgba(var(--accent-rgb), 0.1);
-    border-color: rgba(var(--accent-rgb), 0.3);
-    box-shadow: inset 3px 0 0 var(--accent);
+    background: #e8f0fe;
+    border-color: #1a73e8;
 }
 
 body.modern .sidebar .post-item.draft {
-    border-left: 3px solid var(--warning);
-}
-
-body.modern .sidebar .post-item.scheduled {
-    border-left: 3px solid var(--info);
+    border-left: 3px solid #fbbc04;
 }
 
 body.modern .sidebar .post-title {
     font-size: 0.875rem;
     font-weight: 500;
-    color: var(--text-inverse);
-    margin-bottom: var(--space-1);
+    color: #202124;
 }
 
 body.modern .sidebar .post-meta {
     font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.4);
+    color: #5f6368;
 }
 
 body.modern .sidebar .post-status {
-    padding: var(--space-1) var(--space-2);
-    font-size: 0.6875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    border-radius: var(--radius-xs);
+    font-size: 0.625rem;
+    padding: 0.125rem 0.375rem;
+    border-radius: 3px;
 }
 
 body.modern .sidebar .post-status.draft {
-    background: rgba(234, 179, 8, 0.15);
-    color: var(--warning-light);
+    background: #fef7e0;
+    color: #b06000;
 }
 
-body.modern .sidebar .post-status.scheduled {
-    background: rgba(59, 130, 246, 0.15);
-    color: var(--info-light);
-}
-
-body.modern .sidebar .post-status.published {
-    background: rgba(34, 197, 94, 0.15);
-    color: var(--success-light);
-}
-
-body.modern .sidebar .post-delete-btn {
-    color: rgba(255, 255, 255, 0.3);
-}
-
-body.modern .sidebar .post-delete-btn:hover {
-    background: rgba(239, 68, 68, 0.15);
-    color: var(--danger-light);
+body.modern .sidebar .new-post-btn {
+    margin: 0.5rem;
+    padding: 0.625rem;
+    font-size: 0.875rem;
+    background: var(--primary);
+    border-radius: 6px;
 }
 
 /* ==========================================
-   Editor Content Area
+   Editor Content Area - Clean
    ========================================== */
 
 body.modern .editor-container {
-    background: var(--surface-1);
+    background: #fff;
 }
 
 body.modern .editor-toolbar {
-    background: var(--surface-2);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    background: #fff;
+    border-bottom: 1px solid #e8eaed;
+    padding: 0.5rem 0.75rem;
 }
 
 body.modern .editor-content {
-    background: var(--surface-1);
-    padding: var(--space-8);
+    background: #fff;
+    padding: 2rem;
+    max-width: 800px;
+    color: #000;
+}
+
+body.modern #postContent {
+    color: #000;
 }
 
 body.modern .title-input {
-    font-size: 2.25rem;
-    font-weight: 700;
-    font-family: var(--font-display);
-    color: var(--primary);
-    background: transparent;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #202124;
     border: none;
-    border-bottom: 2px solid transparent;
-    padding-bottom: var(--space-2);
-    transition: border-color var(--duration-fast) var(--ease-smooth);
-}
-
-body.modern .title-input:focus {
-    outline: none;
-    border-bottom-color: var(--accent);
+    padding: 0;
+    margin-bottom: 0.75rem;
 }
 
 body.modern .title-input::placeholder {
-    color: rgba(0, 0, 0, 0.25);
+    color: #dadce0;
 }
 
 body.modern .excerpt-input {
     font-size: 1rem;
-    color: var(--text-secondary);
-    background: var(--surface-2);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: var(--radius-md);
-    padding: var(--space-4);
-    margin-bottom: var(--space-6);
-    transition: all var(--duration-fast) var(--ease-smooth);
-}
-
-body.modern .excerpt-input:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+    color: #5f6368;
+    background: #f8f9fa;
+    border: none;
+    border-radius: 6px;
+    padding: 0.75rem;
+    margin-bottom: 1.5rem;
 }
 
 body.modern .excerpt-input::placeholder {
-    color: var(--text-muted);
+    color: #9aa0a6;
 }
 
-/* ==========================================
-   Add Block Button
-   ========================================== */
-
 body.modern .add-block-btn {
-    width: 100%;
-    padding: var(--space-4);
-    font-size: 0.9375rem;
-    font-weight: 500;
-    color: var(--text-muted);
+    padding: 0.75rem;
+    font-size: 0.875rem;
+    color: #5f6368;
     background: transparent;
-    border: 2px dashed rgba(0, 0, 0, 0.1);
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: all var(--duration-fast) var(--ease-smooth);
+    border: 1px dashed #dadce0;
+    border-radius: 6px;
 }
 
 body.modern .add-block-btn:hover {
-    color: var(--primary);
-    background: var(--surface-2);
-    border-color: var(--primary);
+    color: #1a73e8;
+    border-color: #1a73e8;
+    background: #f8f9fa;
 }
 
 /* ==========================================
-   Toolbar Enhancements
+   Toolbar - Simplified
    ========================================== */
 
 body.modern .toolbar-btn {
-    color: var(--text-secondary);
-    border-radius: var(--radius-sm);
+    width: 32px;
+    height: 32px;
+    color: #5f6368;
+    border-radius: 4px;
 }
 
 body.modern .toolbar-btn:hover {
-    background: var(--surface-3);
-    color: var(--text);
+    background: #f1f3f4;
 }
 
 body.modern .toolbar-btn.active {
-    background: var(--primary);
-    color: var(--text-inverse);
+    background: #e8f0fe;
+    color: #1a73e8;
 }
 
 body.modern .toolbar-dropdown-btn {
-    background: var(--surface-1);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: var(--radius-sm);
-    color: var(--text-secondary);
+    padding: 0.375rem 0.5rem;
+    font-size: 0.8125rem;
+    background: #fff;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    color: #5f6368;
 }
 
 body.modern .toolbar-dropdown-btn:hover {
-    border-color: var(--primary);
-    color: var(--text);
+    background: #f8f9fa;
 }
 
 body.modern .toolbar-dropdown-menu {
-    background: var(--surface-1);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-lg);
+    background: #fff;
+    border: 1px solid #e8eaed;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
 }
 
 body.modern .toolbar-dropdown-menu button {
-    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    color: #202124;
+    padding: 0.5rem 0.75rem;
 }
 
 body.modern .toolbar-dropdown-menu button:hover {
-    background: var(--surface-2);
-    color: var(--text);
-}
-
-body.modern .toolbar-dropdown-menu button.active {
-    background: rgba(var(--primary-rgb), 0.1);
-    color: var(--primary);
+    background: #f8f9fa;
 }
 
 body.modern .toolbar-divider {
-    background: rgba(0, 0, 0, 0.1);
+    background: #e8eaed;
+    height: 20px;
 }
 
 /* ==========================================
-   Header - Keep existing dark style
+   Header - Subtle
    ========================================== */
 
 body.modern .header {
-    background: linear-gradient(
-        90deg,
-        var(--primary) 0%,
-        var(--primary-dark) 100%
-    );
-    box-shadow: var(--shadow-md);
+    background: var(--primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 body.modern .header .btn-ghost {
-    color: rgba(255, 255, 255, 0.85);
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-body.modern .header .btn-ghost:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--text-inverse);
+    font-size: 0.8125rem;
+    padding: 0.375rem 0.625rem;
 }
 
 body.modern .header .btn-success {
-    background: linear-gradient(135deg, var(--success) 0%, var(--success-light) 100%);
-    border: none;
-    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
-}
-
-body.modern .header .btn-success:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+    font-size: 0.8125rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 4px;
 }
 
 body.modern .ai-header-btn {
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
-    color: var(--text-inverse);
-    border: none;
-    padding: var(--space-2) var(--space-4);
-    border-radius: var(--radius-full);
-    font-weight: 500;
-    box-shadow: 0 2px 8px rgba(var(--accent-rgb), 0.3);
-    transition: all var(--duration-fast) var(--ease-smooth);
-}
-
-body.modern .ai-header-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(var(--accent-rgb), 0.4);
-}
-
-/* ==========================================
-   Word Count / Stats
-   ========================================== */
-
-body.modern .editor-stats {
-    display: flex;
-    gap: var(--space-4);
-    padding: var(--space-3) var(--space-4);
     font-size: 0.8125rem;
-    color: var(--text-muted);
-    background: var(--surface-2);
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-body.modern .editor-stats span {
-    display: flex;
-    align-items: center;
-    gap: var(--space-1);
+    padding: 0.375rem 0.75rem;
+    background: var(--accent);
+    border-radius: 4px;
 }
 
 /* ==========================================
-   Scrollbar in Settings Panel
-   ========================================== */
-
-body.modern .settings-panel::-webkit-scrollbar {
-    width: 6px;
-}
-
-body.modern .settings-panel::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-body.modern .settings-panel::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-full);
-}
-
-body.modern .settings-panel::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* ==========================================
-   Buttons in Settings Panel
+   Settings Buttons
    ========================================== */
 
 body.modern .settings-panel .btn {
-    font-size: 0.875rem;
-    border-radius: var(--radius-sm);
+    font-size: 0.8125rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
 }
 
 body.modern .settings-panel .btn-primary {
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-    color: var(--text-inverse);
-    border: none;
-    padding: var(--space-3) var(--space-4);
+    background: var(--primary);
     width: 100%;
-    justify-content: center;
-}
-
-body.modern .settings-panel .btn-primary:hover {
-    box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.3);
-    transform: translateY(-1px);
 }
 
 body.modern .settings-panel .btn-ghost {
-    color: rgba(255, 255, 255, 0.7);
-    border-color: rgba(255, 255, 255, 0.15);
-    background: rgba(255, 255, 255, 0.03);
+    color: #5f6368;
+    border: 1px solid #dadce0;
+    background: #fff;
 }
 
 body.modern .settings-panel .btn-ghost:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: var(--text-inverse);
+    background: #f8f9fa;
+}
+
+/* ==========================================
+   Color Picker Dropdown - Custom UI
+   ========================================== */
+
+.toolbar-color-dropdown {
+    position: relative;
+}
+
+.color-picker-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    background: #fff;
+    border: 1px solid #e8eaed;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    padding: 0.75rem;
+    min-width: 200px;
+}
+
+.color-picker-dropdown.show {
+    display: block;
+    animation: fadeIn 0.15s ease;
+}
+
+.color-picker-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #5f6368;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.5rem;
+}
+
+.color-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    margin-bottom: 0.75rem;
+}
+
+.color-swatch {
+    width: 32px;
+    height: 32px;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.1s, border-color 0.1s;
+}
+
+.color-swatch:hover {
+    transform: scale(1.1);
+    border-color: #1a73e8;
+}
+
+.color-swatch-none {
+    background: #fff !important;
+    border: 2px dashed #dadce0;
+    color: #999;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.color-swatch-none:hover {
+    border-color: #d32f2f;
+    color: #d32f2f;
+}
+
+.color-picker-custom {
+    display: flex;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #e8eaed;
+}
+
+.color-picker-custom input[type="color"] {
+    width: 40px;
+    height: 32px;
+    padding: 0;
+    border: 1px solid #dadce0;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.color-custom-btn {
+    flex: 1;
+    padding: 0.375rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #fff;
+    background: #1a73e8;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.color-custom-btn:hover {
+    background: #1557b0;
+}
+
+/* Color Indicator unter dem A */
+.color-indicator {
+    display: block;
+    width: 14px;
+    height: 3px;
+    background: #000;
+    margin: 2px auto 0;
+    border-radius: 1px;
+}
+
+/* Background Color Icon */
+.bg-color-icon {
+    display: inline-block;
+    padding: 2px 4px;
+    background: #ffeb3b;
+    border-radius: 2px;
+    font-weight: bold;
 }

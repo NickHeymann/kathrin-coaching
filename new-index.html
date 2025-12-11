@@ -3,10 +3,15 @@
 <html lang="de">
 <head>
 <meta charset="utf-8"/>
+  <!-- Preload Critical Resources -->
+  <link rel="preload" href="css/core/variables.css" as="style"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Kathrin Stahl | Coaching für Neuanfang &amp; Transformation</title>
 <meta content="Coaching für Menschen in Umbruchphasen. Finde zurück zu dir selbst - mit pferdegestütztem Coaching und Retreats in Portugal." name="description"/>
-<link href="https://nickheymann.github.io/kathrin-coaching/" rel="canonical"/>
+<link href="https://coaching.kathrinstahl.com/" rel="canonical"/>
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -580,6 +585,29 @@
     </style>
 
 <link rel="stylesheet" href="css/components/header.css">
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Kathrin Stahl",
+    "description": "Kathrin Stahl",
+    "author": {
+        "@type": "Person",
+        "name": "Kathrin Stahl",
+        "url": "https://coaching.kathrinstahl.com/kathrin.html"
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "Kathrin Stahl Coaching",
+        "url": "https://coaching.kathrinstahl.com"
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://coaching.kathrinstahl.com/new-index.html"
+    }
+}
+</script>
 </head>
 <body>
 <!-- Header -->
@@ -587,7 +615,7 @@
 <div class="container header-inner">
 <a class="logo" href="index.html">KATHRIN STAHL</a>
 <nav id="mainNav">
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Angebote</span>
 <div aria-label="Angebote" class="dropdown-menu" role="menu">
 <a href="index.html#angebote" role="menuitem">
@@ -634,7 +662,7 @@
 </a>
 </div>
 </div>
-<div class="nav-dropdown" onclick="toggleDropdown(this, event)">
+<div class="nav-dropdown">
 <span class="nav-link">Selbsttests</span>
 <div aria-label="Selbsttests" class="dropdown-menu" role="menu">
 <a href="quiz-hochsensibel.html" role="menuitem">
@@ -685,7 +713,7 @@
 <a href="media.html">Videos</a>
 <a href="kathrin.html">Über mich</a>
 <div class="contact-dropdown">
-<a class="contact-dropdown-trigger" href="index.html#kontakt" onclick="toggleContactDropdown(this, event)">Kontakt</a>
+<a class="contact-dropdown-trigger" href="index.html#kontakt">Kontakt</a>
 <div class="contact-dropdown-menu">
 <a class="contact-item" href="https://wa.me/4915140436795" target="_blank">
 <span class="contact-icon">💬</span>
@@ -703,7 +731,7 @@
 </div>
 <a class="nav-cta" href="https://cal.com/kathrinstahl" target="_blank">Gespräch buchen</a>
 </nav>
-<button aria-label="Menu öffnen" class="menu-toggle" onclick="toggleMobileNav()">
+<button aria-label="Menu öffnen" class="menu-toggle">
 <span></span>
 <span></span>
 <span></span>
@@ -749,7 +777,7 @@
 <div class="container">
 <div class="problem-grid">
 <div class="problem-image">
-<img alt="Frau in Gedanken" fetchpriority="high" loading="lazy" src="wp-content/uploads/2023/04/Selbstliebe-Sinnsuche-Coaching.jpg"/>
+<img decoding="async" alt="Frau in Gedanken" fetchpriority="high" loading="lazy" src="wp-content/uploads/2023/04/Selbstliebe-Sinnsuche-Coaching.jpg"/>
 </div>
 <div class="problem-content">
 <h2>Erkennst du dich wieder?</h2>
@@ -784,7 +812,7 @@
 <div class="services-grid">
 <div class="service-card">
 <div class="service-image">
-<img alt="1:1 Coaching" loading="lazy" src="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-8-scaled.jpg"/>
+<img decoding="async" alt="1:1 Coaching" loading="lazy" src="wp-content/uploads/2025/07/PferdegestuetzteBegleitung-Retreat-Portugal-Kathrin-Stahl-8-scaled.jpg"/>
 </div>
 <div class="service-content">
 <h3>1:1 Coaching</h3>
@@ -795,7 +823,7 @@
 </div>
 <div class="service-card">
 <div class="service-image">
-<img alt="Paar-Coaching" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/2025_04_Paartherapie_Ehekrise-22.jpg"/>
+<img decoding="async" alt="Paar-Coaching" decoding="async" loading="lazy" src="wp-content/uploads/2025/05/2025_04_Paartherapie_Ehekrise-22.jpg"/>
 </div>
 <div class="service-content">
 <h3>Paar-Coaching</h3>
@@ -806,7 +834,7 @@
 </div>
 <div class="service-card">
 <div class="service-image">
-<img alt="Retreats Portugal" decoding="async" loading="lazy" src="wp-content/uploads/2025/11/Retreat-Portugal-Pferde-Kathrin-Stahl-19-scaled.jpg"/>
+<img decoding="async" alt="Retreats Portugal" decoding="async" loading="lazy" src="wp-content/uploads/2025/11/Retreat-Portugal-Pferde-Kathrin-Stahl-19-scaled.jpg"/>
 </div>
 <div class="service-content">
 <h3>Retreats in Portugal</h3>
@@ -834,7 +862,7 @@
 <div class="container">
 <div class="about-grid">
 <div class="about-image">
-<img alt="Kathrin Stahl" decoding="async" loading="lazy" src="wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg"/>
+<img decoding="async" alt="Kathrin Stahl" decoding="async" loading="lazy" src="wp-content/uploads/2024/04/Wer-bin-ich-Lebensfreude-Coaching-4-1.jpg"/>
 </div>
 <div class="about-content">
 <h2>Mein Herz führt mich durchs Leben</h2>
@@ -901,7 +929,7 @@
 <a class="btn btn-primary" href="#" onclick="bookCall(); return false;">Gespräch buchen</a>
 </div>
 <!-- Scripts -->
-<script src="cal-booking.js"></script>
+<script defer src="cal-booking.js"></script>
 <script>
     // Show floating CTA after scrolling
     const floatingCTA = document.querySelector('.floating-cta');
@@ -938,6 +966,7 @@
         nav.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
     });
 </script>
-<script src="js/header-loader.js"></script>
+<script defer src="js/header-loader.js"></script>
+<script defer src="js/global.js"></script>
 </body>
 </html>
