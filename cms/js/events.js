@@ -66,6 +66,4 @@
             window[action]();
         }
     });
-
-    console.log('CMS Events loaded (CSP-safe)');
 })();

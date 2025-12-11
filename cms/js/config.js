@@ -1,5 +1,5 @@
 /**
- * CMS Editor Configuration
+ * Website Editor Configuration
  * Zentrale Konfiguration mit URL-Parameter-Unterstützung
  * @module config
  */

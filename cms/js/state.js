@@ -1,5 +1,5 @@
 /**
- * CMS Editor State Management
+ * Website Editor State Management
  * Zentraler, reaktiver State für den Editor
  * @module state
  */

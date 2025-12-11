@@ -8,13 +8,13 @@
     <meta http-equiv="Expires" content="0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="CMS Editor">
+    <meta name="apple-mobile-web-app-title" content="Website Editor">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#2C4A47">
     <!-- CSP entfernt - iframe srcdoc erbt Parent CSP und blockiert Website-Ressourcen -->
     <link rel="manifest" href="../manifest.json">
     <link rel="apple-touch-icon" href="../wp-content/uploads/2025/01/Kathrin_Stahl_Logo_RGB_gold.png">
-    <title>CMS Editor v2.0 - Kathrin Stahl</title>
+    <title>Website Editor v2.0 - Kathrin Stahl</title>
     <link rel="stylesheet" href="css/editor.css">
 
     <!-- Modern UI Styles (Glassmorphism) -->
@@ -26,8 +26,9 @@
         <div class="setup-card">
             <h1>Website Editor einrichten</h1>
             <p>Um Änderungen automatisch zu speichern, benötigst du einen GitHub-Zugang.</p>
-            <input type="password" class="setup-input" id="tokenInput" placeholder="GitHub Token eingeben...">
-            <button class="setup-btn" id="setupBtn">Editor starten</button>
+            <label for="tokenInput" class="sr-only">GitHub Token</label>
+            <input type="password" class="setup-input" id="tokenInput" placeholder="GitHub Token eingeben..." aria-label="GitHub Token eingeben">
+            <button class="setup-btn" id="setupBtn" aria-label="Editor starten">Editor starten</button>
             <details class="setup-help">
                 <summary>Wie bekomme ich einen Token?</summary>
                 <div class="setup-help-content">
@@ -52,11 +53,13 @@
             <button class="mobile-menu-btn" data-action="openSidebar" data-sidebar="versionsSidebar" aria-label="Menü öffnen">☰</button>
             <div class="toolbar-logo">Editor</div>
             <div class="toolbar-mode-switch">
-                <a href="../cms/" class="mode-btn active">Seiten</a>
+                <a href="index.html" class="mode-btn active">Seiten</a>
                 <a href="../blog-editor-modular.html" class="mode-btn">Blog</a>
-                <a href="analytics/" class="mode-btn" title="Analytics Dashboard">Analytics</a>
+                <a href="analytics/index.html" class="mode-btn" title="Analytics Dashboard">Analytics</a>
+                <a href="docs.html" class="mode-btn" title="Dokumentation">📚 Docs</a>
             </div>
-            <select id="pageSelect">
+            <label for="pageSelect" class="sr-only">Seite auswählen</label>
+            <select id="pageSelect" aria-label="Seite auswählen">
                 <option value="">Seite wählen...</option>
                 <optgroup label="Startseite">
                     <option value="index.html">Startseite</option>
@@ -287,7 +290,10 @@
         <div class="context-menu-item" data-action="CMS.createNoteFromContext">
             <span>📝</span> Notiz erstellen
         </div>
-        <div class="context-menu-item" data-action="history" data-action="CMS.showElementHistoryFromContext">
+        <div class="context-menu-item" data-action="background" onclick="CMS.editBackgroundFromContext()">
+            <span>🖼️</span> Hintergrundbild ändern
+        </div>
+        <div class="context-menu-item" data-action="history" onclick="CMS.showElementHistoryFromContext()">
             <span>📜</span> Änderungsverlauf
         </div>
     </div>

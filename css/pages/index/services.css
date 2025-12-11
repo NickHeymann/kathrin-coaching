@@ -12,9 +12,14 @@
     margin-bottom: 60px;
 }
 
+.services-header h2 {
+    text-align: center;
+}
+
 .services-header p {
     max-width: 600px;
     margin: 0 auto;
+    text-align: center;
 }
 
 .services-grid {

@@ -24,10 +24,15 @@
     font-weight: 600;
 }
 
+.methods-header h2 {
+    text-align: center;
+}
+
 .methods-header p {
     max-width: 650px;
     margin: 0 auto;
     color: var(--color-text-light);
+    text-align: center;
 }
 
 .methods-grid {

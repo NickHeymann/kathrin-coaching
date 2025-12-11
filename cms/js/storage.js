@@ -172,7 +172,6 @@ export const tokenStorage = {
             this.save(oldToken);
             sessionStorage.removeItem(TOKEN_KEY_OLD);
             localStorage.removeItem(TOKEN_KEY_OLD);
-            console.log('Token zur verschlüsselten Speicherung migriert');
             return oldToken;
         }
 
@@ -189,7 +188,6 @@ export const tokenStorage = {
             try {
                 const supabaseToken = await window.loadGithubToken();
                 if (supabaseToken) {
-                    console.log('Token von Supabase geladen');
                     return supabaseToken;
                 }
             } catch (e) {
