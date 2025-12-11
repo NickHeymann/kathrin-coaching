@@ -1,0 +1,122 @@
+# Kathrin Coaching - API Deployment
+# Automatisches Deployment bei Push auf main (server/ Änderungen)
+# Secrets werden automatisch aus GitHub Secrets bezogen
+
+name: Deploy API to Hetzner
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'server/**'
+      - '.github/workflows/deploy-api.yml'
+  workflow_dispatch:  # Manuelles Triggern erlauben
+
+env:
+  SERVER_HOST: 91.99.177.238
+  SERVER_USER: root
+  APP_PATH: /opt/apps/kathrin-analytics
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ env.SERVER_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Create .env on Server
+        run: |
+          ssh -i ~/.ssh/deploy_key ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} << ENVSSH
+            mkdir -p ${{ env.APP_PATH }}/server
+            cat > ${{ env.APP_PATH }}/server/.env << 'ENVFILE'
+          # Kathrin Coaching - Server Environment
+          # Automatisch generiert von GitHub Actions
+
+          # === PostgreSQL ===
+          DB_PASSWORD=${{ secrets.KATHRIN_DB_PASSWORD }}
+
+          # === Umami Analytics ===
+          APP_SECRET=${{ secrets.KATHRIN_APP_SECRET }}
+
+          # === API Security ===
+          API_SECRET_TOKEN=${{ secrets.KATHRIN_API_SECRET }}
+
+          # === GitHub (für Auto-Publishing) ===
+          GITHUB_TOKEN=${{ secrets.KATHRIN_GITHUB_TOKEN }}
+
+          # === Groq AI (für Blog-Assistent) ===
+          GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}
+
+          # === Server ===
+          NODE_ENV=production
+          PORT=3001
+          ENVFILE
+            chmod 600 ${{ env.APP_PATH }}/server/.env
+            echo "✅ .env created/updated"
+          ENVSSH
+
+      - name: Deploy to Server
+        run: |
+          ssh -i ~/.ssh/deploy_key ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} << 'ENDSSH'
+            set -e
+            cd ${{ env.APP_PATH }}
+
+            # Git Repository klonen oder updaten
+            if [ -d ".git" ]; then
+              echo "📥 Pulling latest changes..."
+              git fetch origin main
+              git reset --hard origin/main
+            else
+              echo "📦 Cloning repository..."
+              git clone --depth 1 https://github.com/${{ github.repository }}.git .
+            fi
+
+            # In server/ Verzeichnis wechseln
+            cd server
+
+            # Container neu bauen und starten
+            echo "🐳 Building and starting containers..."
+            docker compose -f docker-compose.production.yml down || true
+            docker compose -f docker-compose.production.yml up -d --build
+
+            # Alte Images aufräumen
+            docker image prune -f
+
+            # Status anzeigen
+            echo "📊 Container Status:"
+            docker ps --filter "name=kathrin" --format "table {{.Names}}\t{{.Status}}"
+
+            echo "✅ Deployment complete!"
+          ENDSSH
+
+      - name: Health Check
+        run: |
+          echo "⏳ Waiting for services to start..."
+          sleep 20
+
+          # API Health Check
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" https://api-kathrin.91.99.177.238.nip.io/api/health || echo "000")
+          if [ "$HTTP_CODE" = "200" ]; then
+            echo "✅ API is healthy! (HTTP $HTTP_CODE)"
+          else
+            echo "⚠️ API returned HTTP $HTTP_CODE (may still be starting)"
+          fi
+
+      - name: Deployment Summary
+        run: |
+          echo "## 🚀 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Service | URL |" >> $GITHUB_STEP_SUMMARY
+          echo "|---------|-----|" >> $GITHUB_STEP_SUMMARY
+          echo "| Analytics | https://analytics.91.99.177.238.nip.io |" >> $GITHUB_STEP_SUMMARY
+          echo "| API | https://api-kathrin.91.99.177.238.nip.io |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
