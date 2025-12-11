@@ -1,0 +1,284 @@
+/**
+ * Website Editor Base Styles
+ * Reset, Variables, Layout fundamentals, Basic structures
+ * @version 2.0.0
+ */
+
+/* ============================== */
+/* BASE RESET                     */
+/* ============================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, sans-serif; background: #1a1a1a; }
+
+/* ============================== */
+/* WEBSITE FRAME                  */
+/* ============================== */
+.website-frame {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: none;
+    width: 100%;
+    height: calc(100vh - 50px);
+    background: white;
+    transition: none;
+}
+
+/* ============================== */
+/* LOADING OVERLAY                */
+/* ============================== */
+.loading-overlay {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 99997;
+    transition: opacity 0.3s;
+}
+.loading-overlay.hidden { opacity: 0; pointer-events: none; }
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #2C4A47;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loading-text {
+    margin-top: 1rem;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+/* ============================== */
+/* START SCREEN                   */
+/* ============================== */
+.start-screen {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #f8f6f3 0%, #ece8e1 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 99996;
+}
+.start-screen.hidden { display: none; }
+
+.start-screen h2 {
+    font-size: 1.5rem;
+    color: #2C4A47;
+    margin-bottom: 0.5rem;
+}
+.start-screen p {
+    color: #666;
+}
+
+/* ============================== */
+/* TOAST NOTIFICATIONS            */
+/* ============================== */
+.toast-container {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100001;
+}
+
+.toast {
+    background: #333;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    animation: fadeIn 0.2s;
+    margin-top: 0.5rem;
+}
+.toast.success { background: #4CAF50; }
+.toast.error { background: #f44336; }
+.toast.info { background: #2196F3; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================== */
+/* AUTOSAVE INDICATOR             */
+/* ============================== */
+.autosave-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.7);
+}
+.autosave-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4CAF50;
+}
+.autosave-dot.saving {
+    background: #ff9800;
+    animation: pulse 1s infinite;
+}
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* ============================== */
+/* STICKY NOTES                   */
+/* ============================== */
+.sticky-note {
+    position: absolute;
+    width: 200px;
+    min-height: 100px;
+    background: #fff9c4;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    padding: 8px;
+    z-index: 99990;
+    cursor: move;
+    font-size: 0.85rem;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    transition: all 0.2s ease;
+}
+.sticky-note.minimized {
+    width: 40px;
+    min-height: 40px;
+    height: 40px;
+    overflow: hidden;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.sticky-note.minimized .sticky-note-header,
+.sticky-note.minimized .sticky-note-content {
+    display: none;
+}
+.sticky-note.minimized::after {
+    content: '📝';
+    font-size: 1.2rem;
+}
+.sticky-note-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    gap: 4px;
+}
+.sticky-note-header-btns {
+    display: flex;
+    gap: 4px;
+}
+.sticky-note-minimize,
+.sticky-note-close {
+    cursor: pointer;
+    color: #999;
+    font-size: 1rem;
+    line-height: 1;
+    background: none;
+    border: none;
+    padding: 0;
+}
+.sticky-note-minimize:hover { color: #2196F3; }
+.sticky-note-close:hover { color: #f44336; }
+.sticky-note-content {
+    width: 100%;
+    min-height: 60px;
+    border: none;
+    background: transparent;
+    resize: none;
+    font-family: inherit;
+    font-size: inherit;
+}
+.sticky-note-content:focus { outline: none; }
+
+/* ============================== */
+/* NOTE MARKER                    */
+/* ============================== */
+.note-marker {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: #fff9c4;
+    border: 2px solid #ffeb3b;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 99989;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    animation: pulse-marker 2s infinite;
+}
+@keyframes pulse-marker {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* ============================== */
+/* OFFLINE INDICATOR              */
+/* ============================== */
+.offline-banner {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    background: #ff9800;
+    color: white;
+    text-align: center;
+    padding: 0.5rem;
+    z-index: 99999;
+    display: none;
+    font-size: 0.85rem;
+}
+.offline-banner.active { display: block; }
+
+/* ============================== */
+/* ELEMENT HISTORY                */
+/* ============================== */
+.element-history {
+    position: absolute;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    padding: 0.75rem;
+    max-width: 250px;
+    z-index: 100000;
+    display: none;
+}
+.element-history.active { display: block; }
+.element-history h5 {
+    margin-bottom: 0.5rem;
+    color: #2C4A47;
+    font-size: 0.85rem;
+}
+.history-item {
+    padding: 0.4rem;
+    background: #f5f5f5;
+    border-radius: 4px;
+    margin-bottom: 0.3rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+.history-item:hover { background: #e0e0e0; }
+.history-item-time { color: #999; font-size: 0.65rem; }
