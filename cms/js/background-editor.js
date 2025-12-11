@@ -15,23 +15,57 @@ let originalBgStyle = null;
 
 /**
  * Prüft ob ein Element ein Background-Image hat
+ * Prüft Element selbst UND ::before/::after Pseudo-Elemente
  * @param {HTMLElement} el - Element zum Prüfen
  * @returns {boolean}
  */
 export function hasBackgroundImage(el) {
+    // Prüfe Element selbst
     const style = window.getComputedStyle(el);
     const bgImage = style.backgroundImage;
-    return bgImage && bgImage !== 'none' && bgImage.includes('url(');
+    if (bgImage && bgImage !== 'none' && bgImage.includes('url(')) {
+        return true;
+    }
+
+    // Prüfe ::before Pseudo-Element
+    const beforeStyle = window.getComputedStyle(el, '::before');
+    const beforeBg = beforeStyle.backgroundImage;
+    if (beforeBg && beforeBg !== 'none' && beforeBg.includes('url(')) {
+        el.dataset.bgLayer = 'before'; // Markiere als ::before background
+        return true;
+    }
+
+    // Prüfe ::after Pseudo-Element
+    const afterStyle = window.getComputedStyle(el, '::after');
+    const afterBg = afterStyle.backgroundImage;
+    if (afterBg && afterBg !== 'none' && afterBg.includes('url(')) {
+        el.dataset.bgLayer = 'after'; // Markiere als ::after background
+        return true;
+    }
+
+    return false;
 }
 
 /**
  * Extrahiert die Background-Image URL aus einem Element
+ * Berücksichtigt auch ::before/::after Pseudo-Elemente
  * @param {HTMLElement} el - Element
  * @returns {string|null} URL oder null
  */
 export function extractBackgroundUrl(el) {
-    const style = window.getComputedStyle(el);
-    const bgImage = style.backgroundImage;
+    let bgImage;
+
+    // Prüfe welche Layer das Background hat
+    if (el.dataset.bgLayer === 'before') {
+        const beforeStyle = window.getComputedStyle(el, '::before');
+        bgImage = beforeStyle.backgroundImage;
+    } else if (el.dataset.bgLayer === 'after') {
+        const afterStyle = window.getComputedStyle(el, '::after');
+        bgImage = afterStyle.backgroundImage;
+    } else {
+        const style = window.getComputedStyle(el);
+        bgImage = style.backgroundImage;
+    }
 
     if (!bgImage || bgImage === 'none') return null;
 
@@ -156,14 +190,51 @@ function generateBgImageName(originalName) {
 export function confirmBackground() {
     if (!currentElement || !newBgData) return;
 
-    // Wende neues Hintergrundbild an
-    currentElement.style.backgroundImage = `url('${newBgData.data}')`;
+    const bgLayer = currentElement.dataset.bgLayer;
+
+    if (bgLayer === 'before' || bgLayer === 'after') {
+        // Pseudo-Element Background: Erstelle Overlay-Div
+        let bgOverlay = currentElement.querySelector('.bg-replacement-layer');
+
+        if (!bgOverlay) {
+            bgOverlay = document.createElement('div');
+            bgOverlay.className = 'bg-replacement-layer';
+            bgOverlay.style.cssText = `
+                position: absolute;
+                inset: 0;
+                z-index: 0;
+                pointer-events: none;
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            `;
+
+            // Füge am Anfang ein (damit Content darüber liegt)
+            currentElement.insertBefore(bgOverlay, currentElement.firstChild);
+
+            // Stelle sicher dass Parent position:relative hat
+            if (!currentElement.style.position || currentElement.style.position === 'static') {
+                currentElement.style.position = 'relative';
+            }
+        }
+
+        bgOverlay.style.backgroundImage = `url('${newBgData.data}')`;
+
+        // Verstecke das ::before Pseudo-Element
+        currentElement.style.setProperty('--hide-pseudo-bg', '1');
+
+    } else {
+        // Direktes Element Background
+        currentElement.style.backgroundImage = `url('${newBgData.data}')`;
+    }
+
     currentElement.setAttribute('data-bg-changed', 'true');
 
     const change = {
         type: 'background-image',
         idx: currentElement.dataset.bgEditIdx,
         selector: getElementSelector(currentElement),
+        layer: bgLayer || 'element',
         orig: originalBgStyle,
         newFile: newBgData.name,
         newData: newBgData.data,
