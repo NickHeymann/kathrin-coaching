@@ -51,44 +51,51 @@
         .header p {
             opacity: 0.9;
             font-size: 1.1rem;
-            margin-bottom: 1.5rem;
         }
 
-        /* Tool Switcher */
-        .tool-switcher {
+        /* Tool Navigation (Top Left) */
+        .tool-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--color-primary);
+            padding: 0.8rem 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 1000;
             display: flex;
-            gap: 1rem;
-            justify-content: center;
+            gap: 0.5rem;
             align-items: center;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
         }
 
-        .tool-btn {
-            background: rgba(255, 255, 255, 0.15);
-            border: 2px solid rgba(255, 255, 255, 0.3);
+        .tool-nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
-            padding: 0.7rem 1.5rem;
-            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             transition: all 0.2s;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.4rem;
         }
 
-        .tool-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.5);
-            transform: translateY(-2px);
+        .tool-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
-        .tool-btn.active {
+        .tool-nav-btn.active {
             background: var(--color-secondary);
             border-color: var(--color-secondary);
             font-weight: 600;
+        }
+
+        body {
+            padding-top: 60px;
         }
 
         /* ==================== SEARCH ==================== */
@@ -357,6 +364,23 @@
 
         /* ==================== RESPONSIVE ==================== */
         @media (max-width: 768px) {
+            .tool-nav {
+                padding: 0.6rem 1rem;
+                gap: 0.3rem;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .tool-nav-btn {
+                padding: 0.4rem 0.7rem;
+                font-size: 0.8rem;
+                white-space: nowrap;
+            }
+
+            body {
+                padding-top: 50px;
+            }
+
             .container {
                 flex-direction: column;
             }
@@ -401,26 +425,26 @@
     </style>
 </head>
 <body>
+    <!-- Tool Navigation (Top Bar) -->
+    <nav class="tool-nav">
+        <a href="index.html" class="tool-nav-btn">
+            <span>✏️</span> CMS Editor
+        </a>
+        <a href="../blog-editor-modular.html" class="tool-nav-btn">
+            <span>📝</span> Blog Editor
+        </a>
+        <a href="../analytics.html" class="tool-nav-btn">
+            <span>📊</span> Analytics
+        </a>
+        <a href="docs.html" class="tool-nav-btn active">
+            <span>📚</span> Dokumentation
+        </a>
+    </nav>
+
     <!-- Header -->
     <div class="header">
         <h1>📚 Editor Dokumentation</h1>
         <p>Vollständige Anleitung für CMS Editor, Blog Editor & Analytics</p>
-
-        <!-- Tool Switcher -->
-        <div class="tool-switcher">
-            <a href="index.html" class="tool-btn">
-                <span>✏️</span> CMS Editor
-            </a>
-            <a href="../blog-editor-modular.html" class="tool-btn">
-                <span>📝</span> Blog Editor
-            </a>
-            <a href="../analytics.html" class="tool-btn">
-                <span>📊</span> Analytics
-            </a>
-            <a href="docs.html" class="tool-btn active">
-                <span>📚</span> Dokumentation
-            </a>
-        </div>
     </div>
 
     <!-- Search -->
