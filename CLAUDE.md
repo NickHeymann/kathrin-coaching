@@ -8,9 +8,9 @@
 |------|---------|------------|
 | Header/Navigation ändern | `css/components/header.css`, `js/core/navigation.js` | `.header-inner`, `toggleDropdown` |
 | **Index Homepage Styling** | `css/pages/index.css`, `css/pages/index/*.css` | `.hero`, `.services-grid` |
-| Blog-Artikel Styling | `css/pages/blog.css` | `.article-content`, `.blog-card` |
+| Blog-Artikel Styling | `css/pages/blog.css`, `css/pages/blog/*.css` | `.article-content`, `.blog-card` |
 | Related Posts | `js/pages/blog.js`, `data/blog-intelligence.json` | `initRelatedPosts`, `connections` |
-| Video-Seite | `css/pages/videos.css`, `js/pages/videos.js` | `EMBEDDED_VIDEOS`, `.video-card` |
+| Video-Seite | `css/pages/videos.css`, `js/pages/videos.js`, `data/videos.json` | `loadVideoData`, `.video-card` |
 | Quiz-Seiten | `css/pages/quiz.css` | `.quiz-container` |
 | Farben/Fonts | `css/core/variables.css` | `--color-`, `--font-` |
 | Buttons/CTAs | `css/components/buttons.css` | `.btn-`, `.cta-` |
@@ -162,6 +162,7 @@ kathrin-coaching/
 │
 ├── data/
 │   ├── blog-intelligence.json    # LLM-Analysen der Blog-Artikel
+│   ├── videos.json               # Video-Daten (149 Videos, extrahiert aus JS)
 │   └── video-categories.json     # Video-Kategorisierung
 │
 ├── scripts/                      # Build/Automation Scripts
@@ -214,15 +215,30 @@ css/
     │   ├── faq.css          # (270 Z.) ✅
     │   ├── blog-section.css # (392 Z.) - über Limit
     │   └── responsive.css   # (401 Z.) - über Limit
-    ├── blog.css             # Blog-Artikel (1738 Z.) - well-organized
-    ├── videos.css           # Video-Galerie (806 Z.)
-    ├── quiz.css             # Quiz-Seiten (1189 Z.)
+    ├── blog.css             # Blog Import Wrapper → blog/ (5 Module, alle ≤422 Z.) ✅
+    ├── blog/                # Blog-Artikel Module
+    │   ├── typography.css   # (291 Z.) Text, Listen ✅
+    │   ├── callouts.css     # (388 Z.) Boxen, Zitate ✅
+    │   ├── ui-components.css # (380 Z.) TOC, Author, Accordion ✅
+    │   ├── related-posts.css # (422 Z.) Carousel & Cards ✅
+    │   └── sidebar.css      # (244 Z.) Floating UI ✅
+    ├── videos.css           # Videos Import Wrapper → videos/ (4 Module, alle ≤182 Z.) ✅
+    ├── videos/              # Video-Galerie Module
+    │   ├── base.css         # (92 Z.) Reset, Variables, Hero ✅
+    │   ├── grid.css         # (182 Z.) Stats, Filter, Grid ✅
+    │   ├── ui.css           # (116 Z.) CTA, Footer, Modal ✅
+    │   └── responsive.css   # (174 Z.) Media Queries, Loading ✅
+    ├── quiz.css             # Quiz Import Wrapper → quiz/ (7 Module, alle ≤244 Z.) ✅
+    ├── quiz/                # Quiz-Seiten Module
+    │   ├── base.css         # (84 Z.) Reset, Variables ✅
+    │   ├── components.css   # (244 Z.) Science Box, Progress ✅
+    │   ├── questions.css    # (168 Z.) Questions, Scales ✅
+    │   ├── results.css      # (178 Z.) Results, Meter ✅
+    │   ├── cta.css          # (125 Z.) CTA, Source ✅
+    │   ├── footer.css       # (147 Z.) Footer, Score Circle ✅
+    │   └── responsive.css   # (139 Z.) Mobile/Tablet ✅
     └── kontakt.css          # Kontakt (325 Z.) ✅
 ```
-
-### Legacy Dateien (können später entfernt werden)
-- `modern-design.css` - Ursprungsdatei, Module extrahiert
-- `css/blog-enhancements.css` - Kopiert nach css/pages/blog.css
 
 ### CSS Custom Properties (variables.css)
 ```css
@@ -243,16 +259,21 @@ css/
 --spacing-lg: 4rem;
 ```
 
-## JS Module (Zielstruktur)
+## JS Module (Modular Structure - COMPLETE ✅)
 
-### Aktueller Stand → Migration nötig
+### Migration abgeschlossen (Dezember 2024)
 ```
-AKTUELL:                             ZIEL:
-js/blog-enhancements.js (650)    →   js/pages/blog.js
-js/videos.js (54KB mit Daten!)   →   js/pages/videos.js + data/videos.json
-js/kontakt.js (248)              →   js/pages/kontakt.js (OK)
-js/global.js (113)               →   js/core/utils.js (OK)
+✅ js/pages/blog.js (650 Z.)         # Blog-Logik, Related Posts
+✅ js/pages/videos.js (254 Z.)       # Video-Galerie (Logik)
+✅ data/videos.json (149 Videos)     # Video-Daten (extrahiert)
+✅ js/pages/kontakt.js (248 Z.)      # Kontaktformular
+✅ js/core/utils.js (113 Z.)         # Helper Functions
 ```
+
+**Erfolge:**
+- videos.js: 390→254 Zeilen (-35%), 53KB→8.6KB (-84% JS)
+- blog-enhancements.js: Zu js/pages/blog.js migriert (97 HTML-Dateien aktualisiert)
+- Legacy-Dateien entfernt: Alte blog-enhancements.js, videos.js gelöscht
 
 ## Automation (GitHub Actions)
 
