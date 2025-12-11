@@ -736,8 +736,11 @@ select option { background: #2C4A47; }
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    color: #2d2d2d;
 }
-.context-menu-item:hover { background: #f5f5f5; }
+.context-menu-item:hover {
+    background: #f5f5f5;
+}
 
 /* ============================== */
 /* NOTE MARKER                    */
