@@ -218,6 +218,4 @@ export async function preloadPages() {
 
         await new Promise(r => setTimeout(r, 100));
     }
-
-    console.log('Preload abgeschlossen:', pageCache.size, 'Seiten');
 }
