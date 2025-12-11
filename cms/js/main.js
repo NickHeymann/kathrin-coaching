@@ -299,8 +299,10 @@ function initSharedUI() {
         return;
     }
 
-    // Recent Items Storage-Key für CMS
-    window.SharedUI.recentItems.storageKey = 'cms_recent_pages';
+    // Recent Items Storage-Key für CMS (prüfe ob bereits geladen)
+    if (window.SharedUI.recentItems) {
+        window.SharedUI.recentItems.storageKey = 'cms_recent_pages';
+    }
 
     // Füge "Zuletzt bearbeitet" Bereich zur Toolbar hinzu
     const pageSelect = document.getElementById('pageSelect');
