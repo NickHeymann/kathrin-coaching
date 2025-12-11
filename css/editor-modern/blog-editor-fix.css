@@ -1,0 +1,509 @@
+/* editor-modern/blog-editor-fix.css
+ * Fix für Blog-Editor Modern Theme | ~400 Zeilen
+ * Behebt Konflikte zwischen base CSS und modern theme
+ */
+
+/* ==========================================
+   Settings Panel (Right Sidebar) - Dark Theme
+   ========================================== */
+
+body.modern .settings-panel {
+    background: linear-gradient(
+        180deg,
+        rgba(26, 29, 33, 0.98) 0%,
+        rgba(22, 25, 29, 0.98) 100%
+    );
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-inverse);
+}
+
+body.modern .settings-section {
+    padding: var(--space-5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+body.modern .settings-section h3 {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: var(--space-4);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+body.modern .settings-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: var(--space-2);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+body.modern .settings-input,
+body.modern .settings-textarea {
+    width: 100%;
+    padding: var(--space-3);
+    font-size: 0.875rem;
+    color: var(--text-inverse);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm);
+    transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+body.modern .settings-input::placeholder,
+body.modern .settings-textarea::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+body.modern .settings-input:focus,
+body.modern .settings-textarea:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.15);
+}
+
+body.modern .settings-row {
+    margin-bottom: var(--space-4);
+}
+
+body.modern .settings-row small {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: var(--space-1);
+    display: block;
+}
+
+/* ==========================================
+   Category Tags - Modern Style
+   ========================================== */
+
+body.modern .category-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+body.modern .category-tag {
+    padding: var(--space-2) var(--space-3);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+body.modern .category-tag:hover {
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+body.modern .category-tag.active {
+    color: var(--text-inverse);
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    border-color: var(--accent);
+    box-shadow: 0 2px 8px rgba(var(--accent-rgb), 0.3);
+}
+
+/* ==========================================
+   Featured Image Upload
+   ========================================== */
+
+body.modern .featured-image-upload {
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px dashed rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-md);
+    transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+body.modern .featured-image-upload:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+body.modern .featured-image-upload .upload-text {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+body.modern .featured-image-upload .upload-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-2);
+    opacity: 0.6;
+}
+
+/* ==========================================
+   Schedule Picker
+   ========================================== */
+
+body.modern .schedule-picker {
+    display: flex;
+    gap: var(--space-2);
+}
+
+body.modern .schedule-picker input {
+    flex: 1;
+    padding: var(--space-3);
+    font-size: 0.875rem;
+    color: var(--text-inverse);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm);
+    color-scheme: dark;
+}
+
+body.modern .schedule-picker input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.15);
+}
+
+/* ==========================================
+   Post Items in Sidebar (Fix for .post-item)
+   ========================================== */
+
+body.modern .sidebar .post-item {
+    margin: var(--space-2) var(--space-3);
+    padding: var(--space-4);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-md);
+    border-left: none;
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+body.modern .sidebar .post-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(4px);
+}
+
+body.modern .sidebar .post-item.active {
+    background: rgba(var(--accent-rgb), 0.1);
+    border-color: rgba(var(--accent-rgb), 0.3);
+    box-shadow: inset 3px 0 0 var(--accent);
+}
+
+body.modern .sidebar .post-item.draft {
+    border-left: 3px solid var(--warning);
+}
+
+body.modern .sidebar .post-item.scheduled {
+    border-left: 3px solid var(--info);
+}
+
+body.modern .sidebar .post-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-inverse);
+    margin-bottom: var(--space-1);
+}
+
+body.modern .sidebar .post-meta {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+body.modern .sidebar .post-status {
+    padding: var(--space-1) var(--space-2);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border-radius: var(--radius-xs);
+}
+
+body.modern .sidebar .post-status.draft {
+    background: rgba(234, 179, 8, 0.15);
+    color: var(--warning-light);
+}
+
+body.modern .sidebar .post-status.scheduled {
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--info-light);
+}
+
+body.modern .sidebar .post-status.published {
+    background: rgba(34, 197, 94, 0.15);
+    color: var(--success-light);
+}
+
+body.modern .sidebar .post-delete-btn {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+body.modern .sidebar .post-delete-btn:hover {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--danger-light);
+}
+
+/* ==========================================
+   Editor Content Area
+   ========================================== */
+
+body.modern .editor-container {
+    background: var(--surface-1);
+}
+
+body.modern .editor-toolbar {
+    background: var(--surface-2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+body.modern .editor-content {
+    background: var(--surface-1);
+    padding: var(--space-8);
+}
+
+body.modern .title-input {
+    font-size: 2.25rem;
+    font-weight: 700;
+    font-family: var(--font-display);
+    color: var(--primary);
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding-bottom: var(--space-2);
+    transition: border-color var(--duration-fast) var(--ease-smooth);
+}
+
+body.modern .title-input:focus {
+    outline: none;
+    border-bottom-color: var(--accent);
+}
+
+body.modern .title-input::placeholder {
+    color: rgba(0, 0, 0, 0.25);
+}
+
+body.modern .excerpt-input {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    background: var(--surface-2);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    margin-bottom: var(--space-6);
+    transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+body.modern .excerpt-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
+}
+
+body.modern .excerpt-input::placeholder {
+    color: var(--text-muted);
+}
+
+/* ==========================================
+   Add Block Button
+   ========================================== */
+
+body.modern .add-block-btn {
+    width: 100%;
+    padding: var(--space-4);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: transparent;
+    border: 2px dashed rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+body.modern .add-block-btn:hover {
+    color: var(--primary);
+    background: var(--surface-2);
+    border-color: var(--primary);
+}
+
+/* ==========================================
+   Toolbar Enhancements
+   ========================================== */
+
+body.modern .toolbar-btn {
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
+}
+
+body.modern .toolbar-btn:hover {
+    background: var(--surface-3);
+    color: var(--text);
+}
+
+body.modern .toolbar-btn.active {
+    background: var(--primary);
+    color: var(--text-inverse);
+}
+
+body.modern .toolbar-dropdown-btn {
+    background: var(--surface-1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+}
+
+body.modern .toolbar-dropdown-btn:hover {
+    border-color: var(--primary);
+    color: var(--text);
+}
+
+body.modern .toolbar-dropdown-menu {
+    background: var(--surface-1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+}
+
+body.modern .toolbar-dropdown-menu button {
+    color: var(--text-secondary);
+}
+
+body.modern .toolbar-dropdown-menu button:hover {
+    background: var(--surface-2);
+    color: var(--text);
+}
+
+body.modern .toolbar-dropdown-menu button.active {
+    background: rgba(var(--primary-rgb), 0.1);
+    color: var(--primary);
+}
+
+body.modern .toolbar-divider {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================
+   Header - Keep existing dark style
+   ========================================== */
+
+body.modern .header {
+    background: linear-gradient(
+        90deg,
+        var(--primary) 0%,
+        var(--primary-dark) 100%
+    );
+    box-shadow: var(--shadow-md);
+}
+
+body.modern .header .btn-ghost {
+    color: rgba(255, 255, 255, 0.85);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+body.modern .header .btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-inverse);
+}
+
+body.modern .header .btn-success {
+    background: linear-gradient(135deg, var(--success) 0%, var(--success-light) 100%);
+    border: none;
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+}
+
+body.modern .header .btn-success:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+}
+
+body.modern .ai-header-btn {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+    color: var(--text-inverse);
+    border: none;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(var(--accent-rgb), 0.3);
+    transition: all var(--duration-fast) var(--ease-smooth);
+}
+
+body.modern .ai-header-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(var(--accent-rgb), 0.4);
+}
+
+/* ==========================================
+   Word Count / Stats
+   ========================================== */
+
+body.modern .editor-stats {
+    display: flex;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    background: var(--surface-2);
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+body.modern .editor-stats span {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+/* ==========================================
+   Scrollbar in Settings Panel
+   ========================================== */
+
+body.modern .settings-panel::-webkit-scrollbar {
+    width: 6px;
+}
+
+body.modern .settings-panel::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+body.modern .settings-panel::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-full);
+}
+
+body.modern .settings-panel::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* ==========================================
+   Buttons in Settings Panel
+   ========================================== */
+
+body.modern .settings-panel .btn {
+    font-size: 0.875rem;
+    border-radius: var(--radius-sm);
+}
+
+body.modern .settings-panel .btn-primary {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+    color: var(--text-inverse);
+    border: none;
+    padding: var(--space-3) var(--space-4);
+    width: 100%;
+    justify-content: center;
+}
+
+body.modern .settings-panel .btn-primary:hover {
+    box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.3);
+    transform: translateY(-1px);
+}
+
+body.modern .settings-panel .btn-ghost {
+    color: rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+body.modern .settings-panel .btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-inverse);
+}
