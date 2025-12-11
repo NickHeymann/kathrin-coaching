@@ -283,6 +283,20 @@ js/global.js (113)               →   js/core/utils.js (OK)
 - `main` - Produktion (GitHub Pages)
 - `kathrin-edits` - Für Kathrin's direkte Änderungen
 
+## Infrastruktur & Integration
+
+- **Hosting**: GitHub Pages (automatisches Deploy bei Push auf `main`)
+- **Externe Dienste**:
+  - n8n: Self-Hosted auf Hetzner CX32 (Automation/Workflows)
+  - Supabase: Self-Hosted Stack (falls Datenbank benötigt)
+  - Groq API: Für LLM-basierte Blog-Analyse
+- **Deployment**:
+  - Statische Seite via GitHub Pages
+  - GitHub Actions für automatisierte Tasks (Blog-Analyse, Video-Updates)
+- **Secrets-Management**:
+  - GitHub Secrets für CI/CD (GROQ_API_KEY)
+  - Lokale `.env` für Entwicklung (in .gitignore)
+
 ## Safety-Regeln für Git-Operationen durch LLM
 
 - Arbeite NIEMALS direkt auf dem Branch `main`, sondern immer auf Feature-/Fix-Branches (z.B. `feature/...`, `fix/...`, `refactor/...`).
