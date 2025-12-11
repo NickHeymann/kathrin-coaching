@@ -1,39 +1,44 @@
 # Kathrin Coaching - Production Stack
 # Deployment auf Hetzner mit Traefik Reverse Proxy
 #
+# Databases:
+# - umami: Für Umami Analytics (eigenes Schema)
+# - kathrin_scheduling: Für Blog Scheduling API
+#
 # Services:
-# - kathrin-postgres: Eigene Postgres DB (isoliert)
+# - kathrin-postgres: PostgreSQL mit beiden Datenbanken
 # - kathrin-umami: Analytics Dashboard
 # - kathrin-scheduling: Blog Scheduling API
 
 services:
-  # PostgreSQL Datenbank (isoliert für Kathrin)
+  # PostgreSQL Datenbank (mit mehreren DBs)
   postgres:
     image: postgres:16-alpine
     container_name: kathrin-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_DB: kathrin_analytics
       POSTGRES_USER: kathrin
       POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: kathrin_scheduling
     volumes:
       - kathrin_postgres_data:/var/lib/postgresql/data
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - ./db/create-umami-db.sql:/docker-entrypoint-initdb.d/00-create-umami-db.sql
     networks:
       - kathrin-internal
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U kathrin -d kathrin_analytics"]
+      test: ["CMD-SHELL", "pg_isready -U kathrin -d kathrin_scheduling"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  # Umami Analytics
+  # Umami Analytics (eigene DB)
   umami:
     image: ghcr.io/umami-software/umami:postgresql-latest
     container_name: kathrin-umami
     restart: unless-stopped
     environment:
-      DATABASE_URL: postgresql://kathrin:${DB_PASSWORD}@postgres:5432/kathrin_analytics
+      DATABASE_URL: postgresql://kathrin:${DB_PASSWORD}@postgres:5432/umami
       DATABASE_TYPE: postgresql
       APP_SECRET: ${APP_SECRET}
       DISABLE_TELEMETRY: 1
@@ -58,7 +63,7 @@ services:
     container_name: kathrin-scheduling
     restart: unless-stopped
     environment:
-      DATABASE_URL: postgresql://kathrin:${DB_PASSWORD}@postgres:5432/kathrin_analytics
+      DATABASE_URL: postgresql://kathrin:${DB_PASSWORD}@postgres:5432/kathrin_scheduling
       GITHUB_TOKEN: ${GITHUB_TOKEN}
       GROQ_API_KEY: ${GROQ_API_KEY}
       API_SECRET_TOKEN: ${API_SECRET_TOKEN}
