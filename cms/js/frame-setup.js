@@ -234,16 +234,20 @@ function setupContextMenu(doc, frame) {
         const x = frameRect.left + e.clientX;
         const y = frameRect.top + e.clientY;
 
+        // Prüfe ob Element ein Background hat
+        const hasBackground = e.target.dataset?.hasBackground === 'true';
+
         // Speichere Kontext-Daten
         window.contextMenuData = {
             x,
             y,
             element: e.target,
             hasEditIdx: !!e.target.dataset?.editIdx,
-            editIdx: e.target.dataset?.editIdx
+            editIdx: e.target.dataset?.editIdx,
+            hasBackground
         };
 
-        showContextMenu(x, y, !!e.target.dataset?.editIdx);
+        showContextMenu(x, y, !!e.target.dataset?.editIdx, hasBackground);
     });
 }
 

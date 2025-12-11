@@ -287,7 +287,10 @@
         <div class="context-menu-item" data-action="CMS.createNoteFromContext">
             <span>📝</span> Notiz erstellen
         </div>
-        <div class="context-menu-item" data-action="history" data-action="CMS.showElementHistoryFromContext">
+        <div class="context-menu-item" data-action="background" onclick="CMS.editBackgroundFromContext()">
+            <span>🖼️</span> Hintergrundbild ändern
+        </div>
+        <div class="context-menu-item" data-action="history" onclick="CMS.showElementHistoryFromContext()">
             <span>📜</span> Änderungsverlauf
         </div>
     </div>

@@ -29,7 +29,7 @@ import { loadVersions, toggleVersionsSidebar, selectVersion, closeSidebar } from
 import { createStickyNote, removeStickyNote, toggleNotesSidebar, filterNotes, scrollToNote, renderNoteMarkers, updateNoteText, toggleNoteMinimize } from './notes.js';
 import { setupKeyboardShortcuts } from './keyboard.js';
 import { initEmojiPicker, initColorPicker, formatText, setTextColor, insertEmoji, showColorPicker, showEmojiPicker, hideFormatToolbar } from './format-toolbar.js';
-import { showContextMenu, hideContextMenu, createNoteFromContext, showElementHistoryFromContext, restoreElementValue } from './context-menu.js';
+import { showContextMenu, hideContextMenu, createNoteFromContext, showElementHistoryFromContext, restoreElementValue, editBackgroundFromContext } from './context-menu.js';
 import { toggleRecording, closeRecordModal, startRecording, stopRecording, discardRecording, saveRecording, showRecordSettings, toggleWebcamPreview, updatePreviewResolution, initRecordingControls, toggleBackgroundBlur, updateBlurStrength } from './video-recording.js';
 
 /**
@@ -86,6 +86,7 @@ window.CMS = {
     createNoteFromContext,
     showElementHistoryFromContext,
     restoreElementValue,
+    editBackgroundFromContext,
 
     // Format Toolbar
     formatText,

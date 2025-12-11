@@ -11,8 +11,9 @@ import { createStickyNote } from './notes.js';
  * @param {number} x - X-Position
  * @param {number} y - Y-Position
  * @param {boolean} hasHistory - Hat Element eine Edit-History
+ * @param {boolean} hasBackground - Hat Element ein Background-Image
  */
-export function showContextMenu(x, y, hasHistory = false) {
+export function showContextMenu(x, y, hasHistory = false, hasBackground = false) {
     const menu = document.getElementById('contextMenu');
     if (!menu) return;
 
@@ -24,6 +25,12 @@ export function showContextMenu(x, y, hasHistory = false) {
     const historyItem = menu.querySelector('[data-action="history"]');
     if (historyItem) {
         historyItem.style.display = hasHistory ? 'flex' : 'none';
+    }
+
+    // Background-Option nur anzeigen wenn verfügbar
+    const backgroundItem = menu.querySelector('[data-action="background"]');
+    if (backgroundItem) {
+        backgroundItem.style.display = hasBackground ? 'flex' : 'none';
     }
 
     // Klick außerhalb schließt Menü (auch im iframe)
@@ -166,4 +173,17 @@ export function restoreElementValue(idx, timestamp) {
             toast('Wert wiederhergestellt', 'success');
         });
     });
+}
+
+/**
+ * Öffnet Background-Editor aus Kontextmenü
+ */
+export function editBackgroundFromContext() {
+    const data = window.contextMenuData;
+    if (data && data.element) {
+        import('./background-editor.js').then(({ editBackground }) => {
+            editBackground(data.element);
+        });
+    }
+    hideContextMenu();
 }
