@@ -7,12 +7,12 @@
 | Task | Dateien | Suche nach |
 |------|---------|------------|
 | Header/Navigation ändern | `css/components/header.css`, `js/core/navigation.js` | `.header-inner`, `toggleDropdown` |
-| **Index Homepage Styling** | `css/pages/index.css`, `css/pages/index/*.css` | `.hero`, `.services-grid` |
+| **Index Homepage Styling** | `css/pages/index-complete.css` | `.hero`, `.services-grid` |
 | Blog-Artikel Styling | `css/pages/blog.css`, `css/pages/blog/*.css` | `.article-content`, `.blog-card` |
 | Related Posts | `js/pages/blog.js`, `data/blog-intelligence.json` | `initRelatedPosts`, `connections` |
 | Video-Seite | `css/pages/videos.css`, `js/pages/videos.js`, `data/videos.json` | `loadVideoData`, `.video-card` |
 | Quiz-Seiten | `css/pages/quiz.css` | `.quiz-container` |
-| Farben/Fonts | `css/core/variables.css` | `--color-`, `--font-` |
+| Farben/Fonts | `css/pages/index-complete.css` (inline in :root) | `--color-`, `--font-` |
 | Buttons/CTAs | `css/components/buttons.css` | `.btn-`, `.cta-` |
 | Cards | `css/components/cards.css` | `.card-`, `.service-card` |
 | **Blog-Editor UI** | `css/blog-editor-*.css` | `.ai-panel`, `.editor-toolbar` |
@@ -30,7 +30,7 @@
 
 ```
 kathrin-coaching/
-├── index.html                    # Hauptseite (modularisiert, ~1960 Z.)
+├── index.html                    # Hauptseite (~1450 Z., CSS externalisiert)
 ├── blog.html                     # Blog-Übersicht
 ├── blog-editor-modular.html      # Blog-Editor (LLM-optimiert, modular)
 ├── *.html                        # Weitere Seiten
@@ -91,38 +91,22 @@ kathrin-coaching/
 │       └── css/cms-editor-*.css  # Alte CSS Dateien
 │
 ├── css/
-│   ├── core/                     # Basis-Styles (einmal laden)
-│   │   ├── variables.css         # CSS Custom Properties
-│   │   ├── reset.css             # Minimal Reset
-│   │   ├── typography.css        # Schriften, Größen
-│   │   └── layout.css            # Container, Grid
-│   │
 │   ├── components/               # Wiederverwendbare UI-Elemente
 │   │   ├── header.css            # Header & Navigation
 │   │   ├── footer.css            # Footer
 │   │   ├── buttons.css           # Buttons, CTAs
 │   │   ├── cards.css             # Card Components
 │   │   ├── forms.css             # Formulare
-│   │   └── modals.css            # Dialoge
+│   │   └── shared-ui.css         # Shared UI Components
 │   │
 │   ├── pages/                    # Seiten-spezifisches CSS
-│   │   ├── index.css             # Index Page Import (importiert index/*)
-│   │   ├── index/                # Index Page Module (<300 Z. pro Datei)
-│   │   │   ├── hero.css          # Hero & Trust Bar (117 Z.)
-│   │   │   ├── sections.css      # Problem & Solution (160 Z.)
-│   │   │   ├── services.css      # Service Cards (156 Z.)
-│   │   │   ├── modals.css        # Service Modals (285 Z.)
-│   │   │   ├── quiz.css          # Quiz & Self-Tests (234 Z.)
-│   │   │   ├── testimonials.css  # Testimonials (223 Z.)
-│   │   │   ├── video.css         # Video, About, CTA (311 Z.)
-│   │   │   ├── transformation.css # Slider (532 Z.)
-│   │   │   ├── methods.css       # Methods & Guarantee (309 Z.)
-│   │   │   ├── faq.css           # FAQ & Images (270 Z.)
-│   │   │   ├── blog-section.css  # Blog Preview (392 Z.)
-│   │   │   └── responsive.css    # Responsive & Footer (401 Z.)
+│   │   ├── index-complete.css    # Homepage (3430 Z.) - TODO: modularisieren
 │   │   ├── blog.css              # Blog-Artikel & Listing
+│   │   ├── blog/                 # Blog Module
 │   │   ├── videos.css            # Video-Galerie
+│   │   ├── videos/               # Video Module
 │   │   ├── quiz.css              # Quiz-Seiten
+│   │   ├── quiz/                 # Quiz Module
 │   │   └── kontakt.css           # Kontakt
 │   │
 │   ├── blog-editor-base.css      # Blog-Editor: Layout, Buttons, Forms (~350 Z.)
@@ -131,11 +115,9 @@ kathrin-coaching/
 │   ├── blog-editor-video.css     # Blog-Editor: Video Recording UI (~200 Z.)
 │   ├── blog-editor-blocks.css    # Blog-Editor: Block-System UI (~280 Z.)
 │   │
-│   ├── utilities/                # Helper-Klassen
-│   │   ├── helpers.css           # .hidden, .text-center, etc.
-│   │   └── animations.css        # Keyframes, transitions
-│   │
-│   └── main.css                  # Import-Datei für alle Module
+│   └── utilities/                # Helper-Klassen
+│       ├── helpers.css           # .hidden, .text-center, etc.
+│       └── animations.css        # Keyframes, transitions
 │
 ├── js/
 │   ├── core/                     # Basis-Funktionen
@@ -176,88 +158,55 @@ kathrin-coaching/
     └── update-videos.yml         # Video-Updates
 ```
 
-## CSS Module (Modular Structure - DONE)
+## CSS Module (Stand: Dezember 2024)
 
-### Modulare CSS Dateien (Stand: Dezember 2024)
+### Aktuelle CSS Struktur
 ```
 css/
-├── main.css                 # Import-Datei (42 Zeilen)
-│
-├── core/                    # Basis-Styles
-│   ├── variables.css        # CSS Custom Properties (51 Z.) ✅
-│   ├── reset.css            # Minimal Reset (44 Z.) ✅
-│   ├── typography.css       # Schriften (80 Z.) ✅
-│   └── layout.css           # Container, Grid (163 Z.) ✅
+├── pages/                   # Seiten-spezifisch
+│   ├── index-complete.css   # Homepage (3430 Z.) - extrahiert aus inline CSS
+│   │                        # TODO: In Module aufteilen für CLAUDE.md Compliance
+│   ├── blog.css             # Blog Import Wrapper → blog/
+│   ├── blog/                # Blog-Artikel Module (5 Dateien) ✅
+│   ├── videos.css           # Videos Import Wrapper → videos/
+│   ├── videos/              # Video-Galerie Module (4 Dateien) ✅
+│   ├── quiz.css             # Quiz Import Wrapper → quiz/
+│   ├── quiz/                # Quiz-Seiten Module (7 Dateien) ✅
+│   └── kontakt.css          # Kontakt (325 Z.) ✅
 │
 ├── components/              # UI-Elemente
-│   ├── header.css           # Header & Nav (402 Z.) ✅
-│   ├── footer.css           # Footer (97 Z.) ✅
-│   ├── buttons.css          # Buttons, CTAs (177 Z.) ✅
-│   ├── cards.css            # Card Components (196 Z.) ✅
-│   └── forms.css            # Formulare (108 Z.) ✅
+│   ├── header.css           # Header & Nav ✅
+│   ├── footer.css           # Footer ✅
+│   ├── buttons.css          # Buttons, CTAs ✅
+│   ├── cards.css            # Card Components ✅
+│   ├── forms.css            # Formulare ✅
+│   └── shared-ui.css        # Shared UI Components ✅
 │
 ├── utilities/               # Helper-Klassen
-│   ├── helpers.css          # Utility Classes (121 Z.) ✅
-│   └── animations.css       # Keyframes (141 Z.) ✅
+│   ├── helpers.css          # Utility Classes ✅
+│   └── animations.css       # Keyframes ✅
 │
-└── pages/                   # Seiten-spezifisch
-    ├── index.css            # Index Import (44 Z.) ✅
-    ├── index/               # Index Page Module (12 Dateien, alle <300 Z.) ✅
-    │   ├── hero.css         # (117 Z.) ✅
-    │   ├── sections.css     # (160 Z.) ✅
-    │   ├── services.css     # (156 Z.) ✅
-    │   ├── modals.css       # (285 Z.) ✅
-    │   ├── quiz.css         # (234 Z.) ✅
-    │   ├── testimonials.css # (223 Z.) ✅
-    │   ├── video.css        # (311 Z.) - leicht über Limit
-    │   ├── transformation.css # (532 Z.) - große Komponente
-    │   ├── methods.css      # (309 Z.) - leicht über Limit
-    │   ├── faq.css          # (270 Z.) ✅
-    │   ├── blog-section.css # (392 Z.) - über Limit
-    │   └── responsive.css   # (401 Z.) - über Limit
-    ├── blog.css             # Blog Import Wrapper → blog/ (5 Module, alle ≤422 Z.) ✅
-    ├── blog/                # Blog-Artikel Module
-    │   ├── typography.css   # (291 Z.) Text, Listen ✅
-    │   ├── callouts.css     # (388 Z.) Boxen, Zitate ✅
-    │   ├── ui-components.css # (380 Z.) TOC, Author, Accordion ✅
-    │   ├── related-posts.css # (422 Z.) Carousel & Cards ✅
-    │   └── sidebar.css      # (244 Z.) Floating UI ✅
-    ├── videos.css           # Videos Import Wrapper → videos/ (4 Module, alle ≤182 Z.) ✅
-    ├── videos/              # Video-Galerie Module
-    │   ├── base.css         # (92 Z.) Reset, Variables, Hero ✅
-    │   ├── grid.css         # (182 Z.) Stats, Filter, Grid ✅
-    │   ├── ui.css           # (116 Z.) CTA, Footer, Modal ✅
-    │   └── responsive.css   # (174 Z.) Media Queries, Loading ✅
-    ├── quiz.css             # Quiz Import Wrapper → quiz/ (7 Module, alle ≤244 Z.) ✅
-    ├── quiz/                # Quiz-Seiten Module
-    │   ├── base.css         # (84 Z.) Reset, Variables ✅
-    │   ├── components.css   # (244 Z.) Science Box, Progress ✅
-    │   ├── questions.css    # (168 Z.) Questions, Scales ✅
-    │   ├── results.css      # (178 Z.) Results, Meter ✅
-    │   ├── cta.css          # (125 Z.) CTA, Source ✅
-    │   ├── footer.css       # (147 Z.) Footer, Score Circle ✅
-    │   └── responsive.css   # (139 Z.) Mobile/Tablet ✅
-    └── kontakt.css          # Kontakt (325 Z.) ✅
+└── blog-editor-*.css        # Blog-Editor Styles (5 Dateien)
 ```
 
-### CSS Custom Properties (variables.css)
+### CSS Custom Properties (in index-complete.css :root)
 ```css
 /* Farben */
---color-primary: #D2AB74;         /* Gold/Bronze - Hauptfarbe */
---color-secondary: #2c3e50;       /* Dunkelblau - Text, Headlines */
+--color-primary: #2C4A47;         /* Dunkelgrün - Hauptfarbe */
 --color-accent: #8B7355;          /* Braun - Akzente */
 --color-text: #2d2d2d;            /* Haupttext */
 --color-text-light: #555555;      /* Sekundärtext */
 
 /* Fonts */
---font-heading: 'Gilda Display';   /* Überschriften */
---font-body: 'Montserrat';         /* Fließtext */
-
-/* Spacing */
---spacing-sm: 1rem;
---spacing-md: 2rem;
---spacing-lg: 4rem;
+--font-heading: 'Cormorant Garamond';  /* Überschriften */
+--font-body: 'Open Sans';              /* Fließtext */
 ```
+
+### Hinweis zur CSS-Architektur
+Die Homepage CSS (`index-complete.css`) wurde am 24.12.2024 aus dem Inline-CSS der index.html
+extrahiert. Die Datei ist mit 3,430 Zeilen über dem CLAUDE.md Limit (300 Z.), kann aber in
+Phase 2 modularisiert werden. Die alte modulare Struktur (`css/core/`, `css/main.css`,
+`css/pages/index/`) hatte ein inkompatibles Design-System und wurde archiviert.
 
 ## JS Module (Modular Structure - COMPLETE ✅)
 
