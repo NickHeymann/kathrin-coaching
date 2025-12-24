@@ -290,10 +290,10 @@
         <div class="context-menu-item" data-action="CMS.createNoteFromContext">
             <span>📝</span> Notiz erstellen
         </div>
-        <div class="context-menu-item" data-action="background" onclick="CMS.editBackgroundFromContext()">
+        <div class="context-menu-item" data-action="CMS.editBackgroundFromContext">
             <span>🖼️</span> Hintergrundbild ändern
         </div>
-        <div class="context-menu-item" data-action="history" onclick="CMS.showElementHistoryFromContext()">
+        <div class="context-menu-item" data-action="CMS.showElementHistoryFromContext">
             <span>📜</span> Änderungsverlauf
         </div>
     </div>
@@ -324,7 +324,7 @@
                     <span>🎤 Mikrofon (deine Stimme)</span>
                 </label>
                 <label class="record-option">
-                    <input type="checkbox" id="recordCam" checked onchange="CMS.toggleWebcamPreview(this.checked)">
+                    <input type="checkbox" id="recordCam" checked>
                     <span>📷 Webcam (Bild-in-Bild)</span>
                 </label>
             </div>
@@ -335,7 +335,7 @@
                 <div class="cam-settings" id="camSettings">
                     <div class="settings-row">
                         <label>Auflösung:</label>
-                        <select id="camResolution" onchange="CMS.updatePreviewResolution()">
+                        <select id="camResolution">
                             <option value="320x240">320x240 (klein)</option>
                             <option value="640x480" selected>640x480 (mittel)</option>
                             <option value="1280x720">1280x720 (HD)</option>
@@ -358,7 +358,7 @@
                     <div class="settings-row">
                         <label>Hintergrund:</label>
                         <label class="toggle-switch">
-                            <input type="checkbox" id="bgBlur" onchange="CMS.toggleBackgroundBlur(this.checked)">
+                            <input type="checkbox" id="bgBlur">
                             <span class="toggle-slider"></span>
                         </label>
                         <span class="setting-label">Blur</span>

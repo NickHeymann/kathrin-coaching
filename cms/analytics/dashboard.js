@@ -322,4 +322,26 @@ const Dashboard = {
     }
 };
 
+// ==========================================
+// EVENT LISTENERS (CSP-safe)
+// ==========================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Date Range Selector
+    const dateRange = document.getElementById('dateRange');
+    if (dateRange) {
+        dateRange.addEventListener('change', () => {
+            Dashboard.loadData();
+        });
+    }
+
+    // Refresh Button
+    const refreshBtn = document.getElementById('refreshBtn');
+    if (refreshBtn) {
+        refreshBtn.addEventListener('click', () => {
+            Dashboard.refresh();
+        });
+    }
+});
+
 console.log('✓ Analytics Dashboard geladen (nur echte Daten)');

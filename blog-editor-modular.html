@@ -90,7 +90,7 @@
         </div>
         <div class="sidebar-search">
             <label for="postSearch" class="sr-only">Beiträge suchen</label>
-            <input type="search" id="postSearch" placeholder="Beiträge suchen..." oninput="filterPosts(this.value)" aria-label="Beiträge durchsuchen">
+            <input type="search" id="postSearch" placeholder="Beiträge suchen..." aria-label="Beiträge durchsuchen">
             <span class="search-icon" aria-hidden="true">🔍</span>
         </div>
         <button class="new-post-btn" data-action="createNewPost" aria-label="Neuen Beitrag erstellen">
@@ -348,9 +348,9 @@
         <div class="editor-main">
             <div class="editor-content">
                 <label for="postTitle" class="sr-only">Beitragstitel</label>
-                <input class="title-input" id="postTitle" oninput="onContentChange()" placeholder="Titel eingeben..." type="text" aria-required="true">
+                <input class="title-input" id="postTitle" placeholder="Titel eingeben..." type="text" aria-required="true">
                 <label for="postExcerpt" class="sr-only">Kurzbeschreibung</label>
-                <textarea class="excerpt-input" id="postExcerpt" oninput="onContentChange()" placeholder="Kurzbeschreibung für SEO und Vorschau..." rows="2" aria-describedby="excerptHelp"></textarea>
+                <textarea class="excerpt-input" id="postExcerpt" placeholder="Kurzbeschreibung für SEO und Vorschau..." rows="2" aria-describedby="excerptHelp"></textarea>
                 <span id="excerptHelp" class="sr-only">Kurzbeschreibung für Suchmaschinen und Social Media</span>
 
                 <!-- Block-basierter Editor -->
@@ -364,7 +364,7 @@
                 </button>
 
                 <!-- Hidden: Original content editor für Kompatibilität -->
-                <div class="content-editor" contenteditable="true" id="postContent" oninput="onContentChange()" style="display: none;">
+                <div class="content-editor" contenteditable="true" id="postContent" style="display: none;">
                     <p>Beginne hier mit deinem Beitrag...</p>
                 </div>
             </div>
@@ -648,7 +648,7 @@
         </div>
         <div class="modal-footer template-modal-footer">
             <label class="template-dont-show">
-                <input type="checkbox" onchange="toggleTemplateModalPreference(this)">
+                <input type="checkbox">
                 <span>Beim nächsten Mal nicht mehr anzeigen</span>
             </label>
         </div>

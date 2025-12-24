@@ -159,5 +159,62 @@
         }
     });
 
+    // ==========================================
+    // INPUT/CHANGE EVENT LISTENERS
+    // ==========================================
+
+    // Post Search Filter
+    const postSearch = document.getElementById('postSearch');
+    if (postSearch) {
+        postSearch.addEventListener('input', function(e) {
+            if (typeof filterPosts === 'function') {
+                filterPosts(e.target.value);
+            } else {
+                // Fallback: Direct implementation
+                if (typeof state !== 'undefined' && typeof renderPostList === 'function') {
+                    state.searchQuery = e.target.value.toLowerCase();
+                    renderPostList();
+                }
+            }
+        });
+    }
+
+    // Post Title Input (Autosave trigger)
+    const postTitle = document.getElementById('postTitle');
+    if (postTitle) {
+        postTitle.addEventListener('input', function() {
+            if (typeof onContentChange === 'function') onContentChange();
+        });
+    }
+
+    // Post Excerpt Input (Autosave trigger)
+    const postExcerpt = document.getElementById('postExcerpt');
+    if (postExcerpt) {
+        postExcerpt.addEventListener('input', function() {
+            if (typeof onContentChange === 'function') onContentChange();
+        });
+    }
+
+    // Post Content Input (hidden contenteditable, Autosave trigger)
+    const postContent = document.getElementById('postContent');
+    if (postContent) {
+        postContent.addEventListener('input', function() {
+            if (typeof onContentChange === 'function') onContentChange();
+        });
+    }
+
+    // Template Modal Preference Checkbox
+    const templateCheckbox = document.querySelector('.template-dont-show input[type="checkbox"]');
+    if (templateCheckbox) {
+        templateCheckbox.addEventListener('change', function() {
+            if (typeof toggleTemplateModalPreference === 'function') {
+                toggleTemplateModalPreference(this);
+            } else {
+                // Fallback: Direct implementation
+                localStorage.setItem('blog_skip_template_modal', this.checked ? 'true' : 'false');
+            }
+        });
+    }
+
     console.log('Blog Editor Events loaded (CSP-safe)');
 })();

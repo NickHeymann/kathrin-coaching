@@ -265,6 +265,11 @@ function saveDraft() {
 // POST-LISTE
 // ============================================
 
+function filterPosts(query) {
+    state.searchQuery = query ? query.toLowerCase() : '';
+    renderPostList();
+}
+
 function renderPostList() {
     const container = document.getElementById('postList');
     let posts = [];

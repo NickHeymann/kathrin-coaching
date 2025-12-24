@@ -124,4 +124,32 @@ export function setupEventHandlers(setupToken, loadPage) {
             e.returnValue = '';
         }
     });
+
+    // Video Recording Settings (CSP-safe)
+    const recordCam = document.getElementById('recordCam');
+    if (recordCam) {
+        recordCam.addEventListener('change', (e) => {
+            if (typeof window.CMS?.toggleWebcamPreview === 'function') {
+                window.CMS.toggleWebcamPreview(e.target.checked);
+            }
+        });
+    }
+
+    const camResolution = document.getElementById('camResolution');
+    if (camResolution) {
+        camResolution.addEventListener('change', () => {
+            if (typeof window.CMS?.updatePreviewResolution === 'function') {
+                window.CMS.updatePreviewResolution();
+            }
+        });
+    }
+
+    const bgBlur = document.getElementById('bgBlur');
+    if (bgBlur) {
+        bgBlur.addEventListener('change', (e) => {
+            if (typeof window.CMS?.toggleBackgroundBlur === 'function') {
+                window.CMS.toggleBackgroundBlur(e.target.checked);
+            }
+        });
+    }
 }
